@@ -69,6 +69,8 @@ notes_update_note_colors(Note *note)
 	rc_style_base->color_flags[GTK_STATE_NORMAL] = GTK_RC_BASE|GTK_RC_BG;
 	/* bg */
 	rc_style_bg->bg[GTK_STATE_NORMAL] = note_color_off;
+	rc_style_bg->bg_pixmap_name[GTK_STATE_NORMAL] = g_strdup("<none>");
+	
 	rc_style_bg->bg[GTK_STATE_PRELIGHT] = note_color_off;
 	rc_style_bg->bg[GTK_STATE_ACTIVE] = notes_applet.note_color;
 
