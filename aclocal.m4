@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.7.7 -*- Autoconf -*-
+# generated automatically by aclocal 1.7.8 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002
 # Free Software Foundation, Inc.
@@ -189,7 +189,7 @@ AC_DEFUN([AM_AUTOMAKE_VERSION],[am__api_version="1.7"])
 # Call AM_AUTOMAKE_VERSION so it can be traced.
 # This function is AC_REQUIREd by AC_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-	 [AM_AUTOMAKE_VERSION([1.7.7])])
+	 [AM_AUTOMAKE_VERSION([1.7.8])])
 
 # Helper functions for option handling.                    -*- Autoconf -*-
 
@@ -6840,172 +6840,5 @@ done
 SED=$lt_cv_path_SED
 ])
 AC_MSG_RESULT([$SED])
-])
-
-dnl From Benedikt Meurer (benedikt.meurer@unix-ag.uni-siegen.de)
-dnl
-dnl
-
-AC_DEFUN([BM_DEPEND],
-[
-  PKG_CHECK_MODULES([$1], [$2 >= $3])
-  $1_REQUIRED_VERSION=$3
-  AC_SUBST($1_REQUIRED_VERSION)
-])
-
-dnl
-dnl BM_DEPEND_CHECK(var, pkg, version, name, helpstring, default)
-dnl
-AC_DEFUN([BM_DEPEND_CHECK],
-[
-  AC_ARG_ENABLE([$4],
-AC_HELP_STRING([--enable-$4], [Enable checking for $5 (default=$6)])
-AC_HELP_STRING([--disable-$4], [Disable checking for $5]),
-    [ac_cv_$1_check=$enableval], [ac_cv_$1_check=$6])
-
-  if test x"$ac_cv_$1_check" = x"yes"; then
-    AC_MSG_CHECKING([for $2 >= $3])
-    if $PKG_CONFIG --atleast-version=$3 $2 2> /dev/null; then
-      AC_MSG_RESULT([yes])
-      BM_DEPEND([$1], [$2], [$3])
-      AC_DEFINE([HAVE_$1], [1], [Define if you have $2 >= $3])
-    else
-      AC_MSG_RESULT([no])
-    fi
-  fi
-])
-
-dnl
-dnl XFCE_PANEL_PLUGIN(var, version)
-dnl
-dnl Sets $var_CFLAGS, $var_LIBS and $var_PLUGINSDIR
-dnl
-AC_DEFUN([XFCE_PANEL_PLUGIN],
-[
-  BM_DEPEND([$1], [xfce4-panel-1.0], [$2])
-
-  dnl Check where to put the plugins to
-  AC_MSG_CHECKING([where to install panel plugins])
-  $1_PLUGINSDIR=`$PKG_CONFIG --variable=pluginsdir xfce4-panel-1.0`
-  AC_SUBST([$1_PLUGINSDIR])
-  AC_MSG_RESULT([$$1_PLUGINSDIR])
-])
-
-
-dnl PKG_CHECK_MODULES(GSTUFF, gtk+-2.0 >= 1.3 glib = 1.3.4, action-if, action-not)
-dnl defines GSTUFF_LIBS, GSTUFF_CFLAGS, see pkg-config man page
-dnl also defines GSTUFF_PKG_ERRORS on error
-AC_DEFUN(PKG_CHECK_MODULES, [
-  succeeded=no
-
-  if test -z "$PKG_CONFIG"; then
-    AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
-  fi
-
-  if test "$PKG_CONFIG" = "no" ; then
-     echo "*** The pkg-config script could not be found. Make sure it is"
-     echo "*** in your path, or set the PKG_CONFIG environment variable"
-     echo "*** to the full path to pkg-config."
-     echo "*** Or see http://www.freedesktop.org/software/pkgconfig to get pkg-config."
-  else
-     PKG_CONFIG_MIN_VERSION=0.9.0
-     if $PKG_CONFIG --atleast-pkgconfig-version $PKG_CONFIG_MIN_VERSION; then
-        AC_MSG_CHECKING(for $2)
-
-        if $PKG_CONFIG --exists "$2" ; then
-            AC_MSG_RESULT(yes)
-            succeeded=yes
-
-            AC_MSG_CHECKING($1_CFLAGS)
-            $1_CFLAGS=`$PKG_CONFIG --cflags "$2"`
-            AC_MSG_RESULT($$1_CFLAGS)
-
-            AC_MSG_CHECKING($1_LIBS)
-            $1_LIBS=`$PKG_CONFIG --libs "$2"`
-            AC_MSG_RESULT($$1_LIBS)
-        else
-            $1_CFLAGS=""
-            $1_LIBS=""
-            ## If we have a custom action on failure, don't print errors, but 
-            ## do set a variable so people can do so.
-            $1_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "$2"`
-            ifelse([$4], ,echo $$1_PKG_ERRORS,)
-        fi
-
-        AC_SUBST($1_CFLAGS)
-        AC_SUBST($1_LIBS)
-     else
-        echo "*** Your version of pkg-config is too old. You need version $PKG_CONFIG_MIN_VERSION or newer."
-        echo "*** See http://www.freedesktop.org/software/pkgconfig"
-     fi
-  fi
-
-  if test $succeeded = yes; then
-     ifelse([$3], , :, [$3])
-  else
-     ifelse([$4], , AC_MSG_ERROR([Library requirements ($2) not met; consider adjusting the PKG_CONFIG_PATH environment variable if your libraries are in a nonstandard prefix so pkg-config can find them.]), [$4])
-  fi
-])
-
-
-
-dnl From Benedikt Meurer (benedikt.meurer@unix-ag.uni-siegen.de)
-dnl
-dnl if debug support is requested:
-dnl
-dnl   1) defines DEBUG to 1
-dnl   2) adds requested debug level flags to CFLAGS
-dnl
-
-AC_DEFUN([BM_DEBUG_SUPPORT],
-[
-  AC_ARG_ENABLE([debug],
-AC_HELP_STRING([--enable-debug[=yes|no|full]], [Build with debugging support])
-AC_HELP_STRING([--disable-debug], [Include no debugging support [default]]),
-    [], [enable_debug=no])
-
-  AC_MSG_CHECKING([whether to build with debugging support])
-  if test x"$enable_debug" != x"no"; then
-    AC_DEFINE(DEBUG, 1, Define for debugging support)
-    if test x"$enable_debug" = x"full"; then
-      AC_DEFINE(DEBUG_TRACE, 1, Define for tracing support)
-      CFLAGS="$CFLAGS -g3 -Wall -Werror -DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
-      AC_MSG_RESULT([full])
-    else
-      CFLAGS="$CFLAGS -g -Wall -DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
-      AC_MSG_RESULT([yes])
-    fi
-  else
-    AC_MSG_RESULT([no])
-  fi
-
-  AC_ARG_ENABLE([profiling],
-AC_HELP_STRING([--enable-profiling],
-    [Generate extra code to write profile information])
-AC_HELP_STRING([--disable-profiling],
-    [No extra code for profiling (default)]),
-    [], [enable_profiling=no])
-
-  AC_MSG_CHECKING([whether to build with profiling support])
-  if test x"$enable_profiling" != x"no"; then
-    CFLAGS="$CFLAGS -pg"
-    AC_MSG_RESULT([yes])
-  else
-    AC_MSG_RESULT([no])
-  fi
-
-  AC_ARG_ENABLE([asserts],
-AC_HELP_STRING([--enable-asserts], [Enable assert statements (default)])
-AC_HELP_STRING([--disable-asserts],
-    [Disable assert statements (USE WITH CARE!!!)]),
-    [], [enable_asserts=yes])
-
-  AC_MSG_CHECKING([whether to enable assert statements])
-  if test x"$enable_asserts" != x"yes"; then
-    CFLAGS="$CFLAGS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS"
-    AC_MSG_RESULT([no])
-  else
-    AC_MSG_RESULT([yes])
-  fi
 ])
 

@@ -16,6 +16,6 @@ INSTALL:
 	make install
 
 QUESTIONS:
-	Send an e-mail to b0kaj+www@lysator.liu.se
+	Send an e-mail to b0kaj+dev@lysator.liu.se
 
 

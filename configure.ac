@@ -2,14 +2,14 @@ dnl configure.ac
 dnl
 dnl xfce4-notes-plugin - Notes applet for the XFce4 panel
 dnl
-dnl 2003 Jakob Henriksson <b0kaj+www@lysator.liu.se>
+dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl
 
 AC_INIT([configure])
 
 AM_CONFIG_HEADER([config.h])
 
-AM_INIT_AUTOMAKE([xfce4-notes-plugin], [0.9.6])
+AM_INIT_AUTOMAKE([xfce4-notes-plugin], [0.9.7])
 
 AM_MAINTAINER_MODE
 

@@ -1,6 +1,6 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (C) 2003  Jakob Henriksson <b0kaj+www@lysator.liu.se>
+ *  Copyright (C) 2003  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

@@ -2,6 +2,7 @@
 	- added bg_pixmap_name[GTK_STATE_NORMAL] = g_strdup("<none>");
 	  to prevent themes from using bg_pixmaps when user has selected 
 	  not to use system themes/colors.
+	- changed version number to 0.9.7 in configure.ac
 + 2003/10/10	b0kaj
 	- applied patch from jasper containing addition of double-click
 	  event for creating new notes and some code cleanup.
