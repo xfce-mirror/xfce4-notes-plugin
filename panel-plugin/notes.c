@@ -20,6 +20,8 @@
 #include "notes.h"
 #include "notes_icons.h"
 
+#define MARGIN 4
+
 gboolean title_changing = FALSE;
 
 /* definied in notes_applet.c */
@@ -205,7 +207,10 @@ notes_create_note(void)
 
     /* textview */
     text_view = gtk_text_view_new();
-    gtk_box_pack_start(GTK_BOX(vbox), text_view, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(vbox), text_view, TRUE, TRUE, 0);
+    g_object_set (G_OBJECT (text_view),
+	          "left-margin", MARGIN, "right-margin", MARGIN,
+		  NULL);
     gtk_widget_show(text_view);
     /* add to note structure */
     note->text_view = text_view;

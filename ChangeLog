@@ -1,5 +1,7 @@
 + 2003/10/21	b0kaj
 	- reverted the change med yesterday about reading notes.xml
+	- applied margin patch from jasper
+	- cleaned up saving notes using timers
 + 2003/10/20	b0kaj
 	- added patch from jasper preventing Alt+F4 to close a note.
 	- make loading the applet to read notex.xml so that old notes

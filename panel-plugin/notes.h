@@ -82,7 +82,6 @@ typedef struct __note_applet {
     gint panel_size;
 
     /* notes edited flag */
-    GTimer *notes_timer;
     gboolean notes_saved;
 
     /* user color */

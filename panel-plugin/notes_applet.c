@@ -432,7 +432,6 @@ notes_note_changed(GtkEditable *editable, gpointer data)
 {
     /* set flag */
     notes_applet.notes_saved = FALSE;
-    g_timer_start(notes_applet.notes_timer);
     return;
 }
 
@@ -493,12 +492,12 @@ notes_free(Control *ctrl)
 {
     GList *cur;
     Note *note;
-    
-    g_return_if_fail(ctrl != NULL);
-    g_return_if_fail(ctrl->data != NULL);
 
     /* save notes */
     notes_store_config();
+    
+    g_return_if_fail(ctrl != NULL);
+    g_return_if_fail(ctrl->data != NULL);
 
     cur = g_list_first(notes_applet.notes);
     while (cur) {
@@ -673,12 +672,9 @@ gboolean
 notes_save_notes_timeout(gpointer data)
 {
     if (notes_applet.notes_saved == FALSE) {
-	if (g_timer_elapsed(notes_applet.notes_timer, NULL) > 5.0) {
-	    notes_store_config();
-	    DBG("notes saved\n");
-	    notes_applet.notes_saved = TRUE;
-	    g_timer_stop(notes_applet.notes_timer);
-	}
+	notes_store_config();
+	DBG("notes saved\n");
+	notes_applet.notes_saved = TRUE;
     }
     /* return tree to keep timeout active */
     return TRUE;
@@ -731,9 +727,6 @@ notes_control_new(Control *ctrl)
     /* make a default user color, yellow */
     gdk_color_parse("yellow", &notes_applet.note_color);
 
-    /* create a timer */
-    notes_applet.notes_timer = g_timer_new();
-
     /* create a root elmt  */
     notes_applet.doc = xmlNewDoc("1.0");
     xmlptr = xmlNewNode(NULL, "notes");
@@ -743,7 +736,7 @@ notes_control_new(Control *ctrl)
     notes_set_tooltips();
 
     /* add timeout to save notes if required */
-    /* call notes_save_notes_timeout every 2 seconds */
+    /* call notes_save_notes_timeout every 5 seconds */
     g_timeout_add(5000, notes_save_notes_timeout, NULL);
 
     gtk_widget_set_size_request(ctrl->base, -1, -1);
