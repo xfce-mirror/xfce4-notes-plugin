@@ -1,0 +1,21 @@
++ 2003/10/08	b0kaj
+	- Added autosave min 5 sec and max 10 sec after last edit. This
+	  autosave buisness in order for notes not to get lost when
+	  using "quit" on desktop menu or using ctrl+alt+del for closing
+	  X.
+	- Release version 0.9.6
+	- Upload into CVS at berlios.de
++ 2003/10/07	b0kaj
+	- Added in options: sticky, better color selection, icon choice.
+	- Changed close button to a button instead of an event box. Makes 
+	  possible to regret close if mouse is removed from button while
+	  still pressed down.
+	- Added better tooltips to applet icon in panel.
+	- Made note title editable by double-click
+	- Other code cleanup
+	- Moved resize.png and close.png into code
+	- Released version 0.9.5
++ 2003/10/06	b0kaj
+	- Added GPL COPYING file
++ 2003/10/05	b0kaj
+	- Released version 0.9
