@@ -5,6 +5,7 @@
 	  X.
 	- Release version 0.9.6
 	- Upload into CVS at berlios.de
+	- Fixed problem with sticky notes, should be ok now.
 + 2003/10/07	b0kaj
 	- Added in options: sticky, better color selection, icon choice.
 	- Changed close button to a button instead of an event box. Makes 
