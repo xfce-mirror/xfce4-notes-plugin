@@ -91,6 +91,9 @@ typedef struct __note_applet {
     /* other options */
     gboolean notes_sticky;
     gboolean show_notes;
+
+    /* save timeout */
+    int save_id;
 } NoteApplet;
 
 

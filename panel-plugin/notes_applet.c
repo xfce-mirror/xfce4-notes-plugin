@@ -736,10 +736,13 @@ notes_attach_callback(Control *ctrl, const gchar *signal, GCallback cb,
 }
 
 void 
-notes_destroy_cb(GtkWidget *widget, gpointer data)
+notes_destroy_cb(GtkWidget *widget, NoteApplet *notes)
 {
-    gtk_widget_destroy(widget);
-    return;
+    if (notes->save_id > 0)
+    {
+        g_source_remove (notes->save_id);
+        notes->save_id = 0;
+    }
 }
 
 gboolean
@@ -811,7 +814,7 @@ notes_control_new(Control *ctrl)
 
     /* add timeout to save notes if required */
     /* call notes_save_notes_timeout every 5 seconds */
-    g_timeout_add(5000, notes_save_notes_timeout, NULL);
+    notes_applet.save_id = g_timeout_add(5000, notes_save_notes_timeout, NULL);
 
     gtk_widget_set_size_request(ctrl->base, -1, -1);
 
@@ -831,7 +834,7 @@ notes_set_size(Control *ctrl, int size)
 
     g_object_ref(notes_applet.event_box);
     gtk_container_foreach(GTK_CONTAINER(notes_applet.event_box),
-			  (GtkCallback)notes_destroy_cb, NULL);
+			  (GtkCallback)notes_destroy_cb, &notes_applet);
     
     pix = gdk_pixbuf_copy(notes_applet.pixbuf);
     pix = gdk_pixbuf_scale_simple(pix, dim, dim, GDK_INTERP_BILINEAR);
