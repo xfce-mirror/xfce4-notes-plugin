@@ -739,8 +739,6 @@ notes_control_new(Control *ctrl)
     xmlptr = xmlNewNode(NULL, "notes");
     xmlDocSetRootElement(notes_applet.doc, xmlptr);
 
-    /* load notes when applet is reloaded if there are any */
-    notes_load_config();
     /* initialize tooltips */
     notes_set_tooltips();
 
