@@ -1,3 +1,6 @@
++ 2003/10/23	b0kaj
+	- added a dialog to confirm deletion of a note when it is not
+	  empty.
 + 2003/10/21	b0kaj
 	- reverted the change med yesterday about reading notes.xml
 	- applied margin patch from jasper
