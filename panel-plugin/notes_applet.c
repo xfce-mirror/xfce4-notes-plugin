@@ -21,7 +21,7 @@
 
 static void notes_free_note(Note *note);
 static void notes_free(Control *ctrl);
-static void notes_delete_note(GtkWidget *widget, gpointer data);
+static void notes_delete_note_help(GtkWidget *widget, gpointer data);
 static void notes_read_config(Control *ctrl, xmlNodePtr parent);
 static void notes_write_config(Control *ctrl, xmlNodePtr parent);
 static gboolean notes_control_new(Control *ctrl);
@@ -453,7 +453,7 @@ notes_new_note(void)
 
     /* connect close button on the note */
     g_signal_connect(G_OBJECT(note->close_button), "clicked",
-		     G_CALLBACK(notes_delete_note), (gpointer)note);
+		     G_CALLBACK(notes_delete_note_help), (gpointer)note);
     /* notify if something was changed */
     text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(note->text_view));
     g_signal_connect(G_OBJECT(text_buffer), "changed",
@@ -511,27 +511,101 @@ notes_free(Control *ctrl)
     
 }
 
+void
+notes_delete_note(Note *note, GList *cur)
+{
+    notes_applet.notes = g_list_remove_link(notes_applet.notes, 
+					    cur);
+    notes_free_note(note);
+    g_list_free(cur);
+
+    /* set new tooltips */
+    notes_set_tooltips();
+    /* save notes */
+    notes_store_config();
+
+    return;
+}
+
 static void
-notes_delete_note(GtkWidget *widget, gpointer data)
+notes_delete_note_help(GtkWidget *widget, gpointer data)
 {
     GList *cur;
     Note *note, *note_user;
+
+    GtkWidget *dialog, *hbox, *dialog_label, *dialog_image;
+    GtkTextIter start, end;
+    GtkTextBuffer *buffer;
+    gchar *text;
+    gint dialog_response;
 
     note_user = (Note *)data;
 
     cur = g_list_first(notes_applet.notes);
     while (cur != NULL) {
 	note = cur->data;
-	/* we found it, remove it */
+	/* note found */
 	if (note->id == note_user->id) {
-	    notes_applet.notes = g_list_remove_link(notes_applet.notes, cur);
-	    notes_free_note(note);
-	    g_list_free(cur);
 
-	    /* set new tooltips */
-	    notes_set_tooltips();
+	    /* get text from note */
+	    buffer 
+		= gtk_text_view_get_buffer(GTK_TEXT_VIEW(note->text_view));
+	    gtk_text_buffer_get_bounds (buffer, &start, &end);
+	    text = gtk_text_iter_get_text (&start, &end);
 
-	    return;
+	    /* only as for confirmation if there is text in note */ 
+	    if (strlen(g_strstrip(text)) != 0) {
+
+		/* create dialog for delete confirmation */
+		dialog = 
+		    gtk_dialog_new_with_buttons("Delete Note?",
+						GTK_WINDOW(note->note_w),
+						GTK_DIALOG_MODAL |
+						GTK_DIALOG_NO_SEPARATOR,
+						GTK_STOCK_DELETE,
+						GTK_RESPONSE_ACCEPT,
+						GTK_STOCK_CANCEL,
+						GTK_RESPONSE_REJECT,
+						NULL);
+
+		/*
+		gtk_window_set_transient_for(GTK_WINDOW(dialog),
+					     GTK_WINDOW(note->note_w));
+		*/
+
+		hbox = gtk_hbox_new(FALSE, 0);
+		gtk_widget_show(hbox);
+		gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox),
+				  hbox);
+
+		dialog_image = 
+		    gtk_image_new_from_stock(GTK_STOCK_DIALOG_QUESTION,
+					     GTK_ICON_SIZE_DIALOG);
+		gtk_widget_show(dialog_image);
+		gtk_box_pack_start_defaults(GTK_BOX(hbox), dialog_image);
+
+		dialog_label = gtk_label_new("Really delete note?");
+		gtk_widget_show(dialog_label);
+		gtk_box_pack_start_defaults(GTK_BOX(hbox), dialog_label);
+
+		/* run the dialog */
+		dialog_response = gtk_dialog_run(GTK_DIALOG(dialog));
+		
+		if (dialog_response == GTK_RESPONSE_ACCEPT) {
+		    notes_delete_note(note, cur);
+		}
+		
+		gtk_widget_destroy(dialog);
+
+		/* we have done what we were set to do, leave */
+		return;
+	    } else {
+		/* delete the note without user interaction if the note 
+		   was empty */
+		notes_delete_note(note, cur);
+
+		return;
+	    }
 	}
 	cur = g_list_next(cur);
     }
