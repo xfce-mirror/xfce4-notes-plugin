@@ -19,6 +19,15 @@
 
 #include "notes.h"
 
+static void notes_free_note(Note *note);
+static void notes_free(Control *ctrl);
+static void notes_delete_note(GtkWidget *widget, gpointer data);
+static void notes_read_config(Control *ctrl, xmlNodePtr parent);
+static void notes_write_config(Control *ctrl, xmlNodePtr parent);
+static gboolean notes_control_new(Control *ctrl);
+static void notes_create_options (Control *ctrl, GtkContainer *con, 
+				  GtkWidget *done);
+
 NoteApplet notes_applet;
 
 void 
@@ -112,11 +121,12 @@ notes_set_tooltips(void)
     tooltips = g_malloc(sizeof(gchar) * 100);
     
     if (length == 0) {
-	g_sprintf(tooltips, 
-		  "Use mouse button nr 3 (middle button) to create a note");
+	sprintf(tooltips, 
+		"Doubleclick or press the middle mouse "
+		"button to create a note");
     } else {
-	g_sprintf(tooltips, "%d notes\nLeft mouse button to show/hide notes", 
-		  length);
+	sprintf(tooltips, "%d notes\nLeft mouse button to show/hide notes", 
+		length);
     }
     gtk_tooltips_set_tip(notes_applet.tooltips, notes_applet.event_box, 
 			 tooltips, NULL);
@@ -186,14 +196,50 @@ notes_update_visibility(void)
 }
 
 gboolean
+timeout_button_press(int *id)
+{
+    /* reset id */
+    *id = 0;
+    
+    notes_applet.show_notes = (notes_applet.show_notes == FALSE);
+	
+    notes_update_visibility();
+    notes_update_sticky();
+
+    return FALSE;
+}
+
+gboolean
 on_applet_button_press_event(GtkWidget *widget, GdkEventButton *event,
 			     gpointer data)
 {
     Note* note;
+    static int timeout_id = 0;
 
-    /* double button click and button 1 */
-    //if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1)) {
-    if ((event->type == GDK_BUTTON_PRESS) && (event->button == 2)) {
+    /* Double click event sequence:
+     * GDK_BUTTON_PRESS, GDK_BUTTON_RELEASE, GDK_BUTTON_PRESS,
+     * GDK_2BUTTON_PRESS, GDK_BUTTON_RELEASE
+     */
+    
+    /* single button press and button 1 */
+    if ((event->type == GDK_BUTTON_PRESS) && (event->button == 1)) {
+	/* hide or show */
+	if (timeout_id <= 0)
+	{
+	    timeout_id = g_timeout_add(250, 
+				       (GSourceFunc)timeout_button_press,
+			               &timeout_id);
+	}
+    }
+    /* double button click and button 1  or button 2 */
+    else if ((event->type == GDK_BUTTON_PRESS && event->button == 2) || 
+	     (event->type == GDK_2BUTTON_PRESS && event->button == 1)) 
+    {
+	if (timeout_id > 0)
+	{
+	    g_source_remove(timeout_id);
+	    timeout_id = 0;
+	}
 
 	/* show the other notes */
 	notes_applet.show_notes = TRUE;
@@ -212,19 +258,8 @@ on_applet_button_press_event(GtkWidget *widget, GdkEventButton *event,
 	notes_update_note_colors(note);
 	notes_update_sticky();
 
-	g_print("Note added\n");
+	DBG("Note added\n");
     }  
-    /* single button press and button 1 */
-    else if ((event->type == GDK_BUTTON_PRESS) && (event->button == 1)) {
-	
-	/* hide or show */
-	notes_applet.show_notes = 
-	    ((notes_applet.show_notes == TRUE) ? FALSE : TRUE);
-	    
-	notes_update_visibility();
-	notes_update_sticky();
-	    
-    }
     
     return FALSE;
 }
@@ -232,13 +267,8 @@ on_applet_button_press_event(GtkWidget *widget, GdkEventButton *event,
 gboolean
 notes_load_config(void)
 {
-    xmlNodePtr cur, node;
+    xmlNodePtr cur;
     xmlDocPtr doc;
-    xmlChar *show_notes;
-    xmlChar *user_color;
-    xmlChar *system_color;
-    GdkColor *colors;
-    gint n_colors;
 
     gchar *filename;
     gchar *error_str;
@@ -259,7 +289,7 @@ notes_load_config(void)
     /* parse the file */
     doc = xmlParseFile(filename);
     if (doc == NULL) {
-	g_sprintf(error_str, "Error parsing config file '%s'", filename);
+	sprintf(error_str, "Error parsing config file '%s'", filename);
 	xfce_info(_(error_str));
 	g_free(error_str);
 	return FALSE;
@@ -267,7 +297,7 @@ notes_load_config(void)
     cur = xmlDocGetRootElement(doc);
 
     if (xmlStrcmp(cur->name, (const xmlChar *)"notes")) {
-	g_sprintf(error_str, "Config file '%s' of wrong type", filename);
+	sprintf(error_str, "Config file '%s' of wrong type", filename);
 	g_free(error_str);
 	xmlFreeDoc(doc);
 	xfce_info(_(error_str));
@@ -303,7 +333,6 @@ notes_load_config(void)
 void
 notes_store_config(void)
 {
-    xmlNodePtr cur;
     GList *list;
     Note *note;
     
@@ -312,7 +341,6 @@ notes_store_config(void)
     gchar *text;
 
     gchar *filename;
-    gchar *error_str;
 
     /* note info in config file */
     gchar x[5], y[5], w[5], h[5];
@@ -331,10 +359,10 @@ notes_store_config(void)
 	}
 	gtk_window_get_size(GTK_WINDOW(note->note_w), &note->w, &note->h);
 	/* convert info */
-	g_sprintf(x, "%d", note->x);
-	g_sprintf(y, "%d", note->y);
-	g_sprintf(w, "%d", note->w);
-	g_sprintf(h, "%d", note->h);
+	sprintf(x, "%d", note->x);
+	sprintf(y, "%d", note->y);
+	sprintf(w, "%d", note->w);
+	sprintf(h, "%d", note->h);
 
 	xmlSetProp(note->xml_tag, "x", x);
 	xmlSetProp(note->xml_tag, "y", y);
@@ -400,7 +428,6 @@ notes_new_note_with_attr(gchar *text, gchar *title,
 void
 notes_note_changed(GtkEditable *editable, gpointer data)
 {
-    Note *note = (Note *)data;
     /* set flag */
     notes_applet.notes_saved = FALSE;
     g_timer_start(notes_applet.notes_timer);
@@ -517,7 +544,6 @@ notes_read_config(Control *ctrl, xmlNodePtr parent)
     xmlNodePtr cur, node;
     xmlChar *user_color;
     GdkColor *colors;
-    GdkColor default_user_color;
     GdkPixbuf *pixbuf_orig;
     gint n_colors;
     
@@ -647,7 +673,7 @@ notes_save_notes_timeout(gpointer data)
     if (notes_applet.notes_saved == FALSE) {
 	if (g_timer_elapsed(notes_applet.notes_timer, NULL) > 5.0) {
 	    notes_store_config();
-	    g_print("notes saved\n");
+	    DBG("notes saved\n");
 	    notes_applet.notes_saved = TRUE;
 	    g_timer_stop(notes_applet.notes_timer);
 	}
@@ -660,7 +686,6 @@ static gboolean
 notes_control_new(Control *ctrl)
 {
     GtkWidget *event_box;
-    GtkWidget *label;
     GdkPixbuf *pixbuf;
     GtkWidget *image;
 

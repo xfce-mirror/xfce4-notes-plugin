@@ -164,11 +164,8 @@ notes_create_note(void)
 
     GtkWidget *button;
 
-    GtkWidget *text;
     GtkWidget *text_view;
-    GtkTextBuffer *text_buffer;
 
-    GtkWidget *quit_button;
     GtkWidget *image;
 
     Note *note;

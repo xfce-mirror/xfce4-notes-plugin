@@ -21,10 +21,11 @@
 #include <config.h>
 #endif
 
-#include "gtk/gtk.h"
-#include "gdk/gdkkeysyms.h"
+#include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 #include <libxml/parser.h>
 
+#include <libxfce4util/debug.h>
 #include <libxfce4util/i18n.h>
 #include <libxfcegui4/dialogs.h>
 #include <libxfce4util/util.h>
@@ -121,23 +122,8 @@ void
 notes_note_changed(GtkEditable *editable, gpointer data);
 Note*
 notes_new_note(void);
-static void 
-notes_free_note(Note *note);
-static void
-notes_free(Control *ctrl);
-static void
-notes_delete_note(GtkWidget *widget, gpointer data);
-static void
-notes_read_config(Control *ctrl, xmlNodePtr parent);
-static void
-notes_write_config(Control *ctrl, xmlNodePtr parent);
-static gboolean
-notes_control_new(Control *ctrl);
 void
 notes_set_size(Control *ctrl, int size);
-static void
-notes_create_options (Control *ctrl, GtkContainer *con, GtkWidget *done);
-
 
 /* notes_options.c */
 void
