@@ -89,7 +89,7 @@ typedef struct __note_applet {
     gboolean system_colors;
 
     /* other options */
-    gboolean sticky_notes;
+    gboolean notes_sticky;
     gboolean show_notes;
 } NoteApplet;
 
@@ -103,6 +103,8 @@ void
 notes_update_colors(void);
 void
 notes_set_tooltips(void);
+void
+notes_update_sticky(void);
 void
 notes_update_visibility(void);
 gboolean 
@@ -138,8 +140,6 @@ notes_create_options (Control *ctrl, GtkContainer *con, GtkWidget *done);
 
 
 /* notes_options.c */
-void
-notes_update_sticky(void);
 void
 on_sticky_check_button_toggled(GtkToggleButton *button, gpointer data);
 void

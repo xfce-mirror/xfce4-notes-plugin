@@ -124,7 +124,30 @@ notes_set_tooltips(void)
     
     return;
 }
-	
+
+/* update all notes to set their sticky state */
+void
+notes_update_sticky(void)
+{
+    GList *list;
+    Note *note;
+
+    if (notes_applet.notes != NULL) {
+	list = g_list_first(notes_applet.notes);
+	while (list != NULL) {
+	    note = list->data;
+	    /* update */
+	    if (notes_applet.notes_sticky == TRUE) {
+		gtk_window_stick(GTK_WINDOW(note->note_w));
+	    } else {
+		gtk_window_unstick(GTK_WINDOW(note->note_w));
+	    }
+	    list = g_list_next(list);
+	}
+    }
+
+    return;
+}
 
 /* iterates over notes and if notes_applet.show_notes is TRUE then
    display all notes otherwise hide them, of course */
@@ -187,6 +210,7 @@ on_applet_button_press_event(GtkWidget *widget, GdkEventButton *event,
 
 	/* update colors */
 	notes_update_note_colors(note);
+	notes_update_sticky();
 
 	g_print("Note added\n");
     }  
@@ -198,6 +222,7 @@ on_applet_button_press_event(GtkWidget *widget, GdkEventButton *event,
 	    ((notes_applet.show_notes == TRUE) ? FALSE : TRUE);
 	    
 	notes_update_visibility();
+	notes_update_sticky();
 	    
     }
     
@@ -536,12 +561,12 @@ notes_read_config(Control *ctrl, xmlNodePtr parent)
 		    }
 		}
 		/* sticky notes */
-		if (xmlStrEqual(cur->name, (const xmlChar *)"sticky_notes")) {
+		if (xmlStrEqual(cur->name, (const xmlChar *)"notes_sticky")) {
 		    if (xmlStrEqual(xmlNodeGetContent(cur),
 				    (const xmlChar *)"true")) {
-			notes_applet.sticky_notes = TRUE;
+			notes_applet.notes_sticky = TRUE;
 		    } else {
-			notes_applet.sticky_notes = FALSE;
+			notes_applet.notes_sticky = FALSE;
 		    }
 		}
 		/* system color boolean */
@@ -592,6 +617,9 @@ notes_write_config(Control *ctrl, xmlNodePtr parent)
     color_palette = 
 	gtk_color_selection_palette_to_string(colors, 1);
     xmlNewTextChild(cur, NULL, "user_color", color_palette);
+    /* sticky notes */
+    xmlNewTextChild(cur, NULL, "notes_sticky",
+		    (notes_applet.notes_sticky == TRUE) ? "true" : "false");
     /* system color boolean */
     xmlNewTextChild(cur, NULL, "system_colors",
 		    (notes_applet.system_colors == TRUE) ? "true" : "false");

@@ -21,38 +21,13 @@
 
 extern NoteApplet notes_applet;
 
-
-/* update all notes to set their sticky state */
-void
-notes_update_sticky(void)
-{
-    GList *list;
-    Note *note;
-
-    if (notes_applet.notes != NULL) {
-	list = g_list_first(notes_applet.notes);
-	while (list != NULL) {
-	    note = list->data;
-	    /* update */
-	    if (notes_applet.sticky_notes == TRUE) {
-		gtk_window_stick(GTK_WINDOW(note->note_w));
-	    } else {
-		gtk_window_unstick(GTK_WINDOW(note->note_w));
-	    }
-	    list = g_list_next(list);
-	}
-    }
-
-    return;
-}
-
 void
 on_sticky_check_button_toggled(GtkToggleButton *button, gpointer data)
 {
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button)) == TRUE) {
-	notes_applet.sticky_notes = TRUE;
+	notes_applet.notes_sticky = TRUE;
     } else {
-	notes_applet.sticky_notes = FALSE;
+	notes_applet.notes_sticky = FALSE;
     }
 
     notes_update_sticky();
@@ -209,7 +184,7 @@ notes_create_applet_options (GtkContainer *con)
 
     button = gtk_check_button_new_with_label("Make notes sticky");
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button),
-				 (notes_applet.sticky_notes == TRUE) ?
+				 (notes_applet.notes_sticky == TRUE) ?
 				 TRUE : FALSE);
     xfce_framebox_add(XFCE_FRAMEBOX(framebox), button);
     g_signal_connect(G_OBJECT(button), "toggled",
