@@ -9,7 +9,7 @@ AC_INIT([configure])
 
 AM_CONFIG_HEADER([config.h])
 
-AM_INIT_AUTOMAKE([xfce4-notes-plugin], [0.9.5])
+AM_INIT_AUTOMAKE([xfce4-notes-plugin], [0.9.6])
 
 AM_MAINTAINER_MODE
 
