@@ -9,7 +9,7 @@ AC_INIT([configure])
 
 AM_CONFIG_HEADER([config.h])
 
-AM_INIT_AUTOMAKE([xfce4-notes-plugin], [0.9.7])
+AM_INIT_AUTOMAKE([xfce4-notes-plugin], [0.10.0])
 
 AM_MAINTAINER_MODE
 
@@ -27,7 +27,7 @@ dnl Check for standard header files
 AC_HEADER_STDC
 
 dnl configure the panel plugin
-XFCE_PANEL_PLUGIN([XFCE4_PANEL], [4.0.0])
+XFCE_PANEL_PLUGIN([XFCE4_PANEL], [4.1.90])
 
 dnl Check for debugging support
 BM_DEBUG_SUPPORT

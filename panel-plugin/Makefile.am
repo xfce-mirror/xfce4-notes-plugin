@@ -12,7 +12,8 @@ libnotes_la_SOURCES =							\
 	notes.c								\
 	notes_applet.c							\
 	notes_options.c							\
-	notes.h
+	notes.h								\
+	notes_icons.h
 
 libnotes_la_CFLAGS =							\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\

@@ -1,8 +1,7 @@
 @SET_MAKE@
 
 EXTRA_DIST =								\
-	xfce4-notes-plugin.spec                                         \
-	NOTES
+	xfce4-notes-plugin.spec
 
 SUBDIRS = panel-plugin pixmaps
 

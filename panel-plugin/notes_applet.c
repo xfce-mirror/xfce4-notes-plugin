@@ -280,7 +280,11 @@ notes_load_config(void)
     error_str = g_malloc(sizeof(char) * 256);
 
     /* set config file name */
-    filename = xfce_get_userfile("notes.xml", NULL);
+    filename = xfce_resource_lookup (XFCE_RESOURCE_CONFIG,
+                                     "xfce4" G_DIR_SEPARATOR_S "notes.xml");
+    
+    if (!filename)
+        filename = xfce_get_userfile("notes.xml", NULL);
 
     if (!g_file_test(filename, G_FILE_TEST_EXISTS)) {
 	g_free(error_str);
@@ -347,7 +351,9 @@ notes_store_config(void)
     /* note info in config file */
     gchar x[5], y[5], w[5], h[5];
 
-    filename = xfce_get_userfile("notes.xml", NULL);
+    filename = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
+                                     "xfce4" G_DIR_SEPARATOR_S "notes.xml",
+                                     TRUE);
 
     list = g_list_first(notes_applet.notes);
     while (list != NULL) {
@@ -693,6 +699,8 @@ notes_read_config(Control *ctrl, xmlNodePtr parent)
     /* do some updating */
     notes_update_visibility();
     notes_update_colors();
+    notes_update_sticky();
+
     /* set tooltips */
     notes_set_tooltips();
 
