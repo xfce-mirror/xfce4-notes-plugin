@@ -26,6 +26,13 @@ gboolean title_changing = FALSE;
 extern NoteApplet notes_applet;
 
 gboolean
+on_note_delete (void)
+{
+   /* prevent Alt-F4 from closing note */
+   return TRUE;
+}
+
+gboolean
 on_title_change(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
     Note *note = (Note *)data;
@@ -181,6 +188,10 @@ notes_create_note(void)
     gtk_window_set_skip_pager_hint(GTK_WINDOW(main_w), TRUE);
     gtk_window_set_skip_taskbar_hint(GTK_WINDOW(main_w), TRUE);
 
+    /* prevent Alt-F4 from closing note */
+    g_signal_connect (main_w, "delete-event", G_CALLBACK (on_note_delete), 
+	              NULL);
+    
     /* vertical box */
     vbox = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(main_w), vbox);

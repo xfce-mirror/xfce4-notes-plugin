@@ -1,3 +1,7 @@
++ 2003/10/20	b0kaj
+	- added patch from jasper preventing Alt+F4 to close a note.
+	- make loading the applet to read notex.xml so that old notes
+	  are read when applet is loaded from scratch.
 + 2003/10/16	b0kaj
 	- added bg_pixmap_name[GTK_STATE_NORMAL] = g_strdup("<none>");
 	  to prevent themes from using bg_pixmaps when user has selected 
