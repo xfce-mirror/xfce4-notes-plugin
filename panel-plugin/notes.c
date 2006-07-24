@@ -30,20 +30,34 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4panel/xfce-panel-convenience.h>
 
-#include "note.h"
 #include "notes.h"
+#include "notes-options.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 
 
+static void     notes_construct (XfcePanelPlugin *);
+static void     notes_free_data (XfcePanelPlugin *, NotesPlugin *);
+static void     notes_save (XfcePanelPlugin *, NotesPlugin *);
+gboolean        save_on_timeout (NotesPlugin *);
+static void     notes_configure (XfcePanelPlugin *, NotesPlugin *);
+static gboolean notes_set_size (XfcePanelPlugin *, int size, NotesPlugin *);
+static void     notes_load_data (XfcePanelPlugin *, NotesPlugin *);
+static void     notes_button_toggled (XfcePanelPlugin *, NotesPlugin *);
+static void     on_note_close (GtkWidget *, GtkToggleButton *);
+static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
+static void     on_note_changed (GtkWidget *widget, NotesPlugin *notes);
+static void     on_options_response (GtkWidget *, int response, NotesPlugin *);
+
+
 /* Panel Plugin Interface */
 
-XFCE_PANEL_PLUGIN_REGISTER_EXTERNAL(notes_construct);
+XFCE_PANEL_PLUGIN_REGISTER_EXTERNAL (notes_construct);
 
 
 /* internal functions */
 
-static void 
+static void
 notes_free_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
     if (notes->timeout_id > 0)
@@ -55,7 +69,7 @@ notes_free_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
     gtk_main_quit ();
 }
 
-static void 
+static void
 notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
     char *file;
@@ -77,7 +91,7 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
       {
         buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes->note->text));
         gtk_text_buffer_get_bounds (buffer, &start, &end);
-        text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer), &start, 
+        text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer), &start,
                                          &end, TRUE);
 
         xfce_rc_write_entry (rc, "note", text);
@@ -85,12 +99,19 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
 
         if (GTK_WIDGET_VISIBLE (notes->note->window))
           {
-            gtk_window_get_position (GTK_WINDOW (notes->note->window), 
+            gtk_window_get_position (GTK_WINDOW (notes->note->window),
                                      &notes->note->x, &notes->note->y);
           }
 
         xfce_rc_write_int_entry (rc, "pos_x", notes->note->x);
         xfce_rc_write_int_entry (rc, "pos_y", notes->note->y);
+
+        xfce_rc_write_bool_entry (rc, "show", notes->options.show);
+        xfce_rc_write_bool_entry (rc, "task_switcher",
+                                  notes->options.task_switcher);
+        xfce_rc_write_bool_entry (rc, "always_on_top",
+                                  notes->options.always_on_top);
+        xfce_rc_write_bool_entry (rc, "stick", notes->options.stick);
 
         xfce_rc_close (rc);
       }
@@ -107,10 +128,20 @@ save_on_timeout (NotesPlugin *notes)
 static void
 notes_configure (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
+    GtkWidget *dialog;
+
     DBG ("Configure: %s", PLUGIN_NAME);
+
+    xfce_panel_plugin_block_menu (plugin);
+    dialog = notes_options_new (notes);
+
+    g_object_set_data (G_OBJECT (notes->plugin), "configure", dialog);
+
+    g_signal_connect (dialog, "response", G_CALLBACK (on_options_response),
+                      notes);
 }
 
-static gboolean 
+static gboolean
 notes_set_size (XfcePanelPlugin *plugin, int size, NotesPlugin *notes)
 {
     GdkPixbuf *pixbuf;
@@ -129,42 +160,45 @@ notes_set_size (XfcePanelPlugin *plugin, int size, NotesPlugin *notes)
 }
 
 
-/* create widgets and connect to signals */ 
+/* create widgets and connect to signals */
 
-static void 
+static void
 notes_construct (XfcePanelPlugin *plugin)
 {
     NotesPlugin *notes;
-    
-    xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8"); 
+
+    xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
     DBG ("Construct: %s", PLUGIN_NAME);
-    
-    DBG ("Properties: size = %d, panel_position = %d", 
+
+    DBG ("Properties: size = %d, panel_position = %d",
          xfce_panel_plugin_get_size (plugin),
          xfce_panel_plugin_get_screen_position (plugin));
 
     notes = notes_new (plugin);
-    
+
     gtk_container_add (GTK_CONTAINER (plugin), notes->button);
 
     xfce_panel_plugin_add_action_widget (plugin, notes->button);
 
-    g_signal_connect (plugin, "free-data", 
+    g_signal_connect (plugin, "free-data",
                       G_CALLBACK (notes_free_data), notes);
 
     g_signal_connect (notes->button, "toggled",
                       G_CALLBACK (notes_button_toggled), notes);
 
-    g_signal_connect (plugin, "save", 
+    g_signal_connect (plugin, "save",
                       G_CALLBACK (notes_save), notes);
 
-    g_signal_connect (plugin, "size-changed", 
+    g_signal_connect (plugin, "size-changed",
                       G_CALLBACK (notes_set_size), notes);
 
     xfce_panel_plugin_menu_show_configure (plugin);
-    g_signal_connect (plugin, "configure-plugin", 
+    g_signal_connect (plugin, "configure-plugin",
                       G_CALLBACK (notes_configure), notes);
+
+    if (notes->options.show)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes->button), TRUE);
 }
 
 NotesPlugin *
@@ -176,10 +210,10 @@ notes_new (XfcePanelPlugin *plugin)
     DBG ("New Notes Plugin");
 
     notes = g_new0 (NotesPlugin, 1);
-    
+
     notes->plugin = plugin;
     notes->timeout_id = 0;
-    
+
     notes->button = xfce_create_panel_toggle_button ();
     gtk_widget_show (notes->button);
 
@@ -188,16 +222,17 @@ notes_new (XfcePanelPlugin *plugin)
     gtk_container_add (GTK_CONTAINER (notes->button), notes->icon);
 
     notes->tooltips = gtk_tooltips_new ();
-    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), notes->button, 
+    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), notes->button,
                           _("Notes\nClick this button to show/hide your notes"),
                           NULL);
 
     notes->note = note_new (plugin);
+    notes_load_data (plugin, notes);
 
-    g_signal_connect (notes->note->close_button, "clicked", 
+    g_signal_connect (notes->note->close_button, "clicked",
                       G_CALLBACK (on_note_close), notes->button);
 
-    g_signal_connect (notes->note->text, "key-press-event", 
+    g_signal_connect (notes->note->text, "key-press-event",
                       G_CALLBACK (on_note_key_press), notes);
 
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes->note->text));
@@ -207,22 +242,69 @@ notes_new (XfcePanelPlugin *plugin)
 }
 
 static void
+notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
+{
+    char *file;
+    XfceRc *rc;
+
+    GtkTextBuffer *buffer;
+    const gchar *text;
+
+    if (!(file = xfce_panel_plugin_lookup_rc_file (plugin)))
+        return;
+
+    DBG ("Look up file (%s)", file);
+
+    rc = xfce_rc_simple_open (file, FALSE);
+    g_free (file);
+
+    if (rc)
+      {
+        text = xfce_rc_read_entry (rc, "note", "");
+
+        buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes->note->text));
+        gtk_text_buffer_set_text (buffer, text, -1);
+
+        gtk_text_view_set_buffer (GTK_TEXT_VIEW (notes->note->text), buffer);
+
+        notes->note->x = xfce_rc_read_int_entry (rc, "pos_x", -1);
+        notes->note->y = xfce_rc_read_int_entry (rc, "pos_y", -1);
+
+        notes->options.show = xfce_rc_read_bool_entry (rc, "show", FALSE);
+        notes->options.task_switcher =
+            xfce_rc_read_bool_entry (rc, "task_switcher", FALSE);
+        notes->options.always_on_top =
+            xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
+        notes->options.stick = xfce_rc_read_bool_entry (rc, "stick", FALSE);
+
+        xfce_rc_close (rc);
+      }
+}
+
+static void
 notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
+    DBG ("Notes Button Toggled");
+
     /* Show/hide the note */
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes->button)))
       {
-        gtk_window_move (GTK_WINDOW (notes->note->window), notes->note->x, 
+        gtk_window_move (GTK_WINDOW (notes->note->window), notes->note->x,
                                      notes->note->y);
 
         gtk_widget_show (notes->note->window);
 
-        gtk_window_set_keep_above (GTK_WINDOW (notes->note->window), FALSE);
-        gtk_window_stick (GTK_WINDOW (notes->note->window));
+        gtk_window_set_keep_above (GTK_WINDOW (notes->note->window),
+                                   notes->options.always_on_top);
+
+        if (notes->options.stick)
+            gtk_window_stick (GTK_WINDOW (notes->note->window));
+        else
+            gtk_window_unstick (GTK_WINDOW (notes->note->window));
       }
     else
       {
-        gtk_window_get_position (GTK_WINDOW (notes->note->window), 
+        gtk_window_get_position (GTK_WINDOW (notes->note->window),
                                  &notes->note->x, &notes->note->y);
 
         gtk_widget_hide (notes->note->window);
@@ -253,6 +335,15 @@ on_note_changed (GtkWidget *widget, NotesPlugin *notes)
         notes->timeout_id = 0;
       }
 
-    notes->timeout_id = g_timeout_add (5000, (GSourceFunc) save_on_timeout, 
+    notes->timeout_id = g_timeout_add (5000, (GSourceFunc) save_on_timeout,
                                        notes);
+}
+
+static void
+on_options_response (GtkWidget *widget, int response, NotesPlugin *notes)
+{
+    xfce_panel_plugin_unblock_menu (notes->plugin);
+    gtk_widget_destroy (widget);
+
+    notes_save (notes->plugin, notes);
 }

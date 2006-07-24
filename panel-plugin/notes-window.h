@@ -17,38 +17,32 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef NOTES_H
-#define NOTES_H
-
-#include <gdk/gdkkeysyms.h>
-
-#include "notes-window.h"
+#ifndef NOTES_WINDOW_H
+#define NOTES_WINDOW_H
 
 typedef struct
 {
-    gboolean show;
-    gboolean task_switcher;
-    gboolean always_on_top;
-    gboolean stick;
-}
-NotesOptions;
+    GtkWidget *window;
 
-typedef struct
-{
-    XfcePanelPlugin *plugin;
+    GtkWidget *frame;
 
-    GtkWidget *button;
     GtkWidget *icon;
-    GtkTooltips *tooltips;
+    GtkWidget *move_event_box;
+    GtkWidget *title;
+    GtkWidget *close_button;
+    GtkWidget *close_icon;
 
-    Note *note;
-    NotesOptions options;
+    GtkWidget *scroll;
+    GtkWidget *text;
 
-    guint timeout_id;
+    GtkWidget *vbox;
+    GtkWidget *hbox;
+
+    /* Window position */
+    gint x, y;
 }
-NotesPlugin;
+Note;
 
-NotesPlugin *   notes_new (XfcePanelPlugin *);
+Note *          note_new (XfcePanelPlugin *);
 
 #endif
-

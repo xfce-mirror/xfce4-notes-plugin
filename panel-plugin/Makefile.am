@@ -1,21 +1,24 @@
 plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
 
-xfce4_notes_plugin_SOURCES =				\
-	notes.h									\
-	notes.c									\
-	note.h
+xfce4_notes_plugin_SOURCES =						\
+	notes.c								\
+	notes-window.c							\
+	notes-options.c							\
+	notes.h								\
+	notes-window.h							\
+	notes-options.h
 
-xfce4_notes_plugin_CFLAGS =					\
-	-I$(top_srcdir)						\
-	@LIBXFCE4PANEL_CFLAGS@					\
-	@LIBXFCEGUI4_CFLAGS@					\
-	@LIBXFCE4UTIL_CFLAGS@					\
+xfce4_notes_plugin_CFLAGS =						\
+	-I$(top_srcdir)							\
+	@LIBXFCE4PANEL_CFLAGS@						\
+	@LIBXFCEGUI4_CFLAGS@						\
+	@LIBXFCE4UTIL_CFLAGS@						\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
 
-xfce4_notes_plugin_LDFLAGS =					\
-	@LIBXFCE4PANEL_LIBS@					\
-	@LIBXFCEGUI4_LIBS@					\
+xfce4_notes_plugin_LDFLAGS =						\
+	@LIBXFCE4PANEL_LIBS@						\
+	@LIBXFCEGUI4_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@					
 
 desktop_in_in_files = xfce4-notes-plugin.desktop.in.in
