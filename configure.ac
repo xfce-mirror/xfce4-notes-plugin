@@ -2,17 +2,18 @@ dnl configure.ac
 dnl
 dnl xfce4-notes-plugin - Notes applet for the Xfce4 panel
 dnl
+dnl 2003 Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
 dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl 2006 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
-m4_define([xfce4_notes_plugin_version], [0.11.1])
+m4_define([xfce4_notes_plugin_version], [1.2.2])
 
 AC_INIT([xfce4-notes-plugin], [xfce4_notes_plugin_version()], 
         [mmassonnet@gmail.com])
 
 AM_INIT_AUTOMAKE([xfce4-notes-plugin], [xfce4_notes_plugin_version()])
-
+AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE
 
 dnl Avoid g77 and g++ checks
@@ -20,6 +21,11 @@ m4_undefine([AC_PROG_CXX])
 m4_defun([AC_PROG_CXX],[])
 m4_undefine([AC_PROG_F77])
 m4_defun([AC_PROG_F77],[])
+
+dnl Check for UNIX variants
+AC_AIX
+AC_ISC_POSIX
+AC_MINIX
 
 dnl Check for basic programs
 AC_PROG_CC

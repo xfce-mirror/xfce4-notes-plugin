@@ -1,3 +1,6 @@
++ 2006/07/24	mmassonnet
+	- Support multiple notes through a notebook
+	- Options: always on top, sticky, show at startup, show in task switcher
 + 2006/07/03	mmassonnet
     - New release for new panel version 4.4
     - The features:

@@ -1,14 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Xfce4 notes plugin.
+# Copyright (C) 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+#               2006 Mike Massonnet <mmassonnet@gmail.com>
+# This file is distributed under the same license as the xfce4-notes-plugin 
+# package.
+# Mike Massonnet <mmassonnet@gmail.com>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-03 11:15+0200\n"
+"POT-Creation-Date: 2006-07-24 00:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,13 +18,52 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.h:67
+#: ../panel-plugin/notes.c:244
 msgid ""
 "Notes\n"
 "Click this button to show/hide your notes"
 msgstr ""
 
-#: ../panel-plugin/note.h:109
+#: ../panel-plugin/notes-options.c:59
+msgid "Notes Plugin"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:64
+msgid "Properties"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:74
+msgid "Show the notes at startup"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:82
+msgid "Show in the task switcher"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:92
+msgid "Always on top"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:101
+msgid "Stick mode"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:113
+msgid "Always show vertical scrollbar"
+msgstr ""
+
+#: ../panel-plugin/notes-options.c:117
+msgid "A restart of the panel is needed"
+msgstr ""
+
+#: ../panel-plugin/notes-window.c:96
+msgid "Open a new page"
+msgstr ""
+
+#: ../panel-plugin/notes-window.c:125
+msgid "<b>Notes</b>"
+msgstr ""
+
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr ""
