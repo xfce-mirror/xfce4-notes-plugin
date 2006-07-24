@@ -1,0 +1,8 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+_Name=Notes
+_Comment=Notes applet for the Xfce4 panel
+Icon=gtk-edit
+X-XFCE-Exec=@EXTERNAL_PLUGIN_PATH@/xfce4-notes-plugin
+X-XFCE-Unique=true

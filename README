@@ -1,0 +1,18 @@
+
+This is a notes applet for the Xfce panel. Notes here meaning sticky 
+notes, where you can plot down quick reminders.
+
+A new note is created by clicking with mouse button 3 and notes can
+be made visible or not by clicking with mouse button 1.
+
+Xfce homepage:  http://www.xfce.org
+Notes homepage: /* FIXME */
+
+INSTALL:
+	tar xf xfce-notes-<version-number>.tar.gz
+	./autogen.sh
+	make
+	make install
+
+QUESTIONS:
+	Send an e-mail to <mmassonnet@gmail.com>
