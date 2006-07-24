@@ -1,3 +1,5 @@
++ 2006/07/24    mmassonnet
+    - Fix a bug with the window size
 + 2006/07/24	mmassonnet
 	- Support multiple notes through a notebook
 	- Options: always on top, sticky, show at startup, show in task switcher

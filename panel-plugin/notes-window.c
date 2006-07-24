@@ -57,6 +57,7 @@ note_new (NotesPlugin *notes)
     /* Window */
     note->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
+    gtk_window_set_title (GTK_WINDOW (note->window), _("Notes"));
     gtk_window_set_default_size (GTK_WINDOW (note->window), 242, 200);
     gtk_window_set_decorated (GTK_WINDOW (note->window), FALSE);
     gtk_window_set_icon_name (GTK_WINDOW (note->window), GTK_STOCK_EDIT);

@@ -324,8 +324,8 @@ notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
       {
         gtk_window_get_position (GTK_WINDOW (notes->note->window),
                                  &notes->note->x, &notes->note->y);
-        gtk_window_get_default_size (GTK_WINDOW (notes->note->window),
-                                     &notes->note->w, &notes->note->h);
+        gtk_window_get_size (GTK_WINDOW (notes->note->window), &notes->note->w, 
+                             &notes->note->h);
 
         gtk_widget_hide (notes->note->window);
       }

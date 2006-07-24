@@ -1,18 +1,24 @@
 
-This is a notes applet for the Xfce panel. Notes here meaning sticky 
-notes, where you can plot down quick reminders.
+The notes plugin provides you a simple text editor in a little window for the 
+Xfce 4.4 desktop.  Notes are especially useful for temporary stuff.
 
-A new note is created by clicking with mouse button 3 and notes can
-be made visible or not by clicking with mouse button 1.
+A note is created by clicking on the upper left corner button of the window.
 
-Xfce homepage:  http://www.xfce.org
-Notes homepage: /* FIXME */
+Xfce homepage:
+    - http://www.xfce.org
+Notes homepage: 
+    - http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
 
 INSTALL:
-	tar xf xfce-notes-<version-number>.tar.gz
-	./autogen.sh
+	tar xf xfce4-notes-plugin-<version-number>.tar.gz
+	./configure
 	make
 	make install
 
+    See the file INSTALL for more instructions.
+
 QUESTIONS:
 	Send an e-mail to <mmassonnet@gmail.com>
+    You can also join the Xfce goodies mailing-list:
+        - http://foo-projects.org/mailman/listinfo/goodies-dev
+
