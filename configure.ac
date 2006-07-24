@@ -8,17 +8,22 @@ dnl
 
 m4_define([xfce4_notes_plugin_version], [0.11.1])
 
-AC_INIT([xfce4-mpc-plugin], [xfce4_notes_plugin_version()], 
+AC_INIT([xfce4-notes-plugin], [xfce4_notes_plugin_version()], 
         [mmassonnet@gmail.com])
 
-AM_INIT_AUTOMAKE([xfce4-mpc-plugin], [xfce4_notes_plugin_version()])
+AM_INIT_AUTOMAKE([xfce4-notes-plugin], [xfce4_notes_plugin_version()])
 
 AM_MAINTAINER_MODE
+
+dnl Avoid g77 and g++ checks
+m4_undefine([AC_PROG_CXX])
+m4_defun([AC_PROG_CXX],[])
+m4_undefine([AC_PROG_F77])
+m4_defun([AC_PROG_F77],[])
 
 dnl Check for basic programs
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PROG_LIBTOOL
 AC_PROG_INTLTOOL
 
 dnl Check for standard header files
@@ -34,7 +39,7 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.3.90])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.3.90])
 
 dnl Translations
-XDT_I18N([@LINGUAS@])
+XDT_I18N([])
 
 dnl Check for debugging support
 XDT_FEATURE_DEBUG()

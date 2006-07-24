@@ -1,2 +1,4 @@
-panel-plugin/notes-plugin.c
+panel-plugin/notes.c
+panel-plugin/notes.h
+panel-plugin/note.h
 panel-plugin/xfce4-notes-plugin.desktop.in.in
