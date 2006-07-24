@@ -39,6 +39,7 @@ static void     on_toggle_show (GtkWidget *, NotesPlugin *);
 static void     on_toggle_task_switcher (GtkWidget *, NotesPlugin *);
 static void     on_toggle_always_on_top (GtkWidget *, NotesPlugin *);
 static void     on_toggle_stick (GtkWidget *, NotesPlugin *);
+static void     on_toggle_vscrollbar (GtkWidget *, NotesPlugin *);
 
 
 GtkWidget *
@@ -46,6 +47,8 @@ notes_options_new (NotesPlugin *notes)
 {
     GtkWidget *dialog, *vbox;
     GtkWidget *cb_show, *cb_task_switcher, *cb_always_on_top, *cb_stick;
+    GtkWidget *hseparator;
+    GtkWidget *cb_vscrollbar;
     NotesOptions *options;
 
     DBG ("New Notes Options");
@@ -68,7 +71,7 @@ notes_options_new (NotesPlugin *notes)
     vbox = GTK_DIALOG (dialog)->vbox;
     gtk_box_set_spacing (GTK_BOX (vbox), 2);
 
-    cb_show = gtk_check_button_new_with_label (_("Show the notes on startup"));
+    cb_show = gtk_check_button_new_with_label (_("Show the notes at startup"));
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_show), options->show);
     gtk_box_pack_start (GTK_BOX (vbox), cb_show, FALSE, FALSE, 0);
     gtk_widget_show (cb_show);
@@ -101,6 +104,23 @@ notes_options_new (NotesPlugin *notes)
     gtk_widget_show (cb_stick);
 
     g_signal_connect (cb_stick, "toggled", G_CALLBACK (on_toggle_stick), notes);
+
+    hseparator = gtk_hseparator_new ();
+    gtk_box_pack_start (GTK_BOX (vbox), hseparator, FALSE, FALSE, 0);
+    //gtk_widget_show (hseparator);
+
+    cb_vscrollbar = 
+        gtk_check_button_new_with_label (_("Always show vertical scrollbar"));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_vscrollbar), 
+                                  options->vscrollbar);
+    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips),
+                          cb_vscrollbar, _("A restart of the panel is needed"),
+                          NULL);
+    gtk_box_pack_start (GTK_BOX (vbox), cb_vscrollbar, FALSE, FALSE, 0);
+    //gtk_widget_show (cb_vscrollbar);
+
+    g_signal_connect (cb_vscrollbar, "toggled", 
+                      G_CALLBACK (on_toggle_vscrollbar), notes);
 
     gtk_widget_show (dialog);
 
@@ -162,3 +182,31 @@ on_toggle_stick (GtkWidget *widget, NotesPlugin *notes)
 
     DBG ("Set option stick: %d", toggle_value);
 }
+
+static void
+on_toggle_vscrollbar (GtkWidget *widget, NotesPlugin *notes)
+{
+    gboolean toggle_value;
+    GtkPolicyType vpolicy;
+    gint i;
+    GList *pages;
+    NotePage *page;
+
+    g_object_get (G_OBJECT (widget), "active", &toggle_value, NULL);
+    notes->options.vscrollbar = toggle_value;
+
+    vpolicy = (toggle_value) ? GTK_POLICY_AUTOMATIC : GTK_POLICY_ALWAYS;
+    pages = g_list_nth (notes->note->pages, 0);
+
+    for (i = 0, page = (NotePage *)g_list_nth_data (pages, i); page != NULL;
+         i++, page = (NotePage *)g_list_nth_data (pages, i))
+      {
+        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (page->scroll), 
+                                        GTK_POLICY_AUTOMATIC, vpolicy);
+        /* This is being very obvious... it doesn't work!
+         * But the setting is correct if you restart the panel */
+      }
+
+    DBG ("Set option vscrollbar: %d", toggle_value);
+}
+

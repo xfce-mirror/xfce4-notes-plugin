@@ -30,6 +30,7 @@ typedef struct
     gboolean task_switcher;
     gboolean always_on_top;
     gboolean stick;
+    gboolean vscrollbar;
 }
 NotesOptions;
 
@@ -49,6 +50,8 @@ typedef struct
 NotesPlugin;
 
 NotesPlugin *   notes_new (XfcePanelPlugin *);
+Note *          note_new (NotesPlugin *);
+void            note_page_new (XfcePanelPlugin *, NotesPlugin *);
+gboolean        save_on_timeout (NotesPlugin *);
 
 #endif
-

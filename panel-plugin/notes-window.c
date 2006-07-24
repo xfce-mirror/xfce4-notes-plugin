@@ -33,20 +33,26 @@
 #define PLUGIN_NAME "xfce4-notes-plugin"
 
 
+static void     note_page_load_data (XfcePanelPlugin *, NotePage *);
 static gboolean on_note_delete ();
+static void     on_note_close (GtkWidget *, GtkToggleButton *);
 static gboolean on_title_press (GtkWidget *, GdkEventButton *, GtkWindow *);
 static gboolean on_title_scroll (GtkWidget *, GdkEventScroll *, Note *);
+static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
+static void     on_note_changed (GtkWidget *, NotesPlugin *);
+static void     on_page_create (GtkWidget *, NotesPlugin *);
+static gboolean on_page_delete (GtkWidget *, GdkEventButton *, NotesPlugin *);
 
 
 Note *
-note_new (XfcePanelPlugin *plugin)
+note_new (NotesPlugin *notes)
 {
     Note *note;
 
     DBG ("Create Note Window");
 
     note = g_new0 (Note, 1);
-
+    note->pages = NULL;
 
     /* Window */
     note->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -76,18 +82,31 @@ note_new (XfcePanelPlugin *plugin)
     gtk_container_add (GTK_CONTAINER (note->frame), note->vbox);
 
 
-    /* Horizontal box: icon + title + close button */
+    /* Horizontal box: create new page button + title + close button */
     note->hbox = gtk_hbox_new (FALSE, 2);
     gtk_widget_show (note->hbox);
 
     gtk_box_pack_start (GTK_BOX (note->vbox), note->hbox, FALSE, FALSE, 0);
 
-    /* Icon */
-    note->icon = gtk_image_new_from_stock (GTK_STOCK_EDIT,
-                                           GTK_ICON_SIZE_MENU);
-    gtk_widget_show (note->icon);
+    /* Create new page button + icon */
+    note->create_page_button = xfce_create_panel_button ();
+    gtk_widget_show (note->create_page_button);
 
-    gtk_box_pack_start (GTK_BOX (note->hbox), note->icon, FALSE, FALSE, 0);
+    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips),
+                          note->create_page_button, _("Open a new page"), NULL);
+    gtk_widget_set_size_request (note->create_page_button, 22, 22);
+    gtk_box_pack_start (GTK_BOX (note->hbox), note->create_page_button, FALSE,
+                        FALSE, 0);
+
+    note->create_page_icon =
+	    gtk_image_new_from_stock (GTK_STOCK_EDIT, GTK_ICON_SIZE_MENU);
+    gtk_widget_show (note->create_page_icon);
+
+    gtk_container_add (GTK_CONTAINER (note->create_page_button),
+                       note->create_page_icon);
+
+    g_signal_connect (note->create_page_button, "clicked",
+                      G_CALLBACK (on_page_create), notes);
 
     /* Event box move + Title */
     note->move_event_box = gtk_event_box_new ();
@@ -113,7 +132,7 @@ note_new (XfcePanelPlugin *plugin)
     note->close_button = xfce_create_panel_button ();
     gtk_widget_show (note->close_button);
 
-    gtk_widget_set_size_request (note->close_button, 16, 16);
+    gtk_widget_set_size_request (note->close_button, 22, 22);
     gtk_box_pack_start (GTK_BOX (note->hbox), note->close_button, FALSE, FALSE,
                         0);
 
@@ -123,25 +142,128 @@ note_new (XfcePanelPlugin *plugin)
 
     gtk_container_add (GTK_CONTAINER (note->close_button), note->close_icon);
 
+    g_signal_connect (note->close_button, "clicked", G_CALLBACK (on_note_close),
+                      notes->button);
 
-    /* Scrolled window + Text view */
-    note->scroll = gtk_scrolled_window_new (NULL, NULL);
-    gtk_widget_show (note->scroll);
 
-    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (note->scroll),
-                                         GTK_SHADOW_IN);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (note->scroll),
-                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (note->vbox), note->scroll, TRUE, TRUE, 0);
+    /* Notebook */
+    note->notebook = gtk_notebook_new ();
+    gtk_widget_show (note->notebook);
 
-    /* Text view */
-    note->text = gtk_text_view_new ();
-    gtk_widget_show (note->text);
+    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook), FALSE);
+    gtk_notebook_set_tab_pos (GTK_NOTEBOOK (note->notebook), GTK_POS_LEFT);
+    gtk_notebook_set_scrollable (GTK_NOTEBOOK (note->notebook), TRUE);
 
-    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (note->text), GTK_WRAP_WORD);
-    gtk_container_add (GTK_CONTAINER (note->scroll), note->text);
+    gtk_box_pack_start (GTK_BOX (note->vbox), note->notebook, TRUE, TRUE, 0);
 
     return note;
+}
+
+void
+note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
+{
+	NotePage *page;
+	Note *note;
+    GtkTextBuffer *buffer;
+    gchar note_id[8];
+
+    DBG ("Create a new page");
+
+	page = g_new0 (NotePage, 1);
+	note = notes->note;
+    note->pages = g_list_append (note->pages, page);
+
+    /* HBox */
+    page->hbox = gtk_hbox_new (FALSE, 0);
+    gtk_widget_show (page->hbox);
+
+    /* Label + Close eventbox/icon */
+    g_snprintf (note_id, 8, "%d", g_list_length (note->pages));
+    page->label = gtk_label_new (note_id);
+    gtk_widget_show (page->label);
+
+    gtk_label_set_justify (GTK_LABEL (page->label), GTK_JUSTIFY_RIGHT);
+    gtk_box_pack_start (GTK_BOX (page->hbox), page->label, TRUE, TRUE, 0);
+
+    page->close_eventbox = gtk_event_box_new ();
+    gtk_widget_show (page->close_eventbox);
+
+    gtk_event_box_set_above_child (GTK_EVENT_BOX (page->close_eventbox), TRUE);
+
+    page->close_icon = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
+                                                 GTK_ICON_SIZE_MENU);
+    gtk_widget_show (page->close_icon);
+
+    gtk_container_add (GTK_CONTAINER (page->close_eventbox), page->close_icon);
+    gtk_box_pack_start (GTK_BOX (page->hbox), page->close_eventbox, FALSE,
+                        FALSE, 0);
+
+    /* Scrolled window + Text view */
+    page->scroll = gtk_scrolled_window_new (NULL, NULL);
+    gtk_widget_show (page->scroll);
+
+    //GtkPolicyType vpolicy = (notes->options.vscrollbar) ? GTK_POLICY_ALWAYS 
+    //                        : GTK_POLICY_AUTOMATIC;
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (page->scroll),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+
+    /* Text view */
+    page->text = gtk_text_view_new ();
+    gtk_widget_show (page->text);
+
+    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (page->text), GTK_WRAP_WORD);
+    gtk_container_add (GTK_CONTAINER (page->scroll), page->text);
+
+
+    /* Append the widget to the notebook */
+    page->id = gtk_notebook_append_page (GTK_NOTEBOOK (note->notebook),
+                                         page->scroll, page->hbox);
+    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook),
+                                (gboolean) page->id);
+
+
+    note_page_load_data (plugin, page);
+
+    g_signal_connect (page->close_eventbox, "button-release-event",
+                      G_CALLBACK (on_page_delete), notes);
+    g_signal_connect (page->text, "key-press-event",
+                      G_CALLBACK (on_note_key_press), notes);
+    buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
+    g_signal_connect (buffer, "changed", G_CALLBACK (on_note_changed), notes);
+}
+
+static void
+note_page_load_data (XfcePanelPlugin *plugin, NotePage *page)
+{
+    gchar *file;
+    gchar note_entry[12];
+    XfceRc *rc;
+
+    if (!(file = xfce_panel_plugin_lookup_rc_file (plugin)))
+        return;
+
+    DBG ("Look up file (%s)", file);
+
+    rc = xfce_rc_simple_open (file, FALSE);
+    g_free (file);
+
+    if (rc)
+      {
+        GtkTextBuffer *buffer;
+        const gchar *text;
+
+        g_snprintf (note_entry, 12, "note%d", page->id);
+        text = xfce_rc_read_entry (rc, note_entry, "");
+
+        DBG ("Note %d (%s): %s", page->id, note_entry, text);
+
+        buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
+        gtk_text_buffer_set_text (buffer, text, -1);
+
+        gtk_text_view_set_buffer (GTK_TEXT_VIEW (page->text), buffer);
+
+        xfce_rc_close (rc);
+      }
 }
 
 static gboolean
@@ -149,6 +271,12 @@ on_note_delete ()
 {
     /* Prevent close window (Alt-F4) */
     return TRUE;
+}
+
+static void
+on_note_close (GtkWidget *widget, GtkToggleButton *panel_button)
+{
+    gtk_toggle_button_set_active (panel_button, FALSE);
 }
 
 static gboolean
@@ -165,25 +293,119 @@ on_title_press (GtkWidget *widget, GdkEventButton *event, GtkWindow *window)
 static gboolean
 on_title_scroll (GtkWidget *widget, GdkEventScroll *event, Note *note)
 {
-    gint width, height;
-
-    gtk_window_get_default_size (GTK_WINDOW  (note->window), &width, &height);
-
     if (event->type == GDK_SCROLL)
       {
+        if (GTK_WIDGET_VISIBLE (note->notebook))
+            gtk_window_get_size (GTK_WINDOW (note->window), &note->w, &note->h);
+        else
+            gtk_window_get_size (GTK_WINDOW (note->window), &note->w, NULL);
+
         if (event->direction == GDK_SCROLL_UP)
           {
             /* Hide the text view */
-            gtk_widget_hide (note->scroll);
-            gtk_window_resize (GTK_WINDOW (note->window), width, 1);
+            gtk_widget_hide (note->notebook);
+            gtk_window_resize (GTK_WINDOW (note->window), note->w, 1);
           }
         else if (event->direction == GDK_SCROLL_DOWN)
           {
             /* Show the text view */
-            gtk_widget_show (note->scroll);
-            gtk_window_resize (GTK_WINDOW (note->window), width, height);
+            gtk_widget_show (note->notebook);
+            gtk_window_resize (GTK_WINDOW (note->window), note->w, note->h);
           }
       }
 
     return FALSE;
 }
+
+static gboolean
+on_note_key_press (GtkWidget *widget, GdkEventKey *event, NotesPlugin *notes)
+{
+    if (event->type == GDK_KEY_PRESS && event->keyval == GDK_Escape)
+        on_note_close (widget, GTK_TOGGLE_BUTTON (notes->button));
+
+    return FALSE;
+}
+
+static void
+on_note_changed (GtkWidget *widget, NotesPlugin *notes)
+{
+    if (notes->timeout_id > 0)
+      {
+        g_source_remove (notes->timeout_id);
+        notes->timeout_id = 0;
+      }
+
+    notes->timeout_id = g_timeout_add (60000, (GSourceFunc) save_on_timeout,
+                                       notes);
+}
+
+static void
+on_page_create (GtkWidget *widget, NotesPlugin *notes)
+{
+    note_page_new (notes->plugin, notes);
+    gtk_notebook_set_current_page (GTK_NOTEBOOK (notes->note->notebook), -1);
+}
+
+static gboolean
+on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
+{
+    if (event->type == GDK_BUTTON_RELEASE && event->button == 1)
+      {
+        gint id;
+        GtkNotebook *notebook;
+        GList *pages;
+        NotePage *page;
+        gchar tab_label[8];
+
+        notebook = GTK_NOTEBOOK (notes->note->notebook);
+        id = gtk_notebook_get_current_page (notebook);
+
+        DBG ("Delete id %d", id);
+
+        notes->note->pages = g_list_nth (notes->note->pages, 0);
+        pages = g_list_nth (notes->note->pages, id);
+
+        notes->note->pages = g_list_remove_link (notes->note->pages, pages);
+        g_list_free_1 (pages);
+        gtk_notebook_remove_page (notebook, id);
+
+        pages = g_list_nth (notes->note->pages, 0);
+
+        for (id = 0, page = (NotePage *)g_list_nth_data (pages, id);
+             page != NULL;
+             id++, page = (NotePage *)g_list_nth_data (pages, id))
+          {
+            page->id = id;
+
+            DBG ("id:%d", id);
+
+            g_snprintf (tab_label, 8, "%d", id+1);
+            gtk_label_set_text (GTK_LABEL (page->label), tab_label);
+          }
+
+        gchar *file;
+        gchar note_entry[12];
+        XfceRc *rc;
+
+        if (!(file = xfce_panel_plugin_save_location (notes->plugin, TRUE)))
+            return TRUE;
+
+        rc = xfce_rc_simple_open (file, FALSE);
+        g_free (file);
+
+        if (rc)
+          {
+            g_snprintf (note_entry, 12, "note%d", g_list_length (pages));
+
+            xfce_rc_delete_entry (rc, note_entry, TRUE);
+            xfce_rc_close (rc);
+          }
+        gtk_notebook_set_show_tabs (notebook,
+                                    (gboolean)g_list_length (pages)-1);
+
+        save_on_timeout (notes);
+      }
+
+    return TRUE;
+}
+

@@ -22,27 +22,39 @@
 
 typedef struct
 {
-    GtkWidget *window;
-
-    GtkWidget *frame;
-
-    GtkWidget *icon;
-    GtkWidget *move_event_box;
-    GtkWidget *title;
-    GtkWidget *close_button;
+    GtkWidget *hbox;
+    GtkWidget *label;
+    GtkWidget *close_eventbox;
     GtkWidget *close_icon;
 
     GtkWidget *scroll;
     GtkWidget *text;
 
+    gint id;
+}
+NotePage;
+
+typedef struct
+{
+    GtkWidget *window;
+    GtkWidget *frame;
+
+    GtkWidget *create_page_icon;
+    GtkWidget *create_page_button;
+    GtkWidget *move_event_box;
+    GtkWidget *title;
+    GtkWidget *close_button;
+    GtkWidget *close_icon;
+
+    GtkWidget *notebook;
+    GList *pages;
+
     GtkWidget *vbox;
     GtkWidget *hbox;
 
-    /* Window position */
-    gint x, y;
+    /* Window geometry */
+    gint x, y, w, h;
 }
 Note;
-
-Note *          note_new (XfcePanelPlugin *);
 
 #endif
