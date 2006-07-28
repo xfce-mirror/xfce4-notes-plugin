@@ -42,7 +42,9 @@ static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
 static void     on_note_changed (GtkWidget *, NotesPlugin *);
 static void     on_page_create (GtkWidget *, NotesPlugin *);
 static gboolean on_page_delete (GtkWidget *, GdkEventButton *, NotesPlugin *);
-
+static void     note_page_destroy (GtkWidget *, gint response_id,
+                                   NotesPlugin *);
+static void     note_page_free (NotePage *);
 
 Note *
 note_new (NotesPlugin *notes)
@@ -203,10 +205,10 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
     page->scroll = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_show (page->scroll);
 
-    //GtkPolicyType vpolicy = (notes->options.vscrollbar) ? GTK_POLICY_ALWAYS 
+    //GtkPolicyType vpolicy = (notes->options.vscrollbar) ? GTK_POLICY_ALWAYS
     //                        : GTK_POLICY_AUTOMATIC;
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (page->scroll),
-                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     /* Text view */
     page->text = gtk_text_view_new ();
@@ -352,7 +354,31 @@ on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
 {
     if (event->type == GDK_BUTTON_RELEASE && event->button == 1)
       {
-        gint id;
+      	/* Ask for confirmation */
+      	GtkWidget *dialog;
+      	dialog =
+      	    gtk_message_dialog_new (GTK_WINDOW (notes->note->window),
+      	                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+      	                            GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+      	                            _("Are you sure you want to delete this note?"));
+
+      	g_signal_connect (dialog, "response", G_CALLBACK (note_page_destroy),
+      	                  notes);
+
+        gtk_widget_show (dialog);
+      }
+
+    return TRUE;
+}
+
+static void
+note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
+{
+    gtk_widget_destroy (widget);
+
+    if (response_id == GTK_RESPONSE_YES)
+      {
+      	gint id;
         GtkNotebook *notebook;
         GList *pages;
         NotePage *page;
@@ -363,15 +389,15 @@ on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
 
         DBG ("Delete id %d", id);
 
+        gtk_notebook_remove_page (notebook, id);
+
         notes->note->pages = g_list_nth (notes->note->pages, 0);
         pages = g_list_nth (notes->note->pages, id);
 
         notes->note->pages = g_list_remove_link (notes->note->pages, pages);
         g_list_free_1 (pages);
-        gtk_notebook_remove_page (notebook, id);
 
         pages = g_list_nth (notes->note->pages, 0);
-
         for (id = 0, page = (NotePage *)g_list_nth_data (pages, id);
              page != NULL;
              id++, page = (NotePage *)g_list_nth_data (pages, id))
@@ -389,7 +415,7 @@ on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
         XfceRc *rc;
 
         if (!(file = xfce_panel_plugin_save_location (notes->plugin, TRUE)))
-            return TRUE;
+            return;
 
         rc = xfce_rc_simple_open (file, FALSE);
         g_free (file);
@@ -406,7 +432,4 @@ on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
 
         save_on_timeout (notes);
       }
-
-    return TRUE;
 }
-

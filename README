@@ -10,15 +10,15 @@ Notes homepage:
     - http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
 
 INSTALL:
-	tar xf xfce4-notes-plugin-<version-number>.tar.gz
-	./configure
-	make
-	make install
+    tar xf xfce4-notes-plugin-<version-number>.tar.gz
+    ./configure
+    make
+    make install
 
     See the file INSTALL for more instructions.
 
 QUESTIONS:
-	Send an e-mail to <mmassonnet@gmail.com>
+    Send an e-mail to <mmassonnet@gmail.com>
     You can also join the Xfce goodies mailing-list:
         - http://foo-projects.org/mailman/listinfo/goodies-dev
 
