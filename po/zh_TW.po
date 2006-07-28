@@ -1,0 +1,73 @@
+# Tradictional Chinese translation for xfce4 notes plugin.
+# Copyright (C) 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+#               2006 Mike Massonnet <mmassonnet@gmail.com>
+# This file is distributed under the same license as the xfce4-notes-plugin.
+# Cosmo Chene <cosmolax@gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notes-plugin 1.2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-24 00:56+0200\n"
+"PO-Revision-Date: 2006-07-25 16:52+0800\n"
+"Last-Translator: Cosmo Chene <cosmolax@gmail.com>\n"
+"Language-Team: Tradictional Chinese <zh-l10n@linux.org.tw>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../panel-plugin/notes.c:244
+msgid ""
+"Notes\n"
+"Click this button to show/hide your notes"
+msgstr ""
+"小筆記\n"
+"按下這個按鈕以顯示或隱藏小筆記"
+
+#: ../panel-plugin/notes-options.c:59
+msgid "Notes Plugin"
+msgstr "小筆記外掛"
+
+#: ../panel-plugin/notes-options.c:64
+msgid "Properties"
+msgstr "內容"
+
+#: ../panel-plugin/notes-options.c:74
+msgid "Show the notes at startup"
+msgstr "啟動時顯示小筆記"
+
+#: ../panel-plugin/notes-options.c:82
+msgid "Show in the task switcher"
+msgstr "在工作切換框中顯示"
+
+#: ../panel-plugin/notes-options.c:92
+msgid "Always on top"
+msgstr "置於最上層"
+
+#: ../panel-plugin/notes-options.c:101
+msgid "Stick mode"
+msgstr "附黏模式"
+
+#: ../panel-plugin/notes-options.c:113
+msgid "Always show vertical scrollbar"
+msgstr "永遠顯示垂直捲動條"
+
+#: ../panel-plugin/notes-options.c:117
+msgid "A restart of the panel is needed"
+msgstr "需要重新啟動面板"
+
+#: ../panel-plugin/notes-window.c:96
+msgid "Open a new page"
+msgstr "開啟新頁面"
+
+#: ../panel-plugin/notes-window.c:125
+msgid "<b>Notes</b>"
+msgstr "<b>小筆記</b>"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "小筆記"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+msgid "Notes applet for the Xfce4 panel"
+msgstr "Xfce4 面板上的小筆記外掛程式"

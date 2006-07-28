@@ -45,7 +45,7 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.3.90])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.3.90])
 
 dnl Translations
-XDT_I18N([])
+XDT_I18N([hu zh_TW])
 
 dnl Check for debugging support
 XDT_FEATURE_DEBUG()
