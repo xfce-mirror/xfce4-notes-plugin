@@ -24,9 +24,6 @@ typedef struct
 {
     GtkWidget *hbox;
     GtkWidget *label;
-    GtkWidget *close_eventbox;
-    GtkWidget *close_icon;
-
     GtkWidget *scroll;
     GtkWidget *text;
 
@@ -39,12 +36,11 @@ typedef struct
     GtkWidget *window;
     GtkWidget *frame;
 
-    GtkWidget *create_page_icon;
-    GtkWidget *create_page_button;
+    GtkWidget *add;
+    GtkWidget *del;
     GtkWidget *move_event_box;
     GtkWidget *title;
-    GtkWidget *close_button;
-    GtkWidget *close_icon;
+    GtkWidget *close;
 
     GtkWidget *notebook;
     GList *pages;

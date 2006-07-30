@@ -1,22 +1,27 @@
++ 2006/07/33    mmassonnet
+	- Remove the Add new page button.  Add two buttons Add/Remove.
+	- Remove close eventbox from the tabs
+	- Don't ask confirmation to delete an empty note
+	- Versionning 1.3.0
 + 2006/07/27    mmassonnet
-    - Set vertical scrollbar policy by default to automatic
-	- Add a confirmation dialog on note delete
+	- Set vertical scrollbar policy by default to automatic
+    - Add a confirmation dialog on note delete
 + 2006/07/24    mmassonnet
-    - Fix a bug with the window size
+	- Fix a bug with the window size
 + 2006/07/24	mmassonnet
-	- Support multiple notes through a notebook
-	- Options: always on top, sticky, show at startup, show in task switcher
+    - Support multiple notes through a notebook
+    - Options: always on top, sticky, show at startup, show in task switcher
 + 2006/07/03	mmassonnet
-    - New release for new panel version 4.4
-    - The features:
-        - Save / load the data (amazing isn't it :)
-        - Moving the note without holding ALT (brilliant :)
-        - Show/hide the note (kikoo)
-            - Close button on the upper right corner
-            - Escape touch
-            - Panel toggle button
-        - Always on top and Sticky
-        - Remember the position of the note
+	- New release for new panel version 4.4
+	- The features:
+		- Save / load the data (amazing isn't it :)
+		- Moving the note without holding ALT (brilliant :)
+		- Show/hide the note (kikoo)
+			- Close button on the upper right corner
+			- Escape touch
+			- Panel toggle button
+		- Always on top and Sticky
+		- Remember the position of the note
 + 2003/10/23	b0kaj
 	- added a dialog to confirm deletion of a note when it is not
 	  empty.

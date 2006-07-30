@@ -41,15 +41,15 @@ static gboolean on_title_scroll (GtkWidget *, GdkEventScroll *, Note *);
 static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
 static void     on_note_changed (GtkWidget *, NotesPlugin *);
 static void     on_page_create (GtkWidget *, NotesPlugin *);
-static gboolean on_page_delete (GtkWidget *, GdkEventButton *, NotesPlugin *);
+static gboolean on_page_delete (GtkWidget *, NotesPlugin *);
 static void     note_page_destroy (GtkWidget *, gint response_id,
                                    NotesPlugin *);
-static void     note_page_free (NotePage *);
 
 Note *
 note_new (NotesPlugin *notes)
 {
     Note *note;
+    GtkWidget *image_add, *image_del, *image_close, *trick;
 
     DBG ("Create Note Window");
 
@@ -91,25 +91,37 @@ note_new (NotesPlugin *notes)
 
     gtk_box_pack_start (GTK_BOX (note->vbox), note->hbox, FALSE, FALSE, 0);
 
-    /* Create new page button + icon */
-    note->create_page_button = xfce_create_panel_button ();
-    gtk_widget_show (note->create_page_button);
+    /* Add button */
+    note->add = xfce_create_panel_button ();
+    gtk_widget_show (note->add);
 
-    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips),
-                          note->create_page_button, _("Open a new page"), NULL);
-    gtk_widget_set_size_request (note->create_page_button, 22, 22);
-    gtk_box_pack_start (GTK_BOX (note->hbox), note->create_page_button, FALSE,
-                        FALSE, 0);
+    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), note->add,
+                          _("Open a new page"), NULL);
+    gtk_widget_set_size_request (note->add, 22, 22);
+    gtk_box_pack_start (GTK_BOX (note->hbox), note->add, FALSE, FALSE, 0);
 
-    note->create_page_icon =
-	    gtk_image_new_from_stock (GTK_STOCK_EDIT, GTK_ICON_SIZE_MENU);
-    gtk_widget_show (note->create_page_icon);
+    image_add = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
+    gtk_widget_show (image_add);
 
-    gtk_container_add (GTK_CONTAINER (note->create_page_button),
-                       note->create_page_icon);
+    gtk_container_add (GTK_CONTAINER (note->add), image_add);
 
-    g_signal_connect (note->create_page_button, "clicked",
-                      G_CALLBACK (on_page_create), notes);
+    g_signal_connect (note->add, "clicked", G_CALLBACK (on_page_create), notes);
+
+    /* Remove button */
+    note->del = xfce_create_panel_button ();
+    gtk_widget_show (note->del);
+
+    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), note->del,
+                          _("Delete a page"), NULL);
+    gtk_widget_set_size_request (note->del, 22, 22);
+    gtk_box_pack_start (GTK_BOX (note->hbox), note->del, FALSE, FALSE, 0);
+
+    image_del = gtk_image_new_from_stock (GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU);
+    gtk_widget_show (image_del);
+
+    gtk_container_add (GTK_CONTAINER (note->del), image_del);
+
+    g_signal_connect (note->del, "clicked", G_CALLBACK (on_page_delete), notes);
 
     /* Event box move + Title */
     note->move_event_box = gtk_event_box_new ();
@@ -131,21 +143,27 @@ note_new (NotesPlugin *notes)
 
     gtk_container_add (GTK_CONTAINER (note->move_event_box), note->title);
 
+    /* A little trick to center the text :S */
+    trick = gtk_label_new ("");
+    gtk_widget_show (trick);
+
+    gtk_widget_set_size_request (trick, 22, 22);
+    gtk_box_pack_start (GTK_BOX (note->hbox), trick, FALSE, FALSE, 0);
+
     /* Close button + icon */
-    note->close_button = xfce_create_panel_button ();
-    gtk_widget_show (note->close_button);
+    note->close = xfce_create_panel_button ();
+    gtk_widget_show (note->close);
 
-    gtk_widget_set_size_request (note->close_button, 22, 22);
-    gtk_box_pack_start (GTK_BOX (note->hbox), note->close_button, FALSE, FALSE,
-                        0);
+    gtk_widget_set_size_request (note->close, 22, 22);
+    gtk_box_pack_start (GTK_BOX (note->hbox), note->close, FALSE, FALSE, 0);
 
-    note->close_icon = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
-                                                 GTK_ICON_SIZE_MENU);
-    gtk_widget_show (note->close_icon);
+    image_close = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
+                                            GTK_ICON_SIZE_MENU);
+    gtk_widget_show (image_close);
 
-    gtk_container_add (GTK_CONTAINER (note->close_button), note->close_icon);
+    gtk_container_add (GTK_CONTAINER (note->close), image_close);
 
-    g_signal_connect (note->close_button, "clicked", G_CALLBACK (on_note_close),
+    g_signal_connect (note->close, "clicked", G_CALLBACK (on_note_close),
                       notes->button);
 
 
@@ -180,7 +198,7 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
     page->hbox = gtk_hbox_new (FALSE, 0);
     gtk_widget_show (page->hbox);
 
-    /* Label + Close eventbox/icon */
+    /* Label */
     g_snprintf (note_id, 8, "%d", g_list_length (note->pages));
     page->label = gtk_label_new (note_id);
     gtk_widget_show (page->label);
@@ -188,25 +206,10 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
     gtk_label_set_justify (GTK_LABEL (page->label), GTK_JUSTIFY_RIGHT);
     gtk_box_pack_start (GTK_BOX (page->hbox), page->label, TRUE, TRUE, 0);
 
-    page->close_eventbox = gtk_event_box_new ();
-    gtk_widget_show (page->close_eventbox);
-
-    gtk_event_box_set_above_child (GTK_EVENT_BOX (page->close_eventbox), TRUE);
-
-    page->close_icon = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
-                                                 GTK_ICON_SIZE_MENU);
-    gtk_widget_show (page->close_icon);
-
-    gtk_container_add (GTK_CONTAINER (page->close_eventbox), page->close_icon);
-    gtk_box_pack_start (GTK_BOX (page->hbox), page->close_eventbox, FALSE,
-                        FALSE, 0);
-
     /* Scrolled window + Text view */
     page->scroll = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_show (page->scroll);
 
-    //GtkPolicyType vpolicy = (notes->options.vscrollbar) ? GTK_POLICY_ALWAYS
-    //                        : GTK_POLICY_AUTOMATIC;
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (page->scroll),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
@@ -227,8 +230,6 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
 
     note_page_load_data (plugin, page);
 
-    g_signal_connect (page->close_eventbox, "button-release-event",
-                      G_CALLBACK (on_page_delete), notes);
     g_signal_connect (page->text, "key-press-event",
                       G_CALLBACK (on_note_key_press), notes);
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
@@ -350,23 +351,35 @@ on_page_create (GtkWidget *widget, NotesPlugin *notes)
 }
 
 static gboolean
-on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
+on_page_delete (GtkWidget *widget, NotesPlugin *notes)
 {
-    if (event->type == GDK_BUTTON_RELEASE && event->button == 1)
-      {
-      	/* Ask for confirmation */
-      	GtkWidget *dialog;
-      	dialog =
-      	    gtk_message_dialog_new (GTK_WINDOW (notes->note->window),
-      	                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-      	                            GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
-      	                            _("Are you sure you want to delete this note?"));
+    gint id;
+    NotePage *page;
+    GtkTextBuffer *buffer;
 
-      	g_signal_connect (dialog, "response", G_CALLBACK (note_page_destroy),
-      	                  notes);
+    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (notes->note->notebook)) == 1)
+        return TRUE;
+
+    id = gtk_notebook_get_current_page (GTK_NOTEBOOK (notes->note->notebook));
+    page = (NotePage *)g_list_nth_data (notes->note->pages, id);
+    buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
+
+    if (gtk_text_buffer_get_char_count (buffer) > 0)
+      {
+        /* Ask for confirmation */
+        GtkWidget *dialog;
+        dialog = gtk_message_dialog_new (GTK_WINDOW (notes->note->window),
+                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+                                         _("Are you sure you want to delete this note?"));
+
+        g_signal_connect (dialog, "response", G_CALLBACK (note_page_destroy),
+                          notes);
 
         gtk_widget_show (dialog);
       }
+    else
+        note_page_destroy (NULL, GTK_RESPONSE_YES, notes);
 
     return TRUE;
 }
@@ -374,7 +387,8 @@ on_page_delete (GtkWidget *widget, GdkEventButton *event, NotesPlugin * notes)
 static void
 note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
 {
-    gtk_widget_destroy (widget);
+    if (widget != NULL);
+        gtk_widget_destroy (widget);
 
     if (response_id == GTK_RESPONSE_YES)
       {
@@ -427,6 +441,7 @@ note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
             xfce_rc_delete_entry (rc, note_entry, TRUE);
             xfce_rc_close (rc);
           }
+
         gtk_notebook_set_show_tabs (notebook,
                                     (gboolean)g_list_length (pages)-1);
 

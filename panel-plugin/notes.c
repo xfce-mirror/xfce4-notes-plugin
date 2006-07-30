@@ -241,8 +241,7 @@ notes_new (XfcePanelPlugin *plugin)
 
     notes->tooltips = gtk_tooltips_new ();
     gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), notes->button,
-                          _("Notes\nClick this button to show/hide your notes"),
-                          NULL);
+                          _("Notes"), NULL);
 
     notes->note = note_new (notes);
     notes_load_data (plugin, notes);
@@ -289,7 +288,7 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
         notes->options.always_on_top =
             xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
         notes->options.stick = xfce_rc_read_bool_entry (rc, "stick", TRUE);
-        notes->options.vscrollbar = 
+        notes->options.vscrollbar =
             xfce_rc_read_bool_entry (rc, "vscrollbar", TRUE);
 
         xfce_rc_close (rc);
@@ -324,7 +323,7 @@ notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
       {
         gtk_window_get_position (GTK_WINDOW (notes->note->window),
                                  &notes->note->x, &notes->note->y);
-        gtk_window_get_size (GTK_WINDOW (notes->note->window), &notes->note->w, 
+        gtk_window_get_size (GTK_WINDOW (notes->note->window), &notes->note->w,
                              &notes->note->h);
 
         gtk_widget_hide (notes->note->window);
