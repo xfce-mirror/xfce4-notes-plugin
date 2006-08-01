@@ -1,3 +1,6 @@
++ 2006/08/01    jannis
+	- configure.in.in: Removed configure.ac to configure.in.in as 
+	  needed by autogen.sh. 
 + 2006/07/33    mmassonnet
 	- Remove the Add new page button.  Add two buttons Add/Remove.
 	- Remove close eventbox from the tabs
