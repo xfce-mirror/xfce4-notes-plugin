@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-30 22:24+0200\n"
+"POT-Creation-Date: 2006-08-01 21:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,49 +16,46 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:244 ../panel-plugin/notes-window.c:62
+#: ../panel-plugin/notes.c:244 ../panel-plugin/notes-options.c:59
+#: ../panel-plugin/notes-window.c:62
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
-msgstr ""
-
-#: ../panel-plugin/notes-options.c:59
-msgid "Notes Plugin"
 msgstr ""
 
 #: ../panel-plugin/notes-options.c:64
 msgid "Properties"
 msgstr ""
 
-#: ../panel-plugin/notes-options.c:74
-msgid "Show the notes at startup"
+#: ../panel-plugin/notes-options.c:78
+msgid "Show notes at startup"
 msgstr ""
 
-#: ../panel-plugin/notes-options.c:82
-msgid "Show in the task switcher"
+#: ../panel-plugin/notes-options.c:86
+msgid "Show in the task list"
 msgstr ""
 
-#: ../panel-plugin/notes-options.c:92
+#: ../panel-plugin/notes-options.c:96
 msgid "Always on top"
 msgstr ""
 
-#: ../panel-plugin/notes-options.c:101
+#: ../panel-plugin/notes-options.c:105
 msgid "Stick mode"
 msgstr ""
 
-#: ../panel-plugin/notes-options.c:113
+#: ../panel-plugin/notes-options.c:117
 msgid "Always show vertical scrollbar"
 msgstr ""
 
-#: ../panel-plugin/notes-options.c:117
+#: ../panel-plugin/notes-options.c:121
 msgid "A restart of the panel is needed"
 msgstr ""
 
 #: ../panel-plugin/notes-window.c:99
-msgid "Open a new page"
+msgid "Create new note"
 msgstr ""
 
 #: ../panel-plugin/notes-window.c:115
-msgid "Delete a page"
+msgid "Delete this note"
 msgstr ""
 
 #: ../panel-plugin/notes-window.c:140

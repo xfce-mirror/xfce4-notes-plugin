@@ -96,7 +96,7 @@ note_new (NotesPlugin *notes)
     gtk_widget_show (note->add);
 
     gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), note->add,
-                          _("Open a new page"), NULL);
+                          _("Create new note"), NULL);
     gtk_widget_set_size_request (note->add, 22, 22);
     gtk_box_pack_start (GTK_BOX (note->hbox), note->add, FALSE, FALSE, 0);
 
@@ -112,7 +112,7 @@ note_new (NotesPlugin *notes)
     gtk_widget_show (note->del);
 
     gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), note->del,
-                          _("Delete a page"), NULL);
+                          _("Delete this note"), NULL);
     gtk_widget_set_size_request (note->del, 22, 22);
     gtk_box_pack_start (GTK_BOX (note->hbox), note->del, FALSE, FALSE, 0);
 
@@ -169,6 +169,7 @@ note_new (NotesPlugin *notes)
 
     /* Notebook */
     note->notebook = gtk_notebook_new ();
+    gtk_notebook_set_tab_border (GTK_NOTEBOOK (note->notebook), 6);
     gtk_widget_show (note->notebook);
 
     gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook), FALSE);

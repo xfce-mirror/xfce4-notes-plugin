@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-30 22:24+0200\n"
+"POT-Creation-Date: 2006-08-01 21:40+0200\n"
 "PO-Revision-Date: 2006-07-31 08:46+0100\n"
 "Last-Translator: SZERVÑC Attila <sas@321.hu>\n"
 "Language-Team: hu\n"
@@ -13,50 +13,49 @@ msgstr ""
 "X-Poedit-Language: Hungarian\n"
 "X-Poedit-Country: HUNGARY\n"
 
-#: ../panel-plugin/notes.c:244
+#: ../panel-plugin/notes.c:244 ../panel-plugin/notes-options.c:59
 #: ../panel-plugin/notes-window.c:62
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: ../panel-plugin/notes-options.c:59
-msgid "Notes Plugin"
-msgstr "Jegyzetek beillesztés"
-
 #: ../panel-plugin/notes-options.c:64
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: ../panel-plugin/notes-options.c:74
-msgid "Show the notes at startup"
+#: ../panel-plugin/notes-options.c:78
+#, fuzzy
+msgid "Show notes at startup"
 msgstr "Jegyzetek mutatása induláskor"
 
-#: ../panel-plugin/notes-options.c:82
-msgid "Show in the task switcher"
+#: ../panel-plugin/notes-options.c:86
+#, fuzzy
+msgid "Show in the task list"
 msgstr "Megjelenítés a feladatváltóban"
 
-#: ../panel-plugin/notes-options.c:92
+#: ../panel-plugin/notes-options.c:96
 msgid "Always on top"
 msgstr "Mindig felül"
 
-#: ../panel-plugin/notes-options.c:101
+#: ../panel-plugin/notes-options.c:105
 msgid "Stick mode"
 msgstr "Kitűzés"
 
-#: ../panel-plugin/notes-options.c:113
+#: ../panel-plugin/notes-options.c:117
 msgid "Always show vertical scrollbar"
 msgstr "Függőleges görgetősáv mindig"
 
-#: ../panel-plugin/notes-options.c:117
+#: ../panel-plugin/notes-options.c:121
 msgid "A restart of the panel is needed"
 msgstr "A panel újraindítása szükséges"
 
 #: ../panel-plugin/notes-window.c:99
-msgid "Open a new page"
-msgstr "Új lapot nyit"
+msgid "Create new note"
+msgstr ""
 
 #: ../panel-plugin/notes-window.c:115
-msgid "Delete a page"
+#, fuzzy
+msgid "Delete this note"
 msgstr "Oldal törlése"
 
 #: ../panel-plugin/notes-window.c:140
@@ -71,10 +70,15 @@ msgstr "Tényleg törlöd e bejegyzést?"
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Jegyzettömb beillesztés az Xfce4 panelhoz"
 
+#~ msgid "Notes Plugin"
+#~ msgstr "Jegyzetek beillesztés"
+
+#~ msgid "Open a new page"
+#~ msgstr "Új lapot nyit"
+
 #~ msgid ""
 #~ "Notes\n"
 #~ "Click this button to show/hide your notes"
 #~ msgstr ""
 #~ "Jegyzetek\n"
 #~ "Kattints e gombra jegyzeteid mutatásához/elrejtéséhez"
-

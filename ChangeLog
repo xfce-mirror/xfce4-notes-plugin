@@ -1,4 +1,13 @@
 + 2006/08/01    jannis
+	- configure.in.in: Fixed LINGUAS (removed the quotes around it).
+	- panel-plugin/notes-options.c: Added a 12 pixel border around
+	  the config options to be consistent with other plugins.
+	- panel-plugin/notes-window.c: Added 6 pixel border of notebook 
+	  tabs, which makes it easier to click on them (AFAIK).
+	- panel-plugin/*.c: Cleaned up the English strings. 
+	- po/*.po, po/xfce4-notes-plugin.pot: New strings merged.
+	- po/de.po: German translations updated once again.
++ 2006/08/01    jannis
 	- configure.in.in: Removed configure.ac to configure.in.in as 
 	  needed by autogen.sh. 
 + 2006/07/33    mmassonnet

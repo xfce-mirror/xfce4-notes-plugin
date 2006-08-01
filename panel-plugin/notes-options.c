@@ -56,7 +56,7 @@ notes_options_new (NotesPlugin *notes)
     options = &notes->options;
 
     dialog =
-        xfce_titled_dialog_new_with_buttons (_("Notes Plugin"), NULL,
+        xfce_titled_dialog_new_with_buttons (_("Notes"), NULL,
                                              GTK_DIALOG_NO_SEPARATOR,
                                              GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                              NULL);
@@ -68,10 +68,14 @@ notes_options_new (NotesPlugin *notes)
     gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
     gtk_window_stick (GTK_WINDOW (dialog));
 
-    vbox = GTK_DIALOG (dialog)->vbox;
-    gtk_box_set_spacing (GTK_BOX (vbox), 2);
+    /* Create main box */
+    vbox = gtk_vbox_new (2, FALSE);
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
+    gtk_widget_show (vbox);
 
-    cb_show = gtk_check_button_new_with_label (_("Show the notes at startup"));
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+
+    cb_show = gtk_check_button_new_with_label (_("Show notes at startup"));
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_show), options->show);
     gtk_box_pack_start (GTK_BOX (vbox), cb_show, FALSE, FALSE, 0);
     gtk_widget_show (cb_show);
@@ -79,7 +83,7 @@ notes_options_new (NotesPlugin *notes)
     g_signal_connect (cb_show, "toggled", G_CALLBACK (on_toggle_show), notes);
 
     cb_task_switcher =
-        gtk_check_button_new_with_label (_("Show in the task switcher"));
+        gtk_check_button_new_with_label (_("Show in the task list"));
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_task_switcher),
                                   options->task_switcher);
     gtk_box_pack_start (GTK_BOX (vbox), cb_task_switcher, FALSE, FALSE, 0);
