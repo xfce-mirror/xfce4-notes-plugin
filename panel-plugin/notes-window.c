@@ -169,9 +169,9 @@ note_new (NotesPlugin *notes)
 
     /* Notebook */
     note->notebook = gtk_notebook_new ();
-    gtk_notebook_set_tab_border (GTK_NOTEBOOK (note->notebook), 6);
     gtk_widget_show (note->notebook);
 
+    gtk_notebook_set_tab_border (GTK_NOTEBOOK (note->notebook), 3);
     gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook), FALSE);
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (note->notebook), GTK_POS_LEFT);
     gtk_notebook_set_scrollable (GTK_NOTEBOOK (note->notebook), TRUE);
@@ -204,6 +204,7 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
     page->label = gtk_label_new (note_id);
     gtk_widget_show (page->label);
 
+    gtk_label_set_angle (GTK_LABEL (page->label), 90);
     gtk_label_set_justify (GTK_LABEL (page->label), GTK_JUSTIFY_RIGHT);
     gtk_box_pack_start (GTK_BOX (page->hbox), page->label, TRUE, TRUE, 0);
 
@@ -358,9 +359,6 @@ on_page_delete (GtkWidget *widget, NotesPlugin *notes)
     NotePage *page;
     GtkTextBuffer *buffer;
 
-    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (notes->note->notebook)) == 1)
-        return TRUE;
-
     id = gtk_notebook_get_current_page (GTK_NOTEBOOK (notes->note->notebook));
     page = (NotePage *)g_list_nth_data (notes->note->pages, id);
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
@@ -397,12 +395,21 @@ note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
         GtkNotebook *notebook;
         GList *pages;
         NotePage *page;
+        GtkTextBuffer *buffer;
         gchar tab_label[8];
 
         notebook = GTK_NOTEBOOK (notes->note->notebook);
         id = gtk_notebook_get_current_page (notebook);
 
         DBG ("Delete id %d", id);
+
+        if (gtk_notebook_get_n_pages (notebook) == 1)
+          {
+            page = (NotePage *)g_list_nth_data (notes->note->pages, id);
+            buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
+            gtk_text_buffer_set_text (buffer, "", -1);
+            return;
+          }
 
         gtk_notebook_remove_page (notebook, id);
 

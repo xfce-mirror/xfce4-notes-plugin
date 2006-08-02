@@ -1,29 +1,50 @@
-+ 2006/08/01    jannis
-	- configure.in.in: Fixed LINGUAS (removed the quotes around it).
-	- panel-plugin/notes-options.c: Added a 12 pixel border around
+2006-08-02  Mike Massonnet <mmassonnet@gmail.com>
+
+	* ChangeLog: Use the correct format.
+	* panel-plugin/notes-window.c: Changed the tab border to 3 
+	  pixels (that's a 50/50 :)), set the label angle to 90°.
+	  Correct the note_page_destroy to empty the first page instead
+	  of doing nothing.
+
+2006-08-01  Jannis Pohlmann <jannis@xfce.org>
+
+	* configure.in.in: Fixed LINGUAS (removed the quotes around it).
+	* panel-plugin/notes-options.c: Added a 12 pixel border around
 	  the config options to be consistent with other plugins.
-	- panel-plugin/notes-window.c: Added 6 pixel border of notebook 
+	* panel-plugin/notes-window.c: Added 6 pixel border of notebook 
 	  tabs, which makes it easier to click on them (AFAIK).
-	- panel-plugin/*.c: Cleaned up the English strings. 
-	- po/*.po, po/xfce4-notes-plugin.pot: New strings merged.
-	- po/de.po: German translations updated once again.
-+ 2006/08/01    jannis
-	- configure.in.in: Removed configure.ac to configure.in.in as 
+	* panel-plugin/*.c: Cleaned up the English strings. 
+	* po/*.po, po/xfce4-notes-plugin.pot: New strings merged.
+	* po/de.po: German translations updated once again.
+
+2006-08-01  Jannis Pohlmann <jannis@xfce.org>
+
+	* configure.in.in: Removed configure.ac to configure.in.in as 
 	  needed by autogen.sh. 
-+ 2006/07/33    mmassonnet
+
+2006-07-30  Mike Massonnet <mmassonnet@gmail.com>
+
 	- Remove the Add new page button.  Add two buttons Add/Remove.
 	- Remove close eventbox from the tabs
 	- Don't ask confirmation to delete an empty note
 	- Versionning 1.3.0
-+ 2006/07/27    mmassonnet
+
+2006-07-27  Mike Massonnet <mmassonnet@gmail.com>
+
 	- Set vertical scrollbar policy by default to automatic
     - Add a confirmation dialog on note delete
-+ 2006/07/24    mmassonnet
+
+2006-07-24  Mike Massonnet <mmassonnet@gmail.com>
+
 	- Fix a bug with the window size
-+ 2006/07/24	mmassonnet
+
+2006-07-24  Mike Massonnet <mmassonnet@gmail.com>
+
     - Support multiple notes through a notebook
     - Options: always on top, sticky, show at startup, show in task switcher
-+ 2006/07/03	mmassonnet
+
+2006-07-03  Mike Massonnet <mmassonnet@gmail.com>
+
 	- New release for new panel version 4.4
 	- The features:
 		- Save / load the data (amazing isn't it :)
@@ -34,26 +55,38 @@
 			- Panel toggle button
 		- Always on top and Sticky
 		- Remember the position of the note
-+ 2003/10/23	b0kaj
+
+2003-10-23  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- added a dialog to confirm deletion of a note when it is not
 	  empty.
-+ 2003/10/21	b0kaj
+
+2003-10-21  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- reverted the change med yesterday about reading notes.xml
 	- applied margin patch from jasper
 	- cleaned up saving notes using timers
-+ 2003/10/20	b0kaj
+
+2003-10-20  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- added patch from jasper preventing Alt+F4 to close a note.
 	- make loading the applet to read notex.xml so that old notes
 	  are read when applet is loaded from scratch.
-+ 2003/10/16	b0kaj
+
+2003-10-16  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- added bg_pixmap_name[GTK_STATE_NORMAL] = g_strdup("<none>");
 	  to prevent themes from using bg_pixmaps when user has selected 
 	  not to use system themes/colors.
 	- changed version number to 0.9.7 in configure.ac
-+ 2003/10/10	b0kaj
+
+2003-10-10  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- applied patch from jasper containing addition of double-click
 	  event for creating new notes and some code cleanup.
-+ 2003/10/08	b0kaj
+
+2003-10-08  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- Added autosave min 5 sec and max 10 sec after last edit. This
 	  autosave buisness in order for notes not to get lost when
 	  using "quit" on desktop menu or using ctrl+alt+del for closing
@@ -61,7 +94,9 @@
 	- Release version 0.9.6
 	- Upload into CVS at berlios.de
 	- Fixed problem with sticky notes, should be ok now.
-+ 2003/10/07	b0kaj
+
+2003-10-07  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- Added in options: sticky, better color selection, icon choice.
 	- Changed close button to a button instead of an event box. Makes 
 	  possible to regret close if mouse is removed from button while
@@ -71,7 +106,12 @@
 	- Other code cleanup
 	- Moved resize.png and close.png into code
 	- Released version 0.9.5
-+ 2003/10/06	b0kaj
+
+2003-10-06  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- Added GPL COPYING file
-+ 2003/10/05	b0kaj
+
+2003-10-05  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+
 	- Released version 0.9
+

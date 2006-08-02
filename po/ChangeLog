@@ -1,4 +1,9 @@
-2006-08-01	Mike Massonnet <mmassonnet@gmail.com>
+2006-08-02  Mike Massonnet <mmassonnet@gmail.com>
+
+	* xfce4-notes-plugin.pot: update-po.
+	* fr.po: german and french has been updated.
+
+2006-08-01  Mike Massonnet <mmassonnet@gmail.com>
 
 	* de.po, LINGUAS : Add new German translation.
 

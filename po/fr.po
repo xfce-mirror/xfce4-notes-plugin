@@ -1,7 +1,7 @@
 # French translations for the Xfce4 notes plugin.
 # Copyright (C) 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 #               2006 Mike Massonnet <mmassonnet@gmail.com>
-# This file is distributed under the same license as the xfce4-notes-plugin 
+# This file is distributed under the same license as the xfce4-notes-plugin
 # package.
 # Mike Massonnet <mmassonnet@gmail.com>, 2006.
 # Maximilian Schleiss <maxschleiss@bluewin.ch>, 2006.
@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-01 21:40+0200\n"
-"PO-Revision-Date: 2006-07-28 13:07+0100\n"
-"Last-Translator: Maximilian Schleiss <maxschleiss@bluewin.ch>\n"
+"PO-Revision-Date: 2006-08-02 00:30+0100\n"
+"Last-Translator: Mike Massonnet <mmassonnet@gmail.com>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:244 ../panel-plugin/notes-options.c:59
+#: ../panel-plugin/notes.c:244
+#: ../panel-plugin/notes-options.c:59
 #: ../panel-plugin/notes-window.c:62
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
@@ -28,14 +29,12 @@ msgid "Properties"
 msgstr "Propriétés"
 
 #: ../panel-plugin/notes-options.c:78
-#, fuzzy
 msgid "Show notes at startup"
-msgstr "Afficher les notes au démarrage"
+msgstr "Afficher au démarrage"
 
 #: ../panel-plugin/notes-options.c:86
-#, fuzzy
 msgid "Show in the task list"
-msgstr "Afficher dans le changement de tâche"
+msgstr "Afficher dans le gestionnaire de tâches"
 
 #: ../panel-plugin/notes-options.c:96
 msgid "Always on top"
@@ -43,24 +42,25 @@ msgstr "Toujours en dessus"
 
 #: ../panel-plugin/notes-options.c:105
 msgid "Stick mode"
-msgstr "Mode permanent"
+msgstr "Coller sur tous les bureaux"
 
+# is deprecated
 #: ../panel-plugin/notes-options.c:117
 msgid "Always show vertical scrollbar"
-msgstr "Toujours afficher la barre de défilement verticale"
+msgstr ""
 
+# is deprecated
 #: ../panel-plugin/notes-options.c:121
 msgid "A restart of the panel is needed"
-msgstr "Un redémarrage du panneau est nécessaire"
+msgstr ""
 
 #: ../panel-plugin/notes-window.c:99
 msgid "Create new note"
-msgstr ""
+msgstr "Créer une nouvelle note"
 
 #: ../panel-plugin/notes-window.c:115
-#, fuzzy
 msgid "Delete this note"
-msgstr "Supprimer une page"
+msgstr "Supprimer cette note"
 
 #: ../panel-plugin/notes-window.c:140
 msgid "<b>Notes</b>"
@@ -72,10 +72,10 @@ msgstr "Êtes-vous certain(e) de vouloir supprimer cette note ?"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Greffon de notes Post-It pour le bureau Xfce4"
+msgstr "Des Post-It pour le bureau Xfce4"
 
 #~ msgid "Notes Plugin"
 #~ msgstr "Greffon Notes"
-
 #~ msgid "Open a new page"
 #~ msgstr "Ouvrir une nouvelle page"
+
