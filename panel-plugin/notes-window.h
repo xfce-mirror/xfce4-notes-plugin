@@ -22,7 +22,6 @@
 
 typedef struct
 {
-    GtkWidget *hbox;
     GtkWidget *label;
     GtkWidget *scroll;
     GtkWidget *text;

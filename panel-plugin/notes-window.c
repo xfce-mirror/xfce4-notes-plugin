@@ -187,6 +187,7 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
 	NotePage *page;
 	Note *note;
     GtkTextBuffer *buffer;
+    gint id;
     gchar note_id[8];
 
     DBG ("Create a new page");
@@ -194,19 +195,14 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
 	page = g_new0 (NotePage, 1);
 	note = notes->note;
     note->pages = g_list_append (note->pages, page);
-
-    /* HBox */
-    page->hbox = gtk_hbox_new (FALSE, 0);
-    gtk_widget_show (page->hbox);
+    id = g_list_length (note->pages);
 
     /* Label */
-    g_snprintf (note_id, 8, "%d", g_list_length (note->pages));
+    g_snprintf (note_id, 8, "%d", id);
     page->label = gtk_label_new (note_id);
     gtk_widget_show (page->label);
 
     gtk_label_set_angle (GTK_LABEL (page->label), 90);
-    gtk_label_set_justify (GTK_LABEL (page->label), GTK_JUSTIFY_RIGHT);
-    gtk_box_pack_start (GTK_BOX (page->hbox), page->label, TRUE, TRUE, 0);
 
     /* Scrolled window + Text view */
     page->scroll = gtk_scrolled_window_new (NULL, NULL);
@@ -225,10 +221,12 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
 
     /* Append the widget to the notebook */
     page->id = gtk_notebook_append_page (GTK_NOTEBOOK (note->notebook),
-                                         page->scroll, page->hbox);
+                                         page->scroll, page->label);
+    gtk_notebook_set_tab_label_packing (GTK_NOTEBOOK (note->notebook),
+                                        page->scroll, FALSE, FALSE,
+                                        GTK_PACK_END);
     gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook),
                                 (gboolean) page->id);
-
 
     note_page_load_data (plugin, page);
 

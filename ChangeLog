@@ -5,6 +5,13 @@
 	  pixels (that's a 50/50 :)), set the label angle to 90°.
 	  Correct the note_page_destroy to empty the first page instead
 	  of doing nothing.
+	* panel-plugin/notes-window.{c,h}: Remove hbox, pack the text 
+	  label directly in the tab.
+	  Remove set_tab_border (it is said to be deprecated in newly
+	  written code).
+	  Try a new design for the tabs. They are packed at left from 
+	  bottom to top.
+
 
 2006-08-01  Jannis Pohlmann <jannis@xfce.org>
 
