@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-01 21:40+0200\n"
-"PO-Revision-Date: 2006-07-31 08:46+0100\n"
+"PO-Revision-Date: 2006-08-02 11:05+0100\n"
 "Last-Translator: SZERVÑC Attila <sas@321.hu>\n"
 "Language-Team: hu\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,8 @@ msgstr ""
 "X-Poedit-Language: Hungarian\n"
 "X-Poedit-Country: HUNGARY\n"
 
-#: ../panel-plugin/notes.c:244 ../panel-plugin/notes-options.c:59
+#: ../panel-plugin/notes.c:244
+#: ../panel-plugin/notes-options.c:59
 #: ../panel-plugin/notes-window.c:62
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
@@ -24,14 +25,12 @@ msgid "Properties"
 msgstr "Tulajdonságok"
 
 #: ../panel-plugin/notes-options.c:78
-#, fuzzy
 msgid "Show notes at startup"
 msgstr "Jegyzetek mutatása induláskor"
 
 #: ../panel-plugin/notes-options.c:86
-#, fuzzy
 msgid "Show in the task list"
-msgstr "Megjelenítés a feladatváltóban"
+msgstr "Mutasd a feladatlistában"
 
 #: ../panel-plugin/notes-options.c:96
 msgid "Always on top"
@@ -51,12 +50,11 @@ msgstr "A panel újraindítása szükséges"
 
 #: ../panel-plugin/notes-window.c:99
 msgid "Create new note"
-msgstr ""
+msgstr "Új jegyzet"
 
 #: ../panel-plugin/notes-window.c:115
-#, fuzzy
 msgid "Delete this note"
-msgstr "Oldal törlése"
+msgstr "Jegyzet törlése"
 
 #: ../panel-plugin/notes-window.c:140
 msgid "<b>Notes</b>"
@@ -72,13 +70,12 @@ msgstr "Jegyzettömb beillesztés az Xfce4 panelhoz"
 
 #~ msgid "Notes Plugin"
 #~ msgstr "Jegyzetek beillesztés"
-
 #~ msgid "Open a new page"
 #~ msgstr "Új lapot nyit"
-
 #~ msgid ""
 #~ "Notes\n"
 #~ "Click this button to show/hide your notes"
 #~ msgstr ""
 #~ "Jegyzetek\n"
 #~ "Kattints e gombra jegyzeteid mutatásához/elrejtéséhez"
+
