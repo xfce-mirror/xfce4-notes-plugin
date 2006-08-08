@@ -40,6 +40,8 @@ static gboolean on_title_press (GtkWidget *, GdkEventButton *, GtkWindow *);
 static gboolean on_title_scroll (GtkWidget *, GdkEventScroll *, Note *);
 static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
 static void     on_note_changed (GtkWidget *, NotesPlugin *);
+static gboolean on_note_rename (GtkWidget *, GdkEventButton *, Note *);
+static void     on_note_rename_response (GtkDialog *, gint response, GSList *);
 static void     on_page_create (GtkWidget *, NotesPlugin *);
 static gboolean on_page_delete (GtkWidget *, NotesPlugin *);
 static void     note_page_destroy (GtkWidget *, gint response_id,
@@ -171,7 +173,6 @@ note_new (NotesPlugin *notes)
     note->notebook = gtk_notebook_new ();
     gtk_widget_show (note->notebook);
 
-    gtk_notebook_set_tab_border (GTK_NOTEBOOK (note->notebook), 3);
     gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook), FALSE);
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (note->notebook), GTK_POS_LEFT);
     gtk_notebook_set_scrollable (GTK_NOTEBOOK (note->notebook), TRUE);
@@ -184,25 +185,31 @@ note_new (NotesPlugin *notes)
 void
 note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
-	NotePage *page;
-	Note *note;
+    NotePage *page;
+    Note *note;
     GtkTextBuffer *buffer;
     gint id;
-    gchar note_id[8];
+    gchar label[8];
 
     DBG ("Create a new page");
 
-	page = g_new0 (NotePage, 1);
-	note = notes->note;
+    page = g_new0 (NotePage, 1);
+    note = notes->note;
     note->pages = g_list_append (note->pages, page);
     id = g_list_length (note->pages);
 
     /* Label */
-    g_snprintf (note_id, 8, "%d", id);
-    page->label = gtk_label_new (note_id);
+    GtkWidget *eventbox;
+    eventbox = gtk_event_box_new ();
+    gtk_widget_show (eventbox);
+
+    g_snprintf (label, 8, "%d", id);
+    page->label = gtk_label_new (label);
     gtk_widget_show (page->label);
 
-    gtk_label_set_angle (GTK_LABEL (page->label), 90);
+    gtk_event_box_set_visible_window (GTK_EVENT_BOX (eventbox), FALSE);
+    gtk_container_add (GTK_CONTAINER (eventbox), page->label);
+    gtk_container_set_border_width (GTK_CONTAINER (eventbox), 3);
 
     /* Scrolled window + Text view */
     page->scroll = gtk_scrolled_window_new (NULL, NULL);
@@ -221,10 +228,7 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
 
     /* Append the widget to the notebook */
     page->id = gtk_notebook_append_page (GTK_NOTEBOOK (note->notebook),
-                                         page->scroll, page->label);
-    gtk_notebook_set_tab_label_packing (GTK_NOTEBOOK (note->notebook),
-                                        page->scroll, FALSE, FALSE,
-                                        GTK_PACK_END);
+                                         page->scroll, eventbox);
     gtk_notebook_set_show_tabs (GTK_NOTEBOOK (note->notebook),
                                 (gboolean) page->id);
 
@@ -234,13 +238,14 @@ note_page_new (XfcePanelPlugin *plugin, NotesPlugin *notes)
                       G_CALLBACK (on_note_key_press), notes);
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
     g_signal_connect (buffer, "changed", G_CALLBACK (on_note_changed), notes);
+    g_signal_connect (eventbox, "button-press-event",
+                      G_CALLBACK (on_note_rename), note);
 }
 
 static void
 note_page_load_data (XfcePanelPlugin *plugin, NotePage *page)
 {
     gchar *file;
-    gchar note_entry[12];
     XfceRc *rc;
 
     if (!(file = xfce_panel_plugin_lookup_rc_file (plugin)))
@@ -253,8 +258,18 @@ note_page_load_data (XfcePanelPlugin *plugin, NotePage *page)
 
     if (rc)
       {
+        gchar note_entry[12], label_entry[13];
         GtkTextBuffer *buffer;
-        const gchar *text;
+        const gchar *text, *label;
+
+        page->label_dirty = FALSE;
+        g_snprintf (label_entry, 13, "label%d", page->id);
+        if (xfce_rc_has_entry (rc, label_entry))
+          {
+            page->label_dirty = TRUE;
+            label = xfce_rc_read_entry (rc, label_entry, ":)");
+            gtk_label_set_text (GTK_LABEL (page->label), label);
+          }
 
         g_snprintf (note_entry, 12, "note%d", page->id);
         text = xfce_rc_read_entry (rc, note_entry, "");
@@ -263,7 +278,6 @@ note_page_load_data (XfcePanelPlugin *plugin, NotePage *page)
 
         buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
         gtk_text_buffer_set_text (buffer, text, -1);
-
         gtk_text_view_set_buffer (GTK_TEXT_VIEW (page->text), buffer);
 
         xfce_rc_close (rc);
@@ -343,6 +357,77 @@ on_note_changed (GtkWidget *widget, NotesPlugin *notes)
                                        notes);
 }
 
+static gboolean
+on_note_rename (GtkWidget *widget, GdkEventButton *event, Note *note)
+{
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
+    {
+        DBG ("Rename the note_page_menu_label");
+
+        GSList *slist = NULL;
+        gint id;
+        GtkWidget *dialog, *vbox;
+        GtkWidget *label, *entry;
+        NotePage *page;
+
+        id = gtk_notebook_get_current_page (GTK_NOTEBOOK (note->notebook));
+        page = (NotePage *)g_list_nth_data (note->pages, id);
+        label = page->label;
+
+        dialog =
+            gtk_dialog_new_with_buttons (_("Rename"),
+                                         GTK_WINDOW (note->window),
+                                         GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                         NULL);
+
+        gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+        gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_EDIT);
+
+        vbox = gtk_vbox_new (2, FALSE);
+        gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
+        gtk_widget_show (vbox);
+
+        gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+
+        entry = gtk_entry_new ();
+        gtk_entry_set_text (GTK_ENTRY (entry),
+                            gtk_label_get_text (GTK_LABEL (label)));
+        gtk_widget_show (entry);
+
+        gtk_container_add (GTK_CONTAINER (vbox), entry);
+
+        slist = g_slist_append (slist, entry);
+        slist = g_slist_append (slist, page);
+
+        g_signal_connect (dialog, "response",
+                          G_CALLBACK (on_note_rename_response), slist);
+
+        gtk_widget_show (dialog);
+    }
+
+    return FALSE;
+}
+
+static void
+on_note_rename_response (GtkDialog *dialog, gint response, GSList *slist)
+{
+    GtkWidget *entry;
+    NotePage *page;
+    entry = GTK_WIDGET (g_slist_nth_data (slist, 0));
+    page = (NotePage *) g_slist_nth_data (slist, 1);
+
+    DBG ("Rename to: %s", gtk_entry_get_text (GTK_ENTRY (entry)));
+
+    page->label_dirty = TRUE;
+    gtk_label_set_text (GTK_LABEL (page->label),
+                        gtk_entry_get_text (GTK_ENTRY (entry)));
+
+    g_slist_free (slist);
+    gtk_widget_destroy (GTK_WIDGET (dialog));
+}
+
 static void
 on_page_create (GtkWidget *widget, NotesPlugin *notes)
 {
@@ -361,7 +446,7 @@ on_page_delete (GtkWidget *widget, NotesPlugin *notes)
     page = (NotePage *)g_list_nth_data (notes->note->pages, id);
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
 
-    if (gtk_text_buffer_get_char_count (buffer) > 0)
+    if (gtk_text_buffer_get_char_count (buffer) > 0 || page->label_dirty)
       {
         /* Ask for confirmation */
         GtkWidget *dialog;
@@ -384,28 +469,45 @@ on_page_delete (GtkWidget *widget, NotesPlugin *notes)
 static void
 note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
 {
-    if (widget != NULL);
+    if (GTK_IS_WIDGET (widget))
         gtk_widget_destroy (widget);
 
     if (response_id == GTK_RESPONSE_YES)
       {
-      	gint id;
+        gchar *file;
+        XfceRc *rc;
+        gint id;
         GtkNotebook *notebook;
         GList *pages;
         NotePage *page;
         GtkTextBuffer *buffer;
         gchar tab_label[8];
+        gchar note_entry[12], label_entry[13];
 
         notebook = GTK_NOTEBOOK (notes->note->notebook);
         id = gtk_notebook_get_current_page (notebook);
 
         DBG ("Delete id %d", id);
 
+        if (!(file = xfce_panel_plugin_save_location (notes->plugin, TRUE)))
+            return;
+
+        rc = xfce_rc_simple_open (file, FALSE);
+        g_free (file);
+
         if (gtk_notebook_get_n_pages (notebook) == 1)
           {
             page = (NotePage *)g_list_nth_data (notes->note->pages, id);
             buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
             gtk_text_buffer_set_text (buffer, "", -1);
+            gtk_label_set_text (GTK_LABEL (page->label), "1");
+            if (rc)
+              {
+                xfce_rc_delete_entry (rc, "label0", TRUE);
+                xfce_rc_close (rc);
+                page->label_dirty = FALSE;
+              }
+
             return;
           }
 
@@ -426,25 +528,20 @@ note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
 
             DBG ("id:%d", id);
 
-            g_snprintf (tab_label, 8, "%d", id+1);
-            gtk_label_set_text (GTK_LABEL (page->label), tab_label);
+            if (!page->label_dirty)
+              {
+                g_snprintf (tab_label, 8, "%d", id+1);
+                gtk_label_set_text (GTK_LABEL (page->label), tab_label);
+              }
           }
-
-        gchar *file;
-        gchar note_entry[12];
-        XfceRc *rc;
-
-        if (!(file = xfce_panel_plugin_save_location (notes->plugin, TRUE)))
-            return;
-
-        rc = xfce_rc_simple_open (file, FALSE);
-        g_free (file);
 
         if (rc)
           {
             g_snprintf (note_entry, 12, "note%d", g_list_length (pages));
+            g_snprintf (label_entry, 13, "label%d", g_list_length (pages));
 
             xfce_rc_delete_entry (rc, note_entry, TRUE);
+            xfce_rc_delete_entry (rc, label_entry, TRUE);
             xfce_rc_close (rc);
           }
 

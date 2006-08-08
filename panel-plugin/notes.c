@@ -85,10 +85,13 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
           {
             gtk_window_get_position (GTK_WINDOW (notes->note->window),
                                      &notes->note->x, &notes->note->y);
-            gtk_window_get_size (GTK_WINDOW (notes->note->window),
-                                 &notes->note->w, &notes->note->h);
+            if (GTK_WIDGET_VISIBLE (notes->note->notebook))
+                gtk_window_get_size (GTK_WINDOW (notes->note->window),
+                                     &notes->note->w, &notes->note->h);
+            else
+                gtk_window_get_size (GTK_WINDOW (notes->note->window),
+                                     &notes->note->w, NULL);
           }
-
 
         xfce_rc_write_int_entry (rc, "pos_x", notes->note->x);
         xfce_rc_write_int_entry (rc, "pos_y", notes->note->y);
@@ -110,7 +113,8 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
         GtkTextBuffer *buffer;
         GtkTextIter start, end;
         gchar *text;
-        gchar note_entry[12];
+        const gchar *label;
+        gchar note_entry[12], label_entry[13];
 
         pages = notes->note->pages;
 
@@ -118,17 +122,26 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
              page != NULL;
              id++, page = (NotePage *)g_list_nth_data (pages, id))
           {
-            g_snprintf (note_entry, 12, "note%d", id);
+            if (page->label_dirty)
+              {
+                label = gtk_label_get_text (GTK_LABEL (page->label));
+                g_snprintf (label_entry, 13, "label%d", id);
 
+                xfce_rc_write_entry (rc, label_entry, label);
+
+                DBG ("Label %d: %s", id, label);
+              }
+
+            g_snprintf (note_entry, 12, "note%d", id);
             buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
             gtk_text_buffer_get_bounds (buffer, &start, &end);
             text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer), &start,
                                              &end, TRUE);
 
-            DBG ("Note %d (%s): %s", id, note_entry, text);
-
             xfce_rc_write_entry (rc, note_entry, text);
             g_free (text);
+
+            DBG ("Note %d (%s): %s", id, note_entry, text);
           }
 
 
@@ -303,13 +316,13 @@ notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
     /* Show/hide the note */
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes->button)))
       {
-      	if (notes->note->x != -1 && notes->note->y != -1)
+          if (notes->note->x != -1 && notes->note->y != -1)
             gtk_window_move (GTK_WINDOW (notes->note->window), notes->note->x,
                                          notes->note->y);
         gtk_window_resize (GTK_WINDOW (notes->note->window), notes->note->w,
                            notes->note->h);
 
-        gtk_widget_show (notes->note->window);
+        gtk_widget_show_all (notes->note->window);
 
         gtk_window_set_keep_above (GTK_WINDOW (notes->note->window),
                                    notes->options.always_on_top);
@@ -323,8 +336,12 @@ notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
       {
         gtk_window_get_position (GTK_WINDOW (notes->note->window),
                                  &notes->note->x, &notes->note->y);
-        gtk_window_get_size (GTK_WINDOW (notes->note->window), &notes->note->w,
-                             &notes->note->h);
+        if (GTK_WIDGET_VISIBLE (notes->note->notebook))
+            gtk_window_get_size (GTK_WINDOW (notes->note->window),
+                                 &notes->note->w, &notes->note->h);
+        else
+            gtk_window_get_size (GTK_WINDOW (notes->note->window),
+                                 &notes->note->w, NULL);
 
         gtk_widget_hide (notes->note->window);
       }

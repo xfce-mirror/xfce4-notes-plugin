@@ -1,3 +1,15 @@
+2006-08-08  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-window.c: Add a 3 pixel border around the 
+	  tab label text.  Rename the tabs on double clicking the tab 
+	  label.
+	* configure.in.in: Version it 1.3.90.2 (beta2\o/)
+
+2006-08-05  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c: Fix resize issue after the window has 
+	  been hidden while shaded.
+
 2006-08-02  Mike Massonnet <mmassonnet@gmail.com>
 
 	* ChangeLog: Use the correct format.

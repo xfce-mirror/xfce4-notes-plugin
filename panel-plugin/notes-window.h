@@ -22,6 +22,7 @@
 
 typedef struct
 {
+    gboolean label_dirty;
     GtkWidget *label;
     GtkWidget *scroll;
     GtkWidget *text;
