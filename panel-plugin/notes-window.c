@@ -415,14 +415,18 @@ on_note_rename_response (GtkDialog *dialog, gint response, GSList *slist)
 {
     GtkWidget *entry;
     NotePage *page;
-    entry = GTK_WIDGET (g_slist_nth_data (slist, 0));
-    page = (NotePage *) g_slist_nth_data (slist, 1);
 
-    DBG ("Rename to: %s", gtk_entry_get_text (GTK_ENTRY (entry)));
+    if (response == GTK_RESPONSE_OK)
+      {
+		entry = GTK_WIDGET (g_slist_nth_data (slist, 0));
+		page = (NotePage *) g_slist_nth_data (slist, 1);
 
-    page->label_dirty = TRUE;
-    gtk_label_set_text (GTK_LABEL (page->label),
-                        gtk_entry_get_text (GTK_ENTRY (entry)));
+		DBG ("Rename to: %s", gtk_entry_get_text (GTK_ENTRY (entry)));
+
+		page->label_dirty = TRUE;
+		gtk_label_set_text (GTK_LABEL (page->label),
+							gtk_entry_get_text (GTK_ENTRY (entry)));
+      }
 
     g_slist_free (slist);
     gtk_widget_destroy (GTK_WIDGET (dialog));

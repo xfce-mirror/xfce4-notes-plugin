@@ -3,7 +3,8 @@
 	* panel-plugin/notes-window.c: Add a 3 pixel border around the 
 	  tab label text.  Rename the tabs on double clicking the tab 
 	  label.
-	* configure.in.in: Version it 1.3.90.2 (beta2\o/)
+	* panel-plugin/notes-window.c: I have forget to check for the 
+	  response of the dialog ...
 
 2006-08-05  Mike Massonnet <mmassonnet@gmail.com>
 
