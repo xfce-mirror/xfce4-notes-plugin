@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-01 21:40+0200\n"
+"POT-Creation-Date: 2006-08-08 19:28+0200\n"
 "PO-Revision-Date: 2006-07-25 16:52+0800\n"
 "Last-Translator: Cosmo Chene <cosmolax@gmail.com>\n"
 "Language-Team: Tradictional Chinese <zh-l10n@linux.org.tw>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:244 ../panel-plugin/notes-options.c:59
-#: ../panel-plugin/notes-window.c:62
+#: ../panel-plugin/notes.c:257 ../panel-plugin/notes-options.c:59
+#: ../panel-plugin/notes-window.c:64
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "小筆記"
@@ -44,27 +44,23 @@ msgstr "置於最上層"
 msgid "Stick mode"
 msgstr "附黏模式"
 
-#: ../panel-plugin/notes-options.c:117
-msgid "Always show vertical scrollbar"
-msgstr "永遠顯示垂直捲動條"
-
-#: ../panel-plugin/notes-options.c:121
-msgid "A restart of the panel is needed"
-msgstr "需要重新啟動面板"
-
-#: ../panel-plugin/notes-window.c:99
+#: ../panel-plugin/notes-window.c:101
 msgid "Create new note"
 msgstr ""
 
-#: ../panel-plugin/notes-window.c:115
+#: ../panel-plugin/notes-window.c:117
 msgid "Delete this note"
 msgstr ""
 
-#: ../panel-plugin/notes-window.c:140
+#: ../panel-plugin/notes-window.c:142
 msgid "<b>Notes</b>"
 msgstr "<b>小筆記</b>"
 
-#: ../panel-plugin/notes-window.c:374
+#: ../panel-plugin/notes-window.c:378
+msgid "Rename"
+msgstr ""
+
+#: ../panel-plugin/notes-window.c:460
 msgid "Are you sure you want to delete this note?"
 msgstr ""
 
@@ -72,6 +68,12 @@ msgstr ""
 #, fuzzy
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Xfce4 面板上的小筆記外掛程式"
+
+#~ msgid "Always show vertical scrollbar"
+#~ msgstr "永遠顯示垂直捲動條"
+
+#~ msgid "A restart of the panel is needed"
+#~ msgstr "需要重新啟動面板"
 
 #~ msgid "Notes Plugin"
 #~ msgstr "小筆記外掛"

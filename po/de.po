@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-01 21:40+0200\n"
+"POT-Creation-Date: 2006-08-08 19:28+0200\n"
 "PO-Revision-Date: 2006-08-08 18:27+0100\n"
 "Last-Translator: Jannis Pohlmann <jannis@xfce.org>\n"
 "Language-Team: German <xfce-i18n@xfce.org>\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:244
-#: ../panel-plugin/notes-options.c:59
-#: ../panel-plugin/notes-window.c:62
+#: ../panel-plugin/notes.c:257 ../panel-plugin/notes-options.c:59
+#: ../panel-plugin/notes-window.c:64
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notizen"
@@ -44,33 +43,26 @@ msgstr "Immer obenauf"
 msgid "Stick mode"
 msgstr "Festkleben"
 
-# is deprecated
-#: ../panel-plugin/notes-options.c:117
-msgid "Always show vertical scrollbar"
-msgstr ""
-
-# is deprecated
-#: ../panel-plugin/notes-options.c:121
-msgid "A restart of the panel is needed"
-msgstr ""
-
-#: ../panel-plugin/notes-window.c:99
+#: ../panel-plugin/notes-window.c:101
 msgid "Create new note"
 msgstr "Neue Notiz"
 
-#: ../panel-plugin/notes-window.c:115
+#: ../panel-plugin/notes-window.c:117
 msgid "Delete this note"
 msgstr "Diese Notiz löschen"
 
-#: ../panel-plugin/notes-window.c:140
+#: ../panel-plugin/notes-window.c:142
 msgid "<b>Notes</b>"
 msgstr "<b>Notizen</b>"
 
-#: ../panel-plugin/notes-window.c:374
+#: ../panel-plugin/notes-window.c:378
+msgid "Rename"
+msgstr "Umbenennen"
+
+#: ../panel-plugin/notes-window.c:460
 msgid "Are you sure you want to delete this note?"
 msgstr "Sind Sie sicher, dass Sie diese Notiz löschen möchten?"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Einfache Notizenverwaltung"
-

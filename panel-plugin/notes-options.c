@@ -109,20 +109,6 @@ notes_options_new (NotesPlugin *notes)
 
     g_signal_connect (cb_stick, "toggled", G_CALLBACK (on_toggle_stick), notes);
 
-    hseparator = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), hseparator, FALSE, FALSE, 0);
-    //gtk_widget_show (hseparator);
-
-    cb_vscrollbar = 
-        gtk_check_button_new_with_label (_("Always show vertical scrollbar"));
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_vscrollbar), 
-                                  options->vscrollbar);
-    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips),
-                          cb_vscrollbar, _("A restart of the panel is needed"),
-                          NULL);
-    gtk_box_pack_start (GTK_BOX (vbox), cb_vscrollbar, FALSE, FALSE, 0);
-    //gtk_widget_show (cb_vscrollbar);
-
     g_signal_connect (cb_vscrollbar, "toggled", 
                       G_CALLBACK (on_toggle_vscrollbar), notes);
 

@@ -1,5 +1,13 @@
+2006-08-09  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-window.c: Set angle 90 if the label is 
+	  dirty (it looks cool this way, I'm liking it:)).
+	* panel-plugin/notes-options.c: Remove deprecated code.
+	* po/xfce4-notes-plugin.pot, po/*.po: update.
+
 2006-08-08  Mike Massonnet <mmassonnet@gmail.com>
 
+	* === Released 1.3.90.2 ===
 	* panel-plugin/notes-window.c: Add a 3 pixel border around the 
 	  tab label text.  Rename the tabs on double clicking the tab 
 	  label.

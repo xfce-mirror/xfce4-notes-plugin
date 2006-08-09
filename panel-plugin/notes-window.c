@@ -269,6 +269,7 @@ note_page_load_data (XfcePanelPlugin *plugin, NotePage *page)
             page->label_dirty = TRUE;
             label = xfce_rc_read_entry (rc, label_entry, ":)");
             gtk_label_set_text (GTK_LABEL (page->label), label);
+            gtk_label_set_angle (GTK_LABEL (page->label), 90);
           }
 
         g_snprintf (note_entry, 12, "note%d", page->id);
@@ -426,6 +427,7 @@ on_note_rename_response (GtkDialog *dialog, gint response, GSList *slist)
 		page->label_dirty = TRUE;
 		gtk_label_set_text (GTK_LABEL (page->label),
 							gtk_entry_get_text (GTK_ENTRY (entry)));
+        gtk_label_set_angle (GTK_LABEL (page->label), 90);
       }
 
     g_slist_free (slist);
@@ -504,7 +506,9 @@ note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
             page = (NotePage *)g_list_nth_data (notes->note->pages, id);
             buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
             gtk_text_buffer_set_text (buffer, "", -1);
+
             gtk_label_set_text (GTK_LABEL (page->label), "1");
+            gtk_label_set_angle (GTK_LABEL (page->label), 0);
             if (rc)
               {
                 xfce_rc_delete_entry (rc, "label0", TRUE);
