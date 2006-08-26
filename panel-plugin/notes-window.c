@@ -40,6 +40,7 @@ static gboolean on_title_press (GtkWidget *, GdkEventButton *, GtkWindow *);
 static gboolean on_title_scroll (GtkWidget *, GdkEventScroll *, Note *);
 static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
 static void     on_note_changed (GtkWidget *, NotesPlugin *);
+static void     note_page_rename (Note *);
 static gboolean on_note_rename (GtkWidget *, GdkEventButton *, Note *);
 static void     on_note_rename_response (GtkDialog *, gint response, GSList *);
 static void     on_page_create (GtkWidget *, NotesPlugin *);
@@ -58,6 +59,9 @@ note_new (NotesPlugin *notes)
     note = g_new0 (Note, 1);
     note->pages = NULL;
 
+    GtkAccelGroup *accel_group;
+    accel_group = gtk_accel_group_new ();
+
     /* Window */
     note->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
@@ -65,6 +69,9 @@ note_new (NotesPlugin *notes)
     gtk_window_set_default_size (GTK_WINDOW (note->window), 242, 200);
     gtk_window_set_decorated (GTK_WINDOW (note->window), FALSE);
     gtk_window_set_icon_name (GTK_WINDOW (note->window), GTK_STOCK_EDIT);
+    gtk_window_add_accel_group (GTK_WINDOW (note->window), accel_group);
+
+    gtk_widget_set_name (note->window, "xfce4-notes-plugin");
 
     /* Prevent close window */
     g_signal_connect (note->window, "delete-event", G_CALLBACK (on_note_delete),
@@ -107,6 +114,8 @@ note_new (NotesPlugin *notes)
 
     gtk_container_add (GTK_CONTAINER (note->add), image_add);
 
+    gtk_widget_add_accelerator (note->add, "clicked", accel_group, 'N', 
+                                GDK_CONTROL_MASK, GTK_ACCEL_MASK);
     g_signal_connect (note->add, "clicked", G_CALLBACK (on_page_create), notes);
 
     /* Remove button */
@@ -123,10 +132,14 @@ note_new (NotesPlugin *notes)
 
     gtk_container_add (GTK_CONTAINER (note->del), image_del);
 
+    gtk_widget_add_accelerator (note->del, "clicked", accel_group, 'W', 
+                                GDK_CONTROL_MASK, GTK_ACCEL_MASK);
     g_signal_connect (note->del, "clicked", G_CALLBACK (on_page_delete), notes);
 
     /* Event box move + Title */
     note->move_event_box = gtk_event_box_new ();
+    gtk_event_box_set_visible_window (GTK_EVENT_BOX (note->move_event_box),
+                                      FALSE);
     gtk_widget_show (note->move_event_box);
 
     gtk_box_pack_start (GTK_BOX (note->hbox), note->move_event_box, TRUE, TRUE,
@@ -339,8 +352,22 @@ on_title_scroll (GtkWidget *widget, GdkEventScroll *event, Note *note)
 static gboolean
 on_note_key_press (GtkWidget *widget, GdkEventKey *event, NotesPlugin *notes)
 {
-    if (event->type == GDK_KEY_PRESS && event->keyval == GDK_Escape)
-        on_note_close (widget, GTK_TOGGLE_BUTTON (notes->button));
+    if (event->type == GDK_KEY_PRESS)
+      {
+        if (event->keyval == GDK_Escape)
+            on_note_close (widget, GTK_TOGGLE_BUTTON (notes->button));
+        else if (event->state & GDK_CONTROL_MASK)
+          {
+            if (event->keyval == GDK_Page_Down)
+                gtk_notebook_next_page (GTK_NOTEBOOK (notes->note->notebook));
+            else if (event->keyval == GDK_Page_Up)
+                gtk_notebook_prev_page (GTK_NOTEBOOK (notes->note->notebook));
+          }
+        else if (event->keyval == GDK_F2)
+          {
+            note_page_rename (notes->note);
+          }
+      }
 
     return FALSE;
 }
@@ -358,55 +385,60 @@ on_note_changed (GtkWidget *widget, NotesPlugin *notes)
                                        notes);
 }
 
+static void
+note_page_rename (Note *note)
+{
+    DBG ("Rename the note_page_menu_label");
+
+    GSList *slist = NULL;
+    gint id;
+    GtkWidget *dialog, *vbox;
+    GtkWidget *label, *entry;
+    NotePage *page;
+
+    id = gtk_notebook_get_current_page (GTK_NOTEBOOK (note->notebook));
+    page = (NotePage *)g_list_nth_data (note->pages, id);
+    label = page->label;
+
+    dialog =
+        gtk_dialog_new_with_buttons (_("Rename"),
+                                     GTK_WINDOW (note->window),
+                                     GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                     GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_EDIT);
+
+    vbox = gtk_vbox_new (2, FALSE);
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
+    gtk_widget_show (vbox);
+
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+
+    entry = gtk_entry_new ();
+    gtk_entry_set_text (GTK_ENTRY (entry),
+                        gtk_label_get_text (GTK_LABEL (label)));
+    gtk_widget_show (entry);
+
+    gtk_container_add (GTK_CONTAINER (vbox), entry);
+
+    slist = g_slist_append (slist, entry);
+    slist = g_slist_append (slist, page);
+
+    g_signal_connect (dialog, "response",G_CALLBACK (on_note_rename_response), 
+                      slist);
+
+   gtk_widget_show (dialog);
+}
+
 static gboolean
 on_note_rename (GtkWidget *widget, GdkEventButton *event, Note *note)
 {
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
-    {
-        DBG ("Rename the note_page_menu_label");
-
-        GSList *slist = NULL;
-        gint id;
-        GtkWidget *dialog, *vbox;
-        GtkWidget *label, *entry;
-        NotePage *page;
-
-        id = gtk_notebook_get_current_page (GTK_NOTEBOOK (note->notebook));
-        page = (NotePage *)g_list_nth_data (note->pages, id);
-        label = page->label;
-
-        dialog =
-            gtk_dialog_new_with_buttons (_("Rename"),
-                                         GTK_WINDOW (note->window),
-                                         GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
-                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                         NULL);
-
-        gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-        gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_EDIT);
-
-        vbox = gtk_vbox_new (2, FALSE);
-        gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
-        gtk_widget_show (vbox);
-
-        gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
-
-        entry = gtk_entry_new ();
-        gtk_entry_set_text (GTK_ENTRY (entry),
-                            gtk_label_get_text (GTK_LABEL (label)));
-        gtk_widget_show (entry);
-
-        gtk_container_add (GTK_CONTAINER (vbox), entry);
-
-        slist = g_slist_append (slist, entry);
-        slist = g_slist_append (slist, page);
-
-        g_signal_connect (dialog, "response",
-                          G_CALLBACK (on_note_rename_response), slist);
-
-        gtk_widget_show (dialog);
-    }
+      {
+        note_page_rename (note);
+      }
 
     return FALSE;
 }

@@ -1,3 +1,17 @@
+2006-08-14  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-window.c: 
+	  - Add CTRL+Page_Down/Up on key press from the GtkTextView 
+	    to navigate through the notes.
+	  - Add F2 on key press from the GtkTextView to rename (new 
+	    function note_page_rename).
+
+2006-08-12  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-options.c: Remove more deprecated code.
+	* panel-plugin/notes-window.c: Add accelerators for New note
+	  and Close note (Ctrl+N and Ctrl+W).
+
 2006-08-09  Mike Massonnet <mmassonnet@gmail.com>
 
 	* panel-plugin/notes-window.c: Set angle 90 if the label is 

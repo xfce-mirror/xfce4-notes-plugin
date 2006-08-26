@@ -39,7 +39,6 @@ static void     on_toggle_show (GtkWidget *, NotesPlugin *);
 static void     on_toggle_task_switcher (GtkWidget *, NotesPlugin *);
 static void     on_toggle_always_on_top (GtkWidget *, NotesPlugin *);
 static void     on_toggle_stick (GtkWidget *, NotesPlugin *);
-static void     on_toggle_vscrollbar (GtkWidget *, NotesPlugin *);
 
 
 GtkWidget *
@@ -48,7 +47,6 @@ notes_options_new (NotesPlugin *notes)
     GtkWidget *dialog, *vbox;
     GtkWidget *cb_show, *cb_task_switcher, *cb_always_on_top, *cb_stick;
     GtkWidget *hseparator;
-    GtkWidget *cb_vscrollbar;
     NotesOptions *options;
 
     DBG ("New Notes Options");
@@ -109,9 +107,6 @@ notes_options_new (NotesPlugin *notes)
 
     g_signal_connect (cb_stick, "toggled", G_CALLBACK (on_toggle_stick), notes);
 
-    g_signal_connect (cb_vscrollbar, "toggled", 
-                      G_CALLBACK (on_toggle_vscrollbar), notes);
-
     gtk_widget_show (dialog);
 
     return dialog;
@@ -171,32 +166,5 @@ on_toggle_stick (GtkWidget *widget, NotesPlugin *notes)
         gtk_window_unstick (GTK_WINDOW (notes->note->window));
 
     DBG ("Set option stick: %d", toggle_value);
-}
-
-static void
-on_toggle_vscrollbar (GtkWidget *widget, NotesPlugin *notes)
-{
-    gboolean toggle_value;
-    GtkPolicyType vpolicy;
-    gint i;
-    GList *pages;
-    NotePage *page;
-
-    g_object_get (G_OBJECT (widget), "active", &toggle_value, NULL);
-    notes->options.vscrollbar = toggle_value;
-
-    vpolicy = (toggle_value) ? GTK_POLICY_AUTOMATIC : GTK_POLICY_ALWAYS;
-    pages = g_list_nth (notes->note->pages, 0);
-
-    for (i = 0, page = (NotePage *)g_list_nth_data (pages, i); page != NULL;
-         i++, page = (NotePage *)g_list_nth_data (pages, i))
-      {
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (page->scroll), 
-                                        GTK_POLICY_AUTOMATIC, vpolicy);
-        /* This is being very obvious... it doesn't work!
-         * But the setting is correct if you restart the panel */
-      }
-
-    DBG ("Set option vscrollbar: %d", toggle_value);
 }
 
