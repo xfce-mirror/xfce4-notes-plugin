@@ -242,7 +242,7 @@ notes_construct (XfcePanelPlugin *plugin)
                       G_CALLBACK (notes_configure), notes);
 
     if (notes->options.show)
-        gtk_button_pressed (GTK_BUTTON (notes->button));
+        notes_button_pressed (notes->plugin, NULL, notes);
 }
 
 NotesPlugin *
