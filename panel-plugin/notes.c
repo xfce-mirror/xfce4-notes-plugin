@@ -39,6 +39,7 @@
 static void     notes_construct (XfcePanelPlugin *);
 static void     notes_free_data (XfcePanelPlugin *, NotesPlugin *);
 static void     notes_save (XfcePanelPlugin *, NotesPlugin *);
+static gboolean save_on_timeout_execute (NotesPlugin *);
 static void     notes_configure (XfcePanelPlugin *, NotesPlugin *);
 static gboolean notes_set_size (XfcePanelPlugin *, int size, NotesPlugin *);
 static void     notes_load_data (XfcePanelPlugin *, NotesPlugin *);
@@ -70,6 +71,14 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
     char *file;
     XfceRc *rc;
+    gint id;
+    NotePage *page;
+    GList *pages;
+    GtkTextBuffer *buffer;
+    GtkTextIter start, end;
+    gchar *text;
+    const gchar *label;
+    gchar note_entry[12], label_entry[13];
 
     DBG ("Save: %s", PLUGIN_NAME);
 
@@ -93,6 +102,8 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
                                      &notes->note->w, NULL);
           }
 
+        xfce_rc_set_group (rc, "settings");
+
         xfce_rc_write_int_entry (rc, "pos_x", notes->note->x);
         xfce_rc_write_int_entry (rc, "pos_y", notes->note->y);
         xfce_rc_write_int_entry (rc, "width", notes->note->w);
@@ -104,19 +115,9 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
         xfce_rc_write_bool_entry (rc, "always_on_top",
                                   notes->options.always_on_top);
         xfce_rc_write_bool_entry (rc, "stick", notes->options.stick);
-        xfce_rc_write_bool_entry (rc, "vscrollbar", notes->options.vscrollbar);
-
-
-        gint id;
-        NotePage *page;
-        GList *pages;
-        GtkTextBuffer *buffer;
-        GtkTextIter start, end;
-        gchar *text;
-        const gchar *label;
-        gchar note_entry[12], label_entry[13];
 
         pages = notes->note->pages;
+        xfce_rc_set_group (rc, "notes");
 
         for (id = 0, page = (NotePage *)g_list_nth_data (pages, id);
              page != NULL;
@@ -138,23 +139,35 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
             text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer), &start,
                                              &end, TRUE);
 
+            DBG ("Note %d (%s): %s", id, note_entry, text);
             xfce_rc_write_entry (rc, note_entry, text);
             g_free (text);
-
-            DBG ("Note %d (%s): %s", id, note_entry, text);
           }
-
 
         xfce_rc_close (rc);
       }
 }
 
-gboolean
-save_on_timeout (NotesPlugin *notes)
+static gboolean
+save_on_timeout_execute (NotesPlugin *notes)
 {
     notes_save (notes->plugin, notes);
 
     return FALSE;
+}
+
+void
+save_on_timeout (NotesPlugin *notes)
+{
+    if (notes->timeout_id > 0)
+      {
+        g_source_remove (notes->timeout_id);
+        notes->timeout_id = 0;
+      }
+
+    notes->timeout_id = g_timeout_add (60000,
+                                       (GSourceFunc) save_on_timeout_execute,
+                                       notes);
 }
 
 static void
@@ -282,6 +295,7 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
       {
         id = 0;
         g_snprintf (note_entry, 12, "note%d", id++);
+        xfce_rc_set_group (rc, "notes");
         while (xfce_rc_has_entry (rc, note_entry))
           {
             note_page_new (plugin, notes);
@@ -289,6 +303,8 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
           }
         if (id == 1 && !xfce_rc_has_entry (rc, note_entry))
             note_page_new (plugin, notes);
+
+        xfce_rc_set_group (rc, "settings");
 
         notes->note->x = xfce_rc_read_int_entry (rc, "pos_x", -1);
         notes->note->y = xfce_rc_read_int_entry (rc, "pos_y", -1);
@@ -301,8 +317,6 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
         notes->options.always_on_top =
             xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
         notes->options.stick = xfce_rc_read_bool_entry (rc, "stick", TRUE);
-        notes->options.vscrollbar =
-            xfce_rc_read_bool_entry (rc, "vscrollbar", TRUE);
 
         xfce_rc_close (rc);
       }

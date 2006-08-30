@@ -114,7 +114,7 @@ note_new (NotesPlugin *notes)
 
     gtk_container_add (GTK_CONTAINER (note->add), image_add);
 
-    gtk_widget_add_accelerator (note->add, "clicked", accel_group, 'N', 
+    gtk_widget_add_accelerator (note->add, "clicked", accel_group, 'N',
                                 GDK_CONTROL_MASK, GTK_ACCEL_MASK);
     g_signal_connect (note->add, "clicked", G_CALLBACK (on_page_create), notes);
 
@@ -132,7 +132,7 @@ note_new (NotesPlugin *notes)
 
     gtk_container_add (GTK_CONTAINER (note->del), image_del);
 
-    gtk_widget_add_accelerator (note->del, "clicked", accel_group, 'W', 
+    gtk_widget_add_accelerator (note->del, "clicked", accel_group, 'W',
                                 GDK_CONTROL_MASK, GTK_ACCEL_MASK);
     g_signal_connect (note->del, "clicked", G_CALLBACK (on_page_delete), notes);
 
@@ -375,14 +375,7 @@ on_note_key_press (GtkWidget *widget, GdkEventKey *event, NotesPlugin *notes)
 static void
 on_note_changed (GtkWidget *widget, NotesPlugin *notes)
 {
-    if (notes->timeout_id > 0)
-      {
-        g_source_remove (notes->timeout_id);
-        notes->timeout_id = 0;
-      }
-
-    notes->timeout_id = g_timeout_add (60000, (GSourceFunc) save_on_timeout,
-                                       notes);
+    save_on_timeout (notes);
 }
 
 static void
@@ -426,10 +419,10 @@ note_page_rename (Note *note)
     slist = g_slist_append (slist, entry);
     slist = g_slist_append (slist, page);
 
-    g_signal_connect (dialog, "response",G_CALLBACK (on_note_rename_response), 
+    g_signal_connect (dialog, "response",G_CALLBACK (on_note_rename_response),
                       slist);
 
-   gtk_widget_show (dialog);
+    gtk_widget_show (dialog);
 }
 
 static gboolean
@@ -451,14 +444,14 @@ on_note_rename_response (GtkDialog *dialog, gint response, GSList *slist)
 
     if (response == GTK_RESPONSE_OK)
       {
-		entry = GTK_WIDGET (g_slist_nth_data (slist, 0));
-		page = (NotePage *) g_slist_nth_data (slist, 1);
+        entry = GTK_WIDGET (g_slist_nth_data (slist, 0));
+        page = (NotePage *) g_slist_nth_data (slist, 1);
 
-		DBG ("Rename to: %s", gtk_entry_get_text (GTK_ENTRY (entry)));
+        DBG ("Rename to: %s", gtk_entry_get_text (GTK_ENTRY (entry)));
 
-		page->label_dirty = TRUE;
-		gtk_label_set_text (GTK_LABEL (page->label),
-							gtk_entry_get_text (GTK_ENTRY (entry)));
+        page->label_dirty = TRUE;
+        gtk_label_set_text (GTK_LABEL (page->label),
+                            gtk_entry_get_text (GTK_ENTRY (entry)));
         gtk_label_set_angle (GTK_LABEL (page->label), 90);
       }
 
@@ -484,7 +477,7 @@ on_page_delete (GtkWidget *widget, NotesPlugin *notes)
     page = (NotePage *)g_list_nth_data (notes->note->pages, id);
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (page->text));
 
-    if (gtk_text_buffer_get_char_count (buffer) > 0 || page->label_dirty)
+    if (gtk_text_buffer_get_char_count (buffer) > 0)
       {
         /* Ask for confirmation */
         GtkWidget *dialog;
@@ -507,21 +500,21 @@ on_page_delete (GtkWidget *widget, NotesPlugin *notes)
 static void
 note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
 {
+    gchar *file;
+    XfceRc *rc;
+    gint id;
+    GtkNotebook *notebook;
+    GList *pages;
+    NotePage *page;
+    GtkTextBuffer *buffer;
+    gchar tab_label[8];
+    gchar note_entry[12], label_entry[13];
+
     if (GTK_IS_WIDGET (widget))
         gtk_widget_destroy (widget);
 
     if (response_id == GTK_RESPONSE_YES)
       {
-        gchar *file;
-        XfceRc *rc;
-        gint id;
-        GtkNotebook *notebook;
-        GList *pages;
-        NotePage *page;
-        GtkTextBuffer *buffer;
-        gchar tab_label[8];
-        gchar note_entry[12], label_entry[13];
-
         notebook = GTK_NOTEBOOK (notes->note->notebook);
         id = gtk_notebook_get_current_page (notebook);
 

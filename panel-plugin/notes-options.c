@@ -46,7 +46,6 @@ notes_options_new (NotesPlugin *notes)
 {
     GtkWidget *dialog, *vbox;
     GtkWidget *cb_show, *cb_task_switcher, *cb_always_on_top, *cb_stick;
-    GtkWidget *hseparator;
     NotesOptions *options;
 
     DBG ("New Notes Options");

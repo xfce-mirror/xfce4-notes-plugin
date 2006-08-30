@@ -1,3 +1,14 @@
+2006-08-30  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c: Use rc groups.
+	* panel-plugin/notes-window.c: Revert the question if only the tab is
+	  edited.  Use a save-timeout when a page is closed.
+	* panel-plugin/notes.{c,h}, panel-plugin/notes-options.c: Still remove 
+	  deprecated code.
+	* panel-plugin/notes.c, panel-plugin/notes-window.c: Clean up
+	  save_on_timeout() and make better use of it (on close a page).  Add
+	  save_on_timeout_execute().
+
 2006-08-14  Mike Massonnet <mmassonnet@gmail.com>
 
 	* panel-plugin/notes-window.c: 
