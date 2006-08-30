@@ -8,6 +8,8 @@
 	* panel-plugin/notes.c, panel-plugin/notes-window.c: Clean up
 	  save_on_timeout() and make better use of it (on close a page).  Add
 	  save_on_timeout_execute().
+	* panel-plugin/notes.{c,h}, panel-plugin/notes-window.c: Changed the
+	  panel toggled button against a classic panel button.
 
 2006-08-14  Mike Massonnet <mmassonnet@gmail.com>
 

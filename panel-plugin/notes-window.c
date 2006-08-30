@@ -35,7 +35,6 @@
 
 static void     note_page_load_data (XfcePanelPlugin *, NotePage *);
 static gboolean on_note_delete ();
-static void     on_note_close (GtkWidget *, GtkToggleButton *);
 static gboolean on_title_press (GtkWidget *, GdkEventButton *, GtkWindow *);
 static gboolean on_title_scroll (GtkWidget *, GdkEventScroll *, Note *);
 static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
@@ -178,8 +177,8 @@ note_new (NotesPlugin *notes)
 
     gtk_container_add (GTK_CONTAINER (note->close), image_close);
 
-    g_signal_connect (note->close, "clicked", G_CALLBACK (on_note_close),
-                      notes->button);
+    g_signal_connect (note->close, "button-press-event",
+                      G_CALLBACK (notes_button_pressed), notes);
 
 
     /* Notebook */
@@ -305,12 +304,6 @@ on_note_delete ()
     return TRUE;
 }
 
-static void
-on_note_close (GtkWidget *widget, GtkToggleButton *panel_button)
-{
-    gtk_toggle_button_set_active (panel_button, FALSE);
-}
-
 static gboolean
 on_title_press (GtkWidget *widget, GdkEventButton *event, GtkWindow *window)
 {
@@ -355,7 +348,7 @@ on_note_key_press (GtkWidget *widget, GdkEventKey *event, NotesPlugin *notes)
     if (event->type == GDK_KEY_PRESS)
       {
         if (event->keyval == GDK_Escape)
-            on_note_close (widget, GTK_TOGGLE_BUTTON (notes->button));
+            notes_button_pressed (notes->plugin, NULL, notes);
         else if (event->state & GDK_CONTROL_MASK)
           {
             if (event->keyval == GDK_Page_Down)

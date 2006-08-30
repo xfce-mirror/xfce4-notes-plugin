@@ -43,7 +43,6 @@ static gboolean save_on_timeout_execute (NotesPlugin *);
 static void     notes_configure (XfcePanelPlugin *, NotesPlugin *);
 static gboolean notes_set_size (XfcePanelPlugin *, int size, NotesPlugin *);
 static void     notes_load_data (XfcePanelPlugin *, NotesPlugin *);
-static void     notes_button_toggled (XfcePanelPlugin *, NotesPlugin *);
 static void     on_options_response (GtkWidget *, int response, NotesPlugin *);
 
 
@@ -229,8 +228,8 @@ notes_construct (XfcePanelPlugin *plugin)
     g_signal_connect (plugin, "free-data",
                       G_CALLBACK (notes_free_data), notes);
 
-    g_signal_connect (notes->button, "toggled",
-                      G_CALLBACK (notes_button_toggled), notes);
+    g_signal_connect (notes->button, "button-press-event",
+                      G_CALLBACK (notes_button_pressed), notes);
 
     g_signal_connect (plugin, "save",
                       G_CALLBACK (notes_save), notes);
@@ -243,7 +242,7 @@ notes_construct (XfcePanelPlugin *plugin)
                       G_CALLBACK (notes_configure), notes);
 
     if (notes->options.show)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes->button), TRUE);
+        gtk_button_pressed (GTK_BUTTON (notes->button));
 }
 
 NotesPlugin *
@@ -258,7 +257,7 @@ notes_new (XfcePanelPlugin *plugin)
     notes->plugin = plugin;
     notes->timeout_id = 0;
 
-    notes->button = xfce_create_panel_toggle_button ();
+    notes->button = xfce_create_panel_button ();
     gtk_widget_show (notes->button);
 
     notes->icon = gtk_image_new ();
@@ -322,13 +321,14 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
       }
 }
 
-static void
-notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
+gboolean
+notes_button_pressed (XfcePanelPlugin *plugin, GdkEventButton *event,
+                      NotesPlugin *notes)
 {
-    DBG ("Notes Button Toggled");
+    DBG ("Notes Button Pressed");
 
     /* Show/hide the note */
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes->button)))
+    if (!GTK_WIDGET_VISIBLE (notes->note->window))
       {
           if (notes->note->x != -1 && notes->note->y != -1)
             gtk_window_move (GTK_WINDOW (notes->note->window), notes->note->x,
@@ -359,6 +359,8 @@ notes_button_toggled (XfcePanelPlugin *plugin, NotesPlugin *notes)
 
         gtk_widget_hide (notes->note->window);
       }
+
+    return FALSE;
 }
 
 static void

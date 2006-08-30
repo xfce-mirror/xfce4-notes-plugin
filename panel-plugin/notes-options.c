@@ -112,22 +112,22 @@ notes_options_new (NotesPlugin *notes)
 }
 
 static void
-on_toggle_show (GtkWidget *widget, NotesPlugin *notes)
+on_toggle_show (GtkWidget *checkbox, NotesPlugin *notes)
 {
     gboolean toggle_value;
 
-    g_object_get (G_OBJECT (widget), "active", &toggle_value, NULL);
+    g_object_get (G_OBJECT (checkbox), "active", &toggle_value, NULL);
     notes->options.show = toggle_value;
 
     DBG ("Set option show: %d", toggle_value);
 }
 
 static void
-on_toggle_task_switcher (GtkWidget *widget, NotesPlugin *notes)
+on_toggle_task_switcher (GtkWidget *checkbox, NotesPlugin *notes)
 {
     gboolean toggle_value;
 
-    g_object_get (G_OBJECT (widget), "active", &toggle_value, NULL);
+    g_object_get (G_OBJECT (checkbox), "active", &toggle_value, NULL);
     notes->options.task_switcher = toggle_value;
 
     gtk_window_set_skip_pager_hint (GTK_WINDOW (notes->note->window),
@@ -139,11 +139,11 @@ on_toggle_task_switcher (GtkWidget *widget, NotesPlugin *notes)
 }
 
 static void
-on_toggle_always_on_top (GtkWidget *widget, NotesPlugin *notes)
+on_toggle_always_on_top (GtkWidget *checkbox, NotesPlugin *notes)
 {
     gboolean toggle_value;
 
-    g_object_get (G_OBJECT (widget), "active", &toggle_value, NULL);
+    g_object_get (G_OBJECT (checkbox), "active", &toggle_value, NULL);
     notes->options.always_on_top = toggle_value;
 
     gtk_window_set_keep_above (GTK_WINDOW (notes->note->window), toggle_value);
@@ -152,11 +152,11 @@ on_toggle_always_on_top (GtkWidget *widget, NotesPlugin *notes)
 }
 
 static void
-on_toggle_stick (GtkWidget *widget, NotesPlugin *notes)
+on_toggle_stick (GtkWidget *checkbox, NotesPlugin *notes)
 {
     gboolean toggle_value;
 
-    g_object_get (G_OBJECT (widget), "active", &toggle_value, NULL);
+    g_object_get (G_OBJECT (checkbox), "active", &toggle_value, NULL);
     notes->options.stick = toggle_value;
 
     if (toggle_value)
