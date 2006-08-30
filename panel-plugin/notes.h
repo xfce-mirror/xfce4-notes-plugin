@@ -51,8 +51,6 @@ NotesPlugin;
 NotesPlugin *   notes_new (XfcePanelPlugin *);
 Note *          note_new (NotesPlugin *);
 void            note_page_new (XfcePanelPlugin *, NotesPlugin *);
-gboolean        notes_button_pressed (XfcePanelPlugin *, GdkEventButton *,
-                                      NotesPlugin *);
 void            save_on_timeout (NotesPlugin *);
 
 #endif

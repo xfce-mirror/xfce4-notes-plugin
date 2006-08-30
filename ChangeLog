@@ -10,6 +10,8 @@
 	  save_on_timeout_execute().
 	* panel-plugin/notes.{c,h}, panel-plugin/notes-window.c: Changed the
 	  panel toggled button against a classic panel button.
+	  Use a simple signal clicked instead of button-press-event for the panel
+	  button.
 
 2006-08-14  Mike Massonnet <mmassonnet@gmail.com>
 

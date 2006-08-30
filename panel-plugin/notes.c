@@ -43,6 +43,7 @@ static gboolean save_on_timeout_execute (NotesPlugin *);
 static void     notes_configure (XfcePanelPlugin *, NotesPlugin *);
 static gboolean notes_set_size (XfcePanelPlugin *, int size, NotesPlugin *);
 static void     notes_load_data (XfcePanelPlugin *, NotesPlugin *);
+static gboolean notes_button_clicked (XfcePanelPlugin *, NotesPlugin *);
 static void     on_options_response (GtkWidget *, int response, NotesPlugin *);
 
 
@@ -228,8 +229,8 @@ notes_construct (XfcePanelPlugin *plugin)
     g_signal_connect (plugin, "free-data",
                       G_CALLBACK (notes_free_data), notes);
 
-    g_signal_connect (notes->button, "button-press-event",
-                      G_CALLBACK (notes_button_pressed), notes);
+    g_signal_connect (notes->button, "clicked",
+                      G_CALLBACK (notes_button_clicked), notes);
 
     g_signal_connect (plugin, "save",
                       G_CALLBACK (notes_save), notes);
@@ -242,7 +243,7 @@ notes_construct (XfcePanelPlugin *plugin)
                       G_CALLBACK (notes_configure), notes);
 
     if (notes->options.show)
-        notes_button_pressed (notes->plugin, NULL, notes);
+        gtk_button_clicked (GTK_BUTTON (notes->button));
 }
 
 NotesPlugin *
@@ -321,11 +322,10 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
       }
 }
 
-gboolean
-notes_button_pressed (XfcePanelPlugin *plugin, GdkEventButton *event,
-                      NotesPlugin *notes)
+static gboolean
+notes_button_clicked (XfcePanelPlugin *plugin, NotesPlugin *notes)
 {
-    DBG ("Notes Button Pressed");
+    DBG ("Notes Button Clicked");
 
     /* Show/hide the note */
     if (!GTK_WIDGET_VISIBLE (notes->note->window))
