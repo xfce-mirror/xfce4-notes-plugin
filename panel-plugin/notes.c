@@ -32,19 +32,43 @@
 
 #include "notes.h"
 #include "notes-options.h"
+#include "xfce4-popup-notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 
 
-static void     notes_construct (XfcePanelPlugin *);
-static void     notes_free_data (XfcePanelPlugin *, NotesPlugin *);
-static void     notes_save (XfcePanelPlugin *, NotesPlugin *);
-static gboolean save_on_timeout_execute (NotesPlugin *);
-static void     notes_configure (XfcePanelPlugin *, NotesPlugin *);
-static gboolean notes_set_size (XfcePanelPlugin *, int size, NotesPlugin *);
-static void     notes_load_data (XfcePanelPlugin *, NotesPlugin *);
-static gboolean notes_button_clicked (XfcePanelPlugin *, NotesPlugin *);
-static void     on_options_response (GtkWidget *, int response, NotesPlugin *);
+static void         notes_construct         (XfcePanelPlugin *);
+
+static void         notes_free_data         (XfcePanelPlugin *,
+                                             NotesPlugin *);
+
+static void         notes_save              (XfcePanelPlugin *,
+                                             NotesPlugin *);
+
+static gboolean     save_on_timeout_execute (NotesPlugin *);
+
+static void         notes_configure         (XfcePanelPlugin *, 
+                                             NotesPlugin *);
+
+static gboolean     notes_set_size          (XfcePanelPlugin *, 
+                                             int size, 
+                                             NotesPlugin *);
+
+static void         notes_load_data         (XfcePanelPlugin *, 
+                                             NotesPlugin *);
+
+static gboolean     notes_button_clicked    (XfcePanelPlugin *, 
+                                             NotesPlugin *);
+
+static void         on_options_response     (GtkWidget *,
+                                             int response, 
+                                             NotesPlugin *);
+
+static gboolean     notes_message_received  (GtkWidget *, 
+                                             GdkEventClient *,
+                                             gpointer data);
+
+static gboolean     notes_set_selection     (NotesPlugin *notes);
 
 
 /* Panel Plugin Interface */
@@ -222,6 +246,8 @@ notes_construct (XfcePanelPlugin *plugin)
 
     notes = notes_new (plugin);
 
+    notes_set_selection (notes);
+
     gtk_container_add (GTK_CONTAINER (plugin), notes->button);
 
     xfce_panel_plugin_add_action_widget (plugin, notes->button);
@@ -371,3 +397,56 @@ on_options_response (GtkWidget *widget, int response, NotesPlugin *notes)
 
     notes_save (notes->plugin, notes);
 }
+
+
+/* handle user messages */
+
+static gboolean
+notes_message_received (GtkWidget *widget, GdkEventClient *ev, gpointer data)
+{
+    NotesPlugin *notes;
+
+    notes = data;
+
+    if (ev->data_format == 8 && *(ev->data.b) != '\0')
+      {
+        if (!strcmp (XFCE_NOTES_MESSAGE, ev->data.b))
+            return notes_button_clicked (notes->plugin, notes);
+      }
+
+    return FALSE;
+}
+
+static gboolean
+notes_set_selection (NotesPlugin *notes)
+{
+    GdkScreen *gscreen;
+    gchar selection_name[32];
+    Atom selection_atom;
+    GtkWidget *win;
+    Window xwin;
+
+    win = gtk_invisible_new ();
+    gtk_widget_realize (win);
+    xwin = GDK_WINDOW_XID (GTK_WIDGET (win)->window);
+
+    gscreen = gtk_widget_get_screen (win);
+    g_snprintf (selection_name, sizeof (selection_name),
+                XFCE_NOTES_SELECTION"%d", gdk_screen_get_number (gscreen));
+    selection_atom = XInternAtom (GDK_DISPLAY (), selection_name, FALSE);
+
+    if (XGetSelectionOwner (GDK_DISPLAY (), selection_atom))
+      {
+        gtk_widget_destroy (win);
+        return FALSE;
+      }
+
+    XSelectInput (GDK_DISPLAY (), xwin, PropertyChangeMask);
+    XSetSelectionOwner (GDK_DISPLAY (), selection_atom, xwin, GDK_CURRENT_TIME);
+
+    g_signal_connect (win, "client-event",
+                      G_CALLBACK (notes_message_received), notes);
+
+    return TRUE;
+}
+

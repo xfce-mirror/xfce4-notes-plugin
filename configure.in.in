@@ -7,7 +7,7 @@ dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl 2006 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
-m4_define([xfce4_notes_plugin_version], [1.3.90.2])
+m4_define([xfce4_notes_plugin_version], [1.3.99.1])
 
 AC_INIT([xfce4-notes-plugin], [xfce4_notes_plugin_version()], 
         [mmassonnet@gmail.com])

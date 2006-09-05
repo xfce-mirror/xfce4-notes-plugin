@@ -1,3 +1,13 @@
+2006-09-06  Mike Massonnet <mmassonnet@gmail.com>
+
+	* === Released 1.3.99.1 ===
+	* configure.in.in: Tag version 1.3.99.1.
+	* panel-plugin/Makefile.am: Add compilation for xfce4-popup-notes.
+	* panel-plugin/xfce4-popup-notes.{c,h}: New files, derivated from
+	  xfce4-popup-windowlist.
+	* panel-plugin/notes.c: Add message receiver for the xfce4-popup-notes
+	  source.  Shows/hides the notes when called.
+
 2006-08-30  Mike Massonnet <mmassonnet@gmail.com>
 
 	* panel-plugin/notes.c: Use rc groups.
@@ -12,6 +22,8 @@
 	  panel toggled button against a classic panel button.
 	  Use a simple signal clicked instead of button-press-event for the panel
 	  button.
+	* panel-plugin/notes-window.c: Use default activation in the rename
+	  dialog.
 
 2006-08-14  Mike Massonnet <mmassonnet@gmail.com>
 
