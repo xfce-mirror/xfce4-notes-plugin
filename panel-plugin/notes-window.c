@@ -33,20 +33,51 @@
 #define PLUGIN_NAME "xfce4-notes-plugin"
 
 
-static void     note_page_load_data (XfcePanelPlugin *, NotePage *);
-static void     on_notes_close (GtkWidget *, NotesPlugin *);
-static gboolean on_note_delete ();
-static gboolean on_title_press (GtkWidget *, GdkEventButton *, GtkWindow *);
-static gboolean on_title_scroll (GtkWidget *, GdkEventScroll *, Note *);
-static gboolean on_note_key_press (GtkWidget *, GdkEventKey *, NotesPlugin *);
-static void     on_note_changed (GtkWidget *, NotesPlugin *);
-static void     note_page_rename (Note *);
-static gboolean on_note_rename (GtkWidget *, GdkEventButton *, Note *);
-static void     on_note_rename_response (GtkDialog *, gint response, GSList *);
-static void     on_page_create (GtkWidget *, NotesPlugin *);
-static gboolean on_page_delete (GtkWidget *, NotesPlugin *);
-static void     note_page_destroy (GtkWidget *, gint response_id,
-                                   NotesPlugin *);
+
+static void         note_page_load_data         (XfcePanelPlugin *, 
+                                                 NotePage *);
+
+static void         on_notes_close              (GtkWidget *, 
+                                                 NotesPlugin *);
+
+static gboolean     on_note_window_close        ();
+
+static gboolean     on_title_press              (GtkWidget *, 
+                                                 GdkEventButton *, 
+                                                 GtkWindow *);
+
+static gboolean     on_title_scroll             (GtkWidget *, 
+                                                 GdkEventScroll *, 
+                                                 Note *);
+
+static gboolean     on_note_key_press           (GtkWidget *, 
+                                                 GdkEventKey *, 
+                                                 NotesPlugin *);
+
+static void         on_note_changed             (GtkWidget *, 
+                                                 NotesPlugin *);
+
+static void         note_page_rename            (Note *);
+
+static gboolean     on_note_rename              (GtkWidget *, 
+                                                 GdkEventButton *, 
+                                                 Note *);
+
+static void         on_note_rename_response     (GtkDialog *, 
+                                                 gint response, 
+                                                 GSList *);
+
+static void         on_page_create              (GtkWidget *, 
+                                                 NotesPlugin *);
+
+static gboolean     on_page_delete              (GtkWidget *, 
+                                                 NotesPlugin *);
+
+static void         note_page_destroy           (GtkWidget *, 
+                                                 gint response_id, 
+                                                 NotesPlugin *);
+
+
 
 Note *
 note_new (NotesPlugin *notes)
@@ -74,8 +105,8 @@ note_new (NotesPlugin *notes)
     gtk_widget_set_name (note->window, "xfce4-notes-plugin");
 
     /* Prevent close window */
-    g_signal_connect (note->window, "delete-event", G_CALLBACK (on_note_delete),
-                      NULL);
+    g_signal_connect (note->window, "delete-event",
+                      G_CALLBACK (on_note_window_close), NULL);
 
 
     /* Frame */
@@ -261,7 +292,9 @@ note_page_load_data (XfcePanelPlugin *plugin, NotePage *page)
     gchar *file;
     XfceRc *rc;
 
-    if (!(file = xfce_panel_plugin_lookup_rc_file (plugin)))
+    file = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
+                                        "xfce4/panel/notes.rc", TRUE);
+    if (G_UNLIKELY (!file))
         return;
 
     DBG ("Look up file (%s)", file);
@@ -305,7 +338,7 @@ on_notes_close (GtkWidget *widget, NotesPlugin* notes)
 }
 
 static gboolean
-on_note_delete ()
+on_note_window_close ()
 {
     /* Prevent close window (Alt-F4) */
     return TRUE;
@@ -352,16 +385,30 @@ on_title_scroll (GtkWidget *widget, GdkEventScroll *event, Note *note)
 static gboolean
 on_note_key_press (GtkWidget *widget, GdkEventKey *event, NotesPlugin *notes)
 {
+    gint current, after;
+    GtkWidget *notebook = notes->note->notebook;
+
     if (event->type == GDK_KEY_PRESS)
       {
         if (event->keyval == GDK_Escape)
             gtk_button_clicked (GTK_BUTTON (notes->button));
         else if (event->state & GDK_CONTROL_MASK)
           {
+            current = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
             if (event->keyval == GDK_Page_Down)
-                gtk_notebook_next_page (GTK_NOTEBOOK (notes->note->notebook));
+              {
+                gtk_notebook_next_page (GTK_NOTEBOOK (notebook));
+                after = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
+                if (current == after)
+                    gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 0);
+              }
             else if (event->keyval == GDK_Page_Up)
-                gtk_notebook_prev_page (GTK_NOTEBOOK (notes->note->notebook));
+              {
+                gtk_notebook_prev_page (GTK_NOTEBOOK (notebook));
+                after = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
+                if (current == after)
+                    gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), -1);
+              }
           }
         else if (event->keyval == GDK_F2)
           {
@@ -377,6 +424,12 @@ on_note_changed (GtkWidget *widget, NotesPlugin *notes)
 {
     save_on_timeout (notes);
 }
+
+
+
+/*
+ * Rename a tab-label
+ */
 
 static void
 note_page_rename (Note *note)
@@ -399,6 +452,7 @@ note_page_rename (Note *note)
                                      GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                      GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_EDIT);
@@ -412,6 +466,7 @@ note_page_rename (Note *note)
     entry = gtk_entry_new ();
     gtk_entry_set_text (GTK_ENTRY (entry),
                         gtk_label_get_text (GTK_LABEL (label)));
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_widget_show (entry);
 
     gtk_container_add (GTK_CONTAINER (vbox), entry);
@@ -419,8 +474,8 @@ note_page_rename (Note *note)
     slist = g_slist_append (slist, entry);
     slist = g_slist_append (slist, page);
 
-    g_signal_connect (dialog, "response",G_CALLBACK (on_note_rename_response),
-                      slist);
+    g_signal_connect (dialog, "response",
+                      G_CALLBACK (on_note_rename_response), slist);
 
     gtk_widget_show (dialog);
 }
@@ -458,6 +513,12 @@ on_note_rename_response (GtkDialog *dialog, gint response, GSList *slist)
     g_slist_free (slist);
     gtk_widget_destroy (GTK_WIDGET (dialog));
 }
+
+
+
+/*
+ * Create / Destroy a page
+ */
 
 static void
 on_page_create (GtkWidget *widget, NotesPlugin *notes)
@@ -520,7 +581,9 @@ note_page_destroy (GtkWidget *widget, gint response_id, NotesPlugin *notes)
 
         DBG ("Delete id %d", id);
 
-        if (!(file = xfce_panel_plugin_save_location (notes->plugin, TRUE)))
+        file = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
+                                            "xfce4/panel/notes.rc", TRUE);
+        if (G_UNLIKELY (!file))
             return;
 
         rc = xfce_rc_simple_open (file, FALSE);

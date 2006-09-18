@@ -23,6 +23,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_STRING_H
+#include <string.h>
+#endif
+
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <libxfcegui4/libxfcegui4.h>
@@ -106,7 +110,9 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
 
     DBG ("Save: %s", PLUGIN_NAME);
 
-    if (!(file = xfce_panel_plugin_save_location (plugin, TRUE)))
+    file = xfce_resource_save_location (XFCE_RESOURCE_CONFIG, 
+                                        "xfce4/panel/notes.rc", TRUE);
+    if (G_UNLIKELY (!file))
         return;
 
     rc = xfce_rc_simple_open (file, FALSE);
@@ -309,7 +315,9 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
     gchar note_entry[12];
     gint id;
 
-    if (!(file = xfce_panel_plugin_save_location (plugin, TRUE)))
+    file = xfce_resource_save_location (XFCE_RESOURCE_CONFIG, 
+                                        "xfce4/panel/notes.rc", TRUE);
+    if (G_UNLIKELY (!file))
         return;
 
     DBG ("Look up file (%s)", file);

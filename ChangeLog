@@ -1,3 +1,9 @@
+2006-09-17	Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-window.c: Cycle through the tabs.
+	* panel-plugin/notes.c, panel-plugin/notes-window.c: Use a unique RC 
+	  file.
+
 2006-09-06  Mike Massonnet <mmassonnet@gmail.com>
 
 	* === Released 1.3.99.1 ===
