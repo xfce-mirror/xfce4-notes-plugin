@@ -26,6 +26,7 @@
 
 typedef struct
 {
+    gboolean visible;
     gboolean show;
     gboolean task_switcher;
     gboolean always_on_top;

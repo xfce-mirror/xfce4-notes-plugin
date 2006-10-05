@@ -139,12 +139,12 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
         xfce_rc_write_int_entry (rc, "width", notes->note->w);
         xfce_rc_write_int_entry (rc, "height", notes->note->h);
 
+        xfce_rc_write_bool_entry (rc, "visible", GTK_WIDGET_VISIBLE (notes->note->window));
         xfce_rc_write_bool_entry (rc, "show", notes->options.show);
-        xfce_rc_write_bool_entry (rc, "task_switcher",
-                                  notes->options.task_switcher);
-        xfce_rc_write_bool_entry (rc, "always_on_top",
-                                  notes->options.always_on_top);
+        xfce_rc_write_bool_entry (rc, "task_switcher", notes->options.task_switcher);
+        xfce_rc_write_bool_entry (rc, "always_on_top", notes->options.always_on_top);
         xfce_rc_write_bool_entry (rc, "stick", notes->options.stick);
+        xfce_rc_write_bool_entry (rc, "VerticalTextLabel", notes->options.vert_text_label);
 
         pages = notes->note->pages;
         xfce_rc_set_group (rc, "notes");
@@ -274,7 +274,7 @@ notes_construct (XfcePanelPlugin *plugin)
     g_signal_connect (plugin, "configure-plugin",
                       G_CALLBACK (notes_configure), notes);
 
-    if (notes->options.show)
+    if (notes->options.show || notes->options.visible)
         gtk_button_clicked (GTK_BUTTON (notes->button));
 }
 
@@ -345,12 +345,12 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
         notes->note->w = xfce_rc_read_int_entry (rc, "width", 242);
         notes->note->h = xfce_rc_read_int_entry (rc, "height", 200);
 
+        notes->options.visible = xfce_rc_read_bool_entry (rc, "visible", FALSE);
         notes->options.show = xfce_rc_read_bool_entry (rc, "show", FALSE);
-        notes->options.task_switcher =
-            xfce_rc_read_bool_entry (rc, "task_switcher", TRUE);
-        notes->options.always_on_top =
-            xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
+        notes->options.task_switcher = xfce_rc_read_bool_entry (rc, "task_switcher", TRUE);
+        notes->options.always_on_top = xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
         notes->options.stick = xfce_rc_read_bool_entry (rc, "stick", TRUE);
+        notes->options.vert_text_label = xfce_rc_read_bool_entry (rc, "VerticalTextLabel", TRUE);
 
         xfce_rc_close (rc);
       }
@@ -419,7 +419,14 @@ notes_message_received (GtkWidget *widget, GdkEventClient *ev, gpointer data)
     if (ev->data_format == 8 && *(ev->data.b) != '\0')
       {
         if (!strcmp (XFCE_NOTES_MESSAGE, ev->data.b))
-            return notes_button_clicked (notes->plugin, notes);
+          {
+            notes_button_clicked (notes->plugin, notes);
+            /* Show the text view */
+            gtk_widget_show (notes->note->notebook);
+            gtk_window_resize (GTK_WINDOW (notes->note->window), 
+                               notes->note->w, notes->note->h);
+            return TRUE;
+          }
       }
 
     return FALSE;

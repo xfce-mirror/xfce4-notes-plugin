@@ -525,6 +525,9 @@ on_page_create (GtkWidget *widget, NotesPlugin *notes)
 {
     note_page_new (notes->plugin, notes);
     gtk_notebook_set_current_page (GTK_NOTEBOOK (notes->note->notebook), -1);
+    /* Show the text view */
+    gtk_widget_show (notes->note->notebook);
+    gtk_window_resize (GTK_WINDOW (notes->note->window), notes->note->w, notes->note->h);
 }
 
 static gboolean

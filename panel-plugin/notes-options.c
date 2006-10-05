@@ -39,6 +39,7 @@ static void     on_toggle_show (GtkWidget *, NotesPlugin *);
 static void     on_toggle_task_switcher (GtkWidget *, NotesPlugin *);
 static void     on_toggle_always_on_top (GtkWidget *, NotesPlugin *);
 static void     on_toggle_stick (GtkWidget *, NotesPlugin *);
+static void     on_toggle_vert_text_label (GtkWidget *, NotesPlugin *);
 
 
 GtkWidget *
