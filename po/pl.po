@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 11:56+0200\n"
+"POT-Creation-Date: 2006-10-05 12:39+0200\n"
 "PO-Revision-Date: 2006-04-08 13:09+0900\n"
 "Last-Translator: Piotr Maliński <admin@rk.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -24,7 +24,6 @@ msgid "Properties"
 msgstr "Właściwości"
 
 #: ../panel-plugin/notes-options.c:76
-#, fuzzy
 msgid "Show notes at startup"
 msgstr "Pokazuj Notatki przy starcie"
 

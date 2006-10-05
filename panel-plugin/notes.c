@@ -144,7 +144,6 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
         xfce_rc_write_bool_entry (rc, "task_switcher", notes->options.task_switcher);
         xfce_rc_write_bool_entry (rc, "always_on_top", notes->options.always_on_top);
         xfce_rc_write_bool_entry (rc, "stick", notes->options.stick);
-        xfce_rc_write_bool_entry (rc, "VerticalTextLabel", notes->options.vert_text_label);
 
         pages = notes->note->pages;
         xfce_rc_set_group (rc, "notes");
@@ -350,7 +349,6 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
         notes->options.task_switcher = xfce_rc_read_bool_entry (rc, "task_switcher", TRUE);
         notes->options.always_on_top = xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
         notes->options.stick = xfce_rc_read_bool_entry (rc, "stick", TRUE);
-        notes->options.vert_text_label = xfce_rc_read_bool_entry (rc, "VerticalTextLabel", TRUE);
 
         xfce_rc_close (rc);
       }

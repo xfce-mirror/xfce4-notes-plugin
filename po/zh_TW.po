@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 11:56+0200\n"
+"POT-Creation-Date: 2006-10-05 12:39+0200\n"
 "PO-Revision-Date: 2006-07-25 16:52+0800\n"
 "Last-Translator: Cosmo Chene <cosmolax@gmail.com>\n"
 "Language-Team: Tradictional Chinese <zh-l10n@linux.org.tw>\n"
@@ -27,7 +27,6 @@ msgid "Properties"
 msgstr "內容"
 
 #: ../panel-plugin/notes-options.c:76
-#, fuzzy
 msgid "Show notes at startup"
 msgstr "啟動時顯示小筆記"
 
@@ -72,18 +71,6 @@ msgstr "Xfce4 面板上的小筆記外掛程式"
 #~ msgid "Always show vertical scrollbar"
 #~ msgstr "永遠顯示垂直捲動條"
 
-#~ msgid "A restart of the panel is needed"
-#~ msgstr "需要重新啟動面板"
-
-#~ msgid "Notes Plugin"
-#~ msgstr "小筆記外掛"
-
 #~ msgid "Open a new page"
 #~ msgstr "開啟新頁面"
 
-#~ msgid ""
-#~ "Notes\n"
-#~ "Click this button to show/hide your notes"
-#~ msgstr ""
-#~ "小筆記\n"
-#~ "按下這個按鈕以顯示或隱藏小筆記"

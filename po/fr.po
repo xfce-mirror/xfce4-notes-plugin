@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 11:56+0200\n"
+"POT-Creation-Date: 2006-10-05 12:39+0200\n"
 "PO-Revision-Date: 2006-08-02 00:30+0100\n"
 "Last-Translator: Mike Massonnet <mmassonnet@gmail.com>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -28,7 +28,6 @@ msgid "Properties"
 msgstr "Propriétés"
 
 #: ../panel-plugin/notes-options.c:76
-#, fuzzy
 msgid "Show notes at startup"
 msgstr "Afficher au démarrage"
 
