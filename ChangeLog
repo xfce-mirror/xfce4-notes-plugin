@@ -1,3 +1,15 @@
+2006-11-25  Mike Massonnet <mmassonnet@gmail.com>
+
+	* po/{*,fr,de}: make update-po.  Update french and german.
+	* panel-plugin/{notes-options.c,notes-window.h,notes-window.c,
+	  notes.h,notes.c}: Add a resize grip (GtkStatusbar), and the
+	  option for it.
+
+2006-10-09	Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-options.c: Change window icon from panel to 
+	  settings.
+
 2006-10-03	Mike Massonnet <mmassonnet@gmail.com>
 
 	* panel-plugin/notes.{c,h}: Add a default behavior to reset the last

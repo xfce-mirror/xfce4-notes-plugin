@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 12:39+0200\n"
+"POT-Creation-Date: 2006-11-25 18:33+0100\n"
 "PO-Revision-Date: 2006-07-25 16:52+0800\n"
 "Last-Translator: Cosmo Chene <cosmolax@gmail.com>\n"
 "Language-Team: Tradictional Chinese <zh-l10n@linux.org.tw>\n"
@@ -16,50 +16,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:57
-#: ../panel-plugin/notes-window.c:99
+#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:58
+#: ../panel-plugin/notes-window.c:89
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "小筆記"
 
-#: ../panel-plugin/notes-options.c:62
-msgid "Properties"
-msgstr "內容"
-
-#: ../panel-plugin/notes-options.c:76
-msgid "Show notes at startup"
+#: ../panel-plugin/notes-options.c:75
+#, fuzzy
+msgid "Always show notes at startup"
 msgstr "啟動時顯示小筆記"
 
-#: ../panel-plugin/notes-options.c:84
+#: ../panel-plugin/notes-options.c:83
 #, fuzzy
 msgid "Show in the task list"
 msgstr "在工作切換框中顯示"
 
-#: ../panel-plugin/notes-options.c:94
+#: ../panel-plugin/notes-options.c:93
 msgid "Always on top"
 msgstr "置於最上層"
 
-#: ../panel-plugin/notes-options.c:103
+#: ../panel-plugin/notes-options.c:102
 msgid "Stick mode"
 msgstr "附黏模式"
 
-#: ../panel-plugin/notes-window.c:139
+#: ../panel-plugin/notes-options.c:109
+msgid "Show resize grip"
+msgstr ""
+
+#: ../panel-plugin/notes-window.c:129
 msgid "Create new note"
 msgstr ""
 
-#: ../panel-plugin/notes-window.c:157
+#: ../panel-plugin/notes-window.c:147
 msgid "Delete this note"
 msgstr ""
 
-#: ../panel-plugin/notes-window.c:186
+#: ../panel-plugin/notes-window.c:176
 msgid "<b>Notes</b>"
 msgstr "<b>小筆記</b>"
 
-#: ../panel-plugin/notes-window.c:450
+#: ../panel-plugin/notes-window.c:447
 msgid "Rename"
 msgstr ""
 
-#: ../panel-plugin/notes-window.c:551
+#: ../panel-plugin/notes-window.c:548
 msgid "Are you sure you want to delete this note?"
 msgstr ""
 
@@ -68,9 +69,11 @@ msgstr ""
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Xfce4 面板上的小筆記外掛程式"
 
+#~ msgid "Properties"
+#~ msgstr "內容"
+
 #~ msgid "Always show vertical scrollbar"
 #~ msgstr "永遠顯示垂直捲動條"
 
 #~ msgid "Open a new page"
 #~ msgstr "開啟新頁面"
-

@@ -39,6 +39,7 @@ static void     on_toggle_show (GtkWidget *, NotesPlugin *);
 static void     on_toggle_task_switcher (GtkWidget *, NotesPlugin *);
 static void     on_toggle_always_on_top (GtkWidget *, NotesPlugin *);
 static void     on_toggle_stick (GtkWidget *, NotesPlugin *);
+static void     on_toggle_statusbar (GtkWidget *, NotesPlugin *);
 static void     on_toggle_vert_text_label (GtkWidget *, NotesPlugin *);
 
 
@@ -46,7 +47,7 @@ GtkWidget *
 notes_options_new (NotesPlugin *notes)
 {
     GtkWidget *dialog, *vbox;
-    GtkWidget *cb_show, *cb_task_switcher, *cb_always_on_top, *cb_stick;
+    GtkWidget *cb_show, *cb_task_switcher, *cb_always_on_top, *cb_stick, *cb_statusbar;
     NotesOptions *options;
 
     DBG ("New Notes Options");
@@ -58,11 +59,9 @@ notes_options_new (NotesPlugin *notes)
                                              GTK_DIALOG_NO_SEPARATOR,
                                              GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                              NULL);
-    xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog),
-                                     _("Properties"));
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-    gtk_window_set_icon_name (GTK_WINDOW (dialog), "xfce4-panel");
+    gtk_window_set_icon_name (GTK_WINDOW (dialog), "xfce4-settings");
     gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
     gtk_window_stick (GTK_WINDOW (dialog));
 
@@ -73,7 +72,7 @@ notes_options_new (NotesPlugin *notes)
 
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
 
-    cb_show = gtk_check_button_new_with_label (_("Show notes at startup"));
+    cb_show = gtk_check_button_new_with_label (_("Always show notes at startup"));
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_show), options->show);
     gtk_box_pack_start (GTK_BOX (vbox), cb_show, FALSE, FALSE, 0);
     gtk_widget_show (cb_show);
@@ -106,6 +105,13 @@ notes_options_new (NotesPlugin *notes)
     gtk_widget_show (cb_stick);
 
     g_signal_connect (cb_stick, "toggled", G_CALLBACK (on_toggle_stick), notes);
+
+    cb_statusbar = gtk_check_button_new_with_label (_("Show resize grip"));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cb_statusbar), options->statusbar);
+    gtk_box_pack_start (GTK_BOX (vbox), cb_statusbar, FALSE, FALSE, 0);
+    gtk_widget_show (cb_statusbar);
+
+    g_signal_connect (cb_statusbar, "toggled", G_CALLBACK (on_toggle_statusbar), notes);
 
     gtk_widget_show (dialog);
 
@@ -166,5 +172,21 @@ on_toggle_stick (GtkWidget *checkbox, NotesPlugin *notes)
         gtk_window_unstick (GTK_WINDOW (notes->note->window));
 
     DBG ("Set option stick: %d", toggle_value);
+}
+
+static void
+on_toggle_statusbar (GtkWidget *checkbox, NotesPlugin *notes)
+{
+    gboolean active;
+    
+    active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (checkbox));
+    notes->options.statusbar = active;
+
+    if (active)
+        gtk_widget_show (notes->note->statusbar);
+    else
+        gtk_widget_hide (notes->note->statusbar);
+
+    DBG ("Set statusbar: %d", active);
 }
 

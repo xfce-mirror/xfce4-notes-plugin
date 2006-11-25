@@ -36,43 +36,33 @@
 
 static void         note_page_load_data         (XfcePanelPlugin *, 
                                                  NotePage *);
-
 static void         on_notes_close              (GtkWidget *, 
                                                  NotesPlugin *);
-
 static gboolean     on_note_window_close        ();
 
 static gboolean     on_title_press              (GtkWidget *, 
                                                  GdkEventButton *, 
                                                  GtkWindow *);
-
 static gboolean     on_title_scroll             (GtkWidget *, 
                                                  GdkEventScroll *, 
                                                  Note *);
-
 static gboolean     on_note_key_press           (GtkWidget *, 
                                                  GdkEventKey *, 
                                                  NotesPlugin *);
-
 static void         on_note_changed             (GtkWidget *, 
                                                  NotesPlugin *);
-
 static void         note_page_rename            (Note *);
 
 static gboolean     on_note_rename              (GtkWidget *, 
                                                  GdkEventButton *, 
                                                  Note *);
-
 static void         on_note_rename_response     (GtkDialog *, 
                                                  gint response, 
                                                  GSList *);
-
 static void         on_page_create              (GtkWidget *, 
                                                  NotesPlugin *);
-
 static gboolean     on_page_delete              (GtkWidget *, 
                                                  NotesPlugin *);
-
 static void         note_page_destroy           (GtkWidget *, 
                                                  gint response_id, 
                                                  NotesPlugin *);
@@ -97,7 +87,7 @@ note_new (NotesPlugin *notes)
     note->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
     gtk_window_set_title (GTK_WINDOW (note->window), _("Notes"));
-    gtk_window_set_default_size (GTK_WINDOW (note->window), 242, 200);
+    gtk_window_set_default_size (GTK_WINDOW (note->window), 290, 320);
     gtk_window_set_decorated (GTK_WINDOW (note->window), FALSE);
     gtk_window_set_icon_name (GTK_WINDOW (note->window), GTK_STOCK_EDIT);
     gtk_window_add_accel_group (GTK_WINDOW (note->window), accel_group);
@@ -121,7 +111,7 @@ note_new (NotesPlugin *notes)
     note->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (note->vbox);
 
-    gtk_box_set_spacing (GTK_BOX (note->vbox), 2);
+    gtk_box_set_spacing (GTK_BOX (note->vbox), 1);
     gtk_container_add (GTK_CONTAINER (note->frame), note->vbox);
 
 
@@ -222,6 +212,13 @@ note_new (NotesPlugin *notes)
     gtk_notebook_set_scrollable (GTK_NOTEBOOK (note->notebook), TRUE);
 
     gtk_box_pack_start (GTK_BOX (note->vbox), note->notebook, TRUE, TRUE, 0);
+
+
+    /* Status bar */
+    note->statusbar = gtk_statusbar_new ();
+    gtk_widget_show (note->statusbar);
+
+    gtk_box_pack_start (GTK_BOX (note->vbox), note->statusbar, FALSE, FALSE, 0);
 
     return note;
 }

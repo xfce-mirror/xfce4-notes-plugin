@@ -31,6 +31,7 @@ typedef struct
     gboolean task_switcher;
     gboolean always_on_top;
     gboolean stick;
+    gboolean statusbar;
 }
 NotesOptions;
 

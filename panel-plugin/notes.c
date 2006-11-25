@@ -144,6 +144,7 @@ notes_save (XfcePanelPlugin *plugin, NotesPlugin *notes)
         xfce_rc_write_bool_entry (rc, "task_switcher", notes->options.task_switcher);
         xfce_rc_write_bool_entry (rc, "always_on_top", notes->options.always_on_top);
         xfce_rc_write_bool_entry (rc, "stick", notes->options.stick);
+        xfce_rc_write_bool_entry (rc, "statusbar", notes->options.statusbar);
 
         pages = notes->note->pages;
         xfce_rc_set_group (rc, "notes");
@@ -349,6 +350,7 @@ notes_load_data (XfcePanelPlugin *plugin, NotesPlugin *notes)
         notes->options.task_switcher = xfce_rc_read_bool_entry (rc, "task_switcher", TRUE);
         notes->options.always_on_top = xfce_rc_read_bool_entry (rc, "always_on_top", FALSE);
         notes->options.stick = xfce_rc_read_bool_entry (rc, "stick", TRUE);
+        notes->options.statusbar = xfce_rc_read_bool_entry (rc, "statusbar", TRUE);
 
         xfce_rc_close (rc);
       }
@@ -362,7 +364,7 @@ notes_button_clicked (XfcePanelPlugin *plugin, NotesPlugin *notes)
     /* Show/hide the note */
     if (!GTK_WIDGET_VISIBLE (notes->note->window))
       {
-          if (notes->note->x != -1 && notes->note->y != -1)
+        if (notes->note->x != -1 && notes->note->y != -1)
             gtk_window_move (GTK_WINDOW (notes->note->window), notes->note->x,
                                          notes->note->y);
         gtk_window_resize (GTK_WINDOW (notes->note->window), notes->note->w,
@@ -377,6 +379,18 @@ notes_button_clicked (XfcePanelPlugin *plugin, NotesPlugin *notes)
             gtk_window_stick (GTK_WINDOW (notes->note->window));
         else
             gtk_window_unstick (GTK_WINDOW (notes->note->window));
+
+        if (!notes->options.statusbar)
+          {
+            gtk_widget_hide (notes->note->statusbar);
+            /* and fix some GTK+2 oddy */
+            if (notes->note->x != -1 && notes->note->y != -1)
+              {
+                gtk_window_move (GTK_WINDOW (notes->note->window), 
+                                 notes->note->x,
+                                 notes->note->y);
+              }
+          }
       }
     else
       {

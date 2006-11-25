@@ -45,6 +45,8 @@ typedef struct
     GtkWidget *notebook;
     GList *pages;
 
+    GtkWidget *statusbar;
+
     GtkWidget *vbox;
     GtkWidget *hbox;
 

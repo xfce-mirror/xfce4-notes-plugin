@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 12:39+0200\n"
+"POT-Creation-Date: 2006-11-25 18:33+0100\n"
 "PO-Revision-Date: 2006-09-18 12:25+0200\n"
 "Last-Translator: Pau Ruŀlan Ferragut <paurullan@bulma.net>\n"
 "Language-Team: Catalan\n"
@@ -17,52 +17,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:57
-#: ../panel-plugin/notes-window.c:99
+#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:58
+#: ../panel-plugin/notes-window.c:89
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notes"
 
-#: ../panel-plugin/notes-options.c:62
-msgid "Properties"
-msgstr "Propietats"
-
-#: ../panel-plugin/notes-options.c:76
-msgid "Show notes at startup"
+#: ../panel-plugin/notes-options.c:75
+#, fuzzy
+msgid "Always show notes at startup"
 msgstr "Mostra les notes en engegar"
 
-#: ../panel-plugin/notes-options.c:84
+#: ../panel-plugin/notes-options.c:83
 msgid "Show in the task list"
 msgstr "Mostra dins el llistat de tasques"
 
-#: ../panel-plugin/notes-options.c:94
+#: ../panel-plugin/notes-options.c:93
 msgid "Always on top"
 msgstr "Sempre en primer pla"
 
-#: ../panel-plugin/notes-options.c:103
+#: ../panel-plugin/notes-options.c:102
 msgid "Stick mode"
 msgstr "Mode enganxós"
 
-#: ../panel-plugin/notes-window.c:139
+#: ../panel-plugin/notes-options.c:109
+msgid "Show resize grip"
+msgstr ""
+
+#: ../panel-plugin/notes-window.c:129
 msgid "Create new note"
 msgstr "Crea una nota nova"
 
-#: ../panel-plugin/notes-window.c:157
+#: ../panel-plugin/notes-window.c:147
 msgid "Delete this note"
 msgstr "Suprimeix aquesta nota"
 
-#: ../panel-plugin/notes-window.c:186
+#: ../panel-plugin/notes-window.c:176
 msgid "<b>Notes</b>"
 msgstr "<b>Notes</b>"
 
-#: ../panel-plugin/notes-window.c:450
+#: ../panel-plugin/notes-window.c:447
 msgid "Rename"
 msgstr "Reanomena"
 
-#: ../panel-plugin/notes-window.c:551
+#: ../panel-plugin/notes-window.c:548
 msgid "Are you sure you want to delete this note?"
 msgstr "Esteu segurs que voleu suprimir aquesta nota?"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Connector de notes per l’escriptori Xfce4"
+
+#~ msgid "Properties"
+#~ msgstr "Propietats"

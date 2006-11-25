@@ -7,9 +7,9 @@
 # Maximilian Schleiss <maxschleiss@bluewin.ch>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1\n"
+"Project-Id-Version: 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 12:39+0200\n"
+"POT-Creation-Date: 2006-11-25 18:33+0100\n"
 "PO-Revision-Date: 2006-08-02 00:30+0100\n"
 "Last-Translator: Mike Massonnet <mmassonnet@gmail.com>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -17,52 +17,53 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:57
-#: ../panel-plugin/notes-window.c:99
+#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:58
+#: ../panel-plugin/notes-window.c:89
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notes"
 
-#: ../panel-plugin/notes-options.c:62
-msgid "Properties"
-msgstr "Propriétés"
+#: ../panel-plugin/notes-options.c:75
+msgid "Always show notes at startup"
+msgstr "Toujours afficher au démarrage"
 
-#: ../panel-plugin/notes-options.c:76
-msgid "Show notes at startup"
-msgstr "Afficher au démarrage"
-
-#: ../panel-plugin/notes-options.c:84
+#: ../panel-plugin/notes-options.c:83
 msgid "Show in the task list"
 msgstr "Afficher dans le gestionnaire de tâches"
 
-#: ../panel-plugin/notes-options.c:94
+#: ../panel-plugin/notes-options.c:93
 msgid "Always on top"
 msgstr "Toujours en dessus"
 
-#: ../panel-plugin/notes-options.c:103
+#: ../panel-plugin/notes-options.c:102
 msgid "Stick mode"
 msgstr "Coller sur tous les bureaux"
 
-#: ../panel-plugin/notes-window.c:139
+#: ../panel-plugin/notes-options.c:109
+msgid "Show resize grip"
+msgstr "Afficher la poignée de redimensionnement"
+
+#: ../panel-plugin/notes-window.c:129
 msgid "Create new note"
 msgstr "Créer une nouvelle note"
 
-#: ../panel-plugin/notes-window.c:157
+#: ../panel-plugin/notes-window.c:147
 msgid "Delete this note"
 msgstr "Supprimer cette note"
 
-#: ../panel-plugin/notes-window.c:186
+#: ../panel-plugin/notes-window.c:176
 msgid "<b>Notes</b>"
 msgstr "<b>Notes</b>"
 
-#: ../panel-plugin/notes-window.c:450
+#: ../panel-plugin/notes-window.c:447
 msgid "Rename"
 msgstr "Renommer"
 
-#: ../panel-plugin/notes-window.c:551
+#: ../panel-plugin/notes-window.c:548
 msgid "Are you sure you want to delete this note?"
 msgstr "Êtes-vous certain(e) de vouloir supprimer cette note ?"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Des Post-It pour le bureau Xfce4"
+
