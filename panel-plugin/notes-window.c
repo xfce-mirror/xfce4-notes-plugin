@@ -45,7 +45,7 @@ static gboolean     on_title_press              (GtkWidget *,
                                                  GtkWindow *);
 static gboolean     on_title_scroll             (GtkWidget *, 
                                                  GdkEventScroll *, 
-                                                 Note *);
+                                                 NotesPlugin *);
 static gboolean     on_note_key_press           (GtkWidget *, 
                                                  GdkEventKey *, 
                                                  NotesPlugin *);
@@ -169,7 +169,7 @@ note_new (NotesPlugin *notes)
                       G_CALLBACK (on_title_press), note->window);
 
     g_signal_connect (G_OBJECT (note->move_event_box), "scroll-event",
-                      G_CALLBACK (on_title_scroll), note);
+                      G_CALLBACK (on_title_scroll), notes);
 
     gtk_widget_realize (note->move_event_box);
 
@@ -353,8 +353,9 @@ on_title_press (GtkWidget *widget, GdkEventButton *event, GtkWindow *window)
 }
 
 static gboolean
-on_title_scroll (GtkWidget *widget, GdkEventScroll *event, Note *note)
+on_title_scroll (GtkWidget *widget, GdkEventScroll *event, NotesPlugin *notes)
 {
+    Note *note = notes->note;
     if (event->type == GDK_SCROLL)
       {
         if (GTK_WIDGET_VISIBLE (note->notebook))
@@ -366,12 +367,15 @@ on_title_scroll (GtkWidget *widget, GdkEventScroll *event, Note *note)
           {
             /* Hide the text view */
             gtk_widget_hide (note->notebook);
+            gtk_widget_hide (note->statusbar);
             gtk_window_resize (GTK_WINDOW (note->window), note->w, 1);
           }
         else if (event->direction == GDK_SCROLL_DOWN)
           {
             /* Show the text view */
             gtk_widget_show (note->notebook);
+            if (notes->options.statusbar)
+                gtk_widget_show (note->statusbar);
             gtk_window_resize (GTK_WINDOW (note->window), note->w, note->h);
           }
       }
