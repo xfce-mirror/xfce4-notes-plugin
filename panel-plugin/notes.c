@@ -45,33 +45,25 @@ static void         notes_construct         (XfcePanelPlugin *);
 
 static void         notes_free_data         (XfcePanelPlugin *,
                                              NotesPlugin *);
-
 static void         notes_save              (XfcePanelPlugin *,
                                              NotesPlugin *);
-
 static gboolean     save_on_timeout_execute (NotesPlugin *);
 
 static void         notes_configure         (XfcePanelPlugin *, 
                                              NotesPlugin *);
-
 static gboolean     notes_set_size          (XfcePanelPlugin *, 
                                              int size, 
                                              NotesPlugin *);
-
 static void         notes_load_data         (XfcePanelPlugin *, 
                                              NotesPlugin *);
-
 static gboolean     notes_button_clicked    (XfcePanelPlugin *, 
                                              NotesPlugin *);
-
 static void         on_options_response     (GtkWidget *,
                                              int response, 
                                              NotesPlugin *);
-
 static gboolean     notes_message_received  (GtkWidget *, 
                                              GdkEventClient *,
                                              gpointer data);
-
 static gboolean     notes_set_selection     (NotesPlugin *notes);
 
 
@@ -381,6 +373,12 @@ notes_button_clicked (XfcePanelPlugin *plugin, NotesPlugin *notes)
             gtk_window_stick (GTK_WINDOW (notes->note->window));
         else
             gtk_window_unstick (GTK_WINDOW (notes->note->window));
+
+        if (!notes->options.task_switcher)
+          {
+            gtk_window_set_skip_pager_hint (GTK_WINDOW (notes->note->window), TRUE);
+            gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes->note->window), TRUE);
+          }
 
         if (!notes->options.statusbar)
           {
