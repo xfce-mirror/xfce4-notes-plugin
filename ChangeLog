@@ -1,5 +1,6 @@
 2006-11-26  Mike Massonnet <mmassonnet@gmail.com>
 
+	* === Released 1.4 ===
 	* panel-plugin/notes.c: Fix a bug with the task_switcher.
 	* panel-plugin/notes.c: Don't focus the notebook.
 
