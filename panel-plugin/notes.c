@@ -370,6 +370,8 @@ notes_button_clicked (XfcePanelPlugin *plugin, NotesPlugin *notes)
         gtk_window_resize (GTK_WINDOW (notes->note->window), notes->note->w,
                            notes->note->h);
 
+        GTK_WIDGET_UNSET_FLAGS (notes->note->notebook, GTK_CAN_FOCUS);
+
         gtk_widget_show_all (notes->note->window);
 
         gtk_window_set_keep_above (GTK_WINDOW (notes->note->window),
