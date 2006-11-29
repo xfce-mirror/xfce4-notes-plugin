@@ -25,9 +25,8 @@ msgid "Notes"
 msgstr "Oharrak"
 
 #: ../panel-plugin/notes-options.c:75
-#, fuzzy
 msgid "Always show notes at startup"
-msgstr "Erakutsi oharrak abiaraztean"
+msgstr "Beti erakutsi oharrak abiaraztean"
 
 #: ../panel-plugin/notes-options.c:83
 msgid "Show in the task list"
@@ -43,7 +42,7 @@ msgstr "Finkatu"
 
 #: ../panel-plugin/notes-options.c:109
 msgid "Show resize grip"
-msgstr ""
+msgstr "Tamaina aldaketa kirtena ikusi"
 
 #: ../panel-plugin/notes-window.c:129
 msgid "Create new note"
