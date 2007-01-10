@@ -31,7 +31,7 @@ xfce4_notes_plugin_CFLAGS =										\
 	@LIBXFCE4UTIL_CFLAGS@										\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
 
-xfce4_notes_plugin_LDFLAGS =									\
+xfce4_notes_plugin_LDADD =										\
 	@LIBXFCE4PANEL_LIBS@										\
 	@LIBXFCEGUI4_LIBS@											\
 	@LIBXFCE4UTIL_LIBS@					
