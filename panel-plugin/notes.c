@@ -219,7 +219,7 @@ notes_set_size (XfcePanelPlugin *plugin, int size, NotesPlugin *notes)
 
     size = size - 2 - (2 * MAX (notes->button->style->xthickness,
                                 notes->button->style->ythickness));
-    pixbuf = xfce_themed_icon_load (GTK_STOCK_EDIT, size);
+    pixbuf = xfce_themed_icon_load ("xfce4-notes-plugin", size);
     gtk_image_set_from_pixbuf (GTK_IMAGE (notes->icon), pixbuf);
     g_object_unref (G_OBJECT (pixbuf));
 

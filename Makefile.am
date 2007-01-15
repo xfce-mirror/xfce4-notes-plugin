@@ -3,6 +3,7 @@
 @SET_MAKE@
 
 SUBDIRS = 								\
+	icons								\
 	panel-plugin							\
 	po
 
