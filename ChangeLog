@@ -1,3 +1,10 @@
+2007-01-16  Mike Massonnet <mmassonnet@gmail.com>
+
+	* === Released 1.4.1 ===
+	* Makefile.am, configure.in.in, icons: Initial import of icons
+	  stol^Wtaken from stickynotes applet from the GNOME project.
+	* panel-plugin/notes.c: Use the xfce4-notes-plugin icon.
+
 2006-11-26  Mike Massonnet <mmassonnet@gmail.com>
 
 	* === Released 1.4 ===
