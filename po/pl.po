@@ -20,9 +20,8 @@ msgid "Notes"
 msgstr "Notatki"
 
 #: ../panel-plugin/notes-options.c:75
-#, fuzzy
 msgid "Always show notes at startup"
-msgstr "Pokazuj Notatki przy starcie"
+msgstr "Zawsze pokazuj notatki przy starcie"
 
 #: ../panel-plugin/notes-options.c:83
 msgid "Show in the task list"
@@ -38,7 +37,7 @@ msgstr "Przyklejone"
 
 #: ../panel-plugin/notes-options.c:109
 msgid "Show resize grip"
-msgstr ""
+msgstr "Pokaż uchwyt zmiany rozmiaru"
 
 #: ../panel-plugin/notes-window.c:129
 msgid "Create new note"
