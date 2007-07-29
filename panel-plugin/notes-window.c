@@ -85,32 +85,26 @@ note_new (NotesPlugin *notes)
 
     /* Window */
     note->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-
     gtk_window_set_title (GTK_WINDOW (note->window), _("Notes"));
     gtk_window_set_default_size (GTK_WINDOW (note->window), 290, 320);
     gtk_window_set_decorated (GTK_WINDOW (note->window), FALSE);
     gtk_window_set_icon_name (GTK_WINDOW (note->window), GTK_STOCK_EDIT);
     gtk_window_add_accel_group (GTK_WINDOW (note->window), accel_group);
-
     gtk_widget_set_name (note->window, "xfce4-notes-plugin");
 
     /* Prevent close window */
     g_signal_connect (note->window, "delete-event",
                       G_CALLBACK (on_note_window_close), NULL);
 
-
     /* Frame */
     note->frame = gtk_frame_new (NULL);
     gtk_widget_show (note->frame);
-
     gtk_frame_set_shadow_type (GTK_FRAME (note->frame), GTK_SHADOW_OUT);
     gtk_container_add (GTK_CONTAINER (note->window), note->frame);
-
 
     /* Vertical box */
     note->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (note->vbox);
-
     gtk_box_set_spacing (GTK_BOX (note->vbox), 1);
     gtk_container_add (GTK_CONTAINER (note->frame), note->vbox);
 
@@ -118,7 +112,6 @@ note_new (NotesPlugin *notes)
     /* Horizontal box: create new page button + title + close button */
     note->hbox = gtk_hbox_new (FALSE, 2);
     gtk_widget_show (note->hbox);
-
     gtk_box_pack_start (GTK_BOX (note->vbox), note->hbox, FALSE, FALSE, 0);
 
     /* Add button */
@@ -344,10 +337,19 @@ on_note_window_close ()
 static gboolean
 on_title_press (GtkWidget *widget, GdkEventButton *event, GtkWindow *window)
 {
-    if (event->type == GDK_BUTTON_PRESS && event->button == 1)
-        /* Move the window */
-        gtk_window_begin_move_drag (window, event->button, event->x_root,
-                                    event->y_root, event->time);
+    if (event->type == GDK_BUTTON_PRESS)
+      {
+        if (event->button == 1)
+          {
+            gdk_window_show (GTK_WIDGET (window)->window);
+            /* Move the window */
+            gtk_window_begin_move_drag (window, event->button, event->x_root,
+                                        event->y_root, event->time);
+          }
+        else if (event->button == 2)
+          /* Send to background */
+          gdk_window_lower (GTK_WIDGET (window)->window);
+      }
 
     return FALSE;
 }

@@ -290,8 +290,6 @@ notes_new (XfcePanelPlugin *plugin)
     gtk_container_add (GTK_CONTAINER (notes->button), notes->icon);
 
     notes->tooltips = gtk_tooltips_new ();
-    gtk_tooltips_set_tip (GTK_TOOLTIPS (notes->tooltips), notes->button,
-                          _("Notes"), NULL);
 
     notes->note = note_new (notes);
     notes_load_data (plugin, notes);
