@@ -51,7 +51,11 @@ static void             notes_plugin_free               (NotesPlugin *notes_plug
 
 static gboolean         notes_plugin_set_size           (NotesPlugin *notes_plugin, 
                                                          int size);
-static gboolean         notes_plugin_popup              (NotesPlugin *notes_plugin);
+static void             notes_plugin_menu_new           (NotesPlugin *notes_plugin);
+
+static gboolean         notes_plugin_menu_popup         (NotesPlugin *notes_plugin,
+                                                         GdkEvent *event);
+static void             notes_plugin_menu_destroy       (NotesPlugin *notes_plugin);
 
 /* TODO sort the next functions */
 /*static gboolean         save_on_timeout_execute         (NotesPlugin *notes_plugin);
@@ -80,14 +84,15 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotesPlugin *notes_plugin = g_slice_new0 (NotesPlugin);
   notes_plugin->panel_plugin = panel_plugin;
+  notes_plugin->windows = NULL;
   /* notes_plugin->timeout_id = 0; FIXME */
 
   notes_plugin->btn_panel = xfce_create_panel_button ();
-  notes_plugin->icon = gtk_image_new ();
+  notes_plugin->icon_panel = gtk_image_new ();
   notes_plugin->tooltips = gtk_tooltips_new ();
 
   gtk_container_add (GTK_CONTAINER (notes_plugin->btn_panel),
-                     notes_plugin->icon);
+                     notes_plugin->icon_panel);
   gtk_container_add (GTK_CONTAINER (panel_plugin),
                      notes_plugin->btn_panel);
 
@@ -95,18 +100,18 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
                             "size-changed",
                             G_CALLBACK (notes_plugin_set_size),
                             notes_plugin);
-  g_signal_connect (notes_plugin->btn_panel,
-                    "clicked",
-                    G_CALLBACK (notes_plugin_popup),
-                    notes_plugin);
   g_signal_connect_swapped (panel_plugin,
                             "save",
                             G_CALLBACK (notes_plugin_save_data),
                             notes_plugin);
-  g_signal_connect (panel_plugin,
-                    "free-data",
-                    G_CALLBACK (notes_plugin_free),
-                    notes_plugin);
+  g_signal_connect_swapped (panel_plugin,
+                            "free-data",
+                            G_CALLBACK (notes_plugin_free),
+                            notes_plugin);
+  g_signal_connect_swapped (notes_plugin->btn_panel,
+                            "event",
+                            G_CALLBACK (notes_plugin_menu_popup),
+                            notes_plugin);
 
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
   gtk_widget_show_all (notes_plugin->btn_panel);
@@ -156,7 +161,7 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
   size = size - 2 - (2 * MAX (notes_plugin->btn_panel->style->xthickness,
                               notes_plugin->btn_panel->style->ythickness));
   GdkPixbuf *pixbuf = xfce_themed_icon_load ("xfce4-notes-plugin", size);
-  gtk_image_set_from_pixbuf (GTK_IMAGE (notes_plugin->icon), pixbuf);
+  gtk_image_set_from_pixbuf (GTK_IMAGE (notes_plugin->icon_panel), pixbuf);
   g_object_unref (G_OBJECT (pixbuf));
 
   return TRUE;
@@ -178,10 +183,76 @@ notes_plugin_free (NotesPlugin *notes_plugin)
   gtk_main_quit ();
 }
 
-static gboolean
-notes_plugin_popup (NotesPlugin *notes_plugin)
+static void
+notes_plugin_menu_new (NotesPlugin *notes_plugin)
 {
+  guint         i = 0;
+  NotesWindow  *notes_window;
+
+  notes_plugin->menu = gtk_menu_new ();
+
+  while ((notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)) != NULL)
+    {
+      TRACE ("notes_window (%d): %p", (i-1), notes_window);
+      GtkWidget *mi_foo = gtk_image_menu_item_new_with_label (notes_window->name);
+
+      if (GTK_WIDGET_VISIBLE (notes_window->window))
+        {
+          GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin",
+                                                          GTK_ICON_SIZE_MENU);
+          gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
+          g_signal_connect_swapped (mi_foo,
+                                    "activate",
+                                     G_CALLBACK (notes_window_hide),
+                                     notes_window);
+        }
+      else
+        {
+          GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin-rev",
+                                                          GTK_ICON_SIZE_MENU);
+          gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
+          g_signal_connect_swapped (mi_foo,
+                                    "activate",
+                                    G_CALLBACK (notes_window_show),
+                                    notes_window);
+        }
+
+      gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_foo);
+    }
+
+  gtk_menu_attach_to_widget (GTK_MENU (notes_plugin->menu), notes_plugin->btn_panel, NULL);
+
+  g_signal_connect_swapped (notes_plugin->menu,
+                            "deactivate",
+                            G_CALLBACK (notes_plugin_menu_destroy),
+                            notes_plugin);
+
+  gtk_widget_show_all (notes_plugin->menu);
+}
+
+static gboolean
+notes_plugin_menu_popup (NotesPlugin *notes_plugin,
+                         GdkEvent *event)
+{
+  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1)
+    {
+      notes_plugin_menu_new (notes_plugin);
+      gtk_menu_popup (GTK_MENU (notes_plugin->menu),
+                      NULL,
+                      NULL,
+                      NULL,
+                      NULL,
+                      event->button.button,
+                      event->button.time);
+    }
   return FALSE;
+}
+
+static void
+notes_plugin_menu_destroy (NotesPlugin *notes_plugin)
+{
+  DBG ("Dettach window menu");
+  gtk_menu_detach (GTK_MENU (notes_plugin->menu));
 }
 
 

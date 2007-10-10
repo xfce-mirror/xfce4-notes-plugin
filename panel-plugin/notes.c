@@ -36,6 +36,8 @@ static void             notes_window_menu_new           (NotesWindow *notes_wind
 
 static gboolean         notes_window_menu_popup         (NotesWindow *notes_window,
                                                          GdkEvent *event);
+static void             notes_window_menu_destroy       (NotesWindow *notes_window);
+
 static void             notes_window_set_sos_always     (NotesWindow *notes_window);
 
 static void             notes_window_set_sos_never      (NotesWindow *notes_window);
@@ -44,14 +46,12 @@ static void             notes_window_set_sos_last_state (NotesWindow *notes_wind
 
 static void             notes_window_set_statusbar      (NotesWindow *notes_window);
 
-static void             notes_window_set_always_on_top  (NotesWindow *notes_window);
+static void             notes_window_set_above          (NotesWindow *notes_window);
 
-static void             notes_window_set_stick          (NotesWindow *notes_window);
+static void             notes_window_set_sticky         (NotesWindow *notes_window);
 
-static void             notes_window_show               (NotesWindow *notes_window);
-
-static gboolean         notes_window_hide               (NotesWindow *notes_window);
-
+static gboolean         notes_window_state_event        (NotesWindow *notes_window,
+                                                         GdkEventWindowState *event);
 static gboolean         notes_window_start_move         (NotesWindow *notes_window,
                                                          GdkEventButton *event);
 static gboolean         notes_window_shade              (NotesWindow *notes_window,
@@ -80,14 +80,10 @@ const gchar *
 notes_window_read_name (NotesPlugin *notes_plugin)
 {
   static GDir          *dir = NULL;
-  static gchar         *notes_path = NULL;
   static const gchar   *window_name = NULL;
 
   if (G_UNLIKELY (dir == NULL))
-    {
-      notes_path = notes_plugin->notes_path;
-      dir = g_dir_open (notes_path, 0, NULL);
-    }
+    dir = g_dir_open (notes_plugin->notes_path, 0, NULL);
 
   window_name = g_dir_read_name (dir);
   TRACE ("window_name: %s", window_name);
@@ -103,6 +99,7 @@ notes_window_read_name (NotesPlugin *notes_plugin)
 NotesWindow *
 notes_window_new (NotesPlugin *notes_plugin)
 {
+  /* Convenience function for signal callbacks */
   return notes_window_new_with_label (notes_plugin, NULL);
 }
 
@@ -119,6 +116,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 
   notes_window = g_slice_new0 (NotesWindow);
   notes_window->notes_plugin = notes_plugin;
+  notes_window->notes = NULL;
   notes_window->name = g_strdup (window_name);
   notes_plugin->windows = g_slist_prepend (notes_plugin->windows, notes_window);
 
@@ -154,7 +152,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                       0);
   gtk_widget_show (notes_window->hbox);
 
-  /* Add button XXX create panel button ?! */
+  /* Add button */
   notes_window->btn_add = xfce_create_panel_button ();
   gtk_widget_set_size_request (notes_window->btn_add, 22, 22);
   img_add = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
@@ -263,15 +261,19 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                               GTK_ACCEL_MASK);
 
   /* Signals FIXME */
-  g_signal_connect_swapped (G_OBJECT (notes_window->eb_move),
+  g_signal_connect_swapped (notes_window->window,
+                            "window-state-event",
+                            G_CALLBACK (notes_window_state_event),
+                            notes_window);
+  g_signal_connect_swapped (notes_window->eb_move,
                             "button-press-event",
                             G_CALLBACK (notes_window_start_move),
                             notes_window);
-  g_signal_connect_swapped (G_OBJECT (notes_window->eb_move),
+  g_signal_connect_swapped (notes_window->eb_move,
                             "scroll-event",
                             G_CALLBACK (notes_window_shade),
                             notes_window);
-  g_signal_connect_swapped (G_OBJECT (notes_window->btn_menu),
+  g_signal_connect_swapped (notes_window->btn_menu,
                             "event",
                             G_CALLBACK (notes_window_menu_popup),
                             notes_window);
@@ -294,7 +296,6 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 
   /* Load data */
   notes_window_load_data (notes_window);
-  notes_window_menu_new (notes_window);
 
   /* Show the stuff, or not */
   if (G_UNLIKELY (notes_window->show_statusbar))
@@ -338,23 +339,23 @@ notes_window_load_data (NotesWindow *notes_window)
   notes_window->w = xfce_rc_read_int_entry (rc, "Width", 375);
   notes_window->h = xfce_rc_read_int_entry (rc, "Height", 430);
 
-  notes_window->always_on_top   = xfce_rc_read_bool_entry (rc, "AlwaysOnTop", FALSE);
+  notes_window->above           = xfce_rc_read_bool_entry (rc, "Above", FALSE);
   notes_window->show_on_startup = xfce_rc_read_int_entry (rc, "ShowOnStartup", LAST_STATE);
   notes_window->show_statusbar  = xfce_rc_read_bool_entry (rc, "ShowStatusbar", FALSE);
-  notes_window->stick           = xfce_rc_read_bool_entry (rc, "Stick", TRUE);
+  notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", TRUE);
   notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", TRUE);
 
   xfce_rc_close (rc);
 
-  TRACE ("\nalways_on_top: %d"
+  TRACE ("\nabove: %d"
          "\nshow_on_startup: %d"
          "\nshow_statusbar: %d"
-         "\nstick: %d"
+         "\nsticky: %d"
          "\nvisible: %d",
-         notes_window->always_on_top,
+         notes_window->above,
          notes_window->show_on_startup,
          notes_window->show_statusbar,
-         notes_window->stick,
+         notes_window->sticky,
          notes_window->visible);
 
   note_name = notes_note_read_name (notes_window);
@@ -371,38 +372,50 @@ void
 notes_window_save_data (NotesWindow *notes_window)
 {
   XfceRc               *rc;
-  const gchar          *window_name;
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
   g_return_if_fail (G_LIKELY (rc != NULL));
-
-  window_name = gtk_label_get_text (GTK_LABEL (notes_window->title));
-
-  xfce_rc_set_group (rc, window_name);
+  xfce_rc_set_group (rc, notes_window->name);
 
   if (GTK_WIDGET_VISIBLE (notes_window->window))
     {
       gtk_window_get_position (GTK_WINDOW (notes_window->window),
                                &notes_window->x,
                                &notes_window->y);
-      gtk_window_get_size (GTK_WINDOW (notes_window->window),
-                           &notes_window->w,
-                           &notes_window->h);
+      if (GTK_WIDGET_VISIBLE (notes_window->notebook))
+        gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                             &notes_window->w,
+                             &notes_window->h);
+      else
+        gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                             &notes_window->w,
+                             NULL);
     }
+
+  TRACE ("\nabove: %d"
+         "\nshow_on_startup: %d"
+         "\nshow_statusbar: %d"
+         "\nsticky: %d"
+         "\nvisible: %d",
+         notes_window->above,
+         notes_window->show_on_startup,
+         notes_window->show_statusbar,
+         notes_window->sticky,
+         notes_window->visible);
 
   xfce_rc_write_int_entry (rc, "PosX", notes_window->x);
   xfce_rc_write_int_entry (rc, "PosY", notes_window->y);
   xfce_rc_write_int_entry (rc, "Width", notes_window->w);
   xfce_rc_write_int_entry (rc, "Height", notes_window->h);
 
-  xfce_rc_write_bool_entry (rc, "AlwaysOnTop",
-                            notes_window->always_on_top);
+  xfce_rc_write_bool_entry (rc, "Above",
+                            notes_window->above);
   xfce_rc_write_int_entry (rc, "ShowOnStartup",
                            notes_window->show_on_startup);
   xfce_rc_write_bool_entry (rc, "ShowStatusbar",
                             notes_window->show_statusbar);
-  xfce_rc_write_bool_entry (rc, "Stick",
-                            notes_window->stick);
+  xfce_rc_write_bool_entry (rc, "Sticky",
+                            notes_window->sticky);
   xfce_rc_write_bool_entry (rc, "Visible",
                             GTK_WIDGET_VISIBLE (notes_window->window));
 
@@ -424,8 +437,8 @@ notes_window_menu_new (NotesWindow *notes_window)
   GtkWidget *mi_separator1      = gtk_separator_menu_item_new ();
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
   GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Show statusbar"));
-  GtkWidget *mi_always_on_top   = gtk_check_menu_item_new_with_label (_("Always on top"));
-  GtkWidget *mi_stick           = gtk_check_menu_item_new_with_label (_("Sticky window"));
+  GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
+  GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_destroy_window);
@@ -433,8 +446,8 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_show_on_startup);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_show_statusbar);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_always_on_top);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_stick);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_above);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_sticky);
   gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
 
   /* Sub-menu "Show on startup" */
@@ -461,12 +474,16 @@ notes_window_menu_new (NotesWindow *notes_window)
                                   (notes_window->show_on_startup == LAST_STATE));
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_show_statusbar),
                                   notes_window->show_statusbar);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_always_on_top),
-                                  notes_window->always_on_top);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_stick),
-                                  notes_window->stick);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_above),
+                                  notes_window->above);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sticky),
+                                  notes_window->sticky);
 
   /* Signals */
+  g_signal_connect_swapped (notes_window->menu,
+                            "deactivate",
+                            G_CALLBACK (notes_window_menu_destroy),
+                            notes_window);
   g_signal_connect_swapped (mi_new_window,
                             "activate",
                             G_CALLBACK (notes_window_new),
@@ -495,13 +512,13 @@ notes_window_menu_new (NotesWindow *notes_window)
                             "activate",
                             G_CALLBACK (notes_window_set_statusbar),
                             notes_window);
-  g_signal_connect_swapped (mi_always_on_top,
+  g_signal_connect_swapped (mi_above,
                             "activate",
-                            G_CALLBACK (notes_window_set_always_on_top),
+                            G_CALLBACK (notes_window_set_above),
                             notes_window);
-  g_signal_connect_swapped (mi_stick,
+  g_signal_connect_swapped (mi_sticky,
                             "activate",
-                            G_CALLBACK (notes_window_set_stick),
+                            G_CALLBACK (notes_window_set_sticky),
                             notes_window);
 
   /* Show the stuff */
@@ -513,35 +530,42 @@ notes_window_menu_popup (NotesWindow *notes_window,
                          GdkEvent *event)
 {
   if (event->type == GDK_BUTTON_PRESS)
-    gtk_menu_popup (GTK_MENU (notes_window->menu),
-                    NULL,
-                    NULL,
-                    NULL,
-                    NULL,
-                    event->button.button,
-                    event->button.time);
+    {
+      notes_window_menu_new (notes_window);
+      gtk_menu_popup (GTK_MENU (notes_window->menu),
+                      NULL,
+                      NULL,
+                      NULL,
+                      NULL,
+                      event->button.button,
+                      event->button.time);
+    }
   return FALSE;
+}
+
+static void
+notes_window_menu_destroy (NotesWindow *notes_window)
+{
+  DBG ("Dettach window menu");
+  gtk_menu_detach (GTK_MENU (notes_window->menu));
 }
 
 static void
 notes_window_set_sos_always (NotesWindow *notes_window)
 {
   notes_window->show_on_startup = ALWAYS;
-  notes_window_save_data (notes_window);
 }
 
 static void
 notes_window_set_sos_never (NotesWindow *notes_window)
 {
-  notes_window->show_on_startup = ALWAYS;
-  notes_window_save_data (notes_window);
+  notes_window->show_on_startup = NEVER;
 }
 
 static void
 notes_window_set_sos_last_state (NotesWindow *notes_window)
 {
   notes_window->show_on_startup = LAST_STATE;
-  notes_window_save_data (notes_window);
 }
 
 static void
@@ -555,26 +579,56 @@ notes_window_set_statusbar (NotesWindow *notes_window)
 }
 
 static void
-notes_window_set_always_on_top (NotesWindow *notes_window)
+notes_window_set_above (NotesWindow *notes_window)
 {
-  notes_window->always_on_top = !notes_window->always_on_top;
+  notes_window->above = !notes_window->above;
   gtk_window_set_keep_above (GTK_WINDOW (notes_window->window),
-                             notes_window->always_on_top);
+                             notes_window->above);
 }
 
 static void
-notes_window_set_stick (NotesWindow *notes_window)
+notes_window_set_sticky (NotesWindow *notes_window)
 {
-  notes_window->stick = !notes_window->stick;
-  if (notes_window->stick)
+  notes_window->sticky = !notes_window->sticky;
+  if (notes_window->sticky)
     gtk_window_stick (GTK_WINDOW (notes_window->window));
   else
     gtk_window_unstick (GTK_WINDOW (notes_window->window));
 }
 
-static void
+static gboolean
+notes_window_state_event (NotesWindow *notes_window,
+                          GdkEventWindowState *event)
+{
+  if (G_UNLIKELY (event->type != GDK_WINDOW_STATE))
+    return FALSE;
+
+  if (event->changed_mask & GDK_WINDOW_STATE_ABOVE)
+    {
+      /* FIXME above state event isn't notified */
+      notes_window->above = (gboolean) event->new_window_state & GDK_WINDOW_STATE_ABOVE;
+      TRACE ("Window state above: %d", notes_window->above);
+    }
+
+  if (event->changed_mask & GDK_WINDOW_STATE_STICKY)
+    {
+      /**
+       * Hiding the top level window will unstick it too, and send a
+       * window-state-event signal, so here we take the value only if
+       * the window is visible
+       **/
+      if (GTK_WIDGET_VISIBLE (notes_window->window))
+        notes_window->sticky = (gboolean) event->new_window_state & GDK_WINDOW_STATE_STICKY;
+      TRACE ("Window state sticky: %d", notes_window->sticky);
+    }
+
+  return FALSE;
+}
+
+void
 notes_window_show (NotesWindow *notes_window)
 {
+  TRACE ("Show window: %p", notes_window);
   if (notes_window->x != -1 && notes_window->y != -1)
     gtk_window_move (GTK_WINDOW (notes_window->window),
                      notes_window->x,
@@ -583,8 +637,8 @@ notes_window_show (NotesWindow *notes_window)
                      notes_window->w,
                      notes_window->h);
   gtk_window_set_keep_above (GTK_WINDOW (notes_window->window),
-                             notes_window->always_on_top);
-  if (notes_window->stick)
+                             notes_window->above);
+  if (notes_window->sticky)
     gtk_window_stick (GTK_WINDOW (notes_window->window));
   else
     gtk_window_unstick (GTK_WINDOW (notes_window->window));
@@ -596,9 +650,10 @@ notes_window_show (NotesWindow *notes_window)
   gtk_widget_show (notes_window->window);
 }
 
-static gboolean
+gboolean
 notes_window_hide (NotesWindow *notes_window)
 {
+  TRACE ("Hide window: %p", notes_window);
   gtk_window_get_position (GTK_WINDOW (notes_window->window),
                            &notes_window->x,
                            &notes_window->y);
@@ -613,7 +668,8 @@ notes_window_hide (NotesWindow *notes_window)
   
   gtk_widget_hide (notes_window->window);
   gtk_widget_show (notes_window->notebook);
-  return FALSE;
+
+  return TRUE; /* Stop other handlers from being invoked */
 }
 
 static gboolean
@@ -622,9 +678,9 @@ notes_window_start_move (NotesWindow *notes_window,
 {
   if (G_LIKELY (event->type == GDK_BUTTON_PRESS))
     {
+      /* Send to foreground and move the window */
       if (event->button == 1)
         {
-          /* Send to foreground and move the window */
           gdk_window_show (notes_window->window->window);
           gtk_window_begin_move_drag (GTK_WINDOW (notes_window->window),
                                       event->button,
@@ -632,8 +688,8 @@ notes_window_start_move (NotesWindow *notes_window,
                                       event->y_root,
                                       event->time);
         }
+      /* Send to background */
       else if (event->button == 2)
-        /* Send to background */
         gdk_window_lower (notes_window->window->window);
     }
 
@@ -648,7 +704,7 @@ notes_window_shade (NotesWindow *notes_window,
     {
       if (event->direction == GDK_SCROLL_UP)
         {
-          /* Hide the text view */
+          /* Hide the notebook */
           if (G_LIKELY (GTK_WIDGET_VISIBLE (notes_window->notebook)))
             gtk_window_get_size (GTK_WINDOW (notes_window->window),
                                  &notes_window->w,
@@ -662,7 +718,7 @@ notes_window_shade (NotesWindow *notes_window,
         }
       else if (event->direction == GDK_SCROLL_DOWN)
         {
-          /* Show the text view */
+          /* Show the notebook */
           gtk_window_get_size (GTK_WINDOW (notes_window->window),
                                &notes_window->w,
                                NULL);

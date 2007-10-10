@@ -33,7 +33,10 @@ struct _NotesPlugin
   gchar                *notes_path;
 
   GtkWidget            *btn_panel;
+  GtkWidget            *icon_panel;
+  GtkWidget            *menu;
   GtkWidget            *icon;
+  GtkWidget            *icon_rev;
 
   GtkTooltips          *tooltips;
 };
@@ -53,10 +56,10 @@ struct _NotesWindow
 
   gchar                *name;
   gint                  x, y, w, h;
-  gboolean              always_on_top;
   ShowOnStartup         show_on_startup;
   gboolean              show_statusbar;
-  gboolean              stick;
+  gboolean              above;
+  gboolean              sticky;
   gboolean              visible;
 
   GtkWidget            *window;
@@ -68,8 +71,8 @@ struct _NotesWindow
   GtkWidget            *btn_menu;
   GtkWidget            *btn_close;
   GtkWidget            *menu;
-  GtkWidget            *title;
   GtkWidget            *eb_move; /* event box */
+  GtkWidget            *title;
   GtkWidget            *notebook;
   GtkWidget            *statusbar;
 };
@@ -91,6 +94,8 @@ struct _NotesOptions
 {
 };
 
+
+
 const gchar *           notes_window_read_name          (NotesPlugin *notes_plugin);
 
 NotesWindow *           notes_window_new                (NotesPlugin *notes_plugin);
@@ -105,6 +110,12 @@ void                    notes_window_response           (GtkWidget *widget,
                                                          int response,
                                                          NotesWindow *notes_window);*/
 void                    notes_window_save_data          (NotesWindow *notes_window);
+
+void                    notes_window_show               (NotesWindow *notes_window);
+
+gboolean                notes_window_hide               (NotesWindow *notes_window);
+
+
 
 const gchar *           notes_note_read_name            (NotesWindow *notes_window);
 
