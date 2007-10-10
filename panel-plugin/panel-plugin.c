@@ -55,6 +55,11 @@ static void             notes_plugin_menu_new           (NotesPlugin *notes_plug
 
 static gboolean         notes_plugin_menu_popup         (NotesPlugin *notes_plugin,
                                                          GdkEvent *event);
+static void             notes_plugin_menu_position      (GtkMenu *menu,
+                                                         gint *x0,
+                                                         gint *y0,
+                                                         gboolean *push_in,
+                                                         gpointer user_data);
 static void             notes_plugin_menu_destroy       (NotesPlugin *notes_plugin);
 
 /* TODO sort the next functions */
@@ -240,12 +245,44 @@ notes_plugin_menu_popup (NotesPlugin *notes_plugin,
       gtk_menu_popup (GTK_MENU (notes_plugin->menu),
                       NULL,
                       NULL,
-                      NULL,
+                      (GtkMenuPositionFunc) notes_plugin_menu_position,
                       NULL,
                       event->button.button,
                       event->button.time);
     }
   return FALSE;
+}
+
+static void
+notes_plugin_menu_position (GtkMenu *menu,
+                            gint *x0,
+                            gint *y0,
+                            gboolean *push_in,
+                            gpointer user_data)
+{
+  GtkWidget            *btn_panel;
+  GtkRequisition        requisition0;
+
+  g_return_if_fail (GTK_IS_MENU (menu));
+  btn_panel = gtk_menu_get_attach_widget (menu);
+  g_return_if_fail (GTK_IS_WIDGET (btn_panel));
+
+  gdk_window_get_origin (btn_panel->window, x0, y0);
+  gtk_widget_size_request (GTK_WIDGET (menu), &requisition0);
+
+  TRACE ("x0/y0: %d/%d",
+         *x0, *y0);
+
+   if (*y0 + btn_panel->allocation.height + requisition0.height > gdk_screen_height())
+    /* Show menu above button, since there is not enough space below */
+    *y0 -= requisition0.height;
+   else
+    /* Show menu below button */
+    *y0 += btn_panel->allocation.height;
+
+   if (*x0 + requisition0.width > gdk_screen_width ())
+     /* Adjust horizontal position */
+     *x0 = gdk_screen_width () - requisition0.width;
 }
 
 static void

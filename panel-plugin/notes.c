@@ -36,6 +36,11 @@ static void             notes_window_menu_new           (NotesWindow *notes_wind
 
 static gboolean         notes_window_menu_popup         (NotesWindow *notes_window,
                                                          GdkEvent *event);
+static void             notes_window_menu_position      (GtkMenu *menu,
+                                                         gint *x,
+                                                         gint *y,
+                                                         gboolean *push_in,
+                                                         gpointer user_data);
 static void             notes_window_menu_destroy       (NotesWindow *notes_window);
 
 static void             notes_window_set_sos_always     (NotesWindow *notes_window);
@@ -535,12 +540,51 @@ notes_window_menu_popup (NotesWindow *notes_window,
       gtk_menu_popup (GTK_MENU (notes_window->menu),
                       NULL,
                       NULL,
-                      NULL,
+                      (GtkMenuPositionFunc) notes_window_menu_position,
                       NULL,
                       event->button.button,
                       event->button.time);
     }
   return FALSE;
+}
+
+static void
+notes_window_menu_position (GtkMenu *menu,
+                            gint *x0,
+                            gint *y0,
+                            gboolean *push_in,
+                            gpointer user_data)
+{
+  GdkWindow            *toplevel;
+  gint                  x1, y1, width, height, depth;
+  GtkWidget            *btn_menu;
+  GtkRequisition        requisition0;
+
+  g_return_if_fail (GTK_IS_MENU (menu));
+  btn_menu = gtk_menu_get_attach_widget (menu);
+  g_return_if_fail (GTK_IS_WIDGET (btn_menu));
+
+  toplevel = gdk_window_get_toplevel (btn_menu->window);
+  gdk_window_get_geometry (toplevel, &x1, &y1, &width, &height, &depth);
+  gdk_window_get_origin (btn_menu->window, x0, y0);
+  gtk_widget_size_request (GTK_WIDGET (menu), &requisition0);
+
+  TRACE ("\nx0/y0: %d/%d"
+         "\nx1/y1/width/height: %d/%d/%d/%d",
+         *x0, *y0,
+         x1, y1, width, height);
+
+   if (*y0 + btn_menu->allocation.height + requisition0.height > gdk_screen_height())
+    /* Show menu above button, since there is not enough space below */
+    *y0 -= requisition0.height;
+   else
+    /* Show menu below button */
+    *y0 += btn_menu->allocation.height;
+
+   *x0 += width - requisition0.width;
+   if (*x0 + requisition0.width > gdk_screen_width ())
+     /* Adjust horizontal position */
+     *x0 = gdk_screen_width () - requisition0.width;
 }
 
 static void
