@@ -192,8 +192,8 @@ notes_plugin_free (NotesPlugin *notes_plugin)
 static void
 notes_plugin_menu_new (NotesPlugin *notes_plugin)
 {
-  guint         i = 0;
-  NotesWindow  *notes_window;
+  guint                 i = 0;
+  NotesWindow          *notes_window;
 
   notes_plugin->menu = gtk_menu_new ();
 
@@ -203,10 +203,7 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
       GtkWidget *mi_foo = gtk_image_menu_item_new_with_label (notes_window->name);
       GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin",
                                                       GTK_ICON_SIZE_MENU);
-      if (GTK_WIDGET_VISIBLE (notes_window->window))
-        gtk_widget_set_sensitive (icon, TRUE);
-      else
-        gtk_widget_set_sensitive (icon, FALSE);
+      gtk_widget_set_sensitive (icon, GTK_WIDGET_VISIBLE (notes_window->window));
 
       gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
 
@@ -218,7 +215,13 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
       gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_foo);
     }
 
-  gtk_menu_attach_to_widget (GTK_MENU (notes_plugin->menu), notes_plugin->btn_panel, NULL);
+  gtk_menu_attach_to_widget (GTK_MENU (notes_plugin->menu),
+                             notes_plugin->btn_panel,
+                             NULL);
+  gtk_menu_set_screen (GTK_MENU (notes_plugin->menu),
+                      gtk_widget_get_screen (notes_plugin->btn_panel));
+  xfce_panel_plugin_register_menu (notes_plugin->panel_plugin,
+                                   GTK_MENU (notes_plugin->menu));
 
   g_signal_connect_swapped (notes_plugin->menu,
                             "deactivate",
@@ -234,7 +237,12 @@ notes_plugin_menu_popup (NotesPlugin *notes_plugin,
 {
   gboolean state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel));
 
-  if (state == FALSE && event->type == GDK_BUTTON_PRESS && event->button.button == 1)
+  /**
+   * If GDK_CONTROL_MASK is set the panel displays its context menu
+   * therefore *we* don't show anything.
+   */
+  if (state == FALSE && event->type == GDK_BUTTON_PRESS
+      && event->button.button == 1 && !(event->button.state & GDK_CONTROL_MASK))
     {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel), TRUE);
       notes_plugin_menu_new (notes_plugin);
@@ -242,7 +250,7 @@ notes_plugin_menu_popup (NotesPlugin *notes_plugin,
                       NULL,
                       NULL,
                       (GtkMenuPositionFunc) notes_plugin_menu_position,
-                      NULL,
+                      notes_plugin,
                       event->button.button,
                       event->button.time);
     }
@@ -251,34 +259,54 @@ notes_plugin_menu_popup (NotesPlugin *notes_plugin,
 
 static void
 notes_plugin_menu_position (GtkMenu *menu,
-                            gint *x0,
-                            gint *y0,
+                            gint *x,
+                            gint *y,
                             gboolean *push_in,
                             gpointer user_data)
 {
-  GtkWidget            *btn_panel;
-  GtkRequisition        requisition0;
+  NotesPlugin          *notes_plugin;
+  GtkRequisition        requisition;
+  GtkOrientation        orientation;
 
+  notes_plugin = (NotesPlugin *)user_data;
   g_return_if_fail (GTK_IS_MENU (menu));
-  btn_panel = gtk_menu_get_attach_widget (menu);
-  g_return_if_fail (GTK_IS_WIDGET (btn_panel));
+  g_return_if_fail (NULL != notes_plugin);
 
-  gdk_window_get_origin (btn_panel->window, x0, y0);
-  gtk_widget_size_request (GTK_WIDGET (menu), &requisition0);
+  orientation = xfce_panel_plugin_get_orientation (notes_plugin->panel_plugin);
+  gtk_widget_size_request (GTK_WIDGET (menu), &requisition);
+  gdk_window_get_origin (notes_plugin->btn_panel->window, x, y);
 
-  TRACE ("x0/y0: %d/%d",
-         *x0, *y0);
+  switch (orientation)
+    {
+    case GTK_ORIENTATION_HORIZONTAL:
+      if (*y + notes_plugin->btn_panel->allocation.height + requisition.height > gdk_screen_height ())
+        /* Show menu above */
+        *y -= requisition.height;
+      else
+        /* Show menu below */
+        *y += notes_plugin->btn_panel->allocation.height;
 
-   if (*y0 + btn_panel->allocation.height + requisition0.height > gdk_screen_height())
-    /* Show menu above button, since there is not enough space below */
-    *y0 -= requisition0.height;
-   else
-    /* Show menu below button */
-    *y0 += btn_panel->allocation.height;
+      if (*x + requisition.width > gdk_screen_width ())
+        /* Adjust horizontal position */
+        *x = gdk_screen_width () - requisition.width;
+      break;
 
-   if (*x0 + requisition0.width > gdk_screen_width ())
-     /* Adjust horizontal position */
-     *x0 = gdk_screen_width () - requisition0.width;
+    case GTK_ORIENTATION_VERTICAL:
+      if (*x + notes_plugin->btn_panel->allocation.width + requisition.width > gdk_screen_width ())
+        /* Show menu on the right */
+        *x -= requisition.width;
+      else
+        /* Show menu on the left */
+        *x += notes_plugin->btn_panel->allocation.width;
+
+      if (*y + requisition.height > gdk_screen_height ())
+        /* Adjust vertical position */
+        *y = gdk_screen_height () - requisition.height;
+      break;
+
+    default:
+      break;
+    }
 }
 
 static void
