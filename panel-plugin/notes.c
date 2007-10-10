@@ -205,9 +205,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   gtk_widget_show (notes_window->title);
 
   /* Menu button */
-  notes_window->btn_menu = xfce_create_panel_toggle_button ();//gtk_toggle_button_new ();
-  //gtk_button_set_relief (GTK_BUTTON (notes_window->btn_menu), GTK_RELIEF_NONE);
-  //GTK_WIDGET_UNSET_FLAGS (notes_window->btn_menu, GTK_CAN_FOCUS);
+  notes_window->btn_menu = xfce_create_panel_toggle_button ();
   gtk_widget_set_size_request (notes_window->btn_menu, 22, 22);
   arrow_menu = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_NONE);
   gtk_container_add (GTK_CONTAINER (notes_window->btn_menu),
@@ -599,9 +597,7 @@ static gboolean
 notes_window_menu_popup (NotesWindow *notes_window,
                          GdkEvent *event)
 {
-  gboolean state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_window->btn_menu));
-
-  if (state == FALSE && event->type == GDK_BUTTON_PRESS && event->button.button == 1)
+  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1)
     {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_window->btn_menu), TRUE);
       notes_window_menu_new (notes_window);
@@ -613,7 +609,6 @@ notes_window_menu_popup (NotesWindow *notes_window,
                       event->button.button,
                       event->button.time);
     }
-
   return FALSE;
 }
 

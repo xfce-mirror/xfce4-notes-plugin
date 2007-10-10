@@ -235,14 +235,12 @@ static gboolean
 notes_plugin_menu_popup (NotesPlugin *notes_plugin,
                          GdkEvent *event)
 {
-  gboolean state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel));
-
   /**
    * If GDK_CONTROL_MASK is set the panel displays its context menu
-   * therefore *we* don't show anything.
+   * therefore we prefer to *not* popup our menu.
    */
-  if (state == FALSE && event->type == GDK_BUTTON_PRESS
-      && event->button.button == 1 && !(event->button.state & GDK_CONTROL_MASK))
+  if (event->type == GDK_BUTTON_PRESS &&
+      event->button.button == 1 && !(event->button.state & GDK_CONTROL_MASK))
     {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel), TRUE);
       notes_plugin_menu_new (notes_plugin);
