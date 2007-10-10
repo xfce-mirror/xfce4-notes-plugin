@@ -589,6 +589,8 @@ notes_window_show (NotesWindow *notes_window)
   else
     gtk_window_unstick (GTK_WINDOW (notes_window->window));
 
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (notes_window->window),
+                                  TRUE);
   GTK_WIDGET_UNSET_FLAGS (notes_window->notebook,
                           GTK_CAN_FOCUS);
   gtk_widget_show (notes_window->window);
@@ -705,25 +707,17 @@ const gchar *
 notes_note_read_name (NotesWindow *notes_window)
 {
   static GDir          *dir = NULL;
-  static gchar         *notes_path = NULL;
-  const gchar          *window_name = NULL;
   static gchar         *path = NULL;
   const gchar          *note_name = NULL;
 
   TRACE ("NotesWindow: %p", notes_window);
   if (G_UNLIKELY (dir == NULL))
     {
-      if (G_UNLIKELY (notes_path == NULL))
-        {
-          notes_path = notes_window->notes_plugin->notes_path;
-          window_name = gtk_label_get_text (GTK_LABEL (notes_window->title));
-          path = g_build_path (G_DIR_SEPARATOR_S,
-                               notes_path,
-                               window_name,
-                               NULL);
-          TRACE ("path: %s", path);
-        }
-
+      path = g_build_path (G_DIR_SEPARATOR_S,
+                           notes_window->notes_plugin->notes_path,
+                           notes_window->name,
+                           NULL);
+      TRACE ("path: %s", path);
       if (G_UNLIKELY (!g_file_test (path, (G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR))))
         g_mkdir (path, 0755);
 
