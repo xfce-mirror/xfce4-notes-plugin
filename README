@@ -1,24 +1,66 @@
+ Xfce4-notes-plugin
+====================
 
-The notes plugin provides you a simple text editor in a little window for the 
-Xfce 4.4 desktop.  Notes are especially useful for temporary stuff.
+The notes plugin provides you a quick way to write down a todo list,
+to paste a piece of code, to leave a note to your friend, or whatever
+else you had like to do with it.
 
-A note is created by clicking on the upper left corner button of the window.
+    “ I like to write down a todo list and mark what I did,
+    and once I'm done with the whole job I destroy the note.
+    
+        x this is done
+        - check that
+        - do this too
+        ? maybe work on that
+    
+    Hope this gives you some ideas ”, Mike
 
-Xfce homepage:
-    - http://www.xfce.org
-Notes homepage: 
-    - http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
+The notes are saved under $XDG_DATA_HOME/notes/[0].  This way you can
+continue to access your notes remotely, if you have a SSH account for
+example, and fire up your favorite editor ;-)
 
-INSTALL:
-    tar xf xfce4-notes-plugin-<version-number>.tar.gz
-    ./configure
-    make
-    make install
+[0] $XDG_DATA_HOME is an environment variable defined by the XDG base
+directory specification and defaults to $HOME/.local/share.  
 
-    See the file INSTALL for more instructions.
+You probably want to uncheck the option “Skip windows that have "skip
+pager" or "skip taskbar" properties set” of xfwm4 (Settings > Window
+Manager Tweaks > Cycling).  The reason is that the notes plugin sets
+the skip pager hint so it doesn't clutter your pager, but you still
+want to access your notes by cycling to them (Alt+Tab).
 
-QUESTIONS:
-    Send an e-mail to <mmassonnet@gmail.com>
-    You can also join the Xfce goodies mailing-list:
-        - http://foo-projects.org/mailman/listinfo/goodies-dev
+
+ Homepage
+----------
+
+http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
+
+
+ Dependencies
+--------------
+
+* libgtk+2 2.10
+* libxfce4panel 4.4.0
+* libxfcegui4 4.4.0
+
+
+ Install
+---------
+
+% tar xf xfce4-notes-plugin-<version>.tar.gz
+% ./configure
+% make
+% make install
+
+See the INSTALL file for more instructions.
+
+
+ Report bugs
+-------------
+You can report bugs and feature requests on http://bugzilla.xfce.org/.
+Select the product “Xfce Panel Plugins” and the component “notes”.
+
+Feature requests are always welcome.
+
+You can also join the Xfce Goodies mailing-list at this address:
+http://foo-projects.org/mailman/listinfo/goodies-dev.
 

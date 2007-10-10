@@ -1,1 +1,59 @@
-See ChangeLog
+VERSION 1.5.0
+
+- Initial code rewrite for multiple window support and a better way
+  to save the notes
+- A window is a directory and contains each note as a file
+- Replace the earlier configuration dialog for window options with a
+  menu attached to a button on each window
+- Select the windows through a menu attached to the panel button
+- Most features are backported to this new code base, and new features
+  are font per window and opacity of windows.
+
+
+VERSION 1.4.1
+
+- Use the icon from the GNOME stickynotes applet
+
+
+VERSION 1.4
+
+- Add an option for a statusbar (for the resize grip!)
+- Remember the state of the visibility to restore it on restart
+- Cycle through the last to the first tab and vice-versa
+- Use the unique filename “notes.rc” for the configuration file
+
+
+VERSION 1.3.99.1
+
+- New command line tool “xfce4-popup-notes” to switch the visibility
+  of the notes window
+- Add key press events (F2 to rename and Ctrl+Page_UP/DOWN to
+  navigate through the tabs
+- Use RC groups in the configuration file for each note
+- Code cleanup
+
+
+VERSION 1.3.90.2
+
+- Display the tabs on the left with a label angle of 90°
+- Possibility to rename a tab on double click
+- Bug fixes and resize issues
+
+
+VERSION 1.3.0
+
+- Some GUI corrections
+
+
+VERSION 1.2.x
+
+- Initial port to the new API of xfce4-panel 4.4 by Mike Massonnet
+- The notes are saved (automatically with a timeout) in a
+  configuration file
+- Implement basic features: show/hide, start move on drag, keep above
+  option, sticky option, confirmation on note delete
+- Support multiple notes through a single notebook
+
+
+
+See the file ONEWS for older changes

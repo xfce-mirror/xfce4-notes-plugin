@@ -1,3 +1,234 @@
+2007-10-10  Mike Massonnet <mmassonnet@gmail.com>
+
+	* ChangeLog, README, NEWS: Update files.
+	* configure.in.in: Add comment.
+	* panel-plugin/panel-plugin.c(notes_plugin_message_received),
+	  panel-plugin/xfce4-popup-notes.c(main),
+	  panel-plugin/xfce4-popup-notes.h: New GOption interface for the
+	  xfce4-popup-notes command.  Possibility to show the menu, or to
+	  show/hide all windows.
+
+2007-10-09  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c(notes_window_show): Call gtk_window_present
+	  followed by gdk_window_raise.
+	* panel-plugin/notes.c(notes_window_show): Deiconify the window (in a
+	  certain case it will break the window is left iconified).
+	* panel-plugin/notes.c(notes_note_save_data): Save the data only if the
+	  NotesNote->timeout is set.
+	* panel-plugin/panel-plugin.c(notes_plugin_new),
+	  panel-plugin/panel-plugin.c(notes_plugin_destroy_timeout),
+	  panel-plugin/panel-plugin.c(notes_plugin_button_pressed),
+	  panel-plugin/panel-plugin.c(notes_plugin_button_released),
+	  panel-plugin/panel-plugin.c(notes_plugin_show_hide_windows),
+	  panel-plugin/panel-plugin.c(notes_plugin_menu_popup): Change the
+	  behavior of the panel button to show all/hide all windows on click, and
+	  display the popup menu on timeout while the button is left pressed.
+	* panel-plugin/panel-plugin.c(notes_plugin_menu_destroy): Check the menu
+	  pointer to dettach it.
+	* panel_plugin/panel-plugin.c(notes_plugin_message_received): Call
+	  function notes_plugin_show_hide_windows() by default.
+
+2007-10-07  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c(notes_window_new_with_label): Remove add/delete
+	  note accelerators.
+	* panel-plugin/notes.c(notes_window_menu_new): Rework the menu a bit, and
+	  add menu items with accelerators to add/delete a note.
+
+2007-10-01  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c(notes_window_load_data): Set the first tab as
+	  current.
+
+2007-09-30  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c(notes_window_set_font_dialog),
+	  panel-plugin/notes.c(notes_note_set_font): Two new functions to set the
+	  default font in the window.
+
+2007-09-29  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/Makefile.am: Add compilation for xfce4-popup-notes.
+	* panel-plugin/panel-plugin.c, panel-plugin/xfce4-popup-notes.c: Add two
+	  new functions notes_plugin_message_received() and
+	  notes_plugin_set_selection().
+	* panel-plugin/panel-plugin.c(notes_plugin_new),
+	  panel-plugin/panel-plugin.c(notes_plugin_menu_popup): Changed the
+	  "event" signal with a "clicked" signal for btn_panel.
+
+2007-09-26  Mike Massonnet <mmassonnet@gmail.com>
+
+	* configure.in.in: Check for math.h (rint()).
+	* panel-plugin/notes.c(notes_window_set_transparency): New function to set
+	  the opacity of the window.
+	* panel-plugin/notes.c(notes_window_scroll_event): Update the opacity on
+	  scroll with the GDK_MOD1_MASK state on.
+	* panel-plugin/notes.c(notes_window_new_with_label),
+	  panel-plugin/notes.c(notes_note_new): Load data before connecting the
+	  signals.
+	* panel-plugin/notes.c(notes_plugin_save_data_all): New function, saves
+	  all the NotesNote on free/quit overmore the NotesWindow.
+
+2007-09-27  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c(notes_window_rename),
+	  panel-plugin/notes.c(notes_note_rename): Return the result of g_rename.
+	* panel-plugin/notes.c(notes_window_rename_dialog),
+	  panel-plugin/notes.c(notes_note_rename_dialog): Display an error message
+	  with xfce_message_dialog() if the rename failed.
+	* panel-plugin/notes.c(notes_window_menu_new): Rename menu items and drop
+	  images.  Add rename note with accelerator (F2).
+	* panel-plugin/notes.c(notes_note_new): Set label angle to 90° in the
+	  tabs.
+	* panel-plugin/notes.c(notes_window_rename_note_dialog): Convenience
+	  function to rename a NotesNote->name through a NotesWindow (with its
+	  accelerator).
+	* panel-plugin/notes.c(notes_note_rename_dialog): New dialog to rename a
+	  note.
+	* panel-plugin/notes.c(notes_note_rename): New rename function for a note.
+	* panel-plugin/notes.c(notes_note_sort_names): Reorder tabs in notebook
+	  too.
+
+2007-09-26  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/{notes.c,notes.h,panel-plugin.c}: Remove config.h from
+	  notes.h and put it in each .c file, this way we do have debugging
+	  information.
+	* panel-plugin/notes.c(notes_window_new_with_label),
+	  panel-plugin/notes.c(notes_window_menu_new): Use smarter accelerators.
+	* panel-plugin/notes.c(notes_window_show),
+	  panel-plugin/notes.c(notes_window_hide): Unshade on hide and if visible
+	  on show too.
+	* panel-plugin/notes.c(notes_window_unshade): Resize only if the window is
+	  visible.
+
+2007-09-23  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/{notes.{c,h},panel-plugin.c}: Save NotesNote data on buffer
+	  changes.
+	* panel-plugin/notes.c(notes_note_key_pressed): Implement cycle through
+	  tabs (Shift+Ctrl+0..9 and Ctrl+PageUp/Down).
+	* panel-plugin/notes.{c,h}: Set window menu static, and put the dynamic
+	  menu items (window options) in a sub-menu.
+	* panel-plugin/notes.c(notes_window_new_with_label): Switched the "event"
+	  signal with a simple "clicked" signal so we can show the menu with an
+	  Accelerator.
+	* panel-plugin/notes.c(notes_window_new_with_label),
+	  panel-plugin/notes.c(notes_window_menu_new): Add accelerators and
+	  tooltips to the window.
+	* panel-plugin/notes.c(notes_window_rename): Update gtk_window_set_title.
+	* panel-plugin/panel-plugin.c(notes_plugin_menu_new): Add “New window”
+	  menu item.
+	* panel-plugin/notes.c(notes_window_destroy): Ask for confirmation if the
+	  NotesNote contents is not empty.  Re-init a new NotesNote if the last
+	  one is destroyed.
+	* panel-plugin/notes.c(notes_window_set_statusbar): Fix visibility of
+	  notebook when the statusbar option is switched.
+	* panel-plugin/notes.c(notes_window_strcasecmp): Use
+	  g_utf8_collate_key_for_filename to sort 10 after 9 and not 1.
+	* panel-plugin/notes.c(notes_window_get_current_note): New function to
+	  return the current NotesNote in a NotesWindow.
+	* panel-plugin/notes.c(notes_window_delete_note): Implement click on
+	  delete note button (half done).
+	* panel-plugin/notes.c(notes_note_new): Insert note in GSList with sort
+	  function.  Play with the notebook to set the current page.  Take a name
+	  in function parameter (this fixes an issue in function _load_data).
+	* panel-plugin/notes.c(notes_window_add_note): No more need to play with
+	  the notebook when we add a new note.
+	* panel-plugin/notes.c(notes_note_load_data): If the name of NotesNote is
+	  NULL search an unused id starting from 1.
+	* panel-plugin/notes.c(notes_note_sort_names),
+	  panel-plugin/notes.c(notes_note_strcasecmp) : Implement two sort
+	  functions.
+
+2007-09-19  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c: Fix implementation for shade/unshade.  Implement
+	  click on add note button.
+
+2007-09-18  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/panel-plugin.c(notes_plugin_menu_popup),
+	  panel-plugin/notes.c(notes_window_menu_popup): We don't need to look the
+	  state of the toggle button to popup the menu.
+	* panel-plugin/panel-plugin.c(notes_plugin_menu_new): gtk_menu_set_screen
+	  with the panel button (_NOT_ NULL) so other buttons in the window won't
+	  get any relief when the mouse is over.  xfce_panel_plugin_register_menu
+	  for consistence with the auto hiding of the panel.
+	* panel-plugin/panel-plugin.c(notes_plugin_menu_popup): Check that the
+	  Control button is not pressed, since it displays the context menu of the
+	  panel and we won't mix this with or own menu.  Pass the notes_plugin
+	  pointer to notes_plugin_menu_position user_data.
+	* panel-plugin/panel-plugin.c(notes_plugin_menu_position): Fix menu
+	  position for vertical panels.
+	* panel-plugin/{notes,panel-plugin}.c: Replace the buttons for the menus
+	  with toggle buttons.
+	* panel-plugin/notes.c(notes_window_load_data): If the name isn't set,
+	  look for a non-existent id.
+	* panel-plugin/notes.c(notes_window_menu_new): Attach rename item to
+	  notes_window_rename_dialog instead of notes_window_rename.
+	* panel-plugin/notes.c(notes_window_rename_dialog): Only show the dialog,
+	  and call notes_window_rename if needed.
+	* panel-plugin/notes.c(notes_window_rename): Implement simple rename
+	  function for NotesWindow.
+	* panel-plugin/notes.c(notes_window_new_with_label): Use sort functions to
+	  add new NotesWindow in the GSList.
+	* panel-plugin/notes.c(notes_window_sort_names): Sort the GSList of
+	  windows.
+	* panel-plugin/notes.c(notes_window_strcasecmp): Compare name of first
+	  NotesWindow with second NotesWindow.
+	* panel-plugin/notes.c(notes_window_destroy,notes_note_destroy): Implement
+	  destroy functions.
+
+2007-09-14  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c: Read contents of notes and put them in the window.
+	* panel-plugin/notes.c: Implement rename window function.
+
+2007-09-13  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c(notes_window_show): Show and present the window if
+	  already visible.
+	* panel-plugun/panel-plugin.c: Set in/sensitivity of the icon given the
+	  visibility state of the window.
+	* icons/: Remove the icons with hidden style.
+	* panel-plugin/{notes.c,panel-plugin.c}: Add menu positionning function.
+	* icons/: Add icons with hidden style.
+	* panel-plugin/{panel-plugin.c,notes.c,notes.h}: Hacking around the menus
+	  for the panel and the window.  NotesWindow: Fixed ShowOnStartup, Above,
+	  Sticky status.  NotesPlugin: Switch hide/show state of the windows with
+	  either a greyed or plain colors icon.
+
+2007-09-10  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c: Set skip pager hint.
+
+2007-09-09  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/{notes.{c,h},panel-plugin.c}: First window options in a
+	  menu (keep above, sticky, show on startup, new window).
+
+2007-09-08  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes.c: Shade window function.  Start move/send to
+	  background/send to foreground window function.  Fix window names.
+	* panel-plugin/*: Make the plugin runnable.
+
+2007-09-07  Mike Massonnet <mmassonnet@gmail.com>
+
+	* */**/: Initial code rewrite for multiple window support and a better way
+	  to save the notes.  All features have to be backported on this new code
+	  base.  *EXPERIMENTAL CODE*
+
+2007-07-29  Mike Massonnet <mmassonnet@gmail.com>
+
+	* panel-plugin/notes-window.c: Raise window on click, and unraise on
+	  middle click.
+	* panel-plugin/notes.c: No more tooltip for the button panel.
+	* configure.in.in: Bump version post-release.
+	* INSTALL: Remove autogenerated file.
+
 2007-01-16  Mike Massonnet <mmassonnet@gmail.com>
 
 	* === Released 1.4.1 ===
