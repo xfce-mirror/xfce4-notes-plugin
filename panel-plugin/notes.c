@@ -463,12 +463,21 @@ notes_window_destroy (NotesWindow *notes_window)
 {
   DBG ("Destroy window `%s' (%p)", notes_window->name, notes_window);
 
-  XfceRc               *rc;
-  gchar                *window_path;
-  NotesPlugin          *notes_plugin = notes_window->notes_plugin;
+  GtkWidget *dialog =
+    gtk_message_dialog_new (GTK_WINDOW (notes_window->window),
+                            GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_QUESTION,
+                            GTK_BUTTONS_YES_NO,
+                            _("Are you sure you want to delete this window?"));
+  gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+  if (G_UNLIKELY (result != GTK_RESPONSE_YES))
+    return;
+
+  NotesPlugin *notes_plugin = notes_window->notes_plugin;
 
   /* Drop configuration data */
-  rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
+  XfceRc *rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
   g_return_if_fail (G_LIKELY (rc != NULL));
   xfce_rc_delete_group (rc, notes_window->name, FALSE);
   xfce_rc_close (rc);
@@ -477,21 +486,25 @@ notes_window_destroy (NotesWindow *notes_window)
   g_slist_foreach (notes_window->notes, (GFunc)notes_note_destroy, NULL);
   g_slist_free (notes_window->notes);
 
-  /* Remove GSList entry */
-  notes_plugin->windows = g_slist_remove (notes_plugin->windows, notes_window);
-
   /* Remove directory */
-  window_path = g_build_path (G_DIR_SEPARATOR_S,
-                              notes_window->notes_plugin->notes_path,
-                              notes_window->name,
-                              NULL);
+  gchar *window_path = g_build_path (G_DIR_SEPARATOR_S,
+                                     notes_window->notes_plugin->notes_path,
+                                     notes_window->name,
+                                     NULL);
   g_rmdir (window_path);
   g_free (window_path);
+
+  /* Remove GSList entry */
+  notes_plugin->windows = g_slist_remove (notes_plugin->windows, notes_window);
 
   /* Free data */
   g_free (notes_window->name);
   gtk_widget_destroy (notes_window->window);
   g_slice_free (NotesWindow, notes_window);
+
+  /* Init a new window if we get too low */
+  if (g_slist_length (notes_plugin->windows) == 0)
+    notes_window_new (notes_plugin);
 }
 
 void
@@ -986,9 +999,27 @@ notes_window_delete_note (NotesWindow *notes_window)
     notes_window_unshade (notes_window);
 
   NotesNote *notes_note = notes_window_get_current_note (notes_window);
+  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
+
+  if (gtk_text_buffer_get_char_count (buffer) > 0)
+    {
+      GtkWidget *dialog =
+        gtk_message_dialog_new (GTK_WINDOW (notes_window->window),
+                                GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_QUESTION,
+                                GTK_BUTTONS_YES_NO,
+                                _("Are you sure you want to delete this note?"));
+      gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      if (G_UNLIKELY (result != GTK_RESPONSE_YES))
+        return;
+    }
+
   notes_note_destroy (notes_note);
 
-  /* TODO create new note if the first note is deleted */
+  /* Create a new note if we reach the ground 0 */
+  if (g_slist_length (notes_window->notes) == 0)
+    notes_note_new (notes_window, NULL);
 }
 
 
@@ -1159,9 +1190,6 @@ notes_note_destroy (NotesNote *notes_note)
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
                               ((g_slist_length (notes_window->notes) - 1) > 1));
 
-  /* Remove GSList entry */
-  notes_window->notes = g_slist_remove (notes_window->notes, notes_note);
-
   /* Remove file */
   note_path = g_build_path (G_DIR_SEPARATOR_S,
                             notes_window->notes_plugin->notes_path,
@@ -1170,6 +1198,9 @@ notes_note_destroy (NotesNote *notes_note)
                             NULL);
   g_unlink (note_path);
   g_free (note_path);
+
+  /* Remove GSList entry */
+  notes_window->notes = g_slist_remove (notes_window->notes, notes_note);
 
   /* Free data */
   g_free (notes_note->name);
