@@ -64,6 +64,8 @@ static void             notes_window_shade              (NotesWindow *notes_wind
 
 static void             notes_window_unshade            (NotesWindow *notes_window);
 
+static void             notes_window_rename_note_dialog (NotesWindow *notes_window);
+
 static void             notes_window_rename_dialog      (NotesWindow *notes_window);
 
 static void             notes_window_rename             (NotesWindow *notes_window,
@@ -76,13 +78,14 @@ static void             notes_window_delete_note        (NotesWindow *notes_wind
 
 static gboolean         notes_note_save_data            (NotesNote *notes_note);
 
-/*static inline void      notes_note_sort_names           (NotesNote *notes_note);*/
+static inline void      notes_note_sort_names           (NotesNote *notes_note);
 
 static gint             notes_note_strcasecmp           (NotesNote *notes_note0,
                                                          NotesNote *notes_note1);
-/* FIXME */
-static gboolean         notes_note_rename               (NotesNote *notes_note,
-                                                         GdkEventButton *event);
+static void             notes_note_rename_dialog        (NotesNote *notes_note);
+
+static void             notes_note_rename               (NotesNote *notes_note,
+                                                         const gchar *name);
 static void             notes_note_buffer_changed       (NotesNote *notes_note);
 
 static gboolean         notes_note_key_pressed          (NotesNote *notes_note,
@@ -551,15 +554,17 @@ notes_window_menu_new (NotesWindow *notes_window)
 {
   /* Menu */
   notes_window->menu = gtk_menu_new ();
-  GtkWidget *mi_new_window     = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
-  GtkWidget *mi_destroy_window = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
-  GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename..."));
+  GtkWidget *mi_new_window     = gtk_menu_item_new_with_mnemonic (_("_New window"));
+  GtkWidget *mi_destroy_window = gtk_menu_item_new_with_mnemonic (_("_Destroy window"));
+  GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename window"));
+  GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename note"));
   GtkWidget *mi_separator1     = gtk_separator_menu_item_new ();
   notes_window->mi_options     = gtk_menu_item_new_with_label (_("Options"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_destroy_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_window);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_note);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), notes_window->mi_options);
   gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
@@ -578,6 +583,12 @@ notes_window_menu_new (NotesWindow *notes_window)
                               notes_window->accel_group,
                               'Q',
                               GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_rename_note,
+                              "activate",
+                              notes_window->accel_group,
+                              GDK_F2,
+                              0,
                               GTK_ACCEL_MASK);
   gtk_widget_add_accelerator (mi_rename_window,
                               "activate",
@@ -599,6 +610,10 @@ notes_window_menu_new (NotesWindow *notes_window)
                             "activate",
                             G_CALLBACK (notes_window_destroy),
                             notes_window);
+  g_signal_connect_swapped (mi_rename_note,
+                            "activate",
+                            G_CALLBACK (notes_window_rename_note_dialog),
+                            notes_window);
   g_signal_connect_swapped (mi_rename_window,
                             "activate",
                             G_CALLBACK (notes_window_rename_dialog),
@@ -615,15 +630,15 @@ notes_window_menu_options_new (NotesWindow *notes_window)
 
   /* NotesWindow options menu */
   notes_window->menu_options = gtk_menu_new ();
-  GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
   GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Show statusbar"));
   GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
   GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
+  GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
 
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_on_startup);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_statusbar);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_above);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sticky);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_on_startup);
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (notes_window->mi_options), notes_window->menu_options);
 
   /* Sub-menu "Show on startup" */
@@ -955,11 +970,22 @@ notes_window_unshade (NotesWindow *notes_window)
 }
 
 static void
+notes_window_rename_note_dialog (NotesWindow *notes_window)
+{
+  /* Rename a NotesNote through a NotesWindow (accelerator group) */
+  gint current_page =
+    gtk_notebook_get_current_page (GTK_NOTEBOOK (notes_window->notebook));
+  NotesNote *notes_note =
+    g_slist_nth_data (notes_window->notes, current_page);
+  notes_note_rename_dialog (notes_note);
+}
+
+static void
 notes_window_rename_dialog (NotesWindow *notes_window)
 {
   /* Dialog */
   GtkWidget *dialog =
-    gtk_dialog_new_with_buttons (_("Rename"),
+    gtk_dialog_new_with_buttons (_("Rename window"),
                                  GTK_WINDOW (notes_window->window),
                                  GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
                                  GTK_STOCK_CANCEL,
@@ -976,8 +1002,7 @@ notes_window_rename_dialog (NotesWindow *notes_window)
 
   /* Entry */
   GtkWidget *entry = gtk_entry_new ();
-  gtk_entry_set_text (GTK_ENTRY (entry),
-                      gtk_label_get_text (GTK_LABEL (notes_window->title)));
+  gtk_entry_set_text (GTK_ENTRY (entry), notes_window->name);
   gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 
   /* Containers */
@@ -1154,6 +1179,7 @@ notes_note_new (NotesWindow *notes_window,
   gtk_container_set_border_width (GTK_CONTAINER (eb_border), 3);
   gtk_event_box_set_visible_window (GTK_EVENT_BOX (eb_border), FALSE);
   notes_note->title = gtk_label_new (note_name);
+  gtk_label_set_angle (GTK_LABEL (notes_note->title), 90);
   gtk_container_add (GTK_CONTAINER (eb_border),
                      notes_note->title);
 
@@ -1170,7 +1196,7 @@ notes_note_new (NotesWindow *notes_window,
   gtk_container_add (GTK_CONTAINER (notes_note->scrolled_window),
                      notes_note->text_view);
 
-  /* Signals FIXME */
+  /* Signals */
   g_signal_connect_swapped (notes_note->text_view,
                             "key-press-event",
                             G_CALLBACK (notes_note_key_pressed),
@@ -1178,10 +1204,6 @@ notes_note_new (NotesWindow *notes_window,
   g_signal_connect_swapped (buffer,
                             "changed",
                             G_CALLBACK (notes_note_buffer_changed),
-                            notes_note);
-  g_signal_connect_swapped (eb_border,
-                            "button-press-event",
-                            G_CALLBACK (notes_note_rename),
                             notes_note);
 
   /* Load data */
@@ -1319,13 +1341,89 @@ notes_note_destroy (NotesNote *notes_note)
   g_slice_free (NotesNote, notes_note);
 }
 
-/*static inline void
+static void
+notes_note_rename_dialog (NotesNote *notes_note)
+{
+  /* Dialog */
+  GtkWidget *dialog =
+    gtk_dialog_new_with_buttons (_("Rename note"),
+                                 GTK_WINDOW (notes_note->notes_window->window),
+                                 GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 GTK_STOCK_CANCEL,
+                                 GTK_RESPONSE_CANCEL,
+                                 GTK_STOCK_OK,
+                                 GTK_RESPONSE_OK,
+                                 NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+  gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+  gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_EDIT);
+
+  /* Vbox */
+  GtkWidget *vbox = GTK_DIALOG (dialog)->vbox;
+
+  /* Entry */
+  GtkWidget *entry = gtk_entry_new ();
+  gtk_entry_set_text (GTK_ENTRY (entry), notes_note->name);
+  gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+
+  /* Containers */
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+  gtk_container_add (GTK_CONTAINER (vbox), entry);
+  gtk_widget_show_all (vbox);
+
+  /* Run the dialog */
+  gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (G_LIKELY (result == GTK_RESPONSE_OK))
+    {
+      const gchar *name = gtk_entry_get_text (GTK_ENTRY (entry));
+      TRACE ("Rename %s to %s", notes_note->name, name);
+      notes_note_rename (notes_note, name);
+      notes_note_sort_names (notes_note);
+    }
+  gtk_widget_destroy (dialog);
+}
+
+static void
+notes_note_rename (NotesNote *notes_note,
+                   const gchar *name)
+{
+  /* Move some file */
+  gchar *oldfilename = g_build_path (G_DIR_SEPARATOR_S,
+                                     notes_note->notes_window->notes_plugin->notes_path,
+                                     notes_note->notes_window->name,
+                                     notes_note->name,
+                                     NULL);
+  gchar *newfilename = g_build_path (G_DIR_SEPARATOR_S,
+                                     notes_note->notes_window->notes_plugin->notes_path,
+                                     notes_note->notes_window->name,
+                                     name,
+                                     NULL);
+
+  TRACE ("\nOld filename: `%s'\nNew filename: `%s'", oldfilename, newfilename);
+  if (G_LIKELY (!g_rename (oldfilename, newfilename)))
+    {
+      g_free (notes_note->name);
+      notes_note->name = g_strdup (name);
+      gtk_label_set_text (GTK_LABEL (notes_note->title), name);
+    }
+
+  g_free (oldfilename);
+  g_free (newfilename);
+}
+
+static void
 notes_note_sort_names (NotesNote *notes_note)
 {
+  gint                  i = 0;
+  NotesNote            *foo;
+
   notes_note->notes_window->notes
     = g_slist_sort (notes_note->notes_window->notes,
                     (GCompareFunc)notes_note_strcasecmp);
-}*/
+
+  while (NULL != (foo = (NotesNote *)g_slist_nth_data (notes_note->notes_window->notes, i++)))
+    gtk_notebook_reorder_child (GTK_NOTEBOOK (foo->notes_window->notebook), foo->scrolled_window, i);
+}
 
 static gint
 notes_note_strcasecmp (NotesNote *notes_note0,
@@ -1367,7 +1465,7 @@ notes_note_key_pressed (NotesNote *notes_note,
 
       return FALSE;
     }
-  else if (event->state & (GDK_CONTROL_MASK|GDK_MOD1_MASK))
+  else if (event->state & GDK_MOD1_MASK)
     {
       gint page = -1;
       switch (event->keyval)
@@ -1394,16 +1492,6 @@ notes_note_key_pressed (NotesNote *notes_note,
       return FALSE;
     }
 
-  switch (event->keyval)
-    {
-    case GDK_F2:
-      /*notes_note_rename (notes_note, event); */
-      break;
-
-    default:
-      break;
-    }
-
   return FALSE;
 }
 
@@ -1416,12 +1504,5 @@ notes_note_buffer_changed (NotesNote *notes_note)
       notes_note->timeout = 0;
     }
   notes_note->timeout = g_timeout_add (60000, (GSourceFunc)notes_note_save_data, notes_note);
-}
-
-static gboolean
-notes_note_rename (NotesNote *notes_note,
-                   GdkEventButton *event)
-{
-  return FALSE;
 }
 
