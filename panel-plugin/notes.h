@@ -63,6 +63,7 @@ struct _NotesWindow
   gboolean              sticky;
   gboolean              visible;
   gint                  transparency;
+  gchar                *font;
 
   GtkWidget            *window;
   GtkWidget            *frame;

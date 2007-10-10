@@ -59,6 +59,8 @@ static void             notes_window_set_above          (NotesWindow *notes_wind
 
 static void             notes_window_set_sticky         (NotesWindow *notes_window);
 
+static void             notes_window_set_font_dialog    (NotesWindow *notes_window);
+
 static void             notes_window_set_transparency   (NotesWindow *notes_window,
                                                          gint transparency);
 static gboolean         notes_window_state_event        (NotesWindow *notes_window,
@@ -83,6 +85,8 @@ static void             notes_window_add_note           (NotesWindow *notes_wind
 
 static void             notes_window_delete_note        (NotesWindow *notes_window);
 
+static void             notes_note_set_font             (NotesNote *notes_note,
+                                                         const gchar *name);
 static inline void      notes_note_sort_names           (NotesNote *notes_note);
 
 static gint             notes_note_strcasecmp           (NotesNote *notes_note0,
@@ -420,6 +424,7 @@ notes_window_load_data (NotesWindow *notes_window)
   notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", TRUE);
   notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", TRUE);
   notes_window->transparency    = xfce_rc_read_int_entry (rc, "Transparency", 10);
+  notes_window->font            = g_strdup (xfce_rc_read_entry (rc, "Font", NULL));
 
   xfce_rc_close (rc);
 
@@ -510,6 +515,8 @@ notes_window_save_data (NotesWindow *notes_window)
                             GTK_WIDGET_VISIBLE (notes_window->window));
   xfce_rc_write_int_entry  (rc, "Opacity",
                             notes_window->transparency);
+  if (NULL != notes_window->font)
+    xfce_rc_write_entry (rc, "Font", notes_window->font);
 
   xfce_rc_close (rc);
 }
@@ -573,7 +580,8 @@ notes_window_menu_new (NotesWindow *notes_window)
   GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename window"));
   GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename note"));
   GtkWidget *mi_separator1     = gtk_separator_menu_item_new ();
-  notes_window->mi_options     = gtk_menu_item_new_with_label (_("Options"));
+  notes_window->mi_options     = gtk_menu_item_new_with_mnemonic (_("_Options"));
+  GtkWidget *mi_font           = gtk_menu_item_new_with_mnemonic (_("_Font"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_destroy_window);
@@ -582,6 +590,7 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), notes_window->mi_options);
   gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_font);
 
   /* Accel group */
   gtk_menu_set_accel_group (GTK_MENU (notes_window->menu),
@@ -631,6 +640,10 @@ notes_window_menu_new (NotesWindow *notes_window)
   g_signal_connect_swapped (mi_rename_window,
                             "activate",
                             G_CALLBACK (notes_window_rename_dialog),
+                            notes_window);
+  g_signal_connect_swapped (mi_font,
+                            "activate",
+                            G_CALLBACK (notes_window_set_font_dialog),
                             notes_window);
 
   /* Show the stuff */
@@ -824,6 +837,28 @@ notes_window_set_sticky (NotesWindow *notes_window)
     gtk_window_stick (GTK_WINDOW (notes_window->window));
   else
     gtk_window_unstick (GTK_WINDOW (notes_window->window));
+}
+
+static void
+notes_window_set_font_dialog (NotesWindow *notes_window)
+{
+  GtkWidget            *dialog;
+  NotesNote            *notes_note = NULL;
+  gint                  result, i = 0;
+  
+  dialog = gtk_font_selection_dialog_new (_("Choose Window Font"));
+  if (G_UNLIKELY (NULL != notes_window->font))
+    gtk_font_selection_dialog_set_font_name (GTK_FONT_SELECTION_DIALOG (dialog),
+                                             notes_window->font);
+  result = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_hide (dialog);
+  if (G_LIKELY (result == GTK_RESPONSE_OK))
+    {
+      notes_window->font = gtk_font_selection_dialog_get_font_name (GTK_FONT_SELECTION_DIALOG (dialog));
+      while (NULL != (notes_note = (NotesNote *)g_slist_nth_data (notes_window->notes, i++)))
+        notes_note_set_font (notes_note, notes_window->font);
+    }
+  gtk_widget_destroy (dialog);
 }
 
 static void
@@ -1256,6 +1291,8 @@ notes_note_new (NotesWindow *notes_window,
   notes_note->text_view = gtk_text_view_new ();
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (notes_note->text_view), GTK_WRAP_WORD);
+  if (NULL != notes_note->notes_window->font)
+    notes_note_set_font (notes_note, notes_note->notes_window->font);
   gtk_container_add (GTK_CONTAINER (notes_note->scrolled_window),
                      notes_note->text_view);
 
@@ -1402,6 +1439,18 @@ notes_note_destroy (NotesNote *notes_note)
   /* Free data */
   g_free (notes_note->name);
   g_slice_free (NotesNote, notes_note);
+}
+
+static void
+notes_note_set_font (NotesNote *notes_note,
+                     const gchar *font)
+{
+  DBG ("Set font for note `%s' to `%s'", notes_note->name, font);
+
+  PangoFontDescription *font_desc =
+    pango_font_description_from_string (notes_note->notes_window->font);
+  gtk_widget_modify_font (notes_note->text_view, font_desc);
+  pango_font_description_free (font_desc);
 }
 
 static void
