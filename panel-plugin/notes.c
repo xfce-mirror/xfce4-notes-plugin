@@ -17,14 +17,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
-#include <libxfce4panel/xfce-panel-convenience.h>
 #include <libxfce4util/libxfce4util.h>
 
 #include "notes.h"
@@ -75,6 +69,8 @@ static inline NotesNote * notes_window_get_current_note (NotesWindow *notes_wind
 static void             notes_window_add_note           (NotesWindow *notes_window);
 
 static void             notes_window_delete_note        (NotesWindow *notes_window);
+
+static gboolean         notes_note_save_data            (NotesNote *notes_note);
 
 /*static inline void      notes_note_sort_names           (NotesNote *notes_note);*/
 
@@ -1242,6 +1238,34 @@ notes_note_load_data (NotesNote *notes_note,
   g_free (filename);
 }
 
+static gboolean
+notes_note_save_data (NotesNote *notes_note)
+{
+  DBG ("Save note `%s'", notes_note->name);
+
+  GtkTextBuffer        *buffer;
+  GtkTextIter           start, end;
+  gchar                *filename, *contents;
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
+
+  gtk_text_buffer_get_bounds (buffer, &start, &end);
+
+  contents = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer), &start, &end, TRUE);
+
+  filename = g_build_path (G_DIR_SEPARATOR_S,
+                           notes_note->notes_window->notes_plugin->notes_path,
+                           notes_note->notes_window->name,
+                           notes_note->name,
+                           NULL);
+  g_file_set_contents (filename, contents, -1, NULL);
+
+  g_free (filename);
+  g_free (contents);
+
+  return FALSE;
+}
+
 void
 notes_note_destroy (NotesNote *notes_note)
 {
@@ -1250,6 +1274,10 @@ notes_note_destroy (NotesNote *notes_note)
   gint                  id;
   gchar                *note_path;
   NotesWindow          *notes_window = notes_note->notes_window;
+
+  /* Make sure we kill the timeout */
+  if (notes_note->timeout != 0)
+    g_source_remove (notes_note->timeout);
 
   /* Remove notebook page */
   id = gtk_notebook_get_current_page (GTK_NOTEBOOK (notes_window->notebook));
@@ -1365,6 +1393,12 @@ notes_note_key_pressed (NotesNote *notes_note,
 static void
 notes_note_buffer_changed (NotesNote *notes_note)
 {
+  if (notes_note->timeout > 0)
+    {
+      g_source_remove (notes_note->timeout);
+      notes_note->timeout = 0;
+    }
+  notes_note->timeout = g_timeout_add (60000, (GSourceFunc)notes_note_save_data, notes_note);
 }
 
 static gboolean

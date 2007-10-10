@@ -19,19 +19,9 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#ifdef HAVE_STRING_H
-#include <string.h>
-#endif
 
 #include <stdlib.h>
-#include <gtk/gtk.h>
 #include <libxfcegui4/libxfcegui4.h>
-#include <libxfce4panel/xfce-panel-plugin.h>
-#include <libxfce4panel/xfce-panel-convenience.h>
 
 #include "notes.h"
 
@@ -61,12 +51,6 @@ static void             notes_plugin_menu_position      (GtkMenu *menu,
                                                          gboolean *push_in,
                                                          gpointer user_data);
 static void             notes_plugin_menu_destroy       (NotesPlugin *notes_plugin);
-
-/* TODO sort the next functions */
-/*static gboolean         save_on_timeout_execute         (NotesPlugin *notes_plugin);
-
-static void             save_on_timeout                 (NotesPlugin *notes);*/
-
 
 
 
@@ -328,24 +312,4 @@ notes_plugin_menu_destroy (NotesPlugin *notes_plugin)
 
 
 XFCE_PANEL_PLUGIN_REGISTER_EXTERNAL (notes_plugin_register);
-
-/* TODO sort the next functions */
-
-/*static gboolean
-save_on_timeout_execute (NotesPlugin *notes)
-{
-  notes_save (notes->plugin, notes);
-  return FALSE;
-}
-
-static void
-save_on_timeout (NotesPlugin *notes)
-{
-  if (notes->timeout_id > 0)
-    {
-      g_source_remove (notes->timeout_id);
-      notes->timeout_id = 0;
-    }
-  notes->timeout_id = g_timeout_add (60000, (GSourceFunc) save_on_timeout_execute, notes);
-}*/
 
