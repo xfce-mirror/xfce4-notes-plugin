@@ -17,6 +17,10 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <libxfce4util/libxfce4util.h>
@@ -271,14 +275,14 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   gtk_widget_add_accelerator (notes_window->btn_menu,
                               "clicked",
                               notes_window->accel_group,
-                              'W',
-                              GDK_MOD1_MASK,
+                              'M',
+                              GDK_CONTROL_MASK,
                               GTK_ACCEL_MASK);
   gtk_widget_add_accelerator (notes_window->btn_close,
                               "clicked",
                               notes_window->accel_group,
-                              'Q',
-                              GDK_CONTROL_MASK,
+                              GDK_Escape,
+                              0,
                               GTK_ACCEL_MASK);
 
   /* Tooltips */
@@ -294,20 +298,20 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                         accel_name,
                         NULL);
   g_free (accel_name);
-  accel_name = gtk_accelerator_get_label ('W', GDK_MOD1_MASK);
+  accel_name = gtk_accelerator_get_label ('M', GDK_CONTROL_MASK);
   gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
                         notes_window->btn_menu,
                         accel_name,
                         NULL);
   g_free (accel_name);
-  accel_name = gtk_accelerator_get_label ('Q', GDK_CONTROL_MASK);
+  accel_name = gtk_accelerator_get_label (GDK_Escape, 0);
   gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
                         notes_window->btn_close,
                         accel_name,
                         NULL);
   g_free (accel_name);
 
-  /* Signals FIXME */
+  /* Signals */
   g_signal_connect_swapped (notes_window->window,
                             "window-state-event",
                             G_CALLBACK (notes_window_state_event),
@@ -572,8 +576,14 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_widget_add_accelerator (mi_destroy_window,
                               "activate",
                               notes_window->accel_group,
-                              'W',
-                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
+                              'Q',
+                              GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_rename_window,
+                              "activate",
+                              notes_window->accel_group,
+                              GDK_F2,
+                              GDK_SHIFT_MASK,
                               GTK_ACCEL_MASK);
 
   /* Signals */
@@ -822,7 +832,8 @@ notes_window_show (NotesWindow *notes_window)
   TRACE ("Show window: %p", notes_window);
   if (GTK_WIDGET_VISIBLE (notes_window->window))
     {
-      gtk_widget_show (notes_window->notebook);
+      if (!GTK_WIDGET_VISIBLE (notes_window->notebook))
+        notes_window_unshade (notes_window);
       gtk_window_present (GTK_WINDOW (notes_window->window));
       return;
     }
@@ -865,7 +876,7 @@ notes_window_hide (NotesWindow *notes_window)
                          NULL);
   
   gtk_widget_hide (notes_window->window);
-  gtk_widget_show (notes_window->notebook);
+  notes_window_unshade (notes_window);
 
   return TRUE; /* Stop other handlers from being invoked (incl. ALT+F4) */
 }
@@ -926,15 +937,21 @@ notes_window_shade (NotesWindow *notes_window)
 static void
 notes_window_unshade (NotesWindow *notes_window)
 {
-  gtk_window_get_size (GTK_WINDOW (notes_window->window),
-                       &notes_window->w,
-                       NULL);
+  gtk_widget_show (notes_window->notebook);
+  GTK_WIDGET_UNSET_FLAGS (notes_window->notebook,
+                          GTK_CAN_FOCUS);
   if (notes_window->show_statusbar)
     gtk_widget_show (notes_window->statusbar);
-  gtk_widget_show (notes_window->notebook);
-  gtk_window_resize (GTK_WINDOW (notes_window->window),
-                     notes_window->w,
-                     notes_window->h);
+
+  if (GTK_WIDGET_VISIBLE (notes_window->window))
+    {
+      gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                           &notes_window->w,
+                           NULL);
+      gtk_window_resize (GTK_WINDOW (notes_window->window),
+                         notes_window->w,
+                         notes_window->h);
+    }
 }
 
 static void
