@@ -21,6 +21,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_MATH_H
+#include <math.h>
+#endif
+
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <libxfce4util/libxfce4util.h>
@@ -28,6 +32,7 @@
 #include "notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
+#define OPAQUE 0xffffffff
 
 
 
@@ -54,6 +59,8 @@ static void             notes_window_set_above          (NotesWindow *notes_wind
 
 static void             notes_window_set_sticky         (NotesWindow *notes_window);
 
+static void             notes_window_set_transparency   (NotesWindow *notes_window,
+                                                         gint transparency);
 static gboolean         notes_window_state_event        (NotesWindow *notes_window,
                                                          GdkEventWindowState *event);
 static gboolean         notes_window_start_move         (NotesWindow *notes_window,
@@ -412,6 +419,7 @@ notes_window_load_data (NotesWindow *notes_window)
   notes_window->show_statusbar  = xfce_rc_read_bool_entry (rc, "ShowStatusbar", FALSE);
   notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", TRUE);
   notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", TRUE);
+  notes_window->transparency    = xfce_rc_read_int_entry (rc, "Transparency", 10);
 
   xfce_rc_close (rc);
 
@@ -421,14 +429,16 @@ notes_window_load_data (NotesWindow *notes_window)
          "\nshow_on_startup: %d"
          "\nshow_statusbar: %d"
          "\nsticky: %d"
-         "\nvisible: %d",
+         "\nvisible: %d"
+         "\ntransparency: %d",
          notes_window->name,
          notes_window->x, notes_window->y, notes_window->w, notes_window->h,
          notes_window->above,
          notes_window->show_on_startup,
          notes_window->show_statusbar,
          notes_window->sticky,
-         notes_window->visible);
+         notes_window->visible,
+         notes_window->transparency);
 
   /**
    * Make sure we have at least one note if note_name is NULL.  After that an
@@ -442,6 +452,8 @@ notes_window_load_data (NotesWindow *notes_window)
         note_name = notes_note_read_name (notes_window);
     }
   while (G_LIKELY (NULL != note_name));
+
+  notes_window_set_transparency (notes_window, notes_window->transparency);
 }
 
 void
@@ -472,12 +484,14 @@ notes_window_save_data (NotesWindow *notes_window)
          "\nshow_on_startup: %d"
          "\nshow_statusbar: %d"
          "\nsticky: %d"
-         "\nvisible: %d",
+         "\nvisible: %d"
+         "\ntransparency: %d",
          notes_window->above,
          notes_window->show_on_startup,
          notes_window->show_statusbar,
          notes_window->sticky,
-         notes_window->visible);
+         notes_window->visible,
+         notes_window->transparency);
 
   xfce_rc_write_int_entry (rc, "PosX", notes_window->x);
   xfce_rc_write_int_entry (rc, "PosY", notes_window->y);
@@ -494,6 +508,8 @@ notes_window_save_data (NotesWindow *notes_window)
                             notes_window->sticky);
   xfce_rc_write_bool_entry (rc, "Visible",
                             GTK_WIDGET_VISIBLE (notes_window->window));
+  xfce_rc_write_int_entry  (rc, "Opacity",
+                            notes_window->transparency);
 
   xfce_rc_close (rc);
 }
@@ -810,6 +826,29 @@ notes_window_set_sticky (NotesWindow *notes_window)
     gtk_window_unstick (GTK_WINDOW (notes_window->window));
 }
 
+static void
+notes_window_set_transparency (NotesWindow *notes_window,
+                               gint transparency)
+{
+  guint opacity;
+
+  if (transparency < 0 || transparency > 90)
+    return;
+
+  TRACE ("Set transparency to `%d'", transparency);
+  notes_window->transparency = transparency;
+  opacity = OPAQUE - rint ((gdouble)transparency * OPAQUE / 100);
+
+  gdk_error_trap_push ();
+  gdk_property_change (notes_window->notebook->window,
+                       gdk_atom_intern ("_NET_WM_WINDOW_OPACITY", FALSE),
+                       gdk_atom_intern ("CARDINAL", FALSE), 32,
+                       GDK_PROP_MODE_REPLACE,
+                       (guchar *) & opacity,
+                       1L);
+  gdk_error_trap_pop ();
+}
+
 static gboolean
 notes_window_state_event (NotesWindow *notes_window,
                           GdkEventWindowState *event)
@@ -922,13 +961,26 @@ static gboolean
 notes_window_scroll_event (NotesWindow *notes_window,
                            GdkEventScroll *event)
 {
-  if (G_LIKELY (event->type == GDK_SCROLL))
+  if (G_UNLIKELY (event->type != GDK_SCROLL))
+    return FALSE;
+
+  if (event->state & GDK_MOD1_MASK)
+    {
+      gint transparency = notes_window->transparency;
+      if (event->direction == GDK_SCROLL_UP)
+        transparency -= 10;
+      else if (event->direction == GDK_SCROLL_DOWN)
+        transparency += 10;
+      notes_window_set_transparency (notes_window, transparency);
+    }
+  else
     {
       if (event->direction == GDK_SCROLL_UP)
         notes_window_shade (notes_window);
       else if (event->direction == GDK_SCROLL_DOWN)
         notes_window_unshade (notes_window);
     }
+
   return FALSE;
 }
 
