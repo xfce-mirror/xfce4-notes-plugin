@@ -969,6 +969,8 @@ notes_window_show (NotesWindow *notes_window)
   GTK_WIDGET_UNSET_FLAGS (notes_window->notebook,
                           GTK_CAN_FOCUS);
   gtk_widget_show (notes_window->window);
+
+  gtk_window_deiconify (GTK_WINDOW (notes_window->window));
 }
 
 gboolean
@@ -1405,6 +1407,14 @@ notes_note_load_data (NotesNote *notes_note,
 gboolean
 notes_note_save_data (NotesNote *notes_note)
 {
+  if (notes_note->timeout == 0)
+    return TRUE;
+  else
+    {
+      g_source_remove (notes_note->timeout);
+      notes_note->timeout = 0;
+    }
+
   DBG ("Save note `%s'", notes_note->name);
 
   GtkTextBuffer        *buffer;

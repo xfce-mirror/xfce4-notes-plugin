@@ -32,6 +32,7 @@ struct _NotesPlugin
   GSList               *windows;
   gchar                *config_file;
   gchar                *notes_path;
+  guint                 timeout;
 
   GtkWidget            *btn_panel;
   GtkWidget            *icon_panel;
