@@ -1,7 +1,4 @@
+panel-plugin/panel-plugin.c
 panel-plugin/notes.c
 panel-plugin/notes.h
-panel-plugin/notes-options.c
-panel-plugin/notes-options.h
-panel-plugin/notes-window.c
-panel-plugin/notes-window.h
 panel-plugin/xfce4-notes-plugin.desktop.in.in

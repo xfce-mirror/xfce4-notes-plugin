@@ -20,39 +20,89 @@
 #ifndef NOTES_H
 #define NOTES_H
 
-#include <gdk/gdkkeysyms.h>
+/* #include <gdk/gdkkeysyms.h> FIXME */
 
-#include "notes-window.h"
-
-typedef struct
+typedef struct _NotesPlugin     NotesPlugin;
+struct _NotesPlugin
 {
-    gboolean visible;
-    gboolean show;
-    gboolean task_switcher;
-    gboolean always_on_top;
-    gboolean stick;
-    gboolean statusbar;
-}
-NotesOptions;
+  XfcePanelPlugin      *panel_plugin;
+  GSList               *windows;
+  /* guint                 timeout_id; FIXME */
+  gchar                *config_file;
+  gchar                *notes_path;
 
-typedef struct
+  GtkWidget            *btn_panel;
+  GtkWidget            *icon;
+
+  GtkTooltips          *tooltips;
+};
+
+typedef enum _ShowOnStartup     ShowOnStartup;
+enum _ShowOnStartup
 {
-    XfcePanelPlugin *plugin;
+  LAST_STATE,
+  ALWAYS,
+  NEVER,
+};
 
-    GtkWidget *button;
-    GtkWidget *icon;
-    GtkTooltips *tooltips;
+typedef struct _NotesWindow     NotesWindow;
+struct _NotesWindow
+{
+  NotesPlugin          *notes_plugin;
+  GSList               *notes;
 
-    Note *note;
-    NotesOptions options;
+  gint                  x, y, w, h;
+  gboolean              always_on_top;
+  gboolean              show_in_pager; /* XXX Replaces show in task switcher */
+  ShowOnStartup         show_on_startup;
+  gboolean              show_statusbar;
+  gboolean              stick;
+  gboolean              visible;
 
-    guint timeout_id;
-}
-NotesPlugin;
+  GtkWidget            *window;
+  GtkWidget            *frame;
+  GtkWidget            *vbox;
+  GtkWidget            *hbox;
+  GtkWidget            *btn_add;
+  GtkWidget            *btn_del;
+  GtkWidget            *btn_close;
+  GtkWidget            *title;
+  GtkWidget            *eb_move; /* event box */
+  GtkWidget            *notebook;
+  GtkWidget            *statusbar;
+};
 
-NotesPlugin *   notes_new (XfcePanelPlugin *);
-Note *          note_new (NotesPlugin *);
-void            note_page_new (XfcePanelPlugin *, NotesPlugin *);
-void            save_on_timeout (NotesPlugin *);
+typedef struct _NotesNote       NotesNote;
+struct _NotesNote
+{
+  NotesWindow          *notes_window;
+
+  GtkWidget            *title;
+  GtkWidget            *scrolled_window;
+  GtkWidget            *text_view;
+};
+
+typedef struct _NotesOptions    NotesOptions;
+struct _NotesOptions
+{
+};
+
+gchar *                 notes_window_read_name  (NotesPlugin *notes_plugin);
+
+NotesWindow *           notes_window_new        (NotesPlugin *notes_plugin,
+                                                 gchar *notes_window_name);
+void                    notes_window_load_data  (NotesWindow *notes_window);
+
+void                    notes_window_configure  (NotesWindow *notes_window);
+
+void                    notes_window_response   (GtkWidget *widget,
+                                                 int response,
+                                                 NotesWindow *notes_window);
+gchar *                 notes_note_read_name    (NotesWindow *notes_window);
+
+NotesNote *             notes_note_new          (NotesWindow *notes_window,
+                                                 gchar *notes_note_name);
+void                    notes_note_load_data    (NotesNote *notes_note,
+                                                 GtkTextBuffer *buffer);
 
 #endif

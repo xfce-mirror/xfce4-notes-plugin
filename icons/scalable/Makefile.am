@@ -4,4 +4,3 @@ icons_DATA =													\
 
 EXTRA_DIST =													\
 		$(icons_DATA)
-

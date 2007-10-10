@@ -4,7 +4,7 @@ dnl xfce4-notes-plugin - Notes applet for the Xfce4 panel
 dnl
 dnl 2003 Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
 dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
-dnl 2006 Mike Massonnet <mmassonnet@gmail.com>
+dnl 2006, 2007 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])

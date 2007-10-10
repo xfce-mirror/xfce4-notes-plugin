@@ -1,10 +1,8 @@
-# $Id$
-
 @SET_MAKE@
 
-SUBDIRS = 								\
-	icons								\
-	panel-plugin							\
+SUBDIRS =														\
+	icons														\
+	panel-plugin												\
 	po
 
 
@@ -18,16 +16,13 @@ distcheck-bz2: distcheck
 	zcat $(PACKAGE)-$(VERSION).tar.gz | bzip2 --best -c > $(PACKAGE)-$(VERSION).tar.bz2
 
 
-EXTRA_DIST =                                				\
-    README								\
-    intltool-extract.in                     				\
-    intltool-merge.in                       				\
+EXTRA_DIST =													\
+    README														\
+    intltool-extract.in											\
+    intltool-merge.in											\
     intltool-update.in
 
-DISTCLEANFILES =                            				\
-    intltool-extract                        				\
-    intltool-merge                          				\
+DISTCLEANFILES =												\
+    intltool-extract											\
+    intltool-merge												\
     intltool-update
-
-
-# vi:set ts=8 sw=8 noet ai nocindent syntax=automake:
