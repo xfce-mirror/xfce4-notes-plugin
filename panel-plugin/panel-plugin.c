@@ -92,7 +92,7 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
   notes_plugin->windows = NULL;
   /* notes_plugin->timeout_id = 0; FIXME */
 
-  notes_plugin->btn_panel = xfce_create_panel_button ();
+  notes_plugin->btn_panel = xfce_create_panel_toggle_button ();
   notes_plugin->icon_panel = gtk_image_new ();
   notes_plugin->tooltips = gtk_tooltips_new ();
 
@@ -232,8 +232,11 @@ static gboolean
 notes_plugin_menu_popup (NotesPlugin *notes_plugin,
                          GdkEvent *event)
 {
-  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1)
+  gboolean state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel));
+
+  if (state == FALSE && event->type == GDK_BUTTON_PRESS && event->button.button == 1)
     {
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel), TRUE);
       notes_plugin_menu_new (notes_plugin);
       gtk_menu_popup (GTK_MENU (notes_plugin->menu),
                       NULL,
@@ -283,6 +286,7 @@ notes_plugin_menu_destroy (NotesPlugin *notes_plugin)
 {
   DBG ("Dettach window menu");
   gtk_menu_detach (GTK_MENU (notes_plugin->menu));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel), FALSE);
 }
 
 
