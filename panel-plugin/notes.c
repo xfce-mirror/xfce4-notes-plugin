@@ -788,7 +788,73 @@ notes_window_shade (NotesWindow *notes_window,
 static void
 notes_window_rename (NotesWindow *notes_window)
 {
+  /* Dialog */
+  GtkWidget *dialog =
+    gtk_dialog_new_with_buttons (_("Rename"),
+                                 GTK_WINDOW (notes_window->window),
+                                 GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 GTK_STOCK_CANCEL,
+                                 GTK_RESPONSE_CANCEL,
+                                 GTK_STOCK_OK,
+                                 GTK_RESPONSE_OK,
+                                 NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+  gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+  gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_EDIT);
+
+  /* Vbox */
+  GtkWidget *vbox = GTK_DIALOG (dialog)->vbox;
+
+  /* Entry */
+  GtkWidget *entry = gtk_entry_new ();
+  gtk_entry_set_text (GTK_ENTRY (entry),
+                      gtk_label_get_text (GTK_LABEL (notes_window->title)));
+  gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+
+  /* Containers */
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+  gtk_container_add (GTK_CONTAINER (vbox), entry);
+  gtk_widget_show_all (vbox);
+
+  /* Run the dialog */
+  gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (G_LIKELY (result == GTK_RESPONSE_OK))
+    {
+      const gchar *name = gtk_entry_get_text (GTK_ENTRY (entry));
+      TRACE ("Rename %s to %s", notes_window->name, name);
+
+      /* Move some directory */
+      gchar *oldfilename = g_build_path (G_DIR_SEPARATOR_S,
+                                         notes_window->notes_plugin->notes_path,
+                                         notes_window->name,
+                                         NULL);
+      gchar *newfilename = g_build_path (G_DIR_SEPARATOR_S,
+                                         notes_window->notes_plugin->notes_path,
+                                         name,
+                                         NULL);
+      if (G_LIKELY (!g_rename (oldfilename, newfilename)))
+        {
+          g_free (notes_window->name);
+          notes_window->name = g_strdup (name);
+
+          gchar *name_tmp = g_strdup_printf ("<b>%s</b>", name);
+          gtk_label_set_text (GTK_LABEL (notes_window->title), name_tmp);
+          gtk_label_set_use_markup (GTK_LABEL (notes_window->title), TRUE);
+          g_free (name_tmp);
+
+          XfceRc *rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
+          g_return_if_fail (G_LIKELY (rc != NULL));
+          xfce_rc_delete_group (rc, name, FALSE);
+          xfce_rc_close (rc);
+
+          notes_window_save_data (notes_window);
+        }
+      g_free (oldfilename);
+      g_free (newfilename);
+    }
+  gtk_widget_destroy (dialog);
 }
+
 
 static void
 notes_window_destroy (NotesWindow *notes_window)
@@ -939,7 +1005,7 @@ notes_note_load_data (NotesNote *notes_note,
 
   filename = g_build_path (G_DIR_SEPARATOR_S,
                            notes_note->notes_window->notes_plugin->notes_path,
-                           notes_note->notes_window->title,
+                           notes_note->notes_window->title, /* XXX WTF? */
                            note_name,
                            NULL);
 
