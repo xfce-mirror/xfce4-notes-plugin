@@ -459,6 +459,7 @@ notes_window_load_data (NotesWindow *notes_window)
   while (G_LIKELY (NULL != note_name));
 
   notes_window_set_transparency (notes_window, notes_window->transparency);
+  gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), 0);
 }
 
 void
