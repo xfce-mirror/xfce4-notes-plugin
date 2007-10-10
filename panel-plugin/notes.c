@@ -396,6 +396,37 @@ notes_window_shade (GtkWidget *widget,
                     GdkEventScroll *event,
                     NotesWindow *notes_window)
 {
+  if (G_LIKELY (event->type == GDK_SCROLL))
+    {
+      if (event->direction == GDK_SCROLL_UP)
+        {
+          /* Hide the text view */
+          if (G_LIKELY (GTK_WIDGET_VISIBLE (notes_window->notebook)))
+            gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                                 NULL,
+                                 &notes_window->h);
+          if (G_LIKELY (notes_window->show_statusbar))
+            gtk_widget_hide (notes_window->statusbar);
+          gtk_widget_hide (notes_window->notebook);
+          gtk_window_resize (GTK_WINDOW (notes_window->window),
+                             notes_window->w,
+                             1);
+        }
+      else if (event->direction == GDK_SCROLL_DOWN)
+        {
+          /* Show the text view */
+          gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                               &notes_window->w,
+                               NULL);
+          if (notes_window->show_statusbar)
+            gtk_widget_show (notes_window->statusbar);
+          gtk_widget_show (notes_window->notebook);
+          gtk_window_resize (GTK_WINDOW (notes_window->window),
+                             notes_window->w,
+                             notes_window->h);
+        }
+    }
+
   return FALSE;
 }
 
