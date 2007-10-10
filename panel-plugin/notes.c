@@ -312,6 +312,13 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                         NULL);
   g_free (accel_name);
 
+  /* Load data */
+  notes_window_load_data (notes_window);
+  notes_window_menu_new (notes_window);
+  notes_plugin->windows = g_slist_insert_sorted (notes_plugin->windows,
+                                                 notes_window,
+                                                 (GCompareFunc)notes_window_strcasecmp);
+
   /* Signals */
   g_signal_connect_swapped (notes_window->window,
                             "window-state-event",
@@ -345,13 +352,6 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                             "clicked",
                             G_CALLBACK (notes_window_hide),
                             notes_window);
-
-  /* Load data */
-  notes_window_load_data (notes_window);
-  notes_window_menu_new (notes_window);
-  notes_plugin->windows = g_slist_insert_sorted (notes_plugin->windows,
-                                                 notes_window,
-                                                 (GCompareFunc)notes_window_strcasecmp);
 
   /* Show the stuff, or not */
   if (G_UNLIKELY (notes_window->show_statusbar))
@@ -1207,6 +1207,12 @@ notes_note_new (NotesWindow *notes_window,
   gtk_container_add (GTK_CONTAINER (notes_note->scrolled_window),
                      notes_note->text_view);
 
+  /* Load data */
+  notes_note_load_data (notes_note, buffer);
+  notes_window->notes = g_slist_insert_sorted (notes_window->notes,
+                                               notes_note,
+                                               (GCompareFunc)notes_note_strcasecmp);
+
   /* Signals */
   g_signal_connect_swapped (notes_note->text_view,
                             "key-press-event",
@@ -1216,12 +1222,6 @@ notes_note_new (NotesWindow *notes_window,
                             "changed",
                             G_CALLBACK (notes_note_buffer_changed),
                             notes_note);
-
-  /* Load data */
-  notes_note_load_data (notes_note, buffer);
-  notes_window->notes = g_slist_insert_sorted (notes_window->notes,
-                                               notes_note,
-                                               (GCompareFunc)notes_note_strcasecmp);
 
   /* Show the stuff */
   gtk_widget_show_all (eb_border);
