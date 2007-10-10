@@ -143,18 +143,19 @@ notes_plugin_load_data (NotesPlugin *notes_plugin)
 
   DBG ("\nLook up file: %s\nNotes path: %s", notes_plugin->config_file,
                                            notes_plugin->notes_path);
+
+  /**
+   * Make sure we have at least one window if window_name is NULL.  After that
+   * an inital window is created and it must not be read again.
+   **/
   window_name = notes_window_read_name (notes_plugin);
   do
     {
       notes_window = notes_window_new_with_label (notes_plugin, window_name);
       if (G_UNLIKELY (NULL != window_name))
-        /**
-         * If there was no window, don't try to read again since
-         * a first window has been created and would be duplicated.
-         **/
         window_name = notes_window_read_name (notes_plugin);
     }
-  while (G_LIKELY (window_name != NULL));
+  while (G_LIKELY (NULL != window_name));
 }
 
 static gboolean

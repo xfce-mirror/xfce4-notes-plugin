@@ -112,7 +112,7 @@ void                    notes_window_show               (NotesWindow *notes_wind
 
 gboolean                notes_window_hide               (NotesWindow *notes_window);
 
-void                    notes_window_sort_names         (NotesWindow *notes_window);
+inline void             notes_window_sort_names         (NotesWindow *notes_window);
 
 gint                    notes_window_strcasecmp         (NotesWindow *notes_window0,
                                                          NotesWindow *notes_window1);
