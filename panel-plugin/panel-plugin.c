@@ -25,6 +25,7 @@
 #endif
 
 #include "notes.h"
+#include "xfce4-popup-notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 
@@ -46,14 +47,19 @@ static gboolean         notes_plugin_set_size           (NotesPlugin *notes_plug
                                                          int size);
 static void             notes_plugin_menu_new           (NotesPlugin *notes_plugin);
 
-static gboolean         notes_plugin_menu_popup         (NotesPlugin *notes_plugin,
-                                                         GdkEvent *event);
+static void             notes_plugin_menu_popup         (NotesPlugin *notes_plugin);
+
 static void             notes_plugin_menu_position      (GtkMenu *menu,
                                                          gint *x0,
                                                          gint *y0,
                                                          gboolean *push_in,
                                                          gpointer user_data);
 static void             notes_plugin_menu_destroy       (NotesPlugin *notes_plugin);
+
+static gboolean         notes_plugin_message_received   (GtkWidget *widget,
+                                                         GdkEventClient *ev,
+                                                         gpointer data);
+static gboolean         notes_plugin_set_selection      (NotesPlugin *notes_plugin);
 
 
 
@@ -100,11 +106,12 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
                             G_CALLBACK (notes_plugin_free),
                             notes_plugin);
   g_signal_connect_swapped (notes_plugin->btn_panel,
-                            "event",
+                            "clicked",
                             G_CALLBACK (notes_plugin_menu_popup),
                             notes_plugin);
 
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
+  notes_plugin_set_selection (notes_plugin);
   gtk_widget_show_all (notes_plugin->btn_panel);
 
   return notes_plugin;
@@ -236,28 +243,20 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
   gtk_widget_show_all (notes_plugin->menu);
 }
 
-static gboolean
-notes_plugin_menu_popup (NotesPlugin *notes_plugin,
-                         GdkEvent *event)
+static void
+notes_plugin_menu_popup (NotesPlugin *notes_plugin)
 {
-  /**
-   * If GDK_CONTROL_MASK is set the panel displays its context menu
-   * therefore we prefer to *not* popup our menu.
-   */
-  if (event->type == GDK_BUTTON_PRESS &&
-      event->button.button == 1 && !(event->button.state & GDK_CONTROL_MASK))
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel)))
     {
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel), TRUE);
       notes_plugin_menu_new (notes_plugin);
       gtk_menu_popup (GTK_MENU (notes_plugin->menu),
                       NULL,
                       NULL,
                       (GtkMenuPositionFunc) notes_plugin_menu_position,
-                      notes_plugin,
-                      event->button.button,
-                      event->button.time);
+                      notes_plugin->panel_plugin,
+                      0,
+                      gtk_get_current_event_time ());
     }
-  return FALSE;
 }
 
 static void
@@ -267,27 +266,28 @@ notes_plugin_menu_position (GtkMenu *menu,
                             gboolean *push_in,
                             gpointer user_data)
 {
-  NotesPlugin          *notes_plugin;
+  XfcePanelPlugin      *panel_plugin = user_data;
+  GtkWidget            *btn_panel;
   GtkRequisition        requisition;
   GtkOrientation        orientation;
 
-  notes_plugin = (NotesPlugin *)user_data;
   g_return_if_fail (GTK_IS_MENU (menu));
-  g_return_if_fail (NULL != notes_plugin);
+  btn_panel = gtk_menu_get_attach_widget (menu);
+  g_return_if_fail (GTK_IS_WIDGET (btn_panel));
 
-  orientation = xfce_panel_plugin_get_orientation (notes_plugin->panel_plugin);
+  orientation = xfce_panel_plugin_get_orientation (panel_plugin);
   gtk_widget_size_request (GTK_WIDGET (menu), &requisition);
-  gdk_window_get_origin (notes_plugin->btn_panel->window, x, y);
+  gdk_window_get_origin (btn_panel->window, x, y);
 
   switch (orientation)
     {
     case GTK_ORIENTATION_HORIZONTAL:
-      if (*y + notes_plugin->btn_panel->allocation.height + requisition.height > gdk_screen_height ())
+      if (*y + btn_panel->allocation.height + requisition.height > gdk_screen_height ())
         /* Show menu above */
         *y -= requisition.height;
       else
         /* Show menu below */
-        *y += notes_plugin->btn_panel->allocation.height;
+        *y += btn_panel->allocation.height;
 
       if (*x + requisition.width > gdk_screen_width ())
         /* Adjust horizontal position */
@@ -295,12 +295,12 @@ notes_plugin_menu_position (GtkMenu *menu,
       break;
 
     case GTK_ORIENTATION_VERTICAL:
-      if (*x + notes_plugin->btn_panel->allocation.width + requisition.width > gdk_screen_width ())
+      if (*x + btn_panel->allocation.width + requisition.width > gdk_screen_width ())
         /* Show menu on the right */
         *x -= requisition.width;
       else
         /* Show menu on the left */
-        *x += notes_plugin->btn_panel->allocation.width;
+        *x += btn_panel->allocation.width;
 
       if (*y + requisition.height > gdk_screen_height ())
         /* Adjust vertical position */
@@ -323,4 +323,69 @@ notes_plugin_menu_destroy (NotesPlugin *notes_plugin)
 
 
 XFCE_PANEL_PLUGIN_REGISTER_EXTERNAL (notes_plugin_register);
+
+
+
+/* Handle user messages from xfce4-popup-notes command */
+
+static gboolean
+notes_plugin_message_received (GtkWidget *widget,
+                               GdkEventClient *ev,
+                               gpointer user_data)
+{
+  NotesPlugin        *notes_plugin = user_data;
+
+  DBG ("Message received");
+  if (G_LIKELY (ev->data_format == 8 && *(ev->data.b) != '\0'))
+    {
+      if (!g_ascii_strcasecmp (XFCE_NOTES_MESSAGE, ev->data.b))
+        {
+          DBG ("`%s'", ev->data.b);
+          xfce_panel_plugin_set_panel_hidden (notes_plugin->panel_plugin,
+                                              FALSE);
+          while (gtk_events_pending ())
+	    gtk_main_iteration ();
+          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel),
+                                        TRUE);
+          return TRUE;
+        }
+    }
+
+  return FALSE;
+}
+
+static gboolean
+notes_plugin_set_selection (NotesPlugin *notes_plugin)
+{
+  GdkScreen          *gscreen;
+  gchar              *selection_name;
+  Atom                selection_atom;
+  GtkWidget          *win;
+  Window              id;
+
+  win = gtk_invisible_new ();
+  gtk_widget_realize (win);
+  id = GDK_WINDOW_XID (GTK_WIDGET (win)->window);
+
+  gscreen = gtk_widget_get_screen (win);
+  selection_name = g_strdup_printf (XFCE_NOTES_SELECTION"%d",
+                                    gdk_screen_get_number (gscreen));
+  selection_atom = XInternAtom (GDK_DISPLAY (), selection_name, FALSE);
+
+  if (XGetSelectionOwner (GDK_DISPLAY (), selection_atom))
+    {
+      gtk_widget_destroy (win);
+      return FALSE;
+    }
+
+  XSelectInput (GDK_DISPLAY (), id, PropertyChangeMask);
+  XSetSelectionOwner (GDK_DISPLAY (), selection_atom, id, GDK_CURRENT_TIME);
+
+  g_signal_connect (win,
+                    "client-event",
+                    G_CALLBACK (notes_plugin_message_received),
+                    notes_plugin);
+
+  return TRUE;
+}
 

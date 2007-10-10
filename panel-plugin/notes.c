@@ -563,7 +563,7 @@ notes_window_destroy (NotesWindow *notes_window)
     notes_window_new (notes_plugin);
 }
 
-void
+static void
 notes_window_menu_new (NotesWindow *notes_window)
 {
   /* Menu */
@@ -637,7 +637,7 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_widget_show_all (notes_window->menu);
 }
 
-void
+static void
 notes_window_menu_options_new (NotesWindow *notes_window)
 {
   DBG ("Create menu options (%p)", notes_window);

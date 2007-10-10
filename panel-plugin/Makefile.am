@@ -1,17 +1,17 @@
-#bin_PROGRAMS = xfce4-popup-notes
-#
-#xfce4_popup_notes_SOURCES =										\
-#	xfce4-popup-notes.c											\
-#	xfce4-popup-notes.h
-#
-#xfce4_popup_notes_CFLAGS =										\
-#	$(LIBX11_CFLAGS)											\
-#	$(GTK_CFLAGS)
-#
-#xfce4_popup_notes_LDADD =										\
-#	$(LIBX11_LDFLAGS)											\
-#	$(LIBX11_LIBS)												\
-#	$(GTK_LIBS)
+bin_PROGRAMS = xfce4-popup-notes
+
+xfce4_popup_notes_SOURCES =										\
+	xfce4-popup-notes.c											\
+	xfce4-popup-notes.h
+
+xfce4_popup_notes_CFLAGS =										\
+	$(LIBX11_CFLAGS)											\
+	$(GTK_CFLAGS)
+
+xfce4_popup_notes_LDADD =										\
+	$(LIBX11_LDFLAGS)											\
+	$(LIBX11_LIBS)												\
+	$(GTK_LIBS)
 
 plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin

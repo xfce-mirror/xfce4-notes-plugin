@@ -20,21 +20,16 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-
 #ifndef __XFCE4_POPUP_NOTES_H__
 #define __XFCE4_POPUP_NOTES_H__
 
 #ifndef XFCE_NOTES_MESSAGE
-#define XFCE_NOTES_MESSAGE    "xfce4-notes-popup"
-#endif /* XFCE_NOTES_MESSAGE */
+#define XFCE_NOTES_MESSAGE    "xfce4-popup-notes"
+#endif
 
 #ifndef XFCE_NOTES_SELECTION
-#define XFCE_NOTES_SELECTION  "XFCE_NOTES_SEL"
-#endif /* XFCE_NOTES_SELECTION */
+#define XFCE_NOTES_SELECTION  "XFCE_NOTES_SELECTION"
+#endif
 
-#endif /* __XFCE4_POPUP_NOTES_H__ */
+#endif
 
