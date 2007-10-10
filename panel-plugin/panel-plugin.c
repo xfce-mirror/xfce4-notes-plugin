@@ -24,9 +24,6 @@
 #include <config.h>
 #endif
 
-#include <stdlib.h>
-#include <libxfcegui4/libxfcegui4.h>
-
 #include "notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"

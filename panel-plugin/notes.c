@@ -68,7 +68,7 @@ static void             notes_window_rename_note_dialog (NotesWindow *notes_wind
 
 static void             notes_window_rename_dialog      (NotesWindow *notes_window);
 
-static void             notes_window_rename             (NotesWindow *notes_window,
+static gint             notes_window_rename             (NotesWindow *notes_window,
                                                          const gchar *name);
 static inline NotesNote * notes_window_get_current_note (NotesWindow *notes_window);
 
@@ -84,7 +84,7 @@ static gint             notes_note_strcasecmp           (NotesNote *notes_note0,
                                                          NotesNote *notes_note1);
 static void             notes_note_rename_dialog        (NotesNote *notes_note);
 
-static void             notes_note_rename               (NotesNote *notes_note,
+static gint             notes_note_rename               (NotesNote *notes_note,
                                                          const gchar *name);
 static void             notes_note_buffer_changed       (NotesNote *notes_note);
 
@@ -1006,23 +1006,33 @@ notes_window_rename_dialog (NotesWindow *notes_window)
   gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 
   /* Containers */
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+  gtk_container_set_border_width (GTK_CONTAINER (dialog), 4);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
   gtk_container_add (GTK_CONTAINER (vbox), entry);
   gtk_widget_show_all (vbox);
 
   /* Run the dialog */
   gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_hide (dialog);
   if (G_LIKELY (result == GTK_RESPONSE_OK))
     {
       const gchar *name = gtk_entry_get_text (GTK_ENTRY (entry));
-      TRACE ("Rename %s to %s", notes_window->name, name);
-      notes_window_rename (notes_window, name);
-      notes_window_sort_names (notes_window);
+      if (G_LIKELY (!notes_window_rename (notes_window, name)))
+        notes_window_sort_names (notes_window);
+      else
+        xfce_message_dialog (GTK_WINDOW (notes_window->window),
+                             _("Rename window"),
+                             GTK_STOCK_DIALOG_ERROR,
+                             _("Error"),
+                             _("Unable to rename window"),
+                             GTK_STOCK_CLOSE,
+                             GTK_RESPONSE_CLOSE,
+                             NULL);
     }
   gtk_widget_destroy (dialog);
 }
 
-static void
+static gint
 notes_window_rename (NotesWindow *notes_window,
                      const gchar *name)
 {
@@ -1036,11 +1046,12 @@ notes_window_rename (NotesWindow *notes_window,
                                      name,
                                      NULL);
 
+  gint rc_rename = g_rename (oldfilename, newfilename);
   TRACE ("\nOld filename: `%s'\nNew filename: `%s'", oldfilename, newfilename);
-  if (G_LIKELY (!g_rename (oldfilename, newfilename)))
+  if (G_LIKELY (!rc_rename))
     {
       XfceRc *rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
-      g_return_if_fail (G_LIKELY (rc != NULL));
+      g_return_val_if_fail (G_LIKELY (rc != NULL), -1);
       xfce_rc_delete_group (rc, notes_window->name, FALSE);
       xfce_rc_close (rc);
 
@@ -1058,6 +1069,8 @@ notes_window_rename (NotesWindow *notes_window,
 
   g_free (oldfilename);
   g_free (newfilename);
+
+  return rc_rename;
 }
 
 inline void
@@ -1367,23 +1380,33 @@ notes_note_rename_dialog (NotesNote *notes_note)
   gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 
   /* Containers */
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+  gtk_container_set_border_width (GTK_CONTAINER (dialog), 4);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
   gtk_container_add (GTK_CONTAINER (vbox), entry);
   gtk_widget_show_all (vbox);
 
   /* Run the dialog */
   gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_hide (dialog);
   if (G_LIKELY (result == GTK_RESPONSE_OK))
     {
       const gchar *name = gtk_entry_get_text (GTK_ENTRY (entry));
-      TRACE ("Rename %s to %s", notes_note->name, name);
-      notes_note_rename (notes_note, name);
-      notes_note_sort_names (notes_note);
+      if (!notes_note_rename (notes_note, name))
+        notes_note_sort_names (notes_note);
+      else
+        xfce_message_dialog (GTK_WINDOW (notes_note->notes_window->window),
+                             _("Rename note"),
+                             GTK_STOCK_DIALOG_ERROR,
+                             _("Error"),
+                             _("Unable to rename note"),
+                             GTK_STOCK_CLOSE,
+                             GTK_RESPONSE_CLOSE,
+                             NULL);
     }
   gtk_widget_destroy (dialog);
 }
 
-static void
+static gboolean
 notes_note_rename (NotesNote *notes_note,
                    const gchar *name)
 {
@@ -1400,7 +1423,8 @@ notes_note_rename (NotesNote *notes_note,
                                      NULL);
 
   TRACE ("\nOld filename: `%s'\nNew filename: `%s'", oldfilename, newfilename);
-  if (G_LIKELY (!g_rename (oldfilename, newfilename)))
+  gint rc = g_rename (oldfilename, newfilename);
+  if (G_LIKELY (!rc))
     {
       g_free (notes_note->name);
       notes_note->name = g_strdup (name);
@@ -1409,6 +1433,8 @@ notes_note_rename (NotesNote *notes_note,
 
   g_free (oldfilename);
   g_free (newfilename);
+
+  return rc;
 }
 
 static void

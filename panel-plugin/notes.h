@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4panel/xfce-panel-convenience.h>
+#include <libxfcegui4/libxfcegui4.h>
 
 typedef struct _NotesPlugin     NotesPlugin;
 struct _NotesPlugin
