@@ -970,7 +970,9 @@ notes_window_show (NotesWindow *notes_window)
                           GTK_CAN_FOCUS);
   gtk_widget_show (notes_window->window);
 
-  gtk_window_deiconify (GTK_WINDOW (notes_window->window));
+  gtk_window_present (GTK_WINDOW (notes_window->window));
+
+  gdk_window_raise (notes_window->window->window);
 }
 
 gboolean
