@@ -41,7 +41,7 @@ static void             notes_window_menu_position      (GtkMenu *menu,
                                                          gint *y,
                                                          gboolean *push_in,
                                                          gpointer user_data);
-static void             notes_window_menu_destroy       (NotesWindow *notes_window);
+static void             notes_window_menu_detach        (NotesWindow *notes_window);
 
 static void             notes_window_set_sos_always     (NotesWindow *notes_window);
 
@@ -348,6 +348,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 
   /* Load data */
   notes_window_load_data (notes_window);
+  notes_window_menu_new (notes_window);
   notes_plugin->windows = g_slist_insert_sorted (notes_plugin->windows,
                                                  notes_window,
                                                  (GCompareFunc)notes_window_strcasecmp);
@@ -551,24 +552,74 @@ notes_window_menu_new (NotesWindow *notes_window)
 {
   /* Menu */
   notes_window->menu = gtk_menu_new ();
-  GtkWidget *mi_new_window      = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
-  GtkWidget *mi_destroy_window  = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
-  GtkWidget *mi_rename_window   = gtk_menu_item_new_with_mnemonic (_("_Rename..."));
-  GtkWidget *mi_separator1      = gtk_separator_menu_item_new ();
-  GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
-  GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Show statusbar"));
-  GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
-  GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
+  GtkWidget *mi_new_window     = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
+  GtkWidget *mi_destroy_window = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
+  GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename..."));
+  GtkWidget *mi_separator1     = gtk_separator_menu_item_new ();
+  notes_window->mi_options     = gtk_menu_item_new_with_label (_("Options"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_destroy_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_show_on_startup);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_show_statusbar);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_above);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_sticky);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), notes_window->mi_options);
   gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
+
+  /* Accel group */
+  gtk_menu_set_accel_group (GTK_MENU (notes_window->menu),
+                            notes_window->accel_group);
+  gtk_widget_add_accelerator (mi_new_window,
+                              "activate",
+                              notes_window->accel_group,
+                              'N',
+                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_destroy_window,
+                              "activate",
+                              notes_window->accel_group,
+                              'W',
+                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+
+  /* Signals */
+  g_signal_connect_swapped (notes_window->menu,
+                            "deactivate",
+                            G_CALLBACK (notes_window_menu_detach),
+                            notes_window);
+  g_signal_connect_swapped (mi_new_window,
+                            "activate",
+                            G_CALLBACK (notes_window_new),
+                            notes_window->notes_plugin);
+  g_signal_connect_swapped (mi_destroy_window,
+                            "activate",
+                            G_CALLBACK (notes_window_destroy),
+                            notes_window);
+  g_signal_connect_swapped (mi_rename_window,
+                            "activate",
+                            G_CALLBACK (notes_window_rename_dialog),
+                            notes_window);
+
+  /* Show the stuff */
+  gtk_widget_show_all (notes_window->menu);
+}
+
+void
+notes_window_menu_options_new (NotesWindow *notes_window)
+{
+  DBG ("Create menu options (%p)", notes_window);
+
+  /* NotesWindow options menu */
+  notes_window->menu_options = gtk_menu_new ();
+  GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
+  GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Show statusbar"));
+  GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
+  GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
+
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_on_startup);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_statusbar);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_above);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sticky);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (notes_window->mi_options), notes_window->menu_options);
 
   /* Sub-menu "Show on startup" */
   GtkWidget *menu_show_on_startup = gtk_menu_new ();
@@ -599,37 +650,7 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sticky),
                                   notes_window->sticky);
 
-  /* Accel group */
-  gtk_widget_add_accelerator (mi_new_window,
-                              "activate",
-                              notes_window->accel_group,
-                              'N',
-                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
-                              GTK_ACCEL_MASK);
-  gtk_widget_add_accelerator (mi_destroy_window,
-                              "activate",
-                              notes_window->accel_group,
-                              'W',
-                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
-                              GTK_ACCEL_MASK);
-
   /* Signals */
-  g_signal_connect_swapped (notes_window->menu,
-                            "deactivate",
-                            G_CALLBACK (notes_window_menu_destroy),
-                            notes_window);
-  g_signal_connect_swapped (mi_new_window,
-                            "activate",
-                            G_CALLBACK (notes_window_new),
-                            notes_window->notes_plugin);
-  g_signal_connect_swapped (mi_destroy_window,
-                            "activate",
-                            G_CALLBACK (notes_window_destroy),
-                            notes_window);
-  g_signal_connect_swapped (mi_rename_window,
-                            "activate",
-                            G_CALLBACK (notes_window_rename_dialog),
-                            notes_window);
   g_signal_connect_swapped (mi_sos_always,
                             "activate",
                             G_CALLBACK (notes_window_set_sos_always),
@@ -656,7 +677,7 @@ notes_window_menu_new (NotesWindow *notes_window)
                             notes_window);
 
   /* Show the stuff */
-  gtk_widget_show_all (notes_window->menu);
+  gtk_widget_show_all (notes_window->menu_options);
 }
 
 static void
@@ -664,14 +685,14 @@ notes_window_menu_popup (NotesWindow *notes_window)
 {
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_window->btn_menu)))
     {
-      notes_window_menu_new (notes_window);
+      notes_window_menu_options_new (notes_window);
       gtk_menu_popup (GTK_MENU (notes_window->menu),
                       NULL,
                       NULL,
                       (GtkMenuPositionFunc) notes_window_menu_position,
                       NULL,
                       0,
-                      gdk_event_get_time (NULL));
+                      gtk_get_current_event_time ());
     }
 }
 
@@ -715,10 +736,10 @@ notes_window_menu_position (GtkMenu *menu,
 }
 
 static void
-notes_window_menu_destroy (NotesWindow *notes_window)
+notes_window_menu_detach (NotesWindow *notes_window)
 {
-  DBG ("Dettach window menu");
-  gtk_menu_detach (GTK_MENU (notes_window->menu));
+  DBG ("Dettach window menu options");
+  gtk_menu_detach (GTK_MENU (notes_window->menu_options));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_window->btn_menu), FALSE);
 }
 

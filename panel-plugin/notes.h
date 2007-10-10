@@ -71,6 +71,8 @@ struct _NotesWindow
   GtkWidget            *btn_menu;
   GtkWidget            *btn_close;
   GtkWidget            *menu;
+  GtkWidget            *menu_options;
+  GtkWidget            *mi_options;
   GtkWidget            *eb_move; /* event box */
   GtkWidget            *title;
   GtkWidget            *notebook;
