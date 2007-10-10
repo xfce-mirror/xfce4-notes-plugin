@@ -34,8 +34,8 @@
 
 static void             notes_window_menu_new           (NotesWindow *notes_window);
 
-static gboolean         notes_window_menu_popup         (NotesWindow *notes_window,
-                                                         GdkEvent *event);
+static void             notes_window_menu_popup         (NotesWindow *notes_window);
+
 static void             notes_window_menu_position      (GtkMenu *menu,
                                                          gint *x,
                                                          gint *y,
@@ -124,9 +124,9 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   DBG ("New window: %s", window_name);
 
   NotesWindow          *notes_window;
-  GtkAccelGroup        *accel_group;
   GtkWidget            *img_add, *img_del, *img_close, *arrow_menu;
   gchar                *window_name_tmp;
+  gchar                *accel_name;
 
   notes_window = g_slice_new0 (NotesWindow);
   notes_window->notes_plugin = notes_plugin;
@@ -258,20 +258,59 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                       0);
 
   /* Accel group */
-  accel_group = gtk_accel_group_new ();
-  gtk_window_add_accel_group (GTK_WINDOW (notes_window->window), accel_group);
+  notes_window->accel_group = gtk_accel_group_new ();
+  gtk_window_add_accel_group (GTK_WINDOW (notes_window->window),
+                              notes_window->accel_group);
   gtk_widget_add_accelerator (notes_window->btn_add,
                               "clicked",
-                              accel_group,
+                              notes_window->accel_group,
                               'N',
                               GDK_CONTROL_MASK,
                               GTK_ACCEL_MASK);
   gtk_widget_add_accelerator (notes_window->btn_del,
                               "clicked",
-                              accel_group,
+                              notes_window->accel_group,
                               'W',
                               GDK_CONTROL_MASK,
                               GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (notes_window->btn_menu,
+                              "clicked",
+                              notes_window->accel_group,
+                              'W',
+                              GDK_MOD1_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (notes_window->btn_close,
+                              "clicked",
+                              notes_window->accel_group,
+                              'Q',
+                              GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+
+  /* Tooltips */
+  accel_name = gtk_accelerator_get_label ('N', GDK_CONTROL_MASK);
+  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
+                        notes_window->btn_add,
+                        accel_name,
+                        NULL);
+  g_free (accel_name);
+  accel_name = gtk_accelerator_get_label ('W', GDK_CONTROL_MASK);
+  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
+                        notes_window->btn_del,
+                        accel_name,
+                        NULL);
+  g_free (accel_name);
+  accel_name = gtk_accelerator_get_label ('W', GDK_MOD1_MASK);
+  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
+                        notes_window->btn_menu,
+                        accel_name,
+                        NULL);
+  g_free (accel_name);
+  accel_name = gtk_accelerator_get_label ('Q', GDK_CONTROL_MASK);
+  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
+                        notes_window->btn_close,
+                        accel_name,
+                        NULL);
+  g_free (accel_name);
 
   /* Signals FIXME */
   g_signal_connect_swapped (notes_window->window,
@@ -295,7 +334,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                             G_CALLBACK (notes_window_scroll_event),
                             notes_window);
   g_signal_connect_swapped (notes_window->btn_menu,
-                            "event",
+                            "clicked",
                             G_CALLBACK (notes_window_menu_popup),
                             notes_window);
   g_signal_connect_swapped (notes_window->window,
@@ -512,13 +551,9 @@ notes_window_menu_new (NotesWindow *notes_window)
 {
   /* Menu */
   notes_window->menu = gtk_menu_new ();
-  GtkWidget *mi_new_window      = gtk_image_menu_item_new_with_label (_("New window"));
-  GtkWidget *img_new_window     = gtk_image_new_from_stock (GTK_STOCK_NEW, GTK_ICON_SIZE_MENU);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_new_window), img_new_window);
-  GtkWidget *mi_destroy_window  = gtk_image_menu_item_new_with_label (_("Destroy window"));
-  GtkWidget *img_destroy_window = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_destroy_window), img_destroy_window);
-  GtkWidget *mi_rename_window   = gtk_menu_item_new_with_label (_("Rename window..."));
+  GtkWidget *mi_new_window      = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
+  GtkWidget *mi_destroy_window  = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
+  GtkWidget *mi_rename_window   = gtk_menu_item_new_with_mnemonic (_("_Rename..."));
   GtkWidget *mi_separator1      = gtk_separator_menu_item_new ();
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
   GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Show statusbar"));
@@ -563,6 +598,20 @@ notes_window_menu_new (NotesWindow *notes_window)
                                   notes_window->above);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sticky),
                                   notes_window->sticky);
+
+  /* Accel group */
+  gtk_widget_add_accelerator (mi_new_window,
+                              "activate",
+                              notes_window->accel_group,
+                              'N',
+                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_destroy_window,
+                              "activate",
+                              notes_window->accel_group,
+                              'W',
+                              GDK_SHIFT_MASK|GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
 
   /* Signals */
   g_signal_connect_swapped (notes_window->menu,
@@ -610,23 +659,20 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_widget_show_all (notes_window->menu);
 }
 
-static gboolean
-notes_window_menu_popup (NotesWindow *notes_window,
-                         GdkEvent *event)
+static void
+notes_window_menu_popup (NotesWindow *notes_window)
 {
-  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1)
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (notes_window->btn_menu)))
     {
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_window->btn_menu), TRUE);
       notes_window_menu_new (notes_window);
       gtk_menu_popup (GTK_MENU (notes_window->menu),
                       NULL,
                       NULL,
                       (GtkMenuPositionFunc) notes_window_menu_position,
                       NULL,
-                      event->button.button,
-                      event->button.time);
+                      0,
+                      gdk_event_get_time (NULL));
     }
-  return FALSE;
 }
 
 static void
@@ -943,6 +989,7 @@ notes_window_rename (NotesWindow *notes_window,
       g_free (notes_window->name);
       notes_window->name = g_strdup (name);
 
+      gtk_window_set_title (GTK_WINDOW (notes_window->window), name);
       gchar *name_tmp = g_strdup_printf ("<b>%s</b>", name);
       gtk_label_set_text (GTK_LABEL (notes_window->title), name_tmp);
       gtk_label_set_use_markup (GTK_LABEL (notes_window->title), TRUE);

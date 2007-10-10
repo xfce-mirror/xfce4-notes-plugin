@@ -198,6 +198,15 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
 
   notes_plugin->menu = gtk_menu_new ();
 
+  GtkWidget *mi_foo = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
+  g_signal_connect_swapped (mi_foo,
+                            "activate",
+                            G_CALLBACK (notes_window_new),
+                            notes_plugin);
+  GtkWidget *mi_sep = gtk_separator_menu_item_new ();
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_foo);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_sep);
+
   while ((notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)) != NULL)
     {
       TRACE ("notes_window (%d): %p", (i-1), notes_window);

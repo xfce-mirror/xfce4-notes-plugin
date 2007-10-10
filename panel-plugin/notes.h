@@ -75,6 +75,8 @@ struct _NotesWindow
   GtkWidget            *title;
   GtkWidget            *notebook;
   GtkWidget            *statusbar;
+
+  GtkAccelGroup        *accel_group;
 };
 
 typedef struct _NotesNote       NotesNote;
