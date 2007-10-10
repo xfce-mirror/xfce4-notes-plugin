@@ -57,6 +57,36 @@ main (gint argc, gchar *argv[])
   GdkEventClient        gev;
   GtkWidget            *win;
   Window                id;
+  gchar                *message = NULL;
+
+  gboolean              opt_show_hide = FALSE;
+  gboolean              opt_menu = FALSE;
+  GError               *opt_error = NULL;
+
+  GOptionContext *context =
+    g_option_context_new ("- command the Xfce 4 notes plugin");
+  GOptionEntry entries[] = 
+    {
+      { "show-hide", 0, 0, G_OPTION_ARG_NONE, &opt_show_hide,
+        "Default action that show/hide all the windows", NULL },
+      { "menu", 'm', 0, G_OPTION_ARG_NONE, &opt_menu,
+        "Popup the menu from the panel button", NULL },
+      { NULL }
+    };
+
+  g_option_context_set_summary (context, "The default action is to show/hide all windows");
+  g_option_context_add_main_entries (context, entries, NULL);
+  if (G_LIKELY (! g_option_context_parse (context, &argc, &argv, &opt_error)))
+    {
+      g_printerr ("%s\n", opt_error->message);
+      g_error_free (opt_error);
+      return -1;
+    }
+
+  if (opt_menu)
+    message = g_strdup_printf (NOTES_MSG_MENU);
+  else
+    message = g_strdup_printf (NOTES_MSG_SHOW_HIDE);
 
   gtk_init (&argc, &argv);
 
@@ -68,7 +98,7 @@ main (gint argc, gchar *argv[])
   gev.send_event        = TRUE;
   gev.message_type      = gdk_atom_intern ("STRING", FALSE);
   gev.data_format       = 8;
-  g_snprintf (gev.data.b, sizeof (gev.data.b), XFCE_NOTES_MESSAGE);
+  g_snprintf (gev.data.b, sizeof (gev.data.b), message);
 
   if (notes_plugin_check_is_running (win, &id))
     gdk_event_send_client_message ((GdkEvent *)&gev, (GdkNativeWindow)id);

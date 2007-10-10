@@ -23,12 +23,20 @@
 #ifndef __XFCE4_POPUP_NOTES_H__
 #define __XFCE4_POPUP_NOTES_H__
 
-#ifndef XFCE_NOTES_MESSAGE
-#define XFCE_NOTES_MESSAGE    "xfce4-popup-notes"
+#ifndef XFCE_NOTES_SELECTION
+#define XFCE_NOTES_SELECTION    "XFCE_NOTES_SELECTION"
 #endif
 
-#ifndef XFCE_NOTES_SELECTION
-#define XFCE_NOTES_SELECTION  "XFCE_NOTES_SELECTION"
+#ifndef NOTES_MSG_SHOW_HIDE
+#define NOTES_MSG_SHOW_HIDE     "SHOW_HIDE"
+#endif
+
+#ifndef NOTES_MSG_MENU
+#define NOTES_MSG_MENU          "MENU"
+#endif
+
+#ifndef NOTES_MSG_WINDOW
+#define NOTES_MSG_WINDOW        "WIN"
 #endif
 
 #endif

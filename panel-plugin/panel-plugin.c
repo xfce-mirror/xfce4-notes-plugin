@@ -415,12 +415,16 @@ notes_plugin_message_received (GtkWidget *widget,
   if (G_LIKELY (ev->data_format == 8 && *(ev->data.b) != '\0'))
     {
       DBG ("`%s'", ev->data.b);
-      if (!g_ascii_strcasecmp (XFCE_NOTES_MESSAGE, ev->data.b))
+      if (!g_ascii_strcasecmp (NOTES_MSG_SHOW_HIDE, ev->data.b))
         {
           notes_plugin_show_hide_windows (notes_plugin);
-          /*GdkEventButton ev_btn;
+          return TRUE;
+        }
+      else if (!g_ascii_strcasecmp (NOTES_MSG_MENU, ev->data.b))
+        {
+          GdkEventButton ev_btn;
           ev_btn.button = 1;
-          notes_plugin_button_pressed (notes_plugin, &ev_btn);*/
+          notes_plugin_button_pressed (notes_plugin, &ev_btn);
           return TRUE;
         }
     }
