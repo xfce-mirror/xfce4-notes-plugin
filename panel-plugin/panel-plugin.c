@@ -39,24 +39,24 @@
 
 
 
-static void         notes_plugin_register   (XfcePanelPlugin *panel_plugin);
+static void             notes_plugin_register           (XfcePanelPlugin *panel_plugin);
 
-static NotesPlugin *notes_plugin_new        (XfcePanelPlugin *panel_plugin);
+static NotesPlugin     *notes_plugin_new                (XfcePanelPlugin *panel_plugin);
 
-static void         notes_plugin_load_data  (NotesPlugin *notes_plugin);
+static void             notes_plugin_load_data          (NotesPlugin *notes_plugin);
 
-static gboolean     notes_plugin_set_size   (NotesPlugin *notes_plugin, 
-                                             int size);
-static void         notes_plugin_save       (NotesPlugin *notes_plugin);
+static void             notes_plugin_save_data          (NotesPlugin *notes_plugin);
 
-static void         notes_plugin_free       (NotesPlugin *notes_plugin);
+static void             notes_plugin_free               (NotesPlugin *notes_plugin);
 
-static gboolean     notes_plugin_popup      (NotesPlugin *notes_plugin);
+static gboolean         notes_plugin_set_size           (NotesPlugin *notes_plugin, 
+                                                         int size);
+static gboolean         notes_plugin_popup              (NotesPlugin *notes_plugin);
 
 /* TODO sort the next functions */
-/*static gboolean     save_on_timeout_execute (NotesPlugin *notes_plugin);
+/*static gboolean         save_on_timeout_execute         (NotesPlugin *notes_plugin);
 
-static void         save_on_timeout         (NotesPlugin *notes);*/
+static void             save_on_timeout                 (NotesPlugin *notes);*/
 
 
 
@@ -101,7 +101,7 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
                     notes_plugin);
   g_signal_connect_swapped (panel_plugin,
                             "save",
-                            G_CALLBACK (notes_plugin_save),
+                            G_CALLBACK (notes_plugin_save_data),
                             notes_plugin);
   g_signal_connect (panel_plugin,
                     "free-data",
@@ -137,7 +137,7 @@ notes_plugin_load_data (NotesPlugin *notes_plugin)
   do
     {
       TRACE ("window_name: %s", window_name);
-      notes_window = notes_window_new (notes_plugin, window_name);
+      notes_window = notes_window_new_with_label (notes_plugin, window_name);
       if (G_UNLIKELY (window_name != NULL))
         /* If there was no window, don't try to read again since
          * a first window has been created and would be read again. */
@@ -163,9 +163,9 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
 }
 
 static void
-notes_plugin_save (NotesPlugin *notes_plugin)
+notes_plugin_save_data (NotesPlugin *notes_plugin)
 {
-  g_slist_foreach (notes_plugin->windows, (GFunc)notes_window_save, NULL);
+  g_slist_foreach (notes_plugin->windows, (GFunc)notes_window_save_data, NULL);
 }
 
 static void
@@ -174,7 +174,7 @@ notes_plugin_free (NotesPlugin *notes_plugin)
   /* if (notes->timeout_id > 0)
     g_source_remove (notes->timeout_id); FIXME */
 
-  notes_plugin_save (notes_plugin);
+  notes_plugin_save_data (notes_plugin);
   gtk_main_quit ();
 }
 

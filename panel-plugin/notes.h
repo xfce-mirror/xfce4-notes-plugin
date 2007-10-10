@@ -54,7 +54,6 @@ struct _NotesWindow
   gchar                *name;
   gint                  x, y, w, h;
   gboolean              always_on_top;
-  gboolean              show_in_pager; /* XXX Replaces show in task switcher */
   ShowOnStartup         show_on_startup;
   gboolean              show_statusbar;
   gboolean              stick;
@@ -66,7 +65,9 @@ struct _NotesWindow
   GtkWidget            *hbox;
   GtkWidget            *btn_add;
   GtkWidget            *btn_del;
+  GtkWidget            *btn_menu;
   GtkWidget            *btn_close;
+  GtkWidget            *menu;
   GtkWidget            *title;
   GtkWidget            *eb_move; /* event box */
   GtkWidget            *notebook;
@@ -90,24 +91,26 @@ struct _NotesOptions
 {
 };
 
-const gchar *           notes_window_read_name  (NotesPlugin *notes_plugin);
+const gchar *           notes_window_read_name          (NotesPlugin *notes_plugin);
 
-NotesWindow *           notes_window_new        (NotesPlugin *notes_plugin,
-                                                 const gchar *notes_window_name);
-void                    notes_window_load_data  (NotesWindow *notes_window);
+NotesWindow *           notes_window_new                (NotesPlugin *notes_plugin);
 
-void                    notes_window_configure  (NotesWindow *notes_window);
+NotesWindow *           notes_window_new_with_label     (NotesPlugin *notes_plugin,
+                                                         const gchar *notes_window_name);
+void                    notes_window_load_data          (NotesWindow *notes_window);
 
-void                    notes_window_response   (GtkWidget *widget,
-                                                 int response,
-                                                 NotesWindow *notes_window);
-void                    notes_window_save       (NotesWindow *notes_window);
+/*void                    notes_window_configure          (NotesWindow *notes_window);
 
-const gchar *           notes_note_read_name    (NotesWindow *notes_window);
+void                    notes_window_response           (GtkWidget *widget,
+                                                         int response,
+                                                         NotesWindow *notes_window);*/
+void                    notes_window_save_data          (NotesWindow *notes_window);
 
-NotesNote *             notes_note_new          (NotesWindow *notes_window,
-                                                 const gchar *notes_note_name);
-void                    notes_note_load_data    (NotesNote *notes_note,
-                                                 GtkTextBuffer *buffer);
+const gchar *           notes_note_read_name            (NotesWindow *notes_window);
+
+NotesNote *             notes_note_new                  (NotesWindow *notes_window,
+                                                         const gchar *notes_note_name);
+void                    notes_note_load_data            (NotesNote *notes_note,
+                                                         GtkTextBuffer *buffer);
 
 #endif
