@@ -272,18 +272,6 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   notes_window->accel_group = gtk_accel_group_new ();
   gtk_window_add_accel_group (GTK_WINDOW (notes_window->window),
                               notes_window->accel_group);
-  gtk_widget_add_accelerator (notes_window->btn_add,
-                              "clicked",
-                              notes_window->accel_group,
-                              'N',
-                              GDK_CONTROL_MASK,
-                              GTK_ACCEL_MASK);
-  gtk_widget_add_accelerator (notes_window->btn_del,
-                              "clicked",
-                              notes_window->accel_group,
-                              'W',
-                              GDK_CONTROL_MASK,
-                              GTK_ACCEL_MASK);
   gtk_widget_add_accelerator (notes_window->btn_menu,
                               "clicked",
                               notes_window->accel_group,
@@ -576,22 +564,38 @@ notes_window_menu_new (NotesWindow *notes_window)
 {
   /* Menu */
   notes_window->menu = gtk_menu_new ();
-  GtkWidget *mi_new_window     = gtk_menu_item_new_with_mnemonic (_("_New window"));
-  GtkWidget *mi_destroy_window = gtk_menu_item_new_with_mnemonic (_("_Destroy window"));
-  GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename window"));
-  GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename note"));
+  GtkWidget *mi_window         = gtk_menu_item_new_with_label (_("Window"));
   GtkWidget *mi_separator1     = gtk_separator_menu_item_new ();
+  GtkWidget *mi_new_window     = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
+  GtkWidget *mi_destroy_window = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
+  GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename..."));
+  GtkWidget *mi_font           = gtk_image_menu_item_new_from_stock (GTK_STOCK_SELECT_FONT, NULL);
   notes_window->mi_options     = gtk_menu_item_new_with_mnemonic (_("_Options"));
-  GtkWidget *mi_font           = gtk_menu_item_new_with_mnemonic (_("_Font"));
+  GtkWidget *mi_separator2     = gtk_separator_menu_item_new ();
+  GtkWidget *mi_note           = gtk_menu_item_new_with_label (_("Note"));
+  GtkWidget *mi_separator3     = gtk_separator_menu_item_new ();
+  GtkWidget *mi_new_note       = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
+  GtkWidget *mi_delete_note    = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
+  GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename..."));
+  /*GtkWidget *mi_lock_note      = gtk_menu_item_new_with_mnemonic (_("_Lock note"));*/
 
+  gtk_widget_set_sensitive (mi_window, FALSE);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_window);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_destroy_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_window);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_note);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_font);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), notes_window->mi_options);
   gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_font);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator2);
+  gtk_widget_set_sensitive (mi_note, FALSE);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_note);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator3);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_note);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_delete_note);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_note);
+  /*gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_lock_note);*/
 
   /* Accel group */
   gtk_menu_set_accel_group (GTK_MENU (notes_window->menu),
@@ -608,17 +612,29 @@ notes_window_menu_new (NotesWindow *notes_window)
                               'Q',
                               GDK_CONTROL_MASK,
                               GTK_ACCEL_MASK);
-  gtk_widget_add_accelerator (mi_rename_note,
-                              "activate",
-                              notes_window->accel_group,
-                              GDK_F2,
-                              0,
-                              GTK_ACCEL_MASK);
   gtk_widget_add_accelerator (mi_rename_window,
                               "activate",
                               notes_window->accel_group,
                               GDK_F2,
                               GDK_SHIFT_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_new_note,
+                              "activate",
+                              notes_window->accel_group,
+                              'N',
+                              GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_delete_note,
+                              "activate",
+                              notes_window->accel_group,
+                              'W',
+                              GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_rename_note,
+                              "activate",
+                              notes_window->accel_group,
+                              GDK_F2,
+                              0,
                               GTK_ACCEL_MASK);
 
   /* Signals */
@@ -634,10 +650,6 @@ notes_window_menu_new (NotesWindow *notes_window)
                             "activate",
                             G_CALLBACK (notes_window_destroy),
                             notes_window);
-  g_signal_connect_swapped (mi_rename_note,
-                            "activate",
-                            G_CALLBACK (notes_window_rename_note_dialog),
-                            notes_window);
   g_signal_connect_swapped (mi_rename_window,
                             "activate",
                             G_CALLBACK (notes_window_rename_dialog),
@@ -645,6 +657,18 @@ notes_window_menu_new (NotesWindow *notes_window)
   g_signal_connect_swapped (mi_font,
                             "activate",
                             G_CALLBACK (notes_window_set_font_dialog),
+                            notes_window);
+  g_signal_connect_swapped (mi_new_note,
+                            "activate",
+                            G_CALLBACK (notes_window_add_note),
+                            notes_window);
+  g_signal_connect_swapped (mi_delete_note,
+                            "activate",
+                            G_CALLBACK (notes_window_delete_note),
+                            notes_window);
+  g_signal_connect_swapped (mi_rename_note,
+                            "activate",
+                            G_CALLBACK (notes_window_rename_note_dialog),
                             notes_window);
 
   /* Show the stuff */
