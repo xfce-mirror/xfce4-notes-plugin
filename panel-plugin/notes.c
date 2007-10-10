@@ -94,7 +94,7 @@ notes_window_new (NotesPlugin *notes_plugin,
 
   /* Window */
   notes_window->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (notes_window->window), _("Notes"));
+  gtk_window_set_title (GTK_WINDOW (notes_window->window), window_name);
   gtk_window_set_default_size (GTK_WINDOW (notes_window->window), 375, 430);
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_icon_name (GTK_WINDOW (notes_window->window), "xfce4-notes-plugin");
