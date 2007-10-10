@@ -21,7 +21,9 @@
 #include <config.h>
 #endif
 
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
+#include <libxfce4panel/xfce-panel-convenience.h>
 #include <libxfce4util/libxfce4util.h>
 
 #include "notes.h"
@@ -30,41 +32,66 @@
 
 
 
-gchar *
+static gboolean         notes_note_key_pressed          (GtkWidget *widget,
+                                                         GdkEventKey *event,
+                                                         NotesNote *notes_note);
+static void             notes_note_buffer_changed       (GtkWidget *widget,
+                                                         NotesNote *notes_note);
+static gboolean         notes_note_rename               (GtkWidget *widget,
+                                                         GdkEventButton *event,
+                                                         NotesNote *notes_note);
+static void             notes_window_add_note           (GtkWidget *widget,
+                                                         NotesWindow *notes_window);
+static gboolean         notes_window_delete_note        (GtkWidget *widget,
+                                                         NotesWindow *notes_window);
+static gboolean         notes_window_start_move         (GtkWidget *widget,
+                                                         GdkEventButton *event,
+                                                         NotesWindow *notes_window);
+static gboolean         notes_window_shade              (GtkWidget *widget,
+                                                         GdkEventScroll *event,
+                                                         NotesWindow *notes_window);
+static void             notes_window_close_window       (GtkWidget *widget,
+                                                         NotesWindow *notes_window);
+
+
+
+const gchar *
 notes_window_read_name (NotesPlugin *notes_plugin)
 {
   static GDir          *dir = NULL;
   static gchar         *notes_path = NULL;
-  static gchar         *name = NULL;
+  static const gchar   *window_name = NULL;
 
   if (G_UNLIKELY (dir == NULL))
     {
       notes_path = notes_plugin->notes_path;
-      dir = g_dir_open (notes_path);
+      dir = g_dir_open (notes_path, 0, NULL);
     }
 
-  g_free (name);
-  if (G_UNLIKELY ((name = g_dir_read_name (dir)) == NULL))
+  window_name = g_dir_read_name (dir);
+  TRACE ("window_name: %s", window_name);
+  if (G_UNLIKELY (window_name == NULL))
     {
       g_dir_close (dir);
-      DBG ("Notes dir closed: %p\n", dir);
       dir = NULL;
     }
 
-  return name;
+  return window_name;
 }
 
 NotesWindow *
 notes_window_new (NotesPlugin *notes_plugin,
-                  gchar *notes_window_name)
+                  const gchar *notes_window_name)
 {
+  DBG ("New window: %s", notes_window_name);
+
   NotesWindow          *notes_window;
   GtkAccelGroup        *accel_group;
   GtkWidget            *img_add, *img_del, *img_close;
 
   notes_window = g_slice_new0 (NotesWindow);
   notes_window->notes_plugin = notes_plugin;
-  g_slist_append (notes_plugin->windows, notes_window);
+  notes_plugin->windows = g_slist_prepend (notes_plugin->windows, notes_window);
 
   /* Window */
   notes_window->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -78,7 +105,7 @@ notes_window_new (NotesPlugin *notes_plugin,
   notes_window->frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (notes_window->frame), GTK_SHADOW_OUT);
   gtk_container_add (GTK_CONTAINER (notes_window->window),
-                     note->frame);
+                     notes_window->frame);
   gtk_widget_show (notes_window->frame);
 
   /* Vertical box */
@@ -128,13 +155,13 @@ notes_window_new (NotesPlugin *notes_plugin,
   /* Event box move */
   notes_window->eb_move = gtk_event_box_new ();
   gtk_event_box_set_visible_window (GTK_EVENT_BOX (notes_window->eb_move), FALSE);
-  gtk_widget_realize (notes_window->eb_move);
   gtk_box_pack_start (GTK_BOX (notes_window->hbox),
                       notes_window->eb_move,
                       TRUE,
                       TRUE,
                       0);
   gtk_widget_show (notes_window->eb_move);
+  gtk_widget_realize (notes_window->eb_move);
 
   /* Title */
   notes_window->title = gtk_label_new (_("<b>Notes</b>"));
@@ -205,7 +232,7 @@ notes_window_new (NotesPlugin *notes_plugin,
                     notes_plugin);
   g_signal_connect (G_OBJECT (notes_window->eb_move),
                     "button-press-event",
-                    G_CALLBACK (notes_window_move),
+                    G_CALLBACK (notes_window_start_move),
                     notes_window);
   g_signal_connect (G_OBJECT (notes_window->eb_move),
                     "scroll-event",
@@ -231,9 +258,9 @@ notes_window_new (NotesPlugin *notes_plugin,
 
   if (G_LIKELY (notes_window->visible
                 && notes_window->show_on_startup != NEVER))
-    gtk_widget_show (notes_window->windows);
+    gtk_widget_show (notes_window->window);
   else
-    gtk_widget_hide (notes_window->windows);
+    gtk_widget_hide (notes_window->window);
 
   return notes_window;
 }
@@ -243,19 +270,20 @@ notes_window_load_data (NotesWindow *notes_window)
 {
   XfceRc               *rc;
   NotesNote            *notes_note;
-  gchar                *note_name;
-  gchar                *window_name;
+  const gchar          *note_name;
+  const gchar          *window_name;
+  gchar                *window_name_tmp;
 
-  window_name = gtk_label_get_text (notes_window->title);
+  window_name = gtk_label_get_text (GTK_LABEL (notes_window->title));
   if (G_UNLIKELY (g_ascii_strncasecmp (window_name, "", 1) == 0))
     {
       guint id = g_slist_length (notes_window->notes_plugin->windows);
       if (G_LIKELY (id > 1))
-        gchar *window_name_tmp = g_strdup_printf ("Notes %d", id);
+        window_name_tmp = g_strdup_printf ("Notes %d", id);
       else
-        gchar *window_name_tmp = g_strdup ("Notes");
-      gtk_label_set_text (notes_window->title, window_name_tmp);
-      window_name = gtk_label_get_text (notes_window->title);
+        window_name_tmp = g_strdup ("Notes");
+      gtk_label_set_text (GTK_LABEL (notes_window->title), window_name_tmp);
+      window_name = gtk_label_get_text (GTK_LABEL (notes_window->title));
       g_free (window_name_tmp);
     }
 
@@ -276,18 +304,18 @@ notes_window_load_data (NotesWindow *notes_window)
 
   xfce_rc_close (rc);
 
+  note_name = notes_note_read_name (notes_window);
   do
     {
-      note_name = notes_note_read_name (notes_window);
+      TRACE ("note_name: %s", note_name);
       notes_note = notes_note_new (notes_window, note_name);
-      notes_note->notes_window = notes_window;
-      g_slist_append (notes_window->notes, notes_note);
+      note_name = notes_note_read_name (notes_window);
     }
   while (G_LIKELY (note_name != NULL));
 }
 
 void
-notes_window_configure (NotesPlugin *notes_window)
+notes_window_configure (NotesWindow *notes_window)
 {
 }
 
@@ -302,24 +330,24 @@ void
 notes_window_save (NotesWindow *notes_window)
 {
   XfceRc               *rc;
-  gchar                *window_name;
+  const gchar          *window_name;
 
-  window_name = gtk_label_get_text (notes_window->title);
+  rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
+  g_return_if_fail (G_LIKELY (rc != NULL));
+
+  window_name = gtk_label_get_text (GTK_LABEL (notes_window->title));
+
+  xfce_rc_set_group (rc, window_name);
 
   if (GTK_WIDGET_VISIBLE (notes_window->window))
     {
       gtk_window_get_position (GTK_WINDOW (notes_window->window),
                                &notes_window->x,
                                &notes_window->y);
-      gtk_window_get_size (GTK_WINDOW (notes->note->window),
+      gtk_window_get_size (GTK_WINDOW (notes_window->window),
                            &notes_window->w,
                            &notes_window->h);
     }
-
-  rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
-  g_return_if_fail (G_UNLIKELY (!rc));
-
-  xfce_rc_set_group (rc, window_name);
 
   xfce_rc_write_int_entry (rc, "PosX", notes_window->x);
   xfce_rc_write_int_entry (rc, "PosY", notes_window->y);
@@ -342,38 +370,79 @@ notes_window_save (NotesWindow *notes_window)
   xfce_rc_close (rc);
 }
 
+static void
+notes_window_add_note (GtkWidget *widget,
+                       NotesWindow *notes_window)
+{
+}
+
+static gboolean
+notes_window_delete_note (GtkWidget *widget,
+                          NotesWindow *notes_window)
+{
+  return FALSE;
+}
+
+static gboolean
+notes_window_start_move (GtkWidget *widget,
+                         GdkEventButton *event,
+                         NotesWindow *notes_window)
+{
+  return FALSE;
+}
+
+static gboolean
+notes_window_shade (GtkWidget *widget,
+                    GdkEventScroll *event,
+                    NotesWindow *notes_window)
+{
+  return FALSE;
+}
+
+static void
+notes_window_close_window (GtkWidget *widget,
+                           NotesWindow *notes_window)
+{
+}
 
 
-gchar *
+
+const gchar *
 notes_note_read_name (NotesWindow *notes_window)
 {
   static GDir          *dir = NULL;
   static gchar         *notes_path = NULL;
-  static gchar         *window_title = NULL;
+  const gchar          *window_name = NULL;
   static gchar         *path = NULL;
-  static gchar         *note_name = NULL;
+  const gchar          *note_name = NULL;
 
+  TRACE ("NotesWindow: %p", notes_window);
   if (G_UNLIKELY (dir == NULL))
     {
       if (G_UNLIKELY (notes_path == NULL))
         {
           notes_path = notes_window->notes_plugin->notes_path;
-          notes_title = notes_window->title;
+          window_name = gtk_label_get_text (GTK_LABEL (notes_window->title));
           path = g_build_path (G_DIR_SEPARATOR_S,
                                notes_path,
-                               notes_title,
+                               window_name,
                                NULL);
+          TRACE ("path: %s", path);
         }
-      dir = g_dir_open (path);
-      g_return_val_if_fail (G_UNLIKELY (!dir), NULL);
+
+      if (G_UNLIKELY (!g_file_test (path, (G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR))))
+        g_mkdir (path, 0755);
+
+      dir = g_dir_open (path, 0, NULL);
     }
 
-  g_free (note_name);
-  if (G_UNLIKELY ((note_name = g_dir_read_name (dir)) == NULL))
+  note_name = g_dir_read_name (dir);
+  TRACE ("note_name: %s", note_name);
+  if (G_UNLIKELY (note_name == NULL))
     {
       g_dir_close (dir);
-      DBG ("Notes dir closed: %p\n", dir);
       dir = NULL;
+      g_free (path);
     }
 
   return note_name;
@@ -391,14 +460,16 @@ notes_note_read_name (NotesWindow *notes_window)
  **/
 NotesNote *
 notes_note_new (NotesWindow *notes_window,
-                gchar *notes_note_name)
+                const gchar *notes_note_name)
 {
+  DBG ("New note: %s", notes_note_name);
+
   NotesNote            *notes_note;
   GtkTextBuffer        *buffer;
 
   notes_note = g_slice_new0 (NotesNote);
   notes_note->notes_window = notes_window;
-  g_slist_append (notes_window->notes, notes_note);
+  notes_window->notes = g_slist_prepend (notes_window->notes, notes_note);
 
   /* Label */
   GtkWidget *eb_border = gtk_event_box_new ();
@@ -436,11 +507,11 @@ notes_note_new (NotesWindow *notes_window,
   g_signal_connect (buffer,
                     "changed",
                     G_CALLBACK (notes_note_buffer_changed),
-                    notes_window->panel_plugin);
+                    notes_note);
   g_signal_connect (eb_border,
                     "button-press-event",
                     G_CALLBACK (notes_note_rename),
-                    notes_window);
+                    notes_note);
 
   /* Load data */
   notes_note_load_data (notes_note, buffer);
@@ -453,27 +524,28 @@ notes_note_new (NotesWindow *notes_window,
 }
 
 void
-notes_note_load_data (NotesNote *notes_note
+notes_note_load_data (NotesNote *notes_note,
                       GtkTextBuffer *buffer)
 {
-  gchar                *note_name;
+  const gchar          *note_name;
+  gchar                *note_name_tmp;
   gchar                *filename;
   gchar                *contents = NULL;
 
-  note_name = gtk_label_get_text (notes_note->title);
+  note_name = gtk_label_get_text (GTK_LABEL (notes_note->title));
   if (G_UNLIKELY (g_ascii_strncasecmp (note_name, "", 1) == 0))
     {
       guint id = g_slist_length (notes_note->notes_window->notes);
-      gchar *note_name_tmp = g_strdup_printf ("%d", id);
-      gtk_label_set_text (notes_note->title, note_name_tmp);
-      note_name = gtk_label_get_text (notes_note->title);
+      note_name_tmp = g_strdup_printf ("%d", id);
+      gtk_label_set_text (GTK_LABEL (notes_note->title), note_name_tmp);
+      note_name = gtk_label_get_text (GTK_LABEL (notes_note->title));
       g_free (note_name_tmp);
     }
 
   filename = g_build_path (G_DIR_SEPARATOR_S,
                            notes_note->notes_window->notes_plugin->notes_path,
                            notes_note->notes_window->title,
-                           notes_name,
+                           note_name,
                            NULL);
 
   if (G_LIKELY (g_file_get_contents (filename, &contents, NULL, NULL)))
@@ -484,5 +556,27 @@ notes_note_load_data (NotesNote *notes_note
 
   g_free (contents);
   g_free (filename);
+}
+
+static gboolean
+notes_note_key_pressed (GtkWidget *widget,
+                        GdkEventKey *event,
+                        NotesNote *notes_note)
+{
+  return FALSE;
+}
+
+static void
+notes_note_buffer_changed (GtkWidget *widget,
+                           NotesNote *notes_note)
+{
+}
+
+static gboolean
+notes_note_rename (GtkWidget *widget,
+                   GdkEventButton *event,
+                   NotesNote *notes_note)
+{
+  return FALSE;
 }
 

@@ -54,9 +54,9 @@ static void         notes_plugin_free       (NotesPlugin *notes_plugin);
 static gboolean     notes_plugin_popup      (NotesPlugin *notes_plugin);
 
 /* TODO sort the next functions */
-static gboolean     save_on_timeout_execute (NotesPlugin *notes_plugin);
+/*static gboolean     save_on_timeout_execute (NotesPlugin *notes_plugin);
 
-static void         save_on_timeout         (NotesPlugin *notes);
+static void         save_on_timeout         (NotesPlugin *notes);*/
 
 
 
@@ -64,14 +64,14 @@ static void         save_on_timeout         (NotesPlugin *notes);
 static void
 notes_plugin_register (XfcePanelPlugin *panel_plugin)
 {
-  DBG ("Properties: size = %d, screen_position = %d",
+  DBG ("\nProperties: size = %d, screen_position = %d",
        xfce_panel_plugin_get_size (panel_plugin),
        xfce_panel_plugin_get_screen_position (panel_plugin));
 
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
   NotesPlugin *notes_plugin = notes_plugin_new (panel_plugin);
-  g_return_if_fail (G_UNLIKELY (!notes_plugin));
+  g_return_if_fail (G_LIKELY (notes_plugin != NULL));
   notes_plugin_load_data (notes_plugin);
 }
 
@@ -91,29 +91,25 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
   gtk_container_add (GTK_CONTAINER (panel_plugin),
                      notes_plugin->btn_panel);
 
-  xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
-  xfce_panel_plugin_menu_show_configure (panel_plugin);
-
-  g_signal_connect (panel_plugin,
-                    "configure-plugin",
-                    G_CALLBACK (notes_plugin_configure),
-                    notes_plugin);
-  g_signal_connect (panel_plugin,
-                    "size-changed",
-                    G_CALLBACK (notes_plugin_set_size),
-                    notes_plugin);
+  g_signal_connect_swapped (panel_plugin,
+                            "size-changed",
+                            G_CALLBACK (notes_plugin_set_size),
+                            notes_plugin);
   g_signal_connect (notes_plugin->btn_panel,
                     "clicked",
                     G_CALLBACK (notes_plugin_popup),
                     notes_plugin);
-  g_signal_connect (panel_plugin,
-                    "save",
-                    G_CALLBACK (notes_plugin_save),
-                    notes_plugin);
+  g_signal_connect_swapped (panel_plugin,
+                            "save",
+                            G_CALLBACK (notes_plugin_save),
+                            notes_plugin);
   g_signal_connect (panel_plugin,
                     "free-data",
                     G_CALLBACK (notes_plugin_free),
                     notes_plugin);
+
+  xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
+  gtk_widget_show_all (notes_plugin->btn_panel);
 
   return notes_plugin;
 }
@@ -121,28 +117,31 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 static void
 notes_plugin_load_data (NotesPlugin *notes_plugin)
 {
-  DBG ("Look up file: %s\nNotes path: %s", notes_plugin->config_file,
-                                           notes_plugin->notes_path);
   NotesWindow          *notes_window;
-  gchar                *notes_window_name;
+  const gchar          *window_name;
 
   notes_plugin->notes_path =
     xfce_resource_save_location (XFCE_RESOURCE_DATA,
                                  "notes/",
                                  TRUE);
-  g_return_if_fail (G_UNLIKELY (!notes_plugin->notes_path));
+  g_return_if_fail (G_LIKELY (notes_plugin->notes_path != NULL));
 
   notes_plugin->config_file =
-    xfce_panel_plugin_lookup_rc_file (notes_plugin->panel_plugin);
-  g_return_if_fail (G_UNLIKELY (!notes_plugin->config_file));
+    xfce_panel_plugin_save_location (notes_plugin->panel_plugin,
+                                     TRUE);
+  g_return_if_fail (G_LIKELY (notes_plugin->config_file != NULL));
 
+  DBG ("\nLook up file: %s\nNotes path: %s", notes_plugin->config_file,
+                                           notes_plugin->notes_path);
+  window_name = notes_window_read_name (notes_plugin);
   do
     {
-      window_name = notes_window_read_name (notes_plugin);
+      TRACE ("window_name: %s", window_name);
       notes_window = notes_window_new (notes_plugin, window_name);
-      notes_window->notes_plugin = notes_plugin;
-      g_slist_append (notes_plugin->windows, notes_window);
-
+      if (G_UNLIKELY (window_name != NULL))
+        /* If there was no window, don't try to read again since
+         * a first window has been created and would be read again. */
+        window_name = notes_window_read_name (notes_plugin);
     }
   while (G_LIKELY (window_name != NULL));
 }
@@ -166,7 +165,7 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
 static void
 notes_plugin_save (NotesPlugin *notes_plugin)
 {
-  g_slist_foreach (notes_plugin->windows, notes_window_save, NULL);
+  g_slist_foreach (notes_plugin->windows, (GFunc)notes_window_save, NULL);
 }
 
 static void
@@ -191,7 +190,7 @@ XFCE_PANEL_PLUGIN_REGISTER_EXTERNAL (notes_plugin_register);
 
 /* TODO sort the next functions */
 
-static gboolean
+/*static gboolean
 save_on_timeout_execute (NotesPlugin *notes)
 {
   notes_save (notes->plugin, notes);
@@ -201,11 +200,11 @@ save_on_timeout_execute (NotesPlugin *notes)
 static void
 save_on_timeout (NotesPlugin *notes)
 {
-  /*if (notes->timeout_id > 0)
+  if (notes->timeout_id > 0)
     {
       g_source_remove (notes->timeout_id);
       notes->timeout_id = 0;
     }
-  notes->timeout_id = g_timeout_add (60000, (GSourceFunc) save_on_timeout_execute, notes);*/
-}
+  notes->timeout_id = g_timeout_add (60000, (GSourceFunc) save_on_timeout_execute, notes);
+}*/
 

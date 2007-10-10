@@ -19,7 +19,7 @@ plugin_PROGRAMS = xfce4-notes-plugin
 xfce4_notes_plugin_SOURCES =									\
 	panel-plugin.c												\
 	notes.c														\
-	notes.h														\
+	notes.h
 
 xfce4_notes_plugin_CFLAGS =										\
 	-I$(top_srcdir)												\

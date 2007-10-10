@@ -20,6 +20,7 @@
 #ifndef NOTES_H
 #define NOTES_H
 
+#include <libxfce4panel/xfce-panel-plugin.h>
 /* #include <gdk/gdkkeysyms.h> FIXME */
 
 typedef struct _NotesPlugin     NotesPlugin;
@@ -37,13 +38,12 @@ struct _NotesPlugin
   GtkTooltips          *tooltips;
 };
 
-typedef enum _ShowOnStartup     ShowOnStartup;
-enum _ShowOnStartup
+typedef enum
 {
   LAST_STATE,
   ALWAYS,
   NEVER,
-};
+} ShowOnStartup;
 
 typedef struct _NotesWindow     NotesWindow;
 struct _NotesWindow
@@ -87,10 +87,10 @@ struct _NotesOptions
 {
 };
 
-gchar *                 notes_window_read_name  (NotesPlugin *notes_plugin);
+const gchar *           notes_window_read_name  (NotesPlugin *notes_plugin);
 
 NotesWindow *           notes_window_new        (NotesPlugin *notes_plugin,
-                                                 gchar *notes_window_name);
+                                                 const gchar *notes_window_name);
 void                    notes_window_load_data  (NotesWindow *notes_window);
 
 void                    notes_window_configure  (NotesWindow *notes_window);
@@ -98,10 +98,12 @@ void                    notes_window_configure  (NotesWindow *notes_window);
 void                    notes_window_response   (GtkWidget *widget,
                                                  int response,
                                                  NotesWindow *notes_window);
-gchar *                 notes_note_read_name    (NotesWindow *notes_window);
+void                    notes_window_save       (NotesWindow *notes_window);
+
+const gchar *           notes_note_read_name    (NotesWindow *notes_window);
 
 NotesNote *             notes_note_new          (NotesWindow *notes_window,
-                                                 gchar *notes_note_name);
+                                                 const gchar *notes_note_name);
 void                    notes_note_load_data    (NotesNote *notes_note,
                                                  GtkTextBuffer *buffer);
 
