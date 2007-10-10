@@ -200,27 +200,19 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
     {
       TRACE ("notes_window (%d): %p", (i-1), notes_window);
       GtkWidget *mi_foo = gtk_image_menu_item_new_with_label (notes_window->name);
-
+      GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin",
+                                                      GTK_ICON_SIZE_MENU);
       if (GTK_WIDGET_VISIBLE (notes_window->window))
-        {
-          GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin",
-                                                          GTK_ICON_SIZE_MENU);
-          gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
-          g_signal_connect_swapped (mi_foo,
-                                    "activate",
-                                     G_CALLBACK (notes_window_hide),
-                                     notes_window);
-        }
+        gtk_widget_set_sensitive (icon, TRUE);
       else
-        {
-          GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin-rev",
-                                                          GTK_ICON_SIZE_MENU);
-          gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
-          g_signal_connect_swapped (mi_foo,
-                                    "activate",
-                                    G_CALLBACK (notes_window_show),
-                                    notes_window);
-        }
+        gtk_widget_set_sensitive (icon, FALSE);
+
+      gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
+
+      g_signal_connect_swapped (mi_foo,
+                                "activate",
+                                G_CALLBACK (notes_window_show),
+                                notes_window);
 
       gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_foo);
     }

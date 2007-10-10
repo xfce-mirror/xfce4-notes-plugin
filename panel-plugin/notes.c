@@ -673,6 +673,13 @@ void
 notes_window_show (NotesWindow *notes_window)
 {
   TRACE ("Show window: %p", notes_window);
+  if (GTK_WIDGET_VISIBLE (notes_window->window))
+    {
+      gtk_widget_show (notes_window->notebook);
+      gtk_window_present (GTK_WINDOW (notes_window->window));
+      return;
+    }
+
   if (notes_window->x != -1 && notes_window->y != -1)
     gtk_window_move (GTK_WINDOW (notes_window->window),
                      notes_window->x,
