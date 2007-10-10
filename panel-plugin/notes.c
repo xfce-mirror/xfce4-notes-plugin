@@ -44,12 +44,10 @@ static void             notes_window_add_note           (GtkWidget *widget,
                                                          NotesWindow *notes_window);
 static gboolean         notes_window_delete_note        (GtkWidget *widget,
                                                          NotesWindow *notes_window);
-static gboolean         notes_window_start_move         (GtkWidget *widget,
-                                                         GdkEventButton *event,
-                                                         NotesWindow *notes_window);
-static gboolean         notes_window_shade              (GtkWidget *widget,
-                                                         GdkEventScroll *event,
-                                                         NotesWindow *notes_window);
+static gboolean         notes_window_start_move         (NotesWindow *notes_window,
+                                                         GdkEventButton *event);
+static gboolean         notes_window_shade              (NotesWindow *notes_window,
+                                                         GdkEventScroll *event);
 static void             notes_window_close_window       (GtkWidget *widget,
                                                          NotesWindow *notes_window);
 
@@ -230,14 +228,14 @@ notes_window_new (NotesPlugin *notes_plugin,
                     "clicked",
                     G_CALLBACK (notes_window_delete_note),
                     notes_plugin);
-  g_signal_connect (G_OBJECT (notes_window->eb_move),
-                    "button-press-event",
-                    G_CALLBACK (notes_window_start_move),
-                    notes_window);
-  g_signal_connect (G_OBJECT (notes_window->eb_move),
-                    "scroll-event",
-                    G_CALLBACK (notes_window_shade),
-                    notes_window);
+  g_signal_connect_swapped (G_OBJECT (notes_window->eb_move),
+                            "button-press-event",
+                            G_CALLBACK (notes_window_start_move),
+                            notes_window);
+  g_signal_connect_swapped (G_OBJECT (notes_window->eb_move),
+                            "scroll-event",
+                            G_CALLBACK (notes_window_shade),
+                            notes_window);
   g_signal_connect (notes_window->window,
                     "delete-event",
                     G_CALLBACK (notes_window_close_window), /* XXX should prevent ALT+F4 */
@@ -384,17 +382,32 @@ notes_window_delete_note (GtkWidget *widget,
 }
 
 static gboolean
-notes_window_start_move (GtkWidget *widget,
-                         GdkEventButton *event,
-                         NotesWindow *notes_window)
+notes_window_start_move (NotesWindow *notes_window,
+                         GdkEventButton *event)
 {
+  if (G_LIKELY (event->type == GDK_BUTTON_PRESS))
+    {
+      if (event->button == 1)
+        {
+          /* Send to foreground and move the window */
+          gdk_window_show (notes_window->window->window);
+          gtk_window_begin_move_drag (GTK_WINDOW (notes_window->window),
+                                      event->button,
+                                      event->x_root,
+                                      event->y_root,
+                                      event->time);
+        }
+      else if (event->button == 2)
+        /* Send to background */
+        gdk_window_lower (notes_window->window->window);
+    }
+
   return FALSE;
 }
 
 static gboolean
-notes_window_shade (GtkWidget *widget,
-                    GdkEventScroll *event,
-                    NotesWindow *notes_window)
+notes_window_shade (NotesWindow *notes_window,
+                    GdkEventScroll *event)
 {
   if (G_LIKELY (event->type == GDK_SCROLL))
     {
