@@ -76,8 +76,6 @@ static void             notes_window_add_note           (NotesWindow *notes_wind
 
 static void             notes_window_delete_note        (NotesWindow *notes_window);
 
-static gboolean         notes_note_save_data            (NotesNote *notes_note);
-
 static inline void      notes_note_sort_names           (NotesNote *notes_note);
 
 static gint             notes_note_strcasecmp           (NotesNote *notes_note0,
@@ -1290,7 +1288,7 @@ notes_note_load_data (NotesNote *notes_note,
   g_free (filename);
 }
 
-static gboolean
+gboolean
 notes_note_save_data (NotesNote *notes_note)
 {
   DBG ("Save note `%s'", notes_note->name);

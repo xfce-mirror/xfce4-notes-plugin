@@ -130,6 +130,8 @@ NotesNote *             notes_note_new                  (NotesWindow *notes_wind
                                                          const gchar *note_name);
 void                    notes_note_load_data            (NotesNote *notes_note,
                                                          GtkTextBuffer *buffer);
+gboolean                notes_note_save_data            (NotesNote *notes_note);
+
 void                    notes_note_destroy              (NotesNote *notes_note);
 
 #endif

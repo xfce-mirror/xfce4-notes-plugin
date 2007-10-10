@@ -36,7 +36,9 @@ static NotesPlugin     *notes_plugin_new                (XfcePanelPlugin *panel_
 
 static void             notes_plugin_load_data          (NotesPlugin *notes_plugin);
 
-static void             notes_plugin_save_data          (NotesPlugin *notes_plugin);
+static inline void      notes_plugin_save_data          (NotesPlugin *notes_plugin);
+
+static void             notes_plugin_save_data_all      (NotesPlugin *notes_plugin);
 
 static void             notes_plugin_free               (NotesPlugin *notes_plugin);
 
@@ -75,7 +77,6 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
   NotesPlugin *notes_plugin = g_slice_new0 (NotesPlugin);
   notes_plugin->panel_plugin = panel_plugin;
   notes_plugin->windows = NULL;
-  /* notes_plugin->timeout_id = 0; FIXME */
 
   notes_plugin->btn_panel = xfce_create_panel_toggle_button ();
   notes_plugin->icon_panel = gtk_image_new ();
@@ -159,19 +160,28 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
   return TRUE;
 }
 
-static void
+static inline void
 notes_plugin_save_data (NotesPlugin *notes_plugin)
 {
   g_slist_foreach (notes_plugin->windows, (GFunc)notes_window_save_data, NULL);
 }
 
 static void
-notes_plugin_free (NotesPlugin *notes_plugin)
+notes_plugin_save_data_all (NotesPlugin *notes_plugin)
 {
-  /* if (notes->timeout_id > 0)
-    g_source_remove (notes->timeout_id); FIXME */
+  guint                 i = 0;
+  NotesWindow          *notes_window;
 
   notes_plugin_save_data (notes_plugin);
+
+  while (NULL != (notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)))
+    g_slist_foreach (notes_window->notes, (GFunc)notes_note_save_data, NULL);
+}
+
+static void
+notes_plugin_free (NotesPlugin *notes_plugin)
+{
+  notes_plugin_save_data_all (notes_plugin);
   gtk_main_quit ();
 }
 
@@ -192,7 +202,7 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_foo);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_plugin->menu), mi_sep);
 
-  while ((notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)) != NULL)
+  while (NULL != (notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)))
     {
       TRACE ("notes_window (%d): %p", (i-1), notes_window);
       GtkWidget *mi_foo = gtk_image_menu_item_new_with_label (notes_window->name);
