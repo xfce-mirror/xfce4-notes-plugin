@@ -303,6 +303,9 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   notes_window_load_data (notes_window);
 
   /* Show the stuff, or not */
+  if (g_slist_length (notes_window->notes) > 1)
+    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
+                                TRUE);
   if (G_UNLIKELY (notes_window->show_statusbar))
     gtk_widget_show (notes_window->statusbar);
 
@@ -912,7 +915,7 @@ notes_note_read_name (NotesWindow *notes_window)
 /**
  * notes_note_new:
  * @notes_window    : a NotesWindow pointer
- * @notes_note_name : the name of the notes to open
+ * @note_name : the name of the notes to open
  * or %NULL to create a new note
  *
  * Create a new note.
@@ -921,22 +924,23 @@ notes_note_read_name (NotesWindow *notes_window)
  **/
 NotesNote *
 notes_note_new (NotesWindow *notes_window,
-                const gchar *notes_note_name)
+                const gchar *note_name)
 {
-  DBG ("New note: %s", notes_note_name);
+  DBG ("New note: %s", note_name);
 
   NotesNote            *notes_note;
   GtkTextBuffer        *buffer;
 
   notes_note = g_slice_new0 (NotesNote);
   notes_note->notes_window = notes_window;
+  notes_note->name = g_strdup (note_name);
   notes_window->notes = g_slist_prepend (notes_window->notes, notes_note);
 
   /* Label */
   GtkWidget *eb_border = gtk_event_box_new ();
   gtk_container_set_border_width (GTK_CONTAINER (eb_border), 3);
   gtk_event_box_set_visible_window (GTK_EVENT_BOX (eb_border), FALSE);
-  notes_note->title = gtk_label_new (notes_note_name);
+  notes_note->title = gtk_label_new (note_name);
   gtk_container_add (GTK_CONTAINER (eb_border),
                      notes_note->title);
 
@@ -957,8 +961,6 @@ notes_note_new (NotesWindow *notes_window,
   gtk_notebook_append_page (GTK_NOTEBOOK (notes_window->notebook),
                             notes_note->scrolled_window,
                             eb_border);
-  /* gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
-                              (gboolean) g_slist_length (notes_window->notes)); FIXME */
 
   /* Signals FIXME */
   g_signal_connect (notes_note->text_view,
@@ -978,7 +980,7 @@ notes_note_new (NotesWindow *notes_window,
   notes_note_load_data (notes_note, buffer);
 
   /* Show the stuff */
-  /* gtk_widget_show_all (eb_border); XXX */
+  gtk_widget_show_all (eb_border);
   gtk_widget_show_all (notes_note->scrolled_window);
 
   return notes_note;
@@ -988,29 +990,26 @@ void
 notes_note_load_data (NotesNote *notes_note,
                       GtkTextBuffer *buffer)
 {
-  const gchar          *note_name;
-  gchar                *note_name_tmp;
   gchar                *filename;
   gchar                *contents = NULL;
 
-  note_name = gtk_label_get_text (GTK_LABEL (notes_note->title));
-  if (G_UNLIKELY (g_ascii_strncasecmp (note_name, "", 1) == 0))
+  if (G_LIKELY (notes_note->name == NULL))
     {
       guint id = g_slist_length (notes_note->notes_window->notes);
-      note_name_tmp = g_strdup_printf ("%d", id);
-      gtk_label_set_text (GTK_LABEL (notes_note->title), note_name_tmp);
-      note_name = gtk_label_get_text (GTK_LABEL (notes_note->title));
-      g_free (note_name_tmp);
+      notes_note->name = g_strdup_printf ("%d", id);
+      gtk_label_set_text (GTK_LABEL (notes_note->title), notes_note->name);
     }
 
   filename = g_build_path (G_DIR_SEPARATOR_S,
                            notes_note->notes_window->notes_plugin->notes_path,
-                           notes_note->notes_window->title, /* XXX WTF? */
-                           note_name,
+                           notes_note->notes_window->name,
+                           notes_note->name,
                            NULL);
+  DBG ("Read notes from `%s'", filename);
 
   if (G_LIKELY (g_file_get_contents (filename, &contents, NULL, NULL)))
     {
+      TRACE ("Load data for notes `%s':\n%s", notes_note->name, contents);
       gtk_text_buffer_set_text (buffer, contents, -1);
       gtk_text_view_set_buffer (GTK_TEXT_VIEW (notes_note->text_view), buffer);
     }
