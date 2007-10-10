@@ -59,19 +59,21 @@ static gboolean         notes_window_state_event        (NotesWindow *notes_wind
                                                          GdkEventWindowState *event);
 static gboolean         notes_window_start_move         (NotesWindow *notes_window,
                                                          GdkEventButton *event);
-static gboolean         notes_window_shade              (NotesWindow *notes_window,
+static gboolean         notes_window_scroll_event       (NotesWindow *notes_window,
                                                          GdkEventScroll *event);
+static void             notes_window_shade              (NotesWindow *notes_window);
+
+static void             notes_window_unshade            (NotesWindow *notes_window);
+
 static void             notes_window_rename_dialog      (NotesWindow *notes_window);
 
 static void             notes_window_rename             (NotesWindow *notes_window,
                                                          const gchar *name);
+static void             notes_window_add_note           (NotesWindow *notes_window);
+
+static gboolean         notes_window_delete_note        (NotesWindow *notes_window);
+
 /* FIXME */
-static void             notes_window_add_note           (GtkWidget *widget,
-                                                         NotesWindow *notes_window);
-static gboolean         notes_window_delete_note        (GtkWidget *widget,
-                                                         NotesWindow *notes_window);
-
-
 static gboolean         notes_note_rename               (GtkWidget *widget,
                                                          GdkEventButton *event,
                                                          NotesNote *notes_note);
@@ -277,7 +279,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                             notes_window);
   g_signal_connect_swapped (notes_window->eb_move,
                             "scroll-event",
-                            G_CALLBACK (notes_window_shade),
+                            G_CALLBACK (notes_window_scroll_event),
                             notes_window);
   g_signal_connect_swapped (notes_window->btn_menu,
                             "event",
@@ -285,20 +287,20 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                             notes_window);
   g_signal_connect_swapped (notes_window->window,
                             "delete-event",
-                            G_CALLBACK (notes_window_hide), /* XXX should prevent ALT+F4 */
+                            G_CALLBACK (notes_window_hide),
                             notes_window);
   g_signal_connect_swapped (notes_window->btn_close,
                             "clicked",
                             G_CALLBACK (notes_window_hide),
                             notes_window);
-  g_signal_connect (notes_window->btn_add,
-                    "clicked",
-                    G_CALLBACK (notes_window_add_note),
-                    notes_plugin);
-  g_signal_connect (notes_window->btn_del,
-                    "clicked",
-                    G_CALLBACK (notes_window_delete_note),
-                    notes_plugin);
+  g_signal_connect_swapped (notes_window->btn_add,
+                            "clicked",
+                            G_CALLBACK (notes_window_add_note),
+                            notes_window);
+  g_signal_connect_swapped (notes_window->btn_del,
+                            "clicked",
+                            G_CALLBACK (notes_window_delete_note),
+                            notes_window);
 
   /* Load data */
   notes_window_load_data (notes_window);
@@ -307,9 +309,6 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                                                  (GCompareFunc) notes_window_strcasecmp);
 
   /* Show the stuff, or not */
-  if (g_slist_length (notes_window->notes) > 1)
-    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
-                                TRUE);
   if (G_UNLIKELY (notes_window->show_statusbar))
     gtk_widget_show (notes_window->statusbar);
 
@@ -389,7 +388,7 @@ notes_window_load_data (NotesWindow *notes_window)
   note_name = notes_note_read_name (notes_window);
   do
     {
-      notes_note = notes_note_new (notes_window, note_name);
+      notes_note = notes_note_new (notes_window);
       if (G_UNLIKELY (NULL != note_name))
         /**
          * If there was no note, don't try to read again since
@@ -785,7 +784,7 @@ notes_window_hide (NotesWindow *notes_window)
   gtk_widget_hide (notes_window->window);
   gtk_widget_show (notes_window->notebook);
 
-  return TRUE; /* Stop other handlers from being invoked */
+  return TRUE; /* Stop other handlers from being invoked (incl. ALT+F4) */
 }
 
 static gboolean
@@ -813,41 +812,46 @@ notes_window_start_move (NotesWindow *notes_window,
 }
 
 static gboolean
-notes_window_shade (NotesWindow *notes_window,
-                    GdkEventScroll *event)
+notes_window_scroll_event (NotesWindow *notes_window,
+                           GdkEventScroll *event)
 {
   if (G_LIKELY (event->type == GDK_SCROLL))
     {
       if (event->direction == GDK_SCROLL_UP)
-        {
-          /* Hide the notebook */
-          if (G_LIKELY (GTK_WIDGET_VISIBLE (notes_window->notebook)))
-            gtk_window_get_size (GTK_WINDOW (notes_window->window),
-                                 &notes_window->w,
-                                 &notes_window->h);
-          if (G_LIKELY (notes_window->show_statusbar))
-            gtk_widget_hide (notes_window->statusbar);
-          gtk_widget_hide (notes_window->notebook);
-          gtk_window_resize (GTK_WINDOW (notes_window->window),
-                             notes_window->w,
-                             1);
-        }
+        notes_window_shade (notes_window);
       else if (event->direction == GDK_SCROLL_DOWN)
-        {
-          /* Show the notebook */
-          gtk_window_get_size (GTK_WINDOW (notes_window->window),
-                               &notes_window->w,
-                               NULL);
-          if (notes_window->show_statusbar)
-            gtk_widget_show (notes_window->statusbar);
-          gtk_widget_show (notes_window->notebook);
-          gtk_window_resize (GTK_WINDOW (notes_window->window),
-                             notes_window->w,
-                             notes_window->h);
-        }
+        notes_window_unshade (notes_window);
     }
-
   return FALSE;
+}
+
+static void
+notes_window_shade (NotesWindow *notes_window)
+{
+  if (G_LIKELY (GTK_WIDGET_VISIBLE (notes_window->notebook)))
+    gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                         &notes_window->w,
+                         &notes_window->h);
+  if (G_LIKELY (notes_window->show_statusbar))
+    gtk_widget_hide (notes_window->statusbar);
+  gtk_widget_hide (notes_window->notebook);
+  gtk_window_resize (GTK_WINDOW (notes_window->window),
+                     notes_window->w,
+                     1);
+}
+
+static void
+notes_window_unshade (NotesWindow *notes_window)
+{
+  gtk_window_get_size (GTK_WINDOW (notes_window->window),
+                       &notes_window->w,
+                       NULL);
+  if (notes_window->show_statusbar)
+    gtk_widget_show (notes_window->statusbar);
+  gtk_widget_show (notes_window->notebook);
+  gtk_window_resize (GTK_WINDOW (notes_window->window),
+                     notes_window->w,
+                     notes_window->h);
 }
 
 static void
@@ -947,14 +951,23 @@ notes_window_strcasecmp (NotesWindow *notes_window0,
 }
 
 static void
-notes_window_add_note (GtkWidget *widget,
-                       NotesWindow *notes_window)
+notes_window_add_note (NotesWindow *notes_window)
 {
+  notes_note_new (notes_window);
+
+  if (!GTK_WIDGET_VISIBLE (notes_window->notebook))
+    notes_window_unshade (notes_window);
+
+  gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), -1);
+
+  if (g_slist_length (notes_window->notes) > 1)
+    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook), TRUE);
+  else
+    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook), FALSE);
 }
 
 static gboolean
-notes_window_delete_note (GtkWidget *widget,
-                          NotesWindow *notes_window)
+notes_window_delete_note (NotesWindow *notes_window)
 {
   return FALSE;
 }
@@ -996,33 +1009,28 @@ notes_note_read_name (NotesWindow *notes_window)
 
 /**
  * notes_note_new:
- * @notes_window : a NotesWindow pointer
- * @note_name    : the name of the notes to open
- * or %NULL to create a new note
+ * @notes_note   : a NotesNote pointer
  *
  * Create a new note.
  *
  * Return value: a pointer to a new allocated NotesNote.
  **/
 NotesNote *
-notes_note_new (NotesWindow *notes_window,
-                const gchar *note_name)
+notes_note_new (NotesWindow *notes_window)
 {
-  DBG ("New note: %s", note_name);
-
   NotesNote            *notes_note;
   GtkTextBuffer        *buffer;
 
   notes_note = g_slice_new0 (NotesNote);
   notes_note->notes_window = notes_window;
-  notes_note->name = g_strdup (note_name);
+  notes_note->name = NULL;
   notes_window->notes = g_slist_prepend (notes_window->notes, notes_note);
 
   /* Label */
   GtkWidget *eb_border = gtk_event_box_new ();
   gtk_container_set_border_width (GTK_CONTAINER (eb_border), 3);
   gtk_event_box_set_visible_window (GTK_EVENT_BOX (eb_border), FALSE);
-  notes_note->title = gtk_label_new (note_name);
+  notes_note->title = gtk_label_new (NULL);
   gtk_container_add (GTK_CONTAINER (eb_border),
                      notes_note->title);
 

@@ -219,7 +219,7 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
                              notes_plugin->btn_panel,
                              NULL);
   gtk_menu_set_screen (GTK_MENU (notes_plugin->menu),
-                      gtk_widget_get_screen (notes_plugin->btn_panel));
+                       gtk_widget_get_screen (notes_plugin->btn_panel));
   xfce_panel_plugin_register_menu (notes_plugin->panel_plugin,
                                    GTK_MENU (notes_plugin->menu));
 
