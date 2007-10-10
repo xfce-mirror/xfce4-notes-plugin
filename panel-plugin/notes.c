@@ -22,6 +22,7 @@
 #endif
 
 #include <glib/gstdio.h>
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <libxfce4panel/xfce-panel-convenience.h>
 #include <libxfce4util/libxfce4util.h>
@@ -82,12 +83,10 @@ static gint             notes_note_strcasecmp           (NotesNote *notes_note0,
 /* FIXME */
 static gboolean         notes_note_rename               (NotesNote *notes_note,
                                                          GdkEventButton *event);
-static void             notes_note_buffer_changed       (GtkWidget *widget,
-                                                         NotesNote *notes_note);
-static gboolean         notes_note_key_pressed          (GtkWidget *widget,
-                                                         GdkEventKey *event,
-                                                         NotesNote *notes_note);
+static void             notes_note_buffer_changed       (NotesNote *notes_note);
 
+static gboolean         notes_note_key_pressed          (NotesNote *notes_note,
+                                                         GdkEventKey *event);
 
 
 const gchar *
@@ -1159,14 +1158,14 @@ notes_note_new (NotesWindow *notes_window,
                      notes_note->text_view);
 
   /* Signals FIXME */
-  g_signal_connect (notes_note->text_view,
-                    "key-press-event",
-                    G_CALLBACK (notes_note_key_pressed),
-                    notes_note);
-  g_signal_connect (buffer,
-                    "changed",
-                    G_CALLBACK (notes_note_buffer_changed),
-                    notes_note);
+  g_signal_connect_swapped (notes_note->text_view,
+                            "key-press-event",
+                            G_CALLBACK (notes_note_key_pressed),
+                            notes_note);
+  g_signal_connect_swapped (buffer,
+                            "changed",
+                            G_CALLBACK (notes_note_buffer_changed),
+                            notes_note);
   g_signal_connect_swapped (eb_border,
                             "button-press-event",
                             G_CALLBACK (notes_note_rename),
@@ -1297,16 +1296,74 @@ notes_note_strcasecmp (NotesNote *notes_note0,
 }
 
 static gboolean
-notes_note_key_pressed (GtkWidget *widget,
-                        GdkEventKey *event,
-                        NotesNote *notes_note)
+notes_note_key_pressed (NotesNote *notes_note,
+                        GdkEventKey *event)
 {
+  GtkWidget            *notebook = notes_note->notes_window->notebook;
+
+  if (G_UNLIKELY (event->type != GDK_KEY_PRESS))
+    return FALSE;
+
+  if (event->state & GDK_CONTROL_MASK)
+    {
+      switch (event->keyval)
+        {
+        case GDK_Page_Down:
+          gtk_notebook_next_page (GTK_NOTEBOOK (notebook));
+          break;
+
+        case GDK_Page_Up:
+          gtk_notebook_prev_page (GTK_NOTEBOOK (notebook));
+          break;
+
+        default:
+          break;
+        }
+
+      return FALSE;
+    }
+  else if (event->state & (GDK_CONTROL_MASK|GDK_MOD1_MASK))
+    {
+      gint page = -1;
+      switch (event->keyval)
+        {
+        case GDK_0:
+          page += 10;
+        case GDK_1:
+        case GDK_2:
+        case GDK_3:
+        case GDK_4:
+        case GDK_5:
+        case GDK_6:
+        case GDK_7:
+        case GDK_8:
+        case GDK_9:
+          page += (event->keyval - 0x30);
+          gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), page);
+          break;
+
+        default:
+          break;
+        }
+
+      return FALSE;
+    }
+
+  switch (event->keyval)
+    {
+    case GDK_F2:
+      /*notes_note_rename (notes_note, event); */
+      break;
+
+    default:
+      break;
+    }
+
   return FALSE;
 }
 
 static void
-notes_note_buffer_changed (GtkWidget *widget,
-                           NotesNote *notes_note)
+notes_note_buffer_changed (NotesNote *notes_note)
 {
 }
 
