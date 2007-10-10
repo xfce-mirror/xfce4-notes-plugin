@@ -101,27 +101,29 @@ const gchar *           notes_window_read_name          (NotesPlugin *notes_plug
 NotesWindow *           notes_window_new                (NotesPlugin *notes_plugin);
 
 NotesWindow *           notes_window_new_with_label     (NotesPlugin *notes_plugin,
-                                                         const gchar *notes_window_name);
+                                                         const gchar *window_name);
 void                    notes_window_load_data          (NotesWindow *notes_window);
 
-/*void                    notes_window_configure          (NotesWindow *notes_window);
-
-void                    notes_window_response           (GtkWidget *widget,
-                                                         int response,
-                                                         NotesWindow *notes_window);*/
 void                    notes_window_save_data          (NotesWindow *notes_window);
+
+void                    notes_window_destroy            (NotesWindow *notes_window);
 
 void                    notes_window_show               (NotesWindow *notes_window);
 
 gboolean                notes_window_hide               (NotesWindow *notes_window);
 
+void                    notes_window_sort_names         (NotesWindow *notes_window);
+
+gint                    notes_window_strcasecmp         (NotesWindow *notes_window0,
+                                                         NotesWindow *notes_window1);
 
 
 const gchar *           notes_note_read_name            (NotesWindow *notes_window);
 
 NotesNote *             notes_note_new                  (NotesWindow *notes_window,
-                                                         const gchar *notes_note_name);
+                                                         const gchar *note_name);
 void                    notes_note_load_data            (NotesNote *notes_note,
                                                          GtkTextBuffer *buffer);
+void                    notes_note_destroy              (NotesNote *notes_note);
 
 #endif

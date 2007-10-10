@@ -146,11 +146,12 @@ notes_plugin_load_data (NotesPlugin *notes_plugin)
   window_name = notes_window_read_name (notes_plugin);
   do
     {
-      TRACE ("window_name: %s", window_name);
       notes_window = notes_window_new_with_label (notes_plugin, window_name);
-      if (G_UNLIKELY (window_name != NULL))
-        /* If there was no window, don't try to read again since
-         * a first window has been created and would be read again. */
+      if (G_UNLIKELY (NULL != window_name))
+        /**
+         * If there was no window, don't try to read again since
+         * a first window has been created and would be duplicated.
+         **/
         window_name = notes_window_read_name (notes_plugin);
     }
   while (G_LIKELY (window_name != NULL));
