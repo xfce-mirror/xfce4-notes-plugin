@@ -79,13 +79,14 @@ notes_window_read_name (NotesPlugin *notes_plugin)
 
 NotesWindow *
 notes_window_new (NotesPlugin *notes_plugin,
-                  const gchar *notes_window_name)
+                  const gchar *window_name)
 {
-  DBG ("New window: %s", notes_window_name);
+  DBG ("New window: %s", window_name);
 
   NotesWindow          *notes_window;
   GtkAccelGroup        *accel_group;
   GtkWidget            *img_add, *img_del, *img_close;
+  gchar                *window_name_tmp;
 
   notes_window = g_slice_new0 (NotesWindow);
   notes_window->notes_plugin = notes_plugin;
@@ -122,7 +123,7 @@ notes_window_new (NotesPlugin *notes_plugin,
                       0);
   gtk_widget_show (notes_window->hbox);
 
-  /* Add button FIXME create panel button ?! */
+  /* Add button XXX create panel button ?! */
   notes_window->btn_add = xfce_create_panel_button ();
   gtk_widget_set_size_request (notes_window->btn_add, 22, 22);
   img_add = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
@@ -162,7 +163,9 @@ notes_window_new (NotesPlugin *notes_plugin,
   gtk_widget_realize (notes_window->eb_move);
 
   /* Title */
-  notes_window->title = gtk_label_new (_("<b>Notes</b>"));
+  window_name_tmp = g_strdup_printf ("<b>%s</b>", window_name);
+  notes_window->title = gtk_label_new (window_name_tmp);
+  g_free (window_name_tmp);
   gtk_label_set_use_markup (GTK_LABEL (notes_window->title), TRUE);
   gtk_container_add (GTK_CONTAINER (notes_window->eb_move),
                      notes_window->title);

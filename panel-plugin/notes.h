@@ -51,6 +51,7 @@ struct _NotesWindow
   NotesPlugin          *notes_plugin;
   GSList               *notes;
 
+  gchar                *name;
   gint                  x, y, w, h;
   gboolean              always_on_top;
   gboolean              show_in_pager; /* XXX Replaces show in task switcher */
@@ -76,6 +77,8 @@ typedef struct _NotesNote       NotesNote;
 struct _NotesNote
 {
   NotesWindow          *notes_window;
+
+  gchar                *name;
 
   GtkWidget            *title;
   GtkWidget            *scrolled_window;
