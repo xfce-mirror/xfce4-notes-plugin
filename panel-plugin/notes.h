@@ -57,6 +57,7 @@ struct _NotesWindow
   GSList               *notes;
 
   gchar                *name;
+  guint                 timeout_start_move;
   gint                  x, y, w, h;
   ShowOnStartup         show_on_startup;
   gboolean              show_statusbar;

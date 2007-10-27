@@ -67,6 +67,13 @@ static gboolean         notes_window_state_event        (NotesWindow *notes_wind
                                                          GdkEventWindowState *event);
 static gboolean         notes_window_start_move         (NotesWindow *notes_window,
                                                          GdkEventButton *event);
+static gboolean         notes_window_start_move         (NotesWindow *notes_window,
+                                                         GdkEventButton *event);
+
+static gboolean         notes_window_timeout_start_move (NotesWindow *notes_window);
+
+static gboolean         notes_window_timeout_start_move_destroy (NotesWindow *notes_window);
+
 static gboolean         notes_window_scroll_event       (NotesWindow *notes_window,
                                                          GdkEventScroll *event);
 static void             notes_window_shade              (NotesWindow *notes_window);
@@ -334,6 +341,10 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   g_signal_connect_swapped (notes_window->eb_move,
                             "button-press-event",
                             G_CALLBACK (notes_window_start_move),
+                            notes_window);
+  g_signal_connect_swapped (notes_window->eb_move,
+                            "button-release-event",
+                            G_CALLBACK (notes_window_timeout_start_move_destroy),
                             notes_window);
   g_signal_connect_swapped (notes_window->eb_move,
                             "scroll-event",
@@ -1007,17 +1018,41 @@ notes_window_start_move (NotesWindow *notes_window,
       if (event->button == 1)
         {
           gdk_window_show (notes_window->window->window);
-          gtk_window_begin_move_drag (GTK_WINDOW (notes_window->window),
-                                      event->button,
-                                      event->x_root,
-                                      event->y_root,
-                                      event->time);
+          notes_window->timeout_start_move =
+            g_timeout_add (100, (GSourceFunc)notes_window_timeout_start_move, notes_window);
         }
       /* Send to background */
       else if (event->button == 2)
         gdk_window_lower (notes_window->window->window);
     }
 
+  return FALSE;
+}
+
+static gboolean
+notes_window_timeout_start_move (NotesWindow *notes_window)
+{
+  gint x, y, xfoo, ybar;
+
+  gtk_window_get_position (GTK_WINDOW (notes_window->window), &x, &y);
+  gtk_widget_get_pointer (notes_window->window, &xfoo, &ybar);
+  x += xfoo;
+  y += ybar;
+
+  gtk_window_begin_move_drag (GTK_WINDOW (notes_window->window),
+                              1, x, y, gtk_get_current_event_time ());
+  notes_window_timeout_start_move_destroy (notes_window);
+
+  return FALSE;
+}
+
+static gboolean
+notes_window_timeout_start_move_destroy (NotesWindow *notes_window)
+{
+  TRACE ("Timeout destroyed");
+  if (notes_window->timeout_start_move > 0)
+    g_source_remove (notes_window->timeout_start_move);
+  notes_window->timeout_start_move = 0;
   return FALSE;
 }
 
