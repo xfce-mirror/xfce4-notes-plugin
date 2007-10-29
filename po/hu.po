@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-25 18:33+0100\n"
+"POT-Creation-Date: 2007-10-29 00:39+0100\n"
 "PO-Revision-Date: 2006-11-26 17:40+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: hu\n"
@@ -12,71 +12,136 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Country: HUNGARY\n"
 
-#: ../panel-plugin/notes.c:302
-#: ../panel-plugin/notes-options.c:58
-#: ../panel-plugin/notes-window.c:89
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
-msgid "Notes"
+#: ../panel-plugin/notes.c:537
+#, fuzzy
+msgid "Are you sure you want to delete this window?"
+msgstr "Tényleg törlöd e bejegyzést?"
+
+#: ../panel-plugin/notes.c:584
+msgid "Window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:588
+#, fuzzy
+msgid "_Rename..."
+msgstr "Átnevezés"
+
+#: ../panel-plugin/notes.c:590
+msgid "_Options"
+msgstr ""
+
+#: ../panel-plugin/notes.c:592
+#, fuzzy
+msgid "Note"
 msgstr "Jegyzetek"
 
-#: ../panel-plugin/notes-options.c:75
-msgid "Always show notes at startup"
-msgstr "Jegyzetek mutatása induláskor"
+#: ../panel-plugin/notes.c:596
+#, fuzzy
+msgid "R_ename..."
+msgstr "Átnevezés"
 
-#: ../panel-plugin/notes-options.c:83
-msgid "Show in the task list"
-msgstr "Mutasd a feladatlistában"
+#: ../panel-plugin/notes.c:702
+msgid "Show statusbar"
+msgstr ""
 
-#: ../panel-plugin/notes-options.c:93
+#: ../panel-plugin/notes.c:703
 msgid "Always on top"
 msgstr "Mindig felül"
 
-#: ../panel-plugin/notes-options.c:102
-msgid "Stick mode"
+#: ../panel-plugin/notes.c:704
+#, fuzzy
+msgid "Sticky window"
 msgstr "Kitűzés"
 
-#: ../panel-plugin/notes-options.c:109
-msgid "Show resize grip"
-msgstr "Átméretező mutatása"
+#: ../panel-plugin/notes.c:705
+#, fuzzy
+msgid "Show on startup"
+msgstr "Jegyzetek mutatása induláskor"
 
-#: ../panel-plugin/notes-window.c:129
-msgid "Create new note"
-msgstr "Új jegyzet"
+#: ../panel-plugin/notes.c:716
+#, fuzzy
+msgid "Always"
+msgstr "Mindig felül"
 
-#: ../panel-plugin/notes-window.c:147
-msgid "Delete this note"
-msgstr "Jegyzet törlése"
+#: ../panel-plugin/notes.c:718
+msgid "Never"
+msgstr ""
 
-#: ../panel-plugin/notes-window.c:176
-msgid "<b>Notes</b>"
-msgstr "<b>Jegyzetek</b>"
+#: ../panel-plugin/notes.c:720
+msgid "Last state"
+msgstr ""
 
-#: ../panel-plugin/notes-window.c:447
-msgid "Rename"
+#: ../panel-plugin/notes.c:891
+msgid "Choose Window Font"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1167 ../panel-plugin/notes.c:1203
+#, fuzzy
+msgid "Rename window"
 msgstr "Átnevezés"
 
-#: ../panel-plugin/notes-window.c:548
+#: ../panel-plugin/notes.c:1205 ../panel-plugin/notes.c:1618
+msgid "Error"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1206
+msgid "Unable to rename window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1314
 msgid "Are you sure you want to delete this note?"
 msgstr "Tényleg törlöd e bejegyzést?"
+
+#: ../panel-plugin/notes.c:1580 ../panel-plugin/notes.c:1616
+#, fuzzy
+msgid "Rename note"
+msgstr "Átnevezés"
+
+#: ../panel-plugin/notes.c:1619
+msgid "Unable to rename note"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Jegyzetek"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Jegyzettömb beillesztés az Xfce4 panelhoz"
 
+#~ msgid "Show in the task list"
+#~ msgstr "Mutasd a feladatlistában"
+
+#~ msgid "Show resize grip"
+#~ msgstr "Átméretező mutatása"
+
+#~ msgid "Create new note"
+#~ msgstr "Új jegyzet"
+
+#~ msgid "Delete this note"
+#~ msgstr "Jegyzet törlése"
+
+#~ msgid "<b>Notes</b>"
+#~ msgstr "<b>Jegyzetek</b>"
+
 #~ msgid "Properties"
 #~ msgstr "Tulajdonságok"
+
 #~ msgid "Always show vertical scrollbar"
 #~ msgstr "Függőleges görgetősáv mindig"
+
 #~ msgid "A restart of the panel is needed"
 #~ msgstr "A panel újraindítása szükséges"
+
 #~ msgid "Notes Plugin"
 #~ msgstr "Jegyzetek beillesztés"
+
 #~ msgid "Open a new page"
 #~ msgstr "Új lapot nyit"
+
 #~ msgid ""
 #~ "Notes\n"
 #~ "Click this button to show/hide your notes"
 #~ msgstr ""
 #~ "Jegyzetek\n"
 #~ "Kattints e gombra jegyzeteid mutatásához/elrejtéséhez"
-

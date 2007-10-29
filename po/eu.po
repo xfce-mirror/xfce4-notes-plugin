@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-25 18:33+0100\n"
+"POT-Creation-Date: 2007-10-29 00:39+0100\n"
 "PO-Revision-Date: 2006-09-18 22:53+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale <librezale@librezale.org>\n"
@@ -18,55 +18,117 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:58
-#: ../panel-plugin/notes-window.c:89
+#: ../panel-plugin/notes.c:537
+#, fuzzy
+msgid "Are you sure you want to delete this window?"
+msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
+
+#: ../panel-plugin/notes.c:584
+msgid "Window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:588
+#, fuzzy
+msgid "_Rename..."
+msgstr "Berrizendatu"
+
+#: ../panel-plugin/notes.c:590
+msgid "_Options"
+msgstr ""
+
+#: ../panel-plugin/notes.c:592
+#, fuzzy
+msgid "Note"
+msgstr "Oharrak"
+
+#: ../panel-plugin/notes.c:596
+#, fuzzy
+msgid "R_ename..."
+msgstr "Berrizendatu"
+
+#: ../panel-plugin/notes.c:702
+msgid "Show statusbar"
+msgstr ""
+
+#: ../panel-plugin/notes.c:703
+msgid "Always on top"
+msgstr "Beti goian"
+
+#: ../panel-plugin/notes.c:704
+#, fuzzy
+msgid "Sticky window"
+msgstr "Finkatu"
+
+#: ../panel-plugin/notes.c:705
+#, fuzzy
+msgid "Show on startup"
+msgstr "Beti erakutsi oharrak abiaraztean"
+
+#: ../panel-plugin/notes.c:716
+#, fuzzy
+msgid "Always"
+msgstr "Beti goian"
+
+#: ../panel-plugin/notes.c:718
+msgid "Never"
+msgstr ""
+
+#: ../panel-plugin/notes.c:720
+msgid "Last state"
+msgstr ""
+
+#: ../panel-plugin/notes.c:891
+msgid "Choose Window Font"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1167 ../panel-plugin/notes.c:1203
+#, fuzzy
+msgid "Rename window"
+msgstr "Berrizendatu"
+
+#: ../panel-plugin/notes.c:1205 ../panel-plugin/notes.c:1618
+msgid "Error"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1206
+msgid "Unable to rename window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1314
+msgid "Are you sure you want to delete this note?"
+msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
+
+#: ../panel-plugin/notes.c:1580 ../panel-plugin/notes.c:1616
+#, fuzzy
+msgid "Rename note"
+msgstr "Berrizendatu"
+
+#: ../panel-plugin/notes.c:1619
+msgid "Unable to rename note"
+msgstr ""
+
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Oharrak"
 
-#: ../panel-plugin/notes-options.c:75
-msgid "Always show notes at startup"
-msgstr "Beti erakutsi oharrak abiaraztean"
-
-#: ../panel-plugin/notes-options.c:83
-msgid "Show in the task list"
-msgstr "Erakutsi ataza zerrendan"
-
-#: ../panel-plugin/notes-options.c:93
-msgid "Always on top"
-msgstr "Beti goian"
-
-#: ../panel-plugin/notes-options.c:102
-msgid "Stick mode"
-msgstr "Finkatu"
-
-#: ../panel-plugin/notes-options.c:109
-msgid "Show resize grip"
-msgstr "Tamaina aldaketa kirtena ikusi"
-
-#: ../panel-plugin/notes-window.c:129
-msgid "Create new note"
-msgstr "Ohar berria sortu"
-
-#: ../panel-plugin/notes-window.c:147
-msgid "Delete this note"
-msgstr "Ohar hau ezabatu"
-
-#: ../panel-plugin/notes-window.c:176
-msgid "<b>Notes</b>"
-msgstr "<b>Oharrak</b>"
-
-#: ../panel-plugin/notes-window.c:447
-msgid "Rename"
-msgstr "Berrizendatu"
-
-#: ../panel-plugin/notes-window.c:548
-msgid "Are you sure you want to delete this note?"
-msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
-
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Xfce4 idazmahaierako ohar plugin-a"
+
+#~ msgid "Show in the task list"
+#~ msgstr "Erakutsi ataza zerrendan"
+
+#~ msgid "Show resize grip"
+#~ msgstr "Tamaina aldaketa kirtena ikusi"
+
+#~ msgid "Create new note"
+#~ msgstr "Ohar berria sortu"
+
+#~ msgid "Delete this note"
+#~ msgstr "Ohar hau ezabatu"
+
+#~ msgid "<b>Notes</b>"
+#~ msgstr "<b>Oharrak</b>"
 
 #~ msgid "Properties"
 #~ msgstr "Propietateak"

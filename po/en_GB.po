@@ -9,61 +9,122 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-25 18:33+0100\n"
+"POT-Creation-Date: 2007-10-29 00:39+0100\n"
 "PO-Revision-Date: 2007-03-31 10:16+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:302 ../panel-plugin/notes-options.c:58
-#: ../panel-plugin/notes-window.c:89
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
-msgid "Notes"
+#: ../panel-plugin/notes.c:537
+#, fuzzy
+msgid "Are you sure you want to delete this window?"
+msgstr "Are you sure you want to delete this note?"
+
+#: ../panel-plugin/notes.c:584
+msgid "Window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:588
+#, fuzzy
+msgid "_Rename..."
+msgstr "Rename"
+
+#: ../panel-plugin/notes.c:590
+msgid "_Options"
+msgstr ""
+
+#: ../panel-plugin/notes.c:592
+#, fuzzy
+msgid "Note"
 msgstr "Notes"
 
-#: ../panel-plugin/notes-options.c:75
-msgid "Always show notes at startup"
-msgstr "Always show notes at startup"
+#: ../panel-plugin/notes.c:596
+#, fuzzy
+msgid "R_ename..."
+msgstr "Rename"
 
-#: ../panel-plugin/notes-options.c:83
-msgid "Show in the task list"
-msgstr "Show in the task list"
+#: ../panel-plugin/notes.c:702
+msgid "Show statusbar"
+msgstr ""
 
-#: ../panel-plugin/notes-options.c:93
+#: ../panel-plugin/notes.c:703
 msgid "Always on top"
 msgstr "Always on top"
 
-#: ../panel-plugin/notes-options.c:102
-msgid "Stick mode"
+#: ../panel-plugin/notes.c:704
+#, fuzzy
+msgid "Sticky window"
 msgstr "Stick mode"
 
-#: ../panel-plugin/notes-options.c:109
-msgid "Show resize grip"
-msgstr "Show resize grip"
+#: ../panel-plugin/notes.c:705
+#, fuzzy
+msgid "Show on startup"
+msgstr "Always show notes at startup"
 
-#: ../panel-plugin/notes-window.c:129
-msgid "Create new note"
-msgstr "Create new note"
+#: ../panel-plugin/notes.c:716
+#, fuzzy
+msgid "Always"
+msgstr "Always on top"
 
-#: ../panel-plugin/notes-window.c:147
-msgid "Delete this note"
-msgstr "Delete this note"
+#: ../panel-plugin/notes.c:718
+msgid "Never"
+msgstr ""
 
-#: ../panel-plugin/notes-window.c:176
-msgid "<b>Notes</b>"
-msgstr "<b>Notes</b>"
+#: ../panel-plugin/notes.c:720
+msgid "Last state"
+msgstr ""
 
-#: ../panel-plugin/notes-window.c:447
-msgid "Rename"
+#: ../panel-plugin/notes.c:891
+msgid "Choose Window Font"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1167 ../panel-plugin/notes.c:1203
+#, fuzzy
+msgid "Rename window"
 msgstr "Rename"
 
-#: ../panel-plugin/notes-window.c:548
+#: ../panel-plugin/notes.c:1205 ../panel-plugin/notes.c:1618
+msgid "Error"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1206
+msgid "Unable to rename window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1314
 msgid "Are you sure you want to delete this note?"
 msgstr "Are you sure you want to delete this note?"
+
+#: ../panel-plugin/notes.c:1580 ../panel-plugin/notes.c:1616
+#, fuzzy
+msgid "Rename note"
+msgstr "Rename"
+
+#: ../panel-plugin/notes.c:1619
+msgid "Unable to rename note"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Notes"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Notes plugin for the Xfce4 desktop"
 
+#~ msgid "Show in the task list"
+#~ msgstr "Show in the task list"
+
+#~ msgid "Show resize grip"
+#~ msgstr "Show resize grip"
+
+#~ msgid "Create new note"
+#~ msgstr "Create new note"
+
+#~ msgid "Delete this note"
+#~ msgstr "Delete this note"
+
+#~ msgid "<b>Notes</b>"
+#~ msgstr "<b>Notes</b>"
