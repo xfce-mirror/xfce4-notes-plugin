@@ -1,5 +1,6 @@
 2007-10-29  Mike Massonnet <mmassonnet@xfce.org>
 
+	* pk.po: Forget to update that file too...
 	* *.po, *.pot: make update-po
 
 2007-10-28	Mike Massonnet <mmassonnet@xfce.org>
