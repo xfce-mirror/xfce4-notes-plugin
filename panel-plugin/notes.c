@@ -106,6 +106,11 @@ static gboolean         notes_note_key_pressed          (NotesNote *notes_note,
                                                          GdkEventKey *event);
 
 
+/**
+ * - Iterator to fetch all windows
+ * - Window creation functions
+ * - Load and save the data
+ */
 const gchar *
 notes_window_read_name (NotesPlugin *notes_plugin)
 {
@@ -568,6 +573,9 @@ notes_window_destroy (NotesWindow *notes_window)
     notes_window_new (notes_plugin);
 }
 
+/**
+ * Window menu
+ */
 static void
 notes_window_menu_new (NotesWindow *notes_window)
 {
@@ -918,6 +926,9 @@ notes_window_set_transparency (NotesWindow *notes_window,
   gdk_error_trap_pop ();
 }
 
+/**
+ * Window state event
+ */
 static gboolean
 notes_window_state_event (NotesWindow *notes_window,
                           GdkEventWindowState *event)
@@ -947,6 +958,9 @@ notes_window_state_event (NotesWindow *notes_window,
   return FALSE;
 }
 
+/**
+ * Show/hide the window
+ */
 void
 notes_window_show (NotesWindow *notes_window)
 {
@@ -1006,6 +1020,11 @@ notes_window_hide (NotesWindow *notes_window)
   return TRUE; /* Stop other handlers from being invoked (incl. ALT+F4) */
 }
 
+/**
+ * Event on title press/release
+ * - Set to fore/background
+ * - Start a move
+ */
 static gboolean
 notes_window_title_press (NotesWindow *notes_window,
                           GdkEventButton *event)
@@ -1060,6 +1079,10 @@ notes_window_start_move (NotesWindow *notes_window)
   return FALSE;
 }
 
+/**
+ * Scroll event on title
+ * - Shade/unshade
+ */
 static gboolean
 notes_window_scroll_event (NotesWindow *notes_window,
                            GdkEventScroll *event)
@@ -1122,6 +1145,9 @@ notes_window_unshade (NotesWindow *notes_window)
     }
 }
 
+/**
+ * Rename window
+ */
 static void
 notes_window_rename_note_dialog (NotesWindow *notes_window)
 {
@@ -1226,6 +1252,9 @@ notes_window_rename (NotesWindow *notes_window,
   return rc_rename;
 }
 
+/**
+ * Sort function for window names
+ */
 inline void
 notes_window_sort_names (NotesWindow *notes_window)
 {
@@ -1247,6 +1276,9 @@ notes_window_strcasecmp (NotesWindow *notes_window0,
   return res;
 }
 
+/**
+ * Functions to create/delete a note and return the current note
+ */
 static inline NotesNote *
 notes_window_get_current_note (NotesWindow *notes_window)
 {
@@ -1295,6 +1327,11 @@ notes_window_delete_note (NotesWindow *notes_window)
 
 
 
+/**
+ * - Iterator to fetch all notes from a window
+ * - Note creation functions
+ * - Load and save the data
+ */
 const gchar *
 notes_note_read_name (NotesWindow *notes_window)
 {
@@ -1517,6 +1554,9 @@ notes_note_destroy (NotesNote *notes_note)
   g_slice_free (NotesNote, notes_note);
 }
 
+/**
+ * Function to set the font
+ */
 static void
 notes_note_set_font (NotesNote *notes_note,
                      const gchar *font)
@@ -1529,6 +1569,9 @@ notes_note_set_font (NotesNote *notes_note,
   pango_font_description_free (font_desc);
 }
 
+/**
+ * Rename the note
+ */
 static void
 notes_note_rename_dialog (NotesNote *notes_note)
 {
@@ -1612,6 +1655,9 @@ notes_note_rename (NotesNote *notes_note,
   return rc;
 }
 
+/**
+ * Sort fuction for note names
+ */
 static void
 notes_note_sort_names (NotesNote *notes_note)
 {
@@ -1639,6 +1685,9 @@ notes_note_strcasecmp (NotesNote *notes_note0,
   return res;
 }
 
+/**
+ * Event on GtkTextBuffer
+ */
 static gboolean
 notes_note_key_pressed (NotesNote *notes_note,
                         GdkEventKey *event)
@@ -1663,8 +1712,6 @@ notes_note_key_pressed (NotesNote *notes_note,
         default:
           break;
         }
-
-      return FALSE;
     }
   else if (event->state & GDK_MOD1_MASK)
     {
@@ -1689,8 +1736,6 @@ notes_note_key_pressed (NotesNote *notes_note,
         default:
           break;
         }
-
-      return FALSE;
     }
 
   return FALSE;
