@@ -1,0 +1,108 @@
+# Latvian translation of the xfce4-notes-plugin package.
+# Copyright (C) xfce4-notes-plugin COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-notes-plugin package.
+# Rihards Prieditis <rprieditis@inbox.lv>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notes-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-10-29 00:39+0100\n"
+"PO-Revision-Date: 2007-11-16 20:33+0300\n"
+"Last-Translator: Rihards Priedītis <rprieditis@inbox.lv>\n"
+"Language-Team: Latvian <rprieditis@inbox.lv>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../panel-plugin/notes.c:537
+msgid "Are you sure you want to delete this window?"
+msgstr "Esat drošs, ka vēlaties dzēst šo logu?"
+
+#: ../panel-plugin/notes.c:584
+msgid "Window"
+msgstr "Logs"
+
+#: ../panel-plugin/notes.c:588
+msgid "_Rename..."
+msgstr "_Pārdēvēt..."
+
+#: ../panel-plugin/notes.c:590
+msgid "_Options"
+msgstr "_Uzstādījumi"
+
+#: ../panel-plugin/notes.c:592
+msgid "Note"
+msgstr "Piezīmes"
+
+#: ../panel-plugin/notes.c:596
+msgid "R_ename..."
+msgstr "Pār_dēvēt..."
+
+#: ../panel-plugin/notes.c:702
+msgid "Show statusbar"
+msgstr "Rādīt statusajoslu"
+
+#: ../panel-plugin/notes.c:703
+msgid "Always on top"
+msgstr "Vienmēr priekšā"
+
+#: ../panel-plugin/notes.c:704
+msgid "Sticky window"
+msgstr "Lipīgs logs"
+
+#: ../panel-plugin/notes.c:705
+msgid "Show on startup"
+msgstr "Rādit pie sāknēšanas"
+
+#: ../panel-plugin/notes.c:716
+msgid "Always"
+msgstr "Vienmēr"
+
+#: ../panel-plugin/notes.c:718
+msgid "Never"
+msgstr "Nekad"
+
+#: ../panel-plugin/notes.c:720
+msgid "Last state"
+msgstr "Pēdējo stāvokli"
+
+#: ../panel-plugin/notes.c:891
+msgid "Choose Window Font"
+msgstr "Izēlaties Loga Fontu"
+
+#: ../panel-plugin/notes.c:1167
+#: ../panel-plugin/notes.c:1203
+msgid "Rename window"
+msgstr "Pārdēvēt logu"
+
+#: ../panel-plugin/notes.c:1205
+#: ../panel-plugin/notes.c:1618
+msgid "Error"
+msgstr "Kļūda"
+
+#: ../panel-plugin/notes.c:1206
+msgid "Unable to rename window"
+msgstr "Nevarēju pārdēvēt logu"
+
+#: ../panel-plugin/notes.c:1314
+msgid "Are you sure you want to delete this note?"
+msgstr "Esat drošs, ka vēlaties dzēst šo piezīmi?"
+
+#: ../panel-plugin/notes.c:1580
+#: ../panel-plugin/notes.c:1616
+msgid "Rename note"
+msgstr "Pārdēvēt piezīmi"
+
+#: ../panel-plugin/notes.c:1619
+msgid "Unable to rename note"
+msgstr "Nevarēju pārdēvēt piezīmi"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Piezīmes"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+msgid "Notes plugin for the Xfce4 desktop"
+msgstr "Piezīmju spraudnis Xfce4 darbavirsmai"
+
