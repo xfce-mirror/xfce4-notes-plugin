@@ -111,6 +111,10 @@ struct _NotesNote
   GtkWidget            *title;
   GtkWidget            *scrolled_window;
   GtkWidget            *text_view;
+
+#ifdef HAVE_THUNAR_VFS
+  gboolean				delete;
+#endif
 };
 
 typedef struct _NotesOptions    NotesOptions;
@@ -129,6 +133,12 @@ NotesWindow *           notes_window_new_with_label     (NotesPlugin *notes_plug
 void                    notes_window_load_data          (NotesWindow *notes_window);
 
 void                    notes_window_save_data          (NotesWindow *notes_window);
+
+#ifdef HAVE_THUNAR_VFS
+NotesNote *      		notes_window_get_note_by_name   (NotesWindow *notes_window,
+                                                         const gchar *name);
+#endif
+void                    notes_window_delete             (NotesWindow *notes_window);
 
 void                    notes_window_destroy            (NotesWindow *notes_window);
 

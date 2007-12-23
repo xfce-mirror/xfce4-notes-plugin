@@ -411,10 +411,8 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 }
 
 void
-notes_window_destroy (NotesWindow *notes_window)
+notes_window_delete (NotesWindow *notes_window)
 {
-  DBG ("Destroy window `%s' (%p)", notes_window->name, notes_window);
-
   GtkWidget *dialog =
     gtk_message_dialog_new (GTK_WINDOW (notes_window->window),
                             GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -426,10 +424,18 @@ notes_window_destroy (NotesWindow *notes_window)
   if (G_UNLIKELY (result != GTK_RESPONSE_YES))
     return;
 
+  notes_window_destroy (notes_window);
+}
+
+void
+notes_window_destroy (NotesWindow *notes_window)
+{
+  DBG ("Destroy window `%s' (%p)", notes_window->name, notes_window);
+
   NotesPlugin *notes_plugin = notes_window->notes_plugin;
 
   /* Drop configuration data */
-  XfceRc *rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
+  XfceRc *rc = xfce_rc_simple_open (notes_plugin->config_file, FALSE);
   g_return_if_fail (G_LIKELY (rc != NULL));
   xfce_rc_delete_group (rc, notes_window->name, FALSE);
   xfce_rc_close (rc);
@@ -438,21 +444,23 @@ notes_window_destroy (NotesWindow *notes_window)
   g_slist_foreach (notes_window->notes, (GFunc)notes_note_destroy, NULL);
   g_slist_free (notes_window->notes);
 
+  /* Remove GSList entry */
+  notes_plugin->windows = g_slist_remove (notes_plugin->windows, notes_window);
+
+#ifdef HAVE_THUNAR_VFS
+  /* Monitor handle */
+  thunar_vfs_monitor_remove (notes_plugin->monitor,
+                             notes_window->monitor_handle);
+  thunar_vfs_path_unref (notes_window->thunar_vfs_path);
+#endif
+
   /* Remove directory */
   gchar *window_path = g_build_path (G_DIR_SEPARATOR_S,
-                                     notes_window->notes_plugin->notes_path,
+                                     notes_plugin->notes_path,
                                      notes_window->name,
                                      NULL);
   g_rmdir (window_path);
   g_free (window_path);
-
-  /* Remove GSList entry */
-  notes_plugin->windows = g_slist_remove (notes_plugin->windows, notes_window);
-
-  /* Monitor handle */
-  thunar_vfs_monitor_remove (notes_window->notes_plugin->monitor,
-                             notes_window->monitor_handle);
-  thunar_vfs_path_unref (notes_window->thunar_vfs_path);
 
   /* Free data */
   g_free (notes_window->name);
@@ -611,6 +619,22 @@ notes_window_save_data (NotesWindow *notes_window)
 }
 
 #ifdef HAVE_THUNAR_VFS
+NotesNote *
+notes_window_get_note_by_name (NotesWindow *notes_window,
+                               const gchar *name)
+{
+  NotesNote            *notes_note = NULL;
+  gint                  i = 0;
+
+  while (NULL != (notes_note = (NotesNote *)g_slist_nth_data (notes_window->notes, i++)))
+    {
+      if (0 == g_ascii_strcasecmp (name, notes_note->name))
+        return notes_note;
+    }
+
+  return NULL;
+}
+
 /**
  * Fs event
  */
@@ -622,10 +646,44 @@ notes_window_fs_event (ThunarVfsMonitor *monitor,
                        ThunarVfsPath *event_path,
                        NotesWindow *notes_window)
 {
+  /* XXX VIM plays fool with delete/create so this is not the right place to
+   * XXX create new notes as they are created in the user data directory. */
+  /* notes changed > OK */
+  /* notes created > is it a regular file or a .swp/… file? */
+  /* notes deleted > VIM deletes the file during the saving */
   TRACE ("event: `%d'\nhandle_path: `%s'\nevent_path: `%s'",
          event,
          thunar_vfs_path_get_name (handle_path),
          thunar_vfs_path_get_name (event_path));
+
+  const gchar          *name = thunar_vfs_path_get_name (event_path);
+  NotesNote            *notes_note = notes_window_get_note_by_name (notes_window, name);
+  GtkTextBuffer        *buffer = NULL;
+
+  TRACE ("NotesNote (0x%p) `%s'", notes_note, name);
+
+  if (G_LIKELY (NULL != notes_note))
+    {
+      switch (event)
+        {
+        case THUNAR_VFS_MONITOR_EVENT_CHANGED:
+          /* Reload the NotesNote */
+          buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
+          notes_note_load_data (notes_note, buffer);
+          break;
+
+        case THUNAR_VFS_MONITOR_EVENT_CREATED:
+          notes_note->delete = FALSE;
+          break;
+
+        case THUNAR_VFS_MONITOR_EVENT_DELETED:
+          notes_note->delete = TRUE;
+          break;
+
+        default:
+          break;
+        }
+    }
 }
 #endif
 
@@ -721,7 +779,7 @@ notes_window_menu_new (NotesWindow *notes_window)
                             notes_window->notes_plugin);
   g_signal_connect_swapped (mi_destroy_window,
                             "activate",
-                            G_CALLBACK (notes_window_destroy),
+                            G_CALLBACK (notes_window_delete),
                             notes_window);
   g_signal_connect_swapped (mi_rename_window,
                             "activate",
@@ -1436,6 +1494,9 @@ notes_note_new (NotesWindow *notes_window,
   notes_note = g_slice_new0 (NotesNote);
   notes_note->notes_window = notes_window;
   notes_note->name = g_strdup (note_name);
+#ifdef HAVE_THUNAR_VFS
+  notes_note->delete = FALSE;
+#endif
 
   /* Label */
   GtkWidget *eb_border = gtk_event_box_new ();
@@ -1507,7 +1568,7 @@ notes_note_destroy (NotesNote *notes_note)
     g_source_remove (notes_note->timeout);
 
   /* Remove notebook page */
-  id = gtk_notebook_get_current_page (GTK_NOTEBOOK (notes_window->notebook));
+  id = g_slist_index (notes_window->notes, notes_note);
   gtk_notebook_remove_page (GTK_NOTEBOOK (notes_window->notebook), id);
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
                               ((g_slist_length (notes_window->notes) - 1) > 1));

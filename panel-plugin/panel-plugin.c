@@ -48,6 +48,8 @@ static void             notes_plugin_free               (NotesPlugin *notes_plug
 static void             notes_plugin_destroy_timeout    (NotesPlugin *notes_plugin);
 
 #ifdef HAVE_THUNAR_VFS
+static NotesWindow     *notes_plugin_get_window_by_name (NotesPlugin *notes_plugin,
+                                                         const gchar *name);
 static void             notes_plugin_fs_event           (ThunarVfsMonitor *monitor,
                                                          ThunarVfsMonitorHandle *handle,
                                                          ThunarVfsMonitorEvent event,
@@ -224,8 +226,11 @@ static void
 notes_plugin_free (NotesPlugin *notes_plugin)
 {
   notes_plugin_save_data_all (notes_plugin);
+#ifdef HAVE_THUNAR_VFS
+  /* FIXME thunar_vfs_path_unref ... */
   g_object_unref (notes_plugin->monitor);
   thunar_vfs_shutdown ();
+#endif
   gtk_main_quit ();
 }
 
@@ -236,6 +241,22 @@ notes_plugin_destroy_timeout (NotesPlugin *notes_plugin)
 }
 
 #ifdef HAVE_THUNAR_VFS
+static NotesWindow *
+notes_plugin_get_window_by_name (NotesPlugin *notes_plugin,
+                                 const gchar *name)
+{
+  NotesWindow          *notes_window = NULL;
+  gint                  i = 0;
+
+  while (NULL != (notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)))
+    {
+      if (0 == g_ascii_strcasecmp (name, notes_window->name))
+        return notes_window;
+    }
+
+  return NULL;
+}
+
 static void
 notes_plugin_fs_event (ThunarVfsMonitor *monitor,
                        ThunarVfsMonitorHandle *handle,
@@ -248,6 +269,51 @@ notes_plugin_fs_event (ThunarVfsMonitor *monitor,
          event,
          thunar_vfs_path_get_name (handle_path),
          thunar_vfs_path_get_name (event_path));
+
+  const gchar  *window_name = thunar_vfs_path_get_name (event_path);
+  NotesWindow  *notes_window = notes_plugin_get_window_by_name (notes_plugin, window_name);
+  const gchar  *note_name = NULL;
+  NotesNote    *notes_note = NULL;
+
+  TRACE ("NotesWindow (0x%p) `%s'", notes_window, window_name);
+
+  switch (event)
+    {
+    case THUNAR_VFS_MONITOR_EVENT_CHANGED:
+      /* Add/Remove the missing NotesNote */
+      if (G_LIKELY (NULL != notes_window))
+        {
+          gint i = 0;
+          while (NULL != (notes_note = (NotesNote *)g_slist_nth_data (notes_window->notes, i++)))
+            {
+              if (G_UNLIKELY (notes_note->delete))
+                notes_note_destroy (notes_note);
+            }
+
+          while (NULL != (note_name = notes_note_read_name (notes_window)))
+            {
+              notes_note = notes_window_get_note_by_name (notes_window, note_name);
+              if (G_UNLIKELY (NULL == notes_note))
+                notes_note_new (notes_window, note_name);
+            }
+        }
+      break;
+
+    case THUNAR_VFS_MONITOR_EVENT_CREATED:
+      /* Add a NotesWindow */
+      if (G_UNLIKELY (NULL == notes_window))
+        notes_window_new_with_label (notes_plugin, window_name);
+      break;
+
+    case THUNAR_VFS_MONITOR_EVENT_DELETED:
+      /* Remove a NotesWindow */
+      if (G_UNLIKELY (NULL != notes_window))
+        notes_window_destroy (notes_window);
+      break;
+
+    default:
+      break;
+    }
 }
 #endif
 
