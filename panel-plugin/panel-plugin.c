@@ -227,7 +227,18 @@ notes_plugin_free (NotesPlugin *notes_plugin)
 {
   notes_plugin_save_data_all (notes_plugin);
 #ifdef HAVE_THUNAR_VFS
-  /* FIXME thunar_vfs_path_unref ... */
+  /* TODO move code out from notes_window_destroy and add notes_window_free
+   * which would only free memory and not corrupt notes or configuration data
+   */
+  NotesWindow *notes_window = NULL;
+  gint i = 0;
+  while (NULL != (notes_window = (NotesWindow *)g_slist_nth_data (notes_plugin->windows, i++)))
+    {
+      thunar_vfs_path_unref (notes_window->thunar_vfs_path);
+      thunar_vfs_monitor_remove (notes_plugin->monitor, notes_window->monitor_handle);
+    }
+  thunar_vfs_path_unref (notes_plugin->thunar_vfs_path);
+  thunar_vfs_monitor_remove (notes_plugin->monitor, notes_plugin->monitor_handle);
   g_object_unref (notes_plugin->monitor);
   thunar_vfs_shutdown ();
 #endif
