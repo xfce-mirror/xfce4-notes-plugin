@@ -8,7 +8,7 @@ dnl 2006, 2007 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])
-m4_define([xfce4_notes_plugin_version_minor], [5])
+m4_define([xfce4_notes_plugin_version_minor], [6])
 m4_define([xfce4_notes_plugin_version_micro], [0])
 m4_define([xfce4_notes_plugin_version_nano], [])
 m4_define([xfce4_notes_plugin_version_build], [r@REVISION@])
