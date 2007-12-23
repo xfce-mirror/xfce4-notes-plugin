@@ -1,5 +1,71 @@
+2007-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/panel-plugin.c(notes_plugin_free): Correctly unref ThunarVfs
+
+2007-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/notes.h: Add delete boolean on NotesNote.  Declare
+	  notes_window_get_note_by_name outside.  Add interactive delete
+	  function for a window.
+	* panel-plugin/notes.c(notes_window_delete),
+	  panel-plugin/notes.c(notes_window_destroy),
+	  panel-plugin/notes.c(notes_window_menu_new): Separate interactive
+	  delete out from _destroy.
+	* panel-plugin/notes.c(notes_window_get_note_by_name): Return the
+	  pointer of a NotesNote by comparing its name.
+	* panel-plugin/notes.c(notes_window_fs_event),
+	  panel-plugin/notes.c(notes_note_new): Set a boolean "delete" to
+	  TRUE or FALSE.  It keeps the CPU cycles lower when it comes to
+	  refresh the NotesNote.  The fs event on NotesPlugin takes care of
+	  the refresh.
+	* panel-plugin/notes.c(notes_note_destroy): Read the id from the
+	  GSList or it breaks the delete process of the NotesNote if the Tab
+	  doesn't have the focus.
+	* panel-plugin/panel-plugin.c(notes_plugin_get_window_by_name):
+	  Returns the NotesWindow po
+
+2007-12-23	Mike Massonnet <mmassonnet@xfce.org>
+
+	* configure.in.in, panel-plugin/Makefile.am, panel-plugin/notes.c,
+	  panel-plugin/notes.h, panel-plugin/panel-plugin.c: Add file system
+	  monitoring.
+
+2007-12-23	Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/notes-window.*: Delete old files from VCS.
+
+2007-12-23	Mike Massonnet <mmassonnet@xfce.org>
+
+	* README: Polish a bit the readme
+
+2007-12-23	Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/xfce4-popup-notes.c: Check for GTK version.
+
+2007-10-29	Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/notes.c: Add some comments around a bit
+
+2007-10-29	Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/notes.c: Rename functions around title press/release
+
+2007-10-27	Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/notes.c(notes_window_start_move),
+	  panel-plugin/notes.c(notes_window_timeout_start_move),
+	  panel-plugin/notes.c(notes_window_timeout_start_move_destroy),
+	  panel-plugin/notes.c(notes_window_new_with_label): Delay the start_move
+	  window a bit (1OOms) with a timeout, and kill it on-release.
+
+2007-10-24	kelnos
+
+	* configure.in.in: remove trailing parens on AC_INIT version info to work
+	  around bug in intltool 0.35.x and 0.36.x
+
 2007-10-10  Mike Massonnet <mmassonnet@gmail.com>
 
+	* === Release 1.6.0 ===
 	* ChangeLog, README, NEWS: Update files.
 	* configure.in.in: Add comment.
 	* panel-plugin/panel-plugin.c(notes_plugin_message_received),

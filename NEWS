@@ -1,4 +1,20 @@
-VERSION 1.5.0
+VERSION 1.6.1
+
+- Add file system monitoring.
+  This is how it works:
+    - Create a new window: mkdir ~/.local/share/notes/my-notes
+    - Delete a window: rmdir ~/.local/share/notes/my-notes
+                    or rm -rf ~/.local/share/notes/my-notes
+    - Refresh the notes from a window: touch ~/.local/share/notes/my-notes
+  You can't create new notes inside a window like this, because some editors
+  creates/deletes many files on the fly.  The only solution here is to edit
+  your notes, and then run the command `touch`.  But that's just some geeky
+  code which will never be used, indeed I mostly enjoined to play with
+  ThunarVfs.  The notes are reloaded if their data is modified.
+- Update the README
+- Bugfixes
+
+VERSION 1.6.0
 
 - Initial code rewrite for multiple window support and a better way
   to save the notes
@@ -8,6 +24,13 @@ VERSION 1.5.0
 - Select the windows through a menu attached to the panel button
 - Most features are backported to this new code base, and new features
   are font per window and opacity of windows.
+- To migrate your notes from earlier version you can run this:
+WINDOW_NAME="Notes (migrate)" && mkdir -p \
+~/.local/share/notes/$WINDOW_NAME && grep '^note[0-9]*=' \
+~/.config/xfce4/panel/notes.rc | cut -d= -f2- | split -l 1 -d - \
+~/.local/share/notes/$WINDOW_NAME/ && for notes in \
+~/.local/share/notes/$WINDOW_NAME/* ; do echo -e $(cat $notes) > $notes \
+; done
 
 
 VERSION 1.4.1
