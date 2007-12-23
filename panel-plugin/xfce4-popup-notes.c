@@ -74,7 +74,9 @@ main (gint argc, gchar *argv[])
       { NULL }
     };
 
+#if GLIB_CHECK_VERSION (2, 12, 0)
   g_option_context_set_summary (context, "The default action is to show/hide all windows");
+#endif
   g_option_context_add_main_entries (context, entries, NULL);
   if (G_LIKELY (! g_option_context_parse (context, &argc, &argv, &opt_error)))
     {
