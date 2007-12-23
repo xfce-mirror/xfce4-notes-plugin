@@ -47,6 +47,14 @@ static void             notes_plugin_free               (NotesPlugin *notes_plug
 
 static void             notes_plugin_destroy_timeout    (NotesPlugin *notes_plugin);
 
+#ifdef HAVE_THUNAR_VFS
+static void             notes_plugin_fs_event           (ThunarVfsMonitor *monitor,
+                                                         ThunarVfsMonitorHandle *handle,
+                                                         ThunarVfsMonitorEvent event,
+                                                         ThunarVfsPath *handle_path,
+                                                         ThunarVfsPath *event_path,
+                                                         NotesPlugin *notes_plugin);
+#endif
 static gboolean         notes_plugin_button_pressed     (NotesPlugin *notes_plugin,
                                                          GdkEventButton *event);
 static gboolean         notes_plugin_button_released    (NotesPlugin *notes_plugin,
@@ -90,8 +98,22 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotesPlugin *notes_plugin = g_slice_new0 (NotesPlugin);
   notes_plugin->panel_plugin = panel_plugin;
-  notes_plugin->windows = NULL;
 
+  notes_plugin->notes_path =
+    xfce_resource_save_location (XFCE_RESOURCE_DATA,
+                                 "notes/",
+                                 TRUE);
+  g_return_val_if_fail (G_LIKELY (notes_plugin->notes_path != NULL), NULL);
+
+  notes_plugin->config_file =
+    xfce_panel_plugin_save_location (notes_plugin->panel_plugin,
+                                     TRUE);
+  g_return_val_if_fail (G_LIKELY (notes_plugin->config_file != NULL), NULL);
+
+  DBG ("\nLook up file: %s\nNotes path: %s", notes_plugin->config_file,
+                                           notes_plugin->notes_path);
+
+  notes_plugin->windows = NULL;
   notes_plugin->btn_panel = xfce_create_panel_toggle_button ();
   notes_plugin->icon_panel = gtk_image_new ();
   notes_plugin->tooltips = gtk_tooltips_new ();
@@ -122,6 +144,21 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
                             G_CALLBACK (notes_plugin_button_released),
                             notes_plugin);
 
+#ifdef HAVE_THUNAR_VFS
+  thunar_vfs_init ();
+  notes_plugin->monitor = thunar_vfs_monitor_get_default ();
+  notes_plugin->thunar_vfs_path = thunar_vfs_path_new (notes_plugin->notes_path, NULL);
+  if (G_LIKELY (NULL != notes_plugin->thunar_vfs_path))
+    {
+	  DBG ("Monitor `%s'", thunar_vfs_path_get_name (notes_plugin->thunar_vfs_path));
+      notes_plugin->monitor_handle =
+        thunar_vfs_monitor_add_directory (notes_plugin->monitor,
+                                          notes_plugin->thunar_vfs_path,
+                                          (ThunarVfsMonitorCallback)notes_plugin_fs_event,
+                                          notes_plugin);
+    }
+#endif
+
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
   notes_plugin_set_selection (notes_plugin);
   gtk_widget_show_all (notes_plugin->btn_panel);
@@ -150,20 +187,6 @@ notes_plugin_load_data (NotesPlugin *notes_plugin)
 {
   NotesWindow          *notes_window;
   const gchar          *window_name;
-
-  notes_plugin->notes_path =
-    xfce_resource_save_location (XFCE_RESOURCE_DATA,
-                                 "notes/",
-                                 TRUE);
-  g_return_if_fail (G_LIKELY (notes_plugin->notes_path != NULL));
-
-  notes_plugin->config_file =
-    xfce_panel_plugin_save_location (notes_plugin->panel_plugin,
-                                     TRUE);
-  g_return_if_fail (G_LIKELY (notes_plugin->config_file != NULL));
-
-  DBG ("\nLook up file: %s\nNotes path: %s", notes_plugin->config_file,
-                                           notes_plugin->notes_path);
 
   /**
    * Make sure we have at least one window if window_name is NULL.  After that
@@ -201,6 +224,8 @@ static void
 notes_plugin_free (NotesPlugin *notes_plugin)
 {
   notes_plugin_save_data_all (notes_plugin);
+  g_object_unref (notes_plugin->monitor);
+  thunar_vfs_shutdown ();
   gtk_main_quit ();
 }
 
@@ -209,6 +234,22 @@ notes_plugin_destroy_timeout (NotesPlugin *notes_plugin)
 {
   notes_plugin->timeout = 0;
 }
+
+#ifdef HAVE_THUNAR_VFS
+static void
+notes_plugin_fs_event (ThunarVfsMonitor *monitor,
+                       ThunarVfsMonitorHandle *handle,
+                       ThunarVfsMonitorEvent event,
+                       ThunarVfsPath *handle_path,
+                       ThunarVfsPath *event_path,
+                       NotesPlugin *notes_plugin)
+{
+  TRACE ("event: `%d'\nhandle_path: `%s'\nevent_path: `%s'",
+         event,
+         thunar_vfs_path_get_name (handle_path),
+         thunar_vfs_path_get_name (event_path));
+}
+#endif
 
 static gboolean
 notes_plugin_button_pressed (NotesPlugin *notes_plugin,

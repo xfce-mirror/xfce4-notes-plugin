@@ -24,6 +24,9 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4panel/xfce-panel-convenience.h>
 #include <libxfcegui4/libxfcegui4.h>
+#ifdef HAVE_THUNAR_VFS
+#include <thunar-vfs/thunar-vfs.h>
+#endif
 
 typedef struct _NotesPlugin     NotesPlugin;
 struct _NotesPlugin
@@ -41,6 +44,12 @@ struct _NotesPlugin
   GtkWidget            *icon_rev;
 
   GtkTooltips          *tooltips;
+
+#ifdef HAVE_THUNAR_VFS
+  ThunarVfsMonitor     *monitor;
+  ThunarVfsPath        *thunar_vfs_path;
+  ThunarVfsMonitorHandle *monitor_handle;
+#endif
 };
 
 typedef enum
@@ -84,6 +93,11 @@ struct _NotesWindow
   GtkWidget            *statusbar;
 
   GtkAccelGroup        *accel_group;
+
+#ifdef HAVE_THUNAR_VFS
+  ThunarVfsPath        *thunar_vfs_path;
+  ThunarVfsMonitorHandle *monitor_handle;
+#endif
 };
 
 typedef struct _NotesNote       NotesNote;
