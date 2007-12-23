@@ -5,28 +5,45 @@ The notes plugin provides you a quick way to write down a todo list,
 to paste a piece of code, to leave a note to your friend, or whatever
 else you had like to do with it.
 
-    “ I like to write down a todo list and mark what I did,
-    and once I'm done with the whole job I destroy the note.
-    
-        x this is done
-        - check that
-        - do this too
-        ? maybe work on that
-    
-    Hope this gives you some ideas ”, Mike
+	“ I like to write down a todo list and mark what I did,
+	and once I'm done with the whole job I destroy the note.
+	
+			___Todo_list___
+		
+		☑ Show an example
+		☑ Show some UTF8 codes
+		☐ Release a new version
+		
+			___Random_thoughts___
+		
+		☐ Add bold/italic/… style
+		☐ Hope this gives you some ideas
+		
+			___UTF8_codes___
+		
+		Type Ctrl+Shift+u in GTK+ applications
+		
+		— 2014		“ 201C
+		” 201D		‣ 2023
+		… 2026		⁂ 2042
+		☐ 2610		☑ 2611
+	
+	”, Mike
 
 The notes are saved under $XDG_DATA_HOME/notes/[0].  This way you can
 continue to access your notes remotely, if you have a SSH account for
-example, and fire up your favorite editor ;-)
+example, and fire up your favorite editor ^_~
 
 [0] $XDG_DATA_HOME is an environment variable defined by the XDG base
-directory specification and defaults to $HOME/.local/share.  
+directory specification[1] and defaults to $HOME/.local/share.  
 
-You probably want to uncheck the option “Skip windows that have "skip
-pager" or "skip taskbar" properties set” of xfwm4 (Settings > Window
-Manager Tweaks > Cycling).  The reason is that the notes plugin sets
-the skip pager hint so it doesn't clutter your pager, but you still
-want to access your notes by cycling to them (Alt+Tab).
+[1] http://standards.freedesktop.org/basedir-spec/
+
+You most probably want to tweak Xfwm4 by disabling the “Skip windows
+that have skip pager or skip taskbar properties set” (cf. Settings >
+Window Manager Tweaks > Cycling).  The reason is that the notes plugin
+sets the skip pager hint so it doesn't clutter your pager, but you still
+want to access your notes by cycling to them (Alt+Tab by default).
 
 
  Homepage
@@ -61,6 +78,6 @@ Select the product “Xfce Panel Plugins” and the component “notes”.
 
 Feature requests are always welcome.
 
-You can also join the Xfce Goodies mailing-list at this address:
+You can also join the Xfce Goodies mailing-list:
 http://foo-projects.org/mailman/listinfo/goodies-dev.
 
