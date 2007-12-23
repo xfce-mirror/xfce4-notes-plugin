@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-29 00:39+0100\n"
+"POT-Creation-Date: 2007-12-23 23:08+0100\n"
 "PO-Revision-Date: 2007-11-05 12:44-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldpldp-br@bazar2.conectiva.com.br>\n"
@@ -16,83 +16,83 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:537
+#: ../panel-plugin/notes.c:421
 msgid "Are you sure you want to delete this window?"
 msgstr "Você tem certeza que quer excluir esta janela?"
 
-#: ../panel-plugin/notes.c:584
+#: ../panel-plugin/notes.c:698
 msgid "Window"
 msgstr "Janela"
 
-#: ../panel-plugin/notes.c:588
+#: ../panel-plugin/notes.c:702
 msgid "_Rename..."
 msgstr "_Renomear..."
 
-#: ../panel-plugin/notes.c:590
+#: ../panel-plugin/notes.c:704
 msgid "_Options"
 msgstr "_Opções"
 
-#: ../panel-plugin/notes.c:592
+#: ../panel-plugin/notes.c:706
 msgid "Note"
 msgstr "Nota"
 
-#: ../panel-plugin/notes.c:596
+#: ../panel-plugin/notes.c:710
 msgid "R_ename..."
 msgstr "R_enomear..."
 
-#: ../panel-plugin/notes.c:702
+#: ../panel-plugin/notes.c:816
 msgid "Show statusbar"
 msgstr "Mostrar barra de status"
 
-#: ../panel-plugin/notes.c:703
+#: ../panel-plugin/notes.c:817
 msgid "Always on top"
 msgstr "Sempre no topo"
 
-#: ../panel-plugin/notes.c:704
+#: ../panel-plugin/notes.c:818
 msgid "Sticky window"
 msgstr "Janela fixa"
 
-#: ../panel-plugin/notes.c:705
+#: ../panel-plugin/notes.c:819
 msgid "Show on startup"
 msgstr "Mostrar ao iniciar"
 
-#: ../panel-plugin/notes.c:716
+#: ../panel-plugin/notes.c:830
 msgid "Always"
 msgstr "Sempre"
 
-#: ../panel-plugin/notes.c:718
+#: ../panel-plugin/notes.c:832
 msgid "Never"
 msgstr "Nunca"
 
-#: ../panel-plugin/notes.c:720
+#: ../panel-plugin/notes.c:834
 msgid "Last state"
 msgstr "Último estado"
 
-#: ../panel-plugin/notes.c:891
+#: ../panel-plugin/notes.c:1005
 msgid "Choose Window Font"
 msgstr "Escolha a Fonte da Janela"
 
-#: ../panel-plugin/notes.c:1167 ../panel-plugin/notes.c:1203
+#: ../panel-plugin/notes.c:1281 ../panel-plugin/notes.c:1317
 msgid "Rename window"
 msgstr "Renomear janela"
 
-#: ../panel-plugin/notes.c:1205 ../panel-plugin/notes.c:1618
+#: ../panel-plugin/notes.c:1319 ../panel-plugin/notes.c:1739
 msgid "Error"
 msgstr "Erro"
 
-#: ../panel-plugin/notes.c:1206
+#: ../panel-plugin/notes.c:1320
 msgid "Unable to rename window"
 msgstr "Não foi possível renomear a janela"
 
-#: ../panel-plugin/notes.c:1314
+#: ../panel-plugin/notes.c:1429
 msgid "Are you sure you want to delete this note?"
 msgstr "Você tem certeza que quer excluir esta nota?"
 
-#: ../panel-plugin/notes.c:1580 ../panel-plugin/notes.c:1616
+#: ../panel-plugin/notes.c:1701 ../panel-plugin/notes.c:1737
 msgid "Rename note"
 msgstr "Renomear nota"
 
-#: ../panel-plugin/notes.c:1619
+#: ../panel-plugin/notes.c:1740
 msgid "Unable to rename note"
 msgstr "Não foi possível renomear a nota"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-29 00:39+0100\n"
+"POT-Creation-Date: 2007-12-23 23:08+0100\n"
 "PO-Revision-Date: 2007-01-07 14:30+0100\n"
 "Last-Translator: Stephan Arts <stephan@xfce.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -16,92 +16,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notes.c:537
+#: ../panel-plugin/notes.c:421
 #, fuzzy
 msgid "Are you sure you want to delete this window?"
 msgstr "Weet u zeker dat u deze notitie wilt verwijderen?"
 
-#: ../panel-plugin/notes.c:584
+#: ../panel-plugin/notes.c:698
 msgid "Window"
 msgstr ""
 
-#: ../panel-plugin/notes.c:588
+#: ../panel-plugin/notes.c:702
 #, fuzzy
 msgid "_Rename..."
 msgstr "Hernoemen"
 
-#: ../panel-plugin/notes.c:590
+#: ../panel-plugin/notes.c:704
 msgid "_Options"
 msgstr ""
 
-#: ../panel-plugin/notes.c:592
+#: ../panel-plugin/notes.c:706
 #, fuzzy
 msgid "Note"
 msgstr "Notities"
 
-#: ../panel-plugin/notes.c:596
+#: ../panel-plugin/notes.c:710
 #, fuzzy
 msgid "R_ename..."
 msgstr "Hernoemen"
 
-#: ../panel-plugin/notes.c:702
+#: ../panel-plugin/notes.c:816
 msgid "Show statusbar"
 msgstr ""
 
-#: ../panel-plugin/notes.c:703
+#: ../panel-plugin/notes.c:817
 msgid "Always on top"
 msgstr "Altijd boven"
 
-#: ../panel-plugin/notes.c:704
+#: ../panel-plugin/notes.c:818
 #, fuzzy
 msgid "Sticky window"
 msgstr "Plak modus"
 
-#: ../panel-plugin/notes.c:705
+#: ../panel-plugin/notes.c:819
 #, fuzzy
 msgid "Show on startup"
 msgstr "Notities altijd weergeven na het opstarten"
 
-#: ../panel-plugin/notes.c:716
+#: ../panel-plugin/notes.c:830
 #, fuzzy
 msgid "Always"
 msgstr "Altijd boven"
 
-#: ../panel-plugin/notes.c:718
+#: ../panel-plugin/notes.c:832
 msgid "Never"
 msgstr ""
 
-#: ../panel-plugin/notes.c:720
+#: ../panel-plugin/notes.c:834
 msgid "Last state"
 msgstr ""
 
-#: ../panel-plugin/notes.c:891
+#: ../panel-plugin/notes.c:1005
 msgid "Choose Window Font"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1167 ../panel-plugin/notes.c:1203
+#: ../panel-plugin/notes.c:1281 ../panel-plugin/notes.c:1317
 #, fuzzy
 msgid "Rename window"
 msgstr "Hernoemen"
 
-#: ../panel-plugin/notes.c:1205 ../panel-plugin/notes.c:1618
+#: ../panel-plugin/notes.c:1319 ../panel-plugin/notes.c:1739
 msgid "Error"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1206
+#: ../panel-plugin/notes.c:1320
 msgid "Unable to rename window"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1314
+#: ../panel-plugin/notes.c:1429
 msgid "Are you sure you want to delete this note?"
 msgstr "Weet u zeker dat u deze notitie wilt verwijderen?"
 
-#: ../panel-plugin/notes.c:1580 ../panel-plugin/notes.c:1616
+#: ../panel-plugin/notes.c:1701 ../panel-plugin/notes.c:1737
 #, fuzzy
 msgid "Rename note"
 msgstr "Hernoemen"
 
-#: ../panel-plugin/notes.c:1619
+#: ../panel-plugin/notes.c:1740
 msgid "Unable to rename note"
 msgstr ""
 
