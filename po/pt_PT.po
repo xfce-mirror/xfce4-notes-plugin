@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-23 23:08+0100\n"
-"PO-Revision-Date: 2007-06-30 18:10+0100\n"
+"PO-Revision-Date: 2007-12-30 19:15+0100\n"
 "Last-Translator: Nuno Miguel <nunis@netcabo.pt>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,93 +16,93 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../panel-plugin/notes.c:421
-#, fuzzy
 msgid "Are you sure you want to delete this window?"
-msgstr "Tem a certeza que quer apagar esta nota?"
+msgstr "Tem a certeza que quer apagar esta janela?"
 
 #: ../panel-plugin/notes.c:698
 msgid "Window"
-msgstr ""
+msgstr "Janela"
 
 #: ../panel-plugin/notes.c:702
-#, fuzzy
 msgid "_Rename..."
-msgstr "Renomear"
+msgstr "_Renomear..."
 
 #: ../panel-plugin/notes.c:704
 msgid "_Options"
-msgstr ""
+msgstr "_Opções"
 
 #: ../panel-plugin/notes.c:706
-#, fuzzy
 msgid "Note"
-msgstr "Notas"
+msgstr "Nota"
 
 #: ../panel-plugin/notes.c:710
-#, fuzzy
 msgid "R_ename..."
-msgstr "Renomear"
+msgstr "R_enomear..."
 
 #: ../panel-plugin/notes.c:816
 msgid "Show statusbar"
-msgstr ""
+msgstr "Mostrar barra de estado"
 
 #: ../panel-plugin/notes.c:817
 msgid "Always on top"
 msgstr "Sempre no topo"
 
 #: ../panel-plugin/notes.c:818
-#, fuzzy
 msgid "Sticky window"
-msgstr "Modo preso"
+msgstr "Janela presa"
 
 #: ../panel-plugin/notes.c:819
-#, fuzzy
 msgid "Show on startup"
-msgstr "Mostrar sempre as notas no arranque"
+msgstr "Mostrar no arranque"
 
 #: ../panel-plugin/notes.c:830
-#, fuzzy
 msgid "Always"
-msgstr "Sempre no topo"
+msgstr "Sempre"
 
 #: ../panel-plugin/notes.c:832
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: ../panel-plugin/notes.c:834
 msgid "Last state"
-msgstr ""
+msgstr "Último estado"
 
 #: ../panel-plugin/notes.c:1005
 msgid "Choose Window Font"
-msgstr ""
+msgstr "Escolher Fonte de Janela"
 
-#: ../panel-plugin/notes.c:1281 ../panel-plugin/notes.c:1317
-#, fuzzy
+#: ../panel-plugin/notes.c:1167
+#: ../panel-plugin/notes.c:1203
+#: ../panel-plugin/notes.c:1281
+#: ../panel-plugin/notes.c:1317
 msgid "Rename window"
-msgstr "Renomear"
+msgstr "Renomear janela"
 
-#: ../panel-plugin/notes.c:1319 ../panel-plugin/notes.c:1739
+#: ../panel-plugin/notes.c:1205
+#: ../panel-plugin/notes.c:1618
+#: ../panel-plugin/notes.c:1319
+#: ../panel-plugin/notes.c:1739
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: ../panel-plugin/notes.c:1320
 msgid "Unable to rename window"
-msgstr ""
+msgstr "Incapaz de renomear janela"
 
 #: ../panel-plugin/notes.c:1429
 msgid "Are you sure you want to delete this note?"
 msgstr "Tem a certeza que quer apagar esta nota?"
 
-#: ../panel-plugin/notes.c:1701 ../panel-plugin/notes.c:1737
-#, fuzzy
+#: ../panel-plugin/notes.c:1580
+#: ../panel-plugin/notes.c:1616
+#: ../panel-plugin/notes.c:1701
+#: ../panel-plugin/notes.c:1737
 msgid "Rename note"
-msgstr "Renomear"
+msgstr "Renomear nota"
 
 #: ../panel-plugin/notes.c:1740
 msgid "Unable to rename note"
-msgstr ""
+msgstr "Incapaz de renomear nota"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
@@ -114,15 +114,12 @@ msgstr "Plugin de notas para o Xfce4 desktop"
 
 #~ msgid "Show in the task list"
 #~ msgstr "Mostrar na lista de tarefas"
-
 #~ msgid "Show resize grip"
 #~ msgstr "Mostrar garra redimensionável"
-
 #~ msgid "Create new note"
 #~ msgstr "Criar nova nota"
-
 #~ msgid "Delete this note"
 #~ msgstr "Apagar esta nota"
-
 #~ msgid "<b>Notes</b>"
 #~ msgstr "<b>Notas</b>"
+
