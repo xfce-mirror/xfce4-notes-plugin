@@ -504,6 +504,8 @@ notes_window_load_data (NotesWindow *notes_window)
       gtk_label_set_text (GTK_LABEL (notes_window->title), window_name);
       gtk_label_set_use_markup (GTK_LABEL (notes_window->title), TRUE);
       g_free (window_name);
+
+      gtk_window_set_title (GTK_WINDOW (notes_window->window), notes_window->name);
     }
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
