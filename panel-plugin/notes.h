@@ -1,6 +1,6 @@
-/*  $Id$
- *
- *  Copyright (c) 2006 Mike Massonnet <mmassonnet@gmail.com>
+/*
+ *  Notes - panel plugin for Xfce Desktop Environment
+ *  Copyright (c) 2006-2008  Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,7 +28,17 @@
 #include <thunar-vfs/thunar-vfs.h>
 #endif
 
+typedef enum
+{
+  LAST_STATE,
+  ALWAYS,
+  NEVER,
+} ShowOnStartup;
+
 typedef struct _NotesPlugin     NotesPlugin;
+typedef struct _NotesWindow     NotesWindow;
+typedef struct _NotesNote       NotesNote;
+
 struct _NotesPlugin
 {
   XfcePanelPlugin      *panel_plugin;
@@ -52,14 +62,6 @@ struct _NotesPlugin
 #endif
 };
 
-typedef enum
-{
-  LAST_STATE,
-  ALWAYS,
-  NEVER,
-} ShowOnStartup;
-
-typedef struct _NotesWindow     NotesWindow;
 struct _NotesWindow
 {
   NotesPlugin          *notes_plugin;
@@ -100,7 +102,6 @@ struct _NotesWindow
 #endif
 };
 
-typedef struct _NotesNote       NotesNote;
 struct _NotesNote
 {
   NotesWindow          *notes_window;
@@ -115,11 +116,6 @@ struct _NotesNote
 #ifdef HAVE_THUNAR_VFS
   gboolean				delete;
 #endif
-};
-
-typedef struct _NotesOptions    NotesOptions;
-struct _NotesOptions
-{
 };
 
 

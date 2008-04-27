@@ -18,6 +18,8 @@ plugin_PROGRAMS = xfce4-notes-plugin
 
 xfce4_notes_plugin_SOURCES =						\
 	panel-plugin.c							\
+	notes-properties-dialog.c					\
+	notes-properties-dialog.h					\
 	notes.c								\
 	notes.h
 
@@ -27,13 +29,15 @@ xfce4_notes_plugin_CFLAGS =						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@LIBXFCEGUI4_CFLAGS@						\
 	@THUNAR_VFS_CFLAGS@						\
+	@XFCONF_CFLAGS@							\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
 
 xfce4_notes_plugin_LDADD =						\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@LIBXFCEGUI4_LIBS@						\
-	@THUNAR_VFS_LIBS@
+	@THUNAR_VFS_LIBS@						\
+	@XFCONF_LIBS@
 
 desktop_in_in_files = xfce4-notes-plugin.desktop.in.in
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)

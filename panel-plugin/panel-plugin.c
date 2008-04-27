@@ -25,9 +25,13 @@
 #endif
 
 #include "notes.h"
+#ifdef HAVE_XFCONF
+#include "notes-properties-dialog.h"
+#endif
 #include "xfce4-popup-notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
+#define PLUGIN_WEBSITE "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
 
 
 
@@ -35,6 +39,9 @@ static void             notes_plugin_register           (XfcePanelPlugin *panel_
 
 static NotesPlugin     *notes_plugin_new                (XfcePanelPlugin *panel_plugin);
 
+#ifdef HAVE_XFCONF
+static void             notes_plugin_configure          (NotesPlugin *notes_plugin);
+#endif
 static gboolean         notes_plugin_set_size           (NotesPlugin *notes_plugin, 
                                                          int size);
 static void             notes_plugin_load_data          (NotesPlugin *notes_plugin);
@@ -118,13 +125,18 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
   notes_plugin->windows = NULL;
   notes_plugin->btn_panel = xfce_create_panel_toggle_button ();
   notes_plugin->icon_panel = gtk_image_new ();
-  notes_plugin->tooltips = gtk_tooltips_new ();
 
   gtk_container_add (GTK_CONTAINER (notes_plugin->btn_panel),
                      notes_plugin->icon_panel);
   gtk_container_add (GTK_CONTAINER (panel_plugin),
                      notes_plugin->btn_panel);
 
+#ifdef HAVE_XFCONF
+  g_signal_connect_swapped (panel_plugin,
+                            "configure-plugin",
+                            G_CALLBACK (notes_plugin_configure),
+                            notes_plugin);
+#endif
   g_signal_connect_swapped (panel_plugin,
                             "size-changed",
                             G_CALLBACK (notes_plugin_set_size),
@@ -161,12 +173,39 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
     }
 #endif
 
+#ifdef HAVE_XFCONF
+  xfce_panel_plugin_menu_show_configure (panel_plugin);
+#endif
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
   notes_plugin_set_selection (notes_plugin);
   gtk_widget_show_all (notes_plugin->btn_panel);
 
   return notes_plugin;
 }
+
+#ifdef HAVE_XFCONF
+static void
+notes_plugin_configure (NotesPlugin *notes_plugin)
+{
+  GtkWidget *dialog = prop_dialog_new (notes_plugin);
+  g_return_if_fail (G_LIKELY (GTK_IS_WIDGET (dialog)));
+
+  xfce_panel_plugin_block_menu (notes_plugin->panel_plugin);
+
+  gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (result == GTK_RESPONSE_HELP)
+    {
+      result = g_spawn_command_line_async ("exo-open " PLUGIN_WEBSITE, NULL);
+      if (G_UNLIKELY (result == FALSE))
+        g_warning (_("Unable to open the following url: %s"), PLUGIN_WEBSITE);
+    }
+
+  if (GTK_IS_WIDGET (dialog))
+    gtk_widget_destroy (dialog);
+
+  xfce_panel_plugin_unblock_menu (notes_plugin->panel_plugin);
+}
+#endif
 
 static gboolean
 notes_plugin_set_size (NotesPlugin *notes_plugin,
@@ -175,8 +214,8 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
   DBG ("Set size to %d", size);
 
   gtk_widget_set_size_request (notes_plugin->btn_panel, size, size);
-  size = size - 2 - (2 * MAX (notes_plugin->btn_panel->style->xthickness,
-                              notes_plugin->btn_panel->style->ythickness));
+  size -= 2 + 2 * MAX (notes_plugin->btn_panel->style->xthickness,
+                       notes_plugin->btn_panel->style->ythickness);
   GdkPixbuf *pixbuf = xfce_themed_icon_load ("xfce4-notes-plugin", size);
   gtk_image_set_from_pixbuf (GTK_IMAGE (notes_plugin->icon_panel), pixbuf);
   g_object_unref (G_OBJECT (pixbuf));

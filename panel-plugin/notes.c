@@ -1,6 +1,6 @@
-/*  $Id$
- *
- *  Copyright (c) 2006 Mike Massonnet <mmassonnet@gmail.com>
+/*
+ *  Notes - panel plugin for Xfce Desktop Environment
+ *  Copyright (c) 2006-2008  Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,12 +29,14 @@
 #include <gdk/gdkkeysyms.h>
 #include <libxfce4util/libxfce4util.h>
 
+#ifdef HAVE_XFCONF
+#include <xfconf/xfconf.h>
+#endif
+
 #include "notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 #define OPAQUE 0xffffffff
-
-
 
 #ifdef HAVE_THUNAR_VFS
 static void             notes_window_fs_event           (ThunarVfsMonitor *monitor,
@@ -166,11 +168,23 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   notes_window->notes = NULL;
   notes_window->name = g_strdup (window_name);
 
+#ifdef HAVE_XFCONF
+  /* Configuration channel */
+  xfconf_init (NULL);
+  XfconfChannel *channel = xfconf_channel_new ("/Xfce4NotesPlugin/DefaultSettings");
+#endif
+
   /* Window */
   notes_window->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_deletable (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_title (GTK_WINDOW (notes_window->window), window_name);
-  gtk_window_set_default_size (GTK_WINDOW (notes_window->window), 375, 430);
+  gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
+#ifdef HAVE_XFCONF
+                               xfconf_channel_get_int (channel, "/window_geometry/width", 375),
+                               xfconf_channel_get_int (channel, "/window_geometry/height", 430));
+#else
+                               375, 430);
+#endif
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_icon_name (GTK_WINDOW (notes_window->window), "xfce4-notes-plugin");
   gtk_widget_set_name (notes_window->window, PLUGIN_NAME);
@@ -308,30 +322,23 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                               GTK_ACCEL_MASK);
 
   /* Tooltips */
+#if GTK_CHECK_VERSION(2,12,0)
   accel_name = gtk_accelerator_get_label ('N', GDK_CONTROL_MASK);
-  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
-                        notes_window->btn_add,
-                        accel_name,
-                        NULL);
+  gtk_widget_set_tooltip_text (notes_window->btn_add, accel_name);
   g_free (accel_name);
+
   accel_name = gtk_accelerator_get_label ('W', GDK_CONTROL_MASK);
-  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
-                        notes_window->btn_del,
-                        accel_name,
-                        NULL);
+  gtk_widget_set_tooltip_text (notes_window->btn_del, accel_name);
   g_free (accel_name);
+
   accel_name = gtk_accelerator_get_label ('M', GDK_CONTROL_MASK);
-  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
-                        notes_window->btn_menu,
-                        accel_name,
-                        NULL);
+  gtk_widget_set_tooltip_text (notes_window->btn_menu, accel_name);
   g_free (accel_name);
+
   accel_name = gtk_accelerator_get_label (GDK_Escape, 0);
-  gtk_tooltips_set_tip (GTK_TOOLTIPS (notes_window->notes_plugin->tooltips),
-                        notes_window->btn_close,
-                        accel_name,
-                        NULL);
+  gtk_widget_set_tooltip_text (notes_window->btn_close, accel_name);
   g_free (accel_name);
+#endif
 
   /* Load data */
   notes_window_load_data (notes_window);
@@ -478,6 +485,15 @@ notes_window_load_data (NotesWindow *notes_window)
   XfceRc               *rc;
   NotesNote            *notes_note;
   const gchar          *note_name;
+  gint                  w = 375;
+  gint                  h = 430;
+  gboolean              above = FALSE;
+  ShowOnStartup         show_on_startup = LAST_STATE;
+  gboolean              show_statusbar = FALSE;
+  gboolean              sticky = TRUE;
+  gboolean              visible = TRUE;
+  gint                  transparency = 10;
+  gchar                *font_descr = NULL;
 
   if (G_LIKELY (NULL == notes_window->name))
     {
@@ -508,40 +524,57 @@ notes_window_load_data (NotesWindow *notes_window)
       gtk_window_set_title (GTK_WINDOW (notes_window->window), notes_window->name);
     }
 
+#ifdef HAVE_XFCONF
+  xfconf_init (NULL);
+  XfconfChannel *channel = xfconf_channel_new ("/Xfce4NotesPlugin/DefaultSettings");
+  w =               xfconf_channel_get_int  (channel, "/window_geometry/width", w);
+  h =               xfconf_channel_get_int  (channel, "/window_geometry/height", h);
+  above =           xfconf_channel_get_bool (channel, "/window_state/always_on_top", above);
+  show_on_startup = xfconf_channel_get_bool (channel, "/window_state/show_on_startup", show_on_startup);
+  show_statusbar =  xfconf_channel_get_bool (channel, "/window_state/resize_grip", show_statusbar);
+  sticky =          xfconf_channel_get_bool (channel, "/window_state/sticky", sticky);
+  visible =         xfconf_channel_get_bool (channel, "/window_state/visible", visible);
+  transparency =    xfconf_channel_get_int  (channel, "/window_state/transparency", transparency);
+  if (xfconf_channel_get_bool (channel, "/window_state/use_font", FALSE))
+    font_descr =    xfconf_channel_get_string (channel, "/window_font/description", "Sans 10");
+  g_object_unref (channel);
+#endif
+
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
   xfce_rc_set_group (rc, notes_window->name);
 
   notes_window->x = xfce_rc_read_int_entry (rc, "PosX", -1);
   notes_window->y = xfce_rc_read_int_entry (rc, "PosY", -1);
-  notes_window->w = xfce_rc_read_int_entry (rc, "Width", 375);
-  notes_window->h = xfce_rc_read_int_entry (rc, "Height", 430);
+  notes_window->w = xfce_rc_read_int_entry (rc, "Width", w);
+  notes_window->h = xfce_rc_read_int_entry (rc, "Height", h);
 
-  notes_window->above           = xfce_rc_read_bool_entry (rc, "Above", FALSE);
-  notes_window->show_on_startup = xfce_rc_read_int_entry (rc, "ShowOnStartup", LAST_STATE);
-  notes_window->show_statusbar  = xfce_rc_read_bool_entry (rc, "ShowStatusbar", FALSE);
-  notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", TRUE);
-  notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", TRUE);
-  notes_window->transparency    = xfce_rc_read_int_entry (rc, "Transparency", 10);
-  notes_window->font            = g_strdup (xfce_rc_read_entry (rc, "Font", NULL));
+  notes_window->above           = xfce_rc_read_bool_entry (rc, "Above", above);
+  notes_window->show_on_startup = xfce_rc_read_int_entry (rc, "ShowOnStartup", show_on_startup);
+  notes_window->show_statusbar  = xfce_rc_read_bool_entry (rc, "ShowStatusbar", show_statusbar);
+  notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", sticky);
+  notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", visible);
+  notes_window->transparency    = xfce_rc_read_int_entry (rc, "Transparency", transparency);
+  notes_window->font            = g_strdup (xfce_rc_read_entry (rc, "Font", font_descr));
+  g_free (font_descr);
 
   xfce_rc_close (rc);
 
-  TRACE ("\nname: %s"
-         "\ngeometry: %d/%d:%dx%d"
-         "\nabove: %d"
-         "\nshow_on_startup: %d"
-         "\nshow_statusbar: %d"
-         "\nsticky: %d"
-         "\nvisible: %d"
-         "\ntransparency: %d",
-         notes_window->name,
-         notes_window->x, notes_window->y, notes_window->w, notes_window->h,
-         notes_window->above,
-         notes_window->show_on_startup,
-         notes_window->show_statusbar,
-         notes_window->sticky,
-         notes_window->visible,
-         notes_window->transparency);
+  DBG ("\nname: %s"
+       "\ngeometry: %d/%d:%dx%d"
+       "\nabove: %d"
+       "\nshow_on_startup: %d"
+       "\nshow_statusbar: %d"
+       "\nsticky: %d"
+       "\nvisible: %d"
+       "\ntransparency: %d",
+       notes_window->name,
+       notes_window->x, notes_window->y, notes_window->w, notes_window->h,
+       notes_window->above,
+       notes_window->show_on_startup,
+       notes_window->show_statusbar,
+       notes_window->sticky,
+       notes_window->visible,
+       notes_window->transparency);
 
   /**
    * Make sure we have at least one note if note_name is NULL.  After that an
