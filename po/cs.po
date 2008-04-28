@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.90.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 23:08+0100\n"
+"POT-Creation-Date: 2008-04-28 01:36+0200\n"
 "PO-Revision-Date: 2007-12-17 22:06+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -16,85 +16,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../panel-plugin/notes.c:421
+#: ../panel-plugin/panel-plugin.c:200
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr ""
+
+#: ../panel-plugin/notes.c:428
 msgid "Are you sure you want to delete this window?"
 msgstr "Opravdu chcete smazat toto okno?"
 
-#: ../panel-plugin/notes.c:698
+#: ../panel-plugin/notes.c:733
 msgid "Window"
 msgstr "Okno"
 
-#: ../panel-plugin/notes.c:702
+#: ../panel-plugin/notes.c:737
 msgid "_Rename..."
 msgstr "_Přejmenovat"
 
-#: ../panel-plugin/notes.c:704
+#: ../panel-plugin/notes.c:739
 msgid "_Options"
 msgstr "_Volby"
 
-#: ../panel-plugin/notes.c:706
+#: ../panel-plugin/notes.c:741
 msgid "Note"
 msgstr "_Poznámka"
 
-#: ../panel-plugin/notes.c:710
+#: ../panel-plugin/notes.c:745
 msgid "R_ename..."
 msgstr "Př_ejmenovat"
 
-#: ../panel-plugin/notes.c:816
+#: ../panel-plugin/notes.c:851
 msgid "Show statusbar"
 msgstr "Zobrazit stavový řádek"
 
-#: ../panel-plugin/notes.c:817
+#. Always on top
+#: ../panel-plugin/notes.c:852 ../panel-plugin/notes-properties-dialog.c:101
 msgid "Always on top"
 msgstr "Vždy nahoře"
 
-#: ../panel-plugin/notes.c:818
+#. Sticky window
+#: ../panel-plugin/notes.c:853 ../panel-plugin/notes-properties-dialog.c:108
 msgid "Sticky window"
 msgstr "Přilepené okno"
 
-#: ../panel-plugin/notes.c:819
+#: ../panel-plugin/notes.c:854
 msgid "Show on startup"
 msgstr "Zobrazovat po spuštění"
 
-#: ../panel-plugin/notes.c:830
+#: ../panel-plugin/notes.c:865
 msgid "Always"
 msgstr "Vždy"
 
-#: ../panel-plugin/notes.c:832
+#: ../panel-plugin/notes.c:867
 msgid "Never"
 msgstr "Nikdy"
 
-#: ../panel-plugin/notes.c:834
+#: ../panel-plugin/notes.c:869
 msgid "Last state"
 msgstr "Poslední stav"
 
-#: ../panel-plugin/notes.c:1005
+#: ../panel-plugin/notes.c:1040
 msgid "Choose Window Font"
 msgstr "Zvolit písmo okna"
 
-#: ../panel-plugin/notes.c:1281 ../panel-plugin/notes.c:1317
+#: ../panel-plugin/notes.c:1316 ../panel-plugin/notes.c:1352
 msgid "Rename window"
 msgstr "Přejmenovat okno"
 
-#: ../panel-plugin/notes.c:1319 ../panel-plugin/notes.c:1739
+#: ../panel-plugin/notes.c:1354 ../panel-plugin/notes.c:1774
 msgid "Error"
 msgstr "Chyba"
 
-#: ../panel-plugin/notes.c:1320
+#: ../panel-plugin/notes.c:1355
 msgid "Unable to rename window"
 msgstr "Nelze přejmenovat okno"
 
-#: ../panel-plugin/notes.c:1429
+#: ../panel-plugin/notes.c:1464
 msgid "Are you sure you want to delete this note?"
 msgstr "Opravdu chcete smazat tuto poznámku?"
 
-#: ../panel-plugin/notes.c:1701 ../panel-plugin/notes.c:1737
+#: ../panel-plugin/notes.c:1736 ../panel-plugin/notes.c:1772
 msgid "Rename note"
 msgstr "Přejmenovat poznámku"
 
-#: ../panel-plugin/notes.c:1740
+#: ../panel-plugin/notes.c:1775
 msgid "Unable to rename note"
 msgstr "Nelze přejmenovat poznámku"
+
+#: ../panel-plugin/notes-properties-dialog.c:69
+msgid "Xfce 4 Notes Plugin"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:83
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:88
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:96
+msgid "New window settings"
+msgstr ""
+
+#. Resize grip
+#: ../panel-plugin/notes-properties-dialog.c:115
+#, fuzzy
+msgid "Resize grip"
+msgstr "Zobrazit okraj pro změnu velikosti"
+
+#: ../panel-plugin/notes-properties-dialog.c:125
+msgid "Font"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:141
+msgid "Size"
+msgstr ""
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
@@ -106,9 +144,6 @@ msgstr "Zásuvný modul pro vytváření poznámek pro Xfce4"
 
 #~ msgid "Show in the task list"
 #~ msgstr "Zobrazovat v seznamu úloh"
-
-#~ msgid "Show resize grip"
-#~ msgstr "Zobrazit okraj pro změnu velikosti"
 
 #~ msgid "Create new note"
 #~ msgstr "Vytvořit novou poznámku"

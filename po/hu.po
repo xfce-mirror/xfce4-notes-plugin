@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 23:08+0100\n"
+"POT-Creation-Date: 2008-04-28 01:36+0200\n"
 "PO-Revision-Date: 2007-11-01 08:30+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: hu\n"
@@ -12,85 +12,124 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Country: HUNGARY\n"
 
-#: ../panel-plugin/notes.c:421
+#: ../panel-plugin/panel-plugin.c:200
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr ""
+
+#: ../panel-plugin/notes.c:428
 msgid "Are you sure you want to delete this window?"
 msgstr "Tényleg törlöd ezt az ablakot?"
 
-#: ../panel-plugin/notes.c:698
+#: ../panel-plugin/notes.c:733
 msgid "Window"
 msgstr "Ablak"
 
-#: ../panel-plugin/notes.c:702
+#: ../panel-plugin/notes.c:737
 msgid "_Rename..."
 msgstr "Átnevez..."
 
-#: ../panel-plugin/notes.c:704
+#: ../panel-plugin/notes.c:739
 msgid "_Options"
 msgstr "_Opciók"
 
-#: ../panel-plugin/notes.c:706
+#: ../panel-plugin/notes.c:741
 msgid "Note"
 msgstr "Jegyzet"
 
-#: ../panel-plugin/notes.c:710
+#: ../panel-plugin/notes.c:745
 msgid "R_ename..."
 msgstr "Átn_evez..."
 
-#: ../panel-plugin/notes.c:816
+#: ../panel-plugin/notes.c:851
 msgid "Show statusbar"
 msgstr "Állapotsáv mutatása"
 
-#: ../panel-plugin/notes.c:817
+#. Always on top
+#: ../panel-plugin/notes.c:852 ../panel-plugin/notes-properties-dialog.c:101
 msgid "Always on top"
 msgstr "Mindig felül"
 
-#: ../panel-plugin/notes.c:818
+#. Sticky window
+#: ../panel-plugin/notes.c:853 ../panel-plugin/notes-properties-dialog.c:108
 msgid "Sticky window"
 msgstr "Ragadós ablak"
 
-#: ../panel-plugin/notes.c:819
+#: ../panel-plugin/notes.c:854
 msgid "Show on startup"
 msgstr "Mutasd induláskor"
 
-#: ../panel-plugin/notes.c:830
+#: ../panel-plugin/notes.c:865
 msgid "Always"
 msgstr "Mindig"
 
-#: ../panel-plugin/notes.c:832
+#: ../panel-plugin/notes.c:867
 msgid "Never"
 msgstr "Soha"
 
-#: ../panel-plugin/notes.c:834
+#: ../panel-plugin/notes.c:869
 msgid "Last state"
 msgstr "Utolsó állapot"
 
-#: ../panel-plugin/notes.c:1005
+#: ../panel-plugin/notes.c:1040
 msgid "Choose Window Font"
 msgstr "Válassz ablak betűt"
 
-#: ../panel-plugin/notes.c:1281 ../panel-plugin/notes.c:1317
+#: ../panel-plugin/notes.c:1316 ../panel-plugin/notes.c:1352
 msgid "Rename window"
 msgstr "Ablak átnevezése"
 
-#: ../panel-plugin/notes.c:1319 ../panel-plugin/notes.c:1739
+#: ../panel-plugin/notes.c:1354 ../panel-plugin/notes.c:1774
 msgid "Error"
 msgstr "Hiba"
 
-#: ../panel-plugin/notes.c:1320
+#: ../panel-plugin/notes.c:1355
 msgid "Unable to rename window"
 msgstr "Sikertelen ablak átnevezés"
 
-#: ../panel-plugin/notes.c:1429
+#: ../panel-plugin/notes.c:1464
 msgid "Are you sure you want to delete this note?"
 msgstr "Tényleg törlöd e bejegyzést?"
 
-#: ../panel-plugin/notes.c:1701 ../panel-plugin/notes.c:1737
+#: ../panel-plugin/notes.c:1736 ../panel-plugin/notes.c:1772
 msgid "Rename note"
 msgstr "Jegyzet átnevezése"
 
-#: ../panel-plugin/notes.c:1740
+#: ../panel-plugin/notes.c:1775
 msgid "Unable to rename note"
 msgstr "Sikertelen jegyzet átnevezés"
+
+#: ../panel-plugin/notes-properties-dialog.c:69
+#, fuzzy
+msgid "Xfce 4 Notes Plugin"
+msgstr "Jegyzetek beillesztés"
+
+#: ../panel-plugin/notes-properties-dialog.c:83
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:88
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:96
+msgid "New window settings"
+msgstr ""
+
+#. Resize grip
+#: ../panel-plugin/notes-properties-dialog.c:115
+#, fuzzy
+msgid "Resize grip"
+msgstr "Átméretező mutatása"
+
+#: ../panel-plugin/notes-properties-dialog.c:125
+msgid "Font"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:141
+msgid "Size"
+msgstr ""
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
@@ -102,9 +141,6 @@ msgstr "Jegyzettömb beillesztés az Xfce4 panelhoz"
 
 #~ msgid "Show in the task list"
 #~ msgstr "Mutasd a feladatlistában"
-
-#~ msgid "Show resize grip"
-#~ msgstr "Átméretező mutatása"
 
 #~ msgid "Create new note"
 #~ msgstr "Új jegyzet"
@@ -123,9 +159,6 @@ msgstr "Jegyzettömb beillesztés az Xfce4 panelhoz"
 
 #~ msgid "A restart of the panel is needed"
 #~ msgstr "A panel újraindítása szükséges"
-
-#~ msgid "Notes Plugin"
-#~ msgstr "Jegyzetek beillesztés"
 
 #~ msgid "Open a new page"
 #~ msgstr "Új lapot nyit"

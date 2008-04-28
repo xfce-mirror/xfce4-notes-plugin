@@ -1,4 +1,6 @@
 panel-plugin/panel-plugin.c
 panel-plugin/notes.c
 panel-plugin/notes.h
+panel-plugin/notes-properties-dialog.c
+panel-plugin/notes-properties-dialog.h
 panel-plugin/xfce4-notes-plugin.desktop.in.in

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 23:08+0100\n"
+"POT-Creation-Date: 2008-04-28 01:36+0200\n"
 "PO-Revision-Date: 2007-03-08 00:54+0800\n"
 "Last-Translator: Hydonsingore Cia <hydonsingore@educities.edu.tw>\n"
 "Language-Team: Tradictional Chinese <zh-l10n@linux.org.tw>\n"
@@ -17,93 +17,130 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/notes.c:421
+#: ../panel-plugin/panel-plugin.c:200
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr ""
+
+#: ../panel-plugin/notes.c:428
 #, fuzzy
 msgid "Are you sure you want to delete this window?"
 msgstr "您確定要刪除這份筆記嗎？"
 
-#: ../panel-plugin/notes.c:698
+#: ../panel-plugin/notes.c:733
 msgid "Window"
 msgstr ""
 
-#: ../panel-plugin/notes.c:702
+#: ../panel-plugin/notes.c:737
 #, fuzzy
 msgid "_Rename..."
 msgstr "更名"
 
-#: ../panel-plugin/notes.c:704
+#: ../panel-plugin/notes.c:739
 msgid "_Options"
 msgstr ""
 
-#: ../panel-plugin/notes.c:706
+#: ../panel-plugin/notes.c:741
 #, fuzzy
 msgid "Note"
 msgstr "小筆記"
 
-#: ../panel-plugin/notes.c:710
+#: ../panel-plugin/notes.c:745
 #, fuzzy
 msgid "R_ename..."
 msgstr "更名"
 
-#: ../panel-plugin/notes.c:816
+#: ../panel-plugin/notes.c:851
 msgid "Show statusbar"
 msgstr ""
 
-#: ../panel-plugin/notes.c:817
+#. Always on top
+#: ../panel-plugin/notes.c:852 ../panel-plugin/notes-properties-dialog.c:101
 msgid "Always on top"
 msgstr "置於最上層"
 
-#: ../panel-plugin/notes.c:818
+#. Sticky window
+#: ../panel-plugin/notes.c:853 ../panel-plugin/notes-properties-dialog.c:108
 #, fuzzy
 msgid "Sticky window"
 msgstr "附黏模式"
 
-#: ../panel-plugin/notes.c:819
+#: ../panel-plugin/notes.c:854
 #, fuzzy
 msgid "Show on startup"
 msgstr "啟動時顯示小筆記"
 
-#: ../panel-plugin/notes.c:830
+#: ../panel-plugin/notes.c:865
 #, fuzzy
 msgid "Always"
 msgstr "置於最上層"
 
-#: ../panel-plugin/notes.c:832
+#: ../panel-plugin/notes.c:867
 msgid "Never"
 msgstr ""
 
-#: ../panel-plugin/notes.c:834
+#: ../panel-plugin/notes.c:869
 msgid "Last state"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1005
+#: ../panel-plugin/notes.c:1040
 msgid "Choose Window Font"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1281 ../panel-plugin/notes.c:1317
+#: ../panel-plugin/notes.c:1316 ../panel-plugin/notes.c:1352
 #, fuzzy
 msgid "Rename window"
 msgstr "更名"
 
-#: ../panel-plugin/notes.c:1319 ../panel-plugin/notes.c:1739
+#: ../panel-plugin/notes.c:1354 ../panel-plugin/notes.c:1774
 msgid "Error"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1320
+#: ../panel-plugin/notes.c:1355
 msgid "Unable to rename window"
 msgstr ""
 
-#: ../panel-plugin/notes.c:1429
+#: ../panel-plugin/notes.c:1464
 msgid "Are you sure you want to delete this note?"
 msgstr "您確定要刪除這份筆記嗎？"
 
-#: ../panel-plugin/notes.c:1701 ../panel-plugin/notes.c:1737
+#: ../panel-plugin/notes.c:1736 ../panel-plugin/notes.c:1772
 #, fuzzy
 msgid "Rename note"
 msgstr "更名"
 
-#: ../panel-plugin/notes.c:1740
+#: ../panel-plugin/notes.c:1775
 msgid "Unable to rename note"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:69
+msgid "Xfce 4 Notes Plugin"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:83
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:88
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:96
+msgid "New window settings"
+msgstr ""
+
+#. Resize grip
+#: ../panel-plugin/notes-properties-dialog.c:115
+msgid "Resize grip"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:125
+msgid "Font"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:141
+msgid "Size"
 msgstr ""
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
