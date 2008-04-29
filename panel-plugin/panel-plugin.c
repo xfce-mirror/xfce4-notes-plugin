@@ -1,8 +1,7 @@
-/* $Id$
- *
+/*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (C) 2003  Jakob Henriksson <b0kaj+dev@lysator.liu.se>
- *  Copyright (C) 2006  Mike Massonnet <mmassonnet@gmail.com>
+ *  Copyright (C) 2003       Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+ *  Copyright (C) 2006-2008  Mike Massonnet <mmassonnet@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,6 +43,8 @@ static void             notes_plugin_configure          (NotesPlugin *notes_plug
 #endif
 static gboolean         notes_plugin_set_size           (NotesPlugin *notes_plugin, 
                                                          int size);
+static void             notes_plugin_set_orientation    (NotesPlugin *notes_plugin, 
+                                                         GtkOrientation orientation);
 static void             notes_plugin_load_data          (NotesPlugin *notes_plugin);
 
 static inline void      notes_plugin_save_data          (NotesPlugin *notes_plugin);
@@ -64,6 +65,8 @@ static void             notes_plugin_fs_event           (ThunarVfsMonitor *monit
                                                          ThunarVfsPath *event_path,
                                                          NotesPlugin *notes_plugin);
 #endif
+static gboolean         notes_plugin_arrow_pressed      (NotesPlugin *notes_plugin,
+                                                         GdkEventButton *event);
 static gboolean         notes_plugin_button_pressed     (NotesPlugin *notes_plugin,
                                                          GdkEventButton *event);
 static gboolean         notes_plugin_button_released    (NotesPlugin *notes_plugin,
@@ -123,13 +126,16 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
                                            notes_plugin->notes_path);
 
   notes_plugin->windows = NULL;
+  notes_plugin->box_panel = GTK_WIDGET (xfce_hvbox_new (GTK_ORIENTATION_HORIZONTAL, FALSE, 0));
   notes_plugin->btn_panel = xfce_create_panel_toggle_button ();
   notes_plugin->icon_panel = gtk_image_new ();
+  notes_plugin->btn_arrow = GTK_WIDGET (xfce_arrow_button_new (GTK_ARROW_UP));
+  gtk_button_set_relief (GTK_BUTTON (notes_plugin->btn_arrow), GTK_RELIEF_NONE);
 
-  gtk_container_add (GTK_CONTAINER (notes_plugin->btn_panel),
-                     notes_plugin->icon_panel);
-  gtk_container_add (GTK_CONTAINER (panel_plugin),
-                     notes_plugin->btn_panel);
+  gtk_container_add (GTK_CONTAINER (notes_plugin->btn_panel), notes_plugin->icon_panel);
+  gtk_container_add (GTK_CONTAINER (notes_plugin->box_panel), notes_plugin->btn_panel);
+  gtk_container_add (GTK_CONTAINER (notes_plugin->box_panel), notes_plugin->btn_arrow);
+  gtk_container_add (GTK_CONTAINER (panel_plugin), notes_plugin->box_panel);
 
 #ifdef HAVE_XFCONF
   g_signal_connect_swapped (panel_plugin,
@@ -142,12 +148,20 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
                             G_CALLBACK (notes_plugin_set_size),
                             notes_plugin);
   g_signal_connect_swapped (panel_plugin,
+                            "orientation-changed",
+                            G_CALLBACK (notes_plugin_set_orientation),
+                            notes_plugin);
+  g_signal_connect_swapped (panel_plugin,
                             "save",
                             G_CALLBACK (notes_plugin_save_data),
                             notes_plugin);
   g_signal_connect_swapped (panel_plugin,
                             "free-data",
                             G_CALLBACK (notes_plugin_free),
+                            notes_plugin);
+  g_signal_connect_swapped (notes_plugin->btn_arrow,
+                            "button-press-event",
+                            G_CALLBACK (notes_plugin_arrow_pressed),
                             notes_plugin);
   g_signal_connect_swapped (notes_plugin->btn_panel,
                             "button-press-event",
@@ -173,12 +187,13 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
     }
 #endif
 
+  notes_plugin_set_selection (notes_plugin);
 #ifdef HAVE_XFCONF
   xfce_panel_plugin_menu_show_configure (panel_plugin);
 #endif
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
-  notes_plugin_set_selection (notes_plugin);
-  gtk_widget_show_all (notes_plugin->btn_panel);
+  xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_arrow);
+  gtk_widget_show_all (GTK_WIDGET (panel_plugin));
 
   return notes_plugin;
 }
@@ -221,6 +236,22 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
   g_object_unref (G_OBJECT (pixbuf));
 
   return TRUE;
+}
+
+static void
+notes_plugin_set_orientation (NotesPlugin *notes_plugin,
+                              GtkOrientation orientation)
+{
+  xfce_hvbox_set_orientation (notes_plugin->box_panel, orientation);
+  XfceScreenPosition position = xfce_panel_plugin_get_screen_position (notes_plugin->panel_plugin);
+  if (xfce_screen_position_is_top (position))
+    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_DOWN);
+  else if (xfce_screen_position_is_left (position))
+    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_RIGHT);
+  else if (xfce_screen_position_is_right (position))
+    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_LEFT);
+  else /*if (xfce_screen_position_is_bottom (position))*/
+    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_UP);
 }
 
 static void
@@ -368,6 +399,19 @@ notes_plugin_fs_event (ThunarVfsMonitor *monitor,
 #endif
 
 static gboolean
+notes_plugin_arrow_pressed (NotesPlugin *notes_plugin,
+                            GdkEventButton *event)
+{
+  if (G_LIKELY (event->button != 1 || event->state & GDK_CONTROL_MASK))
+    return FALSE;
+
+  notes_plugin_menu_popup (notes_plugin);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_arrow), TRUE);
+
+  return TRUE;
+}
+
+static gboolean
 notes_plugin_button_pressed (NotesPlugin *notes_plugin,
                              GdkEventButton *event)
 {
@@ -445,8 +489,7 @@ notes_plugin_menu_new (NotesPlugin *notes_plugin)
     {
       TRACE ("notes_window (%d): %p", (i-1), notes_window);
       GtkWidget *mi_foo = gtk_image_menu_item_new_with_label (notes_window->name);
-      GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin",
-                                                      GTK_ICON_SIZE_MENU);
+      GtkWidget *icon = gtk_image_new_from_icon_name ("xfce4-notes-plugin", GTK_ICON_SIZE_MENU);
       gtk_widget_set_sensitive (icon, GTK_WIDGET_VISIBLE (notes_window->window));
 
       gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi_foo), icon);
@@ -551,6 +594,7 @@ notes_plugin_menu_destroy (NotesPlugin *notes_plugin)
   if (G_LIKELY (GTK_IS_MENU (notes_plugin->menu)))
     gtk_menu_detach (GTK_MENU (notes_plugin->menu));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_panel), FALSE);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notes_plugin->btn_arrow), FALSE);
 }
 
 

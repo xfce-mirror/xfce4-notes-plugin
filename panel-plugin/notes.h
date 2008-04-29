@@ -47,8 +47,10 @@ struct _NotesPlugin
   gchar                *notes_path;
   guint                 timeout;
 
+  GtkWidget            *box_panel;
   GtkWidget            *btn_panel;
   GtkWidget            *icon_panel;
+  GtkWidget            *btn_arrow;
   GtkWidget            *menu;
   GtkWidget            *icon;
   GtkWidget            *icon_rev;
