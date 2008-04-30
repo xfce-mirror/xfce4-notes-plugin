@@ -168,21 +168,20 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   notes_window->notes = NULL;
   notes_window->name = g_strdup (window_name);
 
-#ifdef HAVE_XFCONF
-  /* Configuration channel */
-  xfconf_init (NULL);
-  XfconfChannel *channel = xfconf_channel_new ("/Xfce4NotesPlugin/DefaultSettings");
-#endif
-
   /* Window */
   notes_window->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_deletable (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_title (GTK_WINDOW (notes_window->window), window_name);
-  gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
 #ifdef HAVE_XFCONF
-                               xfconf_channel_get_int (channel, "/window_geometry/width", 375),
-                               xfconf_channel_get_int (channel, "/window_geometry/height", 430));
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window),
+                                    xfconf_channel_get_bool (notes_plugin->channel_panel_plugin,
+                                                             "/hide_windows_from_taskbar",
+                                                             FALSE));
+  gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
+                               xfconf_channel_get_int (notes_plugin->channel_new_window, "/window_geometry/width", 375),
+                               xfconf_channel_get_int (notes_plugin->channel_new_window, "/window_geometry/height", 430));
 #else
+  gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
                                375, 430);
 #endif
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
@@ -484,6 +483,7 @@ notes_window_load_data (NotesWindow *notes_window)
 {
   XfceRc               *rc;
   NotesNote            *notes_note;
+  NotesPlugin          *notes_plugin = notes_window->notes_plugin;
   const gchar          *note_name;
   gint                  w = 375;
   gint                  h = 430;
@@ -525,19 +525,16 @@ notes_window_load_data (NotesWindow *notes_window)
     }
 
 #ifdef HAVE_XFCONF
-  xfconf_init (NULL);
-  XfconfChannel *channel = xfconf_channel_new ("/Xfce4NotesPlugin/DefaultSettings");
-  w =               xfconf_channel_get_int  (channel, "/window_geometry/width", w);
-  h =               xfconf_channel_get_int  (channel, "/window_geometry/height", h);
-  above =           xfconf_channel_get_bool (channel, "/window_state/always_on_top", above);
-  show_on_startup = xfconf_channel_get_bool (channel, "/window_state/show_on_startup", show_on_startup);
-  show_statusbar =  xfconf_channel_get_bool (channel, "/window_state/resize_grip", show_statusbar);
-  sticky =          xfconf_channel_get_bool (channel, "/window_state/sticky", sticky);
-  visible =         xfconf_channel_get_bool (channel, "/window_state/visible", visible);
-  transparency =    xfconf_channel_get_int  (channel, "/window_state/transparency", transparency);
-  if (xfconf_channel_get_bool (channel, "/window_state/use_font", FALSE))
-    font_descr =    xfconf_channel_get_string (channel, "/window_font/description", "Sans 10");
-  g_object_unref (channel);
+  w =               xfconf_channel_get_int  (notes_plugin->channel_new_window, "/window_geometry/width", w);
+  h =               xfconf_channel_get_int  (notes_plugin->channel_new_window, "/window_geometry/height", h);
+  above =           xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/always_on_top", above);
+  show_on_startup = xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/show_on_startup", show_on_startup);
+  show_statusbar =  xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/resize_grip", show_statusbar);
+  sticky =          xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/sticky", sticky);
+  visible =         xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/visible", visible);
+  transparency =    xfconf_channel_get_int  (notes_plugin->channel_new_window, "/window_state/transparency", transparency);
+  if (xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/use_font", FALSE))
+    font_descr =    xfconf_channel_get_string (notes_plugin->channel_new_window, "/window_font/description", "Sans 10");
 #endif
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
@@ -848,7 +845,7 @@ notes_window_menu_options_new (NotesWindow *notes_window)
 
   /* NotesWindow options menu */
   notes_window->menu_options = gtk_menu_new ();
-  GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Show statusbar"));
+  GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Resize grip"));
   GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
   GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));

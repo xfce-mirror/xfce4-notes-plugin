@@ -22,5 +22,8 @@
 
 #define BORDER      8
 
+#define XFCONF_CHANNEL_NEW_WINDOW       "xfce4-notes-plugin_new-window"
+#define XFCONF_CHANNEL_PANEL_PLUGIN     "xfce4-notes-plugin_panel-plugin"
+
 #endif
 

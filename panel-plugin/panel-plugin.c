@@ -23,6 +23,7 @@
 #include <config.h>
 #endif
 
+#include "defines.h"
 #include "notes.h"
 #ifdef HAVE_XFCONF
 #include "notes-properties-dialog.h"
@@ -54,7 +55,14 @@ static void             notes_plugin_save_data_all      (NotesPlugin *notes_plug
 static void             notes_plugin_free               (NotesPlugin *notes_plugin);
 
 static void             notes_plugin_destroy_timeout    (NotesPlugin *notes_plugin);
+#ifdef HAVE_XFCONF
+static void             notes_plugin_monitor_xfconf     (NotesPlugin *notes_plugin);
 
+static void             notes_plugin_xfconf_property_changed
+                                                        (NotesPlugin *notes_plugin,
+                                                         gchar *property,
+                                                         GValue *value);
+#endif
 #ifdef HAVE_THUNAR_VFS
 static NotesWindow     *notes_plugin_get_window_by_name (NotesPlugin *notes_plugin,
                                                          const gchar *name);
@@ -102,6 +110,16 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
 
   NotesPlugin *notes_plugin = notes_plugin_new (panel_plugin);
   g_return_if_fail (G_LIKELY (notes_plugin != NULL));
+#ifdef HAVE_XFCONF
+  notes_plugin_monitor_xfconf (notes_plugin);
+#endif
+
+  gtk_widget_show_all (GTK_WIDGET (panel_plugin));
+#ifdef HAVE_XFCONF
+  if (xfconf_channel_get_bool (notes_plugin->channel_panel_plugin, "/hide_arrow_button", FALSE))
+    gtk_widget_hide (notes_plugin->btn_arrow);
+#endif
+
   notes_plugin_load_data (notes_plugin);
 }
 
@@ -124,6 +142,10 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 
   DBG ("\nLook up file: %s\nNotes path: %s", notes_plugin->config_file,
                                            notes_plugin->notes_path);
+
+#ifdef HAVE_XFCONF
+  xfconf_init (NULL);
+#endif
 
   notes_plugin->windows = NULL;
   notes_plugin->box_panel = GTK_WIDGET (xfce_hvbox_new (GTK_ORIENTATION_HORIZONTAL, FALSE, 0));
@@ -193,7 +215,6 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 #endif
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_arrow);
-  gtk_widget_show_all (GTK_WIDGET (panel_plugin));
 
   return notes_plugin;
 }
@@ -296,6 +317,9 @@ static void
 notes_plugin_free (NotesPlugin *notes_plugin)
 {
   notes_plugin_save_data_all (notes_plugin);
+#ifdef HAVE_XFCONF
+  xfconf_shutdown ();
+#endif
 #ifdef HAVE_THUNAR_VFS
   /* TODO move code out from notes_window_destroy and add notes_window_free
    * which would only free memory and not corrupt notes or configuration data
@@ -320,6 +344,43 @@ notes_plugin_destroy_timeout (NotesPlugin *notes_plugin)
 {
   notes_plugin->timeout = 0;
 }
+
+#ifdef HAVE_XFCONF
+static void
+notes_plugin_monitor_xfconf (NotesPlugin *notes_plugin)
+{
+  notes_plugin->channel_new_window = xfconf_channel_new (XFCONF_CHANNEL_NEW_WINDOW);
+  notes_plugin->channel_panel_plugin = xfconf_channel_new (XFCONF_CHANNEL_PANEL_PLUGIN);
+  g_signal_connect_swapped (notes_plugin->channel_panel_plugin, "property-changed",
+                            G_CALLBACK (notes_plugin_xfconf_property_changed), notes_plugin);
+}
+
+static void
+notes_plugin_xfconf_property_changed (NotesPlugin *notes_plugin,
+                                      gchar *property,
+                                      GValue *value)
+{
+  /* Refresh both elements
+   * TODO find out how to guess efficiently the property name */
+  gboolean v = g_value_get_boolean (value);
+  if (!g_ascii_strcasecmp (property, "/hide_windows_from_taskbar"))
+    {
+      GSList *l;
+      for (l = notes_plugin->windows; l != NULL; l = l->next)
+        {
+          NotesWindow *notes_window = l->data;
+          gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), v);
+        }
+    }
+  else if (!g_ascii_strcasecmp (property, "/hide_arrow_button"))
+    {
+      if (v)
+        gtk_widget_hide (notes_plugin->btn_arrow);
+      else
+        gtk_widget_show (notes_plugin->btn_arrow);
+    }
+}
+#endif
 
 #ifdef HAVE_THUNAR_VFS
 static NotesWindow *
