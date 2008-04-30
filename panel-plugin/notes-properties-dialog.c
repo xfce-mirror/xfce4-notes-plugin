@@ -77,7 +77,7 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   dialog =
     xfce_titled_dialog_new_with_buttons (_("Xfce 4 Notes Plugin"),
                                          GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (notes_plugin->panel_plugin))),
-                                         GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
+                                         GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
                                          GTK_STOCK_HELP, GTK_RESPONSE_HELP,
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
@@ -91,7 +91,7 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   box = gtk_vbox_new (TRUE, BORDER);
   frame = xfce_create_framebox_with_content (_("Default settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), frame, FALSE, FALSE, BORDER);
+  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), frame);
 
   /* Hide from taskbar */
   button = gtk_check_button_new_with_label (_("Hide windows from taskbar"));
