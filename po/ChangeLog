@@ -1,6 +1,7 @@
 2008-05-01  Mike Massonnet <mmassonnet@xfce.org>
 
 	* *.po, *.pot: make update-po
+	* de.po: Update German translation (Bernd Korz <bernd.korz@claus-eisenmann.de>)
 	* fr.po: Update French translation
 
 2008-04-27  Mike Massonnet <mmassonnet@xfce.org>
