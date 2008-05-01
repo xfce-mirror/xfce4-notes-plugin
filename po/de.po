@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-28 01:36+0200\n"
+"POT-Creation-Date: 2008-04-30 02:47+0200\n"
 "PO-Revision-Date: 2008-03-18 16:36+0100\n"
 "Last-Translator: Enrico Tröger <enrico.troeger@uvena.de>\n"
 "Language-Team: German <xfce-i18n@xfce.org>\n"
@@ -18,121 +18,122 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:200
+#: ../panel-plugin/panel-plugin.c:236
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr ""
 
-#: ../panel-plugin/notes.c:428
+#: ../panel-plugin/notes.c:427
 msgid "Are you sure you want to delete this window?"
 msgstr "Sind Sie sicher, dass Sie dieses Fenster löschen möchten?"
 
-#: ../panel-plugin/notes.c:733
+#: ../panel-plugin/notes.c:730
 msgid "Window"
 msgstr "Fenster"
 
-#: ../panel-plugin/notes.c:737
+#: ../panel-plugin/notes.c:734
 msgid "_Rename..."
 msgstr "_Umbenennen"
 
-#: ../panel-plugin/notes.c:739
+#: ../panel-plugin/notes.c:736
 msgid "_Options"
 msgstr "_Optionen"
 
-#: ../panel-plugin/notes.c:741
+#: ../panel-plugin/notes.c:738
 msgid "Note"
 msgstr "Notiz"
 
-#: ../panel-plugin/notes.c:745
+#: ../panel-plugin/notes.c:742
 msgid "R_ename..."
 msgstr "_Umbenennen"
 
-#: ../panel-plugin/notes.c:851
-msgid "Show statusbar"
-msgstr "Statusleiste anzeigen"
-
-#. Always on top
-#: ../panel-plugin/notes.c:852 ../panel-plugin/notes-properties-dialog.c:101
-msgid "Always on top"
-msgstr "Immer obenauf"
-
-#. Sticky window
-#: ../panel-plugin/notes.c:853 ../panel-plugin/notes-properties-dialog.c:108
-msgid "Sticky window"
-msgstr "Fenster anheften"
-
-#: ../panel-plugin/notes.c:854
-msgid "Show on startup"
-msgstr "Beim Start anzeigen"
-
-#: ../panel-plugin/notes.c:865
-msgid "Always"
-msgstr "Immer"
-
-#: ../panel-plugin/notes.c:867
-msgid "Never"
-msgstr "Nie"
-
-#: ../panel-plugin/notes.c:869
-msgid "Last state"
-msgstr "Letzter Zustand"
-
-#: ../panel-plugin/notes.c:1040
-msgid "Choose Window Font"
-msgstr "Fensterschriftart auswählen"
-
-#: ../panel-plugin/notes.c:1316 ../panel-plugin/notes.c:1352
-msgid "Rename window"
-msgstr "Fenster umbenennen"
-
-#: ../panel-plugin/notes.c:1354 ../panel-plugin/notes.c:1774
-msgid "Error"
-msgstr "Fehler"
-
-#: ../panel-plugin/notes.c:1355
-msgid "Unable to rename window"
-msgstr "Kann Fenster nicht umbennen"
-
-#: ../panel-plugin/notes.c:1464
-msgid "Are you sure you want to delete this note?"
-msgstr "Sind Sie sicher, dass Sie diese Notiz löschen möchten?"
-
-#: ../panel-plugin/notes.c:1736 ../panel-plugin/notes.c:1772
-msgid "Rename note"
-msgstr "Notiz umbenennen"
-
-#: ../panel-plugin/notes.c:1775
-msgid "Unable to rename note"
-msgstr "Kann Notiz nicht umbennen"
-
-#: ../panel-plugin/notes-properties-dialog.c:69
-msgid "Xfce 4 Notes Plugin"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:83
-msgid "Default settings"
-msgstr ""
-
-#. Hide from taskbar
-#: ../panel-plugin/notes-properties-dialog.c:88
-msgid "Hide windows from taskbar"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:96
-msgid "New window settings"
-msgstr ""
-
 #. Resize grip
-#: ../panel-plugin/notes-properties-dialog.c:115
+#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:131
 #, fuzzy
 msgid "Resize grip"
 msgstr "Der vergrößerungsgriff anzeigen"
 
-#: ../panel-plugin/notes-properties-dialog.c:125
-msgid "Font"
+#. Always on top
+#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:117
+msgid "Always on top"
+msgstr "Immer obenauf"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:124
+msgid "Sticky window"
+msgstr "Fenster anheften"
+
+#: ../panel-plugin/notes.c:851
+msgid "Show on startup"
+msgstr "Beim Start anzeigen"
+
+#: ../panel-plugin/notes.c:862
+msgid "Always"
+msgstr "Immer"
+
+#: ../panel-plugin/notes.c:864
+msgid "Never"
+msgstr "Nie"
+
+#: ../panel-plugin/notes.c:866
+msgid "Last state"
+msgstr "Letzter Zustand"
+
+#: ../panel-plugin/notes.c:1037
+msgid "Choose Window Font"
+msgstr "Fensterschriftart auswählen"
+
+#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
+msgid "Rename window"
+msgstr "Fenster umbenennen"
+
+#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
+msgid "Error"
+msgstr "Fehler"
+
+#: ../panel-plugin/notes.c:1352
+msgid "Unable to rename window"
+msgstr "Kann Fenster nicht umbennen"
+
+#: ../panel-plugin/notes.c:1461
+msgid "Are you sure you want to delete this note?"
+msgstr "Sind Sie sicher, dass Sie diese Notiz löschen möchten?"
+
+#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
+msgid "Rename note"
+msgstr "Notiz umbenennen"
+
+#: ../panel-plugin/notes.c:1772
+msgid "Unable to rename note"
+msgstr "Kann Notiz nicht umbennen"
+
+#: ../panel-plugin/notes-properties-dialog.c:78
+msgid "Xfce 4 Notes Plugin"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:92
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:97
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#. Hide arrow button
+#: ../panel-plugin/notes-properties-dialog.c:104
+msgid "Hide arrow button"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:112
+msgid "New window settings"
 msgstr ""
 
 #: ../panel-plugin/notes-properties-dialog.c:141
+msgid "Font"
+msgstr ""
+
+#: ../panel-plugin/notes-properties-dialog.c:157
 msgid "Size"
 msgstr ""
 
@@ -143,6 +144,9 @@ msgstr "Notizen"
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Einfache Notizenverwaltung"
+
+#~ msgid "Show statusbar"
+#~ msgstr "Statusleiste anzeigen"
 
 #~ msgid "Show in the task list"
 #~ msgstr "In der Taskliste anzeigen"
