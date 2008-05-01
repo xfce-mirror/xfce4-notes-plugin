@@ -24,7 +24,7 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4panel/xfce-panel-convenience.h>
 #include <libxfcegui4/libxfcegui4.h>
-#ifdef HAVE_THUNAR_VFS
+#ifdef HAVE_XFCONF
 #include <xfconf/xfconf.h>
 #endif
 #ifdef HAVE_THUNAR_VFS
