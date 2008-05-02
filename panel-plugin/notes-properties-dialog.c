@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_XFCONF
 #include <xfconf/xfconf.h>
 
 #include "defines.h"
@@ -182,4 +183,5 @@ prop_dialog_new (NotesPlugin *notes_plugin)
 
   return dialog;
 }
+#endif
 
