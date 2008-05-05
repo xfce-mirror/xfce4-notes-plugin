@@ -1,3 +1,75 @@
+2008-05-02  Mike Massonnet <mmassonnet@xfce.org>
+
+Fix compilation without xfconf
+	* panel-plugin/notes-properties-dialog.c:
+	  - Add HAVE_XFCONF checks
+	* panel-plugin/notes.h:
+	  - Fix bad copy/paste
+
+2008-04-30  Mike Massonnet <mmassonnet@xfce.org>
+
+Fix container spacing in properties dialog
+	* panel-plugin/notes-properties-dialog.c(prop_dialog_new):
+	  - Drop border within children
+
+2008-04-30  Mike Massonnet <mmassonnet@xfce.org>
+
+Rename the channels and some properties; make the panel plugin options work;
+	* src/defines.h,
+	  src/notes-properties-dialog.c,
+	  src/notes.c,
+	  src/notes.h,
+	  src/panel-plugin.c:
+	  - Define the channel names
+	  - Make use of new channel/property names
+	* src/notes.c:
+	* src/panel-plugin.c:
+	  - Attach a callback to "property-changed" signal on the panel plugin channel
+	  - Update arrow visibility
+	  - Update taskbar hint for the windows
+
+2008-04-29  Mike Massonnet <mmassonnet@xfce.org>
+
+Add an arrow button (ftm not hideable)
+	* panel-plugin/notes.h:
+	  - Two new widgets in NotesPlugin struct, a XfceHVBox and XfceArrowButton
+	* panel-plugin/panel-plugin.c:
+	  - Add arrow button beneath panel button
+	  - Display the menu on toggle
+	  - Attach a callback to "orientation-changed" (NOTE: position-changed may be
+	  better suited but doesn't exist)
+
+2008-04-28  Mike Massonnet <mmassonnet@xfce.org>
+
+Add missing properties dialog
+	* panel-plugin/notes-properties-dialog.c,
+	  panel-plugin/notes-properties-dialog.h:
+	  - Properties dialog with 3 callbacks
+
+2008-04-27  Mike Massonnet <mmassonnet@xfce.org>
+
+Add configuration dialog (need xfconf)
+	* configure.in.in:
+	  - Add optional build flag for the configuration dialog
+	* panel-plugin/Makefile.am:
+	  - Add build deps and compilation for new files
+	* panel-plugin/defines.h:
+	  - New file with common defines
+	* panel-plugin/notes.c(notes_window_new_with_label):
+	  - Get default window geometry with xfconf (optional)
+	  - Drop gtk_tooltips, and put gtk_tooltip instead (only with GTK+>=2.12.0)
+	* panel-plugin/notes.c(notes_window_load_data):
+	  - Load default data from xfconf (optional)
+	* panel-plugin/notes.h:
+	  - Quick clean up
+	* panel-plugin/panel-plugin.c:
+	  - Add optional "configure-plugin" callback
+
+2007-12-24  Mike Massonnet <mmassonnet@xfce.org>
+
+	* panel-plugin/notes.c(notes_window_load_data): Reset window title after
+	  we pick up an automatic window name.
+
 2007-12-23  Mike Massonnet <mmassonnet@xfce.org>
 
 	* panel-plugin/panel-plugin.c(notes_plugin_free): Correctly unref ThunarVfs

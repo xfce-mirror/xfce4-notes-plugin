@@ -17,6 +17,7 @@ plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
 
 xfce4_notes_plugin_SOURCES =						\
+	defines.h							\
 	panel-plugin.c							\
 	notes-properties-dialog.c					\
 	notes-properties-dialog.h					\

@@ -1,3 +1,11 @@
+VERSION 1.6.2
+
+- Add properties dialog (need xfconf at build-time)
+  - Default configuration
+  - New window configuration
+- Display an optional arrow beneath the panel plugin button to show the menu
+- Updated translations (ca, de, el, eu, fr, hu, nb_NO, nl, pt_BR, pt_PT)
+
 VERSION 1.6.1
 
 - Add file system monitoring.
