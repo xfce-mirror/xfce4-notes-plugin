@@ -1,3 +1,7 @@
+2008-05-10	Stavros Giannouris <stavrosg@hellug.gr>
+
+	* el.po: Greek translation update.
+
 2008-05-05  Mike Massonnet <mmassonnet@xfce.org>
 
 	* el.po, LINGUAS: Add Greek translation (Evaggelos Balaskas <ebalaskas@ebalaskas.gr>)
@@ -22,6 +26,7 @@
 	* *.po, *.pot: make update-po
 	* fr.po: Update French translation
 
+>>>>>>> .r4765
 2008-03-30  Mike Massonnet <mmassonnet@xfce.org>
 
 	* ca.po: Update Catalan translation,

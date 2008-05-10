@@ -8,18 +8,17 @@ msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-02 23:02+0300\n"
-"PO-Revision-Date: 2008-05-02 23:14+0300\n"
-"Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
+"PO-Revision-Date: 2008-05-09 23:14+0300\n"
+"Last-Translator: Stavros Giannouris <stavrosg@hellug.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #: ../panel-plugin/panel-plugin.c:236
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "Αδυναμία στο άνοιγμα του παρακάτω url: %s"
+msgstr "Αδυναμία στο άνοιγμα του παρακάτω  url: %s"
 
 #: ../panel-plugin/notes.c:427
 msgid "Are you sure you want to delete this window?"
@@ -90,7 +89,7 @@ msgstr "Σφάλμα"
 
 #: ../panel-plugin/notes.c:1352
 msgid "Unable to rename window"
-msgstr "Αδυναμία στην μετονομασία του παραθύρου"
+msgstr "Αδυναμία μετονομασίας παραθύρου"
 
 #: ../panel-plugin/notes.c:1461
 msgid "Are you sure you want to delete this note?"
@@ -115,7 +114,7 @@ msgstr "Αρχικές ρυθμίσεις"
 #. Hide from taskbar
 #: ../panel-plugin/notes-properties-dialog.c:98
 msgid "Hide windows from taskbar"
-msgstr "Απόκρυψη παραθύρων από την λίστα εργασιών "
+msgstr "Απόκρυψη παραθύρων από την λίστα εργασιών"
 
 #. Hide arrow button
 #: ../panel-plugin/notes-properties-dialog.c:105
