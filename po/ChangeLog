@@ -1,3 +1,7 @@
+2008-05-14	Mike Massonnet <mmassonnet@xfce.org>
+
+	* ja.po: Update Japanese translation (Nobuhiro Iwamatsu)
+
 2008-05-13	Mike Massonnet <mmassonnet@xfce.org>
 
 	* en_GB.po: Update translation (Jeff Bailes)
@@ -12,11 +16,11 @@
 
 2008-05-02  Piarres Beobide <pi@beobide.net>
 
-    * eu.po: Basque translation update
+	* eu.po: Basque translation update
 
 2008-05-01  Og Maciel <ogmaciel@gnome.org>
 
-    * pt_BR.po: Updated Brazilian Portuguese translation
+	* pt_BR.po: Updated Brazilian Portuguese translation
 
 2008-05-01  Mike Massonnet <mmassonnet@xfce.org>
 
@@ -30,7 +34,6 @@
 	* *.po, *.pot: make update-po
 	* fr.po: Update French translation
 
->>>>>>> .r4765
 2008-03-30  Mike Massonnet <mmassonnet@xfce.org>
 
 	* ca.po: Update Catalan translation,
@@ -88,7 +91,7 @@
 
 2007-03-31  Pau Rul-lan Ferragut <paurullan@bulma.net>
 
-  * gb.po: British translation by Jeff Bailes <thepizzaking@gmail.com>
+	* gb.po: British translation by Jeff Bailes <thepizzaking@gmail.com>
 
 2007-03-07  Hydonsingore Cia <hydonsingore@educities.edu.tw>
 
