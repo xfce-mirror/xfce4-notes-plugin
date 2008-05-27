@@ -1,0 +1,151 @@
+# translation of xfce4-notes-plugin to Danish
+# Copyright (C) 2007 THE xfce4-notes-plugin'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-notes-plugin package.
+# Jens Hyllegaard <jens.hyllegaard@gmail.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notes-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-04-30 02:47+0200\n"
+"PO-Revision-Date: 2008-05-21 10:25+0100\n"
+"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../panel-plugin/panel-plugin.c:236
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "Kunne ikke åbne følgende url: %s"
+
+#: ../panel-plugin/notes.c:427
+msgid "Are you sure you want to delete this window?"
+msgstr "Er du sikker på du vil slette dette vindue?"
+
+#: ../panel-plugin/notes.c:730
+msgid "Window"
+msgstr "Vindue"
+
+#: ../panel-plugin/notes.c:734
+msgid "_Rename..."
+msgstr "_Omdøb..."
+
+#: ../panel-plugin/notes.c:736
+msgid "_Options"
+msgstr "_Indstillinger"
+
+#: ../panel-plugin/notes.c:738
+msgid "Note"
+msgstr "Note"
+
+#: ../panel-plugin/notes.c:742
+msgid "R_ename..."
+msgstr "O_mdøb..."
+
+#. Resize grip
+#: ../panel-plugin/notes.c:848
+#: ../panel-plugin/notes-properties-dialog.c:131
+msgid "Resize grip"
+msgstr "Størrelsesgreb"
+
+#. Always on top
+#: ../panel-plugin/notes.c:849
+#: ../panel-plugin/notes-properties-dialog.c:117
+msgid "Always on top"
+msgstr "Altid øverst"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:850
+#: ../panel-plugin/notes-properties-dialog.c:124
+msgid "Sticky window"
+msgstr "Hold vindue permanent"
+
+#: ../panel-plugin/notes.c:851
+msgid "Show on startup"
+msgstr "Vis ved opstart"
+
+#: ../panel-plugin/notes.c:862
+msgid "Always"
+msgstr "Altid"
+
+#: ../panel-plugin/notes.c:864
+msgid "Never"
+msgstr "Aldrig"
+
+#: ../panel-plugin/notes.c:866
+msgid "Last state"
+msgstr "Sidste tilstand"
+
+#: ../panel-plugin/notes.c:1037
+msgid "Choose Window Font"
+msgstr "Vælg skrifttype for vinduet"
+
+#: ../panel-plugin/notes.c:1313
+#: ../panel-plugin/notes.c:1349
+msgid "Rename window"
+msgstr "Omdøb vindue"
+
+#: ../panel-plugin/notes.c:1351
+#: ../panel-plugin/notes.c:1771
+msgid "Error"
+msgstr "Fejl"
+
+#: ../panel-plugin/notes.c:1352
+msgid "Unable to rename window"
+msgstr "Kunne ikke omdøbe vindue"
+
+#: ../panel-plugin/notes.c:1461
+msgid "Are you sure you want to delete this note?"
+msgstr "Er du sikker på du vil slette denne note?"
+
+#: ../panel-plugin/notes.c:1733
+#: ../panel-plugin/notes.c:1769
+msgid "Rename note"
+msgstr "Omdøb note"
+
+#: ../panel-plugin/notes.c:1772
+msgid "Unable to rename note"
+msgstr "Kunne ikke omdøbe note"
+
+#: ../panel-plugin/notes-properties-dialog.c:78
+msgid "Xfce 4 Notes Plugin"
+msgstr "Xfce 4 note-udvidelsesmodul"
+
+#: ../panel-plugin/notes-properties-dialog.c:92
+msgid "Default settings"
+msgstr "Standard indstillinger"
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:97
+msgid "Hide windows from taskbar"
+msgstr "Skjul vindue i proceslinjen"
+
+#. Hide arrow button
+#: ../panel-plugin/notes-properties-dialog.c:104
+msgid "Hide arrow button"
+msgstr "Skjul pileknap"
+
+#: ../panel-plugin/notes-properties-dialog.c:112
+msgid "New window settings"
+msgstr "Nye vinduesindstillinger"
+
+#: ../panel-plugin/notes-properties-dialog.c:141
+msgid "Font"
+msgstr "Skrifttype"
+
+#: ../panel-plugin/notes-properties-dialog.c:157
+msgid "Size"
+msgstr "Størrelse"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Noter"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+msgid "Notes plugin for the Xfce4 desktop"
+msgstr "Note-udvidelsesmodul til Xfce4-skrivebordet"
+
+#~ msgid "Show statusbar"
+#~ msgstr "Vis statuslinje"
+
