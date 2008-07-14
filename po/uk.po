@@ -1,0 +1,143 @@
+# Ukrainian translation of xfce4-notes-plugin.
+# Copyright (C) 2008 Dmitry Nikitin
+# This file is distributed under the same license as the xfce4-notes-plugin package.
+#
+# Dmitry Nikitin <luckas_fb@mail.ru>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notes-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-14 09:34+0000\n"
+"PO-Revision-Date: 2008-07-09 10:45+0300\n"
+"Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
+"Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../panel-plugin/panel-plugin.c:236
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "Неможливо відкрити наступне посилання: %s"
+
+#: ../panel-plugin/notes.c:427
+msgid "Are you sure you want to delete this window?"
+msgstr "Ви впевнені, що бажаєте видалити це вікно?"
+
+#: ../panel-plugin/notes.c:730
+msgid "Window"
+msgstr "Вікно"
+
+#: ../panel-plugin/notes.c:734
+msgid "_Rename..."
+msgstr "_Перейменувати..."
+
+#: ../panel-plugin/notes.c:736
+msgid "_Options"
+msgstr "_Опції"
+
+#: ../panel-plugin/notes.c:738
+msgid "Note"
+msgstr "Записка"
+
+#: ../panel-plugin/notes.c:742
+msgid "R_ename..."
+msgstr "П_ерейменувати..."
+
+#. Resize grip
+#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:132
+msgid "Resize grip"
+msgstr "Змінити розмір зчеплення"
+
+#. Always on top
+#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:118
+msgid "Always on top"
+msgstr "Завжди зверху"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:125
+msgid "Sticky window"
+msgstr "Липуче вікно"
+
+#: ../panel-plugin/notes.c:851
+msgid "Show on startup"
+msgstr "Показувати при запуску"
+
+#: ../panel-plugin/notes.c:862
+msgid "Always"
+msgstr "Завжди"
+
+#: ../panel-plugin/notes.c:864
+msgid "Never"
+msgstr "Ніколи"
+
+#: ../panel-plugin/notes.c:866
+msgid "Last state"
+msgstr "Останній стан"
+
+#: ../panel-plugin/notes.c:1037
+msgid "Choose Window Font"
+msgstr "Вибрати шрифт для вікна"
+
+#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
+msgid "Rename window"
+msgstr "Перейменувати вікно"
+
+#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
+msgid "Error"
+msgstr "Помилка"
+
+#: ../panel-plugin/notes.c:1352
+msgid "Unable to rename window"
+msgstr "Неможливо перейменувати вікно"
+
+#: ../panel-plugin/notes.c:1461
+msgid "Are you sure you want to delete this note?"
+msgstr "Ви впевнені, що бажаєте видалити записку?"
+
+#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
+msgid "Rename note"
+msgstr "Перейменувати записку"
+
+#: ../panel-plugin/notes.c:1772
+msgid "Unable to rename note"
+msgstr "Неможливо перейменувати записку"
+
+#: ../panel-plugin/notes-properties-dialog.c:79
+msgid "Xfce 4 Notes Plugin"
+msgstr "Плагін записок для Xfce 4"
+
+#: ../panel-plugin/notes-properties-dialog.c:93
+msgid "Default settings"
+msgstr "Типові налаштування"
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:98
+msgid "Hide windows from taskbar"
+msgstr "Ховати вікна від панелі задач"
+
+#. Hide arrow button
+#: ../panel-plugin/notes-properties-dialog.c:105
+msgid "Hide arrow button"
+msgstr "Ховати кнопку стрілки"
+
+#: ../panel-plugin/notes-properties-dialog.c:113
+msgid "New window settings"
+msgstr "Властивості нового вікна"
+
+#: ../panel-plugin/notes-properties-dialog.c:142
+msgid "Font"
+msgstr "Шрифт"
+
+#: ../panel-plugin/notes-properties-dialog.c:158
+msgid "Size"
+msgstr "Розмір"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Записки"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+msgid "Notes plugin for the Xfce4 desktop"
+msgstr "Плагін записок для стільниці Xfce4"
