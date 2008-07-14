@@ -1,0 +1,146 @@
+# Finnish translation for xfce4-notes-plugin
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the xfce4-notes-plugin package.
+# Elias Julkunen <elias.julkunen@gmail.com>, 2008.
+# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notes-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-14 21:13+0300\n"
+"PO-Revision-Date: 2008-07-14 21:17+0300\n"
+"Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-06-21 16:16+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../panel-plugin/panel-plugin.c:236
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "URL:ia ei voi avata: %s"
+
+#: ../panel-plugin/notes.c:427
+msgid "Are you sure you want to delete this window?"
+msgstr "Haluatko varmasti poistaa tämän ikkunan?"
+
+#: ../panel-plugin/notes.c:730
+msgid "Window"
+msgstr "Ikkuna"
+
+#: ../panel-plugin/notes.c:734
+msgid "_Rename..."
+msgstr "_Nimeä uudelleen..."
+
+#: ../panel-plugin/notes.c:736
+msgid "_Options"
+msgstr "_Asetukset"
+
+#: ../panel-plugin/notes.c:738
+msgid "Note"
+msgstr "Muistiinpano"
+
+#: ../panel-plugin/notes.c:742
+msgid "R_ename..."
+msgstr "Nimeä _uudelleen"
+
+#. Resize grip
+#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:132
+msgid "Resize grip"
+msgstr "Koon muokkauskahva"
+
+#. Always on top
+#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:118
+msgid "Always on top"
+msgstr "Aina päällimmäisenä"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:125
+msgid "Sticky window"
+msgstr "Kaikilla työpöydillä"
+
+#: ../panel-plugin/notes.c:851
+msgid "Show on startup"
+msgstr "Näytä käynnistäessä"
+
+#: ../panel-plugin/notes.c:862
+msgid "Always"
+msgstr "Aina"
+
+#: ../panel-plugin/notes.c:864
+msgid "Never"
+msgstr "Ei koskaan"
+
+#: ../panel-plugin/notes.c:866
+msgid "Last state"
+msgstr "Kuten viimeksi"
+
+#: ../panel-plugin/notes.c:1037
+msgid "Choose Window Font"
+msgstr "Valitse ikkunan kirjasin"
+
+#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
+msgid "Rename window"
+msgstr "Nimeä ikkuna uudelleen"
+
+#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
+msgid "Error"
+msgstr "Virhe"
+
+#: ../panel-plugin/notes.c:1352
+msgid "Unable to rename window"
+msgstr "Ikkunaa ei voitu nimetä uudelleen"
+
+#: ../panel-plugin/notes.c:1461
+msgid "Are you sure you want to delete this note?"
+msgstr "Haluatko varmasti poistaa tämän muistiinpanon?"
+
+#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
+msgid "Rename note"
+msgstr "Nimeä muistiinpano uudelleen"
+
+#: ../panel-plugin/notes.c:1772
+msgid "Unable to rename note"
+msgstr "Muistiinpanoa ei voitu nimetä uudelleen"
+
+#: ../panel-plugin/notes-properties-dialog.c:79
+msgid "Xfce 4 Notes Plugin"
+msgstr "Xfce 4 muistiinpanoliitännäinen"
+
+#: ../panel-plugin/notes-properties-dialog.c:93
+msgid "Default settings"
+msgstr "Oletusasetukset"
+
+#. Hide from taskbar
+#: ../panel-plugin/notes-properties-dialog.c:98
+msgid "Hide windows from taskbar"
+msgstr "Piilota ikkunat tehtäväpalkista"
+
+#. Hide arrow button
+#: ../panel-plugin/notes-properties-dialog.c:105
+msgid "Hide arrow button"
+msgstr "Piilota nuolipainike"
+
+#: ../panel-plugin/notes-properties-dialog.c:113
+msgid "New window settings"
+msgstr "Uuden ikkunan asetukset"
+
+#: ../panel-plugin/notes-properties-dialog.c:142
+msgid "Font"
+msgstr "Kirjasin"
+
+#: ../panel-plugin/notes-properties-dialog.c:158
+msgid "Size"
+msgstr "Koko"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Muistiinpanot"
+
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+msgid "Notes plugin for the Xfce4 desktop"
+msgstr "Muistiinpanoliitännäinen Xfce4-työpöydälle"
+
