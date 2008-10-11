@@ -61,9 +61,9 @@ struct _NotesPlugin
   GtkTooltips          *tooltips;
 
 #ifdef HAVE_XFCONF
-  XfconfChannel        *channel_panel_plugin;
-  XfconfChannel        *channel_new_window;
+  XfconfChannel        *xfconf_channel;
 #endif
+
 #ifdef HAVE_THUNAR_VFS
   ThunarVfsMonitor     *monitor;
   ThunarVfsPath        *thunar_vfs_path;

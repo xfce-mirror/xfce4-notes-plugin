@@ -1,6 +1,5 @@
-/*  $Id$
- *
- *  Copyright (c) 2006 Mike Massonnet <mmassonnet@gmail.com>
+/*
+ *  Copyright (c) 2008 Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,10 +19,9 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define BORDER      8
-
-#define XFCONF_CHANNEL_NEW_WINDOW       "xfce4-notes-plugin_new-window"
-#define XFCONF_CHANNEL_PANEL_PLUGIN     "xfce4-notes-plugin_panel-plugin"
+#define BORDER                          8
+#define PLUGIN_WEBSITE                  "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
+#define PLUGIN_XFCONF_CHANNEL           "xfce4-notes-plugin"
 
 #endif
 

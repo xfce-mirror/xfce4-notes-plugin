@@ -30,8 +30,6 @@
 #endif
 #include "xfce4-popup-notes.h"
 
-#define PLUGIN_NAME "xfce4-notes-plugin"
-#define PLUGIN_WEBSITE "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
 
 
 
@@ -102,24 +100,32 @@ static gboolean         notes_plugin_set_selection      (NotesPlugin *notes_plug
 static void
 notes_plugin_register (XfcePanelPlugin *panel_plugin)
 {
+  NotesPlugin *notes_plugin;
+  GtkOrientation orientation;
+
   DBG ("\nProperties: size = %d, screen_position = %d",
        xfce_panel_plugin_get_size (panel_plugin),
        xfce_panel_plugin_get_screen_position (panel_plugin));
 
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
-  NotesPlugin *notes_plugin = notes_plugin_new (panel_plugin);
-  g_return_if_fail (G_LIKELY (notes_plugin != NULL));
+  notes_plugin = notes_plugin_new (panel_plugin);
+
+  /* Set initial orientation for the arrow */
+  orientation = xfce_panel_plugin_get_orientation (panel_plugin);
+  notes_plugin_set_orientation (notes_plugin, orientation);
+
 #ifdef HAVE_XFCONF
   notes_plugin_monitor_xfconf (notes_plugin);
 #endif
 
   gtk_widget_show_all (GTK_WIDGET (panel_plugin));
 #ifdef HAVE_XFCONF
-  if (xfconf_channel_get_bool (notes_plugin->channel_panel_plugin, "/hide_arrow_button", FALSE))
+  if (xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/general/hide_arrow_button", FALSE))
     gtk_widget_hide (notes_plugin->btn_arrow);
 #endif
 
+  /* TODO Postpone this call inside a idle function */
   notes_plugin_load_data (notes_plugin);
 }
 
@@ -223,22 +229,26 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 static void
 notes_plugin_configure (NotesPlugin *notes_plugin)
 {
-  GtkWidget *dialog = prop_dialog_new (notes_plugin);
-  g_return_if_fail (G_LIKELY (GTK_IS_WIDGET (dialog)));
+  GtkWidget *dialog;
+  gint result;
 
   xfce_panel_plugin_block_menu (notes_plugin->panel_plugin);
+  dialog = prop_dialog_new (notes_plugin);
 
-  gint result = gtk_dialog_run (GTK_DIALOG (dialog));
-  if (result == GTK_RESPONSE_HELP)
+  while (1)
     {
-      result = g_spawn_command_line_async ("exo-open " PLUGIN_WEBSITE, NULL);
-      if (G_UNLIKELY (result == FALSE))
-        g_warning (_("Unable to open the following url: %s"), PLUGIN_WEBSITE);
+      result = gtk_dialog_run (GTK_DIALOG (dialog));
+      if (result == GTK_RESPONSE_HELP)
+        {
+          result = g_spawn_command_line_async ("exo-open " PLUGIN_WEBSITE, NULL);
+          if (G_UNLIKELY (result == FALSE))
+            g_warning (_("Unable to open the following url: %s"), PLUGIN_WEBSITE);
+        }
+      else
+        break;
     }
 
-  if (GTK_IS_WIDGET (dialog))
-    gtk_widget_destroy (dialog);
-
+  gtk_widget_destroy (dialog);
   xfce_panel_plugin_unblock_menu (notes_plugin->panel_plugin);
 }
 #endif
@@ -252,7 +262,10 @@ notes_plugin_set_size (NotesPlugin *notes_plugin,
   gtk_widget_set_size_request (notes_plugin->btn_panel, size, size);
   size -= 2 + 2 * MAX (notes_plugin->btn_panel->style->xthickness,
                        notes_plugin->btn_panel->style->ythickness);
+
   GdkPixbuf *pixbuf = xfce_themed_icon_load ("xfce4-notes-plugin", size);
+  if (G_LIKELY (NULL == pixbuf))
+    pixbuf = xfce_themed_icon_load (GTK_STOCK_EDIT, size);
   gtk_image_set_from_pixbuf (GTK_IMAGE (notes_plugin->icon_panel), pixbuf);
   g_object_unref (G_OBJECT (pixbuf));
 
@@ -264,15 +277,35 @@ notes_plugin_set_orientation (NotesPlugin *notes_plugin,
                               GtkOrientation orientation)
 {
   xfce_hvbox_set_orientation (notes_plugin->box_panel, orientation);
+
   XfceScreenPosition position = xfce_panel_plugin_get_screen_position (notes_plugin->panel_plugin);
-  if (xfce_screen_position_is_top (position))
-    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_DOWN);
-  else if (xfce_screen_position_is_left (position))
-    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_RIGHT);
-  else if (xfce_screen_position_is_right (position))
-    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_LEFT);
-  else /*if (xfce_screen_position_is_bottom (position))*/
-    xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_UP);
+
+  switch (position)
+    {
+    default:
+    case XFCE_SCREEN_POSITION_FLOATING_H:
+    case XFCE_SCREEN_POSITION_NW_H:
+    case XFCE_SCREEN_POSITION_N:
+    case XFCE_SCREEN_POSITION_NE_H:
+      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_DOWN);
+      break;
+    case XFCE_SCREEN_POSITION_FLOATING_V:
+    case XFCE_SCREEN_POSITION_NW_V:
+    case XFCE_SCREEN_POSITION_W:
+    case XFCE_SCREEN_POSITION_SW_V:
+      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_RIGHT);
+      break;
+    case XFCE_SCREEN_POSITION_NE_V:
+    case XFCE_SCREEN_POSITION_E:
+    case XFCE_SCREEN_POSITION_SE_V:
+      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_LEFT);
+      break;
+    case XFCE_SCREEN_POSITION_SW_H:
+    case XFCE_SCREEN_POSITION_S:
+    case XFCE_SCREEN_POSITION_SE_H:
+      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_UP);
+      break;
+    }
 }
 
 static void
@@ -317,9 +350,11 @@ static void
 notes_plugin_free (NotesPlugin *notes_plugin)
 {
   notes_plugin_save_data_all (notes_plugin);
+
 #ifdef HAVE_XFCONF
   xfconf_shutdown ();
 #endif
+
 #ifdef HAVE_THUNAR_VFS
   /* TODO move code out from notes_window_destroy and add notes_window_free
    * which would only free memory and not corrupt notes or configuration data
@@ -349,9 +384,8 @@ notes_plugin_destroy_timeout (NotesPlugin *notes_plugin)
 static void
 notes_plugin_monitor_xfconf (NotesPlugin *notes_plugin)
 {
-  notes_plugin->channel_new_window = xfconf_channel_new (XFCONF_CHANNEL_NEW_WINDOW);
-  notes_plugin->channel_panel_plugin = xfconf_channel_new (XFCONF_CHANNEL_PANEL_PLUGIN);
-  g_signal_connect_swapped (notes_plugin->channel_panel_plugin, "property-changed",
+  notes_plugin->xfconf_channel = xfconf_channel_new (PLUGIN_XFCONF_CHANNEL);
+  g_signal_connect_swapped (notes_plugin->xfconf_channel, "property-changed",
                             G_CALLBACK (notes_plugin_xfconf_property_changed), notes_plugin);
 }
 
@@ -362,19 +396,18 @@ notes_plugin_xfconf_property_changed (NotesPlugin *notes_plugin,
 {
   /* Refresh both elements
    * TODO find out how to guess efficiently the property name */
-  gboolean v = g_value_get_boolean (value);
-  if (!g_ascii_strcasecmp (property, "/hide_windows_from_taskbar"))
+  if (!g_ascii_strcasecmp (property, "/general/hide_windows_from_taskbar"))
     {
       GSList *l;
       for (l = notes_plugin->windows; l != NULL; l = l->next)
         {
           NotesWindow *notes_window = l->data;
-          gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), v);
+          gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), g_value_get_boolean (value));
         }
     }
-  else if (!g_ascii_strcasecmp (property, "/hide_arrow_button"))
+  else if (!g_ascii_strcasecmp (property, "/general/hide_arrow_button"))
     {
-      if (v)
+      if (g_value_get_boolean (value))
         gtk_widget_hide (notes_plugin->btn_arrow);
       else
         gtk_widget_show (notes_plugin->btn_arrow);

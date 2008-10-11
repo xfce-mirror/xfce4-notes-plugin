@@ -174,15 +174,16 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   gtk_window_set_title (GTK_WINDOW (notes_window->window), window_name);
 #ifdef HAVE_XFCONF
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window),
-                                    xfconf_channel_get_bool (notes_plugin->channel_panel_plugin,
-                                                             "/hide_windows_from_taskbar",
-                                                             FALSE));
+                                    xfconf_channel_get_bool (notes_plugin->xfconf_channel,
+                                                             "/general/hide_windows_from_taskbar", TRUE));
   gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
-                               xfconf_channel_get_int (notes_plugin->channel_new_window, "/window_geometry/width", 375),
-                               xfconf_channel_get_int (notes_plugin->channel_new_window, "/window_geometry/height", 430));
+                               xfconf_channel_get_int (notes_plugin->xfconf_channel,
+                                                       "/new_window/width", 375),
+                               xfconf_channel_get_int (notes_plugin->xfconf_channel,
+                                                       "/new_window/height", 430));
 #else
-  gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
-                               375, 430);
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), TRUE);
+  gtk_window_set_default_size (GTK_WINDOW (notes_window->window), 375, 430);
 #endif
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_icon_name (GTK_WINDOW (notes_window->window), "xfce4-notes-plugin");
@@ -525,16 +526,16 @@ notes_window_load_data (NotesWindow *notes_window)
     }
 
 #ifdef HAVE_XFCONF
-  w =               xfconf_channel_get_int  (notes_plugin->channel_new_window, "/window_geometry/width", w);
-  h =               xfconf_channel_get_int  (notes_plugin->channel_new_window, "/window_geometry/height", h);
-  above =           xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/always_on_top", above);
-  show_on_startup = xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/show_on_startup", show_on_startup);
-  show_statusbar =  xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/resize_grip", show_statusbar);
-  sticky =          xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/sticky", sticky);
-  visible =         xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/visible", visible);
-  transparency =    xfconf_channel_get_int  (notes_plugin->channel_new_window, "/window_state/transparency", transparency);
-  if (xfconf_channel_get_bool (notes_plugin->channel_new_window, "/window_state/use_font", FALSE))
-    font_descr =    xfconf_channel_get_string (notes_plugin->channel_new_window, "/window_font/description", "Sans 10");
+  w =               xfconf_channel_get_int  (notes_plugin->xfconf_channel, "/new_window/width", w);
+  h =               xfconf_channel_get_int  (notes_plugin->xfconf_channel, "/new_window/height", h);
+  above =           xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/always_on_top", above);
+  show_on_startup = xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_on_startup", show_on_startup);
+  show_statusbar =  xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_resize_grip", show_statusbar);
+  sticky =          xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/sticky", sticky);
+  visible =         xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/visible", visible);
+  transparency =    xfconf_channel_get_int  (notes_plugin->xfconf_channel, "/new_window/transparency", transparency);
+  if (xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/use_font", FALSE))
+    font_descr =    xfconf_channel_get_string (notes_plugin->xfconf_channel, "/new_window/font_description", "Sans 10");
 #endif
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);

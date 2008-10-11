@@ -1,3 +1,18 @@
+2008-05-11  Mike Massonnet <mmassonnet@xfce.org>
+
+Clean up \o/
+	* Use only one xfconf channel.
+	* By default hide notes windows from taskbar.
+	* Fix initial orientation of the panel to display the panel arrow in
+	the right direction.
+	* Don't close configuration dialog if the Help button is clicked.
+	* Load fallback icon GTK_STOCK_EDIT.
+	* Update configure.in.in file.
+
+2008-05-05  Mike Massonnet <mmassonnet@xfce.org>
+
+=== Release 1.6.2 ===
+
 2008-05-02  Mike Massonnet <mmassonnet@xfce.org>
 
 Fix compilation without xfconf

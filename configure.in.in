@@ -1,10 +1,9 @@
-dnl $Id$
 dnl
-dnl xfce4-notes-plugin - Notes applet for the Xfce4 panel
+dnl xfce4-notes-plugin - Notes plugin for the Xfce4 panel
 dnl
 dnl 2003 Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
 dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
-dnl 2006, 2007 Mike Massonnet <mmassonnet@gmail.com>
+dnl 2006, 2008 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])
@@ -16,7 +15,7 @@ m4_define([xfce4_notes_plugin_version_tag], [svn]) # Leave empty for releases
 m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [svn], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
 
 AC_INIT([xfce4-notes-plugin], [xfce4_notes_plugin_version], 
-        [mmassonnet@gmail.com])
+        [mmassonnet@xfce.org])
 
 AM_INIT_AUTOMAKE([xfce4-notes-plugin], [xfce4_notes_plugin_version()])
 AM_CONFIG_HEADER([config.h])
@@ -52,47 +51,35 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
 
 dnl check for xfconf
+enable_xfconf=yes
 m4_define([xfconf_minimum_version], [0])
-AC_ARG_ENABLE([configure-dialog],
-              [AC_HELP_STRING([--enable-configure-dialog],
-                              [Build with configure dialog (xfce >= 4.5)])],
-              [xfconf=$enableval],
-              [xfconf=no])
-if test "x$xfconf" = "xyes"; then
-    XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [xfconf_minimum_version], [have_xfconf=yes],
-                      [
-                      echo "*** Optional package libxfconf-0 was either not found on your system"
-                      echo "*** or is too old.  Please install or upgrade to at least version"
-                      echo "*** xfconf_minimum_version, or adjust the PKG_CONFIG_PATH environment variable"
-                      echo "*** if you installed the new version of the package in a nonstandard"
-                      echo "*** prefix.  Configuration dialog will be disabled."
-                      ])
-
-    if test "x$have_xfconf" = "xyes" ; then
-        AC_DEFINE([HAVE_XFCONF], [1], [Define if Xfconf is present])
-    fi
-fi
+XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [xfconf_minimum_version],
+                  [AC_DEFINE([HAVE_XFCONF], [1], [Define if Xfconf is present])],
+                  [
+                  echo "*** Optional package libxfconf-0 was either not found on your system"
+                  echo "*** or is too old.  Please install or upgrade to at least version"
+                  echo "*** xfconf_minimum_version, or adjust the PKG_CONFIG_PATH environment variable"
+                  echo "*** if you installed the new version of the package in a nonstandard"
+                  echo "*** prefix."
+                  echo ""
+                  echo "*** Configuration dialog will be disabled!"
+                  enable_xfconf=no
+                  ])
 
 dnl check for thunar_vfs
+enable_thunar_vfs=yes
 m4_define([thunar_minimum_version], [0.8.0])
-AC_ARG_ENABLE([fs-monitor],
-              [AC_HELP_STRING([--disable-fs-monitor],
-                              [Don't use thunar-vfs to monitor the file system. (default=enabled)])],
-              [thunar_vfs=$enableval],
-              [thunar_vfs=yes])
-if test "x$thunar_vfs" = "xyes" ; then
-    XDT_CHECK_PACKAGE([THUNAR_VFS], [thunar-vfs-1], [thunar_minimum_version], [have_thunar_vfs=yes],
-                      [
-                      echo "*** Optional package thunar-vfs-1 was either not found on your system"
-                      echo "*** or is too old.  Please install or upgrade to at least version"
-                      echo "*** thunar_minimum_version, or adjust the PKG_CONFIG_PATH environment variable"
-                      echo "*** if you installed the new version of the package in a nonstandard"
-                      echo "*** prefix.  File system monitoring will be disabled."
-                      ])
-
-    if test "x$have_thunar_vfs" = "xyes" ; then
-        AC_DEFINE([HAVE_THUNAR_VFS], [1], [Define if thunar-vfs is present.])
-    fi
+XDT_CHECK_OPTIONAL_PACKAGE([THUNAR_VFS], [thunar-vfs-1], [thunar_minimum_version],
+                           [fs-monitor], [Build with thunar-vfs support to monitor notes. (default=enabled)])
+if test "x$THUNAR_VFS_FOUND" != "xyes" ; then
+    echo "*** Optional package thunar-vfs-1 was either not found on your system"
+    echo "*** or is too old.  Please install or upgrade to at least version"
+    echo "*** thunar_minimum_version, or adjust the PKG_CONFIG_PATH environment variable"
+    echo "*** if you installed the new version of the package in a nonstandard"
+    echo "*** prefix."
+    echo ""
+    echo "*** File system monitoring will be disabled!"
+    enable_thunar_vfs=no
 fi
 
 dnl Translations
@@ -112,3 +99,15 @@ icons/scalable/Makefile
 panel-plugin/Makefile
 po/Makefile.in
 ])
+
+dnl ***************************
+dnl *** Print configuration ***
+dnl ***************************
+echo
+echo "Build Configuration:"
+echo
+echo "* Xfconf Support:         $enable_xfconf"
+echo "* Thunar-vfs Support:     $enable_thunar_vfs"
+echo "* Debug Support:          $enable_debug"
+echo
+
