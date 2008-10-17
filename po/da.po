@@ -2,17 +2,21 @@
 # Copyright (C) 2007 THE xfce4-notes-plugin'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce4-notes-plugin package.
 # Jens Hyllegaard <jens.hyllegaard@gmail.com>, 2007.
+# Per Kongstad <p_kongstad@op.pl>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notes-plugin\n"
+"Project-Id-Version: xfce4-notes-plugin 1.6.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-30 02:47+0200\n"
-"PO-Revision-Date: 2008-05-21 10:25+0100\n"
-"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"PO-Revision-Date: 2008-10-17 19:38+0100\n"
+"Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Danish\n"
+"X-Poedit-Country: DENMARK\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../panel-plugin/panel-plugin.c:236
 #, c-format
@@ -21,7 +25,7 @@ msgstr "Kunne ikke åbne følgende url: %s"
 
 #: ../panel-plugin/notes.c:427
 msgid "Are you sure you want to delete this window?"
-msgstr "Er du sikker på du vil slette dette vindue?"
+msgstr "Er du sikker på, at du vil slette dette vindue?"
 
 #: ../panel-plugin/notes.c:730
 msgid "Window"
@@ -37,7 +41,7 @@ msgstr "_Indstillinger"
 
 #: ../panel-plugin/notes.c:738
 msgid "Note"
-msgstr "Note"
+msgstr "Notat"
 
 #: ../panel-plugin/notes.c:742
 msgid "R_ename..."
@@ -97,24 +101,24 @@ msgstr "Kunne ikke omdøbe vindue"
 
 #: ../panel-plugin/notes.c:1461
 msgid "Are you sure you want to delete this note?"
-msgstr "Er du sikker på du vil slette denne note?"
+msgstr "Er du sikker på, at du vil slette dette notat?"
 
 #: ../panel-plugin/notes.c:1733
 #: ../panel-plugin/notes.c:1769
 msgid "Rename note"
-msgstr "Omdøb note"
+msgstr "Omdøb notat"
 
 #: ../panel-plugin/notes.c:1772
 msgid "Unable to rename note"
-msgstr "Kunne ikke omdøbe note"
+msgstr "Kunne ikke omdøbe notat"
 
 #: ../panel-plugin/notes-properties-dialog.c:78
 msgid "Xfce 4 Notes Plugin"
-msgstr "Xfce 4 note-udvidelsesmodul"
+msgstr "Xfce 4 notat-udvidelsesmodul"
 
 #: ../panel-plugin/notes-properties-dialog.c:92
 msgid "Default settings"
-msgstr "Standard indstillinger"
+msgstr "Standardindstillinger"
 
 #. Hide from taskbar
 #: ../panel-plugin/notes-properties-dialog.c:97
@@ -140,11 +144,11 @@ msgstr "Størrelse"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
-msgstr "Noter"
+msgstr "Notater"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Note-udvidelsesmodul til Xfce4-skrivebordet"
+msgstr "Notat-udvidelsesmodul til Xfce4-skrivebordet"
 
 #~ msgid "Show statusbar"
 #~ msgstr "Vis statuslinje"
