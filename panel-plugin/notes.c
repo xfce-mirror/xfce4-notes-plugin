@@ -100,6 +100,10 @@ static void             notes_window_add_note           (NotesWindow *notes_wind
 
 static void             notes_window_delete_note        (NotesWindow *notes_window);
 
+static void             notes_window_undo               (NotesWindow *notes_window);
+
+
+
 static void             notes_note_set_font             (NotesNote *notes_note,
                                                          const gchar *name);
 static inline void      notes_note_sort_names           (NotesNote *notes_note);
@@ -110,10 +114,15 @@ static void             notes_note_rename_dialog        (NotesNote *notes_note);
 
 static gint             notes_note_rename               (NotesNote *notes_note,
                                                          const gchar *name);
-static void             notes_note_buffer_changed       (NotesNote *notes_note);
-
 static gboolean         notes_note_key_pressed          (NotesNote *notes_note,
                                                          GdkEventKey *event);
+static void             notes_note_buffer_changed       (NotesNote *notes_note);
+
+static void             notes_note_destroy_undo_timeout (NotesNote *notes_note);
+
+static gboolean         notes_note_undo_snapshot        (NotesNote *notes_note);
+
+static void             notes_note_undo                 (NotesNote *notes_note);
 
 
 
@@ -742,6 +751,7 @@ notes_window_menu_new (NotesWindow *notes_window)
   GtkWidget *mi_delete_note    = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
   GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename..."));
   /*GtkWidget *mi_lock_note      = gtk_menu_item_new_with_mnemonic (_("_Lock note"));*/
+  GtkWidget *mi_undo           = gtk_image_menu_item_new_from_stock (GTK_STOCK_UNDO, NULL);
 
   gtk_widget_set_sensitive (mi_window, FALSE);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_window);
@@ -760,6 +770,7 @@ notes_window_menu_new (NotesWindow *notes_window)
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_delete_note);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_note);
   /*gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_lock_note);*/
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_undo);
 
   /* Accel group */
   gtk_menu_set_accel_group (GTK_MENU (notes_window->menu),
@@ -800,6 +811,12 @@ notes_window_menu_new (NotesWindow *notes_window)
                               GDK_F2,
                               0,
                               GTK_ACCEL_MASK);
+  gtk_widget_add_accelerator (mi_undo,
+                              "activate",
+                              notes_window->accel_group,
+                              GDK_z,
+                              GDK_CONTROL_MASK,
+                              GTK_ACCEL_MASK);
 
   /* Signals */
   g_signal_connect_swapped (notes_window->menu,
@@ -833,6 +850,10 @@ notes_window_menu_new (NotesWindow *notes_window)
   g_signal_connect_swapped (mi_rename_note,
                             "activate",
                             G_CALLBACK (notes_window_rename_note_dialog),
+                            notes_window);
+  g_signal_connect_swapped (mi_undo,
+                            "activate",
+                            G_CALLBACK (notes_window_undo),
                             notes_window);
 
   /* Show the stuff */
@@ -1473,6 +1494,13 @@ notes_window_delete_note (NotesWindow *notes_window)
     notes_note_new (notes_window, NULL);
 }
 
+static void
+notes_window_undo (NotesWindow *notes_window)
+{
+  NotesNote *current_note = notes_window_get_current_note (notes_window);
+  notes_note_undo (current_note);
+}
+
 
 
 /**
@@ -1666,6 +1694,10 @@ notes_note_load_data (NotesNote *notes_note,
       TRACE ("Load data for notes `%s':\n%s", notes_note->name, contents);
       gtk_text_buffer_set_text (buffer, contents, -1);
       gtk_text_view_set_buffer (GTK_TEXT_VIEW (notes_note->text_view), buffer);
+
+      /* Set initial undo/redo text */
+      notes_note->undo_text = g_strdup (contents);
+      notes_note->redo_text = g_strdup (contents);
     }
 
   g_free (contents);
@@ -1898,11 +1930,67 @@ notes_note_key_pressed (NotesNote *notes_note,
 static void
 notes_note_buffer_changed (NotesNote *notes_note)
 {
+  /* Save timeout */
   if (notes_note->timeout > 0)
     {
       g_source_remove (notes_note->timeout);
       notes_note->timeout = 0;
     }
   notes_note->timeout = g_timeout_add (60000, (GSourceFunc)notes_note_save_data, notes_note);
+
+  /* Undo timeout */
+  if (notes_note->undo_timeout > 0)
+    g_source_remove (notes_note->undo_timeout);
+  notes_note->undo_timeout = g_timeout_add_full (G_PRIORITY_DEFAULT, 1230,
+                                                 (GSourceFunc)notes_note_undo_snapshot, notes_note,
+                                                 (GDestroyNotify)notes_note_destroy_undo_timeout);
+}
+
+static void
+notes_note_destroy_undo_timeout (NotesNote *notes_note)
+{
+  notes_note->undo_timeout = 0;
+}
+
+static gboolean
+notes_note_undo_snapshot (NotesNote *notes_note)
+{
+  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
+  GtkTextIter start, end;
+
+  gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &start, 0);
+  gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
+
+  g_free (notes_note->undo_text);
+  notes_note->undo_text = notes_note->redo_text;
+  notes_note->redo_text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer),
+                                                    &start, &end, FALSE);
+
+  return FALSE;
+}
+
+static void
+notes_note_undo (NotesNote *notes_note)
+{
+  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
+  gchar *tmp;
+
+  if (notes_note->undo_timeout > 0)
+    {
+      /* Take the snapshot by hand */
+      g_source_remove (notes_note->undo_timeout);
+      notes_note_undo_snapshot (notes_note);
+    }
+
+  if (notes_note->undo_text == NULL)
+    notes_note->undo_text = g_strdup ("");
+
+  gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), notes_note->undo_text, -1);
+
+  tmp = notes_note->undo_text;
+  notes_note->undo_text = notes_note->redo_text;
+  notes_note->redo_text = tmp;
+
+  g_source_remove (notes_note->undo_timeout);
 }
 

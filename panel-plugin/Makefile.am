@@ -19,8 +19,8 @@ plugin_PROGRAMS = xfce4-notes-plugin
 xfce4_notes_plugin_SOURCES =						\
 	defines.h							\
 	panel-plugin.c							\
-	notes-properties-dialog.c					\
-	notes-properties-dialog.h					\
+	settings-dialog.c						\
+	settings-dialog.h						\
 	notes.c								\
 	notes.h
 

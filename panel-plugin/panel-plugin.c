@@ -26,7 +26,7 @@
 #include "defines.h"
 #include "notes.h"
 #ifdef HAVE_XFCONF
-#include "notes-properties-dialog.h"
+#include "settings-dialog.h"
 #endif
 #include "xfce4-popup-notes.h"
 

@@ -25,7 +25,7 @@
 #include <xfconf/xfconf.h>
 
 #include "defines.h"
-#include "notes-properties-dialog.h"
+#include "settings-dialog.h"
 #include "notes.h"
 
 
