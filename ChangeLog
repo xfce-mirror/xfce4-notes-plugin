@@ -1,3 +1,12 @@
+2008-10-19  Mike Massonnet <mmassonnet@xfce.org>
+
+Scroll to last cursor position on undo/redo
+	* panel-plugin/notes.[ch]:
+	  - Set a GtkTextMark inside the buffer and use it as cursor position
+	  to scroll back to.  This is more reliable then to scroll back to a
+	  GtkTextIter as per API documentation.
+	  - Free the undo/redo text buffer when a NotesNote is destroyed.
+
 2008-10-18  Mike Massonnet <mmassonnet@xfce.org>
 
 Simple undo/redo feature
