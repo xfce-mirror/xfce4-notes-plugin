@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.6.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-30 02:47+0200\n"
-"PO-Revision-Date: 2008-10-17 19:38+0100\n"
+"PO-Revision-Date: 2008-10-23 23:36+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr "Kunne ikke omdøbe notat"
 
 #: ../panel-plugin/notes-properties-dialog.c:78
 msgid "Xfce 4 Notes Plugin"
-msgstr "Xfce 4 notat-udvidelsesmodul"
+msgstr "Notat-udvidelsesmodul til Xfce 4"
 
 #: ../panel-plugin/notes-properties-dialog.c:92
 msgid "Default settings"
@@ -149,7 +149,4 @@ msgstr "Notater"
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Notat-udvidelsesmodul til Xfce4-skrivebordet"
-
-#~ msgid "Show statusbar"
-#~ msgstr "Vis statuslinje"
 
