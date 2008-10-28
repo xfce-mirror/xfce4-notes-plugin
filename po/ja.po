@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-30 02:47+0200\n"
-"PO-Revision-Date: 2008-05-09 23:42+0900\n"
+"PO-Revision-Date: 2008-10-24 00:22+0900\n"
 "Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>\n"
 "Language-Team: Japanese <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "メモ"
 
 #: ../panel-plugin/notes.c:742
 msgid "R_ename..."
-msgstr "リネイム...(_e)"
+msgstr "リネイム...(_E)"
 
 #. Resize grip
 #: ../panel-plugin/notes.c:848
