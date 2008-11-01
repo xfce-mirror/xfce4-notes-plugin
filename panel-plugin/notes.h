@@ -81,6 +81,7 @@ struct _NotesWindow
   gint                  x, y, w, h;
   ShowOnStartup         show_on_startup;
   gboolean              show_statusbar;
+  gboolean              show_tabs;
   gboolean              above;
   gboolean              sticky;
   gboolean              visible;

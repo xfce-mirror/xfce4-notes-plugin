@@ -63,6 +63,8 @@ static void             notes_window_set_sos_never      (NotesWindow *notes_wind
 
 static void             notes_window_set_sos_last_state (NotesWindow *notes_window);
 
+static void             notes_window_set_tabs           (NotesWindow *notes_window);
+
 static void             notes_window_set_statusbar      (NotesWindow *notes_window);
 
 static void             notes_window_set_above          (NotesWindow *notes_window);
@@ -500,6 +502,7 @@ notes_window_load_data (NotesWindow *notes_window)
   gboolean              above = FALSE;
   ShowOnStartup         show_on_startup = LAST_STATE;
   gboolean              show_statusbar = FALSE;
+  gboolean              show_tabs = TRUE;
   gboolean              sticky = TRUE;
   gboolean              visible = TRUE;
   gint                  transparency = 10;
@@ -540,6 +543,7 @@ notes_window_load_data (NotesWindow *notes_window)
   above =           xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/always_on_top", above);
   show_on_startup = xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_on_startup", show_on_startup);
   show_statusbar =  xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_resize_grip", show_statusbar);
+  show_tabs =       xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_tabs", show_tabs);
   sticky =          xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/sticky", sticky);
   visible =         xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/visible", visible);
   transparency =    xfconf_channel_get_int  (notes_plugin->xfconf_channel, "/new_window/transparency", transparency);
@@ -558,6 +562,7 @@ notes_window_load_data (NotesWindow *notes_window)
   notes_window->above           = xfce_rc_read_bool_entry (rc, "Above", above);
   notes_window->show_on_startup = xfce_rc_read_int_entry (rc, "ShowOnStartup", show_on_startup);
   notes_window->show_statusbar  = xfce_rc_read_bool_entry (rc, "ShowStatusbar", show_statusbar);
+  notes_window->show_tabs       = xfce_rc_read_bool_entry (rc, "ShowTabs", show_tabs);
   notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", sticky);
   notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", visible);
   notes_window->transparency    = xfce_rc_read_int_entry (rc, "Transparency", transparency);
@@ -571,6 +576,7 @@ notes_window_load_data (NotesWindow *notes_window)
        "\nabove: %d"
        "\nshow_on_startup: %d"
        "\nshow_statusbar: %d"
+       "\nshow_tabs: %d"
        "\nsticky: %d"
        "\nvisible: %d"
        "\ntransparency: %d",
@@ -579,6 +585,7 @@ notes_window_load_data (NotesWindow *notes_window)
        notes_window->above,
        notes_window->show_on_startup,
        notes_window->show_statusbar,
+       notes_window->show_tabs,
        notes_window->sticky,
        notes_window->visible,
        notes_window->transparency);
@@ -598,6 +605,8 @@ notes_window_load_data (NotesWindow *notes_window)
 
   notes_window_set_transparency (notes_window, notes_window->transparency);
   gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), 0);
+  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook), notes_window->show_tabs);
+  gtk_notebook_set_show_border (GTK_NOTEBOOK (notes_window->notebook), FALSE);
 }
 
 void
@@ -627,12 +636,14 @@ notes_window_save_data (NotesWindow *notes_window)
   TRACE ("\nabove: %d"
          "\nshow_on_startup: %d"
          "\nshow_statusbar: %d"
+         "\nshow_tabs: %d"
          "\nsticky: %d"
          "\nvisible: %d"
          "\ntransparency: %d",
          notes_window->above,
          notes_window->show_on_startup,
          notes_window->show_statusbar,
+         notes_window->show_tabs,
          notes_window->sticky,
          notes_window->visible,
          notes_window->transparency);
@@ -642,18 +653,13 @@ notes_window_save_data (NotesWindow *notes_window)
   xfce_rc_write_int_entry (rc, "Width", notes_window->w);
   xfce_rc_write_int_entry (rc, "Height", notes_window->h);
 
-  xfce_rc_write_bool_entry (rc, "Above",
-                            notes_window->above);
-  xfce_rc_write_int_entry  (rc, "ShowOnStartup",
-                            notes_window->show_on_startup);
-  xfce_rc_write_bool_entry (rc, "ShowStatusbar",
-                            notes_window->show_statusbar);
-  xfce_rc_write_bool_entry (rc, "Sticky",
-                            notes_window->sticky);
-  xfce_rc_write_bool_entry (rc, "Visible",
-                            GTK_WIDGET_VISIBLE (notes_window->window));
-  xfce_rc_write_int_entry  (rc, "Opacity",
-                            notes_window->transparency);
+  xfce_rc_write_bool_entry (rc, "Above", notes_window->above);
+  xfce_rc_write_int_entry  (rc, "ShowOnStartup", notes_window->show_on_startup);
+  xfce_rc_write_bool_entry (rc, "ShowStatusbar", notes_window->show_statusbar);
+  xfce_rc_write_bool_entry (rc, "ShowTabs", notes_window->show_tabs);
+  xfce_rc_write_bool_entry (rc, "Sticky", notes_window->sticky);
+  xfce_rc_write_bool_entry (rc, "Visible", GTK_WIDGET_VISIBLE (notes_window->window));
+  xfce_rc_write_int_entry  (rc, "Opacity", notes_window->transparency);
   if (NULL != notes_window->font)
     xfce_rc_write_entry (rc, "Font", notes_window->font);
 
@@ -870,11 +876,13 @@ notes_window_menu_options_new (NotesWindow *notes_window)
   GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Resize grip"));
   GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
   GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
+  GtkWidget *mi_hide_tabs       = gtk_check_menu_item_new_with_label (_("Hide tabs"));
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_statusbar);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_above);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sticky);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_hide_tabs);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_on_startup);
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (notes_window->mi_options), notes_window->menu_options);
 
@@ -900,12 +908,27 @@ notes_window_menu_options_new (NotesWindow *notes_window)
                                   (notes_window->show_on_startup == NEVER));
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sos_last_state),
                                   (notes_window->show_on_startup == LAST_STATE));
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_hide_tabs),
+                                  !notes_window->show_tabs);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_show_statusbar),
                                   notes_window->show_statusbar);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_above),
                                   notes_window->above);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sticky),
                                   notes_window->sticky);
+
+#if 0
+  /* NOTE options menu is not a persistent menu */
+  /* Accel group */
+  gtk_menu_set_accel_group (GTK_MENU (notes_window->menu_options),
+                            notes_window->accel_group);
+  gtk_widget_add_accelerator (mi_hide_tabs,
+                              "activate",
+                              notes_window->accel_group,
+                              GDK_F12,
+                              0,
+                              GTK_ACCEL_MASK);
+#endif
 
   /* Signals */
   g_signal_connect_swapped (mi_sos_always,
@@ -919,6 +942,10 @@ notes_window_menu_options_new (NotesWindow *notes_window)
   g_signal_connect_swapped (mi_sos_last_state,
                             "activate",
                             G_CALLBACK (notes_window_set_sos_last_state),
+                            notes_window);
+  g_signal_connect_swapped (mi_hide_tabs,
+                            "activate",
+                            G_CALLBACK (notes_window_set_tabs),
                             notes_window);
   g_signal_connect_swapped (mi_show_statusbar,
                             "activate",
@@ -1016,6 +1043,13 @@ static void
 notes_window_set_sos_last_state (NotesWindow *notes_window)
 {
   notes_window->show_on_startup = LAST_STATE;
+}
+
+static void
+notes_window_set_tabs (NotesWindow *notes_window)
+{
+  notes_window->show_tabs = !notes_window->show_tabs;
+  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook), notes_window->show_tabs);
 }
 
 static void

@@ -1,3 +1,9 @@
+2008-11-01  Mike Massonnet <mmassonnet@xfce.org>
+
+Hide tabs option
+	* panel-plugin/notes.[ch]:
+	  - New window option "Hide tabs".
+
 2008-10-19  Mike Massonnet <mmassonnet@xfce.org>
 
 Scroll to last cursor position on undo/redo
