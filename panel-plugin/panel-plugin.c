@@ -121,7 +121,9 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
 
   gtk_widget_show_all (GTK_WIDGET (panel_plugin));
 #ifdef HAVE_XFCONF
-  if (xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/general/hide_arrow_button", FALSE))
+  if (xfconf_channel_get_bool (notes_plugin->xfconf_channel,
+                               "/general/hide_arrow_button",
+                               GENERAL_HIDE_ARROW_BUTTON))
     gtk_widget_hide (notes_plugin->btn_arrow);
 #endif
 

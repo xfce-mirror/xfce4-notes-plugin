@@ -1,5 +1,19 @@
 2008-11-01  Mike Massonnet <mmassonnet@xfce.org>
 
+Update settings dialog
+	* panel-plugin/defines.h:
+	  - Define default settings.
+	* panel-plugin/{notes.c,panel-plugin.c}:
+	  - Use defines instead hard coded default values.
+	* panel-plugin/settings-dialog.c:
+	  - Set default values (if not yet set in xfconf) before binding the
+	  widgets to xfconf.
+	* panel-plugin/notes.c:
+	  - Fix a bug for previous commit, the tabs were shown back on note
+	  creation/deletion.
+
+2008-11-01  Mike Massonnet <mmassonnet@xfce.org>
+
 Hide tabs option
 	* panel-plugin/notes.[ch]:
 	  - New window option "Hide tabs".

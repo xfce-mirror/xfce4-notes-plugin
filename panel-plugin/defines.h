@@ -23,5 +23,18 @@
 #define PLUGIN_WEBSITE                  "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
 #define PLUGIN_XFCONF_CHANNEL           "xfce4-notes-plugin"
 
+/* Default settings */
+#define GENERAL_HIDE_FROM_TASKBAR       TRUE
+#define GENERAL_HIDE_ARROW_BUTTON       FALSE
+#define NEW_WINDOW_WIDTH                375
+#define NEW_WINDOW_HEIGHT               430
+#define NEW_WINDOW_ABOVE                FALSE
+#define NEW_WINDOW_STICKY               TRUE
+#define NEW_WINDOW_RESIZE_GRIP          FALSE
+#define NEW_WINDOW_TABS                 TRUE
+#define NEW_WINDOW_TRANSPARENCY         10
+#define NEW_WINDOW_USE_FONT             FALSE
+#define NEW_WINDOW_FONT_DESCR           "Sans 10"
+
 #endif
 

@@ -33,6 +33,7 @@
 #include <xfconf/xfconf.h>
 #endif
 
+#include "defines.h"
 #include "notes.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
@@ -186,15 +187,16 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 #ifdef HAVE_XFCONF
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window),
                                     xfconf_channel_get_bool (notes_plugin->xfconf_channel,
-                                                             "/general/hide_windows_from_taskbar", TRUE));
+                                                             "/general/hide_windows_from_taskbar",
+                                                             GENERAL_HIDE_FROM_TASKBAR));
   gtk_window_set_default_size (GTK_WINDOW (notes_window->window),
                                xfconf_channel_get_int (notes_plugin->xfconf_channel,
-                                                       "/new_window/width", 375),
+                                                       "/new_window/width", NEW_WINDOW_WIDTH),
                                xfconf_channel_get_int (notes_plugin->xfconf_channel,
-                                                       "/new_window/height", 430));
+                                                       "/new_window/height", NEW_WINDOW_HEIGHT));
 #else
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), TRUE);
-  gtk_window_set_default_size (GTK_WINDOW (notes_window->window), 375, 430);
+  gtk_window_set_default_size (GTK_WINDOW (notes_window->window), NEW_WINDOW_WIDTH, NEW_WINDOW_HEIGHT);
 #endif
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_icon_name (GTK_WINDOW (notes_window->window), "xfce4-notes-plugin");
@@ -497,15 +499,15 @@ notes_window_load_data (NotesWindow *notes_window)
   NotesNote            *notes_note;
   NotesPlugin          *notes_plugin = notes_window->notes_plugin;
   const gchar          *note_name;
-  gint                  w = 375;
-  gint                  h = 430;
-  gboolean              above = FALSE;
+  gint                  w = NEW_WINDOW_WIDTH;
+  gint                  h = NEW_WINDOW_HEIGHT;
+  gboolean              above = NEW_WINDOW_ABOVE;
   ShowOnStartup         show_on_startup = LAST_STATE;
-  gboolean              show_statusbar = FALSE;
-  gboolean              show_tabs = TRUE;
-  gboolean              sticky = TRUE;
+  gboolean              show_statusbar = NEW_WINDOW_RESIZE_GRIP;
+  gboolean              show_tabs = NEW_WINDOW_TABS;
+  gboolean              sticky = NEW_WINDOW_STICKY;
+  gint                  transparency = NEW_WINDOW_TRANSPARENCY;
   gboolean              visible = TRUE;
-  gint                  transparency = 10;
   gchar                *font_descr = NULL;
 
   if (G_LIKELY (NULL == notes_window->name))
@@ -547,8 +549,8 @@ notes_window_load_data (NotesWindow *notes_window)
   sticky =          xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/sticky", sticky);
   visible =         xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/visible", visible);
   transparency =    xfconf_channel_get_int  (notes_plugin->xfconf_channel, "/new_window/transparency", transparency);
-  if (xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/use_font", FALSE))
-    font_descr =    xfconf_channel_get_string (notes_plugin->xfconf_channel, "/new_window/font_description", "Sans 10");
+  if (xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/use_font", NEW_WINDOW_USE_FONT))
+    font_descr =    xfconf_channel_get_string (notes_plugin->xfconf_channel, "/new_window/font_description", NEW_WINDOW_FONT_DESCR);
 #endif
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
@@ -1647,7 +1649,7 @@ notes_note_new (NotesWindow *notes_window,
   gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), id);
   TRACE ("Put to front note `%s'", notes_note->name);
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
-                              (g_slist_length (notes_window->notes) > 1));
+                              (notes_window->show_tabs && g_slist_length (notes_window->notes) > 1));
 
   return notes_note;
 }
@@ -1675,7 +1677,7 @@ notes_note_destroy (NotesNote *notes_note)
   id = g_slist_index (notes_window->notes, notes_note);
   gtk_notebook_remove_page (GTK_NOTEBOOK (notes_window->notebook), id);
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
-                              ((g_slist_length (notes_window->notes) - 1) > 1));
+                              (notes_window->show_tabs && (g_slist_length (notes_window->notes) - 1) > 1));
 
   /* Remove file */
   note_path = g_build_path (G_DIR_SEPARATOR_S,

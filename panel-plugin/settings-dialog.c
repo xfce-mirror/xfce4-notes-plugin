@@ -32,43 +32,61 @@
 
 static XfconfChannel *xfconf_channel = NULL;
 
-static void
-cb_channel_panel_plugin_toggled (GtkToggleButton *button,
-                                 const gchar *property)
-{
-  xfconf_channel_set_bool (xfconf_channel, property, gtk_toggle_button_get_active (button));
-}
-
-static void
-cb_channel_new_window_toggled (GtkToggleButton *button,
-                               const gchar *property)
-{
-  xfconf_channel_set_bool (xfconf_channel, property, gtk_toggle_button_get_active (button));
-}
-
-static void
-cb_channel_new_window_fontset (GtkFontButton *fontbutton,
-                               const gchar *property)
-{
-  xfconf_channel_set_string (xfconf_channel, property, gtk_font_button_get_font_name (fontbutton));
-}
-
-static void
-cb_channel_new_window_scale (GtkRange *range,
-                             const gchar *property)
-{
-  xfconf_channel_set_int (xfconf_channel, property, (gint32)gtk_range_get_value (range));
-}
-
 GtkWidget *
 prop_dialog_new (NotesPlugin *notes_plugin)
 {
-  GtkWidget *dialog, *frame, *box, *hbox, *button, *scale, *label;
-  GtkWidget *fontbutton, *size_box;
+  GtkWidget *dialog, *frame, *box, *hbox, *button, *spin, *label;
+  GtkWidget *size_box;
 
   /* Configuration channel */
   if (NULL == xfconf_channel)
     xfconf_channel = notes_plugin->xfconf_channel;
+
+  /* Set unset xfconf values */
+  if (!xfconf_channel_has_property (xfconf_channel, "/general/hide_windows_from_taskbar"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/general/hide_windows_from_taskbar",
+                             GENERAL_HIDE_FROM_TASKBAR);
+  if (!xfconf_channel_has_property (xfconf_channel, "/general/hide_arrow_button"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/general/hide_arrow_button",
+                             GENERAL_HIDE_ARROW_BUTTON);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/width"))
+    xfconf_channel_set_int (xfconf_channel,
+                            "/new_window/width",
+                            NEW_WINDOW_WIDTH);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/height"))
+    xfconf_channel_set_int (xfconf_channel,
+                            "/new_window/height",
+                            NEW_WINDOW_HEIGHT);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/always_on_top"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/new_window/always_on_top",
+                             NEW_WINDOW_ABOVE);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/sticky"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/new_window/sticky",
+                             NEW_WINDOW_STICKY);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/show_resize_grip"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/new_window/show_resize_grip",
+                             NEW_WINDOW_RESIZE_GRIP);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/show_tabs"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/new_window/show_tabs",
+                             NEW_WINDOW_TABS);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/transparency"))
+    xfconf_channel_set_int (xfconf_channel,
+                            "/new_window/transparency",
+                            NEW_WINDOW_TRANSPARENCY);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/use_font"))
+    xfconf_channel_set_bool (xfconf_channel,
+                             "/new_window/use_font",
+                             NEW_WINDOW_USE_FONT);
+  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/font_description"))
+    xfconf_channel_set_string (xfconf_channel,
+                               "/new_window/font_description",
+                               NEW_WINDOW_FONT_DESCR);
 
   /* Dialog */
   dialog =
@@ -92,17 +110,15 @@ prop_dialog_new (NotesPlugin *notes_plugin)
 
   /* Hide from taskbar */
   button = gtk_check_button_new_with_label (_("Hide windows from taskbar"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button),
-                                xfconf_channel_get_bool (xfconf_channel, "/general/hide_windows_from_taskbar", FALSE));
+  xfconf_g_property_bind (xfconf_channel, "/general/hide_windows_from_taskbar",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_container_add (GTK_CONTAINER (box), button);
-  g_signal_connect (button, "toggled", G_CALLBACK (cb_channel_panel_plugin_toggled), "/general/hide_windows_from_taskbar");
 
   /* Hide arrow button */
   button = gtk_check_button_new_with_label (_("Hide arrow button"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button),
-                                xfconf_channel_get_bool (xfconf_channel, "/general/hide_arrow_button", FALSE));
+  xfconf_g_property_bind (xfconf_channel, "/general/hide_arrow_button",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_container_add (GTK_CONTAINER (box), button);
-  g_signal_connect (button, "toggled", G_CALLBACK (cb_channel_panel_plugin_toggled), "/general/hide_arrow_button");
 
   /* === New window settings === */
   box = gtk_vbox_new (TRUE, BORDER);
@@ -112,40 +128,35 @@ prop_dialog_new (NotesPlugin *notes_plugin)
 
   /* Always on top */
   button = gtk_check_button_new_with_label (_("Always on top"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button),
-                                xfconf_channel_get_bool (xfconf_channel, "/new_window/always_on_top", FALSE));
+  xfconf_g_property_bind (xfconf_channel, "/new_window/always_on_top",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-  g_signal_connect (button, "toggled", G_CALLBACK (cb_channel_new_window_toggled), "/new_window/always_on_top");
 
   /* Sticky window */
   button = gtk_check_button_new_with_label (_("Sticky window"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button),
-                                xfconf_channel_get_bool (xfconf_channel, "/new_window/sticky", TRUE));
+  xfconf_g_property_bind (xfconf_channel, "/new_window/sticky",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-  g_signal_connect (button, "toggled", G_CALLBACK (cb_channel_new_window_toggled), "/new_window/sticky");
 
   /* Resize grip */
   button = gtk_check_button_new_with_label (_("Resize grip"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button),
-                                xfconf_channel_get_bool (xfconf_channel, "/new_window/resize_grip", FALSE));
+  xfconf_g_property_bind (xfconf_channel, "/new_window/show_resize_grip",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-  g_signal_connect (button, "toggled", G_CALLBACK (cb_channel_new_window_toggled), "/new_window/resize_grip");
 
   /* Font */
   hbox = gtk_hbox_new (FALSE, BORDER);
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   button = gtk_check_button_new_with_label (_("Font"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button),
-                                xfconf_channel_get_bool (xfconf_channel, "/new_window/use_font", FALSE));
+  xfconf_g_property_bind (xfconf_channel, "/new_window/use_font",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-  g_signal_connect (button, "toggled", G_CALLBACK (cb_channel_new_window_toggled), "/new_window/use_font");
 
-  gchar *description = xfconf_channel_get_string (xfconf_channel, "/new_window/font_description", "Sans 10");
-  fontbutton = gtk_font_button_new_with_font (description);
-  g_free (description);
-  gtk_box_pack_start (GTK_BOX (hbox), fontbutton, TRUE, TRUE, 0);
-  g_signal_connect (fontbutton, "font-set", G_CALLBACK (cb_channel_new_window_fontset), "/new_window/font_description");
+  button = gtk_font_button_new ();
+  xfconf_g_property_bind (xfconf_channel, "/new_window/font_description",
+                          G_TYPE_STRING, G_OBJECT (button), "font-name");
+  gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
 
   /* Size */
   hbox = gtk_hbox_new (FALSE, BORDER);
@@ -157,22 +168,18 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   size_box = gtk_hbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox), size_box, TRUE, TRUE, 0);
 
-  scale = gtk_hscale_new_with_range (20, 600, 10);
-  gtk_range_set_value (GTK_RANGE (scale),
-                       (gdouble)xfconf_channel_get_int (xfconf_channel, "/new_window/width", 375));
-  gtk_scale_set_value_pos (GTK_SCALE (scale), GTK_POS_RIGHT);
-  gtk_box_pack_start (GTK_BOX (size_box), scale, TRUE, TRUE, 0);
-  g_signal_connect (scale, "value-changed", G_CALLBACK (cb_channel_new_window_scale), "/new_window/width");
+  spin = gtk_spin_button_new_with_range (20.0, 600.0, 10.0);
+  xfconf_g_property_bind (xfconf_channel, "/new_window/width",
+                          G_TYPE_INT, G_OBJECT (spin), "value");
+  gtk_box_pack_start (GTK_BOX (size_box), spin, TRUE, TRUE, 0);
 
   label = gtk_label_new ("×");
-  gtk_box_pack_start (GTK_BOX (size_box), label, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (size_box), label, FALSE, FALSE, BORDER);
 
-  scale = gtk_hscale_new_with_range (20, 600, 10);
-  gtk_range_set_value (GTK_RANGE (scale),
-                       (gdouble)xfconf_channel_get_int (xfconf_channel, "/new_window/height", 430));
-  gtk_scale_set_value_pos (GTK_SCALE (scale), GTK_POS_LEFT);
-  gtk_box_pack_start (GTK_BOX (size_box), scale, TRUE, TRUE, 0);
-  g_signal_connect (scale, "value-changed", G_CALLBACK (cb_channel_new_window_scale), "/new_window/height");
+  spin = gtk_spin_button_new_with_range (20.0, 600.0, 10.0);
+  xfconf_g_property_bind (xfconf_channel, "/new_window/height",
+                          G_TYPE_INT, G_OBJECT (spin), "value");
+  gtk_box_pack_start (GTK_BOX (size_box), spin, TRUE, TRUE, 0);
 
   /* === Ending === */
   gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
