@@ -30,6 +30,9 @@
 #endif
 #include "xfce4-popup-notes.h"
 
+#include <libxfce4panel/xfce-hvbox.h>
+#include <libxfce4panel/xfce-arrow-button.h>
+
 
 
 
@@ -278,7 +281,7 @@ static void
 notes_plugin_set_orientation (NotesPlugin *notes_plugin,
                               GtkOrientation orientation)
 {
-  xfce_hvbox_set_orientation (notes_plugin->box_panel, orientation);
+  xfce_hvbox_set_orientation (XFCE_HVBOX (notes_plugin->box_panel), orientation);
 
   XfceScreenPosition position = xfce_panel_plugin_get_screen_position (notes_plugin->panel_plugin);
 
@@ -289,23 +292,23 @@ notes_plugin_set_orientation (NotesPlugin *notes_plugin,
     case XFCE_SCREEN_POSITION_NW_H:
     case XFCE_SCREEN_POSITION_N:
     case XFCE_SCREEN_POSITION_NE_H:
-      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_DOWN);
+      xfce_arrow_button_set_arrow_type (XFCE_ARROW_BUTTON (notes_plugin->btn_arrow), GTK_ARROW_DOWN);
       break;
     case XFCE_SCREEN_POSITION_FLOATING_V:
     case XFCE_SCREEN_POSITION_NW_V:
     case XFCE_SCREEN_POSITION_W:
     case XFCE_SCREEN_POSITION_SW_V:
-      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_RIGHT);
+      xfce_arrow_button_set_arrow_type (XFCE_ARROW_BUTTON (notes_plugin->btn_arrow), GTK_ARROW_RIGHT);
       break;
     case XFCE_SCREEN_POSITION_NE_V:
     case XFCE_SCREEN_POSITION_E:
     case XFCE_SCREEN_POSITION_SE_V:
-      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_LEFT);
+      xfce_arrow_button_set_arrow_type (XFCE_ARROW_BUTTON (notes_plugin->btn_arrow), GTK_ARROW_LEFT);
       break;
     case XFCE_SCREEN_POSITION_SW_H:
     case XFCE_SCREEN_POSITION_S:
     case XFCE_SCREEN_POSITION_SE_H:
-      xfce_arrow_button_set_arrow_type (notes_plugin->btn_arrow, GTK_ARROW_UP);
+      xfce_arrow_button_set_arrow_type (XFCE_ARROW_BUTTON (notes_plugin->btn_arrow), GTK_ARROW_UP);
       break;
     }
 }
