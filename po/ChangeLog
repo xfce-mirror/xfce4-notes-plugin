@@ -1,3 +1,8 @@
+2008-11-16  Maximilian Schleiss <maximilian@xfce.org>
+
+	* ca.po: Catalan translation update (Carles Muñoz Gorriz)
+	* zh_CN; LINGUAS: Simplified Chinese translation added (Zheng long Zhao)
+
 2008-11-12  Piarres Beobide <pi@beobide.net>
 
         * eu.po: Basque translation update
