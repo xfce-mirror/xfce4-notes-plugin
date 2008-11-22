@@ -15,7 +15,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
 
@@ -134,7 +134,7 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
   notes_plugin_load_data (notes_plugin);
 
 #if GTK_CHECK_VERSION (2,12,0)
-  gtk_widget_set_tooltip_text (panel_plugin, _("Notes"));
+  gtk_widget_set_tooltip_text (GTK_WIDGET (panel_plugin), _("Notes"));
 #endif
 }
 

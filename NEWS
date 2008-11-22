@@ -1,3 +1,9 @@
+VERSION 1.6.3
+
+- Clean up with new default settings and small fixes
+- Undo/Redo feature (Ctrl-Z to undo, and again to redo)
+- Hide Tabs option
+
 VERSION 1.6.2
 
 - Add properties dialog (need xfconf at build-time)
