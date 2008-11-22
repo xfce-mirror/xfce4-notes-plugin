@@ -132,6 +132,10 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
 
   /* TODO Postpone this call inside a idle function */
   notes_plugin_load_data (notes_plugin);
+
+#if GTK_CHECK_VERSION (2,12,0)
+  gtk_widget_set_tooltip_text (panel_plugin, _("Notes"));
+#endif
 }
 
 static NotesPlugin *
