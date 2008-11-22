@@ -195,7 +195,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                                xfconf_channel_get_int (notes_plugin->xfconf_channel,
                                                        "/new_window/height", NEW_WINDOW_HEIGHT));
 #else
-  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), TRUE);
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (notes_window->window), GENERAL_HIDE_FROM_TASKBAR);
   gtk_window_set_default_size (GTK_WINDOW (notes_window->window), NEW_WINDOW_WIDTH, NEW_WINDOW_HEIGHT);
 #endif
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
