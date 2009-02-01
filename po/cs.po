@@ -1,14 +1,14 @@
 # Czech translations for xfce4-notes-plugin package.
 # Copyright (C) 2006 THE xfce4-notes-plugin'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce4-notes-plugin package.
-# Michal Várady <miko.vaji@gmail.com>, 2006.
+# Michal Várady <miko.vaji@gmail.com>, 2006-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.90.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-30 02:47+0200\n"
-"PO-Revision-Date: 2008-05-11 23:38+0100\n"
+"PO-Revision-Date: 2009-02-01 14:12+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Poznámka"
 
 #: ../panel-plugin/notes.c:742
 msgid "R_ename..."
-msgstr "Př_ejmenovat"
+msgstr "Př_ejmenovat..."
 
 #. Resize grip
 #: ../panel-plugin/notes.c:848
@@ -65,7 +65,7 @@ msgstr "Přilepené okno"
 
 #: ../panel-plugin/notes.c:851
 msgid "Show on startup"
-msgstr "Zobrazovat po spuštění"
+msgstr "Zobrazit po spuštění"
 
 #: ../panel-plugin/notes.c:862
 msgid "Always"
@@ -112,7 +112,7 @@ msgstr "Nelze přejmenovat poznámku"
 
 #: ../panel-plugin/notes-properties-dialog.c:78
 msgid "Xfce 4 Notes Plugin"
-msgstr "Zásuvný modul Poznámky Xfce 4"
+msgstr "Zásuvný modul Poznámky pro Xfce 4"
 
 #: ../panel-plugin/notes-properties-dialog.c:92
 msgid "Default settings"
