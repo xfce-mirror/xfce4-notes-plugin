@@ -1,3 +1,8 @@
+2009-02-07  Maximilian Schleiss <maximilian@xfce.org>
+
+	* it.po; LINGUAS: Italian translation added (Cristian Marchi)
+	* pl.po: Polish translation update (Piotr Sokół)
+
 2009-02-01  Michal Várady <miko.vaji@gmail.com>
 
 	* cs.po: Czech translation fixed
