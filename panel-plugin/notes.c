@@ -1,6 +1,6 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (c) 2006-2008  Mike Massonnet <mmassonnet@gmail.com>
+ *  Copyright (c) 2006-2009  Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -66,8 +66,6 @@ static void             notes_window_set_sos_last_state (NotesWindow *notes_wind
 
 static void             notes_window_set_tabs           (NotesWindow *notes_window);
 
-static void             notes_window_set_statusbar      (NotesWindow *notes_window);
-
 static void             notes_window_set_above          (NotesWindow *notes_window);
 
 static void             notes_window_set_sticky         (NotesWindow *notes_window);
@@ -76,6 +74,12 @@ static void             notes_window_set_font_dialog    (NotesWindow *notes_wind
 
 static void             notes_window_set_transparency   (NotesWindow *notes_window,
                                                          gint transparency);
+static gboolean         notes_window_leave_event        (NotesWindow *notes_window,
+                                                         GdkEventCrossing *event);
+static gboolean         notes_window_motion_event       (NotesWindow *notes_window,
+                                                         GdkEventMotion *event);
+static gboolean         notes_window_button_event       (NotesWindow *notes_window,
+                                                         GdkEventButton *event);
 static gboolean         notes_window_state_event        (NotesWindow *notes_window,
                                                          GdkEventWindowState *event);
 static gboolean         notes_window_title_press        (NotesWindow *notes_window,
@@ -201,6 +205,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   gtk_window_set_decorated (GTK_WINDOW (notes_window->window), FALSE);
   gtk_window_set_icon_name (GTK_WINDOW (notes_window->window), "xfce4-notes-plugin");
   gtk_widget_set_name (notes_window->window, PLUGIN_NAME);
+  gtk_widget_add_events (notes_window->window, GDK_POINTER_MOTION_MASK|GDK_POINTER_MOTION_HINT_MASK|GDK_BUTTON_PRESS_MASK);
 
   /* Frame */
   notes_window->frame = gtk_frame_new (NULL);
@@ -309,14 +314,6 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                       0);
   gtk_widget_show (notes_window->notebook);
 
-  /* Status bar */
-  notes_window->statusbar = gtk_statusbar_new ();
-  gtk_box_pack_start (GTK_BOX (notes_window->vbox),
-                      notes_window->statusbar,
-                      FALSE,
-                      FALSE,
-                      0);
-
   /* Accel group */
   notes_window->accel_group = gtk_accel_group_new ();
   gtk_window_add_accel_group (GTK_WINDOW (notes_window->window),
@@ -382,6 +379,18 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 
   /* Signals */
   g_signal_connect_swapped (notes_window->window,
+                            "leave-notify-event",
+                            G_CALLBACK (notes_window_leave_event),
+                            notes_window);
+  g_signal_connect_swapped (notes_window->window,
+                            "motion-notify-event",
+                            G_CALLBACK (notes_window_motion_event),
+                            notes_window);
+  g_signal_connect_swapped (notes_window->window,
+                            "button-press-event",
+                            G_CALLBACK (notes_window_button_event),
+                            notes_window);
+  g_signal_connect_swapped (notes_window->window,
                             "window-state-event",
                             G_CALLBACK (notes_window_state_event),
                             notes_window);
@@ -419,9 +428,6 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
                             notes_window);
 
   /* Show the stuff, or not */
-  if (G_UNLIKELY (notes_window->show_statusbar))
-    gtk_widget_show (notes_window->statusbar);
-
   if (G_LIKELY (notes_window->show_on_startup == ALWAYS
                 || (notes_window->visible
                     && notes_window->show_on_startup == LAST_STATE)))
@@ -503,7 +509,6 @@ notes_window_load_data (NotesWindow *notes_window)
   gint                  h = NEW_WINDOW_HEIGHT;
   gboolean              above = NEW_WINDOW_ABOVE;
   ShowOnStartup         show_on_startup = LAST_STATE;
-  gboolean              show_statusbar = NEW_WINDOW_RESIZE_GRIP;
   gboolean              show_tabs = NEW_WINDOW_TABS;
   gboolean              sticky = NEW_WINDOW_STICKY;
   gint                  transparency = NEW_WINDOW_TRANSPARENCY;
@@ -544,7 +549,6 @@ notes_window_load_data (NotesWindow *notes_window)
   h =               xfconf_channel_get_int  (notes_plugin->xfconf_channel, "/new_window/height", h);
   above =           xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/always_on_top", above);
   show_on_startup = xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_on_startup", show_on_startup);
-  show_statusbar =  xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_resize_grip", show_statusbar);
   show_tabs =       xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/show_tabs", show_tabs);
   sticky =          xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/sticky", sticky);
   visible =         xfconf_channel_get_bool (notes_plugin->xfconf_channel, "/new_window/visible", visible);
@@ -563,7 +567,6 @@ notes_window_load_data (NotesWindow *notes_window)
 
   notes_window->above           = xfce_rc_read_bool_entry (rc, "Above", above);
   notes_window->show_on_startup = xfce_rc_read_int_entry (rc, "ShowOnStartup", show_on_startup);
-  notes_window->show_statusbar  = xfce_rc_read_bool_entry (rc, "ShowStatusbar", show_statusbar);
   notes_window->show_tabs       = xfce_rc_read_bool_entry (rc, "ShowTabs", show_tabs);
   notes_window->sticky          = xfce_rc_read_bool_entry (rc, "Sticky", sticky);
   notes_window->visible         = xfce_rc_read_bool_entry (rc, "Visible", visible);
@@ -577,7 +580,6 @@ notes_window_load_data (NotesWindow *notes_window)
        "\ngeometry: %d/%d:%dx%d"
        "\nabove: %d"
        "\nshow_on_startup: %d"
-       "\nshow_statusbar: %d"
        "\nshow_tabs: %d"
        "\nsticky: %d"
        "\nvisible: %d"
@@ -586,7 +588,6 @@ notes_window_load_data (NotesWindow *notes_window)
        notes_window->x, notes_window->y, notes_window->w, notes_window->h,
        notes_window->above,
        notes_window->show_on_startup,
-       notes_window->show_statusbar,
        notes_window->show_tabs,
        notes_window->sticky,
        notes_window->visible,
@@ -637,14 +638,12 @@ notes_window_save_data (NotesWindow *notes_window)
 
   TRACE ("\nabove: %d"
          "\nshow_on_startup: %d"
-         "\nshow_statusbar: %d"
          "\nshow_tabs: %d"
          "\nsticky: %d"
          "\nvisible: %d"
          "\ntransparency: %d",
          notes_window->above,
          notes_window->show_on_startup,
-         notes_window->show_statusbar,
          notes_window->show_tabs,
          notes_window->sticky,
          notes_window->visible,
@@ -657,7 +656,6 @@ notes_window_save_data (NotesWindow *notes_window)
 
   xfce_rc_write_bool_entry (rc, "Above", notes_window->above);
   xfce_rc_write_int_entry  (rc, "ShowOnStartup", notes_window->show_on_startup);
-  xfce_rc_write_bool_entry (rc, "ShowStatusbar", notes_window->show_statusbar);
   xfce_rc_write_bool_entry (rc, "ShowTabs", notes_window->show_tabs);
   xfce_rc_write_bool_entry (rc, "Sticky", notes_window->sticky);
   xfce_rc_write_bool_entry (rc, "Visible", GTK_WIDGET_VISIBLE (notes_window->window));
@@ -875,13 +873,11 @@ notes_window_menu_options_new (NotesWindow *notes_window)
 
   /* NotesWindow options menu */
   notes_window->menu_options = gtk_menu_new ();
-  GtkWidget *mi_show_statusbar  = gtk_check_menu_item_new_with_label (_("Resize grip"));
   GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
   GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
   GtkWidget *mi_hide_tabs       = gtk_check_menu_item_new_with_label (_("Hide tabs"));
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
 
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_statusbar);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_above);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sticky);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_hide_tabs);
@@ -912,8 +908,6 @@ notes_window_menu_options_new (NotesWindow *notes_window)
                                   (notes_window->show_on_startup == LAST_STATE));
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_hide_tabs),
                                   !notes_window->show_tabs);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_show_statusbar),
-                                  notes_window->show_statusbar);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_above),
                                   notes_window->above);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sticky),
@@ -948,10 +942,6 @@ notes_window_menu_options_new (NotesWindow *notes_window)
   g_signal_connect_swapped (mi_hide_tabs,
                             "activate",
                             G_CALLBACK (notes_window_set_tabs),
-                            notes_window);
-  g_signal_connect_swapped (mi_show_statusbar,
-                            "activate",
-                            G_CALLBACK (notes_window_set_statusbar),
                             notes_window);
   g_signal_connect_swapped (mi_above,
                             "activate",
@@ -1055,19 +1045,6 @@ notes_window_set_tabs (NotesWindow *notes_window)
 }
 
 static void
-notes_window_set_statusbar (NotesWindow *notes_window)
-{
-  if (!GTK_WIDGET_VISIBLE (notes_window->notebook))
-    notes_window_unshade (notes_window);
-
-  notes_window->show_statusbar = !notes_window->show_statusbar;
-  if (notes_window->show_statusbar)
-    gtk_widget_show (notes_window->statusbar);
-  else
-    gtk_widget_hide (notes_window->statusbar);
-}
-
-static void
 notes_window_set_above (NotesWindow *notes_window)
 {
   notes_window->above = !notes_window->above;
@@ -1128,6 +1105,120 @@ notes_window_set_transparency (NotesWindow *notes_window,
                        (guchar *) & opacity,
                        1L);
   gdk_error_trap_pop ();
+}
+
+/**
+ * Window motion/button event to allow resizing
+ */
+static gboolean
+notes_window_leave_event (NotesWindow *notes_window,
+                          GdkEventCrossing *event)
+{
+  gdk_window_set_cursor (notes_window->window->window, NULL);
+}
+
+static gboolean
+notes_window_motion_event (NotesWindow *notes_window,
+                           GdkEventMotion *event)
+{
+  GtkAllocation alloc = notes_window->window->allocation;
+  GdkCursor *cursor;
+
+  if (event->x > 2 &&
+      event->y > 2 &&
+      event->x < alloc.width - 2 &&
+      event->y < alloc.height - 2)
+      return FALSE;
+
+  TRACE ("Window Motion: (%.0fx%.0f) %dx%d", event->x, event->y, alloc.width, alloc.height);
+
+  /* Display a mouse cursor for the bottom right corner */
+  if (event->x >= alloc.width - CORNER_MARGIN && event->y >= alloc.height - CORNER_MARGIN)
+    {
+      cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
+      gdk_window_set_cursor (notes_window->window->window, cursor);
+      gdk_cursor_unref (cursor);
+    }
+  else
+    {
+      gdk_window_set_cursor (notes_window->window->window, NULL);
+    }
+
+  return TRUE;
+}
+
+static gboolean
+notes_window_button_event (NotesWindow *notes_window,
+                           GdkEventButton *event)
+{
+  GtkAllocation alloc = notes_window->window->allocation;
+  GdkWindowEdge edge;
+
+  if (event->x > 2 &&
+      event->y > 2 &&
+      event->x < alloc.width - 2 &&
+      event->y < alloc.height - 2)
+    return FALSE;
+
+  /* Top Left corner */
+  if (event->x <= CORNER_MARGIN &&
+      event->y <= CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_NORTH_WEST;
+    }
+  /* Top line */
+  else if (event->x > CORNER_MARGIN &&
+           event->y < CORNER_MARGIN &&
+           event->x < alloc.width - CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_NORTH;
+    }
+  /* Top Right corner */
+  else if (event->x >= alloc.width - CORNER_MARGIN &&
+           event->y <= CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_NORTH_EAST;
+    }
+  /* Right line */
+  else if (event->y > CORNER_MARGIN &&
+           event->x > alloc.width - CORNER_MARGIN &&
+           event->y < alloc.height - CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_EAST;
+    }
+  /* Bottom Right corner */
+  else if (event->x >= alloc.width - CORNER_MARGIN &&
+           event->y >= alloc.height - CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_SOUTH_EAST;
+    }
+  /* Bottom corner */
+  else if (event->x > CORNER_MARGIN &&
+           event->y > alloc.height - CORNER_MARGIN &&
+           event->x < alloc.width - CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_SOUTH;
+    }
+  /* Bottom Left corner */
+  else if (event->x <= CORNER_MARGIN &&
+           event->y >= alloc.height - CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_SOUTH_WEST;
+    }
+  /* Left line */
+  else if (event->y > CORNER_MARGIN &&
+           event->x < CORNER_MARGIN &&
+           event->y < alloc.height - CORNER_MARGIN)
+    {
+      edge = GDK_WINDOW_EDGE_WEST;
+    }
+  else
+    return FALSE;
+
+  gtk_window_begin_resize_drag (GTK_WINDOW (notes_window->window), edge,
+                                event->button, event->x_root, event->y_root, event->time);
+
+  return TRUE;
 }
 
 /**
@@ -1321,8 +1412,6 @@ notes_window_shade (NotesWindow *notes_window)
     gtk_window_get_size (GTK_WINDOW (notes_window->window),
                          &notes_window->w,
                          &notes_window->h);
-  if (G_LIKELY (notes_window->show_statusbar))
-    gtk_widget_hide (notes_window->statusbar);
   gtk_widget_hide (notes_window->notebook);
   gtk_window_resize (GTK_WINDOW (notes_window->window),
                      notes_window->w,
@@ -1335,8 +1424,6 @@ notes_window_unshade (NotesWindow *notes_window)
   gtk_widget_show (notes_window->notebook);
   GTK_WIDGET_UNSET_FLAGS (notes_window->notebook,
                           GTK_CAN_FOCUS);
-  if (notes_window->show_statusbar)
-    gtk_widget_show (notes_window->statusbar);
 
   if (GTK_WIDGET_VISIBLE (notes_window->window))
     {

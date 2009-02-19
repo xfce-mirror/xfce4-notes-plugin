@@ -1,5 +1,20 @@
 2009-02-19  Mike Massonnet <mmassonnet@xfce.org>
 
+Make window resizable with the mouse
+	* panel-plugin/notes.c:
+	  - New functions notes_window_leave_event(), notes_window_motion_event()
+	  to display a cursor in the bottom right corner
+	  - New function notes_window_button_event() to resize the window by
+	  clicking the borders (2 pixels)
+	* panel-plugin/notes.c(notes_window_new_with_label):
+	  - Add events POINTER_MOTION and BUTTON_PRESS to the window
+	  - Connect to motion events and button press event on the window
+	* panel-plugin/defines.h, panel-plugin/notes.[ch],
+	  panel-plugin/settings-dialog.c:
+	  - Drop the statusbar used for the resize grip from the code
+
+2009-02-19  Mike Massonnet <mmassonnet@xfce.org>
+
 Replace icons against labels for the buttons in the window
 	* panel-plugin/notes.c(notes_window_new_with_label):
 	  - Use labels instead of images inside the buttons

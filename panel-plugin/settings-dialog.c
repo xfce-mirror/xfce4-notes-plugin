@@ -1,6 +1,6 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (C) 2008  Mike Massonnet <mmassonnet@gmail.com>
+ *  Copyright (C) 2008-2009  Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -67,10 +67,6 @@ prop_dialog_new (NotesPlugin *notes_plugin)
     xfconf_channel_set_bool (xfconf_channel,
                              "/new_window/sticky",
                              NEW_WINDOW_STICKY);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/show_resize_grip"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/new_window/show_resize_grip",
-                             NEW_WINDOW_RESIZE_GRIP);
   if (!xfconf_channel_has_property (xfconf_channel, "/new_window/show_tabs"))
     xfconf_channel_set_bool (xfconf_channel,
                              "/new_window/show_tabs",
@@ -135,12 +131,6 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   /* Sticky window */
   button = gtk_check_button_new_with_label (_("Sticky window"));
   xfconf_g_property_bind (xfconf_channel, "/new_window/sticky",
-                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
-  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-
-  /* Resize grip */
-  button = gtk_check_button_new_with_label (_("Resize grip"));
-  xfconf_g_property_bind (xfconf_channel, "/new_window/show_resize_grip",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 

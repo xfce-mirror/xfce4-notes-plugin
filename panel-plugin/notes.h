@@ -1,6 +1,6 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (c) 2006-2008  Mike Massonnet <mmassonnet@gmail.com>
+ *  Copyright (c) 2006-2009  Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -80,7 +80,6 @@ struct _NotesWindow
   guint                 timeout_start_move;
   gint                  x, y, w, h;
   ShowOnStartup         show_on_startup;
-  gboolean              show_statusbar;
   gboolean              show_tabs;
   gboolean              above;
   gboolean              sticky;
@@ -102,7 +101,6 @@ struct _NotesWindow
   GtkWidget            *eb_move; /* event box */
   GtkWidget            *title;
   GtkWidget            *notebook;
-  GtkWidget            *statusbar;
 
   GtkAccelGroup        *accel_group;
 

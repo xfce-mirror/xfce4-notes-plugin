@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2008 Mike Massonnet <mmassonnet@gmail.com>
+ *  Copyright (c) 2008-2009 Mike Massonnet <mmassonnet@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,9 +19,11 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define BORDER                          8
 #define PLUGIN_WEBSITE                  "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
 #define PLUGIN_XFCONF_CHANNEL           "xfce4-notes-plugin"
+
+#define BORDER                          8
+#define CORNER_MARGIN                   20
 
 /* Default settings */
 #define GENERAL_HIDE_FROM_TASKBAR       TRUE
@@ -30,7 +32,6 @@
 #define NEW_WINDOW_HEIGHT               430
 #define NEW_WINDOW_ABOVE                FALSE
 #define NEW_WINDOW_STICKY               TRUE
-#define NEW_WINDOW_RESIZE_GRIP          FALSE
 #define NEW_WINDOW_TABS                 TRUE
 #define NEW_WINDOW_TRANSPARENCY         10
 #define NEW_WINDOW_USE_FONT             FALSE
