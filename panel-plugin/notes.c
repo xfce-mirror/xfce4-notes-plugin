@@ -171,7 +171,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   DBG ("New window: %s", window_name);
 
   NotesWindow          *notes_window;
-  GtkWidget            *img_add, *img_del, *img_close, *arrow_menu;
+  GtkWidget            *label, *arrow_menu;
   gchar                *window_name_tmp;
   gchar                *accel_name;
 
@@ -228,9 +228,9 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   /* Add button */
   notes_window->btn_add = xfce_create_panel_button ();
   gtk_widget_set_size_request (notes_window->btn_add, 22, 22);
-  img_add = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
-  gtk_container_add (GTK_CONTAINER (notes_window->btn_add),
-                     img_add);
+  label = gtk_label_new (NULL);
+  gtk_label_set_markup (GTK_LABEL (label), "<b>+</b>");
+  gtk_container_add (GTK_CONTAINER (notes_window->btn_add), label);
   gtk_box_pack_start (GTK_BOX (notes_window->hbox),
                       notes_window->btn_add,
                       FALSE,
@@ -241,9 +241,9 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   /* Remove button */
   notes_window->btn_del = xfce_create_panel_button ();
   gtk_widget_set_size_request (notes_window->btn_del, 22, 22);
-  img_del = gtk_image_new_from_stock (GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU);
-  gtk_container_add (GTK_CONTAINER (notes_window->btn_del),
-                     img_del);
+  label = gtk_label_new (NULL);
+  gtk_label_set_markup (GTK_LABEL (label), "<b>−</b>");
+  gtk_container_add (GTK_CONTAINER (notes_window->btn_del), label);
   gtk_box_pack_start (GTK_BOX (notes_window->hbox),
                       notes_window->btn_del,
                       FALSE,
@@ -287,9 +287,9 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   /* Close button */
   notes_window->btn_close = xfce_create_panel_button ();
   gtk_widget_set_size_request (notes_window->btn_close, 22, 22);
-  img_close = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-  gtk_container_add (GTK_CONTAINER (notes_window->btn_close),
-                     img_close);
+  label = gtk_label_new (NULL);
+  gtk_label_set_markup (GTK_LABEL (label), "<b>×</b>");
+  gtk_container_add (GTK_CONTAINER (notes_window->btn_close), label);
   gtk_box_pack_start (GTK_BOX (notes_window->hbox),
                       notes_window->btn_close,
                       FALSE,
@@ -1613,10 +1613,16 @@ notes_note_new (NotesWindow *notes_window,
 
   /* Text view */
   notes_note->text_view = gtk_text_view_new ();
+  g_object_set (notes_note->text_view,
+                "wrap-mode", GTK_WRAP_WORD,
+                "left-margin", 2,
+                "right-margin", 2,
+                "pixels-above-lines", 1,
+                "pixels-below-lines", 1,
+                NULL);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
   gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &iter, 0);
   gtk_text_buffer_create_mark (GTK_TEXT_BUFFER (buffer), "undo-pos", &iter, FALSE);
-  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (notes_note->text_view), GTK_WRAP_WORD);
   if (NULL != notes_note->notes_window->font)
     notes_note_set_font (notes_note, notes_note->notes_window->font);
   gtk_container_add (GTK_CONTAINER (notes_note->scrolled_window),

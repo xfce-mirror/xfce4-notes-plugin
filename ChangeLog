@@ -1,3 +1,11 @@
+2009-02-19  Mike Massonnet <mmassonnet@xfce.org>
+
+Replace icons against labels for the buttons in the window
+	* panel-plugin/notes.c(notes_window_new_with_label):
+	  - Use labels instead of images inside the buttons
+	* panel-plugin/notes.c(notes_note_new):
+	  - Set margin properties for the textview
+
 2008-11-22  Mike Massonnet <mmassonnet@xfce.org>
 
 === Release 1.6.3 ===
