@@ -1,3 +1,14 @@
+2009-02-20  Mike Massonnet <mmassonnet@xfce.org>
+
+Set default thickness for frame and add two mouse cursors for resizing
+	* panel-plugin/notes.c(notes_window_new_with_label):
+	  - Set default thickness of the frame to x=1 and y=3 so it looks
+	  sharp on the left and right side of the window and like a small
+	  status bar for the bottom where we display the mouse cursor for
+	  resizing
+	* panel-plugin/notes.c(notes_window_motion_event):
+	  - Display two more resizing cursors: bottom and bottom left
+
 2009-02-19  Mike Massonnet <mmassonnet@xfce.org>
 
 Make window resizable with the mouse

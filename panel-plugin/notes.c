@@ -176,6 +176,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 
   NotesWindow          *notes_window;
   GtkWidget            *label, *arrow_menu;
+  GtkRcStyle           *style;
   gchar                *window_name_tmp;
   gchar                *accel_name;
 
@@ -210,6 +211,10 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   /* Frame */
   notes_window->frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (notes_window->frame), GTK_SHADOW_OUT);
+  style = gtk_widget_get_modifier_style (notes_window->frame);
+  style->xthickness = 1;
+  style->ythickness = 3;
+  gtk_widget_modify_style (notes_window->frame, style);
   gtk_container_add (GTK_CONTAINER (notes_window->window),
                      notes_window->frame);
   gtk_widget_show (notes_window->frame);
@@ -1121,8 +1126,8 @@ static gboolean
 notes_window_motion_event (NotesWindow *notes_window,
                            GdkEventMotion *event)
 {
-  GtkAllocation alloc = notes_window->window->allocation;
-  GdkCursor *cursor;
+  GtkAllocation     alloc = notes_window->window->allocation;
+  GdkCursor        *cursor;
 
   if (event->x > 2 &&
       event->y > 2 &&
@@ -1133,9 +1138,27 @@ notes_window_motion_event (NotesWindow *notes_window,
   TRACE ("Window Motion: (%.0fx%.0f) %dx%d", event->x, event->y, alloc.width, alloc.height);
 
   /* Display a mouse cursor for the bottom right corner */
-  if (event->x >= alloc.width - CORNER_MARGIN && event->y >= alloc.height - CORNER_MARGIN)
+  if (event->x >= alloc.width - CORNER_MARGIN &&
+      event->y >= alloc.height - CORNER_MARGIN)
     {
       cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
+      gdk_window_set_cursor (notes_window->window->window, cursor);
+      gdk_cursor_unref (cursor);
+    }
+  /* Display a mouse cursor for the bottom line */
+  else if (event->x > CORNER_MARGIN &&
+           event->y > alloc.height - CORNER_MARGIN &&
+           event->x < alloc.width - CORNER_MARGIN)
+    {
+      cursor = gdk_cursor_new (GDK_BOTTOM_SIDE);
+      gdk_window_set_cursor (notes_window->window->window, cursor);
+      gdk_cursor_unref (cursor);
+    }
+  /* Display a mouse cursor for the bottom left corner */
+  else if (event->x <= CORNER_MARGIN &&
+           event->y >= alloc.height - CORNER_MARGIN)
+    {
+      cursor = gdk_cursor_new (GDK_BOTTOM_LEFT_CORNER);
       gdk_window_set_cursor (notes_window->window->window, cursor);
       gdk_cursor_unref (cursor);
     }
@@ -1192,7 +1215,7 @@ notes_window_button_event (NotesWindow *notes_window,
     {
       edge = GDK_WINDOW_EDGE_SOUTH_EAST;
     }
-  /* Bottom corner */
+  /* Bottom line */
   else if (event->x > CORNER_MARGIN &&
            event->y > alloc.height - CORNER_MARGIN &&
            event->x < alloc.width - CORNER_MARGIN)
