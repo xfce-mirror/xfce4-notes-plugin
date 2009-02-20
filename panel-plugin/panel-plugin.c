@@ -1,7 +1,7 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (C) 2003       Jakob Henriksson <b0kaj+dev@lysator.liu.se>
- *  Copyright (C) 2006-2008  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (C) 2006-2009  Mike Massonnet <mmassonnet@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -112,17 +112,23 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
 
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
+  /* Init the plugin */
   notes_plugin = notes_plugin_new (panel_plugin);
-
-  /* Set initial orientation for the arrow */
-  orientation = xfce_panel_plugin_get_orientation (panel_plugin);
-  notes_plugin_set_orientation (notes_plugin, orientation);
+  gtk_widget_show_all (GTK_WIDGET (panel_plugin));
 
 #ifdef HAVE_XFCONF
   notes_plugin_monitor_xfconf (notes_plugin);
 #endif
 
-  gtk_widget_show_all (GTK_WIDGET (panel_plugin));
+  /* Set the tooltip */
+#if GTK_CHECK_VERSION (2,12,0)
+  gtk_widget_set_tooltip_text (GTK_WIDGET (panel_plugin), _("Notes"));
+#endif
+
+  /* Set initial orientation of the arrow */
+  orientation = xfce_panel_plugin_get_orientation (panel_plugin);
+  notes_plugin_set_orientation (notes_plugin, orientation);
+
 #ifdef HAVE_XFCONF
   if (xfconf_channel_get_bool (notes_plugin->xfconf_channel,
                                "/general/hide_arrow_button",
@@ -130,12 +136,11 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
     gtk_widget_hide (notes_plugin->btn_arrow);
 #endif
 
-  /* TODO Postpone this call inside a idle function */
-  notes_plugin_load_data (notes_plugin);
+  /* Load the notes */
+  while (gtk_events_pending ())
+    gtk_main_iteration ();
 
-#if GTK_CHECK_VERSION (2,12,0)
-  gtk_widget_set_tooltip_text (GTK_WIDGET (panel_plugin), _("Notes"));
-#endif
+  notes_plugin_load_data (notes_plugin);
 }
 
 static NotesPlugin *

@@ -1,3 +1,15 @@
+2009-02-21  Mike Massonnet <mmassonnet@xfce.org>
+
+Update the settings dialog
+	* panel-plugin/settings-dialog.c:
+	  - General clean up
+	  - Add a "Show tabs" setting for new windows
+	  - Replace the size width*height against a combobox with three
+	  predefined sizes
+	  - Rename title and subtitle
+	* panel-plugin/notes.c:
+	  - Rename hide_tabs to show_tabs
+
 2009-02-20  Mike Massonnet <mmassonnet@xfce.org>
 
 Set default thickness for frame and add two mouse cursors for resizing

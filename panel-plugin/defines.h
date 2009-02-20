@@ -28,14 +28,18 @@
 /* Default settings */
 #define GENERAL_HIDE_FROM_TASKBAR       TRUE
 #define GENERAL_HIDE_ARROW_BUTTON       FALSE
-#define NEW_WINDOW_WIDTH                375
-#define NEW_WINDOW_HEIGHT               430
 #define NEW_WINDOW_ABOVE                FALSE
 #define NEW_WINDOW_STICKY               TRUE
 #define NEW_WINDOW_TABS                 TRUE
 #define NEW_WINDOW_TRANSPARENCY         10
 #define NEW_WINDOW_USE_FONT             FALSE
 #define NEW_WINDOW_FONT_DESCR           "Sans 10"
+#define NEW_WINDOW_WIDTH                SIZE_NORMAL
+#define NEW_WINDOW_HEIGHT               ((gint)NEW_WINDOW_WIDTH*SIZE_FACTOR)
+#define SIZE_SMALL                      240
+#define SIZE_NORMAL                     305
+#define SIZE_LARGE                      340
+#define SIZE_FACTOR                     1.15
 
 #endif
 

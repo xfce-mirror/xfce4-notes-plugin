@@ -613,14 +613,15 @@ notes_window_load_data (NotesWindow *notes_window)
 
   notes_window_set_transparency (notes_window, notes_window->transparency);
   gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), 0);
-  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook), notes_window->show_tabs);
+  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
+                              (notes_window->show_tabs && g_slist_length (notes_window->notes) > 1));
   gtk_notebook_set_show_border (GTK_NOTEBOOK (notes_window->notebook), FALSE);
 }
 
 void
 notes_window_save_data (NotesWindow *notes_window)
 {
-  XfceRc               *rc;
+  XfceRc *rc;
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
   g_return_if_fail (G_LIKELY (rc != NULL));
@@ -880,12 +881,12 @@ notes_window_menu_options_new (NotesWindow *notes_window)
   notes_window->menu_options = gtk_menu_new ();
   GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
   GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
-  GtkWidget *mi_hide_tabs       = gtk_check_menu_item_new_with_label (_("Hide tabs"));
+  GtkWidget *mi_show_tabs       = gtk_check_menu_item_new_with_label (_("Show tabs"));
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_above);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sticky);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_hide_tabs);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_tabs);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_on_startup);
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (notes_window->mi_options), notes_window->menu_options);
 
@@ -906,13 +907,13 @@ notes_window_menu_options_new (NotesWindow *notes_window)
 
   /* Activate check menu items */
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sos_always),
-                                  (notes_window->show_on_startup == ALWAYS));
+                                  notes_window->show_on_startup == ALWAYS);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sos_never),
-                                  (notes_window->show_on_startup == NEVER));
+                                  notes_window->show_on_startup == NEVER);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sos_last_state),
-                                  (notes_window->show_on_startup == LAST_STATE));
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_hide_tabs),
-                                  !notes_window->show_tabs);
+                                  notes_window->show_on_startup == LAST_STATE);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_show_tabs),
+                                  notes_window->show_tabs);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_above),
                                   notes_window->above);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sticky),
@@ -923,7 +924,7 @@ notes_window_menu_options_new (NotesWindow *notes_window)
   /* Accel group */
   gtk_menu_set_accel_group (GTK_MENU (notes_window->menu_options),
                             notes_window->accel_group);
-  gtk_widget_add_accelerator (mi_hide_tabs,
+  gtk_widget_add_accelerator (mi_show_tabs,
                               "activate",
                               notes_window->accel_group,
                               GDK_F12,
@@ -944,7 +945,7 @@ notes_window_menu_options_new (NotesWindow *notes_window)
                             "activate",
                             G_CALLBACK (notes_window_set_sos_last_state),
                             notes_window);
-  g_signal_connect_swapped (mi_hide_tabs,
+  g_signal_connect_swapped (mi_show_tabs,
                             "activate",
                             G_CALLBACK (notes_window_set_tabs),
                             notes_window);

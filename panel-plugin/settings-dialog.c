@@ -30,72 +30,41 @@
 
 
 
+static void cb_size_changed (GtkComboBox *button,
+                             gpointer data);
+
 static XfconfChannel *xfconf_channel = NULL;
 
 GtkWidget *
 prop_dialog_new (NotesPlugin *notes_plugin)
 {
-  GtkWidget *dialog, *frame, *box, *hbox, *button, *spin, *label;
-  GtkWidget *size_box;
+  GtkWidget *dialog, *frame, *box, *hbox, *button, *label;
+  gint size;
 
   /* Configuration channel */
   if (NULL == xfconf_channel)
     xfconf_channel = notes_plugin->xfconf_channel;
 
+#if 0
   /* Set unset xfconf values */
-  if (!xfconf_channel_has_property (xfconf_channel, "/general/hide_windows_from_taskbar"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/general/hide_windows_from_taskbar",
-                             GENERAL_HIDE_FROM_TASKBAR);
-  if (!xfconf_channel_has_property (xfconf_channel, "/general/hide_arrow_button"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/general/hide_arrow_button",
-                             GENERAL_HIDE_ARROW_BUTTON);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/width"))
-    xfconf_channel_set_int (xfconf_channel,
-                            "/new_window/width",
-                            NEW_WINDOW_WIDTH);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/height"))
-    xfconf_channel_set_int (xfconf_channel,
-                            "/new_window/height",
-                            NEW_WINDOW_HEIGHT);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/always_on_top"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/new_window/always_on_top",
-                             NEW_WINDOW_ABOVE);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/sticky"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/new_window/sticky",
-                             NEW_WINDOW_STICKY);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/show_tabs"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/new_window/show_tabs",
-                             NEW_WINDOW_TABS);
   if (!xfconf_channel_has_property (xfconf_channel, "/new_window/transparency"))
     xfconf_channel_set_int (xfconf_channel,
                             "/new_window/transparency",
                             NEW_WINDOW_TRANSPARENCY);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/use_font"))
-    xfconf_channel_set_bool (xfconf_channel,
-                             "/new_window/use_font",
-                             NEW_WINDOW_USE_FONT);
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/font_description"))
-    xfconf_channel_set_string (xfconf_channel,
-                               "/new_window/font_description",
-                               NEW_WINDOW_FONT_DESCR);
+#endif
 
   /* Dialog */
   dialog =
-    xfce_titled_dialog_new_with_buttons (_("Xfce 4 Notes Plugin"),
+    xfce_titled_dialog_new_with_buttons (_("Notes"),
                                          GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (notes_plugin->panel_plugin))),
                                          GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
                                          GTK_STOCK_HELP, GTK_RESPONSE_HELP,
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
+  xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog), _("Configure the plugin"));
   gtk_window_set_icon_name (GTK_WINDOW (dialog), "xfce4-notes-plugin");
   gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size (GTK_WINDOW (dialog), 375, -1);
   gtk_window_stick (GTK_WINDOW (dialog));
 
   /* === Default settings === */
@@ -106,12 +75,14 @@ prop_dialog_new (NotesPlugin *notes_plugin)
 
   /* Hide from taskbar */
   button = gtk_check_button_new_with_label (_("Hide windows from taskbar"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_HIDE_FROM_TASKBAR);
   xfconf_g_property_bind (xfconf_channel, "/general/hide_windows_from_taskbar",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_container_add (GTK_CONTAINER (box), button);
 
   /* Hide arrow button */
   button = gtk_check_button_new_with_label (_("Hide arrow button"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_HIDE_ARROW_BUTTON);
   xfconf_g_property_bind (xfconf_channel, "/general/hide_arrow_button",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_container_add (GTK_CONTAINER (box), button);
@@ -124,13 +95,22 @@ prop_dialog_new (NotesPlugin *notes_plugin)
 
   /* Always on top */
   button = gtk_check_button_new_with_label (_("Always on top"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_ABOVE);
   xfconf_g_property_bind (xfconf_channel, "/new_window/always_on_top",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* Sticky window */
   button = gtk_check_button_new_with_label (_("Sticky window"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_STICKY);
   xfconf_g_property_bind (xfconf_channel, "/new_window/sticky",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
+  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
+
+  /* Tabs */
+  button = gtk_check_button_new_with_label (_("Show tabs"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_TABS);
+  xfconf_g_property_bind (xfconf_channel, "/new_window/show_tabs",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
@@ -138,12 +118,13 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   hbox = gtk_hbox_new (FALSE, BORDER);
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
-  button = gtk_check_button_new_with_label (_("Font"));
+  button = gtk_check_button_new_with_label (_("Font:"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_USE_FONT);
   xfconf_g_property_bind (xfconf_channel, "/new_window/use_font",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
-  button = gtk_font_button_new ();
+  button = gtk_font_button_new_with_font (NEW_WINDOW_FONT_DESCR);
   xfconf_g_property_bind (xfconf_channel, "/new_window/font_description",
                           G_TYPE_STRING, G_OBJECT (button), "font-name");
   gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
@@ -152,29 +133,62 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   hbox = gtk_hbox_new (FALSE, BORDER);
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
-  label = gtk_label_new (_("Size"));
+  label = gtk_label_new (_("Size:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-  size_box = gtk_hbox_new (FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox), size_box, TRUE, TRUE, 0);
-
-  spin = gtk_spin_button_new_with_range (20.0, 600.0, 10.0);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/width",
-                          G_TYPE_INT, G_OBJECT (spin), "value");
-  gtk_box_pack_start (GTK_BOX (size_box), spin, TRUE, TRUE, 0);
-
-  label = gtk_label_new ("×");
-  gtk_box_pack_start (GTK_BOX (size_box), label, FALSE, FALSE, BORDER);
-
-  spin = gtk_spin_button_new_with_range (20.0, 600.0, 10.0);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/height",
-                          G_TYPE_INT, G_OBJECT (spin), "value");
-  gtk_box_pack_start (GTK_BOX (size_box), spin, TRUE, TRUE, 0);
+  button = gtk_combo_box_new_text ();
+  gtk_combo_box_append_text (GTK_COMBO_BOX (button), _("Small"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (button), _("Normal"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (button), _("Large"));
+  size = xfconf_channel_get_int (xfconf_channel, "/new_window/width", SIZE_NORMAL);
+  if (size == SIZE_SMALL)
+    gtk_combo_box_set_active (GTK_COMBO_BOX (button), 0);
+  else if (size == SIZE_NORMAL)
+    gtk_combo_box_set_active (GTK_COMBO_BOX (button), 1);
+  else if (size == SIZE_LARGE)
+    gtk_combo_box_set_active (GTK_COMBO_BOX (button), 2);
+  g_signal_connect (button, "changed", G_CALLBACK (cb_size_changed), NULL);
+  gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
 
   /* === Ending === */
   gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 
   return dialog;
+}
+
+static void
+cb_size_changed (GtkComboBox *button,
+                 gpointer data)
+{
+  gint id;
+  gint width, height;
+
+  id = gtk_combo_box_get_active (button);
+
+  if (id < 0)
+    {
+      g_critical ("Trying to set a default size but got an active item < 0");
+      return;
+    }
+
+  if (id == 0)
+    {
+      width = SIZE_SMALL;
+      height = (gint)SIZE_SMALL*SIZE_FACTOR;
+    }
+  else if (id == 1)
+    {
+      width = SIZE_NORMAL;
+      height = (gint)SIZE_NORMAL*SIZE_FACTOR;
+    }
+  else if (id == 2)
+    {
+      width = SIZE_LARGE;
+      height = (gint)SIZE_LARGE*SIZE_FACTOR;
+    }
+
+  xfconf_channel_set_int (xfconf_channel, "/new_window/width", width);
+  xfconf_channel_set_int (xfconf_channel, "/new_window/height", height);
 }
 #endif
 
