@@ -1,2 +1,3 @@
 * HypertextView for hyperlinks
-* Type-ahead style search
+* (Type-ahead style) search
+* Remember the last tab in the window on quit

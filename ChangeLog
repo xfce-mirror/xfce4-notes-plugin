@@ -1,5 +1,12 @@
 2009-02-21  Mike Massonnet <mmassonnet@xfce.org>
 
+Little change in the menu
+	* panel-plugin/notes.c(notes_window_menu_options_new),
+	  panel-plugin/notes.c(notes_window_menu_new):
+	  - Change how the "titles" are displayed
+
+2009-02-21  Mike Massonnet <mmassonnet@xfce.org>
+
 Update the settings dialog
 	* panel-plugin/settings-dialog.c:
 	  - General clean up

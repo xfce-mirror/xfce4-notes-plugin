@@ -750,39 +750,40 @@ notes_window_menu_new (NotesWindow *notes_window)
   /* Menu */
   notes_window->menu = gtk_menu_new ();
   GtkWidget *mi_window         = gtk_menu_item_new_with_label (_("Window"));
-  GtkWidget *mi_separator1     = gtk_separator_menu_item_new ();
   GtkWidget *mi_new_window     = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
   GtkWidget *mi_destroy_window = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
   GtkWidget *mi_rename_window  = gtk_menu_item_new_with_mnemonic (_("_Rename..."));
   GtkWidget *mi_font           = gtk_image_menu_item_new_from_stock (GTK_STOCK_SELECT_FONT, NULL);
   notes_window->mi_options     = gtk_menu_item_new_with_mnemonic (_("_Options"));
-  GtkWidget *mi_separator2     = gtk_separator_menu_item_new ();
+  GtkWidget *mi_separator1     = gtk_separator_menu_item_new ();
   GtkWidget *mi_note           = gtk_menu_item_new_with_label (_("Note"));
-  GtkWidget *mi_separator3     = gtk_separator_menu_item_new ();
   GtkWidget *mi_new_note       = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
   GtkWidget *mi_delete_note    = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
   GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename..."));
-  /*GtkWidget *mi_lock_note      = gtk_menu_item_new_with_mnemonic (_("_Lock note"));*/
+#if 0
+  GtkWidget *mi_lock_note      = gtk_menu_item_new_with_mnemonic (_("_Lock note"));
+#endif
   GtkWidget *mi_undo           = gtk_image_menu_item_new_from_stock (GTK_STOCK_UNDO, NULL);
 
   gtk_widget_set_sensitive (mi_window, FALSE);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_window);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_destroy_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_window);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_font);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), notes_window->mi_options);
-  gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator2);
-  gtk_widget_set_sensitive (mi_note, FALSE);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_note);
-  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_separator3);
+  gtk_widget_set_sensitive (mi_note, FALSE);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_new_note);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_delete_note);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_rename_note);
-  /*gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_lock_note);*/
+#if 0
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_lock_note);
+#endif
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu), mi_undo);
+
+  gtk_menu_attach_to_widget (GTK_MENU (notes_window->menu), notes_window->btn_menu, NULL);
 
   /* Accel group */
   gtk_menu_set_accel_group (GTK_MENU (notes_window->menu),
@@ -882,28 +883,29 @@ notes_window_menu_options_new (NotesWindow *notes_window)
   GtkWidget *mi_above           = gtk_check_menu_item_new_with_label (_("Always on top"));
   GtkWidget *mi_sticky          = gtk_check_menu_item_new_with_label (_("Sticky window"));
   GtkWidget *mi_show_tabs       = gtk_check_menu_item_new_with_label (_("Show tabs"));
+  GtkWidget *mi_separator1      = gtk_separator_menu_item_new ();
   GtkWidget *mi_show_on_startup = gtk_menu_item_new_with_label (_("Show on startup"));
 
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_above);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sticky);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_tabs);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_separator1);
   gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_show_on_startup);
+  gtk_widget_set_sensitive (mi_show_on_startup, FALSE);
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (notes_window->mi_options), notes_window->menu_options);
 
-  /* Sub-menu "Show on startup" */
-  GtkWidget *menu_show_on_startup = gtk_menu_new ();
   GSList *menu_group = NULL;
-  GtkWidget *mi_sos_always      = gtk_radio_menu_item_new_with_label (menu_group, _("Always"));
+
+  GtkWidget *mi_sos_always = gtk_radio_menu_item_new_with_label (menu_group, _("Always"));
   menu_group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi_sos_always));
-  GtkWidget *mi_sos_never       = gtk_radio_menu_item_new_with_label (menu_group, _("Never"));
+  GtkWidget *mi_sos_never = gtk_radio_menu_item_new_with_label (menu_group, _("Never"));
   menu_group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi_sos_never));
-  GtkWidget *mi_sos_last_state  = gtk_radio_menu_item_new_with_label (menu_group, _("Last state"));
+  GtkWidget *mi_sos_last_state = gtk_radio_menu_item_new_with_label (menu_group, _("Last state"));
   menu_group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi_sos_last_state));
 
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu_show_on_startup), mi_sos_always);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu_show_on_startup), mi_sos_never);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu_show_on_startup), mi_sos_last_state);
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi_show_on_startup), menu_show_on_startup);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sos_always);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sos_never);
+  gtk_menu_shell_append (GTK_MENU_SHELL (notes_window->menu_options), mi_sos_last_state);
 
   /* Activate check menu items */
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi_sos_always),
