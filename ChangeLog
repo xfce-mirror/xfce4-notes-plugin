@@ -1,3 +1,17 @@
+2009-02-22  Mike Massonnet <mmassonnet@xfce.org>
+
+Default background color in the settings dialog
+	* panel-plugin/color.[ch]:
+	  - New file with functions related to colors and other functions to
+	  update the gtk rc style
+	* panel-plugin/defines.h:
+	  - New default values for colors
+	* panel-plugin/panel-plugin.c:
+	  - (notes_plugin_register): Set initial color
+	  - (notes_plugin_xfconf_property_changed): Listen to color changes
+	* panel-plugin/settings-dialog.c:
+	  - New background color setting
+
 2009-02-21  Mike Massonnet <mmassonnet@xfce.org>
 
 Little change in the menu

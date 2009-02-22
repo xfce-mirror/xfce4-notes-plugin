@@ -18,12 +18,12 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
 #include "defines.h"
+#include "color.h"
 #include "notes.h"
 #ifdef HAVE_XFCONF
 #include "settings-dialog.h"
@@ -134,6 +134,14 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
                                "/general/hide_arrow_button",
                                GENERAL_HIDE_ARROW_BUTTON))
     gtk_widget_hide (notes_plugin->btn_arrow);
+
+  gchar *background = xfconf_channel_get_string (notes_plugin->xfconf_channel,
+                                                 "/general/background_color",
+                                                 GENERAL_BACKGROUND_COLOR);
+  color_set_background (background);
+  g_free (background);
+#else
+  color_set_background (GENERAL_BACKGROUND_COLOR);
 #endif
 
   /* Load the notes */
@@ -408,8 +416,6 @@ notes_plugin_xfconf_property_changed (NotesPlugin *notes_plugin,
                                       gchar *property,
                                       GValue *value)
 {
-  /* Refresh both elements
-   * TODO find out how to guess efficiently the property name */
   if (!g_ascii_strcasecmp (property, "/general/hide_windows_from_taskbar"))
     {
       GSList *l;
@@ -425,6 +431,10 @@ notes_plugin_xfconf_property_changed (NotesPlugin *notes_plugin,
         gtk_widget_hide (notes_plugin->btn_arrow);
       else
         gtk_widget_show (notes_plugin->btn_arrow);
+    }
+  else if (!g_ascii_strcasecmp (property, "/general/background_color"))
+    {
+      color_set_background (g_value_get_string (value));
     }
 }
 #endif

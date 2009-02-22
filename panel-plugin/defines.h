@@ -28,6 +28,7 @@
 /* Default settings */
 #define GENERAL_HIDE_FROM_TASKBAR       TRUE
 #define GENERAL_HIDE_ARROW_BUTTON       FALSE
+#define GENERAL_BACKGROUND_COLOR        BACKGROUND_YELLOW
 #define NEW_WINDOW_ABOVE                FALSE
 #define NEW_WINDOW_STICKY               TRUE
 #define NEW_WINDOW_TABS                 TRUE
@@ -36,10 +37,20 @@
 #define NEW_WINDOW_FONT_DESCR           "Sans 10"
 #define NEW_WINDOW_WIDTH                SIZE_NORMAL
 #define NEW_WINDOW_HEIGHT               ((gint)NEW_WINDOW_WIDTH*SIZE_FACTOR)
+
+/* Size values */
 #define SIZE_SMALL                      240
 #define SIZE_NORMAL                     305
 #define SIZE_LARGE                      340
 #define SIZE_FACTOR                     1.15
+
+/* Background color values */
+#define BACKGROUND_YELLOW               "#FFEE75"
+#define BACKGROUND_RED                  "#FE8484"
+#define BACKGROUND_BLUE                 "#8FBBEC"
+#define BACKGROUND_GREEN                "#95EA84"
+#define BACKGROUND_PURPLE               "#D37AFF"
+#define BACKGROUND_WHITE                "#F2F1EF"
 
 #endif
 
