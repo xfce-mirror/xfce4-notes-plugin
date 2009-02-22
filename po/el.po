@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-02 23:02+0300\n"
+"POT-Creation-Date: 2009-02-23 00:54+0100\n"
 "PO-Revision-Date: 2008-05-09 23:14+0300\n"
 "Last-Translator: Stavros Giannouris <stavrosg@hellug.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -15,129 +15,185 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:236
+#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: ../panel-plugin/panel-plugin.c:267
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "Αδυναμία στο άνοιγμα του παρακάτω  url: %s"
 
-#: ../panel-plugin/notes.c:427
+#: ../panel-plugin/notes.c:452
 msgid "Are you sure you want to delete this window?"
 msgstr "Επιθυμείτε την διαγραφή του παραθύρου;"
 
-#: ../panel-plugin/notes.c:730
+#: ../panel-plugin/notes.c:752
 msgid "Window"
 msgstr "Παράθυρο"
 
-#: ../panel-plugin/notes.c:734
+#: ../panel-plugin/notes.c:755
 msgid "_Rename..."
 msgstr "Μ_ετονομασία..."
 
-#: ../panel-plugin/notes.c:736
+#: ../panel-plugin/notes.c:757
 msgid "_Options"
 msgstr "Επ_ιλογές"
 
-#: ../panel-plugin/notes.c:738
+#: ../panel-plugin/notes.c:759
 msgid "Note"
 msgstr "Σημείωση"
 
-#: ../panel-plugin/notes.c:742
+#: ../panel-plugin/notes.c:762
 msgid "R_ename..."
 msgstr "Μετ_ονομασία..."
 
-#. Resize grip
-#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:132
-msgid "Resize grip"
-msgstr "Αλλαγή μεγέθους παραθύρου"
-
 #. Always on top
-#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:118
+#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
 msgid "Always on top"
 msgstr "Πάντα στην κορυφή"
 
 #. Sticky window
-#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:125
+#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
 msgid "Sticky window"
 msgstr "Επικόλληση παραθύρου"
 
-#: ../panel-plugin/notes.c:851
+#. Tabs
+#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+msgid "Show tabs"
+msgstr ""
+
+#: ../panel-plugin/notes.c:887
 msgid "Show on startup"
 msgstr "Εμφάνιση κατά την εκκίνηση"
 
-#: ../panel-plugin/notes.c:862
+#: ../panel-plugin/notes.c:899
 msgid "Always"
 msgstr "Πάντα"
 
-#: ../panel-plugin/notes.c:864
+#: ../panel-plugin/notes.c:901
 msgid "Never"
 msgstr "Ποτέ"
 
-#: ../panel-plugin/notes.c:866
+#: ../panel-plugin/notes.c:903
 msgid "Last state"
 msgstr "Τελευταία κατάσταση"
 
-#: ../panel-plugin/notes.c:1037
+#: ../panel-plugin/notes.c:1080
 msgid "Choose Window Font"
 msgstr "Επιλογή γραμματοσειράς παραθύρου"
 
-#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
+#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
 msgid "Rename window"
 msgstr "Μετονομασία παραθύρου"
 
-#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
+#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../panel-plugin/notes.c:1352
+#: ../panel-plugin/notes.c:1523
 msgid "Unable to rename window"
 msgstr "Αδυναμία μετονομασίας παραθύρου"
 
-#: ../panel-plugin/notes.c:1461
+#: ../panel-plugin/notes.c:1632
 msgid "Are you sure you want to delete this note?"
 msgstr "Επιθυμείτε την διαγραφή της σημείωσης;"
 
-#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
+#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
 msgid "Rename note"
 msgstr "Μετονομασία σημείωσης"
 
-#: ../panel-plugin/notes.c:1772
+#: ../panel-plugin/notes.c:1969
 msgid "Unable to rename note"
 msgstr "Αδυναμία μετονομασίας σημείωσης"
 
-#: ../panel-plugin/notes-properties-dialog.c:79
-msgid "Xfce 4 Notes Plugin"
-msgstr "Άρθρωμα σημειώσεων xfce 4"
+#: ../panel-plugin/settings-dialog.c:91
+msgid "Configure the plugin"
+msgstr ""
 
-#: ../panel-plugin/notes-properties-dialog.c:93
+#: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
 msgstr "Αρχικές ρυθμίσεις"
 
 #. Hide from taskbar
-#: ../panel-plugin/notes-properties-dialog.c:98
+#: ../panel-plugin/settings-dialog.c:103
 msgid "Hide windows from taskbar"
 msgstr "Απόκρυψη παραθύρων από την λίστα εργασιών"
 
 #. Hide arrow button
-#: ../panel-plugin/notes-properties-dialog.c:105
+#: ../panel-plugin/settings-dialog.c:110
 msgid "Hide arrow button"
 msgstr "Απόκρυψη κουμπιού βέλους"
 
-#: ../panel-plugin/notes-properties-dialog.c:113
+#: ../panel-plugin/settings-dialog.c:120
+msgid "Background:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "Ρυθμίσεις νέου παραθύρου"
 
-#: ../panel-plugin/notes-properties-dialog.c:142
-msgid "Font"
+#: ../panel-plugin/settings-dialog.c:160
+#, fuzzy
+msgid "Font:"
 msgstr "Γραμματοσειρά"
 
-#: ../panel-plugin/notes-properties-dialog.c:158
-msgid "Size"
+#: ../panel-plugin/settings-dialog.c:175
+#, fuzzy
+msgid "Size:"
 msgstr "Μέγεθος"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
-msgid "Notes"
-msgstr "Σημειώσεις"
+#: ../panel-plugin/settings-dialog.c:194
+msgid "Small"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:195
+msgid "Normal"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:196
+msgid "Large"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:254
+msgid "Yellow"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:255
+msgid "Red"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:256
+msgid "Blue"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:257
+msgid "Green"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:258
+msgid "Purple"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:259
+msgid "White"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:260
+msgid "Custom..."
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:349
+msgid "Background Color"
+msgstr ""
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Άρθρωμα σημειώσεων για την επιφάνεια του xfce4"
 
+#~ msgid "Resize grip"
+#~ msgstr "Αλλαγή μεγέθους παραθύρου"
+
+#~ msgid "Xfce 4 Notes Plugin"
+#~ msgstr "Άρθρωμα σημειώσεων xfce 4"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-30 02:47+0200\n"
+"POT-Creation-Date: 2009-02-23 00:54+0100\n"
 "PO-Revision-Date: 2007-11-16 20:33+0300\n"
 "Last-Translator: Rihards Priedītis <rprieditis@inbox.lv>\n"
 "Language-Team: Latvian <rprieditis@inbox.lv>\n"
@@ -15,131 +15,178 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:236
-#, c-format
-msgid "Unable to open the following url: %s"
-msgstr ""
-
-#: ../panel-plugin/notes.c:427
-msgid "Are you sure you want to delete this window?"
-msgstr "Esat drošs, ka vēlaties dzēst šo logu?"
-
-#: ../panel-plugin/notes.c:730
-msgid "Window"
-msgstr "Logs"
-
-#: ../panel-plugin/notes.c:734
-msgid "_Rename..."
-msgstr "_Pārdēvēt..."
-
-#: ../panel-plugin/notes.c:736
-msgid "_Options"
-msgstr "_Uzstādījumi"
-
-#: ../panel-plugin/notes.c:738
-msgid "Note"
-msgstr "Piezīmes"
-
-#: ../panel-plugin/notes.c:742
-msgid "R_ename..."
-msgstr "Pār_dēvēt..."
-
-#. Resize grip
-#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:131
-msgid "Resize grip"
-msgstr ""
-
-#. Always on top
-#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:117
-msgid "Always on top"
-msgstr "Vienmēr priekšā"
-
-#. Sticky window
-#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:124
-msgid "Sticky window"
-msgstr "Lipīgs logs"
-
-#: ../panel-plugin/notes.c:851
-msgid "Show on startup"
-msgstr "Rādit pie sāknēšanas"
-
-#: ../panel-plugin/notes.c:862
-msgid "Always"
-msgstr "Vienmēr"
-
-#: ../panel-plugin/notes.c:864
-msgid "Never"
-msgstr "Nekad"
-
-#: ../panel-plugin/notes.c:866
-msgid "Last state"
-msgstr "Pēdējo stāvokli"
-
-#: ../panel-plugin/notes.c:1037
-msgid "Choose Window Font"
-msgstr "Izēlaties Loga Fontu"
-
-#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
-msgid "Rename window"
-msgstr "Pārdēvēt logu"
-
-#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
-msgid "Error"
-msgstr "Kļūda"
-
-#: ../panel-plugin/notes.c:1352
-msgid "Unable to rename window"
-msgstr "Nevarēju pārdēvēt logu"
-
-#: ../panel-plugin/notes.c:1461
-msgid "Are you sure you want to delete this note?"
-msgstr "Esat drošs, ka vēlaties dzēst šo piezīmi?"
-
-#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
-msgid "Rename note"
-msgstr "Pārdēvēt piezīmi"
-
-#: ../panel-plugin/notes.c:1772
-msgid "Unable to rename note"
-msgstr "Nevarēju pārdēvēt piezīmi"
-
-#: ../panel-plugin/notes-properties-dialog.c:78
-msgid "Xfce 4 Notes Plugin"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:92
-msgid "Default settings"
-msgstr ""
-
-#. Hide from taskbar
-#: ../panel-plugin/notes-properties-dialog.c:97
-msgid "Hide windows from taskbar"
-msgstr ""
-
-#. Hide arrow button
-#: ../panel-plugin/notes-properties-dialog.c:104
-msgid "Hide arrow button"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:112
-msgid "New window settings"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:141
-msgid "Font"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:157
-msgid "Size"
-msgstr ""
-
+#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Piezīmes"
 
+#: ../panel-plugin/panel-plugin.c:267
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr ""
+
+#: ../panel-plugin/notes.c:452
+msgid "Are you sure you want to delete this window?"
+msgstr "Esat drošs, ka vēlaties dzēst šo logu?"
+
+#: ../panel-plugin/notes.c:752
+msgid "Window"
+msgstr "Logs"
+
+#: ../panel-plugin/notes.c:755
+msgid "_Rename..."
+msgstr "_Pārdēvēt..."
+
+#: ../panel-plugin/notes.c:757
+msgid "_Options"
+msgstr "_Uzstādījumi"
+
+#: ../panel-plugin/notes.c:759
+msgid "Note"
+msgstr "Piezīmes"
+
+#: ../panel-plugin/notes.c:762
+msgid "R_ename..."
+msgstr "Pār_dēvēt..."
+
+#. Always on top
+#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+msgid "Always on top"
+msgstr "Vienmēr priekšā"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+msgid "Sticky window"
+msgstr "Lipīgs logs"
+
+#. Tabs
+#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+#, fuzzy
+msgid "Show tabs"
+msgstr "Rādīt statusajoslu"
+
+#: ../panel-plugin/notes.c:887
+msgid "Show on startup"
+msgstr "Rādit pie sāknēšanas"
+
+#: ../panel-plugin/notes.c:899
+msgid "Always"
+msgstr "Vienmēr"
+
+#: ../panel-plugin/notes.c:901
+msgid "Never"
+msgstr "Nekad"
+
+#: ../panel-plugin/notes.c:903
+msgid "Last state"
+msgstr "Pēdējo stāvokli"
+
+#: ../panel-plugin/notes.c:1080
+msgid "Choose Window Font"
+msgstr "Izēlaties Loga Fontu"
+
+#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
+msgid "Rename window"
+msgstr "Pārdēvēt logu"
+
+#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
+msgid "Error"
+msgstr "Kļūda"
+
+#: ../panel-plugin/notes.c:1523
+msgid "Unable to rename window"
+msgstr "Nevarēju pārdēvēt logu"
+
+#: ../panel-plugin/notes.c:1632
+msgid "Are you sure you want to delete this note?"
+msgstr "Esat drošs, ka vēlaties dzēst šo piezīmi?"
+
+#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+msgid "Rename note"
+msgstr "Pārdēvēt piezīmi"
+
+#: ../panel-plugin/notes.c:1969
+msgid "Unable to rename note"
+msgstr "Nevarēju pārdēvēt piezīmi"
+
+#: ../panel-plugin/settings-dialog.c:91
+msgid "Configure the plugin"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:98
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/settings-dialog.c:103
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#. Hide arrow button
+#: ../panel-plugin/settings-dialog.c:110
+msgid "Hide arrow button"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:120
+msgid "Background:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:131
+msgid "New window settings"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:160
+msgid "Font:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:175
+msgid "Size:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:194
+msgid "Small"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:195
+msgid "Normal"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:196
+msgid "Large"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:254
+msgid "Yellow"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:255
+msgid "Red"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:256
+msgid "Blue"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:257
+msgid "Green"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:258
+msgid "Purple"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:259
+msgid "White"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:260
+msgid "Custom..."
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:349
+msgid "Background Color"
+msgstr ""
+
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Piezīmju spraudnis Xfce4 darbavirsmai"
-
-#~ msgid "Show statusbar"
-#~ msgstr "Rādīt statusajoslu"

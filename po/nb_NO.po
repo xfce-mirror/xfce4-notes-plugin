@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-30 02:47+0200\n"
+"POT-Creation-Date: 2009-02-23 00:54+0100\n"
 "PO-Revision-Date: 2007-07-01 23:28+0200\n"
 "Last-Translator: Christian Lomsdalen <christian@vindstille.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -17,131 +17,178 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/panel-plugin.c:236
-#, c-format
-msgid "Unable to open the following url: %s"
-msgstr ""
-
-#: ../panel-plugin/notes.c:427
-msgid "Are you sure you want to delete this window?"
-msgstr "Er du sikker på at du vil slette dette vinduet?"
-
-#: ../panel-plugin/notes.c:730
-msgid "Window"
-msgstr "Vindu"
-
-#: ../panel-plugin/notes.c:734
-msgid "_Rename..."
-msgstr "_Gi nytt navn..."
-
-#: ../panel-plugin/notes.c:736
-msgid "_Options"
-msgstr "_Innstillinger"
-
-#: ../panel-plugin/notes.c:738
-msgid "Note"
-msgstr "Notat"
-
-#: ../panel-plugin/notes.c:742
-msgid "R_ename..."
-msgstr "Gi _nytt navn..."
-
-#. Resize grip
-#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:131
-msgid "Resize grip"
-msgstr ""
-
-#. Always on top
-#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:117
-msgid "Always on top"
-msgstr "Alltid øverst"
-
-#. Sticky window
-#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:124
-msgid "Sticky window"
-msgstr "Fast vindu"
-
-#: ../panel-plugin/notes.c:851
-msgid "Show on startup"
-msgstr "Vis alltid notater ved oppstart"
-
-#: ../panel-plugin/notes.c:862
-msgid "Always"
-msgstr "Alltid"
-
-#: ../panel-plugin/notes.c:864
-msgid "Never"
-msgstr "Aldri"
-
-#: ../panel-plugin/notes.c:866
-msgid "Last state"
-msgstr "Siste status"
-
-#: ../panel-plugin/notes.c:1037
-msgid "Choose Window Font"
-msgstr "Velg skrift for vindu"
-
-#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
-msgid "Rename window"
-msgstr "Gi nytt navn til vinduet"
-
-#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
-msgid "Error"
-msgstr "Feil"
-
-#: ../panel-plugin/notes.c:1352
-msgid "Unable to rename window"
-msgstr "Kunne ikke gi nytt navn til vinduet"
-
-#: ../panel-plugin/notes.c:1461
-msgid "Are you sure you want to delete this note?"
-msgstr "Er du sikker på at du vil slette dette notatet?"
-
-#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
-msgid "Rename note"
-msgstr "Gi nytt navn til notatet"
-
-#: ../panel-plugin/notes.c:1772
-msgid "Unable to rename note"
-msgstr "Kunne ikke gi nytt navn til notatet"
-
-#: ../panel-plugin/notes-properties-dialog.c:78
-msgid "Xfce 4 Notes Plugin"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:92
-msgid "Default settings"
-msgstr ""
-
-#. Hide from taskbar
-#: ../panel-plugin/notes-properties-dialog.c:97
-msgid "Hide windows from taskbar"
-msgstr ""
-
-#. Hide arrow button
-#: ../panel-plugin/notes-properties-dialog.c:104
-msgid "Hide arrow button"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:112
-msgid "New window settings"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:141
-msgid "Font"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:157
-msgid "Size"
-msgstr ""
-
+#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notater"
 
+#: ../panel-plugin/panel-plugin.c:267
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr ""
+
+#: ../panel-plugin/notes.c:452
+msgid "Are you sure you want to delete this window?"
+msgstr "Er du sikker på at du vil slette dette vinduet?"
+
+#: ../panel-plugin/notes.c:752
+msgid "Window"
+msgstr "Vindu"
+
+#: ../panel-plugin/notes.c:755
+msgid "_Rename..."
+msgstr "_Gi nytt navn..."
+
+#: ../panel-plugin/notes.c:757
+msgid "_Options"
+msgstr "_Innstillinger"
+
+#: ../panel-plugin/notes.c:759
+msgid "Note"
+msgstr "Notat"
+
+#: ../panel-plugin/notes.c:762
+msgid "R_ename..."
+msgstr "Gi _nytt navn..."
+
+#. Always on top
+#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+msgid "Always on top"
+msgstr "Alltid øverst"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+msgid "Sticky window"
+msgstr "Fast vindu"
+
+#. Tabs
+#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+#, fuzzy
+msgid "Show tabs"
+msgstr "Vis statuslinjen"
+
+#: ../panel-plugin/notes.c:887
+msgid "Show on startup"
+msgstr "Vis alltid notater ved oppstart"
+
+#: ../panel-plugin/notes.c:899
+msgid "Always"
+msgstr "Alltid"
+
+#: ../panel-plugin/notes.c:901
+msgid "Never"
+msgstr "Aldri"
+
+#: ../panel-plugin/notes.c:903
+msgid "Last state"
+msgstr "Siste status"
+
+#: ../panel-plugin/notes.c:1080
+msgid "Choose Window Font"
+msgstr "Velg skrift for vindu"
+
+#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
+msgid "Rename window"
+msgstr "Gi nytt navn til vinduet"
+
+#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
+msgid "Error"
+msgstr "Feil"
+
+#: ../panel-plugin/notes.c:1523
+msgid "Unable to rename window"
+msgstr "Kunne ikke gi nytt navn til vinduet"
+
+#: ../panel-plugin/notes.c:1632
+msgid "Are you sure you want to delete this note?"
+msgstr "Er du sikker på at du vil slette dette notatet?"
+
+#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+msgid "Rename note"
+msgstr "Gi nytt navn til notatet"
+
+#: ../panel-plugin/notes.c:1969
+msgid "Unable to rename note"
+msgstr "Kunne ikke gi nytt navn til notatet"
+
+#: ../panel-plugin/settings-dialog.c:91
+msgid "Configure the plugin"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:98
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/settings-dialog.c:103
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#. Hide arrow button
+#: ../panel-plugin/settings-dialog.c:110
+msgid "Hide arrow button"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:120
+msgid "Background:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:131
+msgid "New window settings"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:160
+msgid "Font:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:175
+msgid "Size:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:194
+msgid "Small"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:195
+msgid "Normal"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:196
+msgid "Large"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:254
+msgid "Yellow"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:255
+msgid "Red"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:256
+msgid "Blue"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:257
+msgid "Green"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:258
+msgid "Purple"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:259
+msgid "White"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:260
+msgid "Custom..."
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:349
+msgid "Background Color"
+msgstr ""
+
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Notatverktøy for Xfce4 Skrivebordet"
-
-#~ msgid "Show statusbar"
-#~ msgstr "Vis statuslinjen"

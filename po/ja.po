@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-04 00:58+0900\n"
+"POT-Creation-Date: 2009-02-23 00:54+0100\n"
 "PO-Revision-Date: 2008-12-09 22:59+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-i18n@xfce.org>\n"
@@ -17,141 +17,189 @@ msgstr ""
 "X-Poedit-Country: JAPAN\n"
 
 # Label for Add panel-items dialog and tip help of notes icon on panel
-#: ../panel-plugin/panel-plugin.c:137
+#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notes メモ"
 
-#: ../panel-plugin/panel-plugin.c:254
+#: ../panel-plugin/panel-plugin.c:267
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "次の URL を開くことができません: %s"
 
-#: ../panel-plugin/notes.c:441
+#: ../panel-plugin/notes.c:452
 msgid "Are you sure you want to delete this window?"
 msgstr "本当にこのウィンドウを削除しますか?"
 
-#: ../panel-plugin/notes.c:748
+#: ../panel-plugin/notes.c:752
 msgid "Window"
 msgstr "ウィンドウ"
 
-#: ../panel-plugin/notes.c:752
+#: ../panel-plugin/notes.c:755
 msgid "_Rename..."
 msgstr "名前の変更(_R)..."
 
-#: ../panel-plugin/notes.c:754
+#: ../panel-plugin/notes.c:757
 msgid "_Options"
 msgstr "オプション(_O)"
 
-#: ../panel-plugin/notes.c:756
+#: ../panel-plugin/notes.c:759
 msgid "Note"
 msgstr "メモ"
 
-#: ../panel-plugin/notes.c:760
+#: ../panel-plugin/notes.c:762
 msgid "R_ename..."
 msgstr "名前の変更(_E)..."
 
-#. Resize grip
-#: ../panel-plugin/notes.c:878
-#: ../panel-plugin/settings-dialog.c:142
-msgid "Resize grip"
-msgstr "リサイズ用のグリップ"
-
 #. Always on top
-#: ../panel-plugin/notes.c:879
-#: ../panel-plugin/settings-dialog.c:130
+#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
 msgid "Always on top"
 msgstr "常に最前面へ"
 
 #. Sticky window
-#: ../panel-plugin/notes.c:880
-#: ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
 msgid "Sticky window"
 msgstr "スティッキーウィンドウ"
 
-#: ../panel-plugin/notes.c:881
-msgid "Hide tabs"
-msgstr "タブを隠す"
+#. Tabs
+#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+msgid "Show tabs"
+msgstr ""
 
-#: ../panel-plugin/notes.c:882
+#: ../panel-plugin/notes.c:887
 msgid "Show on startup"
 msgstr "起動時に表示"
 
-#: ../panel-plugin/notes.c:894
+#: ../panel-plugin/notes.c:899
 msgid "Always"
 msgstr "常に"
 
-#: ../panel-plugin/notes.c:896
+#: ../panel-plugin/notes.c:901
 msgid "Never"
 msgstr "しない"
 
-#: ../panel-plugin/notes.c:898
+#: ../panel-plugin/notes.c:903
 msgid "Last state"
 msgstr "最後の状態"
 
-#: ../panel-plugin/notes.c:1095
+#: ../panel-plugin/notes.c:1080
 msgid "Choose Window Font"
 msgstr "ウィンドウフォントの選択"
 
-#: ../panel-plugin/notes.c:1371
-#: ../panel-plugin/notes.c:1407
+#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
 msgid "Rename window"
 msgstr "ウィンドウ名の変更"
 
-#: ../panel-plugin/notes.c:1409
-#: ../panel-plugin/notes.c:1849
+#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
 msgid "Error"
 msgstr "エラー"
 
-#: ../panel-plugin/notes.c:1410
+#: ../panel-plugin/notes.c:1523
 msgid "Unable to rename window"
 msgstr "ウィンドウ名を変更できません"
 
-#: ../panel-plugin/notes.c:1519
+#: ../panel-plugin/notes.c:1632
 msgid "Are you sure you want to delete this note?"
 msgstr "本当にこのメモを削除しますか?"
 
-#: ../panel-plugin/notes.c:1811
-#: ../panel-plugin/notes.c:1847
+#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
 msgid "Rename note"
 msgstr "メモ名の変更"
 
-#: ../panel-plugin/notes.c:1850
+#: ../panel-plugin/notes.c:1969
 msgid "Unable to rename note"
 msgstr "メモ名を変更できません"
 
-#: ../panel-plugin/settings-dialog.c:93
-msgid "Xfce 4 Notes Plugin"
-msgstr "Xfce 4 メモプラグイン"
+#: ../panel-plugin/settings-dialog.c:91
+msgid "Configure the plugin"
+msgstr ""
 
-#: ../panel-plugin/settings-dialog.c:107
+#: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
 msgstr "デフォルトの設定"
 
 # Exact name is 'task list', not 'task bar'.
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:112
+#: ../panel-plugin/settings-dialog.c:103
 msgid "Hide windows from taskbar"
 msgstr "タスクリストにウィンドウを表示しない"
 
 #. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:118
+#: ../panel-plugin/settings-dialog.c:110
 msgid "Hide arrow button"
 msgstr "矢印ボタンを表示しない"
 
-#: ../panel-plugin/settings-dialog.c:125
+#: ../panel-plugin/settings-dialog.c:120
+msgid "Background:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "新しいウィンドウの設定"
 
-#: ../panel-plugin/settings-dialog.c:151
-msgid "Font"
+#: ../panel-plugin/settings-dialog.c:160
+#, fuzzy
+msgid "Font:"
 msgstr "フォント"
 
-#: ../panel-plugin/settings-dialog.c:165
-msgid "Size"
+#: ../panel-plugin/settings-dialog.c:175
+#, fuzzy
+msgid "Size:"
 msgstr "サイズ"
+
+#: ../panel-plugin/settings-dialog.c:194
+msgid "Small"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:195
+msgid "Normal"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:196
+msgid "Large"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:254
+msgid "Yellow"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:255
+msgid "Red"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:256
+msgid "Blue"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:257
+msgid "Green"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:258
+msgid "Purple"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:259
+msgid "White"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:260
+msgid "Custom..."
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:349
+msgid "Background Color"
+msgstr ""
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Xfce4 デスクトップ用メモプラグイン"
 
+#~ msgid "Resize grip"
+#~ msgstr "リサイズ用のグリップ"
+
+#~ msgid "Xfce 4 Notes Plugin"
+#~ msgstr "Xfce 4 メモプラグイン"
+
+#~ msgid "Hide tabs"
+#~ msgstr "タブを隠す"

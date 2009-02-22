@@ -1,6 +1,5 @@
+panel-plugin/color.c
 panel-plugin/panel-plugin.c
 panel-plugin/notes.c
-panel-plugin/notes.h
 panel-plugin/settings-dialog.c
-panel-plugin/settings-dialog.h
 panel-plugin/xfce4-notes-plugin.desktop.in.in

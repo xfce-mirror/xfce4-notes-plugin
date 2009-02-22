@@ -1,6 +1,11 @@
+2009-02-23  Mike Massonnet <mmassonnet@xfce.org>
+
+	* *.po, *.pot: make update-po
+	* fr.po: Update French translation
+
 2009-02-20  Eren Türkay <erenturkay@xfce.org>
 
-    * tr.po: Add Turkish translation by Samed Beyribey
+	* tr.po: Add Turkish translation by Samed Beyribey
 
 2009-02-07  Maximilian Schleiss <maximilian@xfce.org>
 

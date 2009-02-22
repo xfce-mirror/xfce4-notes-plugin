@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-30 02:47+0200\n"
+"POT-Creation-Date: 2009-02-23 00:54+0100\n"
 "PO-Revision-Date: 2007-10-27 15:55+0500\n"
 "Last-Translator: Muhammad Ali Makki <makk.ma@gmail.com>\n"
 "Language-Team: Urdu <makki.ma@gmail.com>\n"
@@ -18,141 +18,193 @@ msgstr ""
 "X-Poedit-Country: PAKISTAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../panel-plugin/panel-plugin.c:236
-#, c-format
-msgid "Unable to open the following url: %s"
-msgstr ""
-
-#: ../panel-plugin/notes.c:427
-#, fuzzy
-msgid "Are you sure you want to delete this window?"
-msgstr "کیا آپ واقعی یہ نوٹ حذف کرنا چاہتے ہیں؟"
-
-#: ../panel-plugin/notes.c:730
-msgid "Window"
-msgstr ""
-
-#: ../panel-plugin/notes.c:734
-#, fuzzy
-msgid "_Rename..."
-msgstr "پھرنام دیں"
-
-#: ../panel-plugin/notes.c:736
-msgid "_Options"
-msgstr ""
-
-#: ../panel-plugin/notes.c:738
-#, fuzzy
-msgid "Note"
-msgstr "نوٹ"
-
-#: ../panel-plugin/notes.c:742
-#, fuzzy
-msgid "R_ename..."
-msgstr "پھرنام دیں"
-
-#. Resize grip
-#: ../panel-plugin/notes.c:848 ../panel-plugin/notes-properties-dialog.c:131
-#, fuzzy
-msgid "Resize grip"
-msgstr "ری سائز پکڑ دکھائیں"
-
-#. Always on top
-#: ../panel-plugin/notes.c:849 ../panel-plugin/notes-properties-dialog.c:117
-msgid "Always on top"
-msgstr "ہمیشہ آگے"
-
-#. Sticky window
-#: ../panel-plugin/notes.c:850 ../panel-plugin/notes-properties-dialog.c:124
-#, fuzzy
-msgid "Sticky window"
-msgstr "چسپاں موڈ"
-
-#: ../panel-plugin/notes.c:851
-#, fuzzy
-msgid "Show on startup"
-msgstr "چلانے پر ہمیشہ نوٹ دکھائیں"
-
-#: ../panel-plugin/notes.c:862
-#, fuzzy
-msgid "Always"
-msgstr "ہمیشہ آگے"
-
-#: ../panel-plugin/notes.c:864
-msgid "Never"
-msgstr ""
-
-#: ../panel-plugin/notes.c:866
-msgid "Last state"
-msgstr ""
-
-#: ../panel-plugin/notes.c:1037
-msgid "Choose Window Font"
-msgstr ""
-
-#: ../panel-plugin/notes.c:1313 ../panel-plugin/notes.c:1349
-#, fuzzy
-msgid "Rename window"
-msgstr "پھرنام دیں"
-
-#: ../panel-plugin/notes.c:1351 ../panel-plugin/notes.c:1771
-msgid "Error"
-msgstr ""
-
-#: ../panel-plugin/notes.c:1352
-msgid "Unable to rename window"
-msgstr ""
-
-#: ../panel-plugin/notes.c:1461
-msgid "Are you sure you want to delete this note?"
-msgstr "کیا آپ واقعی یہ نوٹ حذف کرنا چاہتے ہیں؟"
-
-#: ../panel-plugin/notes.c:1733 ../panel-plugin/notes.c:1769
-#, fuzzy
-msgid "Rename note"
-msgstr "پھرنام دیں"
-
-#: ../panel-plugin/notes.c:1772
-msgid "Unable to rename note"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:78
-msgid "Xfce 4 Notes Plugin"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:92
-msgid "Default settings"
-msgstr ""
-
-#. Hide from taskbar
-#: ../panel-plugin/notes-properties-dialog.c:97
-msgid "Hide windows from taskbar"
-msgstr ""
-
-#. Hide arrow button
-#: ../panel-plugin/notes-properties-dialog.c:104
-msgid "Hide arrow button"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:112
-msgid "New window settings"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:141
-msgid "Font"
-msgstr ""
-
-#: ../panel-plugin/notes-properties-dialog.c:157
-msgid "Size"
-msgstr ""
-
+#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "نوٹ"
 
+#: ../panel-plugin/panel-plugin.c:267
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr ""
+
+#: ../panel-plugin/notes.c:452
+#, fuzzy
+msgid "Are you sure you want to delete this window?"
+msgstr "کیا آپ واقعی یہ نوٹ حذف کرنا چاہتے ہیں؟"
+
+#: ../panel-plugin/notes.c:752
+msgid "Window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:755
+#, fuzzy
+msgid "_Rename..."
+msgstr "پھرنام دیں"
+
+#: ../panel-plugin/notes.c:757
+msgid "_Options"
+msgstr ""
+
+#: ../panel-plugin/notes.c:759
+#, fuzzy
+msgid "Note"
+msgstr "نوٹ"
+
+#: ../panel-plugin/notes.c:762
+#, fuzzy
+msgid "R_ename..."
+msgstr "پھرنام دیں"
+
+#. Always on top
+#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+msgid "Always on top"
+msgstr "ہمیشہ آگے"
+
+#. Sticky window
+#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+#, fuzzy
+msgid "Sticky window"
+msgstr "چسپاں موڈ"
+
+#. Tabs
+#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+msgid "Show tabs"
+msgstr ""
+
+#: ../panel-plugin/notes.c:887
+#, fuzzy
+msgid "Show on startup"
+msgstr "چلانے پر ہمیشہ نوٹ دکھائیں"
+
+#: ../panel-plugin/notes.c:899
+#, fuzzy
+msgid "Always"
+msgstr "ہمیشہ آگے"
+
+#: ../panel-plugin/notes.c:901
+msgid "Never"
+msgstr ""
+
+#: ../panel-plugin/notes.c:903
+msgid "Last state"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1080
+msgid "Choose Window Font"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
+#, fuzzy
+msgid "Rename window"
+msgstr "پھرنام دیں"
+
+#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
+msgid "Error"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1523
+msgid "Unable to rename window"
+msgstr ""
+
+#: ../panel-plugin/notes.c:1632
+msgid "Are you sure you want to delete this note?"
+msgstr "کیا آپ واقعی یہ نوٹ حذف کرنا چاہتے ہیں؟"
+
+#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+#, fuzzy
+msgid "Rename note"
+msgstr "پھرنام دیں"
+
+#: ../panel-plugin/notes.c:1969
+msgid "Unable to rename note"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:91
+msgid "Configure the plugin"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:98
+msgid "Default settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../panel-plugin/settings-dialog.c:103
+msgid "Hide windows from taskbar"
+msgstr ""
+
+#. Hide arrow button
+#: ../panel-plugin/settings-dialog.c:110
+msgid "Hide arrow button"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:120
+msgid "Background:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:131
+msgid "New window settings"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:160
+msgid "Font:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:175
+msgid "Size:"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:194
+msgid "Small"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:195
+msgid "Normal"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:196
+msgid "Large"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:254
+msgid "Yellow"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:255
+msgid "Red"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:256
+msgid "Blue"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:257
+msgid "Green"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:258
+msgid "Purple"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:259
+msgid "White"
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:260
+msgid "Custom..."
+msgstr ""
+
+#: ../panel-plugin/settings-dialog.c:349
+msgid "Background Color"
+msgstr ""
+
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "نوٹ پلگ ان برائے ایکسفس4 ڈیسک ٹاپ"
+
+#, fuzzy
+#~ msgid "Resize grip"
+#~ msgstr "ری سائز پکڑ دکھائیں"
 
 #~ msgid "Show in the task list"
 #~ msgstr "ٹاسک فہرست میں دکھائیں"
