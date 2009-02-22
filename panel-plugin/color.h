@@ -27,7 +27,7 @@
 void                    color_set_background            (const gchar *background);
 void                    __gdk_color_contrast            (GdkColor *color,
                                                          gdouble contrast);
-#if GTK_CHECK_VERSION (2,12,0)
+#if !GTK_CHECK_VERSION (2,12,0)
 gchar *                 gdk_color_to_string             (const GdkColor *color);
 #endif
 

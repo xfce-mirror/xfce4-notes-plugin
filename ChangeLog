@@ -1,5 +1,11 @@
 2009-02-22  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix GTK_CHECK_VERSION for gdk_color_to_string
+	* panel-plugin/color.[ch]:
+	  - Testing !GTK_CHECK_VERSION is the valid check
+
+2009-02-22  Mike Massonnet <mmassonnet@xfce.org>
+
 Default background color in the settings dialog
 	* panel-plugin/color.[ch]:
 	  - New file with functions related to colors and other functions to

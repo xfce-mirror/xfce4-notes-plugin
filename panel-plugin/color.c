@@ -215,7 +215,7 @@ __gdk_color_contrast (GdkColor *color,
   color->blue  = G_MAXUINT16 * pow (N_b_, 1 / 2.2);
 }
 
-#if GTK_CHECK_VERSION (2,12,0)
+#if !GTK_CHECK_VERSION (2,12,0)
 gchar *
 gdk_color_to_string (const GdkColor *color)
 {
