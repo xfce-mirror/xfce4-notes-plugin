@@ -761,7 +761,7 @@ notes_window_menu_new (NotesWindow *notes_window)
   GtkWidget *mi_delete_note    = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, NULL);
   GtkWidget *mi_rename_note    = gtk_menu_item_new_with_mnemonic (_("R_ename..."));
 #if 0
-  GtkWidget *mi_lock_note      = gtk_menu_item_new_with_mnemonic (_("_Lock note"));
+  GtkWidget *mi_lock_note      = gtk_menu_item_new_with_mnemonic ( ("_Lock note"));
 #endif
   GtkWidget *mi_undo           = gtk_image_menu_item_new_from_stock (GTK_STOCK_UNDO, NULL);
 
