@@ -1,5 +1,11 @@
 2009-02-22  Mike Massonnet <mmassonnet@xfce.org>
 
+Set background color dialog transient+modal+centered
+	* panel-plugin/settings-dialog.c(cb_background_changed):
+	  - Fix the background color dialog WRT the settings dialog
+
+2009-02-22  Mike Massonnet <mmassonnet@xfce.org>
+
 Fix GTK_CHECK_VERSION for gdk_color_to_string
 	* panel-plugin/color.[ch]:
 	  - Testing !GTK_CHECK_VERSION is the valid check

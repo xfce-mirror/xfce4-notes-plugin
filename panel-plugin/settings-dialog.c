@@ -314,6 +314,10 @@ cb_background_changed (GtkComboBox *combobox,
   else if (id == COMBOBOX_BACKGROUND_CUSTOM)
     {
       dialog = background_dialog_new ();
+      gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (combobox))));
+      gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+      gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+
       if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
         {
           color = background_dialog_get_color (GTK_COLOR_SELECTION_DIALOG (dialog));
@@ -323,6 +327,7 @@ cb_background_changed (GtkComboBox *combobox,
 
           gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
         }
+
       gtk_widget_destroy (dialog);
       return;
     }
