@@ -11,7 +11,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: TURKEY\n"
 
-#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
+#: ../panel-plugin/panel-plugin.c:125
+#: ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notlar"
@@ -46,19 +47,22 @@ msgid "R_ename..."
 msgstr "Y_eniden Adlandır..."
 
 #. Always on top
-#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/notes.c:883
+#: ../panel-plugin/settings-dialog.c:136
 msgid "Always on top"
 msgstr "Her zaman üstte"
 
 #. Sticky window
-#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/notes.c:884
+#: ../panel-plugin/settings-dialog.c:143
 msgid "Sticky window"
 msgstr "Yapışkan pencere"
 
 #. Tabs
-#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+#: ../panel-plugin/notes.c:885
+#: ../panel-plugin/settings-dialog.c:150
 msgid "Show tabs"
-msgstr ""
+msgstr "Sekmeleri göster"
 
 #: ../panel-plugin/notes.c:887
 msgid "Show on startup"
@@ -80,11 +84,13 @@ msgstr "En son durumu"
 msgid "Choose Window Font"
 msgstr "Pencere Yazıtipi Seçin"
 
-#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
+#: ../panel-plugin/notes.c:1484
+#: ../panel-plugin/notes.c:1520
 msgid "Rename window"
 msgstr "Pencereyi yeniden adlandır"
 
-#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
+#: ../panel-plugin/notes.c:1522
+#: ../panel-plugin/notes.c:1968
 msgid "Error"
 msgstr "Hata"
 
@@ -96,7 +102,8 @@ msgstr "Pencere yeniden adlandırılamadı"
 msgid "Are you sure you want to delete this note?"
 msgstr "Bu notu silmek istediğinizden emin misiniz?"
 
-#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+#: ../panel-plugin/notes.c:1930
+#: ../panel-plugin/notes.c:1966
 msgid "Rename note"
 msgstr "Notu yeniden adlandır"
 
@@ -106,7 +113,7 @@ msgstr "Not yeniden adlandırılamadı"
 
 #: ../panel-plugin/settings-dialog.c:91
 msgid "Configure the plugin"
-msgstr ""
+msgstr "Eklentiyi yapılandır"
 
 #: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
@@ -124,65 +131,63 @@ msgstr "Ok tuşunu gizle"
 
 #: ../panel-plugin/settings-dialog.c:120
 msgid "Background:"
-msgstr ""
+msgstr "Arkaplan:"
 
 #: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "Yeni pencere ayarları"
 
 #: ../panel-plugin/settings-dialog.c:160
-#, fuzzy
 msgid "Font:"
-msgstr "Yazıtipi"
+msgstr "Yazıtipi:"
 
 #: ../panel-plugin/settings-dialog.c:175
-#, fuzzy
 msgid "Size:"
-msgstr "Boyut"
+msgstr "Boyut:"
 
 #: ../panel-plugin/settings-dialog.c:194
 msgid "Small"
-msgstr ""
+msgstr "Küçük"
 
 #: ../panel-plugin/settings-dialog.c:195
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: ../panel-plugin/settings-dialog.c:196
 msgid "Large"
-msgstr ""
+msgstr "Büyük"
 
 #: ../panel-plugin/settings-dialog.c:254
 msgid "Yellow"
-msgstr ""
+msgstr "Sarı"
 
 #: ../panel-plugin/settings-dialog.c:255
 msgid "Red"
-msgstr ""
+msgstr "Kırmızı"
 
 #: ../panel-plugin/settings-dialog.c:256
 msgid "Blue"
-msgstr ""
+msgstr "Mavi"
 
 #: ../panel-plugin/settings-dialog.c:257
 msgid "Green"
-msgstr ""
+msgstr "Yeşil"
 
 #: ../panel-plugin/settings-dialog.c:258
 msgid "Purple"
-msgstr ""
+msgstr "Mor"
 
 #: ../panel-plugin/settings-dialog.c:259
 msgid "White"
-msgstr ""
+msgstr "Beyaz"
 
 #: ../panel-plugin/settings-dialog.c:260
 msgid "Custom..."
-msgstr ""
+msgstr "Özel..."
 
 #: ../panel-plugin/settings-dialog.c:349
 msgid "Background Color"
-msgstr ""
+msgstr "Arkaplan Rengi"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
@@ -190,6 +195,6 @@ msgstr "Xfce4 masaüstü için Notlar eklentisi"
 
 #~ msgid "Resize grip"
 #~ msgstr "Tekrar boyutlandırma tutamacı"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Xfce 4 Not Eklentisi"
+
