@@ -2,13 +2,13 @@
 # Copyright (C) 2007 THE xfce4-notes-plugin'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce4-notes-plugin package.
 # Jens Hyllegaard <jens.hyllegaard@gmail.com>, 2007.
-# Per Kongstad <p_kongstad@op.pl>, 2008.
+# Per Kongstad <p_kongstad@op.pl>, 2008, 09.
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notes-plugin 1.6.3\n"
+"Project-Id-Version: xfce4-notes-plugin 1.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 00:54+0100\n"
-"PO-Revision-Date: 2008-10-23 23:36+0100\n"
+"PO-Revision-Date: 2009-02-23 10:41+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,8 @@ msgstr ""
 "X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
+#: ../panel-plugin/panel-plugin.c:125
+#: ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
 msgstr "Notater"
@@ -53,19 +54,22 @@ msgid "R_ename..."
 msgstr "O_mdøb..."
 
 #. Always on top
-#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/notes.c:883
+#: ../panel-plugin/settings-dialog.c:136
 msgid "Always on top"
 msgstr "Altid øverst"
 
 #. Sticky window
-#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/notes.c:884
+#: ../panel-plugin/settings-dialog.c:143
 msgid "Sticky window"
 msgstr "Hold vindue permanent"
 
 #. Tabs
-#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
+#: ../panel-plugin/notes.c:885
+#: ../panel-plugin/settings-dialog.c:150
 msgid "Show tabs"
-msgstr ""
+msgstr "Vis faneblade"
 
 #: ../panel-plugin/notes.c:887
 msgid "Show on startup"
@@ -87,11 +91,13 @@ msgstr "Sidste tilstand"
 msgid "Choose Window Font"
 msgstr "Vælg skrifttype for vinduet"
 
-#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
+#: ../panel-plugin/notes.c:1484
+#: ../panel-plugin/notes.c:1520
 msgid "Rename window"
 msgstr "Omdøb vindue"
 
-#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
+#: ../panel-plugin/notes.c:1522
+#: ../panel-plugin/notes.c:1968
 msgid "Error"
 msgstr "Fejl"
 
@@ -103,7 +109,8 @@ msgstr "Kunne ikke omdøbe vindue"
 msgid "Are you sure you want to delete this note?"
 msgstr "Er du sikker på, at du vil slette dette notat?"
 
-#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+#: ../panel-plugin/notes.c:1930
+#: ../panel-plugin/notes.c:1966
 msgid "Rename note"
 msgstr "Omdøb notat"
 
@@ -113,7 +120,7 @@ msgstr "Kunne ikke omdøbe notat"
 
 #: ../panel-plugin/settings-dialog.c:91
 msgid "Configure the plugin"
-msgstr ""
+msgstr "Indstil udvidelsesmodulet"
 
 #: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
@@ -131,72 +138,65 @@ msgstr "Skjul pileknap"
 
 #: ../panel-plugin/settings-dialog.c:120
 msgid "Background:"
-msgstr ""
+msgstr "Baggrund:"
 
 #: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "Nye vinduesindstillinger"
 
 #: ../panel-plugin/settings-dialog.c:160
-#, fuzzy
 msgid "Font:"
-msgstr "Skrifttype"
+msgstr "Skrifttype:"
 
 #: ../panel-plugin/settings-dialog.c:175
-#, fuzzy
 msgid "Size:"
-msgstr "Størrelse"
+msgstr "Størrelse:"
 
 #: ../panel-plugin/settings-dialog.c:194
 msgid "Small"
-msgstr ""
+msgstr "Lille"
 
 #: ../panel-plugin/settings-dialog.c:195
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: ../panel-plugin/settings-dialog.c:196
 msgid "Large"
-msgstr ""
+msgstr "Stor"
 
 #: ../panel-plugin/settings-dialog.c:254
 msgid "Yellow"
-msgstr ""
+msgstr "Gul"
 
 #: ../panel-plugin/settings-dialog.c:255
 msgid "Red"
-msgstr ""
+msgstr "Rød"
 
 #: ../panel-plugin/settings-dialog.c:256
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 #: ../panel-plugin/settings-dialog.c:257
 msgid "Green"
-msgstr ""
+msgstr "Grøn"
 
 #: ../panel-plugin/settings-dialog.c:258
 msgid "Purple"
-msgstr ""
+msgstr "Lilla"
 
 #: ../panel-plugin/settings-dialog.c:259
 msgid "White"
-msgstr ""
+msgstr "Hvid"
 
 #: ../panel-plugin/settings-dialog.c:260
 msgid "Custom..."
-msgstr ""
+msgstr "Tilpasset..."
 
 #: ../panel-plugin/settings-dialog.c:349
 msgid "Background Color"
-msgstr ""
+msgstr "Baggrundsfarve"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Notat-udvidelsesmodul til Xfce4-skrivebordet"
 
-#~ msgid "Resize grip"
-#~ msgstr "Størrelsesgreb"
-
-#~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Notat-udvidelsesmodul til Xfce 4"
