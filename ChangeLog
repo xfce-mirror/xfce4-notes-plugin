@@ -1,5 +1,13 @@
 2009-02-25  Mike Massonnet <mmassonnet@xfce.org>
 
+Draw the arrow button only with the state ACTIVE
+	* panel-plugin/xfce-arrow-button.c(xfce_arrow_button_expose):
+	  - The arrow still displays poorly on different theme engines. Try to
+	  draw the arrow only in the ACTIVE state, and cross the fingers it
+	  displays fine on other theme engines.
+
+2009-02-25  Mike Massonnet <mmassonnet@xfce.org>
+
 Replace the custom packed arrow button against XfceArrowButton
 	* panel-plugin/xfce-arrow-button.c, panel-plugin/xfce-arrow-button.h,
 	  panel-plugin/Makefile.am:

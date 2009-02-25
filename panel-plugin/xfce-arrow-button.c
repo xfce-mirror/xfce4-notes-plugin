@@ -81,7 +81,7 @@ static guint                 arrow_button_signals[LAST_SIGNAL] = { 0 };
 GType
 xfce_arrow_button_get_type (void)
 {
-    static GtkType type = G_TYPE_INVALID;
+    static GType type = G_TYPE_INVALID;
 
     if (G_UNLIKELY (type == G_TYPE_INVALID))
     {
@@ -236,7 +236,7 @@ xfce_arrow_button_expose (GtkWidget      *widget,
         GTK_WIDGET_CLASS (parent_class)->expose_event (widget, event);
 
         gtk_paint_arrow (widget->style, widget->window,
-                         GTK_WIDGET_STATE (widget), GTK_SHADOW_NONE,
+                         GTK_STATE_ACTIVE, GTK_SHADOW_NONE,
                          &(event->area), widget, "xfce_arrow_button",
                          XFCE_ARROW_BUTTON (widget)->arrow_type, FALSE,
                          x, y, w, w);
@@ -271,7 +271,7 @@ xfce_arrow_button_add (GtkContainer *container,
 static GType
 xfce_arrow_button_child_type (GtkContainer *container)
 {
-    return GTK_TYPE_NONE;
+    return G_TYPE_NONE;
 }
 
 
