@@ -1,22 +1,22 @@
 # Finnish translation for xfce4-notes-plugin
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
-# This file is distributed under the same license as the xfce4-notes-plugin package.
+# Copyright (C) 2003 Jakob Henriksson
+# 2006-2009 Mike Massonnet
+# This file is distributed under the same license as the xfce4-notes-plugin
+# package.
 # Elias Julkunen <elias.julkunen@gmail.com>, 2008.
-# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2008.
+# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2008-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
-"PO-Revision-Date: 2008-07-14 21:17+0300\n"
+"POT-Creation-Date: 2009-02-25 09:44+0200\n"
+"PO-Revision-Date: 2009-02-25 09:49+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
-"Language-Team: Finnish <fi@li.org>\n"
+"Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-06-21 16:16+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
@@ -50,7 +50,7 @@ msgstr "Muistiinpano"
 
 #: ../panel-plugin/notes.c:762
 msgid "R_ename..."
-msgstr "Nimeä _uudelleen"
+msgstr "Nimeä uu_delleen"
 
 #. Always on top
 #: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
@@ -65,7 +65,7 @@ msgstr "Kaikilla työpöydillä"
 #. Tabs
 #: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
 msgid "Show tabs"
-msgstr ""
+msgstr "Näytä välilehdet"
 
 #: ../panel-plugin/notes.c:887
 msgid "Show on startup"
@@ -113,7 +113,7 @@ msgstr "Muistiinpanoa ei voitu nimetä uudelleen"
 
 #: ../panel-plugin/settings-dialog.c:91
 msgid "Configure the plugin"
-msgstr ""
+msgstr "Muokkaa liitännäisen asetuksia"
 
 #: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
@@ -131,72 +131,64 @@ msgstr "Piilota nuolipainike"
 
 #: ../panel-plugin/settings-dialog.c:120
 msgid "Background:"
-msgstr ""
+msgstr "Taustaväri:"
 
 #: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "Uuden ikkunan asetukset"
 
 #: ../panel-plugin/settings-dialog.c:160
-#, fuzzy
 msgid "Font:"
-msgstr "Kirjasin"
+msgstr "Kirjasin:"
 
 #: ../panel-plugin/settings-dialog.c:175
-#, fuzzy
 msgid "Size:"
-msgstr "Koko"
+msgstr "Koko:"
 
 #: ../panel-plugin/settings-dialog.c:194
 msgid "Small"
-msgstr ""
+msgstr "Pieni"
 
 #: ../panel-plugin/settings-dialog.c:195
 msgid "Normal"
-msgstr ""
+msgstr "Tavallinen"
 
 #: ../panel-plugin/settings-dialog.c:196
 msgid "Large"
-msgstr ""
+msgstr "Suuri"
 
 #: ../panel-plugin/settings-dialog.c:254
 msgid "Yellow"
-msgstr ""
+msgstr "Keltainen"
 
 #: ../panel-plugin/settings-dialog.c:255
 msgid "Red"
-msgstr ""
+msgstr "Punainen"
 
 #: ../panel-plugin/settings-dialog.c:256
 msgid "Blue"
-msgstr ""
+msgstr "Sininen"
 
 #: ../panel-plugin/settings-dialog.c:257
 msgid "Green"
-msgstr ""
+msgstr "Vihreä"
 
 #: ../panel-plugin/settings-dialog.c:258
 msgid "Purple"
-msgstr ""
+msgstr "Violetti"
 
 #: ../panel-plugin/settings-dialog.c:259
 msgid "White"
-msgstr ""
+msgstr "Valkoinen"
 
 #: ../panel-plugin/settings-dialog.c:260
 msgid "Custom..."
-msgstr ""
+msgstr "Mukautettu..."
 
 #: ../panel-plugin/settings-dialog.c:349
 msgid "Background Color"
-msgstr ""
+msgstr "Taustaväri"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Muistiinpanoliitännäinen Xfce4-työpöydälle"
-
-#~ msgid "Resize grip"
-#~ msgstr "Koon muokkauskahva"
-
-#~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Xfce 4 muistiinpanoliitännäinen"
