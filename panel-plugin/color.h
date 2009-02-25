@@ -30,6 +30,9 @@ void                    __gdk_color_contrast            (GdkColor *color,
 #if !GTK_CHECK_VERSION (2,12,0)
 gchar *                 gdk_color_to_string             (const GdkColor *color);
 #endif
+#if !GTK_CHECK_VERSION (2,14,0)
+GtkWidget*              gtk_color_selection_dialog_get_color_selection (GtkColorSelectionDialog *colorsel);
+#endif
 
 #endif
 

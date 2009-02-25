@@ -1,3 +1,9 @@
+2009-02-25  Mike Massonnet <mmassonnet@xfce.org>
+
+Support for GTK+ < 2.14
+	* panel-plugin/color.c, panel-plugin/color.h:
+	  - Copy GTK function gtk_color_selection_dialog_get_color_selection
+
 2009-02-22  Mike Massonnet <mmassonnet@xfce.org>
 
 Don't mark Lock note as translatable

@@ -225,3 +225,13 @@ gdk_color_to_string (const GdkColor *color)
 }
 #endif
 
+#if !GTK_CHECK_VERSION (2,14,0)
+GtkWidget*
+gtk_color_selection_dialog_get_color_selection (GtkColorSelectionDialog *colorsel)
+{
+  g_return_val_if_fail (GTK_IS_COLOR_SELECTION_DIALOG (colorsel), NULL);
+
+  return colorsel->colorsel;
+}
+#endif
+
