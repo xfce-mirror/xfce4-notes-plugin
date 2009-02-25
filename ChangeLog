@@ -1,5 +1,21 @@
 2009-02-25  Mike Massonnet <mmassonnet@xfce.org>
 
+Replace the custom packed arrow button against XfceArrowButton
+	* panel-plugin/xfce-arrow-button.c, panel-plugin/xfce-arrow-button.h,
+	  panel-plugin/Makefile.am:
+	  - Import XfceArrowButton from Xfmpc (it was imported from Xfce4 Panel
+	  and contains a few modifications to be usable without apparent
+	  functions/callbacks for the panel)
+	* panel-plugin/notes.c(notes_window_new_with_label):
+	  - Use XfceArrowButton, the packed GtkArrow drawed poorly on some
+	  theme engines where the arrow had the color of the text which is
+	  basically the same as the background of the window thus invisible
+	  to the user
+	* panel-plugin/color.c:
+	  - Set default thickness to 1
+
+2009-02-25  Mike Massonnet <mmassonnet@xfce.org>
+
 Support for GTK+ < 2.14
 	* panel-plugin/color.c, panel-plugin/color.h:
 	  - Copy GTK function gtk_color_selection_dialog_get_color_selection

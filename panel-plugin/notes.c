@@ -35,6 +35,7 @@
 
 #include "defines.h"
 #include "notes.h"
+#include "xfce-arrow-button.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 #define OPAQUE 0xffffffff
@@ -282,11 +283,10 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   gtk_widget_show (notes_window->title);
 
   /* Menu button */
-  notes_window->btn_menu = xfce_create_panel_toggle_button ();
+  notes_window->btn_menu = xfce_arrow_button_new (GTK_ARROW_DOWN);
+  gtk_button_set_relief (GTK_BUTTON (notes_window->btn_menu), GTK_RELIEF_NONE);
   gtk_widget_set_size_request (notes_window->btn_menu, 22, 22);
-  arrow_menu = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_NONE);
-  gtk_container_add (GTK_CONTAINER (notes_window->btn_menu),
-                     arrow_menu);
+  g_object_set (notes_window->btn_menu, "can-focus", FALSE, NULL);
   gtk_box_pack_start (GTK_BOX (notes_window->hbox),
                       notes_window->btn_menu,
                       FALSE,

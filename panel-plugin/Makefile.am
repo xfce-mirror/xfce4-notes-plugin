@@ -18,8 +18,10 @@ plugin_PROGRAMS = xfce4-notes-plugin
 
 xfce4_notes_plugin_SOURCES =						\
 	defines.h							\
-	color.h								\
+	xfce-arrow-button.c						\
+	xfce-arrow-button.h						\
 	color.c								\
+	color.h								\
 	panel-plugin.c							\
 	settings-dialog.c						\
 	settings-dialog.h						\

@@ -38,8 +38,8 @@
 #define RC_STYLE \
   "gtk_color_scheme = \"notes_fg_color:#xxxxxxxxxxxx\\nnotes_bg_color:#xxxxxxxxxxxx\\nnotes_base_color:#xxxxxxxxxxxx\\nnotes_text_color:#xxxxxxxxxxxx\\nnotes_selected_bg_color:#xxxxxxxxxxxx\\nnotes_selected_fg_color:#xxxxxxxxxxxx\"\n" \
   "style \"notes-default\" {\n" \
-  "xthickness = 2\n" \
-  "ythickness = 2\n" \
+  "xthickness = 1\n" \
+  "ythickness = 1\n" \
   "fg[NORMAL] = @notes_fg_color\n" \
   "fg[ACTIVE] = @notes_fg_color\n" \
   "fg[PRELIGHT] = @notes_fg_color\n" \
