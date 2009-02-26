@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
-"PO-Revision-Date: 2008-12-09 22:59+0900\n"
+"POT-Creation-Date: 2009-02-26 00:05+0900\n"
+"PO-Revision-Date: 2009-02-24 19:54+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "スティッキーウィンドウ"
 #. Tabs
 #: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
 msgid "Show tabs"
-msgstr ""
+msgstr "タブを表示"
 
 #: ../panel-plugin/notes.c:887
 msgid "Show on startup"
@@ -112,7 +112,7 @@ msgstr "メモ名を変更できません"
 
 #: ../panel-plugin/settings-dialog.c:91
 msgid "Configure the plugin"
-msgstr ""
+msgstr "プラグインの設定"
 
 #: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
@@ -131,75 +131,64 @@ msgstr "矢印ボタンを表示しない"
 
 #: ../panel-plugin/settings-dialog.c:120
 msgid "Background:"
-msgstr ""
+msgstr "背景色:"
 
 #: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "新しいウィンドウの設定"
 
 #: ../panel-plugin/settings-dialog.c:160
-#, fuzzy
 msgid "Font:"
-msgstr "フォント"
+msgstr "フォント:"
 
 #: ../panel-plugin/settings-dialog.c:175
-#, fuzzy
 msgid "Size:"
-msgstr "サイズ"
+msgstr "サイズ:"
 
 #: ../panel-plugin/settings-dialog.c:194
 msgid "Small"
-msgstr ""
+msgstr "小さい"
 
 #: ../panel-plugin/settings-dialog.c:195
 msgid "Normal"
-msgstr ""
+msgstr "普通"
 
 #: ../panel-plugin/settings-dialog.c:196
 msgid "Large"
-msgstr ""
+msgstr "大きい"
 
 #: ../panel-plugin/settings-dialog.c:254
 msgid "Yellow"
-msgstr ""
+msgstr "黄"
 
 #: ../panel-plugin/settings-dialog.c:255
 msgid "Red"
-msgstr ""
+msgstr "赤"
 
 #: ../panel-plugin/settings-dialog.c:256
 msgid "Blue"
-msgstr ""
+msgstr "青"
 
 #: ../panel-plugin/settings-dialog.c:257
 msgid "Green"
-msgstr ""
+msgstr "緑"
 
 #: ../panel-plugin/settings-dialog.c:258
 msgid "Purple"
-msgstr ""
+msgstr "紫"
 
 #: ../panel-plugin/settings-dialog.c:259
 msgid "White"
-msgstr ""
+msgstr "白"
 
 #: ../panel-plugin/settings-dialog.c:260
 msgid "Custom..."
-msgstr ""
+msgstr "カスタム..."
 
 #: ../panel-plugin/settings-dialog.c:349
 msgid "Background Color"
-msgstr ""
+msgstr "背景色"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Xfce4 デスクトップ用メモプラグイン"
-
-#~ msgid "Resize grip"
-#~ msgstr "リサイズ用のグリップ"
-
-#~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Xfce 4 メモプラグイン"
-
-#~ msgid "Hide tabs"
-#~ msgstr "タブを隠す"
