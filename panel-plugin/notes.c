@@ -211,7 +211,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
 
   /* Frame */
   notes_window->frame = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (notes_window->frame), GTK_SHADOW_OUT);
+  gtk_frame_set_shadow_type (GTK_FRAME (notes_window->frame), GTK_SHADOW_NONE);
   style = gtk_widget_get_modifier_style (notes_window->frame);
   style->xthickness = 1;
   style->ythickness = 3;
@@ -1135,7 +1135,7 @@ notes_window_motion_event (NotesWindow *notes_window,
   if (event->x > 2 &&
       event->y > 2 &&
       event->x < alloc.width - 2 &&
-      event->y < alloc.height - 2)
+      event->y < alloc.height - 3)
       return FALSE;
 
   TRACE ("Window Motion: (%.0fx%.0f) %dx%d", event->x, event->y, alloc.width, alloc.height);
@@ -1183,7 +1183,7 @@ notes_window_button_event (NotesWindow *notes_window,
   if (event->x > 2 &&
       event->y > 2 &&
       event->x < alloc.width - 2 &&
-      event->y < alloc.height - 2)
+      event->y < alloc.height - 3)
     return FALSE;
 
   /* Top Left corner */

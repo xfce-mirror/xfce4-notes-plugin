@@ -251,11 +251,15 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 static void
 notes_plugin_configure (NotesPlugin *notes_plugin)
 {
+  GtkWindowGroup *group;
   GtkWidget *dialog;
   gint result;
 
   xfce_panel_plugin_block_menu (notes_plugin->panel_plugin);
   dialog = prop_dialog_new (notes_plugin);
+
+  group = gtk_window_group_new ();
+  gtk_window_group_add_window (group, GTK_WINDOW (dialog));
 
   while (1)
     {
@@ -270,6 +274,7 @@ notes_plugin_configure (NotesPlugin *notes_plugin)
         break;
     }
 
+  g_object_unref (group);
   gtk_widget_destroy (dialog);
   xfce_panel_plugin_unblock_menu (notes_plugin->panel_plugin);
 }

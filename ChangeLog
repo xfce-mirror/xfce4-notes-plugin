@@ -1,3 +1,16 @@
+2009-02-26  Mike Massonnet <mmassonnet@xfce.org>
+
+Minor look-n-feel changes
+	* panel-plugin/panel-plugin.c(notes_plugin_configure):
+	  - Put the dialog inside a GtkWindowGroup to keep the button in the
+	  panel plugin clickable
+	* panel-plugin/notes.c(notes_window_new_with_label):
+	  - Set the shadow type to NONE for the GtkFrame to keep a singular
+	  look between different theme engines
+	* panel-plugin/notes.c(notes_window_motion_event),
+	  panel-plugin/notes.c(notes_window_button_event):
+	  - Set bottom "margin" for the mouse cursor to 3 pixels
+
 2009-02-25  Mike Massonnet <mmassonnet@xfce.org>
 
 Draw the arrow button only with the state ACTIVE
