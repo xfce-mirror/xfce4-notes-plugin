@@ -512,6 +512,7 @@ notes_window_load_data (NotesWindow *notes_window)
   const gchar          *note_name;
   gint                  w = NEW_WINDOW_WIDTH;
   gint                  h = NEW_WINDOW_HEIGHT;
+  gint                  last_tab;
   gboolean              above = NEW_WINDOW_ABOVE;
   ShowOnStartup         show_on_startup = LAST_STATE;
   gboolean              show_tabs = NEW_WINDOW_TABS;
@@ -569,6 +570,7 @@ notes_window_load_data (NotesWindow *notes_window)
   notes_window->y = xfce_rc_read_int_entry (rc, "PosY", -1);
   notes_window->w = xfce_rc_read_int_entry (rc, "Width", w);
   notes_window->h = xfce_rc_read_int_entry (rc, "Height", h);
+  last_tab = xfce_rc_read_int_entry (rc, "LastTab", 0);
 
   notes_window->above           = xfce_rc_read_bool_entry (rc, "Above", above);
   notes_window->show_on_startup = xfce_rc_read_int_entry (rc, "ShowOnStartup", show_on_startup);
@@ -612,7 +614,7 @@ notes_window_load_data (NotesWindow *notes_window)
   while (G_LIKELY (NULL != note_name));
 
   notes_window_set_transparency (notes_window, notes_window->transparency);
-  gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), 0);
+  gtk_notebook_set_current_page (GTK_NOTEBOOK (notes_window->notebook), last_tab);
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notes_window->notebook),
                               (notes_window->show_tabs && g_slist_length (notes_window->notes) > 1));
   gtk_notebook_set_show_border (GTK_NOTEBOOK (notes_window->notebook), FALSE);
@@ -622,6 +624,7 @@ void
 notes_window_save_data (NotesWindow *notes_window)
 {
   XfceRc *rc;
+  gint last_tab;
 
   rc = xfce_rc_simple_open (notes_window->notes_plugin->config_file, FALSE);
   g_return_if_fail (G_LIKELY (rc != NULL));
@@ -642,6 +645,8 @@ notes_window_save_data (NotesWindow *notes_window)
                              NULL);
     }
 
+  last_tab = gtk_notebook_get_current_page (GTK_NOTEBOOK (notes_window->notebook));
+
   TRACE ("\nabove: %d"
          "\nshow_on_startup: %d"
          "\nshow_tabs: %d"
@@ -659,6 +664,7 @@ notes_window_save_data (NotesWindow *notes_window)
   xfce_rc_write_int_entry (rc, "PosY", notes_window->y);
   xfce_rc_write_int_entry (rc, "Width", notes_window->w);
   xfce_rc_write_int_entry (rc, "Height", notes_window->h);
+  xfce_rc_write_int_entry (rc, "LastTab", last_tab);
 
   xfce_rc_write_bool_entry (rc, "Above", notes_window->above);
   xfce_rc_write_int_entry  (rc, "ShowOnStartup", notes_window->show_on_startup);

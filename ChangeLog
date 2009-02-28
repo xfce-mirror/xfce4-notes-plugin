@@ -1,5 +1,12 @@
 2009-02-28  Mike Massonnet <mmassonnet@xfce.org>
 
+Remember the last tab
+	* panel-plugin/notes.c(notes_window_save_data),
+	  panel-plugin/notes.c(notes_window_load_data):
+	  - Save and load the current tab of the notebook inside the rc file
+
+2009-02-28  Mike Massonnet <mmassonnet@xfce.org>
+
 Micro settings dialog changes
 	* panel-plugin/defines.h:
 	  - Redefine the default colors, set them more pale
