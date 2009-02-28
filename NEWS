@@ -1,3 +1,14 @@
+VERSION 1.6.4
+
+- Resize handle all around the window
+- Resize cursors display at the bottom of the window
+- Clean up the settings dialog and the window menu
+- New settings: background color and show tabs
+- Renamed option Hide Tabs to Show Tabs
+- Remember the last tab on quit
+- New translations: Italian, Swedish, Turkish
+- Updated translations: Czech, Danish, Finish, French, Galician, Japanese, Polish
+
 VERSION 1.6.3
 
 - Clean up with new default settings and small fixes

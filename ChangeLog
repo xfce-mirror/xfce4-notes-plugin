@@ -1,5 +1,9 @@
 2009-02-28  Mike Massonnet <mmassonnet@xfce.org>
 
+=== Release 1.6.4 ===
+
+2009-02-28  Mike Massonnet <mmassonnet@xfce.org>
+
 Remember the last tab
 	* panel-plugin/notes.c(notes_window_save_data),
 	  panel-plugin/notes.c(notes_window_load_data):

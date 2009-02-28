@@ -3,7 +3,7 @@ dnl xfce4-notes-plugin - Notes plugin for the Xfce4 panel
 dnl
 dnl 2003 Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
 dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
-dnl 2006, 2008 Mike Massonnet <mmassonnet@gmail.com>
+dnl 2006, 2008, 2009 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])
@@ -11,7 +11,7 @@ m4_define([xfce4_notes_plugin_version_minor], [6])
 m4_define([xfce4_notes_plugin_version_micro], [4])
 m4_define([xfce4_notes_plugin_version_nano], [])
 m4_define([xfce4_notes_plugin_version_build], [r@REVISION@])
-m4_define([xfce4_notes_plugin_version_tag], [svn]) # Leave empty for releases
+m4_define([xfce4_notes_plugin_version_tag], []) # Leave empty for releases
 m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [svn], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
 
 AC_INIT([xfce4-notes-plugin], [xfce4_notes_plugin_version], 
@@ -33,8 +33,9 @@ AC_ISC_POSIX
 AC_MINIX
 
 dnl Check for basic programs
-AC_PROG_CC
+AC_PROG_CC_C_O
 AC_PROG_INSTALL
+AC_PROG_LIBTOOL
 AC_PROG_INTLTOOL
 
 dnl Check for standard header files
@@ -106,7 +107,7 @@ dnl ***************************
 echo
 echo "Build Configuration:"
 echo
-echo "* Xfconf Support:         $enable_xfconf"
+echo "* Settings Dialog:        $enable_xfconf"
 echo "* Thunar-vfs Support:     $enable_thunar_vfs"
 echo "* Debug Support:          $enable_debug"
 echo
