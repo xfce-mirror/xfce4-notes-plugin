@@ -27,6 +27,7 @@
 #include "defines.h"
 #include "settings-dialog.h"
 #include "notes.h"
+#include "color.h"
 
 enum
 {
@@ -89,6 +90,7 @@ prop_dialog_new (NotesPlugin *notes_plugin)
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
   xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog), _("Configure the plugin"));
+  gtk_window_set_default_size (GTK_WINDOW (dialog), 300, -1);
   gtk_window_set_icon_name (GTK_WINDOW (dialog), "xfce4-notes-plugin");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_window_stick (GTK_WINDOW (dialog));

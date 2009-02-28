@@ -45,11 +45,11 @@
 #define SIZE_FACTOR                     1.15
 
 /* Background color values */
-#define BACKGROUND_YELLOW               "#FFEE75"
-#define BACKGROUND_RED                  "#FE8484"
-#define BACKGROUND_BLUE                 "#8FBBEC"
-#define BACKGROUND_GREEN                "#95EA84"
-#define BACKGROUND_PURPLE               "#D37AFF"
+#define BACKGROUND_YELLOW               "#ECDE79"
+#define BACKGROUND_RED                  "#F29998"
+#define BACKGROUND_BLUE                 "#C0D4F5"
+#define BACKGROUND_GREEN                "#A6EA84"
+#define BACKGROUND_PURPLE               "#DB99FB"
 #define BACKGROUND_WHITE                "#F2F1EF"
 
 #endif
