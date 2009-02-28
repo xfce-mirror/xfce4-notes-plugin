@@ -215,7 +215,7 @@ cb_size_changed (GtkComboBox *combobox,
                  gpointer data)
 {
   gint id;
-  gint width, height;
+  gint width = 0, height = 0;
 
   id = gtk_combo_box_get_active (combobox);
 
@@ -290,7 +290,7 @@ cb_background_changed (GtkComboBox *combobox,
 {
   GtkWidget *dialog;
   GdkColor gdkcolor;
-  gchar *color;
+  gchar *color = NULL;
   gint id;
 
   id = gtk_combo_box_get_active (combobox);

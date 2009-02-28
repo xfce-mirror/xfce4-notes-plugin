@@ -176,7 +176,7 @@ notes_window_new_with_label (NotesPlugin *notes_plugin,
   DBG ("New window: %s", window_name);
 
   NotesWindow          *notes_window;
-  GtkWidget            *label, *arrow_menu;
+  GtkWidget            *label;
   GtkRcStyle           *style;
   gchar                *window_name_tmp;
   gchar                *accel_name;
@@ -1129,6 +1129,7 @@ notes_window_leave_event (NotesWindow *notes_window,
                           GdkEventCrossing *event)
 {
   gdk_window_set_cursor (notes_window->window->window, NULL);
+  return TRUE;
 }
 
 static gboolean
