@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 00:54+0100\n"
-"PO-Revision-Date: 2008-07-09 10:45+0300\n"
+"PO-Revision-Date: 2009-02-24 19:54+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "Липуче вікно"
 #. Tabs
 #: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
 msgid "Show tabs"
-msgstr ""
+msgstr "Відображати вкладки"
 
 #: ../panel-plugin/notes.c:887
 msgid "Show on startup"
@@ -111,7 +111,7 @@ msgstr "Неможливо перейменувати записку"
 
 #: ../panel-plugin/settings-dialog.c:91
 msgid "Configure the plugin"
-msgstr ""
+msgstr "Налаштувати плагін"
 
 #: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
@@ -129,72 +129,65 @@ msgstr "Ховати кнопку стрілки"
 
 #: ../panel-plugin/settings-dialog.c:120
 msgid "Background:"
-msgstr ""
+msgstr "Фон:"
 
 #: ../panel-plugin/settings-dialog.c:131
 msgid "New window settings"
 msgstr "Властивості нового вікна"
 
 #: ../panel-plugin/settings-dialog.c:160
-#, fuzzy
 msgid "Font:"
-msgstr "Шрифт"
+msgstr "Шрифт:"
 
 #: ../panel-plugin/settings-dialog.c:175
-#, fuzzy
 msgid "Size:"
-msgstr "Розмір"
+msgstr "Розмір:"
 
 #: ../panel-plugin/settings-dialog.c:194
 msgid "Small"
-msgstr ""
+msgstr "Малий"
 
 #: ../panel-plugin/settings-dialog.c:195
 msgid "Normal"
-msgstr ""
+msgstr "Звичайний"
 
 #: ../panel-plugin/settings-dialog.c:196
 msgid "Large"
-msgstr ""
+msgstr "Великий"
 
 #: ../panel-plugin/settings-dialog.c:254
 msgid "Yellow"
-msgstr ""
+msgstr "Жовтий"
 
 #: ../panel-plugin/settings-dialog.c:255
 msgid "Red"
-msgstr ""
+msgstr "Червоний"
 
 #: ../panel-plugin/settings-dialog.c:256
 msgid "Blue"
-msgstr ""
+msgstr "Синій"
 
 #: ../panel-plugin/settings-dialog.c:257
 msgid "Green"
-msgstr ""
+msgstr "Зелений"
 
 #: ../panel-plugin/settings-dialog.c:258
 msgid "Purple"
-msgstr ""
+msgstr "Рожевий"
 
 #: ../panel-plugin/settings-dialog.c:259
 msgid "White"
-msgstr ""
+msgstr "Білий"
 
 #: ../panel-plugin/settings-dialog.c:260
 msgid "Custom..."
-msgstr ""
+msgstr "Вибрати..."
 
 #: ../panel-plugin/settings-dialog.c:349
 msgid "Background Color"
-msgstr ""
+msgstr "Колір фону"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes plugin for the Xfce4 desktop"
 msgstr "Плагін записок для стільниці Xfce4"
 
-#~ msgid "Resize grip"
-#~ msgstr "Змінити розмір зчеплення"
-
-#~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Плагін записок для Xfce 4"
