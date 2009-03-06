@@ -1,3 +1,7 @@
+2009-03-06  Maximilian Schleiss <maximilian@xfce.org>
+
+	* ca.po: Catalan translation update (Harald Servat)
+
 2009-03-05  Mike Massonnet <mmassonnet@xfce.org>
 
 	* pt.po: Renamed pt_PT.po to pt.po (bug #4574)
@@ -8,8 +12,7 @@
 
 2009-03-04 Og Maciel <ogmaciel@gnome.org>
 
-	* pt_BR.po: Updated Brazilian Portuguese translation by
-	Filipe Rosset.
+	* pt_BR.po: Updated Brazilian Portuguese translation (Filipe Rosset)
 
 2009-03-01  Maximilian Schleiss <maximilian@xfce.org>
 
