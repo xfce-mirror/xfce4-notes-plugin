@@ -510,9 +510,11 @@ notes_plugin_fs_event (ThunarVfsMonitor *monitor,
       break;
 
     case THUNAR_VFS_MONITOR_EVENT_DELETED:
-      /* Remove a NotesWindow */
-      if (G_UNLIKELY (NULL != notes_window))
-        notes_window_destroy (notes_window);
+      /* Due to bad behavior this feature is not implemented.
+       * The bug happens when the last window with the default name "Notes" is
+       * deleted and we create a new window with the default name. The fs_event
+       * will then believe that the new window is the old one (same name).
+       * In consequence no rm -rf ~/.local/share/notes/Notes/. */
       break;
 
     default:
