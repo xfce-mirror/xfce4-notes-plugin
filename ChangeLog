@@ -2,7 +2,7 @@
 
 No rm -rf on the window path
 	* panel-plugin/panel-plugin.c(notes_plugin_fs_event):
-	  - Do to a bug occuring within the deletion of the default window,
+	  - Do to a bug occuring with the deletion of the default window,
 	  this feature is removed
 
 2009-02-28  Mike Massonnet <mmassonnet@xfce.org>
