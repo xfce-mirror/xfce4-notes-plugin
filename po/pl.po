@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: xfce-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 00:54+0100\n"
-"PO-Revision-Date: 2009-02-24 20:51+0100\n"
+"PO-Revision-Date: 2009-03-02 21:41+0100\n"
 "Last-Translator: Piotr Sokół <piotr.sokol@10g.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 #: ../panel-plugin/settings-dialog.c:85
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Notes"
-msgstr "Notatnik"
+msgstr "Notatki"
 
 #: ../panel-plugin/panel-plugin.c:267
 #, c-format
@@ -124,7 +124,7 @@ msgstr "Domyślne ustawienia"
 #. Hide from taskbar
 #: ../panel-plugin/settings-dialog.c:103
 msgid "Hide windows from taskbar"
-msgstr "Okna ukryte na liście zadań"
+msgstr "Ukrywanie okien na liście okien"
 
 #. Hide arrow button
 #: ../panel-plugin/settings-dialog.c:110
