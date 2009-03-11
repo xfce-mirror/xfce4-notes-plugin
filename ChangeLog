@@ -1,3 +1,18 @@
+2009-03-11  Mike Massonnet <mmassonnet@xfce.org>
+
+Include first Vala prototype of Xfce.HypertextView
+	* configure.in.in:
+	  - Check for the program valac
+	* panel-plugin/Makefile.am:
+	  - When in maintainer mode, build the hypertextview C source files
+	  with the valac compiler
+	* panel-plugin/hypertextview.vala:
+	  - A new object on top of GtkTextView that displays links and makes
+	  them clickable + it manages a simple undo/redo history
+	* panel-plugin/notes.c:
+	  - Replace gtk_text_view_new against xfce_hypertext_view_new
+	  - Remove undo/redo code
+
 2009-03-07  Mike Massonnet <mmassonnet@xfce.org>
 
 No rm -rf on the window path

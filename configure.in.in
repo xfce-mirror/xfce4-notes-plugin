@@ -83,6 +83,17 @@ if test "x$THUNAR_VFS_FOUND" != "xyes" ; then
     enable_thunar_vfs=no
 fi
 
+dnl check for valac
+if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
+	AC_CHECK_PROG([has_valac], [valac], [yes], [no])
+	if test "x$has_valac" != "xyes" ; then
+		echo "***"
+		echo "*** You need the valac compiler in order to compile parts of the project"
+		echo "***"
+		echo
+	fi
+fi
+
 dnl Translations
 XDT_I18N([@LINGUAS@])
 
@@ -107,6 +118,11 @@ dnl ***************************
 echo
 echo "Build Configuration:"
 echo
+echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
+if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
+echo "    * Vala:               $has_valac"
+echo
+fi
 echo "* Settings Dialog:        $enable_xfconf"
 echo "* Thunar-vfs Support:     $enable_thunar_vfs"
 echo "* Debug Support:          $enable_debug"

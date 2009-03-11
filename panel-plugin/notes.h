@@ -121,11 +121,6 @@ struct _NotesNote
   GtkWidget            *scrolled_window;
   GtkWidget            *text_view;
 
-  gint                  cursor_pos;
-  guint                 undo_timeout;
-  gchar                *undo_text;
-  gchar                *redo_text;
-
 #ifdef HAVE_THUNAR_VFS
   gboolean				delete;
 #endif

@@ -36,6 +36,7 @@
 #include "defines.h"
 #include "notes.h"
 #include "xfce-arrow-button.h"
+#include "hypertextview.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 #define OPAQUE 0xffffffff
@@ -125,12 +126,6 @@ static gint             notes_note_rename               (NotesNote *notes_note,
 static gboolean         notes_note_key_pressed          (NotesNote *notes_note,
                                                          GdkEventKey *event);
 static void             notes_note_buffer_changed       (NotesNote *notes_note);
-
-static void             notes_note_destroy_undo_timeout (NotesNote *notes_note);
-
-static gboolean         notes_note_undo_snapshot        (NotesNote *notes_note);
-
-static void             notes_note_undo                 (NotesNote *notes_note);
 
 
 
@@ -1654,7 +1649,7 @@ static void
 notes_window_undo (NotesWindow *notes_window)
 {
   NotesNote *current_note = notes_window_get_current_note (notes_window);
-  notes_note_undo (current_note);
+  xfce_hypertext_view_undo (XFCE_HYPERTEXT_VIEW (current_note->text_view));
 }
 
 
@@ -1732,7 +1727,7 @@ notes_note_new (NotesWindow *notes_window,
                                   GTK_POLICY_AUTOMATIC);
 
   /* Text view */
-  notes_note->text_view = gtk_text_view_new ();
+  notes_note->text_view = (GtkWidget *)xfce_hypertext_view_new ();
   g_object_set (notes_note->text_view,
                 "wrap-mode", GTK_WRAP_WORD,
                 "left-margin", 2,
@@ -1741,8 +1736,6 @@ notes_note_new (NotesWindow *notes_window,
                 "pixels-below-lines", 1,
                 NULL);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
-  gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &iter, 0);
-  gtk_text_buffer_create_mark (GTK_TEXT_BUFFER (buffer), "undo-pos", &iter, FALSE);
   if (NULL != notes_note->notes_window->font)
     notes_note_set_font (notes_note, notes_note->notes_window->font);
   gtk_container_add (GTK_CONTAINER (notes_note->scrolled_window),
@@ -1792,12 +1785,6 @@ notes_note_destroy (NotesNote *notes_note)
   /* Make sure we kill the timeout */
   if (notes_note->timeout != 0)
     g_source_remove (notes_note->timeout);
-
-  /* Remove undo/redo data */
-  if (notes_note->undo_timeout != 0)
-   g_source_remove (notes_note->undo_timeout);
-  g_free (notes_note->undo_text);
-  g_free (notes_note->redo_text);
 
   /* Remove notebook page */
   id = g_slist_index (notes_window->notes, notes_note);
@@ -1865,10 +1852,6 @@ notes_note_load_data (NotesNote *notes_note,
       TRACE ("Load data for notes `%s':\n%s", notes_note->name, contents);
       gtk_text_buffer_set_text (buffer, contents, -1);
       gtk_text_view_set_buffer (GTK_TEXT_VIEW (notes_note->text_view), buffer);
-
-      /* Set initial undo/redo text */
-      notes_note->undo_text = g_strdup (contents);
-      notes_note->redo_text = g_strdup (contents);
     }
 
   g_free (contents);
@@ -2108,70 +2091,5 @@ notes_note_buffer_changed (NotesNote *notes_note)
       notes_note->timeout = 0;
     }
   notes_note->timeout = g_timeout_add (60000, (GSourceFunc)notes_note_save_data, notes_note);
-
-  /* Undo timeout */
-  if (notes_note->undo_timeout > 0)
-    g_source_remove (notes_note->undo_timeout);
-  notes_note->undo_timeout = g_timeout_add_full (G_PRIORITY_DEFAULT, 1230,
-                                                 (GSourceFunc)notes_note_undo_snapshot, notes_note,
-                                                 (GDestroyNotify)notes_note_destroy_undo_timeout);
-}
-
-static void
-notes_note_destroy_undo_timeout (NotesNote *notes_note)
-{
-  notes_note->undo_timeout = 0;
-}
-
-static gboolean
-notes_note_undo_snapshot (NotesNote *notes_note)
-{
-  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
-  GtkTextIter start, end;
-
-  g_object_get (buffer, "cursor-position", &notes_note->cursor_pos, NULL);
-
-  gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &start, 0);
-  gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
-
-  g_free (notes_note->undo_text);
-  notes_note->undo_text = notes_note->redo_text;
-  notes_note->redo_text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (buffer),
-                                                    &start, &end, FALSE);
-
-  return FALSE;
-}
-
-static void
-notes_note_undo (NotesNote *notes_note)
-{
-  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (notes_note->text_view));
-  gchar *tmp;
-  GtkTextIter iter;
-  GtkTextMark *mark;
-
-  if (notes_note->undo_timeout > 0)
-    {
-      /* Take the snapshot by hand */
-      g_source_remove (notes_note->undo_timeout);
-      notes_note_undo_snapshot (notes_note);
-    }
-
-  if (notes_note->undo_text == NULL)
-    notes_note->undo_text = g_strdup ("");
-
-  gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), notes_note->undo_text, -1);
-  gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &iter, notes_note->cursor_pos);
-  gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (buffer), &iter);
-
-  mark = gtk_text_buffer_get_mark (GTK_TEXT_BUFFER (buffer), "undo-pos");
-  gtk_text_buffer_move_mark (GTK_TEXT_BUFFER (buffer), mark, &iter);
-  gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (notes_note->text_view), mark, 0.0, FALSE, 0.5, 0.5);
-
-  tmp = notes_note->undo_text;
-  notes_note->undo_text = notes_note->redo_text;
-  notes_note->redo_text = tmp;
-
-  g_source_remove (notes_note->undo_timeout);
 }
 

@@ -13,6 +13,15 @@ xfce4_popup_notes_LDADD =						\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@
 
+if MAINTAINER_MODE
+BUILT_SOURCES =								\
+	hypertextview.c							\
+	hypertextview.h
+
+hypertextview.c: hypertextview.vala Makefile
+	valac --pkg=gtk+-2.0 hypertextview.vala -C
+endif
+
 plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
 
@@ -22,6 +31,8 @@ xfce4_notes_plugin_SOURCES =						\
 	xfce-arrow-button.h						\
 	color.c								\
 	color.h								\
+	hypertextview.c							\
+	hypertextview.h							\
 	panel-plugin.c							\
 	settings-dialog.c						\
 	settings-dialog.h						\
@@ -52,10 +63,10 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
 EXTRA_DIST =								\
-	$(desktop_in_in_files)
+	$(desktop_in_in_files) hypertextview.vala
 
 DISTCLEANFILES =							\
-	$(desktop_DATA) $(desktop_in_files)
+	$(desktop_DATA) $(desktop_in_files) $(BUILT_SOURCES)
 
 # get full path into .desktop file
 %.desktop.in: %.desktop.in.in
