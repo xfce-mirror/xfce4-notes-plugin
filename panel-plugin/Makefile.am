@@ -19,7 +19,7 @@ BUILT_SOURCES =								\
 	hypertextview.h
 
 hypertextview.c: hypertextview.vala Makefile
-	valac --pkg=gtk+-2.0 hypertextview.vala -C
+	$(VALAC) --pkg=gtk+-2.0 hypertextview.vala -C
 endif
 
 plugindir = $(libexecdir)/xfce4/panel-plugins

@@ -84,8 +84,11 @@ if test "x$THUNAR_VFS_FOUND" != "xyes" ; then
 fi
 
 dnl check for valac
+valac_minimum_version=0.5.7
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 	AC_CHECK_PROG([has_valac], [valac], [yes], [no])
+	AC_PATH_PROG([VALAC], [valac], [valac])
+	AC_SUBST(VALAC)
 	if test "x$has_valac" != "xyes" ; then
 		echo "***"
 		echo "*** You need the valac compiler in order to compile parts of the project"
@@ -121,6 +124,7 @@ echo
 echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 echo "    * Vala:               $has_valac"
+echo "      You need Vala $valac_minimum_version or higher (run $VALAC --version)"
 echo
 fi
 echo "* Settings Dialog:        $enable_xfconf"
