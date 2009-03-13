@@ -1,3 +1,6 @@
+#
+# Popup program
+#
 bin_PROGRAMS = xfce4-popup-notes
 
 xfce4_popup_notes_SOURCES =						\
@@ -13,15 +16,26 @@ xfce4_popup_notes_LDADD =						\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@
 
+#
+# Vala sources
+#
 if MAINTAINER_MODE
-BUILT_SOURCES =								\
-	hypertextview.c							\
-	hypertextview.h
+xfce4_notes_plugin_VALASOURCES =					\
+	hypertextview.vala
 
-hypertextview.c: hypertextview.vala Makefile
-	$(VALAC) --pkg=gtk+-2.0 hypertextview.vala -C
+vala_built_SOURCES =							\
+	$(xfce4_notes_plugin_VALASOURCES:.vala=.c)			\
+	$(xfce4_notes_plugin_VALASOURCES:.vala=.h)
+
+BUILT_SOURCES = vala.stamp
+vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
+	$(VALAC) --pkg=gtk+-2.0 $^ -C
+	touch $@
 endif
 
+#
+# Plugin
+#
 plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
 
@@ -31,13 +45,12 @@ xfce4_notes_plugin_SOURCES =						\
 	xfce-arrow-button.h						\
 	color.c								\
 	color.h								\
-	hypertextview.c							\
-	hypertextview.h							\
 	panel-plugin.c							\
 	settings-dialog.c						\
 	settings-dialog.h						\
 	notes.c								\
 	notes.h
+xfce4_notes_plugin_SOURCES += $(vala_built_SOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
 	-I$(top_srcdir)							\
@@ -55,6 +68,9 @@ xfce4_notes_plugin_LDADD =						\
 	@THUNAR_VFS_LIBS@						\
 	@XFCONF_LIBS@
 
+#
+# Plugin desktop file
+#
 desktop_in_in_files = xfce4-notes-plugin.desktop.in.in
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 
@@ -62,13 +78,16 @@ desktopdir = $(datadir)/xfce4/panel-plugins
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-EXTRA_DIST =								\
-	$(desktop_in_in_files) hypertextview.vala
-
-DISTCLEANFILES =							\
-	$(desktop_DATA) $(desktop_in_files) $(BUILT_SOURCES)
-
-# get full path into .desktop file
 %.desktop.in: %.desktop.in.in
 	sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(libexecdir)/xfce4/panel-plugins^" \
 		$< > $@
+
+#
+# Extra
+#
+EXTRA_DIST =								\
+	$(desktop_in_in_files) $(xfce4_notes_plugin_VALASOURCES)
+
+DISTCLEANFILES =							\
+	$(desktop_DATA) $(desktop_in_files) $(BUILT_SOURCES) $(vala_built_SOURCES)
+
