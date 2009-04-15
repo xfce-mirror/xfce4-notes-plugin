@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 00:54+0100\n"
-"PO-Revision-Date: 2009-04-08 12:39+0100\n"
+"PO-Revision-Date: 2009-04-11 11:31+0100\n"
 "Last-Translator: Piotr Sokół <piotr.sokol@10g.pl>\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Nie można zmienić nazwy notatki"
 
 #: ../panel-plugin/settings-dialog.c:91
 msgid "Configure the plugin"
-msgstr "Konfiguruje ustawienia wtyczki notatek"
+msgstr "Konfiguruje ustawienia apletu"
 
 #: ../panel-plugin/settings-dialog.c:98
 msgid "Default settings"
