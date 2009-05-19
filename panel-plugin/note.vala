@@ -69,10 +69,10 @@ namespace Xnp {
 			}
 		}
 
-		public override void size_allocate (Gtk.Allocation allocation) {
-			this.allocation = allocation;
+		public override void size_allocate (Gdk.Rectangle allocation) {
+			this.allocation = (Gtk.Allocation)allocation;
 			if (this.child != null && (bool)(this.child.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
-				this.child.size_allocate ((Gtk.Allocation)allocation);
+				this.child.size_allocate (allocation);
 			}
 		}
 

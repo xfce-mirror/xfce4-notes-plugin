@@ -1,3 +1,12 @@
+2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
+
+Update window title
+	* panel-plugin/window.vala:
+	  - On note rename and on note switching, update the window title and
+	  the title label seen inside the window.
+	* panel-plugin/note.vala:
+	  - Build with Vala 0.7.1 => vapi changes
+
 2009-05-19  Mike Massonnet <mmassonnet@xfce.org>
 
 Vala vala vala vala vala

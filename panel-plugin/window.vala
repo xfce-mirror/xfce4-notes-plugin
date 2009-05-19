@@ -39,6 +39,7 @@ namespace Xnp {
 		private bool sticky;
 		private Gtk.AccelGroup accel_group;
 		private Gtk.Menu menu;
+		private Gtk.Label title_label;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
 		private Gtk.HBox navigation_box;
@@ -53,8 +54,7 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
-		public Window () {
-			/* Build Window properties */
+		construct {
 			this.title = "Notes";
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
@@ -62,6 +62,10 @@ namespace Xnp {
 			this.default_width = 300;
 			this.decorated = false;
 			this.icon_name = "xfce4-notes-plugin";
+		}
+
+		public Window () {
+			/* Window responses on pointer motion */
 			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.POINTER_MOTION_HINT_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
 
 			/* Build AccelGroup */
@@ -91,13 +95,12 @@ namespace Xnp {
 			var menu_box = new Gtk.EventBox ();
 			var menu_image = new Gtk.Image.from_icon_name ("xfce4-notes-plugin", Gtk.IconSize.MENU);
 			menu_box.add (menu_image);
-			menu_box.set_size_request (22, 22);
 			title_box.pack_start (menu_box, false, false, 4);
 			var title_evbox = new Gtk.EventBox ();
-			var title = new Gtk.Label ("<b>"+this.title+"</b>");
-			title.use_markup = true;
-			title.ellipsize = Pango.EllipsizeMode.END;
-			title_evbox.add (title);
+			this.title_label = new Gtk.Label (null);
+			this.title_label.set_markup ("<b>"+this.title+"</b>");
+			this.title_label.ellipsize = Pango.EllipsizeMode.END;
+			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 0);
 			var close_box = new Gtk.Button ();
 			close_box.set_relief (Gtk.ReliefStyle.NONE);
@@ -105,7 +108,6 @@ namespace Xnp {
 			var close_label = new Gtk.Label ("<b>x</b>");
 			close_label.use_markup = true;
 			close_box.add (close_label);
-			close_box.set_size_request (22, 22);
 			title_box.pack_start (close_box, false, false, 4);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
@@ -131,7 +133,6 @@ namespace Xnp {
 			var goleft_label = new Gtk.Label ("<b>&lt;</b>");
 			goleft_label.use_markup = true;
 			this.goleft_box.add (goleft_label);
-			this.goleft_box.set_size_request (22, 22);
 			this.navigation_box.pack_start (this.goleft_box, true, false, 0);
 			var add_box = new Gtk.Button ();
 			add_box.set_tooltip_text (Gtk.accelerator_get_label ('N', Gdk.ModifierType.CONTROL_MASK));
@@ -140,7 +141,6 @@ namespace Xnp {
 			var add_label = new Gtk.Label ("<b>+</b>");
 			add_label.use_markup = true;
 			add_box.add (add_label);
-			add_box.set_size_request (22, 22);
 			this.navigation_box.pack_start (add_box, true, false, 0);
 			var del_box = new Gtk.Button ();
 			del_box.set_tooltip_text (Gtk.accelerator_get_label ('W', Gdk.ModifierType.CONTROL_MASK));
@@ -149,7 +149,6 @@ namespace Xnp {
 			var del_label = new Gtk.Label ("<b>−</b>");
 			del_label.use_markup = true;
 			del_box.add (del_label);
-			del_box.set_size_request (22, 22);
 			this.navigation_box.pack_start (del_box, true, false, 0);
 			this.goright_box = new Gtk.Button ();
 			this.goright_box.set_relief (Gtk.ReliefStyle.NONE);
@@ -158,7 +157,6 @@ namespace Xnp {
 			var goright_label = new Gtk.Label ("<b>&gt;</b>");
 			goright_label.use_markup = true;
 			this.goright_box.add (goright_label);
-			this.goright_box.set_size_request (22, 22);
 			this.navigation_box.pack_start (this.goright_box, true, false, 0);
 			this.navigation_box.show_all ();
 			this.navigation_box.hide ();
@@ -210,7 +208,14 @@ namespace Xnp {
 				update_navigation_sensitivity ((int)p);
 			};
 			this.notebook.switch_page += (n, c, p) => {
+				var note = (Xnp.Note)(notebook.get_nth_page ((int)p));
+				title = note.name;
 				update_navigation_sensitivity ((int)p);
+			};
+			notify += (o, p) => {
+				if (p.name == "title") {
+					title_label.set_markup ("<b>"+title+"</b>");
+				}
 			};
 		}
 
@@ -627,8 +632,10 @@ namespace Xnp {
 			dialog.vbox.show_all ();
 
 			int res = dialog.run ();
-			if (res == Gtk.ResponseType.OK)
+			if (res == Gtk.ResponseType.OK) {
 				note.name = entry.text;
+				title = note.name;
+			}
 			dialog.destroy ();
 		}
 
