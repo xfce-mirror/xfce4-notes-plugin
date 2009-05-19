@@ -32,12 +32,13 @@ namespace Xnp {
 			var window = new Xnp.Window ();
 			var note = window.insert_note ();
 			note.notify += note_property_notify;
+			note.save_data += (n) => { debug ("app.note.save-data %s", n); };
+			note.name = "cartoon";
 			window.show ();
 		}
 
 		/**
 		 * note_property_notify:
-		 * @object
 		 *
 		 * Emitted when a property is changed.
 		 */

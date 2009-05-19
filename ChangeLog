@@ -3,7 +3,7 @@
 Update window title
 	* panel-plugin/window.vala:
 	  - On note rename and on note switching, update the window title and
-	  the title label seen inside the window.
+	  the title label seen inside the window
 	* panel-plugin/note.vala:
 	  - Build with Vala 0.7.1 => vapi changes
 

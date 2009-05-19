@@ -8,7 +8,6 @@
  *  - Extra window properties
  *  - Verify: unshade before hide
  *  - On del_box_clicked_cb verify if the content is empty
- *  - Display note name in title
  *  - Hide navigation bar on leave / show on motion
  *
  *  This program is free software; you can redistribute it and/or modify
