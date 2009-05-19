@@ -2,7 +2,8 @@
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009  Mike Massonnet <mmassonnet@xfce.org>
  *
- *  TODO: on set_buffer initialize the undo/redo texts
+ *  TODO:
+ *  - On set_buffer initialize the undo/redo texts
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,12 +23,13 @@
 using Gtk;
 using Pango;
 
-namespace Xfce {
+namespace Xnp {
 
 	public class HypertextView : Gtk.TextView {
 
-		private Gdk.Cursor hand_cursor;
-		private Gdk.Cursor regular_cursor;
+		private Gdk.Cursor hand_cursor = new Gdk.Cursor (Gdk.CursorType.HAND2);
+		private Gdk.Cursor regular_cursor = new Gdk.Cursor (Gdk.CursorType.XTERM);
+
 		private bool cursor_over_link = false;
 
 		private uint undo_timeout = 0;
@@ -38,11 +40,23 @@ namespace Xfce {
 		private uint tag_timeout = 0;
 		private Gtk.TextTag tag_link;
 
-		construct {
-			Gtk.TextIter iter;
+		private string _font;
+		public string font {
+			default = "Sans 14";
+			get {
+				return this._font;
+			}
+			construct {
+				if (value == null)
+					value = "Sans 14";
+				this._font = value;
+				Pango.FontDescription font_descr = Pango.FontDescription.from_string (value);
+				modify_font (font_descr);
+			}
+		}
 
-			this.hand_cursor = new Gdk.Cursor (Gdk.CursorType.HAND2);
-			this.regular_cursor = new Gdk.Cursor (Gdk.CursorType.XTERM);
+		public HypertextView () {
+			Gtk.TextIter iter;
 
 			this.button_release_event += button_release_event_cb;
 			this.motion_notify_event += motion_notify_event_cb;
@@ -60,6 +74,13 @@ namespace Xfce {
 					null);
 		}
 
+		~HypertextView () {
+			if (this.undo_timeout != 0)
+				Source.remove (this.undo_timeout);
+			if (this.tag_timeout != 0)
+				Source.remove (this.tag_timeout);
+		}
+
 		/*
 		 * Signal callbacks
 		 */
@@ -69,7 +90,7 @@ namespace Xfce {
 		 *
 		 * Event to open links.
 		 */
-		private bool button_release_event_cb (Xfce.HypertextView hypertextview, Gdk.EventButton event) {
+		private bool button_release_event_cb (HypertextView hypertextview, Gdk.EventButton event) {
 			Gtk.TextIter start, end, iter;
 			string link;
 			int x, y;
@@ -120,7 +141,7 @@ namespace Xfce {
 		 *
 		 * Event to update the cursor of the pointer.
 		 */
-		private bool motion_notify_event_cb (Xfce.HypertextView hypertextview, Gdk.EventMotion event) {
+		private bool motion_notify_event_cb (HypertextView hypertextview, Gdk.EventMotion event) {
 			Gtk.TextIter iter;
 			Gdk.Window win;
 			bool over_link;
@@ -144,16 +165,18 @@ namespace Xfce {
 		 *
 		 * Destroys existing timeouts and executes the actions immediately.
 		 */
-		private void move_cursor_cb (Xfce.HypertextView hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
+		private void move_cursor_cb (HypertextView hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
 			if (this.undo_timeout > 0) {
 				/* Make an undo snapshot and save cursor_position before it really moves */
 				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
 				undo_snapshot ();
 				this.undo_cursor_pos = this.buffer.cursor_position;
 			}
 
 			if (this.tag_timeout > 0) {
 				Source.remove (this.tag_timeout);
+				this.tag_timeout = 0;
 				update_tags ();
 			}
 		}
@@ -167,15 +190,15 @@ namespace Xfce {
 			/* Initialize undo_timeout */
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
 			}
-			this.undo_timeout = Timeout.add_seconds_full (Priority.DEFAULT, 2,
-					undo_snapshot, undo_timeout_destroy);
+			this.undo_timeout = Timeout.add_seconds (2, undo_snapshot);
 
 			/* Reinit tag_timeout as long as the buffer is under constant changes */
 			if (this.tag_timeout > 0) {
 				Source.remove (this.tag_timeout);
-				this.tag_timeout = Timeout.add_seconds_full (Priority.DEFAULT, 2,
-						tag_timeout_cb, tag_timeout_destroy);
+				this.tag_timeout = 0;
+				this.tag_timeout = Timeout.add_seconds (2, tag_timeout_cb);
 			}
 		}
 
@@ -217,12 +240,14 @@ namespace Xfce {
 
 			/* Text is inserted at the end of a tag */
 			else if (location.ends_tag (this.tag_link)) {
-				start = location;
-				start.backward_to_tag_toggle (this.tag_link);
+				if (len >= 1 && !(text[0] == ' ' || text[0] == '\n')) {
+					start = location;
+					start.backward_to_tag_toggle (this.tag_link);
 
-				this.buffer.remove_tag (this.tag_link, start, location);
+					this.buffer.remove_tag (this.tag_link, start, location);
 
-				tag_timeout_init ();
+					tag_timeout_init ();
+				}
 			}
 
 			/* Check if the word being typed is "http://" */
@@ -233,6 +258,11 @@ namespace Xfce {
 					return;
 
 				tag_timeout_init ();
+			}
+
+			/* Check the character space or return carrier */
+			else if (len == 1 && (text[0] == ' ' || text[0] == '\n')) {
+				update_tags ();
 			}
 
 			/* Text contains links */
@@ -290,10 +320,6 @@ namespace Xfce {
 			return false;
 		}
 
-		private void undo_timeout_destroy () {
-			this.undo_timeout = 0;
-		}
-
 		/**
 		 * undo:
 		 *
@@ -307,6 +333,7 @@ namespace Xfce {
 			if (this.undo_timeout > 0) {
 				/* Make an undo snaphot */
 				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
 				undo_snapshot ();
 			}
 
@@ -323,7 +350,10 @@ namespace Xfce {
 			this.undo_text = this.redo_text;
 			this.redo_text = tmp;
 
-			Source.remove (this.undo_timeout);
+			if (this.undo_timeout > 0) {
+				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
+			}
 		}
 
 		/*
@@ -338,14 +368,10 @@ namespace Xfce {
 		private void tag_timeout_init () {
 			if (this.tag_timeout > 0) {
 				Source.remove (this.tag_timeout);
+				this.tag_timeout = 0;
 			}
 
-			this.tag_timeout = Timeout.add_seconds_full (Priority.DEFAULT, 2,
-					tag_timeout_cb, tag_timeout_destroy);
-		}
-
-		private void tag_timeout_destroy () {
-			this.tag_timeout = 0;
+			this.tag_timeout = Timeout.add_seconds (2, tag_timeout_cb);
 		}
 
 		/**
@@ -356,8 +382,10 @@ namespace Xfce {
 		public void update_tags () {
 			Gtk.TextIter iter, start, end, tmp;
 
-			if (this.tag_timeout > 0)
+			if (this.tag_timeout > 0) {
 				Source.remove (this.tag_timeout);
+				this.tag_timeout = 0;
+			}
 
 			this.buffer.get_iter_at_offset (out iter, 0);
 

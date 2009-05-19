@@ -1,3 +1,9 @@
+VERSION 1.6.5
+
+- New window menu layout with navigation for notes
+- Dropped show-tabs option for the window in favor of a navigation bar
+- New vala objects Window and Note, based on the existing code inside notes.c
+
 VERSION 1.6.4
 
 - Resize handle all around the window
