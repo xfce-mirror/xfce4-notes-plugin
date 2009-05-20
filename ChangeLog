@@ -1,5 +1,14 @@
 2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
 
+Follow above/sticky states
+	* panel-plugin/window.vala:
+	  - Switch above/sticky states through the new window properties above
+	  and sticky
+	  - Toggle the menu items mi_above and mi_sticky to keep them valid
+	  through the window_state_cb()
+
+2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
+
 Update window title on note name changes (not simply on renames)
 	* panel-plugin/window.vala:
 	  - Update the window title by connecting to note.notify for changes

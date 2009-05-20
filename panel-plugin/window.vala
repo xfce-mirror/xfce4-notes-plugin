@@ -31,10 +31,10 @@ namespace Xnp {
 
 		private int width;
 		private int height;
-		private bool above;
-		private bool sticky;
 		private Gtk.AccelGroup accel_group;
 		private Gtk.Menu menu;
+		private Gtk.CheckMenuItem mi_above;
+		private Gtk.CheckMenuItem mi_sticky;
 		private Gtk.Label title_label;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
@@ -50,6 +50,31 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
+		private bool _above;
+		public bool above {
+			get {
+				return this._above;
+			}
+			set {
+				this._above = value;
+				set_keep_above (value);
+			}
+		}
+
+		private bool _sticky;
+		public bool sticky {
+			get {
+				return this._sticky;
+			}
+			set {
+				this._sticky = value;
+				if (value == true)
+					stick ();
+				else
+					unstick ();
+			}
+		}
+
 		construct {
 			this.name = "xfce4-notes-plugin";
 			this.title = "Notes";
@@ -59,6 +84,7 @@ namespace Xnp {
 			this.default_width = 300;
 			this.decorated = false;
 			this.icon_name = "xfce4-notes-plugin";
+			this.sticky = true;
 		}
 
 		public Window () {
@@ -381,10 +407,10 @@ namespace Xnp {
 			if ((bool)(event.changed_mask & Gdk.WindowState.ABOVE)) {
 				/* FIXME above state is never notified despit
 				 * of xfwm4 switching the state */
-				this.above = (bool)(event.new_window_state & Gdk.WindowState.ABOVE);
+				this.mi_above.active = (bool)(event.new_window_state & Gdk.WindowState.ABOVE);
 			}
 			if ((bool)(event.changed_mask & Gdk.WindowState.STICKY)) {
-				this.sticky = (bool)(event.new_window_state & Gdk.WindowState.STICKY);
+				this.mi_sticky.active = (bool)(event.new_window_state & Gdk.WindowState.STICKY);
 			}
 			return false;
 		}
@@ -473,6 +499,7 @@ namespace Xnp {
 			var mi = new Gtk.MenuItem.with_mnemonic ("_Go");
 			menu.append (mi);
 
+			/* Navigation */
 			var menu_go = new Gtk.Menu ();
 			mi.set_submenu (menu_go);
 
@@ -489,6 +516,7 @@ namespace Xnp {
 				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
 			menu_go.append (mi);
 
+			/* Properties */
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
 			menu.append (mi);
 
@@ -529,17 +557,21 @@ namespace Xnp {
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_SELECT_FONT, null);
 			menu.append (mi);
 
-			mi = new Gtk.CheckMenuItem.with_label ("Always on top");
+			mi = this.mi_above = new Gtk.CheckMenuItem.with_label ("Always on top");
+			((Gtk.CheckMenuItem)mi).active = this.above;
+			((Gtk.CheckMenuItem)mi).toggled += (o) => { above = o.active; };
 			menu.append (mi);
 
-			mi = new Gtk.CheckMenuItem.with_label ("Sticky window");
+			mi = this.mi_sticky = new Gtk.CheckMenuItem.with_label ("Sticky window");
+			((Gtk.CheckMenuItem)mi).active = this.sticky;
+			((Gtk.CheckMenuItem)mi).toggled += (o) => { sticky = o.active; };
 			menu.append (mi);
 
 			return menu;
 		}
 
 		/*
-		 * Shade/unshade
+		 * Private methods
 		 */
 
 		/**
@@ -568,8 +600,25 @@ namespace Xnp {
 			}
 		}
 
+		/**
+		 * update_navigation_sensitivity:
+		 *
+		 * Update the goleft/right sensitivities.
+		 */
+		private void update_navigation_sensitivity (int page_num) {
+			int n_pages = notebook.get_n_pages ();
+			if (n_pages <= 1) {
+				this.goleft_box.sensitive = false;
+				this.goright_box.sensitive = false;
+			}
+			else {
+				this.goleft_box.sensitive = page_num == 0 ? false : true;
+				this.goright_box.sensitive = page_num + 1 == n_pages ? false : true;
+			}
+		}
+
 		/*
-		 * Tabs, navigation
+		 * Public methods
 		 */
 
 		/**
@@ -580,7 +629,8 @@ namespace Xnp {
 		 */
 		public Xnp.Note insert_note () {
 			int position = this.notebook.get_current_page () + 1;
-			var note = new Xnp.Note ("my-note");
+			string name = "Notes";
+			var note = new Xnp.Note (name);
 
 			note.notify += note_notify;
 			note.save_data += (o, n) => { print ("note `%s' save-data\n", n); };
@@ -654,22 +704,6 @@ namespace Xnp {
 			dialog.destroy ();
 		}
 
-		/**
-		 * update_navigation_sensitivity:
-		 *
-		 * Update the goleft/right sensitivities.
-		 */
-		private void update_navigation_sensitivity (int page_num) {
-			int n_pages = notebook.get_n_pages ();
-			if (n_pages <= 1) {
-				this.goleft_box.sensitive = false;
-				this.goright_box.sensitive = false;
-			}
-			else {
-				this.goleft_box.sensitive = page_num == 0 ? false : true;
-				this.goright_box.sensitive = page_num + 1 == n_pages ? false : true;
-			}
-		}
 /*
 		static int main (string[] args) {
 			Gtk.init (ref args);
