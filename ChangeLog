@@ -1,5 +1,14 @@
 2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
 
+Update window title on note name changes (not simply on renames)
+	* panel-plugin/window.vala:
+	  - Update the window title by connecting to note.notify for changes
+	  on the note property
+	  - On note rename, only set note.name (drop title)
+	  - Set window widget name (makes the gtkrc theme work again)
+
+2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
+
 Update window title
 	* panel-plugin/window.vala:
 	  - On note rename and on note switching, update the window title and

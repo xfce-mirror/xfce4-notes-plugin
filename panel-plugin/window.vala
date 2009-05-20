@@ -4,11 +4,8 @@
  *
  *  TODO:
  *  - F2/Esc/etc accelerators
- *  - Set widget name for Window
  *  - Extra window properties
  *  - Verify: unshade before hide
- *  - On del_box_clicked_cb verify if the content is empty
- *  - Hide navigation bar on leave / show on motion
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -54,6 +51,7 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
 		construct {
+			this.name = "xfce4-notes-plugin";
 			this.title = "Notes";
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
@@ -159,7 +157,7 @@ namespace Xnp {
 			this.navigation_box.pack_start (this.goright_box, true, false, 0);
 			this.navigation_box.show_all ();
 			this.navigation_box.hide ();
-			this.content_box.pack_start (this.navigation_box, false, false, 0);
+			this.content_box.pack_start (this.navigation_box, false, false, 1);
 
 			/* Connect mouse click signals */
 			menu_box.button_press_event += menu_box_pressed_cb;
@@ -442,6 +440,23 @@ namespace Xnp {
 			return false;
 		}
 
+		/**
+		 * note_notify:
+		 *
+		 * Update the window title on note name changes.
+		 */
+		private void note_notify (GLib.Object object, GLib.ParamSpec pspec) {
+			if (pspec.name == "name") {
+				/* Update the window title */
+				var note = (Xnp.Note)object;
+				int position = this.notebook.get_current_page ();
+				var current_note = (Xnp.Note)(this.notebook.get_nth_page (position));
+				if (note == current_note) {
+					title = note.name;
+				}
+			}
+		}
+
 		/*
 		 * Window menu
 		 */
@@ -566,7 +581,10 @@ namespace Xnp {
 		public Xnp.Note insert_note () {
 			int position = this.notebook.get_current_page () + 1;
 			var note = new Xnp.Note ("my-note");
+
+			note.notify += note_notify;
 			note.save_data += (o, n) => { print ("note `%s' save-data\n", n); };
+
 			note.show ();
 			this.notebook.insert_page (note, null, position);
 			return note;
@@ -631,10 +649,8 @@ namespace Xnp {
 			dialog.vbox.show_all ();
 
 			int res = dialog.run ();
-			if (res == Gtk.ResponseType.OK) {
+			if (res == Gtk.ResponseType.OK)
 				note.name = entry.text;
-				title = note.name;
-			}
 			dialog.destroy ();
 		}
 
