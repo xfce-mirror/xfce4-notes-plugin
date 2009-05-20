@@ -475,8 +475,8 @@ namespace Xnp {
 			if (pspec.name == "name") {
 				/* Update the window title */
 				var note = (Xnp.Note)object;
-				int position = this.notebook.get_current_page ();
-				var current_note = (Xnp.Note)(this.notebook.get_nth_page (position));
+				int page = this.notebook.get_current_page ();
+				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
 				if (note == current_note) {
 					title = note.name;
 				}
@@ -555,6 +555,7 @@ namespace Xnp {
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_SELECT_FONT, null);
+			mi.activate += set_font;
 			menu.append (mi);
 
 			mi = this.mi_above = new Gtk.CheckMenuItem.with_label ("Always on top");
@@ -628,7 +629,7 @@ namespace Xnp {
 		 * the current position.
 		 */
 		public Xnp.Note insert_note () {
-			int position = this.notebook.get_current_page () + 1;
+			int page = this.notebook.get_current_page () + 1;
 			string name = "Notes";
 			var note = new Xnp.Note (name);
 
@@ -636,7 +637,7 @@ namespace Xnp {
 			note.save_data += (o, n) => { print ("note `%s' save-data\n", n); };
 
 			note.show ();
-			this.notebook.insert_page (note, null, position);
+			this.notebook.insert_page (note, null, page);
 			return note;
 		}
 
@@ -652,10 +653,10 @@ namespace Xnp {
 		/**
 		 * delete_note:
 		 *
-		 * Delete note at position @position.
+		 * Delete note at page @page.
 		 */
-		public void delete_note (int position) {
-			var child = this.notebook.get_nth_page (position);
+		public void delete_note (int page) {
+			var child = this.notebook.get_nth_page (page);
 
 			if (((Xnp.Note)child).text_view.buffer.get_char_count () > 0) {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -666,7 +667,7 @@ namespace Xnp {
 					return;
 			}
 
-			this.notebook.remove_page (position);
+			this.notebook.remove_page (page);
 			child.destroy ();
 			if (this.notebook.get_n_pages () == 0)
 				this.insert_note ();
@@ -678,10 +679,10 @@ namespace Xnp {
 		 * Rename the current note.
 		 */
 		public void rename_current_note () {
-			int position = this.notebook.get_current_page ();
-			if (position == -1)
+			int page = this.notebook.get_current_page ();
+			if (page == -1)
 				return;
-			var note = (Xnp.Note)(this.notebook.get_nth_page (position));
+			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
 			var dialog = new Gtk.Dialog.with_buttons ("Rename note", (Gtk.Window)get_toplevel (),
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -699,8 +700,30 @@ namespace Xnp {
 			dialog.vbox.show_all ();
 
 			int res = dialog.run ();
+			dialog.hide ();
 			if (res == Gtk.ResponseType.OK)
 				note.name = entry.text;
+			dialog.destroy ();
+		}
+
+		/**
+		 * set_font:
+		 *
+		 * Set the font for the window.
+		 */
+		public void set_font () {
+			int page = this.notebook.get_current_page ();
+			if (page == -1)
+				return;
+			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
+
+			var dialog = new Gtk.FontSelectionDialog ("Choose current note font");
+			dialog.set_font_name (note.text_view.font);
+			int res = dialog.run ();
+			dialog.hide ();
+			if (res == Gtk.ResponseType.OK) {
+				note.text_view.font = dialog.get_font_name ();
+			}
 			dialog.destroy ();
 		}
 

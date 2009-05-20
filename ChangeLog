@@ -1,5 +1,14 @@
 2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
 
+Set font for current note
+	* panel-plugin/hypertextview.vala:
+	  - Make the font property settable (it was a construct only)
+	* panel-plugin/window.vala:
+	  - Response on Font menu item and popup a font selection dialog to
+	  set the font of the current note
+
+2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
+
 Follow above/sticky states
 	* panel-plugin/window.vala:
 	  - Switch above/sticky states through the new window properties above

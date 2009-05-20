@@ -42,17 +42,18 @@ namespace Xnp {
 
 		private string _font;
 		public string font {
-			default = "Sans 14";
 			get {
 				return this._font;
 			}
-			construct {
-				if (value == null)
-					value = "Sans 14";
+			set {
 				this._font = value;
 				Pango.FontDescription font_descr = Pango.FontDescription.from_string (value);
 				modify_font (font_descr);
 			}
+		}
+
+		construct {
+			this.font = "Sans 14";
 		}
 
 		public HypertextView () {
