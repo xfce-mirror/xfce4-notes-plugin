@@ -501,20 +501,9 @@ namespace Xnp {
 
 			/* Navigation */
 			var menu_go = new Gtk.Menu ();
+			update_menu_go (menu_go);
+			menu_go.show += update_menu_go;
 			mi.set_submenu (menu_go);
-
-			mi = new Gtk.SeparatorMenuItem ();
-			menu_go.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ADD, null);
-			mi.add_accelerator ("activate", this.accel_group, 'N',
-				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			menu_go.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
-			mi.add_accelerator ("activate", this.accel_group, 'W',
-				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			menu_go.append (mi);
 
 			/* Properties */
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
@@ -569,6 +558,48 @@ namespace Xnp {
 			menu.append (mi);
 
 			return menu;
+		}
+
+		/**
+		 * update_menu_go:
+		 *
+		 * Update the menu Go when it is shown.
+		 */
+		private void update_menu_go (Gtk.Menu menu) {
+			/* Clean existing items */
+			menu.@foreach ((w) => {
+					w.destroy ();
+				});
+
+			/* Build the menu */
+			if (this.notebook != null) {
+				int n_pages = this.notebook.get_n_pages ();
+				for (int p = 0; p < n_pages; p++) {
+					var note = (Xnp.Note)(this.notebook.get_nth_page (p));
+					var mi = new Gtk.MenuItem.with_label (note.name);
+					mi.set_data ("page", (void*)p);
+					mi.activate += (i) => {
+						int page = (int)i.get_data ("page");
+						notebook.set_current_page (page);
+					};
+					menu.append (mi);
+				}
+			}
+
+			var mi_separator = new Gtk.SeparatorMenuItem ();
+			menu.append (mi_separator);
+
+			var mi_image = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ADD, null);
+			mi_image.add_accelerator ("activate", this.accel_group, 'N',
+				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
+			menu.append (mi_image);
+
+			mi_image = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
+			mi_image.add_accelerator ("activate", this.accel_group, 'W',
+				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
+			menu.append (mi_image);
+
+			menu.show_all ();
 		}
 
 		/*

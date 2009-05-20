@@ -1,5 +1,11 @@
 2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
 
+Display existing notes in the menu Go
+	* panel-plugin/window.vala:
+	  - On menu_go.show refresh the list of existing notes
+
+2009-05-20  Mike Massonnet <mmassonnet@xfce.org>
+
 Set font for current note
 	* panel-plugin/hypertextview.vala:
 	  - Make the font property settable (it was a construct only)

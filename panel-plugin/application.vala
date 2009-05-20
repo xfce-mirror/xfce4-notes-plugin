@@ -30,24 +30,8 @@ namespace Xnp {
 			/* TODO Load existing notes */
 			/* Load an empty note */
 			var window = new Xnp.Window ();
-			var note = window.insert_note ();
-			note.notify += note_property_notify;
-			note.save_data += (n) => { debug ("app.note.save-data %s", n); };
-			note.name = "cartoon";
+			window.insert_note ();
 			window.show ();
-		}
-
-		/**
-		 * note_property_notify:
-		 *
-		 * Emitted when a property is changed.
-		 */
-		private void note_property_notify (GLib.Object object, GLib.ParamSpec pspec) {
-			var note = (Xnp.Note)object;
-			debug ("notify %s", pspec.name);
-			if (pspec.name == "name") {
-				debug ("name of note changed to `%s'", note.name);
-			}
 		}
 
 /**/
