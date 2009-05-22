@@ -36,7 +36,7 @@
 #include "defines.h"
 #include "notes.h"
 #include "xfce-arrow-button.h"
-#include "hypertextview.h"
+#include "vala-objects.h"
 
 #define PLUGIN_NAME "xfce4-notes-plugin"
 #define OPAQUE 0xffffffff
@@ -1649,7 +1649,7 @@ static void
 notes_window_undo (NotesWindow *notes_window)
 {
   NotesNote *current_note = notes_window_get_current_note (notes_window);
-  xfce_hypertext_view_undo (XFCE_HYPERTEXT_VIEW (current_note->text_view));
+  xnp_hypertext_view_undo (XNP_HYPERTEXT_VIEW (current_note->text_view));
 }
 
 
@@ -1727,7 +1727,7 @@ notes_note_new (NotesWindow *notes_window,
                                   GTK_POLICY_AUTOMATIC);
 
   /* Text view */
-  notes_note->text_view = (GtkWidget *)xfce_hypertext_view_new ();
+  notes_note->text_view = (GtkWidget *)xnp_hypertext_view_new ();
   g_object_set (notes_note->text_view,
                 "wrap-mode", GTK_WRAP_WORD,
                 "left-margin", 2,

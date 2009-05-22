@@ -29,7 +29,7 @@ vala_built_SOURCES =							\
 
 BUILT_SOURCES = vala.stamp
 vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
-	$(VALAC) --pkg=gtk+-2.0 $^ -C
+	$(VALAC) --pkg=gtk+-2.0 $^ -C -H vala-objects.h
 	touch $@
 endif
 
