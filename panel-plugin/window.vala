@@ -50,6 +50,8 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
+		public new string name { default = "Notes"; get; set; }
+
 		private bool _above;
 		public bool above {
 			get {
@@ -76,7 +78,7 @@ namespace Xnp {
 		}
 
 		construct {
-			this.name = "xfce4-notes-plugin";
+			base.name = "xfce4-notes-plugin";
 			this.title = "Notes";
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
@@ -232,7 +234,7 @@ namespace Xnp {
 			};
 			this.notebook.switch_page += (n, c, p) => {
 				var note = (Xnp.Note)(notebook.get_nth_page ((int)p));
-				title = note.name;
+				update_title (note.name);
 				update_navigation_sensitivity ((int)p);
 			};
 			notify += (o, p) => {
@@ -477,9 +479,8 @@ namespace Xnp {
 				var note = (Xnp.Note)object;
 				int page = this.notebook.get_current_page ();
 				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-				if (note == current_note) {
-					title = note.name;
-				}
+				if (note == current_note)
+					this.update_title (note.name);
 			}
 		}
 
@@ -630,6 +631,15 @@ namespace Xnp {
 				get_size (out this.width, null);
 				resize (this.width, this.height);
 			}
+		}
+
+		/**
+		 * update_title:
+		 *
+		 * Updates the window title.
+		 */
+		private void update_title (string note_name) {
+			title = this.name + " - " + note_name;
 		}
 
 		/**

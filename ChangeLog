@@ -1,3 +1,13 @@
+2009-05-23  Mike Massonnet <mmassonnet@xfce.org>
+
+Unique property "name" on Window
+	* panel-plugin/window.vala:
+	  - New private method update_title to set the window title to
+	  "window.name - note.name"
+	  - New public property "name" that contains the name of the window
+	  shown in the window title that can also be reused as a unique
+	  identifier for the window
+
 2009-05-22  Mike Massonnet <mmassonnet@xfce.org>
 
 Update automake script for Vala 0.7
