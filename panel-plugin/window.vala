@@ -50,6 +50,8 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
+		private SList<unowned Xnp.Window> window_list;
+
 		public new string name { default = "Notes"; get; set; }
 
 		private bool _above;
@@ -526,7 +528,9 @@ namespace Xnp {
 			mi.activate += () => { delete_current_note (); };
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic ("_Rename");
+			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename");
+			var image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.activate += () => { rename_current_note (); };
 			menu.append (mi);
 
@@ -567,40 +571,84 @@ namespace Xnp {
 		 * Update the menu Go when it is shown.
 		 */
 		private void update_menu_go (Gtk.Menu menu) {
-			/* Clean existing items */
+			Gtk.MenuItem mi;
+			Gtk.Image image;
+
 			menu.@foreach ((w) => {
 					w.destroy ();
 				});
 
-			/* Build the menu */
 			if (this.notebook != null) {
-				int n_pages = this.notebook.get_n_pages ();
-				for (int p = 0; p < n_pages; p++) {
-					var note = (Xnp.Note)(this.notebook.get_nth_page (p));
-					var mi = new Gtk.MenuItem.with_label (note.name);
-					mi.set_data ("page", (void*)p);
-					mi.activate += (i) => {
-						int page = (int)i.get_data ("page");
-						notebook.set_current_page (page);
-					};
-					menu.append (mi);
+				/* NOTE: An initial menu is created before the notebook is created
+				 * to have the accelerators. */
+				foreach (var win in this.window_list) {
+					if (win == this) {
+						mi = new Gtk.MenuItem.with_label (win.name);
+						mi.sensitive = false;
+						menu.append (mi);
+
+						int n_pages = this.notebook.get_n_pages ();
+						for (int p = 0; p < n_pages; p++) {
+							var note = (Xnp.Note)(this.notebook.get_nth_page (p));
+							mi = new Gtk.MenuItem.with_label (note.name);
+							mi.set_data ("page", (void*)p);
+							mi.activate += (i) => {
+								int page = (int)i.get_data ("page");
+								notebook.set_current_page (page);
+							};
+							menu.append (mi);
+						}
+
+						mi = new Gtk.SeparatorMenuItem ();
+						menu.append (mi);
+					}
+					else {
+						mi = new Gtk.MenuItem.with_label (win.name);
+						mi.set_data ("window", (void*)win);
+						mi.activate += (i) => {
+							debug ("present window X");
+							//var win = (Xnp.Window)i.get_data ("window");
+						};
+						menu.append (mi);
+
+						mi = new Gtk.SeparatorMenuItem ();
+						menu.append (mi);
+					}
 				}
 			}
 
-			var mi_separator = new Gtk.SeparatorMenuItem ();
-			menu.append (mi_separator);
+			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename group");
+			image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
+			//mi.add_accelerator ("activate", this.accel_group, '<F2>',
+			//	Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.MASK);
+			menu.append (mi);
 
-			var mi_image = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ADD, null);
-			mi_image.add_accelerator ("activate", this.accel_group, 'N',
+			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Delete group");
+			image = new Gtk.Image.from_stock (Gtk.STOCK_REMOVE, Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi.add_accelerator ("activate", this.accel_group, 'W',
 				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			menu.append (mi_image);
+			menu.append (mi);
 
-			mi_image = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
-			mi_image.add_accelerator ("activate", this.accel_group, 'W',
+			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Add a new group");
+			image = new Gtk.Image.from_stock (Gtk.STOCK_ADD, Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi.add_accelerator ("activate", this.accel_group, 'N',
 				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			menu.append (mi_image);
+			menu.append (mi);
 
 			menu.show_all ();
+		}
+
+		/**
+		 * set_window_list:
+		 *
+		 * Saves a list of window inside window.window_list to be shown
+		 * within the window menu.
+		 */
+		public void set_window_list (ref SList<Xnp.Window> list) {
+			this.window_list = list.copy ();
 		}
 
 		/*

@@ -26,12 +26,40 @@ namespace Xnp {
 
 	public class Application : GLib.Object {
 
+		private SList<unowned Xnp.Window> window_list;
+
 		public Application () {
 			/* TODO Load existing notes */
+
 			/* Load an empty note */
+			create_window (null);
+			create_window (null);
+		}
+
+		public void create_window (string? name) {
 			var window = new Xnp.Window ();
-			window.insert_note ();
+			this.window_list.append (window);
+			foreach (var win in this.window_list) {
+				win.set_window_list (ref this.window_list);
+				debug ("%p.set_window_list (%p)", win, this.window_list);
+			}
+
+			if (name == null) {
+				uint len = this.window_list.length ();
+				if (len > 1)
+					window.name = "Notes %u".printf (len);
+			}
+			else {
+				window.name = name;
+			}
+
+			this.load_window_data (window);
+
 			window.show ();
+		}
+
+		private void load_window_data (Xnp.Window window) {
+			window.insert_note ();
 		}
 
 /**/

@@ -1,5 +1,18 @@
 2009-05-23  Mike Massonnet <mmassonnet@xfce.org>
 
+Display window list in menu Go
+	* panel-plugin/window.vala:
+	  - New private property window_list that is set via the new private
+	  method set_window_list. It is a simple list that stores a bunch of
+	  pointers to Xnp.Window objects.
+	  - Update the menu Go to include a list of windows and a rename item.
+	* panel-plugin/application.vala:
+	  - New public method create_window that creates a new window and
+	  stores it inside a simple list in its private data. The list is
+	  passed to the windows that the object creates.
+
+2009-05-23  Mike Massonnet <mmassonnet@xfce.org>
+
 Unique property "name" on Window
 	* panel-plugin/window.vala:
 	  - New private method update_title to set the window title to
