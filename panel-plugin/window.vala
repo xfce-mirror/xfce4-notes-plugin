@@ -131,6 +131,9 @@ namespace Xnp {
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 0);
 			var close_box = new Gtk.Button ();
+			close_box.add_accelerator ("clicked", this.accel_group, 0xff1b, // GDK_Escape in gdk/gdkkeysyms.h
+				0, Gtk.AccelFlags.MASK);
+			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0);
 			close_box.set_relief (Gtk.ReliefStyle.NONE);
 			close_box.can_focus = false;
 			var close_label = new Gtk.Label ("<b>x</b>");
@@ -155,6 +158,10 @@ namespace Xnp {
 			/* Build navigation toolbar */
 			this.navigation_box = new Gtk.HBox (false, 2);
 			this.goleft_box = new Gtk.Button ();
+			/* NOTE: does not work if the widget is hidden */
+			//this.goleft_box.add_accelerator ("clicked", this.accel_group, 0xff55, // GDK_Page_Up in gdk/gdkkeysyms.h
+			//	Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
+			this.goleft_box.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK);
 			this.goleft_box.set_relief (Gtk.ReliefStyle.NONE);
 			this.goleft_box.can_focus = false;
 			this.goleft_box.sensitive = false;
@@ -179,6 +186,9 @@ namespace Xnp {
 			del_box.add (del_label);
 			this.navigation_box.pack_start (del_box, true, false, 0);
 			this.goright_box = new Gtk.Button ();
+			//this.goright_box.add_accelerator ("clicked", this.accel_group, 0xff56, // GDK_Page_Down in gdk/gdkkeysyms.h
+			//	Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
+			this.goright_box.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK);
 			this.goright_box.set_relief (Gtk.ReliefStyle.NONE);
 			this.goright_box.can_focus = false;
 			this.goright_box.sensitive = false;
@@ -252,6 +262,11 @@ namespace Xnp {
 					title_label.set_markup ("<b>"+title+"</b>");
 				}
 			};
+		}
+
+		~Window () {
+			if (this.navigation_timeout != 0)
+				Source.remove (this.navigation_timeout);
 		}
 
 		/*
@@ -519,6 +534,7 @@ namespace Xnp {
 
 			/* Properties */
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
+			mi.activate += () => { action ("properties"); };
 			menu.append (mi);
 
 			/* Note items */
@@ -540,6 +556,8 @@ namespace Xnp {
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename");
 			var image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi.add_accelerator ("activate", this.accel_group, 0xffbf, // GDK_F2 in gdk/gdkkeysyms.h
+				0, Gtk.AccelFlags.MASK);
 			mi.activate += () => { rename_current_note (); };
 			menu.append (mi);
 
@@ -596,10 +614,16 @@ namespace Xnp {
 						mi.sensitive = false;
 						menu.append (mi);
 
+						int current_page = this.notebook.get_current_page ();
+						var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
 						int n_pages = this.notebook.get_n_pages ();
 						for (int p = 0; p < n_pages; p++) {
 							var note = (Xnp.Note)(this.notebook.get_nth_page (p));
-							mi = new Gtk.MenuItem.with_label (note.name);
+							mi = new Gtk.ImageMenuItem.with_label (note.name);
+							if (note == current_note) {
+								image = new Gtk.Image.from_stock (Gtk.STOCK_GO_FORWARD, Gtk.IconSize.MENU);
+								((Gtk.ImageMenuItem)mi).set_image (image);
+							}
 							mi.set_data ("page", (void*)p);
 							mi.activate += (i) => {
 								int page = (int)i.get_data ("page");
@@ -629,8 +653,8 @@ namespace Xnp {
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename group");
 			image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
-			//mi.add_accelerator ("activate", this.accel_group, '<F2>',
-			//	Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.MASK);
+			mi.add_accelerator ("activate", this.accel_group, 0xffbf, // GDK_F2 in gdk/gdkkeysyms.h
+				Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.MASK);
 			mi.activate += () => { action ("rename"); };
 			menu.append (mi);
 

@@ -1,5 +1,14 @@
 2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
 
+Fill the missing gaps in Xnp.Window
+	* panel-plugin/window.vala:
+	  - Remove the timeout on finalize.
+	  - Display an arrow beneath the current note in the menu Go.
+	  - On Properties item activate send a signal action.
+	  - Add more accelerators.
+
+2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
+
 Unshade the window before it is hidden
 	* panel-plugin/window.vala:
 	  - On hide_cb unshade the window.
