@@ -50,7 +50,7 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
-		private SList<unowned Xnp.Window> window_list;
+		private unowned SList<unowned Xnp.Window> window_list;
 
 		public new string name { default = "Notes"; get; set; }
 
@@ -78,6 +78,8 @@ namespace Xnp {
 					unstick ();
 			}
 		}
+
+		public signal void action (string action);
 
 		construct {
 			base.name = "xfce4-notes-plugin";
@@ -240,7 +242,14 @@ namespace Xnp {
 				update_navigation_sensitivity ((int)p);
 			};
 			notify += (o, p) => {
-				if (p.name == "title") {
+				if (p.name == "name") {
+					int page = this.notebook.get_current_page ();
+					if (page == -1)
+						return;
+					var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
+					update_title (current_note.name);
+				}
+				else if (p.name == "title") {
 					title_label.set_markup ("<b>"+title+"</b>");
 				}
 			};
@@ -606,8 +615,8 @@ namespace Xnp {
 						mi = new Gtk.MenuItem.with_label (win.name);
 						mi.set_data ("window", (void*)win);
 						mi.activate += (i) => {
-							debug ("present window X");
-							//var win = (Xnp.Window)i.get_data ("window");
+							var w = (Xnp.Window)i.get_data ("window");
+							w.present ();
 						};
 						menu.append (mi);
 
@@ -622,6 +631,7 @@ namespace Xnp {
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			//mi.add_accelerator ("activate", this.accel_group, '<F2>',
 			//	Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.MASK);
+			mi.activate += () => { action ("rename"); };
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Delete group");
@@ -629,6 +639,7 @@ namespace Xnp {
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.add_accelerator ("activate", this.accel_group, 'W',
 				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
+			mi.activate += () => { action ("delete"); };
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Add a new group");
@@ -636,6 +647,7 @@ namespace Xnp {
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.add_accelerator ("activate", this.accel_group, 'N',
 				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
+			mi.activate += () => { action ("create-new-window"); };
 			menu.append (mi);
 
 			menu.show_all ();
@@ -647,12 +659,12 @@ namespace Xnp {
 		 * Saves a list of window inside window.window_list to be shown
 		 * within the window menu.
 		 */
-		public void set_window_list (ref SList<Xnp.Window> list) {
-			this.window_list = list.copy ();
+		public void set_window_list (SList<Xnp.Window> list) {
+			this.window_list = list;
 		}
 
 		/*
-		 * Private methods
+		 * Window management
 		 */
 
 		/**
@@ -708,7 +720,7 @@ namespace Xnp {
 		}
 
 		/*
-		 * Public methods
+		 * Note management
 		 */
 
 		/**
