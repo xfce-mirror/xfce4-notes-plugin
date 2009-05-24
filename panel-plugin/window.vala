@@ -5,7 +5,6 @@
  *  TODO:
  *  - F2/Esc/etc accelerators
  *  - Extra window properties
- *  - Verify: unshade before hide
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -207,7 +206,7 @@ namespace Xnp {
 			};
 			leave_notify_event += () => {
 				/* Hide the navigation when the mouse pointer is leaving the window */
-				navigation_timeout = Timeout.add_seconds (1, () => {
+				navigation_timeout = Timeout.add_seconds (2, () => {
 						navigation_box.hide ();
 						navigation_timeout = 0;
 						return false;
@@ -305,6 +304,7 @@ namespace Xnp {
 			int winx, winy;
 			get_position (out winx, out winy);
 			hide ();
+			unshade ();
 			move (winx, winy);
 		}
 

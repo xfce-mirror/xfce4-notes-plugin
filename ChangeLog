@@ -1,5 +1,11 @@
 2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
 
+Unshade the window before it is hidden
+	* panel-plugin/window.vala:
+	  - On hide_cb unshade the window.
+
+2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
+
 Create/delete/rename note groups
 	* panel-plugin/window.vala:
 	  - Set window_list unowned (spares the copy of the list).
