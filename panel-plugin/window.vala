@@ -5,6 +5,7 @@
  *  TODO:
  *  - F2/Esc/etc accelerators
  *  - Extra window properties
+ *  - Follow GNOME bug #551184 to change accelerators hexa values
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,7 +31,6 @@ namespace Xnp {
 
 		private int width;
 		private int height;
-		private Gtk.AccelGroup accel_group;
 		private Gtk.Menu menu;
 		private Gtk.CheckMenuItem mi_above;
 		private Gtk.CheckMenuItem mi_sticky;
@@ -41,6 +41,36 @@ namespace Xnp {
 		private uint navigation_timeout = 0;
 		private Gtk.Button goleft_box;
 		private Gtk.Button goright_box;
+
+		private Gtk.UIManager ui;
+		private const string ui_string =
+"""
+<ui>
+  <accelerator action="close-window" />
+  <accelerator action="new-window" />
+  <accelerator action="delete-window" />
+  <accelerator action="rename-window" />
+  <accelerator action="new-note" />
+  <accelerator action="delete-note" />
+  <accelerator action="rename-note" />
+  <accelerator action="cancel" />
+  <accelerator action="next-note" />
+  <accelerator action="prev-note" />
+</ui>
+""";
+		private Gtk.ActionGroup action_group;
+		private const Gtk.ActionEntry[] action_entries = {
+			{ "close-window",  null, null, "Escape", null, hide_cb },
+			{ "new-window",    null, null, "<Ctrl><Shift>n", null, action_new_window },
+			{ "delete-window", null, null, "<Ctrl><Shift>w", null, action_delete_window },
+			{ "rename-window", null, null, "<Shift>F2", null, action_rename_window },
+			{ "new-note",      null, null, "<Ctrl>n", null, action_new_note },
+			{ "delete-note",   null, null, "<Ctrl>w", null, action_delete_note },
+			{ "rename-note",   null, null, "F2", null, action_rename_note },
+			{ "cancel",        null, null, "<Ctrl>z", null, action_cancel },
+			{ "next-note",     null, null, "<Ctrl>Page_Down", null, action_next_note },
+			{ "prev-note",     null, null, "<Ctrl>Page_Up", null, action_prev_note }
+		};
 
 		private int CORNER_MARGIN = 20;
 		private Gdk.Cursor CURSOR_TOP_LC = new Gdk.Cursor (Gdk.CursorType.TOP_LEFT_CORNER);
@@ -96,9 +126,19 @@ namespace Xnp {
 			/* Window responses on pointer motion */
 			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.POINTER_MOTION_HINT_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
 
-			/* Build AccelGroup */
-			this.accel_group = new Gtk.AccelGroup ();
-			add_accel_group (this.accel_group);
+			/* Build accelerators */
+			this.action_group = new Gtk.ActionGroup ("XNP");
+			this.action_group.add_actions (action_entries, this);
+
+			this.ui = new Gtk.UIManager ();
+			this.ui.insert_action_group (this.action_group, 0);
+			try {
+				this.ui.add_ui_from_string (this.ui_string , -1);
+				add_accel_group (this.ui.get_accel_group ());
+			}
+			catch (Error e) {
+				warning ("%s", e.message);
+			}
 
 			/* Build Menu */
 			this.menu = build_menu ();
@@ -131,9 +171,7 @@ namespace Xnp {
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 0);
 			var close_box = new Gtk.Button ();
-			close_box.add_accelerator ("clicked", this.accel_group, 0xff1b, // GDK_Escape in gdk/gdkkeysyms.h
-				0, Gtk.AccelFlags.MASK);
-			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0);
+			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0); // GDK_Escape
 			close_box.set_relief (Gtk.ReliefStyle.NONE);
 			close_box.can_focus = false;
 			var close_label = new Gtk.Label ("<b>x</b>");
@@ -158,10 +196,7 @@ namespace Xnp {
 			/* Build navigation toolbar */
 			this.navigation_box = new Gtk.HBox (false, 2);
 			this.goleft_box = new Gtk.Button ();
-			/* NOTE: does not work if the widget is hidden */
-			//this.goleft_box.add_accelerator ("clicked", this.accel_group, 0xff55, // GDK_Page_Up in gdk/gdkkeysyms.h
-			//	Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			this.goleft_box.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK);
+			this.goleft_box.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Up
 			this.goleft_box.set_relief (Gtk.ReliefStyle.NONE);
 			this.goleft_box.can_focus = false;
 			this.goleft_box.sensitive = false;
@@ -186,9 +221,7 @@ namespace Xnp {
 			del_box.add (del_label);
 			this.navigation_box.pack_start (del_box, true, false, 0);
 			this.goright_box = new Gtk.Button ();
-			//this.goright_box.add_accelerator ("clicked", this.accel_group, 0xff56, // GDK_Page_Down in gdk/gdkkeysyms.h
-			//	Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			this.goright_box.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK);
+			this.goright_box.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Down
 			this.goright_box.set_relief (Gtk.ReliefStyle.NONE);
 			this.goright_box.can_focus = false;
 			this.goright_box.sensitive = false;
@@ -203,10 +236,10 @@ namespace Xnp {
 			/* Connect mouse click signals */
 			menu_box.button_press_event += menu_box_pressed_cb;
 			close_box.clicked += hide_cb;
-			add_box.clicked += () => { insert_note (); };
-			del_box.clicked += () => { delete_current_note (); };
-			this.goleft_box.clicked += () => { notebook.prev_page (); };
-			this.goright_box.clicked += () => { notebook.next_page (); };
+			add_box.clicked += action_new_note;
+			del_box.clicked += action_delete_note;
+			this.goleft_box.clicked += action_prev_note;
+			this.goright_box.clicked += action_next_note;
 
 			/* Connect extra signals */
 			delete_event += () => {
@@ -511,6 +544,50 @@ namespace Xnp {
 		}
 
 		/*
+		 * Action callbacks
+		 */
+
+		private void action_new_window () {
+			action ("create-new-window");
+		}
+
+		private void action_delete_window () {
+			action ("delete");
+		}
+
+		private void action_rename_window () {
+			action ("rename");
+		}
+
+		private void action_new_note () {
+			insert_note ();
+		}
+
+		private void action_delete_note () {
+			delete_current_note ();
+		}
+
+		private void action_rename_note () {
+			rename_current_note ();
+		}
+
+		private void action_cancel () {
+			int page = notebook.get_current_page ();
+			if (page < 0)
+				return;
+			Gtk.Widget child = notebook.get_nth_page (page);
+			((Xnp.Note)child).text_view.undo ();
+		}
+
+		private void action_next_note () {
+			notebook.next_page ();
+		}
+
+		private void action_prev_note () {
+			notebook.prev_page ();
+		}
+
+		/*
 		 * Window menu
 		 */
 
@@ -521,13 +598,14 @@ namespace Xnp {
 		 */
 		private Gtk.Menu build_menu () {
 			var menu = new Gtk.Menu ();
-			menu.set_accel_group (this.accel_group);
+			menu.set_accel_group (this.ui.get_accel_group ());
 
 			var mi = new Gtk.MenuItem.with_mnemonic ("_Go");
 			menu.append (mi);
 
 			/* Navigation */
 			var menu_go = new Gtk.Menu ();
+			menu_go.set_accel_group (this.ui.get_accel_group ());
 			update_menu_go (menu_go);
 			menu_go.show += update_menu_go;
 			mi.set_submenu (menu_go);
@@ -542,33 +620,25 @@ namespace Xnp {
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_NEW, null);
-			mi.add_accelerator ("activate", this.accel_group, 'N',
-				Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			mi.activate += () => { insert_note (); };
+			mi.set_accel_path (this.action_group.get_action ("new-note").get_accel_path ());
+			mi.activate += action_new_note;
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_DELETE, null);
-			mi.add_accelerator ("activate", this.accel_group, 'W',
-				Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			mi.activate += () => { delete_current_note (); };
+			mi.set_accel_path (this.action_group.get_action ("delete-note").get_accel_path ());
+			mi.activate += action_delete_note;
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename");
 			var image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.add_accelerator ("activate", this.accel_group, 0xffbf, // GDK_F2 in gdk/gdkkeysyms.h
-				0, Gtk.AccelFlags.MASK);
-			mi.activate += () => { rename_current_note (); };
+			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
+			mi.activate += action_rename_note;
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_UNDO, null);
-			mi.add_accelerator ("activate", this.accel_group, 'Z',
-				Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			mi.activate += () => {
-				int page = notebook.get_current_page ();
-				Gtk.Widget child = notebook.get_nth_page (page);
-				((Xnp.Note)child).text_view.undo ();
-			};
+			mi.set_accel_path (this.action_group.get_action ("cancel").get_accel_path ());
+			mi.activate += action_cancel;
 			menu.append (mi);
 
 			/* Window options */
@@ -653,25 +723,22 @@ namespace Xnp {
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename group");
 			image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.add_accelerator ("activate", this.accel_group, 0xffbf, // GDK_F2 in gdk/gdkkeysyms.h
-				Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.MASK);
-			mi.activate += () => { action ("rename"); };
+			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
+			mi.activate += action_rename_window;
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Delete group");
 			image = new Gtk.Image.from_stock (Gtk.STOCK_REMOVE, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.add_accelerator ("activate", this.accel_group, 'W',
-				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			mi.activate += () => { action ("delete"); };
+			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
+			mi.activate += action_delete_window;
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Add a new group");
 			image = new Gtk.Image.from_stock (Gtk.STOCK_ADD, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.add_accelerator ("activate", this.accel_group, 'N',
-				Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.MASK);
-			mi.activate += () => { action ("create-new-window"); };
+			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
+			mi.activate += action_new_window;
 			menu.append (mi);
 
 			menu.show_all ();

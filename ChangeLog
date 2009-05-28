@@ -1,5 +1,12 @@
 2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
 
+Use a UI to set accelerators
+	* panel-plugin/window.vala:
+	  - Define accelerators through the UI manager (works for hidden
+	  widgets and fixes the Ctrl+Page Up/Down cursor moves problem).
+
+2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
+
 Fill the missing gaps in Xnp.Window
 	* panel-plugin/window.vala:
 	  - Remove the timeout on finalize.

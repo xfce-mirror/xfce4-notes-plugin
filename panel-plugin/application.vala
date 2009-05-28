@@ -33,7 +33,6 @@ namespace Xnp {
 			/* Create an initial empty window */
 			create_window (null);
 			create_window (null);
-			create_window (null);
 		}
 
 		/*
