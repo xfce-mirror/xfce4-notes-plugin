@@ -3,8 +3,6 @@
  *  Copyright (c) 2009  Mike Massonnet <mmassonnet@xfce.org>
  *
  *  TODO:
- *  - F2/Esc/etc accelerators
- *  - Extra window properties
  *  - Follow GNOME bug #551184 to change accelerators hexa values
  *
  *  This program is free software; you can redistribute it and/or modify
