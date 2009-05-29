@@ -46,18 +46,27 @@ namespace Xnp {
 		 */
 		public void create_window (string? name) {
 			var window = new Xnp.Window ();
-			this.window_list.append (window);
-			foreach (var win in this.window_list) {
-				win.set_window_list (this.window_list);
-			}
 
 			if (name == null) {
-				uint len = this.window_list.length ();
-				if (len > 1)
-					window.name = "Notes %u".printf (len);
+				string window_name = "Notes";
+				int len = (int)this.window_list.length ();
+				for (int id = 1; id <= len + 1; id++) {
+					if (id > 1) {
+						window_name = "Notes %d".printf (id);
+					}
+					if (!window_name_exists (window_name)) {
+						break;
+					}
+				}
+				window.name = window_name;
 			}
 			else {
 				window.name = name;
+			}
+
+			this.window_list.append (window);
+			foreach (var win in this.window_list) {
+				win.set_window_list (this.window_list);
 			}
 
 			this.load_window_data (window);
@@ -72,6 +81,9 @@ namespace Xnp {
 				else if (action == "create-new-window") {
 					create_window (null);
 				}
+			};
+			window.save_data += (win, note) => {
+				debug ("save-data on %s::%s", win.name, note.name);
 			};
 
 			window.show ();
@@ -95,7 +107,7 @@ namespace Xnp {
 		 */
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons ("Rename group", window,
-				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
 				Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
@@ -111,15 +123,25 @@ namespace Xnp {
 
 			int res = dialog.run ();
 			dialog.hide ();
-			if (res == Gtk.ResponseType.OK)
-				window.name = entry.text;
+			if (res == Gtk.ResponseType.OK) {
+				string name = entry.text;
+				if (window_name_exists (name)) {
+					var error_dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name %s is already in use", name);
+					error_dialog.run ();
+					error_dialog.destroy ();
+				}
+				else {
+					window.name = name;
+				}
+			}
 			dialog.destroy ();
 		}
 
 		/**
 		 * delete_window:
 		 *
-		 * Delte the window.
+		 * Delete the window.
 		 */
 		private void delete_window (Xnp.Window window) {
 			this.window_list.remove (window);
@@ -135,7 +157,20 @@ namespace Xnp {
 			}
 		}
 
-/**/
+		/**
+		 * window_name_exists:
+		 *
+		 * Verify if the given name already exists in the window list.
+		 */
+		private bool window_name_exists (string name) {
+			foreach (var win in this.window_list) {
+				if (win.name == name) {
+					return true;
+				}
+			}
+			return false;
+		}
+
 	}
 
 }

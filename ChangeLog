@@ -1,3 +1,17 @@
+2009-05-29  Mike Massonnet <mmassonnet@xfce.org>
+
+Generate an available name for a new window/note
+	* panel-plugin/application.vala, panel-plugin/window.vala:
+	  - New methods window/note_name_exists to verify if a given name is
+	  already in use.
+	  - Loop n_times+1 the length of the windows/notes to generate an
+	  available name.
+	  - On window rename, if the name is already in use popup a message
+	  dialog.
+	* panel-plugin/window.vala, panel-plugin/note.vala:
+	  - New signal in Xnp.Window save-data to proxy the same signal from
+	  the note.
+
 2009-05-24  Mike Massonnet <mmassonnet@xfce.org>
 
 Use a UI to set accelerators

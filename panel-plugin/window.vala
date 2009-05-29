@@ -107,6 +107,7 @@ namespace Xnp {
 		}
 
 		public signal void action (string action);
+		public signal void save_data (Xnp.Note note);
 
 		construct {
 			base.name = "xfce4-notes-plugin";
@@ -819,12 +820,22 @@ namespace Xnp {
 		 * the current position.
 		 */
 		public Xnp.Note insert_note () {
-			int page = this.notebook.get_current_page () + 1;
+			int len = this.notebook.get_n_pages ();
 			string name = "Notes";
+			for (int id = 1; id <= len + 1; id++) {
+				if (id > 1) {
+					name = "Notes %d".printf (id);
+				}
+				if (!note_name_exists (name)) {
+					break;
+				}
+			}
+
+			int page = this.notebook.get_current_page () + 1;
 			var note = new Xnp.Note (name);
 
 			note.notify += note_notify;
-			note.save_data += (o, n) => { print ("note `%s' save-data\n", n); };
+			note.save_data += (note) => { save_data (note); };
 
 			note.show ();
 			this.notebook.insert_page (note, null, page);
@@ -875,7 +886,7 @@ namespace Xnp {
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
 			var dialog = new Gtk.Dialog.with_buttons ("Rename note", (Gtk.Window)get_toplevel (),
-				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
 				Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
@@ -915,6 +926,22 @@ namespace Xnp {
 				note.text_view.font = dialog.get_font_name ();
 			}
 			dialog.destroy ();
+		}
+
+		/**
+		 * note_name_exists:
+		 *
+		 * Verify if the given name already exists in the notebook.
+		 */
+		private bool note_name_exists (string name) {
+			int n_pages = this.notebook.get_n_pages ();
+			for (int p = 0; p < n_pages; p++) {
+				var note = (Xnp.Note)this.notebook.get_nth_page (p);
+				if (note.name == name) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 /*
