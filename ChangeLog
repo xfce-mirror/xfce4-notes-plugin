@@ -1,3 +1,14 @@
+2009-05-30  Mike Massonnet <mmassonnet@xfce.org>
+
+Postpone the hide navigation timeout longer on button press events
+	* panel-plugin/window.vala:
+	  - The leave event is emitted on button press events or by hovering
+	  an unsensitive widget, instead of hidding the navigation bar in 2
+	  seconds, it hides in 10 seconds. If we would keep it shown, another
+	  bug would be introduced when popping up a menu, in that case the
+	  menu can be closed while the pointer is outside the window and then
+	  the navigation would be shown forever.
+
 2009-05-29  Mike Massonnet <mmassonnet@xfce.org>
 
 Generate an available name for a new window/note

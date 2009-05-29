@@ -246,24 +246,8 @@ namespace Xnp {
 				hide_cb ();
 				return true;
 			};
-			leave_notify_event += () => {
-				/* Hide the navigation when the mouse pointer is leaving the window */
-				navigation_timeout = Timeout.add_seconds (2, () => {
-						navigation_box.hide ();
-						navigation_timeout = 0;
-						return false;
-					});
-				return false;
-			};
-			motion_notify_event += () => {
-				/* Show the navigation when the mouse pointer is hovering the window */
-				if (navigation_timeout != 0) {
-					Source.remove (navigation_timeout);
-					navigation_timeout = 0;
-				}
-				navigation_box.show ();
-				return false;
-			};
+			leave_notify_event += navigation_leaved_cb;
+			motion_notify_event += navigation_motion_cb;
 			leave_notify_event += window_leaved_cb;
 			motion_notify_event += window_motion_cb;
 			button_press_event += window_pressed_cb;
@@ -306,43 +290,6 @@ namespace Xnp {
 		 */
 
 		/**
-		 * menu_box_pressed_cb:
-		 *
-		 * Popup the window menu.
-		 */
-		private bool menu_box_pressed_cb (Gtk.EventBox box, Gdk.EventButton event) {
-			this.menu.popup (null, null, menu_position, 0, Gtk.get_current_event_time ());
-			return false;
-		}
-
-		/**
-		 * menu_position:
-		 *
-		 * Menu position function for the window menu.
-		 */
-		private void menu_position (Gtk.Menu menu, out int x, out int y, out bool push_in) {
-			int winx, winy, width, height, depth;
-			Gtk.Requisition requisition;
-			window.get_geometry (out winx, out winy, out width, out height, out depth);
-			window.get_origin (out x, out y);
-			menu.size_request (out requisition);
-
-			if (y + content_box.allocation.y + requisition.height > Gdk.Screen.height ()) {
-				/* Show menu above */
-				y -= requisition.height;
-			}
-			else {
-				/* Show menu below */
-				y += content_box.allocation.y;
-			}
-			if (x + requisition.width > Gdk.Screen.width ()) {
-				/* Adjust menu left */
-				debug ("%d %d", Gdk.Screen.width (), x);
-				x = x - menu.requisition.width + content_box.allocation.y;
-			}
-		}
-
-		/**
 		 * hide_cb:
 		 *
 		 * Save position before hidding.
@@ -353,6 +300,42 @@ namespace Xnp {
 			hide ();
 			unshade ();
 			move (winx, winy);
+		}
+
+		/**
+		 * navigation_leaved_cb:
+		 *
+		 * Hide the navigation when the mouse pointer is leaving the window.
+		 */
+		private bool navigation_leaved_cb () {
+			int timeout = 2;
+			if (is_active) {
+				int x, y;
+				get_pointer (out x, out y);
+				if (x >= 0 && x < allocation.width && y >= 0 && y < allocation.height) {
+					timeout = 10;
+				}
+			}
+			navigation_timeout = Timeout.add_seconds (timeout, () => {
+				navigation_box.hide ();
+				navigation_timeout = 0;
+				return false;
+				});
+			return false;
+		}
+
+		/**
+		 * navigation_motion_cb:
+		 *
+		 * Show the navigation when the mouse pointer is hovering the window.
+		 */
+		private bool navigation_motion_cb () {
+			if (navigation_timeout != 0) {
+				Source.remove (navigation_timeout);
+				navigation_timeout = 0;
+			}
+			navigation_box.show ();
+			return false;
 		}
 
 		/**
@@ -589,6 +572,43 @@ namespace Xnp {
 		/*
 		 * Window menu
 		 */
+
+		/**
+		 * menu_box_pressed_cb:
+		 *
+		 * Popup the window menu.
+		 */
+		private bool menu_box_pressed_cb (Gtk.EventBox box, Gdk.EventButton event) {
+			this.menu.popup (null, null, menu_position, 0, Gtk.get_current_event_time ());
+			return false;
+		}
+
+		/**
+		 * menu_position:
+		 *
+		 * Menu position function for the window menu.
+		 */
+		private void menu_position (Gtk.Menu menu, out int x, out int y, out bool push_in) {
+			int winx, winy, width, height, depth;
+			Gtk.Requisition requisition;
+			window.get_geometry (out winx, out winy, out width, out height, out depth);
+			window.get_origin (out x, out y);
+			menu.size_request (out requisition);
+
+			if (y + content_box.allocation.y + requisition.height > Gdk.Screen.height ()) {
+				/* Show menu above */
+				y -= requisition.height;
+			}
+			else {
+				/* Show menu below */
+				y += content_box.allocation.y;
+			}
+			if (x + requisition.width > Gdk.Screen.width ()) {
+				/* Adjust menu left */
+				debug ("%d %d", Gdk.Screen.width (), x);
+				x = x - menu.requisition.width + content_box.allocation.y;
+			}
+		}
 
 		/**
 		 * build_menu:
