@@ -179,6 +179,8 @@ namespace Xnp {
 			title_box.pack_start (close_box, false, false, 4);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
+			if (close_box.allocation.width < 22)
+				close_box.set_size_request (22, -1);
 
 			/* Build content box */
 			this.content_box = new Gtk.VBox (false, 0);
@@ -203,6 +205,8 @@ namespace Xnp {
 			goleft_label.use_markup = true;
 			this.goleft_box.add (goleft_label);
 			this.navigation_box.pack_start (this.goleft_box, true, false, 0);
+			if (this.goleft_box.allocation.width < 22)
+				this.goleft_box.set_size_request (22, -1);
 			var add_box = new Gtk.Button ();
 			add_box.set_tooltip_text (Gtk.accelerator_get_label ('N', Gdk.ModifierType.CONTROL_MASK));
 			add_box.set_relief (Gtk.ReliefStyle.NONE);
@@ -211,6 +215,8 @@ namespace Xnp {
 			add_label.use_markup = true;
 			add_box.add (add_label);
 			this.navigation_box.pack_start (add_box, true, false, 0);
+			if (add_box.allocation.width < 22)
+				add_box.set_size_request (22, -1);
 			var del_box = new Gtk.Button ();
 			del_box.set_tooltip_text (Gtk.accelerator_get_label ('W', Gdk.ModifierType.CONTROL_MASK));
 			del_box.set_relief (Gtk.ReliefStyle.NONE);
@@ -219,6 +225,8 @@ namespace Xnp {
 			del_label.use_markup = true;
 			del_box.add (del_label);
 			this.navigation_box.pack_start (del_box, true, false, 0);
+			if (del_box.allocation.width < 22)
+				del_box.set_size_request (22, -1);
 			this.goright_box = new Gtk.Button ();
 			this.goright_box.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Down
 			this.goright_box.set_relief (Gtk.ReliefStyle.NONE);
@@ -228,6 +236,8 @@ namespace Xnp {
 			goright_label.use_markup = true;
 			this.goright_box.add (goright_label);
 			this.navigation_box.pack_start (this.goright_box, true, false, 0);
+			if (this.goright_box.allocation.width < 22)
+				this.goright_box.set_size_request (22, -1);
 			this.navigation_box.show_all ();
 			this.navigation_box.hide ();
 			this.content_box.pack_start (this.navigation_box, false, false, 1);

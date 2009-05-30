@@ -1,5 +1,12 @@
 2009-05-30  Mike Massonnet <mmassonnet@xfce.org>
 
+Request a 22x22 minimum size for the buttons close/next/prev/...
+	* panel-plugin/window.vala:
+	  - The buttons can be too small because they depend on the font size,
+	  thus if their width allocation is smaller then 22 they request it.
+
+2009-05-30  Mike Massonnet <mmassonnet@xfce.org>
+
 Postpone the hide navigation timeout longer on button press events
 	* panel-plugin/window.vala:
 	  - The leave event is emitted on button press events or by hovering
