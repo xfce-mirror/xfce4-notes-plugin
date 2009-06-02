@@ -1,3 +1,16 @@
+2009-05-31  Mike Massonnet <mmassonnet@xfce.org>
+
+Load/Save notes from files
+	* panel-plugin/window.vala:
+	  - New signals note-inserted, note-deleted and note-renamed sent with
+	  the Xnp.Note in parameters along side with the insert_note(),
+	  delete_note() and rename_note() methods.
+	* panel-plugin/application.vala:
+	  - Load the initial existing notes.
+	  - Delete and create the files for the notes.
+	* panel-plugin/window.vala, panel-plugin/application.vala:
+	  - Popup a question before deleting a window and a note.
+
 2009-05-30  Mike Massonnet <mmassonnet@xfce.org>
 
 Request a 22x22 minimum size for the buttons close/next/prev/...

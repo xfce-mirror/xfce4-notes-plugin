@@ -108,6 +108,9 @@ namespace Xnp {
 
 		public signal void action (string action);
 		public signal void save_data (Xnp.Note note);
+		public signal void note_inserted (Xnp.Note note);
+		public signal void note_deleted (Xnp.Note note);
+		public signal void note_renamed (Xnp.Note note, string old_name);
 
 		construct {
 			base.name = "xfce4-notes-plugin";
@@ -834,8 +837,8 @@ namespace Xnp {
 				this.goright_box.sensitive = false;
 			}
 			else {
-				this.goleft_box.sensitive = page_num == 0 ? false : true;
-				this.goright_box.sensitive = page_num + 1 == n_pages ? false : true;
+				this.goleft_box.sensitive = page_num > 0 ? true : false;
+				this.goright_box.sensitive = page_num + 1 < n_pages ? true : false;
 			}
 		}
 
@@ -869,6 +872,7 @@ namespace Xnp {
 
 			note.show ();
 			this.notebook.insert_page (note, null, page);
+			this.note_inserted (note);
 			return note;
 		}
 
@@ -887,10 +891,10 @@ namespace Xnp {
 		 * Delete note at page @page.
 		 */
 		public void delete_note (int page) {
-			var child = this.notebook.get_nth_page (page);
+			var note = (Xnp.Note)this.notebook.get_nth_page (page);
 
-			if (((Xnp.Note)child).text_view.buffer.get_char_count () > 0) {
-				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+			if (note.text_view.buffer.get_char_count () > 0) {
+				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "Are you sure you want to delete this note?");
 				int res = dialog.run ();
 				dialog.destroy ();
@@ -899,7 +903,8 @@ namespace Xnp {
 			}
 
 			this.notebook.remove_page (page);
-			child.destroy ();
+			this.note_deleted (note);
+			note.destroy ();
 			if (this.notebook.get_n_pages () == 0)
 				this.insert_note ();
 		}
@@ -932,8 +937,20 @@ namespace Xnp {
 
 			int res = dialog.run ();
 			dialog.hide ();
-			if (res == Gtk.ResponseType.OK)
-				note.name = entry.text;
+			if (res == Gtk.ResponseType.OK) {
+				weak string name = entry.text;
+				if (note_name_exists (name)) {
+					var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name %s is already in use", name);
+					error_dialog.run ();
+					error_dialog.destroy ();
+				}
+				else {
+					string old_name = note.name;
+					note.name = name;
+					this.note_renamed (note, old_name);
+				}
+			}
 			dialog.destroy ();
 		}
 

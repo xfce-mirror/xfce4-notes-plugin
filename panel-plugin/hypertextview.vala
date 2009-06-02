@@ -53,7 +53,7 @@ namespace Xnp {
 		}
 
 		construct {
-			this.font = "Sans 14";
+			this.font = "Sans 12";
 		}
 
 		public HypertextView () {

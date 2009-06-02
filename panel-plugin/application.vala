@@ -2,9 +2,6 @@
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009  Mike Massonnet <mmassonnet@xfce.org>
  *
- *  TODO:
- *  - Nothing
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -27,12 +24,28 @@ namespace Xnp {
 	public class Application : GLib.Object {
 
 		private SList<Xnp.Window> window_list;
+		private string notes_path;
+
+		construct {
+			this.notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
+		}
 
 		public Application () {
-			/* TODO Load existing windows */
-			/* Create an initial empty window */
-			create_window (null);
-			create_window (null);
+			string name;
+			bool found = false;
+			try {
+				var dir = Dir.open (this.notes_path, 0);
+				while ((name = dir.read_name ()) != null) {
+					create_window (name);
+					found = true;
+				}
+			}
+			catch (Error e) {
+				GLib.DirUtils.create_with_parents (this.notes_path, 0700);
+			}
+			if (found == false) {
+				create_window (null);
+			}
 		}
 
 		/*
@@ -43,10 +56,12 @@ namespace Xnp {
 		 * create_window:
 		 *
 		 * Creates a new Xnp.Window and stores it inside window_list.
+		 * If a name is given, it assumes it can load existing notes.
 		 */
 		public void create_window (string? name) {
 			var window = new Xnp.Window ();
 
+			/* Set window name */
 			if (name == null) {
 				string window_name = "Notes";
 				int len = (int)this.window_list.length ();
@@ -64,13 +79,30 @@ namespace Xnp {
 				window.name = name;
 			}
 
+			/* Add to window_list */
 			this.window_list.append (window);
 			foreach (var win in this.window_list) {
 				win.set_window_list (this.window_list);
 			}
 
-			this.load_window_data (window);
+			/* Insert initial notes */
+			if (name != null) {
+				this.load_window_data (window);
+			}
+			else {
+				var note = window.insert_note ();
 
+				string window_path = "%s/%s".printf (this.notes_path, window.name);
+				GLib.DirUtils.create_with_parents (window_path, 0700);
+				try {
+					string note_path = "%s/%s".printf (window_path, note.name);
+					GLib.FileUtils.set_contents (note_path, "", -1);
+				}
+				catch (FileError e) {
+				}
+			}
+
+			/* Connect signals */
 			window.action += (win, action) => {
 				if (action == "rename") {
 					rename_window (win);
@@ -83,7 +115,34 @@ namespace Xnp {
 				}
 			};
 			window.save_data += (win, note) => {
-				debug ("save-data on %s::%s", win.name, note.name);
+				string path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				try {
+					Gtk.TextIter start, end;
+					var buffer = note.text_view.get_buffer ();
+					buffer.get_bounds (out start, out end);
+					string contents = buffer.get_text (start, end, true);
+					GLib.FileUtils.set_contents (path, contents, -1);
+				}
+				catch (FileError e) {
+					warning ("%s", e.message);
+				}
+			};
+			window.note_inserted += (win, note) => {
+				string path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				try {
+					GLib.FileUtils.set_contents (path, "", -1);
+				}
+				catch (FileError e) {
+				}
+			};
+			window.note_deleted += (win, note) => {
+				string path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				GLib.FileUtils.unlink (path);
+			};
+			window.note_renamed += (win, note, old_name) => {
+				string old_path = "%s/%s/%s".printf (this.notes_path, win.name, old_name);
+				string new_path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				GLib.FileUtils.rename (old_path, new_path);
 			};
 
 			window.show ();
@@ -92,12 +151,30 @@ namespace Xnp {
 		/**
 		 * load_window_data:
 		 *
-		 * Looks up the window name for existing notes otherwise
-		 * inserts an initial empty note.
+		 * Loads existing notes inside the window.
 		 */
 		private void load_window_data (Xnp.Window window) {
-			/* TODO load existing notes */
-			window.insert_note ();
+			string name;
+			string path = "%s/%s".printf (this.notes_path, window.name);
+			try {
+				var dir = GLib.Dir.open (path, 0);
+				while ((name = dir.read_name ()) != null) {
+					try {
+						string contents;
+						string filename = "%s/%s".printf (path, name);
+						GLib.FileUtils.get_contents (filename, out contents, null);
+						var note = window.insert_note ();
+						note.name = name;
+						var buffer = note.text_view.get_buffer ();
+						buffer.set_text (contents, -1);
+					}
+					catch (FileError e) {
+						warning ("%s", e.message);
+					}
+				}
+			}
+			catch (FileError e) {
+			}
 		}
 
 		/**
@@ -124,7 +201,7 @@ namespace Xnp {
 			int res = dialog.run ();
 			dialog.hide ();
 			if (res == Gtk.ResponseType.OK) {
-				string name = entry.text;
+				weak string name = entry.text;
 				if (window_name_exists (name)) {
 					var error_dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name %s is already in use", name);
@@ -132,7 +209,10 @@ namespace Xnp {
 					error_dialog.destroy ();
 				}
 				else {
+					string old_path = "%s/%s".printf (this.notes_path, window.name);
+					string new_path = "%s/%s".printf (this.notes_path, name);
 					window.name = name;
+					GLib.FileUtils.rename (old_path, new_path);
 				}
 			}
 			dialog.destroy ();
@@ -144,6 +224,26 @@ namespace Xnp {
 		 * Delete the window.
 		 */
 		private void delete_window (Xnp.Window window) {
+			var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "Are you sure you want to delete this group?");
+			int res = dialog.run ();
+			dialog.destroy ();
+			if (res != Gtk.ResponseType.YES)
+				return;
+
+			string name;
+			string path = "%s/%s".printf (this.notes_path, window.name);
+			try {
+			var dir = GLib.Dir.open (path, 0);
+			while ((name = dir.read_name ()) != null) {
+				string filename = "%s/%s".printf (path, name);
+				GLib.FileUtils.unlink (filename);
+			}
+			GLib.DirUtils.remove (path);
+			}
+			catch (FileError e) {
+			}
+
 			this.window_list.remove (window);
 			window.destroy ();
 
