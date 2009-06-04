@@ -776,6 +776,24 @@ namespace Xnp {
 		}
 
 		/**
+		 * get_geometry:
+		 *
+		 * Returns the X,Y position and width/height.
+		 */
+		public void get_geometry (out int winx, out int winy, out int width, out int height) {
+			// Window is shaded
+			if (!(bool)(this.content_box.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+				get_size (out this.width, null);
+			}
+			else {
+				get_size (out this.width, out this.height);
+			}
+			get_position (out winx, out winy);
+			width = this.width;
+			height = this.height;
+		}
+
+		/**
 		 * set_window_list:
 		 *
 		 * Saves a list of window inside window.window_list to be shown

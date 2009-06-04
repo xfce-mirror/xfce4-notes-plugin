@@ -46,12 +46,7 @@ namespace Xnp {
 				else {
 					if (this.save_timeout > 0)
 						Source.remove (this.save_timeout);
-					this.save_timeout = Timeout.add_seconds (60, () => {
-						save_data ();
-						this.save_timeout = 0;
-						this._dirty = false;
-						return false;
-					});
+					this.save_timeout = Timeout.add_seconds (60, save_cb);
 				}
 			}
 		}
@@ -80,10 +75,7 @@ namespace Xnp {
 		}
 
 		~Note () {
-			if (this.save_timeout > 0) {
-				Source.remove (this.save_timeout);
-				this.save_timeout = 0;
-			}
+            this.dirty = false;
 		}
 
 		public override void size_request (ref Gtk.Requisition requisition) {
@@ -117,6 +109,18 @@ namespace Xnp {
 		 */
 		private void buffer_changed_cb () {
 			this.dirty = true;
+		}
+
+		/**
+		 * save_cb:
+		 *
+		 * Send save-data signal.
+		 */
+		private bool save_cb () {
+			save_data ();
+			this.save_timeout = 0;
+			this._dirty = false;
+			return false;
 		}
 
 	}

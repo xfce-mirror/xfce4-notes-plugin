@@ -1,5 +1,17 @@
 2009-06-04  Mike Massonnet <mmassonnet@xfce.org>
 
+Properly save window geometry
+	* panel-plugin/window.vala:
+	  - New method get_geometry() to return in accordance the geometry
+	  despit the state of the visibility.
+	* panel-plugin/application.vala:
+	  - Properly save window geometry.
+	* panel-plugin/note.vala:
+	  - Fix a null pointer sent within the lambda in the setter of the
+	  property dirty. Move the code to a normal function.
+
+2009-06-04  Mike Massonnet <mmassonnet@xfce.org>
+
 Load/save notes contents and windows configuration
 	* panel-plugin/application.vala:
 	  - Load/save windows configuration from/to config_file.

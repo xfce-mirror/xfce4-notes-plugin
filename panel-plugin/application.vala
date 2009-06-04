@@ -213,20 +213,16 @@ namespace Xnp {
 			var keyfile = new GLib.KeyFile ();
 			try {
 				foreach (var win in this.window_list) {
-					int winx, winy;
-					win.get_position (out winx, out winy);
-					int width = win.allocation.width;
-					// TODO if shaded
-					int height = win.allocation.height;
+					int winx, winy, width, height;
+					win.get_geometry (out winx, out winy, out width, out height);
 					int last_page = win.get_current_page ();
 					int transparency = (int)((1 - win.opacity) * 100);
 					bool visible = (bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE);
 
 					keyfile.set_integer (win.name, "PosX", winx);
 					keyfile.set_integer (win.name, "PosY", winy);
-					// TODO if !visible
-					keyfile.set_integer (win.name, "Width", visible ? width : win.default_width);
-					keyfile.set_integer (win.name, "Height", visible ? height : win.default_height);
+					keyfile.set_integer (win.name, "Width", width);
+					keyfile.set_integer (win.name, "Height", height);
 					keyfile.set_integer (win.name, "LastTab", last_page);
 					keyfile.set_boolean (win.name, "Above", win.above);
 					keyfile.set_boolean (win.name, "Sticky", win.sticky);
@@ -327,12 +323,12 @@ namespace Xnp {
 			string name;
 			string path = "%s/%s".printf (notes_path, window.name);
 			try {
-			var dir = GLib.Dir.open (path, 0);
-			while ((name = dir.read_name ()) != null) {
-				string filename = "%s/%s".printf (path, name);
-				GLib.FileUtils.unlink (filename);
-			}
-			GLib.DirUtils.remove (path);
+				var dir = GLib.Dir.open (path, 0);
+				while ((name = dir.read_name ()) != null) {
+					string filename = "%s/%s".printf (path, name);
+					GLib.FileUtils.unlink (filename);
+				}
+				GLib.DirUtils.remove (path);
 			}
 			catch (FileError e) {
 			}
