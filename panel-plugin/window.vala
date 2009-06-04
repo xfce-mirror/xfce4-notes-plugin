@@ -618,7 +618,6 @@ namespace Xnp {
 			}
 			if (x + requisition.width > Gdk.Screen.width ()) {
 				/* Adjust menu left */
-				debug ("%d %d", Gdk.Screen.width (), x);
 				x = x - menu.requisition.width + content_box.allocation.y;
 			}
 		}
@@ -784,6 +783,24 @@ namespace Xnp {
 		 */
 		public void set_window_list (SList<Xnp.Window> list) {
 			this.window_list = list;
+		}
+
+		/**
+		 * get_current_page:
+		 *
+		 * Get the current page in the notebook.
+		 */
+		public int get_current_page () {
+			return this.notebook.get_current_page ();
+		}
+
+		/**
+		 * set_current_page:
+		 *
+		 * Set the current page in the notebook.
+		 */
+		public void set_current_page (int page) {
+			this.notebook.set_current_page (page);
 		}
 
 		/*
@@ -989,6 +1006,22 @@ namespace Xnp {
 				}
 			}
 			return false;
+		}
+
+		/**
+		 * save_notes:
+		 *
+		 * Send the save-data signal on every dirty note.
+		 */
+		public void save_notes () {
+			int n_pages = this.notebook.get_n_pages ();
+			for (int p = 0; p < n_pages; p++) {
+				var note = (Xnp.Note)this.notebook.get_nth_page (p);
+				if (note.dirty) {
+					note.dirty = false;
+					save_data (note);
+				}
+			}
 		}
 
 /*

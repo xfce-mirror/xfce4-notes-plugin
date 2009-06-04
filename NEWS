@@ -1,8 +1,10 @@
-VERSION 1.6.5
+VERSION 1.7.0
 
 - New window menu layout with navigation for notes
-- Dropped show-tabs option for the window in favor of a navigation bar
+- Dropped show-tabs option from the window in favor of a navigation bar
+- ? Made font option apply per note instead of every notes from the window
 - New vala objects Window and Note, based on the existing code inside notes.c
+- New vala object Application to build window with notes and save on-disk
 
 VERSION 1.6.4
 

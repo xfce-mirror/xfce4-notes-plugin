@@ -25,27 +25,34 @@ namespace Xnp {
 
 		private SList<Xnp.Window> window_list;
 		private string notes_path;
+		private string config_file;
 
 		construct {
-			this.notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
+			notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
+			config_file = "%s/xfce4/panel/xfce4-notes-plugin.rc".printf (GLib.Environment.get_user_config_dir ());
 		}
 
 		public Application () {
 			string name;
 			bool found = false;
 			try {
-				var dir = Dir.open (this.notes_path, 0);
+				var dir = Dir.open (notes_path, 0);
 				while ((name = dir.read_name ()) != null) {
 					create_window (name);
 					found = true;
 				}
 			}
 			catch (Error e) {
-				GLib.DirUtils.create_with_parents (this.notes_path, 0700);
+				GLib.DirUtils.create_with_parents (notes_path, 0700);
 			}
 			if (found == false) {
 				create_window (null);
 			}
+		}
+
+		~Application () {
+			save_windows_configuration ();
+			save_notes ();
 		}
 
 		/*
@@ -86,13 +93,10 @@ namespace Xnp {
 			}
 
 			/* Insert initial notes */
-			if (name != null) {
-				this.load_window_data (window);
-			}
-			else {
+			if (name == null) {
 				var note = window.insert_note ();
 
-				string window_path = "%s/%s".printf (this.notes_path, window.name);
+				string window_path = "%s/%s".printf (notes_path, window.name);
 				GLib.DirUtils.create_with_parents (window_path, 0700);
 				try {
 					string note_path = "%s/%s".printf (window_path, note.name);
@@ -100,6 +104,11 @@ namespace Xnp {
 				}
 				catch (FileError e) {
 				}
+
+				window.show ();
+			}
+			else {
+				this.load_window_data (window);
 			}
 
 			/* Connect signals */
@@ -115,20 +124,10 @@ namespace Xnp {
 				}
 			};
 			window.save_data += (win, note) => {
-				string path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
-				try {
-					Gtk.TextIter start, end;
-					var buffer = note.text_view.get_buffer ();
-					buffer.get_bounds (out start, out end);
-					string contents = buffer.get_text (start, end, true);
-					GLib.FileUtils.set_contents (path, contents, -1);
-				}
-				catch (FileError e) {
-					warning ("%s", e.message);
-				}
+				save_note (win, note);
 			};
 			window.note_inserted += (win, note) => {
-				string path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				try {
 					GLib.FileUtils.set_contents (path, "", -1);
 				}
@@ -136,26 +135,25 @@ namespace Xnp {
 				}
 			};
 			window.note_deleted += (win, note) => {
-				string path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.unlink (path);
 			};
 			window.note_renamed += (win, note, old_name) => {
-				string old_path = "%s/%s/%s".printf (this.notes_path, win.name, old_name);
-				string new_path = "%s/%s/%s".printf (this.notes_path, win.name, note.name);
+				string old_path = "%s/%s/%s".printf (notes_path, win.name, old_name);
+				string new_path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.rename (old_path, new_path);
 			};
-
-			window.show ();
 		}
 
 		/**
 		 * load_window_data:
 		 *
-		 * Loads existing notes inside the window.
+		 * Load existing notes and configuration inside the window.
 		 */
 		private void load_window_data (Xnp.Window window) {
+			/* Load notes */
 			string name;
-			string path = "%s/%s".printf (this.notes_path, window.name);
+			string path = "%s/%s".printf (notes_path, window.name);
 			try {
 				var dir = GLib.Dir.open (path, 0);
 				while ((name = dir.read_name ()) != null) {
@@ -175,6 +173,101 @@ namespace Xnp {
 			}
 			catch (FileError e) {
 			}
+
+			/* Load configuration */
+			var keyfile = new GLib.KeyFile ();
+			try {
+				keyfile.load_from_file (config_file, GLib.KeyFileFlags.NONE);
+				int winx = keyfile.get_integer (window.name, "PosX");
+				int winy = keyfile.get_integer (window.name, "PosY");
+				int width = keyfile.get_integer (window.name, "Width");
+				int height = keyfile.get_integer (window.name, "Height");
+				int last_page = keyfile.get_integer (window.name, "LastTab");
+				bool above = keyfile.get_boolean (window.name, "Above");
+				bool sticky = keyfile.get_boolean (window.name, "Sticky");
+				double opacity = 1 - keyfile.get_integer (window.name, "Transparency") / 100;
+				bool visible = keyfile.get_boolean (window.name, "Visible");
+
+				window.move (winx, winy);
+				window.resize (width, height);
+				window.set_current_page (last_page);
+				window.above = above;
+				window.sticky = sticky;
+				window.opacity = opacity;
+				if (visible)
+					window.show ();
+			}
+			catch (Error e) {
+				warning ("%s: %s", config_file, e.message);
+				window.show ();
+			}
+		}
+
+		/**
+		 * save_windows_configuration:
+		 *
+		 * Save window configuration inside rc file.
+		 * TODO save font descriptions
+		 */
+		public void save_windows_configuration () {
+			var keyfile = new GLib.KeyFile ();
+			try {
+				foreach (var win in this.window_list) {
+					int winx, winy;
+					win.get_position (out winx, out winy);
+					int width = win.allocation.width;
+					// TODO if shaded
+					int height = win.allocation.height;
+					int last_page = win.get_current_page ();
+					int transparency = (int)((1 - win.opacity) * 100);
+					bool visible = (bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE);
+
+					keyfile.set_integer (win.name, "PosX", winx);
+					keyfile.set_integer (win.name, "PosY", winy);
+					// TODO if !visible
+					keyfile.set_integer (win.name, "Width", visible ? width : win.default_width);
+					keyfile.set_integer (win.name, "Height", visible ? height : win.default_height);
+					keyfile.set_integer (win.name, "LastTab", last_page);
+					keyfile.set_boolean (win.name, "Above", win.above);
+					keyfile.set_boolean (win.name, "Sticky", win.sticky);
+					keyfile.set_double (win.name, "Transparency", transparency);
+					keyfile.set_boolean (win.name, "Visible", visible);
+				}
+				string contents = keyfile.to_data (null);
+				GLib.FileUtils.set_contents (config_file, contents);
+			}
+			catch (FileError e) {
+			}
+		}
+
+		/**
+		 * save_notes:
+		 *
+		 * Save the contents of every existing notes.
+		 */
+		private void save_notes () {
+			foreach (var win in this.window_list) {
+				win.save_notes ();
+			}
+		}
+
+		/**
+		 * save_note:
+		 *
+		 * Save the contents of the given note.
+		 */
+		private void save_note (Xnp.Window window, Xnp.Note note) {
+			string path = "%s/%s/%s".printf (notes_path, window.name, note.name);
+			try {
+				Gtk.TextIter start, end;
+				var buffer = note.text_view.get_buffer ();
+				buffer.get_bounds (out start, out end);
+				string contents = buffer.get_text (start, end, true);
+				GLib.FileUtils.set_contents (path, contents, -1);
+			}
+			catch (FileError e) {
+				warning ("%s", e.message);
+			}
 		}
 
 		/**
@@ -184,8 +277,8 @@ namespace Xnp {
 		 */
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons ("Rename group", window,
-				Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
-				Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
+					Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
+					Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
 			dialog.icon_name = Gtk.STOCK_EDIT;
@@ -209,8 +302,8 @@ namespace Xnp {
 					error_dialog.destroy ();
 				}
 				else {
-					string old_path = "%s/%s".printf (this.notes_path, window.name);
-					string new_path = "%s/%s".printf (this.notes_path, name);
+					string old_path = "%s/%s".printf (notes_path, window.name);
+					string new_path = "%s/%s".printf (notes_path, name);
 					window.name = name;
 					GLib.FileUtils.rename (old_path, new_path);
 				}
@@ -232,7 +325,7 @@ namespace Xnp {
 				return;
 
 			string name;
-			string path = "%s/%s".printf (this.notes_path, window.name);
+			string path = "%s/%s".printf (notes_path, window.name);
 			try {
 			var dir = GLib.Dir.open (path, 0);
 			while ((name = dir.read_name ()) != null) {

@@ -24,10 +24,37 @@ namespace Xnp {
 
 	public class Note : Gtk.Bin {
 
-		public new string name { get; set; }
-		private uint save_timeout;
 		public Gtk.ScrolledWindow scrolled_window;
 		public Xnp.HypertextView text_view;
+		public new string name { get; set; }
+
+		private uint save_timeout;
+		private bool _dirty;
+		public bool dirty {
+			default = false;
+			get {
+				return this._dirty;
+			}
+			set {
+				this._dirty = value;
+				if (value == false) {
+					if (this.save_timeout > 0) {
+						Source.remove (this.save_timeout);
+						this.save_timeout = 0;
+					}
+				}
+				else {
+					if (this.save_timeout > 0)
+						Source.remove (this.save_timeout);
+					this.save_timeout = Timeout.add_seconds (60, () => {
+						save_data ();
+						this.save_timeout = 0;
+						this._dirty = false;
+						return false;
+					});
+				}
+			}
+		}
 
 		public signal void save_data ();
 
@@ -53,8 +80,10 @@ namespace Xnp {
 		}
 
 		~Note () {
-			if (this.save_timeout != 0)
+			if (this.save_timeout > 0) {
 				Source.remove (this.save_timeout);
+				this.save_timeout = 0;
+			}
 		}
 
 		public override void size_request (ref Gtk.Requisition requisition) {
@@ -87,14 +116,7 @@ namespace Xnp {
 		 * changes and send the save-data signal.
 		 */
 		private void buffer_changed_cb () {
-			if (this.save_timeout > 0) {
-				Source.remove (this.save_timeout);
-			}
-			this.save_timeout = Timeout.add_seconds (60, () => {
-				save_data ();
-				this.save_timeout = 0;
-				return false;
-			});
+			this.dirty = true;
 		}
 
 	}

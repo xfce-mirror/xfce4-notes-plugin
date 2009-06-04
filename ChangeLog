@@ -1,3 +1,19 @@
+2009-06-04  Mike Massonnet <mmassonnet@xfce.org>
+
+Load/save notes contents and windows configuration
+	* panel-plugin/application.vala:
+	  - Load/save windows configuration from/to config_file.
+	  - Add destructor to save notes and windows configuration.
+	* panel-plugin/window.vala:
+	  - New public methods get/set_current_page() as needed by the window
+	  configuration to restore the "LastPage" on the next run.
+	  - New public method save_notes() called by the Xnp.Application
+	  destructor to save remaining dirty notes.
+	* panel-plugin/note.vala:
+	  - New property dirty, when set to true it initiates a timeout to
+	  send the save-data signal and destroys the timeout on false.
+	  - On buffer_changed_cb only set dirty to true.
+
 2009-05-31  Mike Massonnet <mmassonnet@xfce.org>
 
 Load/Save notes from files
@@ -163,7 +179,7 @@ Vala vala vala vala vala
 	  - Remove existing GLib.Sources on destruction
 	* panel-plugin/window.vala,
 	  panel-plugin/note.vala:
-	  Vala vala vala vala vala
+	  - Vala vala vala vala vala
 
 2009-03-13  Mike Massonnet <mmassonnet@xfce.org>
 
