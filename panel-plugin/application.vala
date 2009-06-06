@@ -39,7 +39,7 @@ namespace Xnp {
 
 			xfconf_channel.property_changed += (channel, prop, val) => {
 				if (prop == "/global/background-color") {
-					// TODO Xnp.Color.set_background (val);
+					Xnp.Color.set_background (val.get_string ());
 				}
 			};
 

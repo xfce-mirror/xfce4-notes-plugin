@@ -1,5 +1,16 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Milestone reached
+	* panel-plugin/Makefile.am:
+	  - Build the new Vala sources to C, and the C sources to the binary.
+	* panel-plugin/color.vapi:
+	  - Ability to use the functions in color.h in the Vala sources.
+	* panel-plugin/application.vala:
+	  - Uncomment the last little bit that was missing: setting the
+	  background color.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Forgot config.vapi
 	* panel-plugin/config.vapi:
 	  - Links to most declarations from config.h for Vala sources.

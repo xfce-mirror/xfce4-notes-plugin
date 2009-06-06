@@ -41,15 +41,17 @@ xfce4_notes_settings_LDADD =						\
 #
 if MAINTAINER_MODE
 xfce4_notes_plugin_VALASOURCES =					\
+	main.vala							\
+	application.vala						\
+	window.vala							\
+	note.vala							\
 	hypertextview.vala
 
-vala_built_SOURCES =							\
-	$(xfce4_notes_plugin_VALASOURCES:.vala=.c)			\
-	$(xfce4_notes_plugin_VALASOURCES:.vala=.h)
+vala_built_SOURCES = $(xfce4_notes_plugin_VALASOURCES:.vala=.c)
 
 BUILT_SOURCES = vala.stamp
 vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
-	$(VALAC) --pkg=gtk+-2.0 $^ -C -H vala-objects.h
+	$(VALAC) --vapidir=. --pkg=config --pkg=color --pkg=libxfconf-0 --pkg=libxfce4panel-1.0 $^ -C
 	touch $@
 endif
 
@@ -60,14 +62,8 @@ plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
 
 xfce4_notes_plugin_SOURCES =						\
-	defines.h							\
-	xfce-arrow-button.c						\
-	xfce-arrow-button.h						\
 	color.c								\
 	color.h								\
-	panel-plugin.c							\
-	notes.c								\
-	notes.h
 xfce4_notes_plugin_SOURCES += $(vala_built_SOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
@@ -106,6 +102,9 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 EXTRA_DIST =								\
 	$(desktop_in_in_files) $(xfce4_notes_plugin_VALASOURCES)
 
+CLEANFILES =								\
+	$(BUILT_SOURCES) $(vala_built_SOURCES)
+
 DISTCLEANFILES =							\
-	$(desktop_DATA) $(desktop_in_files) $(BUILT_SOURCES) $(vala_built_SOURCES)
+	$(desktop_DATA) $(desktop_in_files)
 

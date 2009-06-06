@@ -42,7 +42,7 @@
 #define SIZE_SMALL                      240
 #define SIZE_NORMAL                     305
 #define SIZE_LARGE                      340
-#define SIZE_FACTOR                     1.15
+#define SIZE_FACTOR                     1.25
 
 /* Background color values */
 #define BACKGROUND_YELLOW               "#ECDE79"
