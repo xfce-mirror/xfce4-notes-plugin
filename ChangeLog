@@ -1,5 +1,9 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Rename settings-dialog.c to its homonyme executable
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Made the settings dialog a standalone application
 	* configure.in.in:
 	  - Set Xfconf required.

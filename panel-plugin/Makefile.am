@@ -24,7 +24,7 @@ bin_PROGRAMS += xfce4-notes-settings
 xfce4_notes_settings_SOURCES =						\
 	color.c								\
 	color.h								\
-	settings-dialog.c
+	xfce4-notes-settings.c
 
 xfce4_notes_settings_CFLAGS =						\
 	@GTK_CFLAGS@							\
