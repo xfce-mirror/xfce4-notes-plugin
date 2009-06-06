@@ -119,19 +119,24 @@ namespace Xnp {
 
 				try {
 					GLib.AppInfo.launch_default_for_uri (link, null);
-				} catch (Error ex) {
-					warning ("Unable to open link `%s': %s", link, ex.message);
-
-					if (Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "xdg-open "+link)) {
-						return false;
-					}
-
-					if (Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "firefox "+link)) {
-						return false;
-					}
-
-					critical ("Impossible to find an appropriate fallback to open the link");
+					return false;
+				} catch (Error e) {
+					critical ("Unable to open link with default handler: %s", e.message);
 				}
+				try {
+					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "xdg-open "+link);
+					return false;
+				}
+				catch (Error e) {
+				}
+				try {
+					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "firefox "+link);
+					return false;
+				}
+				catch (Error e) {
+				}
+
+				critical ("Unable to find an appropriate fallback to open the link");
 			}
 
 			return false;

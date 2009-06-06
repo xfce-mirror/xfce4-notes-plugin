@@ -1,5 +1,11 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix broken "open link" code
+	* panel-plugin/hypertextview.vala:
+	  - The code to launch a brower was missusing the try catches.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Vala Xfconf settings
 	* panel-plugin/application.vala:
 	  - Use Xfconf to bind and set settings.
