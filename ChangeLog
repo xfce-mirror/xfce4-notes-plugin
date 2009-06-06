@@ -1,5 +1,12 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+"Grey" the title bar on focus out
+	* panel-plugin/window.vala:
+	  - On focus-out-event/focus-in-event set the title_label sensitivity
+	  to false/true.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Window name sort function
 	* panel-plugin/window.vala:
 	  - Add a CompareFunc on the window name.

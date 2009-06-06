@@ -259,6 +259,14 @@ namespace Xnp {
 				hide_cb ();
 				return true;
 			};
+			focus_in_event += () => {
+				title_label.sensitive = true;
+				return false;
+			};
+			focus_out_event += () => {
+				title_label.sensitive = false;
+				return false;
+			};
 			leave_notify_event += navigation_leaved_cb;
 			motion_notify_event += navigation_motion_cb;
 			leave_notify_event += window_leaved_cb;
