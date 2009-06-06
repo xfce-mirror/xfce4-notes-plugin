@@ -18,6 +18,7 @@
  */
 
 using Gtk;
+using Xfconf;
 
 namespace Xnp {
 
@@ -26,6 +27,7 @@ namespace Xnp {
 		private SList<Xnp.Window> window_list;
 		private string notes_path;
 		private string config_file;
+		private Xfconf.Channel xfconf_channel;
 
 		construct {
 			notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
@@ -33,6 +35,14 @@ namespace Xnp {
 		}
 
 		public Application () {
+			try {
+				Xfconf.init ();
+				xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
+			}
+			catch (Xfconf.Error e) {
+				warning ("%s", e.message);
+			}
+
 			string name;
 			bool found = false;
 			try {
@@ -42,17 +52,19 @@ namespace Xnp {
 					found = true;
 				}
 			}
-			catch (Error e) {
+			catch (GLib.Error e) {
 				GLib.DirUtils.create_with_parents (notes_path, 0700);
 			}
 			if (found == false) {
-				create_window (null);
+				create_window ();
 			}
 		}
 
 		~Application () {
 			save_windows_configuration ();
 			save_notes ();
+			xfconf_channel.unref ();
+			Xfconf.shutdown ();
 		}
 
 		/*
@@ -65,8 +77,23 @@ namespace Xnp {
 		 * Creates a new Xnp.Window and stores it inside window_list.
 		 * If a name is given, it assumes it can load existing notes.
 		 */
-		public void create_window (string? name) {
+		public void create_window (string? name = null) {
 			var window = new Xnp.Window ();
+
+			/* Global settings */
+			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
+				typeof (bool), window, "skip-taskbar-hint");
+
+			/* Default settings */
+			if (name == null) {
+				window.above = xfconf_channel.get_bool ("/new-window/always-on-top", false);
+				window.sticky = xfconf_channel.get_bool ("/new-window/sticky", true);
+				int width = xfconf_channel.get_int ("/new-window/width", 0);
+				int height = xfconf_channel.get_int ("/new-window/height", 0);
+				if (width > 0 && height > 0) {
+					window.resize (width, height);
+				}
+			}
 
 			/* Set window name */
 			if (name == null) {
@@ -95,6 +122,8 @@ namespace Xnp {
 			/* Insert initial notes */
 			if (name == null) {
 				var note = window.insert_note ();
+				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+					typeof (string), note.text_view, "font");
 
 				string window_path = "%s/%s".printf (notes_path, window.name);
 				GLib.DirUtils.create_with_parents (window_path, 0700);
@@ -120,13 +149,16 @@ namespace Xnp {
 					delete_window (win);
 				}
 				else if (action == "create-new-window") {
-					create_window (null);
+					create_window ();
 				}
 			};
 			window.save_data += (win, note) => {
 				save_note (win, note);
 			};
 			window.note_inserted += (win, note) => {
+				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+					typeof (string), note.text_view, "font");
+
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				try {
 					GLib.FileUtils.set_contents (path, "", -1);
@@ -165,6 +197,8 @@ namespace Xnp {
 						note.name = name;
 						var buffer = note.text_view.get_buffer ();
 						buffer.set_text (contents, -1);
+						Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+								typeof (string), note.text_view, "font");
 					}
 					catch (FileError e) {
 						warning ("%s", e.message);
@@ -197,7 +231,7 @@ namespace Xnp {
 				if (visible)
 					window.show ();
 			}
-			catch (Error e) {
+			catch (GLib.Error e) {
 				warning ("%s: %s", config_file, e.message);
 				window.show ();
 			}
@@ -342,7 +376,7 @@ namespace Xnp {
 				}
 			}
 			else {
-				create_window (null);
+				create_window ();
 			}
 		}
 

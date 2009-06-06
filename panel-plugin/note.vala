@@ -37,15 +37,13 @@ namespace Xnp {
 			}
 			set {
 				this._dirty = value;
+				if (this.save_timeout > 0) {
+					Source.remove (this.save_timeout);
+				}
 				if (value == false) {
-					if (this.save_timeout > 0) {
-						Source.remove (this.save_timeout);
-						this.save_timeout = 0;
-					}
+					this.save_timeout = 0;
 				}
 				else {
-					if (this.save_timeout > 0)
-						Source.remove (this.save_timeout);
 					this.save_timeout = Timeout.add_seconds (60, save_cb);
 				}
 			}

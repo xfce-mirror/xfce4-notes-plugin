@@ -1,9 +1,9 @@
- Xfce4-notes-plugin
+ Xfce4 Notes Plugin
 ====================
 
 The notes plugin provides you a quick way to write down a todo list,
 to paste a piece of code, to leave a note to your friend, or whatever
-else you had like to do with it.
+else you had like to do with a post'it.
 
 	“ I like to write down a todo list and mark what I did,
 	and once I'm done with the whole job I destroy the note.
@@ -28,6 +28,8 @@ else you had like to do with it.
 		… 2026		⁂ 2042
 		☐ 2610		☑ 2611
 	
+	Update 2009-06-06: actually I switched to the application
+	Tasks from the Pimlico project in regard to todo lists.
 	”, Mike
 
 The notes are saved under $XDG_DATA_HOME/notes/[0].  This way you can
@@ -58,6 +60,7 @@ http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
 * libgtk+2 2.10
 * libxfce4panel 4.4.0
 * libxfcegui4 4.4.0
+* xfconf 4.6.0
 
 
  Install

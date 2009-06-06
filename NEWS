@@ -1,10 +1,17 @@
 VERSION 1.7.0
 
-- New window menu layout with navigation for notes
-- Dropped show-tabs option from the window in favor of a navigation bar
-- ? Made font option apply per note instead of every notes from the window
-- New vala objects Window and Note, based on the existing code inside notes.c
-- New vala object Application to build window with notes and save on-disk
+- Renamed "Window" to "Group"
+- New window menu layout with a submenu "Go" to navigate through the notes
+- Support for hyperlinks in the notes to click'n'open
+- Dropped the tabs from the window in favor of a navigation bar
+- Made the font option global instead of per window
+- Changed the default Xfconf channel from xfce4-notes-plugin to xfce4-panel
+  with the base property /plugins/notes
+- New Vala objects, mostly based on the existing code from notes.c
+  - HypertextView, Note and Window
+  - Note is a dummy Gtk.Bin that wraps a ScrolledWindow with a HypertextView
+    and sends save-data signals as needed
+  - Application to build notes, use Xfconf settings and save on-disk
 
 VERSION 1.6.4
 
