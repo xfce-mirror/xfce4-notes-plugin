@@ -1,5 +1,11 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Forgot config.vapi
+	* panel-plugin/config.vapi:
+	  - Links to most declarations from config.h for Vala sources.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Vala the panel plugin
 	* panel-plugin/main.vala:
 	  - Registers an external panel plugin.
