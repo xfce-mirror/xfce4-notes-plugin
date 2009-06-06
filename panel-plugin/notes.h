@@ -24,9 +24,7 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4panel/xfce-panel-convenience.h>
 #include <libxfcegui4/libxfcegui4.h>
-#ifdef HAVE_XFCONF
 #include <xfconf/xfconf.h>
-#endif
 #ifdef HAVE_THUNAR_VFS
 #include <thunar-vfs/thunar-vfs.h>
 #endif
@@ -60,9 +58,7 @@ struct _NotesPlugin
 
   GtkTooltips          *tooltips;
 
-#ifdef HAVE_XFCONF
   XfconfChannel        *xfconf_channel;
-#endif
 
 #ifdef HAVE_THUNAR_VFS
   ThunarVfsMonitor     *monitor;

@@ -17,6 +17,26 @@ xfce4_popup_notes_LDADD =						\
 	@GTK_LIBS@
 
 #
+# Settings dialog
+#
+bin_PROGRAMS += xfce4-notes-settings
+
+xfce4_notes_settings_SOURCES =						\
+	color.c								\
+	color.h								\
+	settings-dialog.c
+
+xfce4_notes_settings_CFLAGS =						\
+	@GTK_CFLAGS@							\
+	@LIBXFCEGUI4_CFLAGS@						\
+	@XFCONF_CFLAGS@
+
+xfce4_notes_settings_LDADD =						\
+	@GTK_LIBS@							\
+	@LIBXFCEGUI4_LIBS@						\
+	@XFCONF_LIBS@
+
+#
 # Vala sources
 #
 if MAINTAINER_MODE
@@ -46,8 +66,6 @@ xfce4_notes_plugin_SOURCES =						\
 	color.c								\
 	color.h								\
 	panel-plugin.c							\
-	settings-dialog.c						\
-	settings-dialog.h						\
 	notes.c								\
 	notes.h
 xfce4_notes_plugin_SOURCES += $(vala_built_SOURCES)

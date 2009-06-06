@@ -1,5 +1,19 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Made the settings dialog a standalone application
+	* configure.in.in:
+	  - Set Xfconf required.
+	* panel-plugin/Makefile.am:
+	  - Add compilation rules for binary xfce4-notes-settings.
+	* panel-plugin/notes.c:
+	  - Spawn xfce4-notes-settings instead of creating the settings
+	  dialog.
+	* panel-plugin/settings-dialog.c:
+	  - Add a main function to init Xfconf, an xfconf channel, and show
+	  the settings dialog.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Verify window/notes names for a set of invalid characters
 	* panel-plugin/application.vala:
 	  - New method name_is_valid that verifies if the given name has

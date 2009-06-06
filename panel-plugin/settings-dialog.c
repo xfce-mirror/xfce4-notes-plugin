@@ -21,12 +21,11 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_XFCONF
 #include <xfconf/xfconf.h>
+#include <gtk/gtk.h>
+#include <libxfcegui4/libxfcegui4.h>
 
 #include "defines.h"
-#include "settings-dialog.h"
-#include "notes.h"
 #include "color.h"
 
 enum
@@ -37,7 +36,7 @@ enum
 };
 
 static GtkWidget *size_combo_box_new ();
-static void cb_size_changed (GtkComboBox *combobox, gpointer data);
+static void cb_size_combobox_changed (GtkComboBox *combobox, gpointer data);
 
 enum
 {
@@ -65,53 +64,47 @@ static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
 
 GtkWidget *
-prop_dialog_new (NotesPlugin *notes_plugin)
+prop_dialog_new ()
 {
-  GtkWidget *dialog, *frame, *box, *hbox, *button, *label;
+  GtkWidget *dialog, *notebook, *vbox, *frame, *box, *hbox, *button, *label;
 
   /* Configuration channel */
   if (NULL == xfconf_channel)
-    xfconf_channel = notes_plugin->xfconf_channel;
-
-#if 0
-  /* Set unset xfconf values */
-  if (!xfconf_channel_has_property (xfconf_channel, "/new_window/transparency"))
-    xfconf_channel_set_int (xfconf_channel,
-                            "/new_window/transparency",
-                            NEW_WINDOW_TRANSPARENCY);
-#endif
+    xfconf_channel = xfconf_channel_new_with_property_base ("xfce4-panel", "/plugins/notes");
 
   /* Dialog */
   dialog =
-    xfce_titled_dialog_new_with_buttons (_("Notes"),
-                                         GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (notes_plugin->panel_plugin))),
+    xfce_titled_dialog_new_with_buttons (_("Notes"), NULL,
                                          GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
-                                         GTK_STOCK_HELP, GTK_RESPONSE_HELP,
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
   xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog), _("Configure the plugin"));
-  gtk_window_set_default_size (GTK_WINDOW (dialog), 300, -1);
   gtk_window_set_icon_name (GTK_WINDOW (dialog), "xfce4-notes-plugin");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
   gtk_window_stick (GTK_WINDOW (dialog));
 
-  /* === Default settings === */
+  /* Notebook */
+  notebook = gtk_notebook_new ();
+  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), FALSE);
+  gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
+  gtk_container_set_border_width (GTK_CONTAINER (notebook), 0);
+  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), notebook);
+
+  /* VBox */
+  vbox = gtk_vbox_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (notebook), vbox);
+
+  /* === Global settings === */
   box = gtk_vbox_new (FALSE, BORDER);
-  frame = xfce_create_framebox_with_content (_("Default settings"), box);
+  frame = xfce_create_framebox_with_content (_("Global settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
-  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), frame);
+  gtk_container_add (GTK_CONTAINER (vbox), frame);
 
   /* Hide from taskbar */
-  button = gtk_check_button_new_with_label (_("Hide windows from taskbar"));
+  button = gtk_check_button_new_with_label (_("Hide notes from taskbar"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_HIDE_FROM_TASKBAR);
-  xfconf_g_property_bind (xfconf_channel, "/general/hide_windows_from_taskbar",
-                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
-  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-
-  /* Hide arrow button */
-  button = gtk_check_button_new_with_label (_("Hide arrow button"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_HIDE_ARROW_BUTTON);
-  xfconf_g_property_bind (xfconf_channel, "/general/hide_arrow_button",
+  xfconf_g_property_bind (xfconf_channel, "/global/skip-taskbar-hint",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
@@ -128,47 +121,37 @@ prop_dialog_new (NotesPlugin *notes_plugin)
   color_button = color_button_new ();
   gtk_box_pack_start (GTK_BOX (hbox), color_button, FALSE, FALSE, 0);
 
+  /* Font description */
+  hbox = gtk_hbox_new (FALSE, BORDER);
+  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
+
+  label = gtk_label_new (_("Font:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+  button = gtk_font_button_new_with_font ("Sans 12");
+  xfconf_g_property_bind (xfconf_channel, "/global/font-description",
+                          G_TYPE_STRING, G_OBJECT (button), "font-name");
+  gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+
   /* === New window settings === */
   box = gtk_vbox_new (FALSE, BORDER);
-  frame = xfce_create_framebox_with_content (_("New window settings"), box);
+  frame = xfce_create_framebox_with_content (_("New group settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
-  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), frame);
+  gtk_container_add (GTK_CONTAINER (vbox), frame);
 
   /* Always on top */
   button = gtk_check_button_new_with_label (_("Always on top"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_ABOVE);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/always_on_top",
+  xfconf_g_property_bind (xfconf_channel, "/new-window/always-on-top",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* Sticky window */
-  button = gtk_check_button_new_with_label (_("Sticky window"));
+  button = gtk_check_button_new_with_label (_("Sticky"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_STICKY);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/sticky",
+  xfconf_g_property_bind (xfconf_channel, "/new-window/sticky",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-
-  /* Tabs */
-  button = gtk_check_button_new_with_label (_("Show tabs"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_TABS);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/show_tabs",
-                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
-  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-
-  /* Font */
-  hbox = gtk_hbox_new (FALSE, BORDER);
-  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
-
-  button = gtk_check_button_new_with_label (_("Font:"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), NEW_WINDOW_USE_FONT);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/use_font",
-                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
-  gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-
-  button = gtk_font_button_new_with_font (NEW_WINDOW_FONT_DESCR);
-  xfconf_g_property_bind (xfconf_channel, "/new_window/font_description",
-                          G_TYPE_STRING, G_OBJECT (button), "font-name");
-  gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
 
   /* Size */
   hbox = gtk_hbox_new (FALSE, BORDER);
@@ -197,7 +180,7 @@ size_combo_box_new ()
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Normal"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Large"));
 
-  size = xfconf_channel_get_int (xfconf_channel, "/new_window/width", SIZE_NORMAL);
+  size = xfconf_channel_get_int (xfconf_channel, "/new-window/width", SIZE_NORMAL);
   if (size == SIZE_SMALL)
     gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), COMBOBOX_SIZE_SMALL);
   else if (size == SIZE_NORMAL)
@@ -205,14 +188,14 @@ size_combo_box_new ()
   else if (size == SIZE_LARGE)
     gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), COMBOBOX_SIZE_LARGE);
 
-  g_signal_connect (combobox, "changed", G_CALLBACK (cb_size_changed), NULL);
+  g_signal_connect (combobox, "changed", G_CALLBACK (cb_size_combobox_changed), NULL);
 
   return combobox;
 }
 
 static void
-cb_size_changed (GtkComboBox *combobox,
-                 gpointer data)
+cb_size_combobox_changed (GtkComboBox *combobox,
+                          gpointer data)
 {
   gint id;
   gint width = 0, height = 0;
@@ -228,21 +211,21 @@ cb_size_changed (GtkComboBox *combobox,
   if (id == COMBOBOX_SIZE_SMALL)
     {
       width = SIZE_SMALL;
-      height = (gint)SIZE_SMALL*SIZE_FACTOR;
+      height = (gint)width*SIZE_FACTOR;
     }
   else if (id == COMBOBOX_SIZE_NORMAL)
     {
       width = SIZE_NORMAL;
-      height = (gint)SIZE_NORMAL*SIZE_FACTOR;
+      height = (gint)width*SIZE_FACTOR;
     }
   else if (id == COMBOBOX_SIZE_LARGE)
     {
       width = SIZE_LARGE;
-      height = (gint)SIZE_LARGE*SIZE_FACTOR;
+      height = (gint)width*SIZE_FACTOR;
     }
 
-  xfconf_channel_set_int (xfconf_channel, "/new_window/width", width);
-  xfconf_channel_set_int (xfconf_channel, "/new_window/height", height);
+  xfconf_channel_set_int (xfconf_channel, "/new-window/width", width);
+  xfconf_channel_set_int (xfconf_channel, "/new-window/height", height);
 }
 
 static GtkWidget *
@@ -261,7 +244,7 @@ background_combo_box_new ()
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("White"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Custom..."));
 
-  color = xfconf_channel_get_string (xfconf_channel, "/general/background_color", GENERAL_BACKGROUND_COLOR);
+  color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   if (!g_ascii_strcasecmp (color, BACKGROUND_YELLOW))
     id = COMBOBOX_BACKGROUND_YELLOW;
   else if (!g_ascii_strcasecmp (color, BACKGROUND_RED))
@@ -324,7 +307,7 @@ cb_background_changed (GtkComboBox *combobox,
         {
           color = background_dialog_get_color (GTK_COLOR_SELECTION_DIALOG (dialog));
           gdk_color_parse (color, &gdkcolor);
-          xfconf_channel_set_string (xfconf_channel, "/general/background_color", color);
+          xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
           g_free (color);
 
           gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
@@ -334,7 +317,7 @@ cb_background_changed (GtkComboBox *combobox,
       return;
     }
 
-  xfconf_channel_set_string (xfconf_channel, "/general/background_color", color);
+  xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
 
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
@@ -354,7 +337,7 @@ background_dialog_new ()
   gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (selection), FALSE);
   g_signal_connect (selection, "color-changed", G_CALLBACK (cb_selection_changed), NULL);
 
-  color = xfconf_channel_get_string (xfconf_channel, "/general/background_color", GENERAL_BACKGROUND_COLOR);
+  color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   gdk_color_parse (color, &gdkcolor);
   gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection), &gdkcolor);
   g_free (color);
@@ -397,7 +380,7 @@ color_button_new ()
   GdkColor gdkcolor;
   gchar *color;
 
-  color = xfconf_channel_get_string (xfconf_channel, "/general/background_color", GENERAL_BACKGROUND_COLOR);
+  color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   gdk_color_parse (color, &gdkcolor);
   g_free (color);
 
@@ -429,5 +412,18 @@ cb_color_button_pressed (GtkButton *button,
   return TRUE;
 }
 
-#endif
+
+
+gint main (gint argc,
+          gchar *argv[])
+{
+  GtkWidget *dialog;
+  xfconf_init (NULL);
+  gtk_init (&argc, &argv);
+  dialog = prop_dialog_new ();
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+  xfconf_shutdown ();
+  return 0;
+}
 

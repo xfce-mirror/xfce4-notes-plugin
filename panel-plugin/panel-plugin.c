@@ -25,9 +25,6 @@
 #include "defines.h"
 #include "color.h"
 #include "notes.h"
-#ifdef HAVE_XFCONF
-#include "settings-dialog.h"
-#endif
 #include "xfce4-popup-notes.h"
 
 #include <libxfce4panel/xfce-hvbox.h>
@@ -40,9 +37,8 @@ static void             notes_plugin_register           (XfcePanelPlugin *panel_
 
 static NotesPlugin     *notes_plugin_new                (XfcePanelPlugin *panel_plugin);
 
-#ifdef HAVE_XFCONF
 static void             notes_plugin_configure          (NotesPlugin *notes_plugin);
-#endif
+
 static gboolean         notes_plugin_set_size           (NotesPlugin *notes_plugin, 
                                                          int size);
 static void             notes_plugin_set_orientation    (NotesPlugin *notes_plugin, 
@@ -56,14 +52,13 @@ static void             notes_plugin_save_data_all      (NotesPlugin *notes_plug
 static void             notes_plugin_free               (NotesPlugin *notes_plugin);
 
 static void             notes_plugin_destroy_timeout    (NotesPlugin *notes_plugin);
-#ifdef HAVE_XFCONF
+
 static void             notes_plugin_monitor_xfconf     (NotesPlugin *notes_plugin);
 
 static void             notes_plugin_xfconf_property_changed
                                                         (NotesPlugin *notes_plugin,
                                                          gchar *property,
                                                          GValue *value);
-#endif
 #ifdef HAVE_THUNAR_VFS
 static NotesWindow     *notes_plugin_get_window_by_name (NotesPlugin *notes_plugin,
                                                          const gchar *name);
@@ -116,9 +111,7 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
   notes_plugin = notes_plugin_new (panel_plugin);
   gtk_widget_show_all (GTK_WIDGET (panel_plugin));
 
-#ifdef HAVE_XFCONF
   notes_plugin_monitor_xfconf (notes_plugin);
-#endif
 
   /* Set the tooltip */
 #if GTK_CHECK_VERSION (2,12,0)
@@ -129,20 +122,16 @@ notes_plugin_register (XfcePanelPlugin *panel_plugin)
   orientation = xfce_panel_plugin_get_orientation (panel_plugin);
   notes_plugin_set_orientation (notes_plugin, orientation);
 
-#ifdef HAVE_XFCONF
   if (xfconf_channel_get_bool (notes_plugin->xfconf_channel,
-                               "/general/hide_arrow_button",
+                               "/global/hide-arrow-button",
                                GENERAL_HIDE_ARROW_BUTTON))
     gtk_widget_hide (notes_plugin->btn_arrow);
 
   gchar *background = xfconf_channel_get_string (notes_plugin->xfconf_channel,
-                                                 "/general/background_color",
+                                                 "/global/background-color",
                                                  GENERAL_BACKGROUND_COLOR);
   color_set_background (background);
   g_free (background);
-#else
-  color_set_background (GENERAL_BACKGROUND_COLOR);
-#endif
 
   /* Load the notes */
   while (gtk_events_pending ())
@@ -171,9 +160,7 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
   DBG ("\nLook up file: %s\nNotes path: %s", notes_plugin->config_file,
                                            notes_plugin->notes_path);
 
-#ifdef HAVE_XFCONF
   xfconf_init (NULL);
-#endif
 
   notes_plugin->windows = NULL;
   notes_plugin->box_panel = GTK_WIDGET (xfce_hvbox_new (GTK_ORIENTATION_HORIZONTAL, FALSE, 0));
@@ -187,12 +174,10 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
   gtk_container_add (GTK_CONTAINER (notes_plugin->box_panel), notes_plugin->btn_arrow);
   gtk_container_add (GTK_CONTAINER (panel_plugin), notes_plugin->box_panel);
 
-#ifdef HAVE_XFCONF
   g_signal_connect_swapped (panel_plugin,
                             "configure-plugin",
                             G_CALLBACK (notes_plugin_configure),
                             notes_plugin);
-#endif
   g_signal_connect_swapped (panel_plugin,
                             "size-changed",
                             G_CALLBACK (notes_plugin_set_size),
@@ -238,47 +223,28 @@ notes_plugin_new (XfcePanelPlugin *panel_plugin)
 #endif
 
   notes_plugin_set_selection (notes_plugin);
-#ifdef HAVE_XFCONF
   xfce_panel_plugin_menu_show_configure (panel_plugin);
-#endif
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_panel);
   xfce_panel_plugin_add_action_widget (panel_plugin, notes_plugin->btn_arrow);
 
   return notes_plugin;
 }
 
-#ifdef HAVE_XFCONF
 static void
 notes_plugin_configure (NotesPlugin *notes_plugin)
 {
-  GtkWindowGroup *group;
-  GtkWidget *dialog;
-  gint result;
-
-  xfce_panel_plugin_block_menu (notes_plugin->panel_plugin);
-  dialog = prop_dialog_new (notes_plugin);
-
-  group = gtk_window_group_new ();
-  gtk_window_group_add_window (group, GTK_WINDOW (dialog));
-
-  while (1)
-    {
-      result = gtk_dialog_run (GTK_DIALOG (dialog));
-      if (result == GTK_RESPONSE_HELP)
-        {
-          result = g_spawn_command_line_async ("exo-open " PLUGIN_WEBSITE, NULL);
-          if (G_UNLIKELY (result == FALSE))
-            g_warning (_("Unable to open the following url: %s"), PLUGIN_WEBSITE);
-        }
-      else
-        break;
-    }
-
-  g_object_unref (group);
-  gtk_widget_destroy (dialog);
-  xfce_panel_plugin_unblock_menu (notes_plugin->panel_plugin);
+  GtkWidget *error_dialog;
+  GError *error = NULL;
+  gint res;
+  res = gdk_spawn_command_line_on_screen (gdk_screen_get_default (), "xfce4-notes-settings", &error);
+  if (G_UNLIKELY (res == FALSE)) {
+    error_dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (notes_plugin->panel_plugin))), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, _("Unable to open the settings dialog"));
+    if (error != NULL)
+      gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (error_dialog), "%s", error->message);
+    gtk_dialog_run (GTK_DIALOG (error_dialog));
+    gtk_widget_destroy (error_dialog);
+  }
 }
-#endif
 
 static gboolean
 notes_plugin_set_size (NotesPlugin *notes_plugin,
@@ -378,9 +344,7 @@ notes_plugin_free (NotesPlugin *notes_plugin)
 {
   notes_plugin_save_data_all (notes_plugin);
 
-#ifdef HAVE_XFCONF
   xfconf_shutdown ();
-#endif
 
 #ifdef HAVE_THUNAR_VFS
   /* TODO move code out from notes_window_destroy and add notes_window_free
@@ -407,7 +371,6 @@ notes_plugin_destroy_timeout (NotesPlugin *notes_plugin)
   notes_plugin->timeout = 0;
 }
 
-#ifdef HAVE_XFCONF
 static void
 notes_plugin_monitor_xfconf (NotesPlugin *notes_plugin)
 {
@@ -442,7 +405,6 @@ notes_plugin_xfconf_property_changed (NotesPlugin *notes_plugin,
       color_set_background (g_value_get_string (value));
     }
 }
-#endif
 
 #ifdef HAVE_THUNAR_VFS
 static NotesWindow *
