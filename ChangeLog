@@ -1,5 +1,13 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Verify window/notes names for a set of invalid characters
+	* panel-plugin/application.vala:
+	  - New method name_is_valid that verifies if the given name has
+	  invalid characters in it.
+	  - On window/notes rename, verify the name and revert appropriately.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Sort window_list on window rename
 	* panel-plugin/application.vala:
 	  - On rename_window sort the SList window_list.

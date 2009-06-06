@@ -115,7 +115,7 @@ namespace Xnp {
 		 * Send save-data signal.
 		 */
 		private bool save_cb () {
-			save_data ();
+			this.save_data ();
 			this.save_timeout = 0;
 			this._dirty = false;
 			return false;

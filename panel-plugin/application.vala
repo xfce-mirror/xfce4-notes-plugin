@@ -171,6 +171,10 @@ namespace Xnp {
 				GLib.FileUtils.unlink (path);
 			};
 			window.note_renamed += (win, note, old_name) => {
+				if (!name_is_valid (note.name)) {
+					note.name = old_name;
+					return;
+				}
 				string old_path = "%s/%s/%s".printf (notes_path, win.name, old_name);
 				string new_path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.rename (old_path, new_path);
@@ -332,6 +336,9 @@ namespace Xnp {
 					error_dialog.destroy ();
 				}
 				else {
+					if (!name_is_valid (name)) {
+						return;
+					}
 					string old_path = "%s/%s".printf (notes_path, window.name);
 					string new_path = "%s/%s".printf (notes_path, name);
 					window.name = name;
@@ -393,6 +400,23 @@ namespace Xnp {
 				}
 			}
 			return false;
+		}
+
+		/**
+		 * name_is_valid:
+		 *
+		 * Verify if the given name is valid for window and notes.
+		 */
+		private bool name_is_valid (string name) {
+			bool res = GLib.Regex.match_simple ("^[^*|/\\:\"<>?]+$", name);
+			if (!res) {
+				var error_dialog = new Gtk.MessageDialog (null, 0,
+					Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name \"%s\" is invalid.", name);
+				error_dialog.format_secondary_markup ("The invalid characters are restricted to: <tt>*|/\\:\"&lt;&gt;?</tt>");
+				error_dialog.run ();
+				error_dialog.destroy ();
+			}
+			return res;
 		}
 
 	}
