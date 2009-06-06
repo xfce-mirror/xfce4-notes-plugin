@@ -336,6 +336,7 @@ namespace Xnp {
 					string new_path = "%s/%s".printf (notes_path, name);
 					window.name = name;
 					GLib.FileUtils.rename (old_path, new_path);
+					this.window_list.sort ((GLib.CompareFunc)window.compare_func);
 				}
 			}
 			dialog.destroy ();
