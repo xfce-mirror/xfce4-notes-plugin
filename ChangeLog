@@ -5,7 +5,7 @@ Made the settings dialog a standalone application
 	  - Set Xfconf required.
 	* panel-plugin/Makefile.am:
 	  - Add compilation rules for binary xfce4-notes-settings.
-	* panel-plugin/notes.c:
+	* panel-plugin/panel-plugin.c:
 	  - Spawn xfce4-notes-settings instead of creating the settings
 	  dialog.
 	* panel-plugin/settings-dialog.c:
