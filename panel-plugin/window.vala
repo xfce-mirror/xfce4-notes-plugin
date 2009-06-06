@@ -58,7 +58,7 @@ namespace Xnp {
 """;
 		private Gtk.ActionGroup action_group;
 		private const Gtk.ActionEntry[] action_entries = {
-			{ "close-window",  null, null, "Escape", null, hide_cb },
+			{ "close-window",  null, null, "Escape", null, hide },
 			{ "new-window",    null, null, "<Ctrl><Shift>n", null, action_new_window },
 			{ "delete-window", null, null, "<Ctrl><Shift>w", null, action_delete_window },
 			{ "rename-window", null, null, "<Shift>F2", null, action_rename_window },
@@ -247,7 +247,7 @@ namespace Xnp {
 
 			/* Connect mouse click signals */
 			menu_box.button_press_event += menu_box_pressed_cb;
-			close_box.clicked += hide_cb;
+			close_box.clicked += () => { hide (); };
 			add_box.clicked += action_new_note;
 			del_box.clicked += action_delete_note;
 			this.goleft_box.clicked += action_prev_note;
@@ -256,7 +256,7 @@ namespace Xnp {
 			/* Connect extra signals */
 			delete_event += () => {
 				/* Replace ALT+F4 action */
-				hide_cb ();
+				hide ();
 				return true;
 			};
 			focus_in_event += () => {
@@ -311,14 +311,14 @@ namespace Xnp {
 		 */
 
 		/**
-		 * hide_cb:
+		 * hide:
 		 *
 		 * Save position before hidding.
 		 */
-		private void hide_cb () {
+		public new void hide () {
 			int winx, winy;
 			get_position (out winx, out winy);
-			hide ();
+			base.hide ();
 			unshade ();
 			move (winx, winy);
 		}
@@ -473,7 +473,8 @@ namespace Xnp {
 				 * of xfwm4 switching the state */
 				this.mi_above.active = (bool)(event.new_window_state & Gdk.WindowState.ABOVE);
 			}
-			if ((bool)(event.changed_mask & Gdk.WindowState.STICKY)) {
+			if ((bool)(event.changed_mask & Gdk.WindowState.STICKY) &&
+				(bool)(get_flags () & Gtk.WidgetFlags.VISIBLE)) {
 				this.mi_sticky.active = (bool)(event.new_window_state & Gdk.WindowState.STICKY);
 			}
 			return false;
@@ -645,7 +646,6 @@ namespace Xnp {
 			/* Navigation */
 			var menu_go = new Gtk.Menu ();
 			menu_go.set_accel_group (this.ui.get_accel_group ());
-			update_menu_go (menu_go);
 			menu_go.show += update_menu_go;
 			mi.set_submenu (menu_go);
 
@@ -714,48 +714,44 @@ namespace Xnp {
 					w.destroy ();
 				});
 
-			if (this.notebook != null) {
-				/* NOTE: An initial menu is created before the notebook is created
-				 * to have the accelerators. */
-				foreach (var win in this.window_list) {
-					if (win == this) {
-						mi = new Gtk.MenuItem.with_label (win.name);
-						mi.sensitive = false;
-						menu.append (mi);
+			foreach (var win in this.window_list) {
+				if (win == this) {
+					mi = new Gtk.MenuItem.with_label (win.name);
+					mi.sensitive = false;
+					menu.append (mi);
 
-						int current_page = this.notebook.get_current_page ();
-						var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
-						int n_pages = this.notebook.get_n_pages ();
-						for (int p = 0; p < n_pages; p++) {
-							var note = (Xnp.Note)(this.notebook.get_nth_page (p));
-							mi = new Gtk.ImageMenuItem.with_label (note.name);
-							if (note == current_note) {
-								image = new Gtk.Image.from_stock (Gtk.STOCK_GO_FORWARD, Gtk.IconSize.MENU);
-								((Gtk.ImageMenuItem)mi).set_image (image);
-							}
-							mi.set_data ("page", (void*)p);
-							mi.activate += (i) => {
-								int page = (int)i.get_data ("page");
-								notebook.set_current_page (page);
-							};
-							menu.append (mi);
+					int current_page = this.notebook.get_current_page ();
+					var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
+					int n_pages = this.notebook.get_n_pages ();
+					for (int p = 0; p < n_pages; p++) {
+						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
+						mi = new Gtk.ImageMenuItem.with_label (note.name);
+						if (note == current_note) {
+							image = new Gtk.Image.from_stock (Gtk.STOCK_GO_FORWARD, Gtk.IconSize.MENU);
+							((Gtk.ImageMenuItem)mi).set_image (image);
 						}
-
-						mi = new Gtk.SeparatorMenuItem ();
-						menu.append (mi);
-					}
-					else {
-						mi = new Gtk.MenuItem.with_label (win.name);
-						mi.set_data ("window", (void*)win);
+						mi.set_data ("page", (void*)p);
 						mi.activate += (i) => {
-							var w = (Xnp.Window)i.get_data ("window");
-							w.present ();
+							int page = (int)i.get_data ("page");
+							notebook.set_current_page (page);
 						};
 						menu.append (mi);
-
-						mi = new Gtk.SeparatorMenuItem ();
-						menu.append (mi);
 					}
+
+					mi = new Gtk.SeparatorMenuItem ();
+					menu.append (mi);
+				}
+				else {
+					mi = new Gtk.MenuItem.with_label (win.name);
+					mi.set_data ("window", (void*)win);
+					mi.activate += (i) => {
+						var w = (Xnp.Window)i.get_data ("window");
+						w.show ();
+					};
+					menu.append (mi);
+
+					mi = new Gtk.SeparatorMenuItem ();
+					menu.append (mi);
 				}
 			}
 

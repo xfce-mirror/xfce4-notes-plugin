@@ -1,5 +1,15 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Overload hide in Xnp.Window
+	* panel-plugin/window.vala:
+	  - Replace hide_cb in favor of the overloaded hide method.
+	  - Overload the hide method to save the geometry as before, but
+	  allows to call hide outside of the Xnp.Window class and keep the
+	  same behavior.
+	  - Listen to window state sticky only if the window is visible.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Rename settings-dialog.c to its homonyme executable
 
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
