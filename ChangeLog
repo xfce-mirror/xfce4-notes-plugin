@@ -1,5 +1,18 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Vala the panel plugin
+	* panel-plugin/main.vala:
+	  - Registers an external panel plugin.
+	  - On button click show/hide the notes.
+	* panel-plugin/window.vala:
+	  - Replaced the Font menu with the Properties item.
+	* panel-plugin/application.vala:
+	  - On action "properties" spawn xfce4-notes-settings.
+	  - New method to show_hide_notes. Hides the notes when all are shown.
+	  - Moved Xfconf.init/shutdown to main.vala.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Overload hide in Xnp.Window
 	* panel-plugin/window.vala:
 	  - Replace hide_cb in favor of the overloaded hide method.

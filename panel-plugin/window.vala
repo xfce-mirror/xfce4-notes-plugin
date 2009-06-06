@@ -649,11 +649,6 @@ namespace Xnp {
 			menu_go.show += update_menu_go;
 			mi.set_submenu (menu_go);
 
-			/* Properties */
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
-			mi.activate += () => { action ("properties"); };
-			menu.append (mi);
-
 			/* Note items */
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
@@ -684,8 +679,8 @@ namespace Xnp {
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_SELECT_FONT, null);
-			mi.activate += set_font;
+			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
+			mi.activate += () => { action ("properties"); };
 			menu.append (mi);
 
 			mi = this.mi_above = new Gtk.CheckMenuItem.with_label ("Always on top");

@@ -26,22 +26,22 @@ namespace Xnp {
 
 		private SList<Xnp.Window> window_list;
 		private string notes_path;
-		private string config_file;
+		public string config_file { get; construct; }
 		private Xfconf.Channel xfconf_channel;
 
 		construct {
 			notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
-			config_file = "%s/xfce4/panel/xfce4-notes-plugin.rc".printf (GLib.Environment.get_user_config_dir ());
 		}
 
-		public Application () {
-			try {
-				Xfconf.init ();
-				xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
-			}
-			catch (Xfconf.Error e) {
-				warning ("%s", e.message);
-			}
+		public Application (string config_file) {
+			this.config_file = config_file;
+			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
+
+			xfconf_channel.property_changed += (channel, prop, val) => {
+				if (prop == "/global/background-color") {
+					// TODO Xnp.Color.set_background (val);
+				}
+			};
 
 			string name;
 			bool found = false;
@@ -64,7 +64,6 @@ namespace Xnp {
 			save_windows_configuration ();
 			save_notes ();
 			xfconf_channel.unref ();
-			Xfconf.shutdown ();
 		}
 
 		/*
@@ -150,6 +149,9 @@ namespace Xnp {
 				}
 				else if (action == "create-new-window") {
 					create_window ();
+				}
+				else if (action == "properties") {
+					open_settings_dialog ();
 				}
 			};
 			window.save_data += (win, note) => {
@@ -245,7 +247,6 @@ namespace Xnp {
 		 * save_windows_configuration:
 		 *
 		 * Save window configuration inside rc file.
-		 * TODO save font descriptions
 		 */
 		public void save_windows_configuration () {
 			var keyfile = new GLib.KeyFile ();
@@ -279,7 +280,7 @@ namespace Xnp {
 		 *
 		 * Save the contents of every existing notes.
 		 */
-		private void save_notes () {
+		public void save_notes () {
 			foreach (var win in this.window_list) {
 				win.save_notes ();
 			}
@@ -412,22 +413,60 @@ namespace Xnp {
 			if (!res) {
 				var error_dialog = new Gtk.MessageDialog (null, 0,
 					Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name \"%s\" is invalid.", name);
-				error_dialog.format_secondary_markup ("The invalid characters are restricted to: <tt>*|/\\:\"&lt;&gt;?</tt>");
+				error_dialog.format_secondary_markup ("The invalid characters are: %s".printf ("<tt>*|/\\:\"&lt;&gt;?</tt>"));
 				error_dialog.run ();
 				error_dialog.destroy ();
 			}
 			return res;
 		}
 
+		/**
+		 * show_hide_notes:
+		 *
+		 * Show all the notes or hide them if they are all shown.
+		 */
+		public void show_hide_notes () {
+			bool hide = true;
+			foreach (var win in this.window_list) {
+				if (!(bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+					win.show ();
+					hide = false;
+				}
+			}
+			if (hide) {
+				foreach (var win in this.window_list) {
+					win.hide ();
+				}
+			}
+		}
+
+		/**
+		 * open_settings_dialog:
+		 *
+		 * Open the settings dialog.
+		 */
+		public void open_settings_dialog () {
+			try {
+				Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "xfce4-notes-settings");
+			}
+			catch (GLib.Error e) {
+				var error_dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "Unable to open the settings dialog");
+				error_dialog.format_secondary_text ("%s", e.message);
+				error_dialog.run ();
+				error_dialog.destroy ();
+			}
+		}
+
 	}
 
 }
 
-static int main (string[] args) {
+/*static int main (string[] args) {
 	Gtk.init (ref args);
-	var app = new Xnp.Application ();
+	var app = new Xnp.Application ("/tmp/notes-conf.rc");
 	Gtk.main ();
 	app.unref ();
 	return 0;
-}
+}*/
 
