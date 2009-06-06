@@ -804,6 +804,15 @@ namespace Xnp {
 		}
 
 		/**
+		 * compare_func:
+		 *
+		 * Compare function for the window name to use with GLib.CompareFunc delegates.
+		 */
+		public int compare_func (Xnp.Window win2) {
+			return name.collate (win2.name);
+		}
+
+		/**
 		 * get_current_page:
 		 *
 		 * Get the current page in the notebook.

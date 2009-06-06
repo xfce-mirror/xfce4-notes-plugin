@@ -1,5 +1,13 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Window name sort function
+	* panel-plugin/window.vala:
+	  - Add a CompareFunc on the window name.
+	* panel-plugin/application.vala:
+	  - Use insert_sorted method from SList instead of append.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Fix broken "open link" code
 	* panel-plugin/hypertextview.vala:
 	  - The code to launch a brower was missusing the try catches.

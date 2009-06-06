@@ -114,7 +114,7 @@ namespace Xnp {
 			}
 
 			/* Add to window_list */
-			this.window_list.append (window);
+			this.window_list.insert_sorted (window, (GLib.CompareFunc)window.compare_func);
 			foreach (var win in this.window_list) {
 				win.set_window_list (this.window_list);
 			}
