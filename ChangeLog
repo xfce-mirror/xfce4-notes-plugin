@@ -1,5 +1,11 @@
 2009-06-07  Mike Massonnet <mmassonnet@xfce.org>
 
+Drop thunarvfs reference from automake
+	* panel-plugin/Makefile.am:
+	  - Drop THUNAR_VFS references.
+
+2009-06-07  Mike Massonnet <mmassonnet@xfce.org>
+
 Update autoconf script
 	* configure.ac.in:
 	  - Don't check for thunarvfs, that support has been dropped.
