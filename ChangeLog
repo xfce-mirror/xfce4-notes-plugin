@@ -1,5 +1,12 @@
 2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
 
+Update autoconf script
+	* configure.ac.in:
+	  - Don't check for thunarvfs, that support has been dropped.
+	  - Check for xfce4-vala.
+
+2009-06-06  Mike Massonnet <mmassonnet@xfce.org>
+
 Milestone reached
 	* panel-plugin/Makefile.am:
 	  - Build the new Vala sources to C, and the C sources to the binary.

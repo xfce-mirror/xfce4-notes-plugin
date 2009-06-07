@@ -52,22 +52,6 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.6.0])
 
-dnl check for thunar_vfs
-enable_thunar_vfs=yes
-m4_define([thunar_minimum_version], [0.8.0])
-XDT_CHECK_OPTIONAL_PACKAGE([THUNAR_VFS], [thunar-vfs-1], [thunar_minimum_version],
-                           [fs-monitor], [Build with thunar-vfs support to monitor notes. (default=enabled)])
-if test "x$THUNAR_VFS_FOUND" != "xyes" ; then
-    echo "*** Optional package thunar-vfs-1 was either not found on your system"
-    echo "*** or is too old.  Please install or upgrade to at least version"
-    echo "*** thunar_minimum_version, or adjust the PKG_CONFIG_PATH environment variable"
-    echo "*** if you installed the new version of the package in a nonstandard"
-    echo "*** prefix."
-    echo ""
-    echo "*** File system monitoring will be disabled!"
-    enable_thunar_vfs=no
-fi
-
 dnl check for valac
 valac_minimum_version=0.7.1
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
@@ -80,6 +64,7 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 		echo "***"
 		echo
 	fi
+	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
 fi
 
 dnl Translations
@@ -112,7 +97,6 @@ echo "    * Vala:               $has_valac"
 echo "      You need Vala $valac_minimum_version or higher (run $VALAC --version)"
 echo
 fi
-echo "* Thunar-vfs Support:     $enable_thunar_vfs"
 echo "* Debug Support:          $enable_debug"
 echo
 
