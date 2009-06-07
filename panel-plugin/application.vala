@@ -37,6 +37,8 @@ namespace Xnp {
 			this.config_file = config_file;
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
 
+			string color = xfconf_channel.get_string ("/global/background-color", "#F2F1EF");
+			Xnp.Color.set_background (color);
 			xfconf_channel.property_changed += (channel, prop, val) => {
 				if (prop == "/global/background-color") {
 					Xnp.Color.set_background (val.get_string ());
@@ -426,15 +428,34 @@ namespace Xnp {
 		 * Show all the notes or hide them if they are all shown.
 		 */
 		public void show_hide_notes () {
-			bool hide = true;
+			bool invisible_found = false;
+			bool visible_found = false;
+			bool active_found = false;
 			foreach (var win in this.window_list) {
+				if (win.is_active) {
+					active_found = true;
+				}
 				if (!(bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
-					win.show ();
-					hide = false;
+					invisible_found = true;
+				}
+				else {
+					visible_found = true;
 				}
 			}
-			if (hide) {
-				foreach (var win in this.window_list) {
+
+			foreach (var win in this.window_list) {
+				// Present visible windows
+				if (!active_found && visible_found) {
+					if ((bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+						win.present ();
+					}
+				}
+				// Show all windows
+				else if (invisible_found) {
+					win.show ();
+				}
+				// Hide all windows
+				else {
 					win.hide ();
 				}
 			}

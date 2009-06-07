@@ -319,6 +319,7 @@ namespace Xnp {
 			int winx, winy;
 			get_position (out winx, out winy);
 			base.hide ();
+			deiconify ();
 			unshade ();
 			move (winx, winy);
 		}
@@ -741,7 +742,7 @@ namespace Xnp {
 					mi.set_data ("window", (void*)win);
 					mi.activate += (i) => {
 						var w = (Xnp.Window)i.get_data ("window");
-						w.show ();
+						w.present ();
 					};
 					menu.append (mi);
 

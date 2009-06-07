@@ -1,5 +1,16 @@
 2009-06-07  Mike Massonnet <mmassonnet@xfce.org>
 
+Window show/hide behavior and initial background
+	* panel-plugin/application.vala:
+	  - Set initial background color.
+	  - Present all visible windows when none is active, present all
+	  windows otherwise and hide all windows when all are visible.
+	* panel-plugin/window.vala:
+	  - Deiconify on hide.
+	  - When switching window from the Go menu, present instead of show.
+
+2009-06-07  Mike Massonnet <mmassonnet@xfce.org>
+
 Drop thunarvfs reference from automake
 	* panel-plugin/Makefile.am:
 	  - Drop THUNAR_VFS references.
