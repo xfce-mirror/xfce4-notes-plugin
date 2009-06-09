@@ -122,6 +122,7 @@ namespace Xnp {
 			this.decorated = false;
 			this.icon_name = "xfce4-notes-plugin";
 			this.sticky = true;
+			this.opacity = 0.9;
 		}
 
 		public Window () {

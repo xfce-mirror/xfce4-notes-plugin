@@ -1,5 +1,14 @@
 2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
 
+Set default Xnp.Window opacity to 0.9
+	* panel-plugin/window.vala:
+	  - Default opacity to 0.9
+	* panel-plugin/application.vala:
+	  - Fix broken opacity read from configuration. Cast int to double
+	  otherwise the division always returns 0.
+
+2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+
 Restore popup command
 
 2009-06-07  Mike Massonnet <mmassonnet@xfce.org>

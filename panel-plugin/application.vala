@@ -227,7 +227,7 @@ namespace Xnp {
 				int last_page = keyfile.get_integer (window.name, "LastTab");
 				bool above = keyfile.get_boolean (window.name, "Above");
 				bool sticky = keyfile.get_boolean (window.name, "Sticky");
-				double opacity = 1 - keyfile.get_integer (window.name, "Transparency") / 100;
+				double opacity = 1 - (double)keyfile.get_integer (window.name, "Transparency") / 100;
 				bool visible = keyfile.get_boolean (window.name, "Visible");
 
 				window.move (winx, winy);
