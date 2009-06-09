@@ -79,7 +79,7 @@ namespace Xnp {
 
 		private unowned SList<unowned Xnp.Window> window_list;
 
-		public new string name { default = "Notes"; get; set; }
+		public new string name { default = _("Notes"); get; set; }
 
 		private bool _above;
 		public bool above {
@@ -114,7 +114,7 @@ namespace Xnp {
 
 		construct {
 			base.name = "xfce4-notes-plugin";
-			this.title = "Notes";
+			this.title = _("Notes");
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
 			this.default_height = 380;
@@ -642,7 +642,7 @@ namespace Xnp {
 			var menu = new Gtk.Menu ();
 			menu.set_accel_group (this.ui.get_accel_group ());
 
-			var mi = new Gtk.MenuItem.with_mnemonic ("_Go");
+			var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
 			menu.append (mi);
 
 			/* Navigation */
@@ -665,7 +665,7 @@ namespace Xnp {
 			mi.activate += action_delete_note;
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename");
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename"));
 			var image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
@@ -685,12 +685,12 @@ namespace Xnp {
 			mi.activate += () => { action ("properties"); };
 			menu.append (mi);
 
-			mi = this.mi_above = new Gtk.CheckMenuItem.with_label ("Always on top");
+			mi = this.mi_above = new Gtk.CheckMenuItem.with_label (_("Always on top"));
 			((Gtk.CheckMenuItem)mi).active = this.above;
 			((Gtk.CheckMenuItem)mi).toggled += (o) => { above = o.active; };
 			menu.append (mi);
 
-			mi = this.mi_sticky = new Gtk.CheckMenuItem.with_label ("Sticky window");
+			mi = this.mi_sticky = new Gtk.CheckMenuItem.with_label (_("Sticky window"));
 			((Gtk.CheckMenuItem)mi).active = this.sticky;
 			((Gtk.CheckMenuItem)mi).toggled += (o) => { sticky = o.active; };
 			menu.append (mi);
@@ -752,21 +752,21 @@ namespace Xnp {
 				}
 			}
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Rename group");
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename group"));
 			image = new Gtk.Image.from_stock (Gtk.STOCK_EDIT, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
 			mi.activate += action_rename_window;
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Delete group");
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Delete group"));
 			image = new Gtk.Image.from_stock (Gtk.STOCK_REMOVE, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
 			mi.activate += action_delete_window;
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic ("_Add a new group");
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
 			image = new Gtk.Image.from_stock (Gtk.STOCK_ADD, Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
@@ -899,10 +899,10 @@ namespace Xnp {
 		 */
 		public Xnp.Note insert_note () {
 			int len = this.notebook.get_n_pages ();
-			string name = "Notes";
+			string name = _("Notes");
 			for (int id = 1; id <= len + 1; id++) {
 				if (id > 1) {
-					name = "Notes %d".printf (id);
+					name = _("Notes %d").printf (id);
 				}
 				if (!note_name_exists (name)) {
 					break;
@@ -940,7 +940,7 @@ namespace Xnp {
 
 			if (note.text_view.buffer.get_char_count () > 0) {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "Are you sure you want to delete this note?");
+					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this note?"));
 				int res = dialog.run ();
 				dialog.destroy ();
 				if (res != Gtk.ResponseType.YES)
@@ -965,7 +965,7 @@ namespace Xnp {
 				return;
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
-			var dialog = new Gtk.Dialog.with_buttons ("Rename note", (Gtk.Window)get_toplevel (),
+			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
 				Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
 			dialog.set_default_response (Gtk.ResponseType.OK);
@@ -986,7 +986,7 @@ namespace Xnp {
 				weak string name = entry.text;
 				if (note_name_exists (name)) {
 					var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name %s is already in use", name);
+						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
 					error_dialog.run ();
 					error_dialog.destroy ();
 				}

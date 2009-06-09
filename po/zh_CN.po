@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
+"POT-Creation-Date: 2009-06-09 15:44+0200\n"
 "PO-Revision-Date: 2009-05-08 02:14+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -15,180 +15,224 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "便笺"
 
-#: ../panel-plugin/panel-plugin.c:267
-#, c-format
-msgid "Unable to open the following url: %s"
-msgstr "无法打开如下链接:%s"
-
-#: ../panel-plugin/notes.c:452
-msgid "Are you sure you want to delete this window?"
-msgstr "确定要删除该窗口?"
-
-#: ../panel-plugin/notes.c:752
-msgid "Window"
-msgstr "窗口"
-
-#: ../panel-plugin/notes.c:755
-msgid "_Rename..."
-msgstr "重命名(_R)..."
-
-#: ../panel-plugin/notes.c:757
-msgid "_Options"
-msgstr "选项(_O)"
-
-#: ../panel-plugin/notes.c:759
-msgid "Note"
+#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#, fuzzy, c-format
+msgid "Notes %d"
 msgstr "便笺"
 
-#: ../panel-plugin/notes.c:762
-msgid "R_ename..."
-msgstr "重命名(_e)"
+#: ../panel-plugin/application.vala:316
+#, fuzzy
+msgid "Rename group"
+msgstr "重命名便笺"
+
+#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
+#, c-format
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../panel-plugin/application.vala:362
+#, fuzzy
+msgid "Are you sure you want to delete this group?"
+msgstr "确定要删除该便笺?"
+
+#: ../panel-plugin/application.vala:417
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../panel-plugin/application.vala:418
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../panel-plugin/application.vala:475
+#, fuzzy
+msgid "Unable to open the settings dialog"
+msgstr "无法打开如下链接:%s"
+
+#: ../panel-plugin/window.vala:645
+msgid "_Go"
+msgstr ""
+
+#: ../panel-plugin/window.vala:668
+#, fuzzy
+msgid "_Rename"
+msgstr "重命名(_R)..."
 
 #. Always on top
-#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "总是置顶"
 
-#. Sticky window
-#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/window.vala:693
 msgid "Sticky window"
 msgstr "粘住窗口"
 
-#. Tabs
-#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
-msgid "Show tabs"
-msgstr "显示标签"
+#: ../panel-plugin/window.vala:755
+#, fuzzy
+msgid "_Rename group"
+msgstr "重命名便笺"
 
-#: ../panel-plugin/notes.c:887
-msgid "Show on startup"
-msgstr "开始时显示"
+#: ../panel-plugin/window.vala:762
+msgid "_Delete group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:899
-msgid "Always"
-msgstr "总是"
+#: ../panel-plugin/window.vala:769
+msgid "_Add a new group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:901
-msgid "Never"
-msgstr "从不"
-
-#: ../panel-plugin/notes.c:903
-msgid "Last state"
-msgstr "最后状态"
-
-#: ../panel-plugin/notes.c:1080
-msgid "Choose Window Font"
-msgstr "选择窗口字体"
-
-#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
-msgid "Rename window"
-msgstr "重命名窗口"
-
-#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
-msgid "Error"
-msgstr "错误"
-
-#: ../panel-plugin/notes.c:1523
-msgid "Unable to rename window"
-msgstr "无法重命名窗口"
-
-#: ../panel-plugin/notes.c:1632
+#: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
 msgstr "确定要删除该便笺?"
 
-#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+#: ../panel-plugin/window.vala:968
 msgid "Rename note"
 msgstr "重命名便笺"
 
-#: ../panel-plugin/notes.c:1969
-msgid "Unable to rename note"
-msgstr "无法重命名便笺"
-
-#: ../panel-plugin/settings-dialog.c:91
+#: ../panel-plugin/xfce4-notes-settings.c:81
 msgid "Configure the plugin"
 msgstr "配置此插件"
 
-#: ../panel-plugin/settings-dialog.c:98
-msgid "Default settings"
+#: ../panel-plugin/xfce4-notes-settings.c:100
+#, fuzzy
+msgid "Global settings"
 msgstr "默认设置"
 
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:103
-msgid "Hide windows from taskbar"
+#: ../panel-plugin/xfce4-notes-settings.c:105
+#, fuzzy
+msgid "Hide notes from taskbar"
 msgstr "隐藏任务栏窗口"
 
-#. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:110
-msgid "Hide arrow button"
-msgstr "隐藏箭头按钮"
-
-#: ../panel-plugin/settings-dialog.c:120
+#: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
 msgstr "背景："
 
-#: ../panel-plugin/settings-dialog.c:131
-msgid "New window settings"
-msgstr "新窗口设置"
-
-#: ../panel-plugin/settings-dialog.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:128
 msgid "Font:"
 msgstr "字体："
 
-#: ../panel-plugin/settings-dialog.c:175
+#: ../panel-plugin/xfce4-notes-settings.c:138
+#, fuzzy
+msgid "New group settings"
+msgstr "新窗口设置"
+
+#. Sticky window
+#: ../panel-plugin/xfce4-notes-settings.c:150
+#, fuzzy
+msgid "Sticky"
+msgstr "粘住窗口"
+
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
 msgstr "尺寸："
 
-#: ../panel-plugin/settings-dialog.c:194
+#: ../panel-plugin/xfce4-notes-settings.c:179
 msgid "Small"
 msgstr "小"
 
-#: ../panel-plugin/settings-dialog.c:195
+#: ../panel-plugin/xfce4-notes-settings.c:180
 msgid "Normal"
 msgstr "中等"
 
-#: ../panel-plugin/settings-dialog.c:196
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Large"
 msgstr "大"
 
-#: ../panel-plugin/settings-dialog.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:239
 msgid "Yellow"
 msgstr "黄色"
 
-#: ../panel-plugin/settings-dialog.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:240
 msgid "Red"
 msgstr "红色"
 
-#: ../panel-plugin/settings-dialog.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:241
 msgid "Blue"
 msgstr "蓝色"
 
-#: ../panel-plugin/settings-dialog.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Green"
 msgstr "绿色"
 
-#: ../panel-plugin/settings-dialog.c:258
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Purple"
 msgstr "紫色"
 
-#: ../panel-plugin/settings-dialog.c:259
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "White"
 msgstr "白色"
 
-#: ../panel-plugin/settings-dialog.c:260
+#: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Custom..."
 msgstr "自定义..."
 
-#: ../panel-plugin/settings-dialog.c:349
+#: ../panel-plugin/xfce4-notes-settings.c:334
 msgid "Background Color"
 msgstr "背景颜色"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
-msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Xfce4 桌面的便笺插件"
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Choose current note font"
+#~ msgstr "选择窗口字体"
+
+#~ msgid "Are you sure you want to delete this window?"
+#~ msgstr "确定要删除该窗口?"
+
+#~ msgid "Window"
+#~ msgstr "窗口"
+
+#~ msgid "_Options"
+#~ msgstr "选项(_O)"
+
+#~ msgid "Note"
+#~ msgstr "便笺"
+
+#~ msgid "R_ename..."
+#~ msgstr "重命名(_e)"
+
+#~ msgid "Show tabs"
+#~ msgstr "显示标签"
+
+#~ msgid "Show on startup"
+#~ msgstr "开始时显示"
+
+#~ msgid "Always"
+#~ msgstr "总是"
+
+#~ msgid "Never"
+#~ msgstr "从不"
+
+#~ msgid "Last state"
+#~ msgstr "最后状态"
+
+#~ msgid "Rename window"
+#~ msgstr "重命名窗口"
+
+#~ msgid "Error"
+#~ msgstr "错误"
+
+#~ msgid "Unable to rename window"
+#~ msgstr "无法重命名窗口"
+
+#~ msgid "Unable to rename note"
+#~ msgstr "无法重命名便笺"
+
+#~ msgid "Hide arrow button"
+#~ msgstr "隐藏箭头按钮"
+
+#~ msgid "Notes plugin for the Xfce4 desktop"
+#~ msgstr "Xfce4 桌面的便笺插件"
 
 #~ msgid "Resize grip"
 #~ msgstr "重设手柄尺寸"

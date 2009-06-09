@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
+"POT-Creation-Date: 2009-06-09 15:44+0200\n"
 "PO-Revision-Date: 2009-04-09 21:50-0400\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -16,180 +16,224 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Catatan"
 
-#: ../panel-plugin/panel-plugin.c:267
-#, c-format
-msgid "Unable to open the following url: %s"
-msgstr "Tak dapat membuka url berikut: %s"
-
-#: ../panel-plugin/notes.c:452
-msgid "Are you sure you want to delete this window?"
-msgstr "Anda yakin ingin menghapus jendela ini?"
-
-#: ../panel-plugin/notes.c:752
-msgid "Window"
-msgstr "Jendela"
-
-#: ../panel-plugin/notes.c:755
-msgid "_Rename..."
-msgstr "_Namai ulang..."
-
-#: ../panel-plugin/notes.c:757
-msgid "_Options"
-msgstr "_Opsi"
-
-#: ../panel-plugin/notes.c:759
-msgid "Note"
+#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#, fuzzy, c-format
+msgid "Notes %d"
 msgstr "Catatan"
 
-#: ../panel-plugin/notes.c:762
-msgid "R_ename..."
-msgstr "N_amai ulang..."
+#: ../panel-plugin/application.vala:316
+#, fuzzy
+msgid "Rename group"
+msgstr "Namai ulang catatan"
+
+#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
+#, c-format
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../panel-plugin/application.vala:362
+#, fuzzy
+msgid "Are you sure you want to delete this group?"
+msgstr "Anda yakin ingin menghapus catatan ini?"
+
+#: ../panel-plugin/application.vala:417
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../panel-plugin/application.vala:418
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../panel-plugin/application.vala:475
+#, fuzzy
+msgid "Unable to open the settings dialog"
+msgstr "Tak dapat membuka url berikut: %s"
+
+#: ../panel-plugin/window.vala:645
+msgid "_Go"
+msgstr ""
+
+#: ../panel-plugin/window.vala:668
+#, fuzzy
+msgid "_Rename"
+msgstr "_Namai ulang..."
 
 #. Always on top
-#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "Selalu di atas"
 
-#. Sticky window
-#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/window.vala:693
 msgid "Sticky window"
 msgstr "Jendela lekat"
 
-#. Tabs
-#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
-msgid "Show tabs"
-msgstr "Tampilkan tab"
+#: ../panel-plugin/window.vala:755
+#, fuzzy
+msgid "_Rename group"
+msgstr "Namai ulang catatan"
 
-#: ../panel-plugin/notes.c:887
-msgid "Show on startup"
-msgstr "Tampilkan di hidupkan"
+#: ../panel-plugin/window.vala:762
+msgid "_Delete group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:899
-msgid "Always"
-msgstr "Selalu"
+#: ../panel-plugin/window.vala:769
+msgid "_Add a new group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:901
-msgid "Never"
-msgstr "Tak pernah"
-
-#: ../panel-plugin/notes.c:903
-msgid "Last state"
-msgstr "Status terakhir"
-
-#: ../panel-plugin/notes.c:1080
-msgid "Choose Window Font"
-msgstr "Pilih Fonta Jendela"
-
-#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
-msgid "Rename window"
-msgstr "Namai ulang jendela"
-
-#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
-msgid "Error"
-msgstr "Galat"
-
-#: ../panel-plugin/notes.c:1523
-msgid "Unable to rename window"
-msgstr "Tak dapat menamai ulang jendela"
-
-#: ../panel-plugin/notes.c:1632
+#: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
 msgstr "Anda yakin ingin menghapus catatan ini?"
 
-#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+#: ../panel-plugin/window.vala:968
 msgid "Rename note"
 msgstr "Namai ulang catatan"
 
-#: ../panel-plugin/notes.c:1969
-msgid "Unable to rename note"
-msgstr "Tak dapat menamai ulang catatan"
-
-#: ../panel-plugin/settings-dialog.c:91
+#: ../panel-plugin/xfce4-notes-settings.c:81
 msgid "Configure the plugin"
 msgstr "Atur plugin"
 
-#: ../panel-plugin/settings-dialog.c:98
-msgid "Default settings"
+#: ../panel-plugin/xfce4-notes-settings.c:100
+#, fuzzy
+msgid "Global settings"
 msgstr "Pengaturan standar"
 
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:103
-msgid "Hide windows from taskbar"
+#: ../panel-plugin/xfce4-notes-settings.c:105
+#, fuzzy
+msgid "Hide notes from taskbar"
 msgstr "Sembunyikan jendela dari batang tugas"
 
-#. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:110
-msgid "Hide arrow button"
-msgstr "Sembunyikan tombol panah"
-
-#: ../panel-plugin/settings-dialog.c:120
+#: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
 msgstr "Latar belakang:"
 
-#: ../panel-plugin/settings-dialog.c:131
-msgid "New window settings"
-msgstr "Pengaturan jendela baru"
-
-#: ../panel-plugin/settings-dialog.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:128
 msgid "Font:"
 msgstr "Fonta:"
 
-#: ../panel-plugin/settings-dialog.c:175
+#: ../panel-plugin/xfce4-notes-settings.c:138
+#, fuzzy
+msgid "New group settings"
+msgstr "Pengaturan jendela baru"
+
+#. Sticky window
+#: ../panel-plugin/xfce4-notes-settings.c:150
+#, fuzzy
+msgid "Sticky"
+msgstr "Jendela lekat"
+
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
 msgstr "Ukuran:"
 
-#: ../panel-plugin/settings-dialog.c:194
+#: ../panel-plugin/xfce4-notes-settings.c:179
 msgid "Small"
 msgstr "Kecil"
 
-#: ../panel-plugin/settings-dialog.c:195
+#: ../panel-plugin/xfce4-notes-settings.c:180
 msgid "Normal"
 msgstr "Normal"
 
-#: ../panel-plugin/settings-dialog.c:196
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Large"
 msgstr "Besar"
 
-#: ../panel-plugin/settings-dialog.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:239
 msgid "Yellow"
 msgstr "Kuning"
 
-#: ../panel-plugin/settings-dialog.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:240
 msgid "Red"
 msgstr "Merah"
 
-#: ../panel-plugin/settings-dialog.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:241
 msgid "Blue"
 msgstr "Biru"
 
-#: ../panel-plugin/settings-dialog.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Green"
 msgstr "Hijau"
 
-#: ../panel-plugin/settings-dialog.c:258
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Purple"
 msgstr "Ungu"
 
-#: ../panel-plugin/settings-dialog.c:259
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "White"
 msgstr "Putih"
 
-#: ../panel-plugin/settings-dialog.c:260
+#: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Custom..."
 msgstr "Suai..."
 
-#: ../panel-plugin/settings-dialog.c:349
+#: ../panel-plugin/xfce4-notes-settings.c:334
 msgid "Background Color"
 msgstr "Warna Latar Belakang"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
-msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Plugin catatan untuk destop Xfce4"
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Choose current note font"
+#~ msgstr "Pilih Fonta Jendela"
+
+#~ msgid "Are you sure you want to delete this window?"
+#~ msgstr "Anda yakin ingin menghapus jendela ini?"
+
+#~ msgid "Window"
+#~ msgstr "Jendela"
+
+#~ msgid "_Options"
+#~ msgstr "_Opsi"
+
+#~ msgid "Note"
+#~ msgstr "Catatan"
+
+#~ msgid "R_ename..."
+#~ msgstr "N_amai ulang..."
+
+#~ msgid "Show tabs"
+#~ msgstr "Tampilkan tab"
+
+#~ msgid "Show on startup"
+#~ msgstr "Tampilkan di hidupkan"
+
+#~ msgid "Always"
+#~ msgstr "Selalu"
+
+#~ msgid "Never"
+#~ msgstr "Tak pernah"
+
+#~ msgid "Last state"
+#~ msgstr "Status terakhir"
+
+#~ msgid "Rename window"
+#~ msgstr "Namai ulang jendela"
+
+#~ msgid "Error"
+#~ msgstr "Galat"
+
+#~ msgid "Unable to rename window"
+#~ msgstr "Tak dapat menamai ulang jendela"
+
+#~ msgid "Unable to rename note"
+#~ msgstr "Tak dapat menamai ulang catatan"
+
+#~ msgid "Hide arrow button"
+#~ msgstr "Sembunyikan tombol panah"
+
+#~ msgid "Notes plugin for the Xfce4 desktop"
+#~ msgstr "Plugin catatan untuk destop Xfce4"
 
 #~ msgid "Resize grip"
 #~ msgstr "Ubah ukuran pegangan"

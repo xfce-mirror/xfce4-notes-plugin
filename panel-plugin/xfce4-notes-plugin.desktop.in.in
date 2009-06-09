@@ -2,7 +2,7 @@
 Type=X-XFCE-PanelPlugin
 Encoding=UTF-8
 _Name=Notes
-_Comment=Notes plugin for the Xfce4 desktop
+_Comment=Ideal for your quick notes
 Icon=xfce4-notes-plugin
 X-XFCE-Exec=@EXTERNAL_PLUGIN_PATH@/xfce4-notes-plugin
 X-XFCE-Unique=true

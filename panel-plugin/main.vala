@@ -91,7 +91,7 @@ public class NotesPlugin : GLib.Object {
 	static NotesPlugin plugin;
 	public static void register (Xfce.PanelPlugin panel_plugin) {
 		plugin = new NotesPlugin (panel_plugin);
-		panel_plugin.set_tooltip_text ("Notes");
+		panel_plugin.set_tooltip_text (_("Notes"));
 		panel_plugin.menu_show_configure ();
 	}
 

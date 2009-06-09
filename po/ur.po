@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
+"POT-Creation-Date: 2009-06-09 15:44+0200\n"
 "PO-Revision-Date: 2009-05-14 03:01+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: Urdu <makki.ma@gmail.com>\n"
@@ -19,196 +19,236 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../panel-plugin/panel-plugin.c:125
-#: ../panel-plugin/settings-dialog.c:85
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "نوٹ"
 
-#: ../panel-plugin/panel-plugin.c:267
-#, c-format
-msgid "Unable to open the following url: %s"
-msgstr "یہ ربط کھولنے میں ناکامی: %s"
-
-#: ../panel-plugin/notes.c:452
-msgid "Are you sure you want to delete this window?"
-msgstr "کیا آپ واقعی یہ ونڈو حذف کرنا چاہتے ہیں؟"
-
-#: ../panel-plugin/notes.c:752
-msgid "Window"
-msgstr "ونڈو"
-
-#: ../panel-plugin/notes.c:755
-msgid "_Rename..."
-msgstr "_نام بدلیں..."
-
-#: ../panel-plugin/notes.c:757
-msgid "_Options"
-msgstr "_اختیارات"
-
-#: ../panel-plugin/notes.c:759
-msgid "Note"
+#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#, fuzzy, c-format
+msgid "Notes %d"
 msgstr "نوٹ"
 
-#: ../panel-plugin/notes.c:762
-msgid "R_ename..."
-msgstr "ن_ام بدلیں..."
+#: ../panel-plugin/application.vala:316
+#, fuzzy
+msgid "Rename group"
+msgstr "نوٹ کا نام بدلیں"
+
+#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
+#, c-format
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../panel-plugin/application.vala:362
+#, fuzzy
+msgid "Are you sure you want to delete this group?"
+msgstr "کیا آپ واقعی یہ نوٹ حذف کرنا چاہتے ہیں؟"
+
+#: ../panel-plugin/application.vala:417
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../panel-plugin/application.vala:418
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../panel-plugin/application.vala:475
+#, fuzzy
+msgid "Unable to open the settings dialog"
+msgstr "یہ ربط کھولنے میں ناکامی: %s"
+
+#: ../panel-plugin/window.vala:645
+msgid "_Go"
+msgstr ""
+
+#: ../panel-plugin/window.vala:668
+#, fuzzy
+msgid "_Rename"
+msgstr "_نام بدلیں..."
 
 #. Always on top
-#: ../panel-plugin/notes.c:883
-#: ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "ہمیشہ آگے"
 
-#. Sticky window
-#: ../panel-plugin/notes.c:884
-#: ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/window.vala:693
 msgid "Sticky window"
 msgstr "چسپاں ونڈو"
 
-#. Tabs
-#: ../panel-plugin/notes.c:885
-#: ../panel-plugin/settings-dialog.c:150
-msgid "Show tabs"
-msgstr "ٹیب دکھائیں"
+#: ../panel-plugin/window.vala:755
+#, fuzzy
+msgid "_Rename group"
+msgstr "نوٹ کا نام بدلیں"
 
-#: ../panel-plugin/notes.c:887
-msgid "Show on startup"
-msgstr "سٹارٹ اپ پر دکھائیں"
+#: ../panel-plugin/window.vala:762
+msgid "_Delete group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:899
-msgid "Always"
-msgstr "ہمیشہ"
+#: ../panel-plugin/window.vala:769
+msgid "_Add a new group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:901
-msgid "Never"
-msgstr "کبھی نہیں"
-
-#: ../panel-plugin/notes.c:903
-msgid "Last state"
-msgstr "آخری حالت"
-
-#: ../panel-plugin/notes.c:1080
-msgid "Choose Window Font"
-msgstr "ونڈو فونٹ منتخب کریں"
-
-#: ../panel-plugin/notes.c:1484
-#: ../panel-plugin/notes.c:1520
-msgid "Rename window"
-msgstr "ونڈو کا نام بدلیں"
-
-#: ../panel-plugin/notes.c:1522
-#: ../panel-plugin/notes.c:1968
-msgid "Error"
-msgstr "غلطی"
-
-#: ../panel-plugin/notes.c:1523
-msgid "Unable to rename window"
-msgstr "ونڈو کا نام نہیں بدلا جاسکا"
-
-#: ../panel-plugin/notes.c:1632
+#: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
 msgstr "کیا آپ واقعی یہ نوٹ حذف کرنا چاہتے ہیں؟"
 
-#: ../panel-plugin/notes.c:1930
-#: ../panel-plugin/notes.c:1966
+#: ../panel-plugin/window.vala:968
 msgid "Rename note"
 msgstr "نوٹ کا نام بدلیں"
 
-#: ../panel-plugin/notes.c:1969
-msgid "Unable to rename note"
-msgstr "نوٹ کا نام نہیں بدلا جاسکا"
-
-#: ../panel-plugin/settings-dialog.c:91
+#: ../panel-plugin/xfce4-notes-settings.c:81
 msgid "Configure the plugin"
 msgstr "پلک ان وضع کریں"
 
-#: ../panel-plugin/settings-dialog.c:98
-msgid "Default settings"
+#: ../panel-plugin/xfce4-notes-settings.c:100
+#, fuzzy
+msgid "Global settings"
 msgstr "طے شدہ ترتیبات"
 
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:103
-msgid "Hide windows from taskbar"
+#: ../panel-plugin/xfce4-notes-settings.c:105
+#, fuzzy
+msgid "Hide notes from taskbar"
 msgstr "ونڈو ٹاسک بارے سے ہٹائیں"
 
-#. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:110
-msgid "Hide arrow button"
-msgstr "تیر کا بٹن ہٹائیں"
-
-#: ../panel-plugin/settings-dialog.c:120
+#: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
 msgstr "پس منظر:"
 
-#: ../panel-plugin/settings-dialog.c:131
-msgid "New window settings"
-msgstr "نئی ونڈو ترتیبات:"
-
-#: ../panel-plugin/settings-dialog.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:128
 msgid "Font:"
 msgstr "فونٹ:"
 
-#: ../panel-plugin/settings-dialog.c:175
+#: ../panel-plugin/xfce4-notes-settings.c:138
+#, fuzzy
+msgid "New group settings"
+msgstr "نئی ونڈو ترتیبات:"
+
+#. Sticky window
+#: ../panel-plugin/xfce4-notes-settings.c:150
+#, fuzzy
+msgid "Sticky"
+msgstr "چسپاں ونڈو"
+
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
 msgstr "حجم:"
 
-#: ../panel-plugin/settings-dialog.c:194
+#: ../panel-plugin/xfce4-notes-settings.c:179
 msgid "Small"
 msgstr "چھوٹا"
 
-#: ../panel-plugin/settings-dialog.c:195
+#: ../panel-plugin/xfce4-notes-settings.c:180
 msgid "Normal"
 msgstr "سادہ"
 
-#: ../panel-plugin/settings-dialog.c:196
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Large"
 msgstr "بڑا"
 
-#: ../panel-plugin/settings-dialog.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:239
 msgid "Yellow"
 msgstr "پیلا"
 
-#: ../panel-plugin/settings-dialog.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:240
 msgid "Red"
 msgstr "سرخ"
 
-#: ../panel-plugin/settings-dialog.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:241
 msgid "Blue"
 msgstr "نیلا"
 
-#: ../panel-plugin/settings-dialog.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Green"
 msgstr "سبز"
 
-#: ../panel-plugin/settings-dialog.c:258
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Purple"
 msgstr "گلابی"
 
-#: ../panel-plugin/settings-dialog.c:259
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "White"
 msgstr "سفید"
 
-#: ../panel-plugin/settings-dialog.c:260
+#: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Custom..."
 msgstr "صوابدیدی..."
 
-#: ../panel-plugin/settings-dialog.c:349
+#: ../panel-plugin/xfce4-notes-settings.c:334
 msgid "Background Color"
 msgstr "پس منظر رنگ"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
-msgid "Notes plugin for the Xfce4 desktop"
-msgstr "نوٹ پلگ ان برائے ایکسفس4 ڈیسک ٹاپ"
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Choose current note font"
+#~ msgstr "ونڈو فونٹ منتخب کریں"
+
+#~ msgid "Are you sure you want to delete this window?"
+#~ msgstr "کیا آپ واقعی یہ ونڈو حذف کرنا چاہتے ہیں؟"
+
+#~ msgid "Window"
+#~ msgstr "ونڈو"
+
+#~ msgid "_Options"
+#~ msgstr "_اختیارات"
+
+#~ msgid "Note"
+#~ msgstr "نوٹ"
+
+#~ msgid "R_ename..."
+#~ msgstr "ن_ام بدلیں..."
+
+#~ msgid "Show tabs"
+#~ msgstr "ٹیب دکھائیں"
+
+#~ msgid "Show on startup"
+#~ msgstr "سٹارٹ اپ پر دکھائیں"
+
+#~ msgid "Always"
+#~ msgstr "ہمیشہ"
+
+#~ msgid "Never"
+#~ msgstr "کبھی نہیں"
+
+#~ msgid "Last state"
+#~ msgstr "آخری حالت"
+
+#~ msgid "Rename window"
+#~ msgstr "ونڈو کا نام بدلیں"
+
+#~ msgid "Error"
+#~ msgstr "غلطی"
+
+#~ msgid "Unable to rename window"
+#~ msgstr "ونڈو کا نام نہیں بدلا جاسکا"
+
+#~ msgid "Unable to rename note"
+#~ msgstr "نوٹ کا نام نہیں بدلا جاسکا"
+
+#~ msgid "Hide arrow button"
+#~ msgstr "تیر کا بٹن ہٹائیں"
+
+#~ msgid "Notes plugin for the Xfce4 desktop"
+#~ msgstr "نوٹ پلگ ان برائے ایکسفس4 ڈیسک ٹاپ"
 
 #~ msgid "Show in the task list"
 #~ msgstr "ٹاسک فہرست میں دکھائیں"
+
 #~ msgid "Show resize grip"
 #~ msgstr "ری سائز پکڑ دکھائیں"
+
 #~ msgid "Create new note"
 #~ msgstr "نیا نوٹ بنائیں"
+
 #~ msgid "Delete this note"
 #~ msgstr "یہ نوٹ حذف کریں"
+
 #~ msgid "<b>Notes</b>"
 #~ msgstr "<b>نوٹ</b>"
-

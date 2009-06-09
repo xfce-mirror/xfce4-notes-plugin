@@ -98,11 +98,11 @@ namespace Xnp {
 
 			/* Set window name */
 			if (name == null) {
-				string window_name = "Notes";
+				string window_name = _("Notes");
 				int len = (int)this.window_list.length ();
 				for (int id = 1; id <= len + 1; id++) {
 					if (id > 1) {
-						window_name = "Notes %d".printf (id);
+						window_name = _("Notes %d").printf (id);
 					}
 					if (!window_name_exists (window_name)) {
 						break;
@@ -313,7 +313,7 @@ namespace Xnp {
 		 * Renames the window name.
 		 */
 		private void rename_window (Xnp.Window window) {
-			var dialog = new Gtk.Dialog.with_buttons ("Rename group", window,
+			var dialog = new Gtk.Dialog.with_buttons (_("Rename group"), window,
 					Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
 					Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
 			dialog.set_default_response (Gtk.ResponseType.OK);
@@ -334,7 +334,7 @@ namespace Xnp {
 				weak string name = entry.text;
 				if (window_name_exists (name)) {
 					var error_dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name %s is already in use", name);
+						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
 					error_dialog.run ();
 					error_dialog.destroy ();
 				}
@@ -359,7 +359,7 @@ namespace Xnp {
 		 */
 		private void delete_window (Xnp.Window window) {
 			var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "Are you sure you want to delete this group?");
+				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this group?"));
 			int res = dialog.run ();
 			dialog.destroy ();
 			if (res != Gtk.ResponseType.YES)
@@ -414,8 +414,8 @@ namespace Xnp {
 			bool res = GLib.Regex.match_simple ("^[^*|/\\:\"<>?]+$", name);
 			if (!res) {
 				var error_dialog = new Gtk.MessageDialog (null, 0,
-					Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "The name \"%s\" is invalid.", name);
-				error_dialog.format_secondary_markup ("The invalid characters are: %s".printf ("<tt>*|/\\:\"&lt;&gt;?</tt>"));
+					Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name \"%s\" is invalid."), name);
+				error_dialog.format_secondary_markup (_("The invalid characters are: %s").printf ("<tt>*|/\\:\"&lt;&gt;?</tt>"));
 				error_dialog.run ();
 				error_dialog.destroy ();
 			}
@@ -472,7 +472,7 @@ namespace Xnp {
 			}
 			catch (GLib.Error e) {
 				var error_dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "Unable to open the settings dialog");
+						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("Unable to open the settings dialog"));
 				error_dialog.format_secondary_text ("%s", e.message);
 				error_dialog.run ();
 				error_dialog.destroy ();

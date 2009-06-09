@@ -23,6 +23,7 @@
 
 #include <xfconf/xfconf.h>
 #include <gtk/gtk.h>
+#include <libxfce4util/libxfce4util.h>
 #include <libxfcegui4/libxfcegui4.h>
 
 #include "defines.h"
@@ -418,6 +419,7 @@ gint main (gint argc,
           gchar *argv[])
 {
   GtkWidget *dialog;
+  xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, NULL);
   xfconf_init (NULL);
   gtk_init (&argc, &argv);
   dialog = prop_dialog_new ();

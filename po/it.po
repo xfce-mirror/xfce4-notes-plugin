@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.6.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
+"POT-Creation-Date: 2009-06-09 15:44+0200\n"
 "PO-Revision-Date: 2009-03-02 09:18+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <xfce-it-translators@googlegroups.com>\n"
@@ -16,190 +16,227 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:125
-#: ../panel-plugin/settings-dialog.c:85
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Note"
 
-#: ../panel-plugin/panel-plugin.c:267
+#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#, fuzzy, c-format
+msgid "Notes %d"
+msgstr "Note"
+
+#: ../panel-plugin/application.vala:316
+#, fuzzy
+msgid "Rename group"
+msgstr "Rinomina questa nota"
+
+#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
 #, c-format
-msgid "Unable to open the following url: %s"
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../panel-plugin/application.vala:362
+#, fuzzy
+msgid "Are you sure you want to delete this group?"
+msgstr "Eliminare veramente questa nota?"
+
+#: ../panel-plugin/application.vala:417
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../panel-plugin/application.vala:418
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../panel-plugin/application.vala:475
+#, fuzzy
+msgid "Unable to open the settings dialog"
 msgstr "Impossibile aprire l'indirizzo %s"
 
-#: ../panel-plugin/notes.c:452
-msgid "Are you sure you want to delete this window?"
-msgstr "Chiudere veramente questa finestra?"
+#: ../panel-plugin/window.vala:645
+msgid "_Go"
+msgstr ""
 
-#: ../panel-plugin/notes.c:752
-msgid "Window"
-msgstr "Finestra"
-
-#: ../panel-plugin/notes.c:755
-msgid "_Rename..."
+#: ../panel-plugin/window.vala:668
+#, fuzzy
+msgid "_Rename"
 msgstr "_Rinomina..."
 
-#: ../panel-plugin/notes.c:757
-msgid "_Options"
-msgstr "_Opzioni"
-
-#: ../panel-plugin/notes.c:759
-msgid "Note"
-msgstr "Nota"
-
-#: ../panel-plugin/notes.c:762
-msgid "R_ename..."
-msgstr "R_inomina..."
-
 #. Always on top
-#: ../panel-plugin/notes.c:883
-#: ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "Sempre in primo piano"
 
-#. Sticky window
-#: ../panel-plugin/notes.c:884
-#: ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/window.vala:693
 msgid "Sticky window"
 msgstr "Finestra appiccicosa"
 
-#. Tabs
-#: ../panel-plugin/notes.c:885
-#: ../panel-plugin/settings-dialog.c:150
-msgid "Show tabs"
-msgstr "Mostra linguette"
+#: ../panel-plugin/window.vala:755
+#, fuzzy
+msgid "_Rename group"
+msgstr "Rinomina questa nota"
 
-#: ../panel-plugin/notes.c:887
-msgid "Show on startup"
-msgstr "Mostra all'avvio"
+#: ../panel-plugin/window.vala:762
+msgid "_Delete group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:899
-msgid "Always"
-msgstr "Sempre"
+#: ../panel-plugin/window.vala:769
+msgid "_Add a new group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:901
-msgid "Never"
-msgstr "Mai"
-
-#: ../panel-plugin/notes.c:903
-msgid "Last state"
-msgstr "Ultimo avvio"
-
-#: ../panel-plugin/notes.c:1080
-msgid "Choose Window Font"
-msgstr "Scegliere il tipo di carattere della finestra"
-
-#: ../panel-plugin/notes.c:1484
-#: ../panel-plugin/notes.c:1520
-msgid "Rename window"
-msgstr "Rinomina la finestra"
-
-#: ../panel-plugin/notes.c:1522
-#: ../panel-plugin/notes.c:1968
-msgid "Error"
-msgstr "Errore"
-
-#: ../panel-plugin/notes.c:1523
-msgid "Unable to rename window"
-msgstr "Impossibile rinominare la finestra"
-
-#: ../panel-plugin/notes.c:1632
+#: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
 msgstr "Eliminare veramente questa nota?"
 
-#: ../panel-plugin/notes.c:1930
-#: ../panel-plugin/notes.c:1966
+#: ../panel-plugin/window.vala:968
 msgid "Rename note"
 msgstr "Rinomina questa nota"
 
-#: ../panel-plugin/notes.c:1969
-msgid "Unable to rename note"
-msgstr "Impossibile rinominare questa nota"
-
-#: ../panel-plugin/settings-dialog.c:91
+#: ../panel-plugin/xfce4-notes-settings.c:81
 msgid "Configure the plugin"
 msgstr "Confugurazione del plugin"
 
-#: ../panel-plugin/settings-dialog.c:98
-msgid "Default settings"
+#: ../panel-plugin/xfce4-notes-settings.c:100
+#, fuzzy
+msgid "Global settings"
 msgstr "Impostazioni predefinite"
 
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:103
-msgid "Hide windows from taskbar"
+#: ../panel-plugin/xfce4-notes-settings.c:105
+#, fuzzy
+msgid "Hide notes from taskbar"
 msgstr "Nascondi le finestre dalla barra di stato"
 
-#. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:110
-msgid "Hide arrow button"
-msgstr "Nascondi freccia"
-
-#: ../panel-plugin/settings-dialog.c:120
+#: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
 msgstr "Sfondo:"
 
-#: ../panel-plugin/settings-dialog.c:131
-msgid "New window settings"
-msgstr "Impostazioni per una nuova finestra"
-
-#: ../panel-plugin/settings-dialog.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:128
 msgid "Font:"
 msgstr "Tipo di carattere:"
 
-#: ../panel-plugin/settings-dialog.c:175
+#: ../panel-plugin/xfce4-notes-settings.c:138
+#, fuzzy
+msgid "New group settings"
+msgstr "Impostazioni per una nuova finestra"
+
+#. Sticky window
+#: ../panel-plugin/xfce4-notes-settings.c:150
+#, fuzzy
+msgid "Sticky"
+msgstr "Finestra appiccicosa"
+
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: ../panel-plugin/settings-dialog.c:194
+#: ../panel-plugin/xfce4-notes-settings.c:179
 msgid "Small"
 msgstr "Piccolo"
 
-#: ../panel-plugin/settings-dialog.c:195
+#: ../panel-plugin/xfce4-notes-settings.c:180
 msgid "Normal"
 msgstr "Normale"
 
-#: ../panel-plugin/settings-dialog.c:196
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Large"
 msgstr "Grande"
 
-#: ../panel-plugin/settings-dialog.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:239
 msgid "Yellow"
 msgstr "Giallo"
 
-#: ../panel-plugin/settings-dialog.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:240
 msgid "Red"
 msgstr "Rosso"
 
-#: ../panel-plugin/settings-dialog.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:241
 msgid "Blue"
 msgstr "Blu"
 
-#: ../panel-plugin/settings-dialog.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Green"
 msgstr "Verde"
 
-#: ../panel-plugin/settings-dialog.c:258
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Purple"
 msgstr "Viola"
 
-#: ../panel-plugin/settings-dialog.c:259
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "White"
 msgstr "Bianco"
 
-#: ../panel-plugin/settings-dialog.c:260
+#: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Custom..."
 msgstr "Personalizzato"
 
-#: ../panel-plugin/settings-dialog.c:349
+#: ../panel-plugin/xfce4-notes-settings.c:334
 msgid "Background Color"
 msgstr "Colore di sfondo"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
-msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Plugin per le annotazioni in ambiente Xfce4"
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Choose current note font"
+#~ msgstr "Scegliere il tipo di carattere della finestra"
+
+#~ msgid "Are you sure you want to delete this window?"
+#~ msgstr "Chiudere veramente questa finestra?"
+
+#~ msgid "Window"
+#~ msgstr "Finestra"
+
+#~ msgid "_Options"
+#~ msgstr "_Opzioni"
+
+#~ msgid "Note"
+#~ msgstr "Nota"
+
+#~ msgid "R_ename..."
+#~ msgstr "R_inomina..."
+
+#~ msgid "Show tabs"
+#~ msgstr "Mostra linguette"
+
+#~ msgid "Show on startup"
+#~ msgstr "Mostra all'avvio"
+
+#~ msgid "Always"
+#~ msgstr "Sempre"
+
+#~ msgid "Never"
+#~ msgstr "Mai"
+
+#~ msgid "Last state"
+#~ msgstr "Ultimo avvio"
+
+#~ msgid "Rename window"
+#~ msgstr "Rinomina la finestra"
+
+#~ msgid "Error"
+#~ msgstr "Errore"
+
+#~ msgid "Unable to rename window"
+#~ msgstr "Impossibile rinominare la finestra"
+
+#~ msgid "Unable to rename note"
+#~ msgstr "Impossibile rinominare questa nota"
+
+#~ msgid "Hide arrow button"
+#~ msgstr "Nascondi freccia"
+
+#~ msgid "Notes plugin for the Xfce4 desktop"
+#~ msgstr "Plugin per le annotazioni in ambiente Xfce4"
 
 #~ msgid "Resize grip"
 #~ msgstr "Maniglia di ridimensionamento"
+
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Plugin per le annotazioni di Xfce4"
-

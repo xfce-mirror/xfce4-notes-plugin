@@ -1,3 +1,8 @@
+INCLUDES =								\
+	-I$(top_srcdir)							\
+	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
+	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
+
 #
 # Popup program
 #
@@ -51,7 +56,7 @@ vala_built_SOURCES = $(xfce4_notes_plugin_VALASOURCES:.vala=.c)
 
 BUILT_SOURCES = vala.stamp
 vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
-	$(VALAC) --vapidir=. --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 --pkg=libxfce4panel-1.0 $^ -C
+	$(VALAC) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 --pkg=libxfce4panel-1.0 $^ -C
 	touch $@
 endif
 
@@ -69,12 +74,10 @@ xfce4_notes_plugin_SOURCES =						\
 xfce4_notes_plugin_SOURCES += $(vala_built_SOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
-	-I$(top_srcdir)							\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@LIBXFCEGUI4_CFLAGS@						\
-	@XFCONF_CFLAGS@							\
-	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
+	@XFCONF_CFLAGS@
 
 xfce4_notes_plugin_LDADD =						\
 	@LIBXFCE4PANEL_LIBS@						\

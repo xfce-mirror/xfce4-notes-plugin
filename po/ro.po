@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
+"POT-Creation-Date: 2009-06-09 15:44+0200\n"
 "PO-Revision-Date: 2009-03-01 19:59+0200\n"
 "Last-Translator: Igor Știrbu <igor.stirbu@gmail.com>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -16,177 +16,221 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:125 ../panel-plugin/settings-dialog.c:85
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Notițe"
 
-#: ../panel-plugin/panel-plugin.c:267
+#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#, fuzzy, c-format
+msgid "Notes %d"
+msgstr "Notițe"
+
+#: ../panel-plugin/application.vala:316
+#, fuzzy
+msgid "Rename group"
+msgstr "Redenumire notă"
+
+#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
 #, c-format
-msgid "Unable to open the following url: %s"
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../panel-plugin/application.vala:362
+#, fuzzy
+msgid "Are you sure you want to delete this group?"
+msgstr "Sigur doriți să ștergeți notița?"
+
+#: ../panel-plugin/application.vala:417
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../panel-plugin/application.vala:418
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../panel-plugin/application.vala:475
+#, fuzzy
+msgid "Unable to open the settings dialog"
 msgstr "Nu s-a putut accesa următorul URL: %s"
 
-#: ../panel-plugin/notes.c:452
-msgid "Are you sure you want to delete this window?"
-msgstr "Sigur doriți să ștergeți această fereastră?"
+#: ../panel-plugin/window.vala:645
+msgid "_Go"
+msgstr ""
 
-#: ../panel-plugin/notes.c:752
-msgid "Window"
-msgstr "Fereastră"
-
-#: ../panel-plugin/notes.c:755
-msgid "_Rename..."
+#: ../panel-plugin/window.vala:668
+#, fuzzy
+msgid "_Rename"
 msgstr "_Redenumire..."
 
-#: ../panel-plugin/notes.c:757
-msgid "_Options"
-msgstr "_Opțiuni"
-
-#: ../panel-plugin/notes.c:759
-msgid "Note"
-msgstr "Notiță"
-
-#: ../panel-plugin/notes.c:762
-msgid "R_ename..."
-msgstr "R_edenumire..."
-
 #. Always on top
-#: ../panel-plugin/notes.c:883 ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "Tot timpul deasupra"
 
-#. Sticky window
-#: ../panel-plugin/notes.c:884 ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/window.vala:693
 msgid "Sticky window"
 msgstr "Fereastră lipită"
 
-#. Tabs
-#: ../panel-plugin/notes.c:885 ../panel-plugin/settings-dialog.c:150
-msgid "Show tabs"
-msgstr "Arată taburi"
+#: ../panel-plugin/window.vala:755
+#, fuzzy
+msgid "_Rename group"
+msgstr "Redenumire notă"
 
-#: ../panel-plugin/notes.c:887
-msgid "Show on startup"
-msgstr "Arată la pornire"
+#: ../panel-plugin/window.vala:762
+msgid "_Delete group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:899
-msgid "Always"
-msgstr "Tot timpul"
+#: ../panel-plugin/window.vala:769
+msgid "_Add a new group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:901
-msgid "Never"
-msgstr "Niciodată"
-
-#: ../panel-plugin/notes.c:903
-msgid "Last state"
-msgstr "Ultima stare"
-
-#: ../panel-plugin/notes.c:1080
-msgid "Choose Window Font"
-msgstr "Alegeți fontul ferestrei"
-
-#: ../panel-plugin/notes.c:1484 ../panel-plugin/notes.c:1520
-msgid "Rename window"
-msgstr "Redenumire fereastră"
-
-#: ../panel-plugin/notes.c:1522 ../panel-plugin/notes.c:1968
-msgid "Error"
-msgstr "Eroare"
-
-#: ../panel-plugin/notes.c:1523
-msgid "Unable to rename window"
-msgstr "Nu s-a putut redenumi fereastra"
-
-#: ../panel-plugin/notes.c:1632
+#: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
 msgstr "Sigur doriți să ștergeți notița?"
 
-#: ../panel-plugin/notes.c:1930 ../panel-plugin/notes.c:1966
+#: ../panel-plugin/window.vala:968
 msgid "Rename note"
 msgstr "Redenumire notă"
 
-#: ../panel-plugin/notes.c:1969
-msgid "Unable to rename note"
-msgstr "Nu s-a putut redenumi notița"
-
-#: ../panel-plugin/settings-dialog.c:91
+#: ../panel-plugin/xfce4-notes-settings.c:81
 msgid "Configure the plugin"
 msgstr "Preferințe modul"
 
-#: ../panel-plugin/settings-dialog.c:98
-msgid "Default settings"
+#: ../panel-plugin/xfce4-notes-settings.c:100
+#, fuzzy
+msgid "Global settings"
 msgstr "Opțiuni implicite"
 
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:103
-msgid "Hide windows from taskbar"
+#: ../panel-plugin/xfce4-notes-settings.c:105
+#, fuzzy
+msgid "Hide notes from taskbar"
 msgstr "Nu arăta ferestrele în taskbar"
 
-#. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:110
-msgid "Hide arrow button"
-msgstr "Nu arăta butonul săgeată"
-
-#: ../panel-plugin/settings-dialog.c:120
+#: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
 msgstr "Fundal:"
 
-#: ../panel-plugin/settings-dialog.c:131
-msgid "New window settings"
-msgstr "Preferințe fereastră nouă"
-
-#: ../panel-plugin/settings-dialog.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:128
 msgid "Font:"
 msgstr "Font:"
 
-#: ../panel-plugin/settings-dialog.c:175
+#: ../panel-plugin/xfce4-notes-settings.c:138
+#, fuzzy
+msgid "New group settings"
+msgstr "Preferințe fereastră nouă"
+
+#. Sticky window
+#: ../panel-plugin/xfce4-notes-settings.c:150
+#, fuzzy
+msgid "Sticky"
+msgstr "Fereastră lipită"
+
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
 msgstr "Dimensiune:"
 
-#: ../panel-plugin/settings-dialog.c:194
+#: ../panel-plugin/xfce4-notes-settings.c:179
 msgid "Small"
 msgstr "Mică"
 
-#: ../panel-plugin/settings-dialog.c:195
+#: ../panel-plugin/xfce4-notes-settings.c:180
 msgid "Normal"
 msgstr "Normală"
 
-#: ../panel-plugin/settings-dialog.c:196
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Large"
 msgstr "Mare"
 
-#: ../panel-plugin/settings-dialog.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:239
 msgid "Yellow"
 msgstr "Galben"
 
-#: ../panel-plugin/settings-dialog.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:240
 msgid "Red"
 msgstr "Roșu"
 
-#: ../panel-plugin/settings-dialog.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:241
 msgid "Blue"
 msgstr "Albastru"
 
-#: ../panel-plugin/settings-dialog.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Green"
 msgstr "Verde"
 
-#: ../panel-plugin/settings-dialog.c:258
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Purple"
 msgstr "Violet"
 
-#: ../panel-plugin/settings-dialog.c:259
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "White"
 msgstr "Alb"
 
-#: ../panel-plugin/settings-dialog.c:260
+#: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Custom..."
 msgstr "Personalizat..."
 
-#: ../panel-plugin/settings-dialog.c:349
+#: ../panel-plugin/xfce4-notes-settings.c:334
 msgid "Background Color"
 msgstr "Culoare fundal"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
-msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Modul pentru notițe în desktopul Xfce4"
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Choose current note font"
+#~ msgstr "Alegeți fontul ferestrei"
+
+#~ msgid "Are you sure you want to delete this window?"
+#~ msgstr "Sigur doriți să ștergeți această fereastră?"
+
+#~ msgid "Window"
+#~ msgstr "Fereastră"
+
+#~ msgid "_Options"
+#~ msgstr "_Opțiuni"
+
+#~ msgid "Note"
+#~ msgstr "Notiță"
+
+#~ msgid "R_ename..."
+#~ msgstr "R_edenumire..."
+
+#~ msgid "Show tabs"
+#~ msgstr "Arată taburi"
+
+#~ msgid "Show on startup"
+#~ msgstr "Arată la pornire"
+
+#~ msgid "Always"
+#~ msgstr "Tot timpul"
+
+#~ msgid "Never"
+#~ msgstr "Niciodată"
+
+#~ msgid "Last state"
+#~ msgstr "Ultima stare"
+
+#~ msgid "Rename window"
+#~ msgstr "Redenumire fereastră"
+
+#~ msgid "Error"
+#~ msgstr "Eroare"
+
+#~ msgid "Unable to rename window"
+#~ msgstr "Nu s-a putut redenumi fereastra"
+
+#~ msgid "Unable to rename note"
+#~ msgstr "Nu s-a putut redenumi notița"
+
+#~ msgid "Hide arrow button"
+#~ msgstr "Nu arăta butonul săgeată"
+
+#~ msgid "Notes plugin for the Xfce4 desktop"
+#~ msgstr "Modul pentru notițe în desktopul Xfce4"

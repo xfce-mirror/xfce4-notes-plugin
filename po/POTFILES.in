@@ -1,5 +1,10 @@
 panel-plugin/color.c
-panel-plugin/panel-plugin.c
-panel-plugin/notes.c
-panel-plugin/settings-dialog.c
+panel-plugin/popup.c
+panel-plugin/main.vala
+panel-plugin/application.vala
+panel-plugin/window.vala
+panel-plugin/note.vala
+panel-plugin/hypertextview.vala
+panel-plugin/xfce4-popup-notes.c
+panel-plugin/xfce4-notes-settings.c
 panel-plugin/xfce4-notes-plugin.desktop.in.in

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 00:54+0100\n"
+"POT-Creation-Date: 2009-06-09 15:44+0200\n"
 "PO-Revision-Date: 2009-04-11 11:31+0100\n"
 "Last-Translator: Piotr Sokół <piotr.sokol@10g.pl>\n"
 "Language-Team: Polish\n"
@@ -15,200 +15,242 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/panel-plugin.c:125
-#: ../panel-plugin/settings-dialog.c:85
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Notatki"
 
-#: ../panel-plugin/panel-plugin.c:267
+#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#, fuzzy, c-format
+msgid "Notes %d"
+msgstr "Notatki"
+
+#: ../panel-plugin/application.vala:316
+#, fuzzy
+msgid "Rename group"
+msgstr "Zmień nazwę"
+
+#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
 #, c-format
-msgid "Unable to open the following url: %s"
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../panel-plugin/application.vala:362
+#, fuzzy
+msgid "Are you sure you want to delete this group?"
+msgstr "Usunąć notatkę?"
+
+#: ../panel-plugin/application.vala:417
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../panel-plugin/application.vala:418
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../panel-plugin/application.vala:475
+#, fuzzy
+msgid "Unable to open the settings dialog"
 msgstr "Nie można otworzyć adresu URL: %s"
 
-#: ../panel-plugin/notes.c:452
-msgid "Are you sure you want to delete this window?"
-msgstr "Usunąć okno notatek?"
+#: ../panel-plugin/window.vala:645
+msgid "_Go"
+msgstr ""
 
-#: ../panel-plugin/notes.c:752
-msgid "Window"
-msgstr "Okno"
-
-#: ../panel-plugin/notes.c:755
-msgid "_Rename..."
-msgstr "Zmień _nazwę..."
-
-#: ../panel-plugin/notes.c:757
-msgid "_Options"
-msgstr "_Opcje"
-
-#: ../panel-plugin/notes.c:759
-msgid "Note"
-msgstr "Notatka"
-
-#: ../panel-plugin/notes.c:762
-msgid "R_ename..."
+#: ../panel-plugin/window.vala:668
+#, fuzzy
+msgid "_Rename"
 msgstr "Zmień _nazwę..."
 
 #. Always on top
-#: ../panel-plugin/notes.c:883
-#: ../panel-plugin/settings-dialog.c:136
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "Zawsze na wierzchu"
 
-#. Sticky window
-#: ../panel-plugin/notes.c:884
-#: ../panel-plugin/settings-dialog.c:143
+#: ../panel-plugin/window.vala:693
 msgid "Sticky window"
 msgstr "Na wszystkich obszarach roboczych"
 
-#. Tabs
-#: ../panel-plugin/notes.c:885
-#: ../panel-plugin/settings-dialog.c:150
-msgid "Show tabs"
-msgstr "Karty"
-
-#: ../panel-plugin/notes.c:887
-msgid "Show on startup"
-msgstr "Wyświetlanie po uruchomieniu"
-
-#: ../panel-plugin/notes.c:899
-msgid "Always"
-msgstr "Zawsze"
-
-#: ../panel-plugin/notes.c:901
-msgid "Never"
-msgstr "Nigdy"
-
-#: ../panel-plugin/notes.c:903
-msgid "Last state"
-msgstr "Ostatni stan"
-
-#: ../panel-plugin/notes.c:1080
-msgid "Choose Window Font"
-msgstr "Wybór czcionki"
-
-#: ../panel-plugin/notes.c:1484
-#: ../panel-plugin/notes.c:1520
-msgid "Rename window"
+#: ../panel-plugin/window.vala:755
+#, fuzzy
+msgid "_Rename group"
 msgstr "Zmień nazwę"
 
-#: ../panel-plugin/notes.c:1522
-#: ../panel-plugin/notes.c:1968
-msgid "Error"
-msgstr "Błąd"
+#: ../panel-plugin/window.vala:762
+msgid "_Delete group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:1523
-msgid "Unable to rename window"
-msgstr "Nie można zmienić nazwy okna notatek"
+#: ../panel-plugin/window.vala:769
+msgid "_Add a new group"
+msgstr ""
 
-#: ../panel-plugin/notes.c:1632
+#: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
 msgstr "Usunąć notatkę?"
 
-#: ../panel-plugin/notes.c:1930
-#: ../panel-plugin/notes.c:1966
+#: ../panel-plugin/window.vala:968
 msgid "Rename note"
 msgstr "Zmień nazwę"
 
-#: ../panel-plugin/notes.c:1969
-msgid "Unable to rename note"
-msgstr "Nie można zmienić nazwy notatki"
-
-#: ../panel-plugin/settings-dialog.c:91
+#: ../panel-plugin/xfce4-notes-settings.c:81
 msgid "Configure the plugin"
 msgstr "Konfiguruje ustawienia apletu"
 
-#: ../panel-plugin/settings-dialog.c:98
-msgid "Default settings"
+#: ../panel-plugin/xfce4-notes-settings.c:100
+#, fuzzy
+msgid "Global settings"
 msgstr "Domyślne"
 
 #. Hide from taskbar
-#: ../panel-plugin/settings-dialog.c:103
-msgid "Hide windows from taskbar"
+#: ../panel-plugin/xfce4-notes-settings.c:105
+#, fuzzy
+msgid "Hide notes from taskbar"
 msgstr "Ukrycie okien na liście okien"
 
-#. Hide arrow button
-#: ../panel-plugin/settings-dialog.c:110
-msgid "Hide arrow button"
-msgstr "Ukrycie przycisku skrzałki"
-
-#: ../panel-plugin/settings-dialog.c:120
+#: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
 msgstr "Kolor tła:"
 
-#: ../panel-plugin/settings-dialog.c:131
-msgid "New window settings"
-msgstr "Nowe okno"
-
-#: ../panel-plugin/settings-dialog.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:128
 msgid "Font:"
 msgstr "Czcionka:"
 
-#: ../panel-plugin/settings-dialog.c:175
+#: ../panel-plugin/xfce4-notes-settings.c:138
+#, fuzzy
+msgid "New group settings"
+msgstr "Nowe okno"
+
+#. Sticky window
+#: ../panel-plugin/xfce4-notes-settings.c:150
+#, fuzzy
+msgid "Sticky"
+msgstr "Na wszystkich obszarach roboczych"
+
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
 msgstr "Rozmiar:"
 
-#: ../panel-plugin/settings-dialog.c:194
+#: ../panel-plugin/xfce4-notes-settings.c:179
 msgid "Small"
 msgstr "Mały"
 
-#: ../panel-plugin/settings-dialog.c:195
+#: ../panel-plugin/xfce4-notes-settings.c:180
 msgid "Normal"
 msgstr "Normalny"
 
-#: ../panel-plugin/settings-dialog.c:196
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Large"
 msgstr "Duży"
 
-#: ../panel-plugin/settings-dialog.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:239
 msgid "Yellow"
 msgstr "Żółty"
 
-#: ../panel-plugin/settings-dialog.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:240
 msgid "Red"
 msgstr "Czerwony"
 
-#: ../panel-plugin/settings-dialog.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:241
 msgid "Blue"
 msgstr "Niebieski"
 
-#: ../panel-plugin/settings-dialog.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Green"
 msgstr "Zielony"
 
-#: ../panel-plugin/settings-dialog.c:258
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Purple"
 msgstr "Purpurowy"
 
-#: ../panel-plugin/settings-dialog.c:259
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "White"
 msgstr "Biały"
 
-#: ../panel-plugin/settings-dialog.c:260
+#: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Custom..."
 msgstr "Własny..."
 
-#: ../panel-plugin/settings-dialog.c:349
+#: ../panel-plugin/xfce4-notes-settings.c:334
 msgid "Background Color"
 msgstr "Kolor tła"
 
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
-msgid "Notes plugin for the Xfce4 desktop"
-msgstr "Tworzy i zarządza sporządzonymi notatkami"
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Choose current note font"
+#~ msgstr "Wybór czcionki"
+
+#~ msgid "Are you sure you want to delete this window?"
+#~ msgstr "Usunąć okno notatek?"
+
+#~ msgid "Window"
+#~ msgstr "Okno"
+
+#~ msgid "_Options"
+#~ msgstr "_Opcje"
+
+#~ msgid "Note"
+#~ msgstr "Notatka"
+
+#~ msgid "R_ename..."
+#~ msgstr "Zmień _nazwę..."
+
+#~ msgid "Show tabs"
+#~ msgstr "Karty"
+
+#~ msgid "Show on startup"
+#~ msgstr "Wyświetlanie po uruchomieniu"
+
+#~ msgid "Always"
+#~ msgstr "Zawsze"
+
+#~ msgid "Never"
+#~ msgstr "Nigdy"
+
+#~ msgid "Last state"
+#~ msgstr "Ostatni stan"
+
+#~ msgid "Rename window"
+#~ msgstr "Zmień nazwę"
+
+#~ msgid "Error"
+#~ msgstr "Błąd"
+
+#~ msgid "Unable to rename window"
+#~ msgstr "Nie można zmienić nazwy okna notatek"
+
+#~ msgid "Unable to rename note"
+#~ msgstr "Nie można zmienić nazwy notatki"
+
+#~ msgid "Hide arrow button"
+#~ msgstr "Ukrycie przycisku skrzałki"
+
+#~ msgid "Notes plugin for the Xfce4 desktop"
+#~ msgstr "Tworzy i zarządza sporządzonymi notatkami"
 
 #~ msgid "Resize grip"
 #~ msgstr "Uchwyt zmiany rozmiaru"
+
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Wtyczka notatnika Xfce 4"
+
 #~ msgid "Show in the task list"
 #~ msgstr "Pokazuj na liście zadań"
+
 #~ msgid "Create new note"
 #~ msgstr "Stwórz nową notatkę"
+
 #~ msgid "Delete this note"
 #~ msgstr "Skasuj notatkę"
+
 #~ msgid "<b>Notes</b>"
 #~ msgstr "<b>Notatki</b>"
+
 #~ msgid "Properties"
 #~ msgstr "Właściwości"
-
