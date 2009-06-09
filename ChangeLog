@@ -1,5 +1,9 @@
 2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
 
+Rethink default sizes and colors
+
+2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+
 Set default Xnp.Window opacity to 0.9
 	* panel-plugin/window.vala:
 	  - Default opacity to 0.9

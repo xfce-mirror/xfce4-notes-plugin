@@ -40,17 +40,16 @@
 
 /* Size values */
 #define SIZE_SMALL                      240
-#define SIZE_NORMAL                     305
-#define SIZE_LARGE                      340
+#define SIZE_NORMAL                     270
+#define SIZE_LARGE                      300
 #define SIZE_FACTOR                     1.25
 
 /* Background color values */
-#define BACKGROUND_YELLOW               "#ECDE79"
-#define BACKGROUND_RED                  "#F29998"
-#define BACKGROUND_BLUE                 "#C0D4F5"
-#define BACKGROUND_GREEN                "#A6EA84"
-#define BACKGROUND_PURPLE               "#DB99FB"
+#define BACKGROUND_YELLOW               "#FFF4A4"
+#define BACKGROUND_RED                  "#E66C70"
+#define BACKGROUND_BLUE                 "#D3E8F6"
+#define BACKGROUND_GREEN                "#C1ECB0"
+#define BACKGROUND_PURPLE               "#C19FDB"
 #define BACKGROUND_WHITE                "#F2F1EF"
 
 #endif
-
