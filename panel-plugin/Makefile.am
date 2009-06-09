@@ -4,8 +4,8 @@
 bin_PROGRAMS = xfce4-popup-notes
 
 xfce4_popup_notes_SOURCES =						\
-	xfce4-popup-notes.c						\
-	xfce4-popup-notes.h
+	popup.h								\
+	xfce4-popup-notes.c
 
 xfce4_popup_notes_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
@@ -51,7 +51,7 @@ vala_built_SOURCES = $(xfce4_notes_plugin_VALASOURCES:.vala=.c)
 
 BUILT_SOURCES = vala.stamp
 vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
-	$(VALAC) --vapidir=. --pkg=config --pkg=color --pkg=libxfconf-0 --pkg=libxfce4panel-1.0 $^ -C
+	$(VALAC) --vapidir=. --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 --pkg=libxfce4panel-1.0 $^ -C
 	touch $@
 endif
 
@@ -64,6 +64,8 @@ plugin_PROGRAMS = xfce4-notes-plugin
 xfce4_notes_plugin_SOURCES =						\
 	color.c								\
 	color.h								\
+	popup.c								\
+	popup.h								\
 xfce4_notes_plugin_SOURCES += $(vala_built_SOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\

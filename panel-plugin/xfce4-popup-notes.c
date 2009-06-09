@@ -28,7 +28,7 @@
 #include <gdk/gdkx.h>
 #include <X11/Xlib.h>
 
-#include "xfce4-popup-notes.h"
+#include "popup.h"
 
 
 
@@ -60,7 +60,6 @@ main (gint argc, gchar *argv[])
   gchar                *message = NULL;
 
   gboolean              opt_show_hide = FALSE;
-  gboolean              opt_menu = FALSE;
   GError               *opt_error = NULL;
 
   GOptionContext *context =
@@ -69,14 +68,10 @@ main (gint argc, gchar *argv[])
     {
       { "show-hide", 0, 0, G_OPTION_ARG_NONE, &opt_show_hide,
         "Default action that show/hide all the windows", NULL },
-      { "menu", 'm', 0, G_OPTION_ARG_NONE, &opt_menu,
-        "Popup the menu from the panel button", NULL },
       { NULL }
     };
 
-#if GLIB_CHECK_VERSION (2, 12, 0)
   g_option_context_set_summary (context, "The default action is to show/hide all windows");
-#endif
   g_option_context_add_main_entries (context, entries, NULL);
   if (G_LIKELY (! g_option_context_parse (context, &argc, &argv, &opt_error)))
     {
@@ -85,10 +80,7 @@ main (gint argc, gchar *argv[])
       return -1;
     }
 
-  if (opt_menu)
-    message = g_strdup_printf (NOTES_MSG_MENU);
-  else
-    message = g_strdup_printf (NOTES_MSG_SHOW_HIDE);
+  message = g_strdup_printf (NOTES_MSG_SHOW_HIDE);
 
   gtk_init (&argc, &argv);
 

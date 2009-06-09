@@ -24,6 +24,7 @@ using Gtk;
 
 public class NotesPlugin : GLib.Object {
 
+	private Gtk.Invisible invisible;
 	private Gtk.Button button;
 	private Gtk.Image image;
 	private Xfce.PanelPlugin panel_plugin;
@@ -71,8 +72,18 @@ public class NotesPlugin : GLib.Object {
 	 * Set an X selection to listen to for the popup command.
 	 */
 	private bool set_x_selection () {
-		// TODO
-		return false;
+		invisible = new Gtk.Invisible ();
+		if (!Xnp.Popup.set_x_selection (invisible)) {
+			return false;
+		}
+		invisible.client_event += (w, event) => {
+			if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
+				application.show_hide_notes ();
+				return true;
+			}
+			return false;
+		};
+		return true;
 	}
 
 

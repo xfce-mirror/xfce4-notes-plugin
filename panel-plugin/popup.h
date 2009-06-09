@@ -1,9 +1,7 @@
-/* $Id$
- *
+/*
  *  Notes - panel plugin for Xfce Desktop Environment
- *          popup command to show the notes
  *  Copyright (C) 2002-2006  Olivier Fourdan
- *                2006  Mike Massonnet <mmassonnet@gmail.com>
+ *  Copyright (C) 2009       Mike Massonnet <mmassonnet@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,24 +18,15 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
-#ifndef __XFCE4_POPUP_NOTES_H__
-#define __XFCE4_POPUP_NOTES_H__
+#ifndef __POPUP_H__
+#define __POPUP_H__
 
-#ifndef XFCE_NOTES_SELECTION
+#include <gtk/gtk.h>
+
 #define XFCE_NOTES_SELECTION    "XFCE_NOTES_SELECTION"
-#endif
-
-#ifndef NOTES_MSG_SHOW_HIDE
 #define NOTES_MSG_SHOW_HIDE     "SHOW_HIDE"
-#endif
 
-#ifndef NOTES_MSG_MENU
-#define NOTES_MSG_MENU          "MENU"
-#endif
-
-#ifndef NOTES_MSG_WINDOW
-#define NOTES_MSG_WINDOW        "WIN"
-#endif
+gboolean popup_set_x_selection (GtkWidget *widget);
+const gchar* popup_get_message_from_event (GdkEventClient *event);
 
 #endif
-
