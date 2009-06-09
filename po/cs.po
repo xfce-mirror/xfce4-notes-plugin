@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.90.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-09 15:44+0200\n"
-"PO-Revision-Date: 2009-02-25 21:11+0100\n"
+"PO-Revision-Date: 2009-06-09 18:04+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,59 +16,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/main.vala:94
+#: ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82
+#: ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902
+#: ../panel-plugin/xfce4-notes-settings.c:77
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
-#, fuzzy, c-format
+#: ../panel-plugin/application.vala:105
+#: ../panel-plugin/window.vala:905
+#, c-format
 msgid "Notes %d"
-msgstr "Poznámky"
+msgstr "Poznámky %d"
 
 #: ../panel-plugin/application.vala:316
-#, fuzzy
 msgid "Rename group"
-msgstr "Přejmenovat poznámku"
+msgstr "Přejmenovat skupinu"
 
-#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
+#: ../panel-plugin/application.vala:337
+#: ../panel-plugin/window.vala:989
 #, c-format
 msgid "The name %s is already in use"
-msgstr ""
+msgstr "Název %s se již používá"
 
 #: ../panel-plugin/application.vala:362
-#, fuzzy
 msgid "Are you sure you want to delete this group?"
-msgstr "Opravdu chcete smazat tuto poznámku?"
+msgstr "Opravdu chcete smazat tuto skupinu?"
 
 #: ../panel-plugin/application.vala:417
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr ""
+msgstr "Název \"%s\" je neplatný."
 
 #: ../panel-plugin/application.vala:418
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr ""
+msgstr "Neplatné znaky: %s"
 
 #: ../panel-plugin/application.vala:475
-#, fuzzy
 msgid "Unable to open the settings dialog"
-msgstr "Nelze otevřít následující adresu URL: %s"
+msgstr "Nelze otevřít dialogové okno s nastavením"
 
 #: ../panel-plugin/window.vala:645
 msgid "_Go"
-msgstr ""
+msgstr "_Přejít"
 
 #: ../panel-plugin/window.vala:668
-#, fuzzy
 msgid "_Rename"
-msgstr "_Přejmenovat..."
+msgstr "_Přejmenovat"
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
+#: ../panel-plugin/window.vala:688
+#: ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "Vždy nahoře"
 
@@ -77,17 +79,16 @@ msgid "Sticky window"
 msgstr "Přilepené okno"
 
 #: ../panel-plugin/window.vala:755
-#, fuzzy
 msgid "_Rename group"
-msgstr "Přejmenovat poznámku"
+msgstr "_Přejmenovat skupinu"
 
 #: ../panel-plugin/window.vala:762
 msgid "_Delete group"
-msgstr ""
+msgstr "_Smazat skupinu"
 
 #: ../panel-plugin/window.vala:769
 msgid "_Add a new group"
-msgstr ""
+msgstr "_Přidat novou skupinu"
 
 #: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
@@ -102,15 +103,13 @@ msgid "Configure the plugin"
 msgstr "Konfigurovat zásuvný modul"
 
 #: ../panel-plugin/xfce4-notes-settings.c:100
-#, fuzzy
 msgid "Global settings"
-msgstr "Výchozí nastavení"
+msgstr "Globální nastavení"
 
 #. Hide from taskbar
 #: ../panel-plugin/xfce4-notes-settings.c:105
-#, fuzzy
 msgid "Hide notes from taskbar"
-msgstr "Skrýt okna z panelu úloh"
+msgstr "Skrýt poznámky z panelu úloh"
 
 #: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
@@ -121,15 +120,13 @@ msgid "Font:"
 msgstr "Písmo:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:138
-#, fuzzy
 msgid "New group settings"
-msgstr "Nastavení nového okna"
+msgstr "Nastavení nové skupiny"
 
 #. Sticky window
 #: ../panel-plugin/xfce4-notes-settings.c:150
-#, fuzzy
 msgid "Sticky"
-msgstr "Přilepené okno"
+msgstr "Přilepené"
 
 #: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
@@ -181,77 +178,55 @@ msgstr "Barva pozadí"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Ideal for your quick notes"
-msgstr ""
+msgstr "Ideální pro rychlé poznámky"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Zvolit písmo okna"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Opravdu chcete smazat toto okno?"
-
 #~ msgid "Window"
 #~ msgstr "Okno"
-
 #~ msgid "_Options"
 #~ msgstr "_Volby"
-
 #~ msgid "Note"
 #~ msgstr "Poznámka"
-
 #~ msgid "R_ename..."
 #~ msgstr "Př_ejmenovat..."
-
 #~ msgid "Show tabs"
 #~ msgstr "Zobrazit karty"
-
 #~ msgid "Show on startup"
 #~ msgstr "Zobrazit po spuštění"
-
 #~ msgid "Always"
 #~ msgstr "Vždy"
-
 #~ msgid "Never"
 #~ msgstr "Nikdy"
-
 #~ msgid "Last state"
 #~ msgstr "Poslední stav"
-
 #~ msgid "Rename window"
 #~ msgstr "Přejmenovat okno"
-
 #~ msgid "Error"
 #~ msgstr "Chyba"
-
 #~ msgid "Unable to rename window"
 #~ msgstr "Nelze přejmenovat okno"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Nelze přejmenovat poznámku"
-
 #~ msgid "Hide arrow button"
 #~ msgstr "Skrýt tlačítko šipky"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Zásuvný modul pro vytváření poznámek pro Xfce4"
-
 #~ msgid "Resize grip"
 #~ msgstr "Úchytka pro změnu velikosti"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Zásuvný modul Poznámky pro Xfce 4"
-
 #~ msgid "Show in the task list"
 #~ msgstr "Zobrazovat v seznamu úloh"
-
 #~ msgid "Create new note"
 #~ msgstr "Vytvořit novou poznámku"
-
 #~ msgid "Delete this note"
 #~ msgstr "Smazat tuto poznámku"
-
 #~ msgid "<b>Notes</b>"
 #~ msgstr "<b>Poznámky</b>"
-
 #~ msgid "Properties"
 #~ msgstr "Vlastnosti"
+
