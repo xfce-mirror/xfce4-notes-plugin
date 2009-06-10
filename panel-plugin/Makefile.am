@@ -17,7 +17,6 @@ xfce4_popup_notes_CFLAGS =						\
 	@GTK_CFLAGS@
 
 xfce4_popup_notes_LDADD =						\
-	@LIBX11_LDFLAGS@						\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@
 
@@ -71,7 +70,7 @@ xfce4_notes_plugin_SOURCES =						\
 	color.h								\
 	popup.c								\
 	popup.h								\
-xfce4_notes_plugin_SOURCES += $(vala_built_SOURCES)
+	$(vala_built_SOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
 	@LIBXFCE4PANEL_CFLAGS@						\
