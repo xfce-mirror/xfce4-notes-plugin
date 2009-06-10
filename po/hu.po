@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-09 15:44+0200\n"
-"PO-Revision-Date: 2009-05-25 18:15+0100\n"
+"PO-Revision-Date: 2009-06-10 09:03+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,59 +13,61 @@ msgstr ""
 "X-Poedit-Country: HUNGARY\n"
 "X-Poedit-Language: Hungarian\n"
 
-#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/main.vala:94
+#: ../panel-plugin/application.vala:101
+#: ../panel-plugin/window.vala:82
+#: ../panel-plugin/window.vala:117
+#: ../panel-plugin/window.vala:902
+#: ../panel-plugin/xfce4-notes-settings.c:77
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#: ../panel-plugin/application.vala:105
+#: ../panel-plugin/window.vala:905
 #, fuzzy, c-format
 msgid "Notes %d"
 msgstr "Jegyzetek"
 
 #: ../panel-plugin/application.vala:316
-#, fuzzy
 msgid "Rename group"
-msgstr "Jegyzet átnevezése"
+msgstr "Csoport átnevezése"
 
-#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
+#: ../panel-plugin/application.vala:337
+#: ../panel-plugin/window.vala:989
 #, c-format
 msgid "The name %s is already in use"
-msgstr ""
+msgstr "E nevet: %s már használjuk"
 
 #: ../panel-plugin/application.vala:362
-#, fuzzy
 msgid "Are you sure you want to delete this group?"
-msgstr "Tényleg törlöd e bejegyzést?"
+msgstr "Tényleg törlöd e csoportot?"
 
 #: ../panel-plugin/application.vala:417
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr ""
+msgstr "Az alábbi név érvénytelen: \"%s\"."
 
 #: ../panel-plugin/application.vala:418
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr ""
+msgstr "Az érvénytelen karakterek: %s"
 
 #: ../panel-plugin/application.vala:475
-#, fuzzy
 msgid "Unable to open the settings dialog"
-msgstr "Nem tudom megnyitni az alábbi url-t: %s"
+msgstr "Nem tudom megnyitni a párbeszédablakot"
 
 #: ../panel-plugin/window.vala:645
 msgid "_Go"
-msgstr ""
+msgstr "Ugrás"
 
 #: ../panel-plugin/window.vala:668
-#, fuzzy
 msgid "_Rename"
-msgstr "Átnevez..."
+msgstr "Átnevez"
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
+#: ../panel-plugin/window.vala:688
+#: ../panel-plugin/xfce4-notes-settings.c:143
 msgid "Always on top"
 msgstr "Mindig felül"
 
@@ -74,17 +76,16 @@ msgid "Sticky window"
 msgstr "Ragadós ablak"
 
 #: ../panel-plugin/window.vala:755
-#, fuzzy
 msgid "_Rename group"
-msgstr "Jegyzet átnevezése"
+msgstr "Csoport átnevezése"
 
 #: ../panel-plugin/window.vala:762
 msgid "_Delete group"
-msgstr ""
+msgstr "Csoport törlése"
 
 #: ../panel-plugin/window.vala:769
 msgid "_Add a new group"
-msgstr ""
+msgstr "Új csoport hozzáadása"
 
 #: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
@@ -99,15 +100,13 @@ msgid "Configure the plugin"
 msgstr "Beillesztés beállítása"
 
 #: ../panel-plugin/xfce4-notes-settings.c:100
-#, fuzzy
 msgid "Global settings"
-msgstr "Alap beállítások"
+msgstr "Általános beállítások"
 
 #. Hide from taskbar
 #: ../panel-plugin/xfce4-notes-settings.c:105
-#, fuzzy
 msgid "Hide notes from taskbar"
-msgstr "Ablakok rejtése a feladat-sávból"
+msgstr "Jegyzetek rejtése a feladatsávból"
 
 #: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Background:"
@@ -118,15 +117,13 @@ msgid "Font:"
 msgstr "Betű:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:138
-#, fuzzy
 msgid "New group settings"
-msgstr "új ablak beállítások"
+msgstr "új csoport beállítások"
 
 #. Sticky window
 #: ../panel-plugin/xfce4-notes-settings.c:150
-#, fuzzy
 msgid "Sticky"
-msgstr "Ragadós ablak"
+msgstr "Ragadós"
 
 #: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Size:"
@@ -183,88 +180,62 @@ msgstr ""
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Válassz ablak betűt"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Tényleg törlöd ezt az ablakot?"
-
 #~ msgid "Window"
 #~ msgstr "Ablak"
-
 #~ msgid "_Options"
 #~ msgstr "_Opciók"
-
 #~ msgid "Note"
 #~ msgstr "Jegyzet"
-
 #~ msgid "R_ename..."
 #~ msgstr "Átn_evez..."
-
 #~ msgid "Show tabs"
 #~ msgstr "Lapok mutatása"
-
 #~ msgid "Show on startup"
 #~ msgstr "Mutasd induláskor"
-
 #~ msgid "Always"
 #~ msgstr "Mindig"
-
 #~ msgid "Never"
 #~ msgstr "Soha"
-
 #~ msgid "Last state"
 #~ msgstr "Utolsó állapot"
-
 #~ msgid "Rename window"
 #~ msgstr "Ablak átnevezése"
-
 #~ msgid "Error"
 #~ msgstr "Hiba"
-
 #~ msgid "Unable to rename window"
 #~ msgstr "Sikertelen ablak átnevezés"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Sikertelen jegyzet átnevezés"
-
 #~ msgid "Hide arrow button"
 #~ msgstr "Nyíl gomb rejtése"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Jegyzettömb beillesztés az Xfce4 panelhoz"
-
 #~ msgid "Resize grip"
 #~ msgstr "Átméretező keret"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Xfce 4 Jegyzetek"
-
 #~ msgid "Show in the task list"
 #~ msgstr "Mutasd a feladatlistában"
-
 #~ msgid "Create new note"
 #~ msgstr "Új jegyzet"
-
 #~ msgid "Delete this note"
 #~ msgstr "Jegyzet törlése"
-
 #~ msgid "<b>Notes</b>"
 #~ msgstr "<b>Jegyzetek</b>"
-
 #~ msgid "Properties"
 #~ msgstr "Tulajdonságok"
-
 #~ msgid "Always show vertical scrollbar"
 #~ msgstr "Függőleges görgetősáv mindig"
-
 #~ msgid "A restart of the panel is needed"
 #~ msgstr "A panel újraindítása szükséges"
-
 #~ msgid "Open a new page"
 #~ msgstr "Új lapot nyit"
-
 #~ msgid ""
 #~ "Notes\n"
 #~ "Click this button to show/hide your notes"
 #~ msgstr ""
 #~ "Jegyzetek\n"
 #~ "Kattints e gombra jegyzeteid mutatásához/elrejtéséhez"
+
