@@ -22,7 +22,11 @@ using Xfconf;
 using Xfce;
 using Gtk;
 
-public class NotesPlugin : GLib.Object {
+#if HAVE_LIBXFCE4PANEL47
+public class NotesPlugin : Xfce.PanelPlugin {
+#else
+public class NotesPlugin : Object {
+#endif
 
 	private Gtk.Invisible invisible;
 	private Gtk.Button button;
@@ -30,18 +34,43 @@ public class NotesPlugin : GLib.Object {
 	private Xfce.PanelPlugin panel_plugin;
 	private Xnp.Application application;
 
+#if HAVE_LIBXFCE4PANEL47
+	~NotesPlugin () {
+		Xfconf.shutdown ();
+	}
+
+	public override void @construct () {
+#else
 	public NotesPlugin (Xfce.PanelPlugin panel_plugin) {
+#endif
+		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
+		try {
+			Xfconf.init ();
+		}
+		catch (Xfconf.Error e) {
+			warning ("%s", e.message);
+		}
+
+		application = new Xnp.Application (save_location (true));
+
+#if HAVE_LIBXFCE4PANEL47
+		panel_plugin = this;
+		button = (Gtk.Button)Xfce.panel_create_button ();
+#else
 		this.panel_plugin = panel_plugin;
-
-		application = new Xnp.Application (panel_plugin.save_location (true));
-
 		button = Xfce.create_panel_button ();
+#endif
 		image = new Gtk.Image ();
 		button.add (image);
 		button.clicked += () => { application.show_hide_notes (); };
 		button.show_all ();
 		panel_plugin.add (button);
 		panel_plugin.add_action_widget (button);
+		panel_plugin.set_tooltip_text (_("Notes"));
+		panel_plugin.menu_show_configure ();
+
+		set_x_selection ();
+
 		panel_plugin.size_changed += (p, size) => {
 			button.set_size_request (size, size);
 			size -= 2 + 2 * ((button.style.xthickness > button.style.ythickness) ? button.style.xthickness : button.style.ythickness);
@@ -51,9 +80,6 @@ public class NotesPlugin : GLib.Object {
 			image.set_from_pixbuf (pixbuf);
 			return true;
 		};
-
-		set_x_selection ();
-
 		panel_plugin.save += () => {
 			application.save_windows_configuration ();
 		};
@@ -86,25 +112,20 @@ public class NotesPlugin : GLib.Object {
 		return true;
 	}
 
-
-
-	static NotesPlugin plugin;
-	public static void register (Xfce.PanelPlugin panel_plugin) {
-		plugin = new NotesPlugin (panel_plugin);
-		panel_plugin.set_tooltip_text (_("Notes"));
-		panel_plugin.menu_show_configure ();
-	}
-
-	public static int main (string[] args) {
-		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-		try {
-			Xfconf.init ();
-		}
-		catch (Xfconf.Error e) {
-			warning ("%s", e.message);
-		}
-		Xfce.PanelPluginRegisterExternal (ref args, NotesPlugin.register);
-		Xfconf.shutdown ();
-		return 0;
-	}
 }
+
+#if HAVE_LIBXFCE4PANEL47
+[ModuleInit]
+public Type __xpp_init (TypeModule module) {
+	return typeof (NotesPlugin);
+}
+#else
+static NotesPlugin plugin;
+public static void register (Xfce.PanelPlugin panel_plugin) {
+	plugin = new NotesPlugin (panel_plugin);
+}
+
+public static int main (string[] args) {
+	return Xfce.PanelPluginRegisterExternal (ref args, register);
+}
+#endif

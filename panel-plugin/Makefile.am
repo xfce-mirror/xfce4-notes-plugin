@@ -1,7 +1,7 @@
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
-	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
+	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\"
 
 #
 # Popup program
@@ -45,23 +45,52 @@ xfce4_notes_settings_LDADD =						\
 #
 if MAINTAINER_MODE
 xfce4_notes_plugin_VALASOURCES =					\
-	main.vala							\
-	application.vala						\
-	window.vala							\
+	hypertextview.vala						\
 	note.vala							\
-	hypertextview.vala
+	window.vala							\
+	application.vala						\
+	main.vala
 
 vala_built_SOURCES = $(xfce4_notes_plugin_VALASOURCES:.vala=.c)
-
 BUILT_SOURCES = vala.stamp
+
+if HAVE_LIBXFCE4PANEL47
+DEFINES=-D HAVE_LIBXFCE4PANEL47
+endif
 vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
-	$(VALAC) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 --pkg=libxfce4panel-1.0 $^ -C
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 --pkg=libxfcegui4-1.0 --pkg=libxfce4panel-1.0 $^ -C
 	touch $@
 endif
 
 #
 # Plugin
 #
+if HAVE_LIBXFCE4PANEL47
+
+plugindir = $(libdir)/xfce4/panel-plugins
+plugin_LTLIBRARIES = libnotes.la
+
+libnotes_la_SOURCES =							\
+	color.c								\
+	color.h								\
+	popup.c								\
+	popup.h								\
+	$(vala_built_SOURCES)
+
+libnotes_la_CFLAGS =							\
+	@LIBXFCE4PANEL_CFLAGS@						\
+	@LIBXFCE4UTIL_CFLAGS@						\
+	@LIBXFCEGUI4_CFLAGS@						\
+	@XFCONF_CFLAGS@
+
+libnotes_la_LIBADD =							\
+	@LIBXFCE4PANEL_LIBS@						\
+	@LIBXFCE4UTIL_LIBS@						\
+	@LIBXFCEGUI4_LIBS@						\
+	@XFCONF_LIBS@
+
+else
+
 plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
 
@@ -84,10 +113,16 @@ xfce4_notes_plugin_LDADD =						\
 	@LIBXFCEGUI4_LIBS@						\
 	@XFCONF_LIBS@
 
+endif
+
 #
 # Plugin desktop file
 #
+if HAVE_LIBXFCE4PANEL47
+desktop_in_in_files = xfce4-notes-plugin-47.desktop.in.in
+else
 desktop_in_in_files = xfce4-notes-plugin.desktop.in.in
+endif
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 
 desktopdir = $(datadir)/xfce4/panel-plugins
@@ -95,7 +130,7 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
 %.desktop.in: %.desktop.in.in
-	sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(libexecdir)/xfce4/panel-plugins^" \
+	sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(plugindir)^" \
 		$< > $@
 
 #

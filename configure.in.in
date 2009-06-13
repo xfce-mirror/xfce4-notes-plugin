@@ -34,6 +34,7 @@ AC_MINIX
 
 dnl Check for basic programs
 AC_PROG_CC_C_O
+AC_PROG_LD
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 AC_PROG_INTLTOOL
@@ -45,25 +46,21 @@ AC_CHECK_HEADERS([math.h])
 dnl Check for X11 installed
 XDT_CHECK_LIBX11_REQUIRE
 
-dnl configure the panel plugin
+dnl Check for required packages
 XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
 XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.6.0])
 
-dnl check for valac
+dnl Check for libxfce4panel >= 4.7
+XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4PANEL47], [libxfce4panel-1.0], [4.7.0], [], [])
+
+dnl Check for valac
 valac_minimum_version=0.7.1
+AC_PATH_PROG([VALAC], [valac], [valac])
+AC_SUBST(VALAC)
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	AC_CHECK_PROG([has_valac], [valac], [yes], [no])
-	AC_PATH_PROG([VALAC], [valac], [valac])
-	AC_SUBST(VALAC)
-	if test "x$has_valac" != "xyes" ; then
-		echo "***"
-		echo "*** You need the valac compiler in order to compile parts of the project"
-		echo "***"
-		echo
-	fi
 	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
 fi
 

@@ -1,0 +1,10 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+_Name=Notes
+_Comment=Ideal for your quick notes
+Icon=xfce4-notes-plugin
+X-XFCE-Unique=true
+X-XFCE-Module=notes
+X-XFCE-Module-Path=@EXTERNAL_PLUGIN_PATH@
+X-XFCE-Internal=FALSE
