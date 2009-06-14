@@ -1,25 +1,34 @@
-2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+2009-06-14  Mike Massonnet <mmassonnet@xfce.org>
+
+Properly shutdown Xfconf
+	* panel-plugin/main.vala:
+	  - On NotesPlugin destruction, destroy application as to call its
+	  destructor and save the settings to Xfconf before shutting Xfconf
+	  down.
+	  - Set panel_plugin a weak ref (no need to ref/unref it).
+
+2009-06-14  Mike Massonnet <mmassonnet@xfce.org>
 
 Refactorize main.vala
 
-2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+2009-06-14  Mike Massonnet <mmassonnet@xfce.org>
 
 Previous problem catched...
 
 The valac compiler doesn't like libxfcegui4+libxfce4panel...
 
-2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+2009-06-14  Mike Massonnet <mmassonnet@xfce.org>
 
 Fix compilation for libxfce4panel < 4.7
 
 It still doesn't compile, and frankly I have not the slightest bit why this is
 so. The resulting C code from main.vala does not include libxfce4panel.h.
 
-2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+2009-06-13  Mike Massonnet <mmassonnet@xfce.org>
 
 Support for libxfce4panel >= 4.7
 
-2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+2009-06-10  Mike Massonnet <mmassonnet@xfce.org>
 
 Minor automake script review
 

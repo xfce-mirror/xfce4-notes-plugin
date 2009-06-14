@@ -31,11 +31,12 @@ public class NotesPlugin : GLib.Object {
 	private Gtk.Invisible invisible;
 	private Gtk.Button button;
 	private Gtk.Image image;
-	private Xfce.PanelPlugin panel_plugin;
+	private weak Xfce.PanelPlugin panel_plugin;
 	private Xnp.Application application;
 
 	~NotesPlugin () {
-		// FIXME: Is called before unrefing application
+		// Destroy application before calling Xfconf.shutdown()
+		application = null;
 		Xfconf.shutdown ();
 	}
 
