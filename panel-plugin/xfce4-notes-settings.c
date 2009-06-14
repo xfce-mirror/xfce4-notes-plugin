@@ -42,10 +42,12 @@ static void cb_size_combobox_changed (GtkComboBox *combobox, gpointer data);
 enum
 {
   COMBOBOX_BACKGROUND_YELLOW,
-  COMBOBOX_BACKGROUND_RED,
   COMBOBOX_BACKGROUND_BLUE,
   COMBOBOX_BACKGROUND_GREEN,
-  COMBOBOX_BACKGROUND_PURPLE,
+  COMBOBOX_BACKGROUND_INDIGO,
+  COMBOBOX_BACKGROUND_OLIVE,
+  COMBOBOX_BACKGROUND_CARMIN,
+  COMBOBOX_BACKGROUND_MIMOSA,
   COMBOBOX_BACKGROUND_WHITE,
   COMBOBOX_BACKGROUND_CUSTOM,
 };
@@ -238,24 +240,30 @@ background_combo_box_new ()
 
   combobox = gtk_combo_box_new_text ();
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Yellow"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Red"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Blue"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Green"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Purple"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Indigo"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Olive"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Carmin"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Mimosa"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("White"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Custom..."));
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   if (!g_ascii_strcasecmp (color, BACKGROUND_YELLOW))
     id = COMBOBOX_BACKGROUND_YELLOW;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_RED))
-    id = COMBOBOX_BACKGROUND_RED;
   else if (!g_ascii_strcasecmp (color, BACKGROUND_BLUE))
     id = COMBOBOX_BACKGROUND_BLUE;
   else if (!g_ascii_strcasecmp (color, BACKGROUND_GREEN))
     id = COMBOBOX_BACKGROUND_GREEN;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_PURPLE))
-    id = COMBOBOX_BACKGROUND_PURPLE;
+  else if (!g_ascii_strcasecmp (color, BACKGROUND_INDIGO))
+    id = COMBOBOX_BACKGROUND_INDIGO;
+  else if (!g_ascii_strcasecmp (color, BACKGROUND_OLIVE))
+    id = COMBOBOX_BACKGROUND_OLIVE;
+  else if (!g_ascii_strcasecmp (color, BACKGROUND_CARMIN))
+    id = COMBOBOX_BACKGROUND_CARMIN;
+  else if (!g_ascii_strcasecmp (color, BACKGROUND_MIMOSA))
+    id = COMBOBOX_BACKGROUND_MIMOSA;
   else if (!g_ascii_strcasecmp (color, BACKGROUND_WHITE))
     id = COMBOBOX_BACKGROUND_WHITE;
   else
@@ -287,14 +295,18 @@ cb_background_changed (GtkComboBox *combobox,
 
   if (id == COMBOBOX_BACKGROUND_YELLOW)
     color = BACKGROUND_YELLOW;
-  else if (id == COMBOBOX_BACKGROUND_RED)
-    color = BACKGROUND_RED;
   else if (id == COMBOBOX_BACKGROUND_BLUE)
     color = BACKGROUND_BLUE;
   else if (id == COMBOBOX_BACKGROUND_GREEN)
     color = BACKGROUND_GREEN;
-  else if (id == COMBOBOX_BACKGROUND_PURPLE)
-    color = BACKGROUND_PURPLE;
+  else if (id == COMBOBOX_BACKGROUND_INDIGO)
+    color = BACKGROUND_INDIGO;
+  else if (id == COMBOBOX_BACKGROUND_OLIVE)
+    color = BACKGROUND_OLIVE;
+  else if (id == COMBOBOX_BACKGROUND_CARMIN)
+    color = BACKGROUND_CARMIN;
+  else if (id == COMBOBOX_BACKGROUND_MIMOSA)
+    color = BACKGROUND_MIMOSA;
   else if (id == COMBOBOX_BACKGROUND_WHITE)
     color = BACKGROUND_WHITE;
   else if (id == COMBOBOX_BACKGROUND_CUSTOM)

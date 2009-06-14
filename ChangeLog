@@ -1,5 +1,11 @@
 2009-06-14  Mike Massonnet <mmassonnet@xfce.org>
 
+Define new colors
+	* panel-plugin/defines.h, panel-plugin/xfce4-notes-settings.c:
+	  - Replace and use some other colors.
+
+2009-06-14  Mike Massonnet <mmassonnet@xfce.org>
+
 Properly shutdown Xfconf
 	* panel-plugin/main.vala:
 	  - On NotesPlugin destruction, destroy application as to call its
