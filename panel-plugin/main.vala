@@ -25,7 +25,7 @@ using Gtk;
 #if HAVE_LIBXFCE4PANEL47
 public class NotesPlugin : Xfce.PanelPlugin {
 #else
-public class NotesPlugin : Object {
+public class NotesPlugin : GLib.Object {
 #endif
 
 	private Gtk.Invisible invisible;
@@ -40,8 +40,10 @@ public class NotesPlugin : Object {
 	}
 
 	public override void @construct () {
+		panel_plugin = this;
 #else
 	public NotesPlugin (Xfce.PanelPlugin panel_plugin) {
+		this.panel_plugin = panel_plugin;
 #endif
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
 		try {
@@ -51,13 +53,11 @@ public class NotesPlugin : Object {
 			warning ("%s", e.message);
 		}
 
-		application = new Xnp.Application (save_location (true));
+		application = new Xnp.Application (panel_plugin.save_location (true));
 
 #if HAVE_LIBXFCE4PANEL47
-		panel_plugin = this;
 		button = (Gtk.Button)Xfce.panel_create_button ();
 #else
-		this.panel_plugin = panel_plugin;
 		button = Xfce.create_panel_button ();
 #endif
 		image = new Gtk.Image ();
@@ -112,20 +112,21 @@ public class NotesPlugin : Object {
 		return true;
 	}
 
+#if !HAVE_LIBXFCE4PANEL47
+	static NotesPlugin plugin;
+	public static void panel_plugin_register (Xfce.PanelPlugin panel_plugin) {
+		plugin = new NotesPlugin (panel_plugin);
+	}
+
+	public static int main (string[] args) {
+		return Xfce.PanelPluginRegisterExternal (ref args, panel_plugin_register);
+	}
+#endif
 }
 
 #if HAVE_LIBXFCE4PANEL47
 [ModuleInit]
 public Type __xpp_init (TypeModule module) {
 	return typeof (NotesPlugin);
-}
-#else
-static NotesPlugin plugin;
-public static void register (Xfce.PanelPlugin panel_plugin) {
-	plugin = new NotesPlugin (panel_plugin);
-}
-
-public static int main (string[] args) {
-	return Xfce.PanelPluginRegisterExternal (ref args, register);
 }
 #endif

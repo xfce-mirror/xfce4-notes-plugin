@@ -1,5 +1,12 @@
 2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix compilation for libxfce4panel < 4.7
+
+It still doesn't compile, and frankly I have not the slightest bit why this is
+so. The resulting C code from main.vala does not include libxfce4panel.h.
+
+2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+
 Support for libxfce4panel >= 4.7
 
 2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
