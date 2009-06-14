@@ -56,9 +56,12 @@ BUILT_SOURCES = vala.stamp
 
 if HAVE_LIBXFCE4PANEL47
 DEFINES=-D HAVE_LIBXFCE4PANEL47
+PACKAGES=--pkg=libxfcegui4-1.0 --pkg=libxfce4panel-1.0
+else
+PACKAGES=--pkg=libxfce4panel-1.0
 endif
 vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
-	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 --pkg=libxfcegui4-1.0 --pkg=libxfce4panel-1.0 $^ -C
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 $(PACKAGES) $^ -C
 	touch $@
 endif
 

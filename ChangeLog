@@ -1,5 +1,11 @@
 2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
 
+Previous problem catched...
+
+The valac compiler doesn't like libxfcegui4+libxfce4panel...
+
+2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+
 Fix compilation for libxfce4panel < 4.7
 
 It still doesn't compile, and frankly I have not the slightest bit why this is
