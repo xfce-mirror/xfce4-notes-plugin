@@ -34,17 +34,19 @@ public class NotesPlugin : GLib.Object {
 	private Xfce.PanelPlugin panel_plugin;
 	private Xnp.Application application;
 
-#if HAVE_LIBXFCE4PANEL47
 	~NotesPlugin () {
+		// FIXME: Is called before unrefing application
 		Xfconf.shutdown ();
 	}
 
+#if HAVE_LIBXFCE4PANEL47
 	public override void @construct () {
 		panel_plugin = this;
 #else
 	public NotesPlugin (Xfce.PanelPlugin panel_plugin) {
 		this.panel_plugin = panel_plugin;
 #endif
+
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
 		try {
 			Xfconf.init ();
@@ -112,21 +114,19 @@ public class NotesPlugin : GLib.Object {
 		return true;
 	}
 
-#if !HAVE_LIBXFCE4PANEL47
-	static NotesPlugin plugin;
-	public static void panel_plugin_register (Xfce.PanelPlugin panel_plugin) {
-		plugin = new NotesPlugin (panel_plugin);
-	}
-
-	public static int main (string[] args) {
-		return Xfce.PanelPluginRegisterExternal (ref args, panel_plugin_register);
-	}
-#endif
 }
 
 #if HAVE_LIBXFCE4PANEL47
 [ModuleInit]
 public Type __xpp_init (TypeModule module) {
 	return typeof (NotesPlugin);
+}
+#else
+static NotesPlugin plugin;
+public static void panel_plugin_register (Xfce.PanelPlugin panel_plugin) {
+	plugin = new NotesPlugin (panel_plugin);
+}
+public static int main (string[] args) {
+	return Xfce.PanelPluginRegisterExternal (ref args, panel_plugin_register);
 }
 #endif

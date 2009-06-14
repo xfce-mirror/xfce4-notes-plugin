@@ -1,5 +1,9 @@
 2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
 
+Refactorize main.vala
+
+2009-06-09  Mike Massonnet <mmassonnet@xfce.org>
+
 Previous problem catched...
 
 The valac compiler doesn't like libxfcegui4+libxfce4panel...
