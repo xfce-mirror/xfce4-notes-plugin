@@ -28,6 +28,7 @@ bin_PROGRAMS += xfce4-notes-settings
 xfce4_notes_settings_SOURCES =						\
 	color.c								\
 	color.h								\
+	defines.h							\
 	xfce4-notes-settings.c
 
 xfce4_notes_settings_CFLAGS =						\
@@ -121,15 +122,17 @@ endif
 #
 # Plugin desktop file
 #
-if HAVE_LIBXFCE4PANEL47
-desktop_in_in_files = xfce4-notes-plugin-47.desktop.in.in
-else
-desktop_in_in_files = xfce4-notes-plugin.desktop.in.in
-endif
+desktop_in_in_files =							\
+	xfce4-notes-plugin-47.desktop.in.in				\
+	xfce4-notes-plugin.desktop.in.in
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 
 desktopdir = $(datadir)/xfce4/panel-plugins
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+if HAVE_LIBXFCE4PANEL47
+desktop_DATA = xfce4-notes-plugin-47.desktop
+else
+desktop_DATA = xfce4-notes-plugin.desktop
+endif
 @INTLTOOL_DESKTOP_RULE@
 
 %.desktop.in: %.desktop.in.in

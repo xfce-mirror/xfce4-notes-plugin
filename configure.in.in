@@ -61,7 +61,11 @@ valac_minimum_version=0.7.1
 AC_PATH_PROG([VALAC], [valac], [valac])
 AC_SUBST(VALAC)
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
+	if test "xHAVE_LIBXFCE4PANEL47" = "xyes" ; then
+		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
+	else
+		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1]) # 0.2
+	fi
 fi
 
 dnl Translations

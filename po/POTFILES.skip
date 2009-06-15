@@ -1,0 +1,5 @@
+panel-plugin/main.c
+panel-plugin/application.c
+panel-plugin/window.c
+panel-plugin/note.c
+panel-plugin/hypertextview.c

@@ -1,28 +1,38 @@
 @SET_MAKE@
 
-SUBDIRS =														\
-	icons														\
-	panel-plugin												\
+SUBDIRS =								\
+	icons								\
+	panel-plugin							\
 	po
-
 
 distclean-local:
 	rm -rf *.cache *~
 
-dist-bz2: dist
-	zcat $(PACKAGE)-$(VERSION).tar.gz | bzip2 --best -c > $(PACKAGE)-$(VERSION).tar.bz2
+EXTRA_DIST =								\
+	AUTHORS								\
+	ChangeLog							\
+	COPYING								\
+	INSTALL								\
+	NEWS								\
+	README								\
+	intltool-extract.in						\
+	intltool-merge.in						\
+	intltool-update.in
 
-distcheck-bz2: distcheck
-	zcat $(PACKAGE)-$(VERSION).tar.gz | bzip2 --best -c > $(PACKAGE)-$(VERSION).tar.bz2
+DISTCLEANFILES =							\
+	aclocal.m4							\
+	compile								\
+	config.guess							\
+	config.h.in							\
+	config.sub							\
+	configure							\
+	configure.ac							\
+	depcomp								\
+	install-sh							\
+	ltmain.sh							\
+	missing								\
+	mkinstalldirs							\
+	intltool-extract						\
+	intltool-merge							\
+	intltool-update
 
-
-EXTRA_DIST =													\
-    README														\
-    intltool-extract.in											\
-    intltool-merge.in											\
-    intltool-update.in
-
-DISTCLEANFILES =												\
-    intltool-extract											\
-    intltool-merge												\
-    intltool-update
