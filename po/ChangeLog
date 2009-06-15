@@ -1,3 +1,13 @@
+2009-06-15  Mike Massonnet <mmassonnet@xfce.org>
+
+	* ur.po, ur_PK.po: Urdu and Urdu Pakistan translation update (Muhammad Ali Makki)
+	* ca.po: Catalan translation update (Carles Muñoz Gorriz)
+	* es.po: Spanish translation update (elega)
+	* de.po: German translation update (Fabian Nowak)
+	* nl.po: Dutch translation update (Vincent)
+	* vi.po: Vietnamese translation update (Vincent Nguyen)
+	* zh_CN.po: Simplified Chinese translation update (Hunt Xu)
+
 2009-06-12 Per Kongstad <pko@xfce.org>
 
 	* da.po: Danish translation update (Per Kongstad)
