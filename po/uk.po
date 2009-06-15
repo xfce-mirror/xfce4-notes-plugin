@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 15:44+0200\n"
+"POT-Creation-Date: 2009-06-15 15:28+0200\n"
 "PO-Revision-Date: 2009-02-24 19:54+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:101
 #: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Записки"
@@ -68,7 +68,7 @@ msgid "_Rename"
 msgstr "_Перейменувати..."
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Always on top"
 msgstr "Завжди зверху"
 
@@ -97,91 +97,105 @@ msgstr "Ви впевнені, що бажаєте видалити записк
 msgid "Rename note"
 msgstr "Перейменувати записку"
 
-#: ../panel-plugin/xfce4-notes-settings.c:81
+#: ../panel-plugin/xfce4-notes-settings.c:84
 msgid "Configure the plugin"
 msgstr "Налаштувати плагін"
 
-#: ../panel-plugin/xfce4-notes-settings.c:100
+#: ../panel-plugin/xfce4-notes-settings.c:103
 #, fuzzy
 msgid "Global settings"
 msgstr "Типові налаштування"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:105
+#: ../panel-plugin/xfce4-notes-settings.c:108
 #, fuzzy
 msgid "Hide notes from taskbar"
 msgstr "Ховати вікна від панелі задач"
 
-#: ../panel-plugin/xfce4-notes-settings.c:115
+#: ../panel-plugin/xfce4-notes-settings.c:118
 msgid "Background:"
 msgstr "Фон:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:128
+#: ../panel-plugin/xfce4-notes-settings.c:131
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:141
 #, fuzzy
 msgid "New group settings"
 msgstr "Властивості нового вікна"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:150
+#: ../panel-plugin/xfce4-notes-settings.c:153
 #, fuzzy
 msgid "Sticky"
 msgstr "Липуче вікно"
 
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:163
 msgid "Size:"
 msgstr "Розмір:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:179
+#: ../panel-plugin/xfce4-notes-settings.c:182
 msgid "Small"
 msgstr "Малий"
 
-#: ../panel-plugin/xfce4-notes-settings.c:180
+#: ../panel-plugin/xfce4-notes-settings.c:183
 msgid "Normal"
 msgstr "Звичайний"
 
-#: ../panel-plugin/xfce4-notes-settings.c:181
+#: ../panel-plugin/xfce4-notes-settings.c:184
 msgid "Large"
 msgstr "Великий"
 
-#: ../panel-plugin/xfce4-notes-settings.c:239
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Yellow"
 msgstr "Жовтий"
 
-#: ../panel-plugin/xfce4-notes-settings.c:240
-msgid "Red"
-msgstr "Червоний"
-
-#: ../panel-plugin/xfce4-notes-settings.c:241
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Blue"
 msgstr "Синій"
 
-#: ../panel-plugin/xfce4-notes-settings.c:242
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "Green"
 msgstr "Зелений"
 
-#: ../panel-plugin/xfce4-notes-settings.c:243
-msgid "Purple"
-msgstr "Рожевий"
+#: ../panel-plugin/xfce4-notes-settings.c:245
+msgid "Indigo"
+msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:244
+#: ../panel-plugin/xfce4-notes-settings.c:246
+msgid "Olive"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:247
+msgid "Carmin"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:248
+msgid "Mimosa"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
 msgstr "Білий"
 
-#: ../panel-plugin/xfce4-notes-settings.c:245
+#: ../panel-plugin/xfce4-notes-settings.c:250
 msgid "Custom..."
 msgstr "Вибрати..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:334
+#: ../panel-plugin/xfce4-notes-settings.c:347
 msgid "Background Color"
 msgstr "Колір фону"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Ideal for your quick notes"
 msgstr ""
+
+#~ msgid "Red"
+#~ msgstr "Червоний"
+
+#~ msgid "Purple"
+#~ msgstr "Рожевий"
 
 #, fuzzy
 #~ msgid "Choose current note font"

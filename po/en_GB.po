@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 15:44+0200\n"
+"POT-Creation-Date: 2009-06-15 15:28+0200\n"
 "PO-Revision-Date: 2008-05-10 13:28+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:101
 #: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Notes"
@@ -69,7 +69,7 @@ msgid "_Rename"
 msgstr "_Rename..."
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Always on top"
 msgstr "Always on top"
 
@@ -98,87 +98,95 @@ msgstr "Are you sure you want to delete this note?"
 msgid "Rename note"
 msgstr "Rename note"
 
-#: ../panel-plugin/xfce4-notes-settings.c:81
+#: ../panel-plugin/xfce4-notes-settings.c:84
 msgid "Configure the plugin"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:100
+#: ../panel-plugin/xfce4-notes-settings.c:103
 #, fuzzy
 msgid "Global settings"
 msgstr "Default settings"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:105
+#: ../panel-plugin/xfce4-notes-settings.c:108
 #, fuzzy
 msgid "Hide notes from taskbar"
 msgstr "Hide windows from taskbar"
 
-#: ../panel-plugin/xfce4-notes-settings.c:115
+#: ../panel-plugin/xfce4-notes-settings.c:118
 msgid "Background:"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:128
+#: ../panel-plugin/xfce4-notes-settings.c:131
 #, fuzzy
 msgid "Font:"
 msgstr "Font"
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:141
 #, fuzzy
 msgid "New group settings"
 msgstr "New window settings"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:150
+#: ../panel-plugin/xfce4-notes-settings.c:153
 #, fuzzy
 msgid "Sticky"
 msgstr "Sticky window"
 
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:163
 #, fuzzy
 msgid "Size:"
 msgstr "Size"
 
-#: ../panel-plugin/xfce4-notes-settings.c:179
+#: ../panel-plugin/xfce4-notes-settings.c:182
 msgid "Small"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:180
+#: ../panel-plugin/xfce4-notes-settings.c:183
 msgid "Normal"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:181
+#: ../panel-plugin/xfce4-notes-settings.c:184
 msgid "Large"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:239
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Yellow"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:240
-msgid "Red"
-msgstr ""
-
-#: ../panel-plugin/xfce4-notes-settings.c:241
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Blue"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:242
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "Green"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:243
-msgid "Purple"
+#: ../panel-plugin/xfce4-notes-settings.c:245
+msgid "Indigo"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:244
+#: ../panel-plugin/xfce4-notes-settings.c:246
+msgid "Olive"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:247
+msgid "Carmin"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:248
+msgid "Mimosa"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:245
+#: ../panel-plugin/xfce4-notes-settings.c:250
 msgid "Custom..."
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:334
+#: ../panel-plugin/xfce4-notes-settings.c:347
 msgid "Background Color"
 msgstr ""
 

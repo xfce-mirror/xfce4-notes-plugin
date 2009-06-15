@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 15:44+0200\n"
+"POT-Creation-Date: 2009-06-15 15:28+0200\n"
 "PO-Revision-Date: 2009-06-14 20:12+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:101
 #: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "便笺"
@@ -64,7 +64,7 @@ msgid "_Rename"
 msgstr "重命名(_R)"
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Always on top"
 msgstr "总是置顶"
 
@@ -92,87 +92,101 @@ msgstr "确定要删除该便笺?"
 msgid "Rename note"
 msgstr "重命名便笺"
 
-#: ../panel-plugin/xfce4-notes-settings.c:81
+#: ../panel-plugin/xfce4-notes-settings.c:84
 msgid "Configure the plugin"
 msgstr "配置此插件"
 
-#: ../panel-plugin/xfce4-notes-settings.c:100
+#: ../panel-plugin/xfce4-notes-settings.c:103
 msgid "Global settings"
 msgstr "全局设置"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:105
+#: ../panel-plugin/xfce4-notes-settings.c:108
 msgid "Hide notes from taskbar"
 msgstr "从任务栏中隐藏"
 
-#: ../panel-plugin/xfce4-notes-settings.c:115
+#: ../panel-plugin/xfce4-notes-settings.c:118
 msgid "Background:"
 msgstr "背景："
 
-#: ../panel-plugin/xfce4-notes-settings.c:128
+#: ../panel-plugin/xfce4-notes-settings.c:131
 msgid "Font:"
 msgstr "字体："
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:141
 msgid "New group settings"
 msgstr "新组设置"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:150
+#: ../panel-plugin/xfce4-notes-settings.c:153
 msgid "Sticky"
 msgstr "粘滞"
 
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:163
 msgid "Size:"
 msgstr "尺寸："
 
-#: ../panel-plugin/xfce4-notes-settings.c:179
+#: ../panel-plugin/xfce4-notes-settings.c:182
 msgid "Small"
 msgstr "小"
 
-#: ../panel-plugin/xfce4-notes-settings.c:180
+#: ../panel-plugin/xfce4-notes-settings.c:183
 msgid "Normal"
 msgstr "中等"
 
-#: ../panel-plugin/xfce4-notes-settings.c:181
+#: ../panel-plugin/xfce4-notes-settings.c:184
 msgid "Large"
 msgstr "大"
 
-#: ../panel-plugin/xfce4-notes-settings.c:239
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Yellow"
 msgstr "黄色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:240
-msgid "Red"
-msgstr "红色"
-
-#: ../panel-plugin/xfce4-notes-settings.c:241
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Blue"
 msgstr "蓝色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:242
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "Green"
 msgstr "绿色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:243
-msgid "Purple"
-msgstr "紫色"
+#: ../panel-plugin/xfce4-notes-settings.c:245
+msgid "Indigo"
+msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:244
+#: ../panel-plugin/xfce4-notes-settings.c:246
+msgid "Olive"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:247
+msgid "Carmin"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:248
+msgid "Mimosa"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
 msgstr "白色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:245
+#: ../panel-plugin/xfce4-notes-settings.c:250
 msgid "Custom..."
 msgstr "自定义..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:334
+#: ../panel-plugin/xfce4-notes-settings.c:347
 msgid "Background Color"
 msgstr "背景颜色"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Ideal for your quick notes"
 msgstr "一个理想的快速便笺程序"
+
+#~ msgid "Red"
+#~ msgstr "红色"
+
+#~ msgid "Purple"
+#~ msgstr "紫色"
 
 #~ msgid "Choose current note font"
 #~ msgstr "选择当前便笺的字体"

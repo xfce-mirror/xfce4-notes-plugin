@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 15:44+0200\n"
+"POT-Creation-Date: 2009-06-15 15:28+0200\n"
 "PO-Revision-Date: 2008-05-02 10:22+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
@@ -18,9 +18,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../panel-plugin/main.vala:94 ../panel-plugin/application.vala:101
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:101
 #: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:77
+#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Oharrak"
@@ -70,7 +70,7 @@ msgid "_Rename"
 msgstr "Be_rrizendatu..."
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:143
+#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Always on top"
 msgstr "Beti goian"
 
@@ -99,87 +99,95 @@ msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
 msgid "Rename note"
 msgstr "Berrizendatu oharra"
 
-#: ../panel-plugin/xfce4-notes-settings.c:81
+#: ../panel-plugin/xfce4-notes-settings.c:84
 msgid "Configure the plugin"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:100
+#: ../panel-plugin/xfce4-notes-settings.c:103
 #, fuzzy
 msgid "Global settings"
 msgstr "Lehenetsiriko ezarpenak"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:105
+#: ../panel-plugin/xfce4-notes-settings.c:108
 #, fuzzy
 msgid "Hide notes from taskbar"
 msgstr "Ezkutatu leihoa ataza-barratik"
 
-#: ../panel-plugin/xfce4-notes-settings.c:115
+#: ../panel-plugin/xfce4-notes-settings.c:118
 msgid "Background:"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:128
+#: ../panel-plugin/xfce4-notes-settings.c:131
 #, fuzzy
 msgid "Font:"
 msgstr "Letra-tipoa"
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:141
 #, fuzzy
 msgid "New group settings"
 msgstr "Leiho berri ezarpenak"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:150
+#: ../panel-plugin/xfce4-notes-settings.c:153
 #, fuzzy
 msgid "Sticky"
 msgstr "Finkatu liehoa"
 
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:163
 #, fuzzy
 msgid "Size:"
 msgstr "Tamaina"
 
-#: ../panel-plugin/xfce4-notes-settings.c:179
+#: ../panel-plugin/xfce4-notes-settings.c:182
 msgid "Small"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:180
+#: ../panel-plugin/xfce4-notes-settings.c:183
 msgid "Normal"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:181
+#: ../panel-plugin/xfce4-notes-settings.c:184
 msgid "Large"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:239
+#: ../panel-plugin/xfce4-notes-settings.c:242
 msgid "Yellow"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:240
-msgid "Red"
-msgstr ""
-
-#: ../panel-plugin/xfce4-notes-settings.c:241
+#: ../panel-plugin/xfce4-notes-settings.c:243
 msgid "Blue"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:242
+#: ../panel-plugin/xfce4-notes-settings.c:244
 msgid "Green"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:243
-msgid "Purple"
+#: ../panel-plugin/xfce4-notes-settings.c:245
+msgid "Indigo"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:244
+#: ../panel-plugin/xfce4-notes-settings.c:246
+msgid "Olive"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:247
+msgid "Carmin"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:248
+msgid "Mimosa"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:245
+#: ../panel-plugin/xfce4-notes-settings.c:250
 msgid "Custom..."
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:334
+#: ../panel-plugin/xfce4-notes-settings.c:347
 msgid "Background Color"
 msgstr ""
 
