@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-15 15:28+0200\n"
-"PO-Revision-Date: 2009-03-28 15:46+0100\n"
+"PO-Revision-Date: 2009-06-16 15:49+0200\n"
 "Last-Translator: Nuno Miguel <nunis@netcabo.pt>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,48 +23,44 @@ msgid "Notes"
 msgstr "Notas"
 
 #: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
-#, fuzzy, c-format
+#, c-format
 msgid "Notes %d"
-msgstr "Notas"
+msgstr "Notas %d"
 
 #: ../panel-plugin/application.vala:316
-#, fuzzy
 msgid "Rename group"
-msgstr "Renomear nota"
+msgstr "Renomear grupo"
 
 #: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
 #, c-format
 msgid "The name %s is already in use"
-msgstr ""
+msgstr "O nome %s está em uso"
 
 #: ../panel-plugin/application.vala:362
-#, fuzzy
 msgid "Are you sure you want to delete this group?"
-msgstr "Tem a certeza que quer apagar esta nota?"
+msgstr "Tem a certeza que quer apagar este grupo?"
 
 #: ../panel-plugin/application.vala:417
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr ""
+msgstr "O nome \"%s\" é inválido."
 
 #: ../panel-plugin/application.vala:418
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr ""
+msgstr "Os caracteres inválidos são: %s"
 
 #: ../panel-plugin/application.vala:475
-#, fuzzy
 msgid "Unable to open the settings dialog"
-msgstr "Incapaz de abrir o seguinte url: %s"
+msgstr "Incapaz de abrir o diálogo de definições"
 
 #: ../panel-plugin/window.vala:645
 msgid "_Go"
-msgstr ""
+msgstr "_Ir"
 
 #: ../panel-plugin/window.vala:668
-#, fuzzy
 msgid "_Rename"
-msgstr "_Renomear..."
+msgstr "_Renomear"
 
 #. Always on top
 #: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
@@ -76,17 +72,16 @@ msgid "Sticky window"
 msgstr "Janela presa"
 
 #: ../panel-plugin/window.vala:755
-#, fuzzy
 msgid "_Rename group"
-msgstr "Renomear nota"
+msgstr "_Renomear grupo"
 
 #: ../panel-plugin/window.vala:762
 msgid "_Delete group"
-msgstr ""
+msgstr "A_pagar grupo"
 
 #: ../panel-plugin/window.vala:769
 msgid "_Add a new group"
-msgstr ""
+msgstr "_Adicionar um novo grupo"
 
 #: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
@@ -101,15 +96,13 @@ msgid "Configure the plugin"
 msgstr "Configurar o plugin"
 
 #: ../panel-plugin/xfce4-notes-settings.c:103
-#, fuzzy
 msgid "Global settings"
-msgstr "Definições por omissão"
+msgstr "Definições globais"
 
 #. Hide from taskbar
 #: ../panel-plugin/xfce4-notes-settings.c:108
-#, fuzzy
 msgid "Hide notes from taskbar"
-msgstr "Ocultar janelas da barra de tarefas"
+msgstr "Ocultar notas da barra de tarefas"
 
 #: ../panel-plugin/xfce4-notes-settings.c:118
 msgid "Background:"
@@ -120,15 +113,13 @@ msgid "Font:"
 msgstr "Fonte:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:141
-#, fuzzy
 msgid "New group settings"
-msgstr "Nova janela de definições"
+msgstr "Novo grupo de definições"
 
 #. Sticky window
 #: ../panel-plugin/xfce4-notes-settings.c:153
-#, fuzzy
 msgid "Sticky"
-msgstr "Janela presa"
+msgstr "Prender"
 
 #: ../panel-plugin/xfce4-notes-settings.c:163
 msgid "Size:"
@@ -188,7 +179,7 @@ msgstr "Cor de fundo"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Ideal for your quick notes"
-msgstr ""
+msgstr "Ideal para as suas notas rápidas"
 
 #~ msgid "Red"
 #~ msgstr "Vermelho"
