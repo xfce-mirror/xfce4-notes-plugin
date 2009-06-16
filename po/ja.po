@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-15 15:28+0200\n"
-"PO-Revision-Date: 2009-06-13 02:24+0900\n"
+"POT-Creation-Date: 2009-06-16 22:59+0900\n"
+"PO-Revision-Date: 2009-06-16 21:07+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,11 +16,17 @@ msgstr ""
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-Country: JAPAN\n"
 
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr "ちょっとしたメモに最適です"
+
 # Label for Add panel-items dialog and tip help of notes icon on panel
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+#: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
 #: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:101
 #: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
 #: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 msgid "Notes"
 msgstr "Notes メモ"
 
@@ -154,19 +160,19 @@ msgstr "緑"
 
 #: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Indigo"
-msgstr ""
+msgstr "インディゴ"
 
 #: ../panel-plugin/xfce4-notes-settings.c:246
 msgid "Olive"
-msgstr ""
+msgstr "オリーブ"
 
 #: ../panel-plugin/xfce4-notes-settings.c:247
 msgid "Carmin"
-msgstr ""
+msgstr "カーマイン"
 
 #: ../panel-plugin/xfce4-notes-settings.c:248
 msgid "Mimosa"
-msgstr ""
+msgstr "ミモザ"
 
 #: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
@@ -179,10 +185,6 @@ msgstr "カスタム..."
 #: ../panel-plugin/xfce4-notes-settings.c:347
 msgid "Background Color"
 msgstr "背景色"
-
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
-msgid "Ideal for your quick notes"
-msgstr "ちょっとしたメモに最適です"
 
 #~ msgid "Red"
 #~ msgstr "赤"
