@@ -143,7 +143,8 @@ endif
 # Extra
 #
 EXTRA_DIST =								\
-	$(desktop_in_in_files) $(xfce4_notes_plugin_VALASOURCES)
+	$(desktop_in_in_files) $(xfce4_notes_plugin_VALASOURCES)	\
+	config.vapi color.vapi popup.vapi
 
 CLEANFILES =								\
 	$(BUILT_SOURCES) $(vala_built_SOURCES)
