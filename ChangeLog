@@ -1,9 +1,5 @@
 2009-06-16  Mike Massonnet <mmassonnet@xfce.org>
 
-=== Release 1.7.0 ===
-
-2009-06-16  Mike Massonnet <mmassonnet@xfce.org>
-
 Fix make distcheck (once again)
 
 2009-06-15  Mike Massonnet <mmassonnet@xfce.org>
