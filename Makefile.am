@@ -8,9 +8,6 @@ SUBDIRS =								\
 distclean-local:
 	rm -rf *.cache *~
 
-DISTCHECK_CONFIGURE_FLAGS =						\
-	--enable-maintainer-mode
-
 EXTRA_DIST =								\
 	AUTHORS								\
 	ChangeLog							\

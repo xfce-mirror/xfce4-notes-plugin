@@ -6,6 +6,7 @@ INCLUDES =								\
 #
 # Popup program
 #
+
 bin_PROGRAMS = xfce4-popup-notes
 
 xfce4_popup_notes_SOURCES =						\
@@ -23,6 +24,7 @@ xfce4_popup_notes_LDADD =						\
 #
 # Settings dialog
 #
+
 bin_PROGRAMS += xfce4-notes-settings
 
 xfce4_notes_settings_SOURCES =						\
@@ -44,24 +46,31 @@ xfce4_notes_settings_LDADD =						\
 #
 # Vala sources
 #
-if MAINTAINER_MODE
-xfce4_notes_plugin_VALASOURCES =					\
+
+notes_VAPISOURCES =							\
+	config.vapi							\
+	color.vapi							\
+	popup.vapi
+
+notes_VALASOURCES =							\
 	hypertextview.vala						\
 	note.vala							\
 	window.vala							\
 	application.vala						\
 	main.vala
 
-vala_built_SOURCES = $(xfce4_notes_plugin_VALASOURCES:.vala=.c)
-BUILT_SOURCES = vala.stamp
+notes_VALABUILTSOURCES = $(notes_VALASOURCES:.vala=.c)
 
+if MAINTAINER_MODE
 if HAVE_LIBXFCE4PANEL47
 DEFINES=-D HAVE_LIBXFCE4PANEL47
 PACKAGES=--pkg=libxfcegui4-1.0 --pkg=libxfce4panel-1.0
 else
 PACKAGES=--pkg=libxfce4panel-1.0
 endif
-vala.stamp: $(xfce4_notes_plugin_VALASOURCES)
+BUILT_SOURCES = vala.stamp
+$(notes_VALABUILTSOURCES): vala.stamp
+vala.stamp: $(notes_VALASOURCES)
 	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 $(PACKAGES) $^ -C
 	touch $@
 endif
@@ -69,6 +78,7 @@ endif
 #
 # Plugin
 #
+
 if HAVE_LIBXFCE4PANEL47
 
 plugindir = $(libdir)/xfce4/panel-plugins
@@ -79,7 +89,7 @@ libnotes_la_SOURCES =							\
 	color.h								\
 	popup.c								\
 	popup.h								\
-	$(vala_built_SOURCES)
+	$(notes_VALABUILTSOURCES)
 
 libnotes_la_CFLAGS =							\
 	@LIBXFCE4PANEL_CFLAGS@						\
@@ -103,7 +113,7 @@ xfce4_notes_plugin_SOURCES =						\
 	color.h								\
 	popup.c								\
 	popup.h								\
-	$(vala_built_SOURCES)
+	$(notes_VALABUILTSOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
 	@LIBXFCE4PANEL_CFLAGS@						\
@@ -122,6 +132,7 @@ endif
 #
 # Plugin desktop file
 #
+
 desktop_in_in_files =							\
 	xfce4-notes-plugin-47.desktop.in.in				\
 	xfce4-notes-plugin.desktop.in.in
@@ -142,13 +153,19 @@ endif
 #
 # Extra
 #
-EXTRA_DIST =								\
-	$(desktop_in_in_files) $(xfce4_notes_plugin_VALASOURCES)	\
-	config.vapi color.vapi popup.vapi
 
+EXTRA_DIST =								\
+	$(notes_VAPISOURCES)						\
+	$(notes_VALASOURCES)						\
+	$(desktop_in_in_files)
+
+if MAINTAINER_MODE
 CLEANFILES =								\
-	$(BUILT_SOURCES) $(vala_built_SOURCES)
+	$(BUILT_SOURCES)						\
+	$(notes_VALABUILTSOURCES)
+endif
 
 DISTCLEANFILES =							\
-	$(desktop_DATA) $(desktop_in_files)
+	$(desktop_DATA)							\
+	$(desktop_in_files)
 

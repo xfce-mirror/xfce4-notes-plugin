@@ -14,8 +14,11 @@ m4_define([xfce4_notes_plugin_version_build], [r@REVISION@])
 m4_define([xfce4_notes_plugin_version_tag], [svn]) # Leave empty for releases
 m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [svn], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
 
+AC_PREREQ([2.50])
 AC_INIT([xfce4-notes-plugin], [xfce4_notes_plugin_version], 
         [mmassonnet@xfce.org])
+AC_REVISION([project_version_build])
+AC_CANONICAL_TARGET()
 
 AM_INIT_AUTOMAKE([1.8 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
@@ -26,11 +29,6 @@ m4_undefine([AC_PROG_CXX])
 m4_defun([AC_PROG_CXX],[])
 m4_undefine([AC_PROG_F77])
 m4_defun([AC_PROG_F77],[])
-
-dnl Check for UNIX variants
-AC_AIX
-AC_ISC_POSIX
-AC_MINIX
 
 dnl Check for basic programs
 AC_PROG_CC_C_O
