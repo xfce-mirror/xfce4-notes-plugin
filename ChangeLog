@@ -1,4 +1,8 @@
-2009-06-16  Mike Massonnet <mmassonnet@xfce.org>
+2009-06-18  Mike Massonnet <mmassonnet@xfce.org>
+
+=== Release 1.7.0 ===
+
+2009-06-18  Mike Massonnet <mmassonnet@xfce.org>
 
 Clean up over autotools scripts
 	* panel-plugin/Makefile.am:

@@ -5,7 +5,7 @@ VERSION 1.7.0
 - New window menu layout with a submenu "Go" to navigate through the notes
 - Reworked settings dialog
   - Standalone application xfce4-notes-settings
-  - Dropped the tabs from the window in favor of a navigation bar
+  - Dropped the show tabs option in favor of a navigation bar
   - Made the font option global instead of per window
 - Switched the default Xfconf channel from xfce4-notes-plugin to xfce4-panel
   with the base property /plugins/notes
