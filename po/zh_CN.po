@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-15 15:28+0200\n"
-"PO-Revision-Date: 2009-06-14 20:12+0800\n"
+"PO-Revision-Date: 2009-06-16 00:43+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (Simplified)\n"
 "MIME-Version: 1.0\n"
@@ -152,19 +152,19 @@ msgstr "绿色"
 
 #: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Indigo"
-msgstr ""
+msgstr "靛青色"
 
 #: ../panel-plugin/xfce4-notes-settings.c:246
 msgid "Olive"
-msgstr ""
+msgstr "橄榄色"
 
 #: ../panel-plugin/xfce4-notes-settings.c:247
 msgid "Carmin"
-msgstr ""
+msgstr "胭脂色"
 
 #: ../panel-plugin/xfce4-notes-settings.c:248
 msgid "Mimosa"
-msgstr ""
+msgstr "淡黄色"
 
 #: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
