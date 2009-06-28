@@ -8,11 +8,11 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-15 15:28+0200\n"
-"PO-Revision-Date: 2009-06-10 12:53+0500\n"
+"PO-Revision-Date: 2009-06-19 10:28+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: Urdu <makki.ma@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Urdu\n"
 "X-Poedit-Country: PAKISTAN\n"
@@ -155,19 +155,19 @@ msgstr "سبز"
 
 #: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Indigo"
-msgstr ""
+msgstr "نیلی"
 
 #: ../panel-plugin/xfce4-notes-settings.c:246
 msgid "Olive"
-msgstr ""
+msgstr "زیتونی"
 
 #: ../panel-plugin/xfce4-notes-settings.c:247
 msgid "Carmin"
-msgstr ""
+msgstr "قرمزی"
 
 #: ../panel-plugin/xfce4-notes-settings.c:248
 msgid "Mimosa"
-msgstr ""
+msgstr "میموسا"
 
 #: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
