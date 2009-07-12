@@ -84,6 +84,8 @@ namespace Xnp {
 			/* Global settings */
 			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
 				typeof (bool), window, "skip-taskbar-hint");
+			Xfconf.Property.bind (xfconf_channel, "/global/show-tabs",
+				typeof (bool), window, "show-tabs");
 
 			/* Default settings */
 			if (name == null) {

@@ -27,6 +27,7 @@
 
 /* Default settings */
 #define GENERAL_HIDE_FROM_TASKBAR       TRUE
+#define GENERAL_SHOW_TABS               FALSE
 #define GENERAL_HIDE_ARROW_BUTTON       FALSE
 #define GENERAL_BACKGROUND_COLOR        BACKGROUND_YELLOW
 #define NEW_WINDOW_ABOVE                FALSE
