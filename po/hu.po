@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-24 09:56+0200\n"
-"PO-Revision-Date: 2009-07-24 12:00+0200\n"
+"PO-Revision-Date: 2009-07-25 12:38+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at gnome dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Mindig felül"
 
 #: ../panel-plugin/window.vala:693
 msgid "Sticky window"
-msgstr "Ragadós ablak"
+msgstr "Mindig látható ablak"
 
 #: ../panel-plugin/window.vala:755
 msgid "_Rename group"
@@ -133,7 +133,7 @@ msgstr "Új csoport beállításai"
 #. Sticky window
 #: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Sticky"
-msgstr "Ragadós"
+msgstr "Mindig látható"
 
 #: ../panel-plugin/xfce4-notes-settings.c:170
 msgid "Size:"
