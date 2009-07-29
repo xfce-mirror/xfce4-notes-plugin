@@ -80,6 +80,7 @@ namespace Xnp {
 		private unowned SList<unowned Xnp.Window> window_list;
 
 		public new string name { default = _("Notes"); get; set; }
+		public int n_pages { get; set; }
 
 		private bool _above;
 		public bool above {
@@ -916,6 +917,7 @@ namespace Xnp {
 			note.save_data += (note) => { save_data (note); };
 
 			note.show ();
+			this.n_pages++;
 			this.notebook.insert_page (note, null, page);
 			this.note_inserted (note);
 			return note;
@@ -947,11 +949,12 @@ namespace Xnp {
 					return;
 			}
 
+			this.n_pages--;
 			this.notebook.remove_page (page);
 			this.note_deleted (note);
 			note.destroy ();
 			if (this.notebook.get_n_pages () == 0)
-				this.insert_note ();
+				action ("delete");
 		}
 
 		/**

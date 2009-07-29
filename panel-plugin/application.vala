@@ -360,12 +360,14 @@ namespace Xnp {
 		 * Delete the window.
 		 */
 		private void delete_window (Xnp.Window window) {
-			var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this group?"));
-			int res = dialog.run ();
-			dialog.destroy ();
-			if (res != Gtk.ResponseType.YES)
-				return;
+			if (window.n_pages >= 1) {
+				var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+						Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this group?"));
+				int res = dialog.run ();
+				dialog.destroy ();
+				if (res != Gtk.ResponseType.YES)
+					return;
+			}
 
 			string name;
 			string path = "%s/%s".printf (notes_path, window.name);
