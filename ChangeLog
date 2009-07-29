@@ -1,5 +1,14 @@
 2009-07-29  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix tabs option
+	* panel-plugin/window.vala:
+	  - The class Xnp.Window didn't have any show-tabs properties, now it
+	  is a transparent proxy towards the notebook.
+	  - Set the tabs scrollable so they don't grow the window.
+	  - Update the tab label text on note name changes.
+
+2009-07-29  Mike Massonnet <mmassonnet@xfce.org>
+
 Deleting the last note also deletes the window (bug #5535)
 	* panel-plugin/window.vala:
 	  - Install a new public property n_pages that is automatically

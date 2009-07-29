@@ -82,6 +82,15 @@ namespace Xnp {
 		public new string name { default = _("Notes"); get; set; }
 		public int n_pages { get; set; }
 
+		public bool show_tabs {
+			get {
+				return this.notebook.show_tabs;
+			}
+			set {
+				this.notebook.show_tabs = value;
+			}
+		}
+
 		private bool _above;
 		public bool above {
 			get {
@@ -196,6 +205,7 @@ namespace Xnp {
 			this.notebook = new Gtk.Notebook ();
 			this.notebook.show_border = false;
 			this.notebook.show_tabs = false;
+			this.notebook.scrollable = true;
 			this.notebook.show ();
 			this.content_box.pack_start (this.notebook, true, true, 0);
 
@@ -543,6 +553,7 @@ namespace Xnp {
 			if (pspec.name == "name") {
 				/* Update the window title */
 				var note = (Xnp.Note)object;
+				this.notebook.set_tab_label_text (note, note.name);
 				int page = this.notebook.get_current_page ();
 				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
 				if (note == current_note)
