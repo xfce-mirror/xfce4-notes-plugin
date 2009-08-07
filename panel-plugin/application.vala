@@ -78,7 +78,7 @@ namespace Xnp {
 		 * Creates a new Xnp.Window and stores it inside window_list.
 		 * If a name is given, it assumes it can load existing notes.
 		 */
-		public void create_window (string? name = null) {
+		public Xnp.Window create_window (string? name = null) {
 			var window = new Xnp.Window ();
 
 			/* Global settings */
@@ -136,8 +136,6 @@ namespace Xnp {
 				}
 				catch (FileError e) {
 				}
-
-				window.show ();
 			}
 			else {
 				this.load_window_data (window);
@@ -152,7 +150,8 @@ namespace Xnp {
 					delete_window (win);
 				}
 				else if (action == "create-new-window") {
-					create_window ();
+					var new_win = create_window ();
+					new_win.show ();
 				}
 				else if (action == "properties") {
 					open_settings_dialog ();
@@ -185,6 +184,8 @@ namespace Xnp {
 				string new_path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.rename (old_path, new_path);
 			};
+
+			return window;
 		}
 
 		/**
@@ -218,7 +219,7 @@ namespace Xnp {
 			catch (FileError e) {
 			}
 
-			/* Load configuration */
+			/* Load window configuration */
 			var keyfile = new GLib.KeyFile ();
 			try {
 				keyfile.load_from_file (config_file, GLib.KeyFileFlags.NONE);
@@ -242,7 +243,7 @@ namespace Xnp {
 					window.show ();
 			}
 			catch (GLib.Error e) {
-				warning ("%s: %s", config_file, e.message);
+				warning ("Unable to load window configuration from %s: %s", config_file, e.message);
 				window.show ();
 			}
 		}
@@ -391,7 +392,8 @@ namespace Xnp {
 				}
 			}
 			else {
-				create_window ();
+				var new_win = create_window ();
+				new_win.show ();
 			}
 		}
 

@@ -73,7 +73,7 @@ namespace Xnp {
 		}
 
 		~Note () {
-            this.dirty = false;
+			this.dirty = false;
 		}
 
 		public override void size_request (ref Gtk.Requisition requisition) {
