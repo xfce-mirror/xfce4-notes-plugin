@@ -2,14 +2,14 @@
 # Copyright (C) 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 #               2006 Mike Massonnet <mmassonnet@gmail.com>
 # This file is distributed under the same license as the xfce4-notes-plugin package.
-# Andhika Padmawan <andhika.padmawan@gmail.com>, 2008.
+# Andhika Padmawan <andhika.padmawan@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-15 15:28+0200\n"
-"PO-Revision-Date: 2009-04-09 21:50-0400\n"
+"PO-Revision-Date: 2009-07-09 22:49+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,48 +24,44 @@ msgid "Notes"
 msgstr "Catatan"
 
 #: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
-#, fuzzy, c-format
+#, c-format
 msgid "Notes %d"
-msgstr "Catatan"
+msgstr "Catatan %d"
 
 #: ../panel-plugin/application.vala:316
-#, fuzzy
 msgid "Rename group"
-msgstr "Namai ulang catatan"
+msgstr "Namai ulang grup"
 
 #: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
 #, c-format
 msgid "The name %s is already in use"
-msgstr ""
+msgstr "Nama %s telah digunakan"
 
 #: ../panel-plugin/application.vala:362
-#, fuzzy
 msgid "Are you sure you want to delete this group?"
-msgstr "Anda yakin ingin menghapus catatan ini?"
+msgstr "Anda yakin ingin menghapus grup ini?"
 
 #: ../panel-plugin/application.vala:417
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr ""
+msgstr "Nama \"%s\" tidak sah."
 
 #: ../panel-plugin/application.vala:418
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr ""
+msgstr "Karakter tidak sah adalah: %s"
 
 #: ../panel-plugin/application.vala:475
-#, fuzzy
 msgid "Unable to open the settings dialog"
-msgstr "Tak dapat membuka url berikut: %s"
+msgstr "Tak dapat membuka dialog pengaturan"
 
 #: ../panel-plugin/window.vala:645
 msgid "_Go"
-msgstr ""
+msgstr "_Ke"
 
 #: ../panel-plugin/window.vala:668
-#, fuzzy
 msgid "_Rename"
-msgstr "_Namai ulang..."
+msgstr "_Namai ulang"
 
 #. Always on top
 #: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
@@ -77,17 +73,16 @@ msgid "Sticky window"
 msgstr "Jendela lekat"
 
 #: ../panel-plugin/window.vala:755
-#, fuzzy
 msgid "_Rename group"
-msgstr "Namai ulang catatan"
+msgstr "_Namai ulang grup"
 
 #: ../panel-plugin/window.vala:762
 msgid "_Delete group"
-msgstr ""
+msgstr "_Hapus grup"
 
 #: ../panel-plugin/window.vala:769
 msgid "_Add a new group"
-msgstr ""
+msgstr "_Tambah grup baru"
 
 #: ../panel-plugin/window.vala:943
 msgid "Are you sure you want to delete this note?"
@@ -102,15 +97,13 @@ msgid "Configure the plugin"
 msgstr "Atur plugin"
 
 #: ../panel-plugin/xfce4-notes-settings.c:103
-#, fuzzy
 msgid "Global settings"
-msgstr "Pengaturan standar"
+msgstr "Pengaturan global"
 
 #. Hide from taskbar
 #: ../panel-plugin/xfce4-notes-settings.c:108
-#, fuzzy
 msgid "Hide notes from taskbar"
-msgstr "Sembunyikan jendela dari batang tugas"
+msgstr "Sembunyikan catatan dari batang tugas"
 
 #: ../panel-plugin/xfce4-notes-settings.c:118
 msgid "Background:"
@@ -121,15 +114,13 @@ msgid "Font:"
 msgstr "Fonta:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:141
-#, fuzzy
 msgid "New group settings"
-msgstr "Pengaturan jendela baru"
+msgstr "Pengaturan grup baru"
 
 #. Sticky window
 #: ../panel-plugin/xfce4-notes-settings.c:153
-#, fuzzy
 msgid "Sticky"
-msgstr "Jendela lekat"
+msgstr "Lekat"
 
 #: ../panel-plugin/xfce4-notes-settings.c:163
 msgid "Size:"
@@ -161,19 +152,19 @@ msgstr "Hijau"
 
 #: ../panel-plugin/xfce4-notes-settings.c:245
 msgid "Indigo"
-msgstr ""
+msgstr "Ungu Lembayung"
 
 #: ../panel-plugin/xfce4-notes-settings.c:246
 msgid "Olive"
-msgstr ""
+msgstr "Hijau Kekuningan"
 
 #: ../panel-plugin/xfce4-notes-settings.c:247
 msgid "Carmin"
-msgstr ""
+msgstr "Carmin"
 
 #: ../panel-plugin/xfce4-notes-settings.c:248
 msgid "Mimosa"
-msgstr ""
+msgstr "Mimosa"
 
 #: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "White"
@@ -189,7 +180,7 @@ msgstr "Warna Latar Belakang"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 msgid "Ideal for your quick notes"
-msgstr ""
+msgstr "Ideal untuk catatan cepat anda"
 
 #~ msgid "Red"
 #~ msgstr "Merah"
