@@ -935,6 +935,39 @@ namespace Xnp {
 		}
 
 		/**
+		 * move_note:
+		 *
+		 * Moves the note named @note_name to position @page.
+		 */
+		public void move_note (string note_name, int page) {
+			int n_pages = this.notebook.get_n_pages ();
+			for (int p = 0; p < n_pages; p++) {
+				var note = (Xnp.Note)this.notebook.get_nth_page (p);
+				if (note.name == note_name) {
+					this.notebook.reorder_child (note, page);
+					update_navigation_sensitivity (page);
+					break;
+				}
+			}
+		}
+
+		/**
+		 * get_note_names:
+		 *
+		 * Returns a string list of the note names in the order they are currently displayed
+		 * in the notebook.
+		 */
+		public string[] get_note_names () {
+			string[] note_names = null;
+			int n_pages = this.notebook.get_n_pages ();
+			for (int p = 0; p < n_pages; p++) {
+				var note = (Xnp.Note)this.notebook.get_nth_page (p);
+				note_names += note.name;
+			}
+			return note_names;
+		}
+
+		/**
 		 * delete_current_note:
 		 *
 		 * Delete the current note.

@@ -227,6 +227,7 @@ namespace Xnp {
 				int winy = keyfile.get_integer (window.name, "PosY");
 				int width = keyfile.get_integer (window.name, "Width");
 				int height = keyfile.get_integer (window.name, "Height");
+				string[] tabs_order = keyfile.get_string_list (window.name, "TabsOrder");
 				int last_page = keyfile.get_integer (window.name, "LastTab");
 				bool above = keyfile.get_boolean (window.name, "Above");
 				bool sticky = keyfile.get_boolean (window.name, "Sticky");
@@ -235,6 +236,8 @@ namespace Xnp {
 
 				window.move (winx, winy);
 				window.resize (width, height);
+				for (int i = 0; i < tabs_order.length; i++)
+					window.move_note (tabs_order[i], i);
 				window.set_current_page (last_page);
 				window.above = above;
 				window.sticky = sticky;
@@ -259,6 +262,7 @@ namespace Xnp {
 				foreach (var win in this.window_list) {
 					int winx, winy, width, height;
 					win.get_geometry (out winx, out winy, out width, out height);
+					string[] tabs_order = win.get_note_names ();
 					int last_page = win.get_current_page ();
 					int transparency = (int)((1 - win.opacity) * 100);
 					bool visible = (bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE);
@@ -267,6 +271,7 @@ namespace Xnp {
 					keyfile.set_integer (win.name, "PosY", winy);
 					keyfile.set_integer (win.name, "Width", width);
 					keyfile.set_integer (win.name, "Height", height);
+					keyfile.set_string_list (win.name, "TabsOrder", tabs_order);
 					keyfile.set_integer (win.name, "LastTab", last_page);
 					keyfile.set_boolean (win.name, "Above", win.above);
 					keyfile.set_boolean (win.name, "Sticky", win.sticky);

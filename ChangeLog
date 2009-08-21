@@ -1,3 +1,16 @@
+2009-08-21  Mike Massonnet <mmassonnet@xfce.org>
+
+Keep order of notes (bug #5534)
+	* panel-plugin/application.vala:
+	  - Store tabs order in configuration file for each window with new
+	  XnpWindow method get_note_names().
+	  - Load tabs order and place them correctly in notebook with new
+	  XnpWindow method move_note().
+	* panel-plugin/window.vala:
+	  - Two new public methods get_note_names() that returns the name of
+	  the notes in a string array, and move_note() that reorders a note
+	  find by its name in the notebook.
+
 2009-08-08  Mike Massonnet <mmassonnet@xfce.org>
 
 Rework default window visibility (bug #4055)
