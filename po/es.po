@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-22 08:56+0200\n"
-"PO-Revision-Date: 2009-06-18 14:37-0300\n"
+"PO-Revision-Date: 2009-08-22 12:47-0300\n"
 "Last-Translator: elega <elega@elega.com.ar>\n"
 "Language-Team: Spanish <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,13 +23,17 @@ msgstr "Ideal para sus notas rápidas"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:127
-#: ../panel-plugin/window.vala:914 ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/main.vala:72
+#: ../panel-plugin/application.vala:103
+#: ../panel-plugin/window.vala:82
+#: ../panel-plugin/window.vala:127
+#: ../panel-plugin/window.vala:914
+#: ../panel-plugin/xfce4-notes-settings.c:80
 msgid "Notes"
 msgstr "Notas"
 
-#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:917
+#: ../panel-plugin/application.vala:107
+#: ../panel-plugin/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Notas %d"
@@ -38,7 +42,8 @@ msgstr "Notas %d"
 msgid "Rename group"
 msgstr "Renombrar grupo"
 
-#: ../panel-plugin/application.vala:345 ../panel-plugin/window.vala:1037
+#: ../panel-plugin/application.vala:345
+#: ../panel-plugin/window.vala:1037
 #, c-format
 msgid "The name %s is already in use"
 msgstr "El nombre %s ya está en uso"
@@ -70,7 +75,8 @@ msgid "_Rename"
 msgstr "_Renombrar"
 
 #. Always on top
-#: ../panel-plugin/window.vala:700 ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:700
+#: ../panel-plugin/xfce4-notes-settings.c:153
 msgid "Always on top"
 msgstr "Siempre encima"
 
@@ -114,7 +120,7 @@ msgstr "Ocultar notas de la barra de tareas"
 #. Show tabs
 #: ../panel-plugin/xfce4-notes-settings.c:115
 msgid "Show tabs in the notes"
-msgstr ""
+msgstr "Mostrar pestañas en las notas"
 
 #: ../panel-plugin/xfce4-notes-settings.c:125
 msgid "Background:"
@@ -191,64 +197,46 @@ msgstr "Color de fondo"
 
 #~ msgid "Red"
 #~ msgstr "Rojo"
-
 #~ msgid "Purple"
 #~ msgstr "Violeta"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Elegir tipo de letra de la ventana"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "¿Está seguro de querer eliminar esta ventana?"
-
 #~ msgid "Window"
 #~ msgstr "Ventana"
-
 #~ msgid "_Options"
 #~ msgstr "_Opciones"
-
 #~ msgid "Note"
 #~ msgstr "Nota"
-
 #~ msgid "R_ename..."
 #~ msgstr "R_enombrar..."
-
 #~ msgid "Show tabs"
 #~ msgstr "Mostrar pestañas"
-
 #~ msgid "Show on startup"
 #~ msgstr "Mostrar al inicio"
-
 #~ msgid "Always"
 #~ msgstr "Siempre"
-
 #~ msgid "Never"
 #~ msgstr "Nunca"
-
 #~ msgid "Last state"
 #~ msgstr "Último estado"
-
 #~ msgid "Rename window"
 #~ msgstr "Renombrar ventana"
-
 #~ msgid "Error"
 #~ msgstr "Error"
-
 #~ msgid "Unable to rename window"
 #~ msgstr "Imposible renombrar ventana"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Imposible renombrar nota"
-
 #~ msgid "Hide arrow button"
 #~ msgstr "Ocultar botón flecha"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Complemento de notas para el escritorio Xfce4"
-
 #~ msgid "Resize grip"
 #~ msgstr "Pulsador de redimensionado"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Complemento de notas de Xfce 4"
+
