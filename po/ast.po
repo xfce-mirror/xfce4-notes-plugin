@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-15 15:28+0200\n"
+"POT-Creation-Date: 2009-08-22 08:56+0200\n"
 "PO-Revision-Date: 2009-07-13 19:55+0100\n"
 "Last-Translator: Marcos Antonio Alvarez Costales <marcoscostales@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -16,79 +16,85 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:101
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:1
+msgid "Ideal for your quick notes"
+msgstr "Xenial pa les sos notes rápides"
+
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
+#: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:103
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:127
+#: ../panel-plugin/window.vala:914 ../panel-plugin/xfce4-notes-settings.c:80
 msgid "Notes"
 msgstr "Notes"
 
-#: ../panel-plugin/application.vala:105 ../panel-plugin/window.vala:905
+#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Notes %d"
 
-#: ../panel-plugin/application.vala:316
+#: ../panel-plugin/application.vala:324
 msgid "Rename group"
 msgstr "Renomar grupu"
 
-#: ../panel-plugin/application.vala:337 ../panel-plugin/window.vala:989
+#: ../panel-plugin/application.vala:345 ../panel-plugin/window.vala:1037
 #, c-format
 msgid "The name %s is already in use"
 msgstr "El nome %s yá ta n'usu"
 
-#: ../panel-plugin/application.vala:362
+#: ../panel-plugin/application.vala:371
 msgid "Are you sure you want to delete this group?"
 msgstr "¿Daveres quies desaniciar esti grupu?"
 
-#: ../panel-plugin/application.vala:417
+#: ../panel-plugin/application.vala:428
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "El nome \"%s\" nun ye válidu."
 
-#: ../panel-plugin/application.vala:418
+#: ../panel-plugin/application.vala:429
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Los carauteres non válidos son: %s "
 
-#: ../panel-plugin/application.vala:475
+#: ../panel-plugin/application.vala:486
 msgid "Unable to open the settings dialog"
 msgstr "Nun puede abrise'l diálogu de configuración"
 
-#: ../panel-plugin/window.vala:645
+#: ../panel-plugin/window.vala:657
 msgid "_Go"
 msgstr "_Dir"
 
-#: ../panel-plugin/window.vala:668
+#: ../panel-plugin/window.vala:680
 msgid "_Rename"
 msgstr "_Renomar"
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:146
+#: ../panel-plugin/window.vala:700 ../panel-plugin/xfce4-notes-settings.c:153
 msgid "Always on top"
 msgstr "Siempres encima"
 
-#: ../panel-plugin/window.vala:693
+#: ../panel-plugin/window.vala:705
 msgid "Sticky window"
 msgstr "Ventana adhesiva"
 
-#: ../panel-plugin/window.vala:755
+#: ../panel-plugin/window.vala:767
 msgid "_Rename group"
 msgstr "_Renomar grupu"
 
-#: ../panel-plugin/window.vala:762
+#: ../panel-plugin/window.vala:774
 msgid "_Delete group"
 msgstr "_Desaniciar grupu"
 
-#: ../panel-plugin/window.vala:769
+#: ../panel-plugin/window.vala:781
 msgid "_Add a new group"
 msgstr "_Amestar un nuevu grupu"
 
-#: ../panel-plugin/window.vala:943
+#: ../panel-plugin/window.vala:990
 msgid "Are you sure you want to delete this note?"
 msgstr "¿Daveres quies desaniciar esta nota?"
 
-#: ../panel-plugin/window.vala:968
+#: ../panel-plugin/window.vala:1016
 msgid "Rename note"
 msgstr "Renomar nota"
 
@@ -105,82 +111,83 @@ msgstr "Configuración global"
 msgid "Hide notes from taskbar"
 msgstr "Anubrir notes de la barra de xeres"
 
-#: ../panel-plugin/xfce4-notes-settings.c:118
+#. Show tabs
+#: ../panel-plugin/xfce4-notes-settings.c:115
+msgid "Show tabs in the notes"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:125
 msgid "Background:"
 msgstr "Fondu:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:131
+#: ../panel-plugin/xfce4-notes-settings.c:138
 msgid "Font:"
 msgstr "Fonte:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:141
+#: ../panel-plugin/xfce4-notes-settings.c:148
 msgid "New group settings"
 msgstr "Nuevu grupu de configuración"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/xfce4-notes-settings.c:160
 msgid "Sticky"
 msgstr "Pegañosu"
 
-#: ../panel-plugin/xfce4-notes-settings.c:163
+#: ../panel-plugin/xfce4-notes-settings.c:170
 msgid "Size:"
 msgstr "Tamañu:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:182
+#: ../panel-plugin/xfce4-notes-settings.c:189
 msgid "Small"
 msgstr "Pequeñu"
 
-#: ../panel-plugin/xfce4-notes-settings.c:183
+#: ../panel-plugin/xfce4-notes-settings.c:190
 msgid "Normal"
 msgstr "Normal"
 
-#: ../panel-plugin/xfce4-notes-settings.c:184
+#: ../panel-plugin/xfce4-notes-settings.c:191
 msgid "Large"
 msgstr "Grande"
 
-#: ../panel-plugin/xfce4-notes-settings.c:242
+#: ../panel-plugin/xfce4-notes-settings.c:249
 msgid "Yellow"
 msgstr "Mariellu"
 
-#: ../panel-plugin/xfce4-notes-settings.c:243
+#: ../panel-plugin/xfce4-notes-settings.c:250
 msgid "Blue"
 msgstr "Azul"
 
-#: ../panel-plugin/xfce4-notes-settings.c:244
+#: ../panel-plugin/xfce4-notes-settings.c:251
 msgid "Green"
 msgstr "Verde"
 
-#: ../panel-plugin/xfce4-notes-settings.c:245
+#: ../panel-plugin/xfce4-notes-settings.c:252
 msgid "Indigo"
 msgstr "Índigo"
 
-#: ../panel-plugin/xfce4-notes-settings.c:246
+#: ../panel-plugin/xfce4-notes-settings.c:253
 msgid "Olive"
 msgstr "Oliva"
 
-#: ../panel-plugin/xfce4-notes-settings.c:247
+#: ../panel-plugin/xfce4-notes-settings.c:254
 msgid "Carmin"
 msgstr "Carmin"
 
-#: ../panel-plugin/xfce4-notes-settings.c:248
+#: ../panel-plugin/xfce4-notes-settings.c:255
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../panel-plugin/xfce4-notes-settings.c:249
+#: ../panel-plugin/xfce4-notes-settings.c:256
 msgid "White"
 msgstr "Blancu"
 
-#: ../panel-plugin/xfce4-notes-settings.c:250
+#: ../panel-plugin/xfce4-notes-settings.c:257
 msgid "Custom..."
 msgstr "Personalizáu..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:347
+#: ../panel-plugin/xfce4-notes-settings.c:354
 msgid "Background Color"
 msgstr "Color de fondu"
-
-#: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
-msgid "Ideal for your quick notes"
-msgstr "Xenial pa les sos notes rápides"
 
 #~ msgid "Red"
 #~ msgstr "Rojo"

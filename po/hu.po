@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-24 09:56+0200\n"
+"POT-Creation-Date: 2009-08-22 08:56+0200\n"
 "PO-Revision-Date: 2009-07-25 12:38+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at gnome dot hu>\n"
@@ -26,77 +26,77 @@ msgstr "Ideális gyors jegyzeteléshez"
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
 #: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:117
-#: ../panel-plugin/window.vala:902 ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:127
+#: ../panel-plugin/window.vala:914 ../panel-plugin/xfce4-notes-settings.c:80
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:905
+#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "%d. jegyzet"
 
-#: ../panel-plugin/application.vala:318
+#: ../panel-plugin/application.vala:324
 msgid "Rename group"
 msgstr "Csoport átnevezése"
 
-#: ../panel-plugin/application.vala:339 ../panel-plugin/window.vala:989
+#: ../panel-plugin/application.vala:345 ../panel-plugin/window.vala:1037
 #, c-format
 msgid "The name %s is already in use"
 msgstr "A név (%s) már használatban van"
 
-#: ../panel-plugin/application.vala:364
+#: ../panel-plugin/application.vala:371
 msgid "Are you sure you want to delete this group?"
 msgstr "Biztos, hogy törli ezt a csoportot?"
 
-#: ../panel-plugin/application.vala:419
+#: ../panel-plugin/application.vala:428
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "A név („%s”) érvénytelen."
 
-#: ../panel-plugin/application.vala:420
+#: ../panel-plugin/application.vala:429
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Az érvénytelen karakterek: %s"
 
-#: ../panel-plugin/application.vala:477
+#: ../panel-plugin/application.vala:486
 msgid "Unable to open the settings dialog"
 msgstr "A beállítások ablak nem nyitható meg"
 
-#: ../panel-plugin/window.vala:645
+#: ../panel-plugin/window.vala:657
 msgid "_Go"
 msgstr "_Ugrás"
 
-#: ../panel-plugin/window.vala:668
+#: ../panel-plugin/window.vala:680
 msgid "_Rename"
 msgstr "Á_tnevezés"
 
 #. Always on top
-#: ../panel-plugin/window.vala:688 ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:700 ../panel-plugin/xfce4-notes-settings.c:153
 msgid "Always on top"
 msgstr "Mindig felül"
 
-#: ../panel-plugin/window.vala:693
+#: ../panel-plugin/window.vala:705
 msgid "Sticky window"
 msgstr "Mindig látható ablak"
 
-#: ../panel-plugin/window.vala:755
+#: ../panel-plugin/window.vala:767
 msgid "_Rename group"
 msgstr "_Csoport átnevezése"
 
-#: ../panel-plugin/window.vala:762
+#: ../panel-plugin/window.vala:774
 msgid "_Delete group"
 msgstr "Csoport _törlése"
 
-#: ../panel-plugin/window.vala:769
+#: ../panel-plugin/window.vala:781
 msgid "_Add a new group"
 msgstr "Új csoport _hozzáadása"
 
-#: ../panel-plugin/window.vala:943
+#: ../panel-plugin/window.vala:990
 msgid "Are you sure you want to delete this note?"
 msgstr "Biztos, hogy törli ezt a jegyzetet?"
 
-#: ../panel-plugin/window.vala:968
+#: ../panel-plugin/window.vala:1016
 msgid "Rename note"
 msgstr "Jegyzet átnevezése"
 
@@ -190,4 +190,3 @@ msgstr "Egyéni…"
 #: ../panel-plugin/xfce4-notes-settings.c:354
 msgid "Background Color"
 msgstr "Háttérszín"
-
