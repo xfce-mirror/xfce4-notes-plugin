@@ -551,7 +551,7 @@ namespace Xnp {
 		 */
 		private void note_notify (GLib.Object object, GLib.ParamSpec pspec) {
 			if (pspec.name == "name") {
-				/* Update the window title */
+				/* Update the window title and notebook tab label */
 				var note = (Xnp.Note)object;
 				this.notebook.set_tab_label_text (note, note.name);
 				int page = this.notebook.get_current_page ();
@@ -930,6 +930,7 @@ namespace Xnp {
 			note.show ();
 			this.n_pages++;
 			this.notebook.insert_page (note, null, page);
+			note.name = note.name; //note.notify ("name");
 			this.note_inserted (note);
 			return note;
 		}

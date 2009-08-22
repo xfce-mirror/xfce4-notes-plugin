@@ -1,3 +1,10 @@
+2009-08-22  Mike Massonnet <mmassonnet@xfce.org>
+
+Notify note name change after insertion in the notebook
+	* panel-plugin/window.vala:
+	  - Send a notify signal on property "name" after insertion of the
+	  note in the notebook to properly update the tab label.
+
 2009-08-21  Mike Massonnet <mmassonnet@xfce.org>
 
 Keep order of notes (bug #5534)
