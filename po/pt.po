@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-22 08:56+0200\n"
-"PO-Revision-Date: 2009-06-16 15:49+0200\n"
-"Last-Translator: Nuno Miguel <nunis@netcabo.pt>\n"
+"PO-Revision-Date: 2009-08-28 16:34+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,13 +22,17 @@ msgstr "Ideal para as suas notas rápidas"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:127
-#: ../panel-plugin/window.vala:914 ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/main.vala:72
+#: ../panel-plugin/application.vala:103
+#: ../panel-plugin/window.vala:82
+#: ../panel-plugin/window.vala:127
+#: ../panel-plugin/window.vala:914
+#: ../panel-plugin/xfce4-notes-settings.c:80
 msgid "Notes"
 msgstr "Notas"
 
-#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:917
+#: ../panel-plugin/application.vala:107
+#: ../panel-plugin/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Notas %d"
@@ -37,7 +41,8 @@ msgstr "Notas %d"
 msgid "Rename group"
 msgstr "Renomear grupo"
 
-#: ../panel-plugin/application.vala:345 ../panel-plugin/window.vala:1037
+#: ../panel-plugin/application.vala:345
+#: ../panel-plugin/window.vala:1037
 #, c-format
 msgid "The name %s is already in use"
 msgstr "O nome %s está em uso"
@@ -69,7 +74,8 @@ msgid "_Rename"
 msgstr "_Renomear"
 
 #. Always on top
-#: ../panel-plugin/window.vala:700 ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:700
+#: ../panel-plugin/xfce4-notes-settings.c:153
 msgid "Always on top"
 msgstr "Sempre no topo"
 
@@ -112,9 +118,8 @@ msgstr "Ocultar notas da barra de tarefas"
 
 #. Show tabs
 #: ../panel-plugin/xfce4-notes-settings.c:115
-#, fuzzy
 msgid "Show tabs in the notes"
-msgstr "Mostrar na lista de tarefas"
+msgstr "Mostrar separadores nas notas"
 
 #: ../panel-plugin/xfce4-notes-settings.c:125
 msgid "Background:"
@@ -163,19 +168,19 @@ msgstr "Verde"
 
 #: ../panel-plugin/xfce4-notes-settings.c:252
 msgid "Indigo"
-msgstr ""
+msgstr "Indigo"
 
 #: ../panel-plugin/xfce4-notes-settings.c:253
 msgid "Olive"
-msgstr ""
+msgstr "Oliva"
 
 #: ../panel-plugin/xfce4-notes-settings.c:254
 msgid "Carmin"
-msgstr ""
+msgstr "Carmin"
 
 #: ../panel-plugin/xfce4-notes-settings.c:255
 msgid "Mimosa"
-msgstr ""
+msgstr "Mimosa"
 
 #: ../panel-plugin/xfce4-notes-settings.c:256
 msgid "White"
@@ -191,73 +196,52 @@ msgstr "Cor de fundo"
 
 #~ msgid "Red"
 #~ msgstr "Vermelho"
-
 #~ msgid "Purple"
 #~ msgstr "Púrpura"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Escolher Fonte de Janela"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Tem a certeza que quer apagar esta janela?"
-
 #~ msgid "Window"
 #~ msgstr "Janela"
-
 #~ msgid "_Options"
 #~ msgstr "_Opções"
-
 #~ msgid "Note"
 #~ msgstr "Nota"
-
 #~ msgid "R_ename..."
 #~ msgstr "R_enomear..."
-
 #~ msgid "Show tabs"
 #~ msgstr "Mostrar separadores"
-
 #~ msgid "Show on startup"
 #~ msgstr "Mostrar no arranque"
-
 #~ msgid "Always"
 #~ msgstr "Sempre"
-
 #~ msgid "Never"
 #~ msgstr "Nunca"
-
 #~ msgid "Last state"
 #~ msgstr "Último estado"
-
 #~ msgid "Rename window"
 #~ msgstr "Renomear janela"
-
 #~ msgid "Error"
 #~ msgstr "Erro"
-
 #~ msgid "Unable to rename window"
 #~ msgstr "Incapaz de renomear janela"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Incapaz de renomear nota"
-
 #~ msgid "Hide arrow button"
 #~ msgstr "Ocultar botão seta"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Plugin de notas para o Xfce4 desktop"
-
 #~ msgid "Resize grip"
 #~ msgstr "Redimensionar grelha"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Xfce 4 Notes Plugin"
-
 #~ msgid "Create new note"
 #~ msgstr "Criar nova nota"
-
 #~ msgid "Delete this note"
 #~ msgstr "Apagar esta nota"
-
 #~ msgid "<b>Notes</b>"
 #~ msgstr "<b>Notas</b>"
+
