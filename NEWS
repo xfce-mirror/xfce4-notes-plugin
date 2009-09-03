@@ -1,3 +1,12 @@
+VERSION 1.7.1
+
+- Show tabs option is back in the settings dialog
+- Deleting the last note also deletes the window (bug #5535)
+- Rework window default visiblity
+- Keep order of notes (bug #5534)
+- Updated translations: Danish, Basque, Urdu, Catalan, Turkish, Japanese,
+  Hungarian, Indonesian, Italian, Asturian, Romanian, Portuguese, Spanish
+
 VERSION 1.7.0
 
 - Renamed "Window" to "Group"
