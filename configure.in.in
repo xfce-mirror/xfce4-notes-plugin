@@ -17,12 +17,12 @@ m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce
 AC_PREREQ([2.50])
 AC_INIT([Notes], [xfce4_notes_plugin_version], [http://bugzilla.xfce.org/], [xfce4-notes-plugin],
 	[http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin])
-AC_REVISION([project_version_build])
+AC_REVISION([xfce4_notes_plugin_version_build])
 AC_CANONICAL_TARGET()
 
-AM_INIT_AUTOMAKE([1.8 dist-bzip2])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE()
 
 dnl Avoid g77 and g++ checks
 m4_undefine([AC_PROG_CXX])
@@ -31,18 +31,18 @@ m4_undefine([AC_PROG_F77])
 m4_defun([AC_PROG_F77],[])
 
 dnl Check for basic programs
-AC_PROG_CC_C_O
-AC_PROG_LD
-AC_PROG_INSTALL
-AC_PROG_LIBTOOL
-AC_PROG_INTLTOOL
+AM_PROG_CC_C_O()
+AC_PROG_LD()
+AC_PROG_LIBTOOL()
+AC_PROG_INSTALL()
+AC_PROG_INTLTOOL()
 
 dnl Check for standard header files
-AC_HEADER_STDC
+AC_HEADER_STDC()
 AC_CHECK_HEADERS([math.h])
 
 dnl Check for X11 installed
-XDT_CHECK_LIBX11_REQUIRE
+XDT_CHECK_LIBX11_REQUIRE()
 
 dnl Check for required packages
 XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
@@ -55,14 +55,15 @@ dnl Check for libxfce4panel >= 4.7
 XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4PANEL47], [libxfce4panel-1.0], [4.7.0], [], [])
 
 dnl Check for valac
-valac_minimum_version=0.7.1
-AC_PATH_PROG([VALAC], [valac], [valac])
-AC_SUBST(VALAC)
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	if test "xHAVE_LIBXFCE4PANEL47" = "xyes" ; then
-		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
+	AM_PROG_VALAC([0.7.1])
+	if test "x$VALAC" = "x" ; then
+		AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
+	fi
+	if test "xLIBXFCE4PANEL47_FOUND" = "xyes" ; then
+		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1]) # 4.8
 	else
-		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1]) # 0.2
+		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1]) # 4.6
 	fi
 fi
 
@@ -92,9 +93,14 @@ echo "Build Configuration:"
 echo
 echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-echo "    * Vala:               $has_valac"
-echo "      You need Vala $valac_minimum_version or higher (run $VALAC --version)"
 echo
+echo "    * Vala:               $VALAC $am__vala_version"
+echo
+fi
+if test "xLIBXFCE4PANEL47_FOUND" = "xyes" ; then
+echo "* Xfce Panel:             4.8"
+else
+echo "* Xfce Panel:             4.6"
 fi
 echo "* Debug Support:          $enable_debug"
 echo

@@ -69,7 +69,6 @@ else
 PACKAGES=--pkg=libxfce4panel-1.0
 endif
 BUILT_SOURCES = vala.stamp
-$(notes_VALABUILTSOURCES): vala.stamp
 vala.stamp: $(notes_VALASOURCES)
 	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 $(PACKAGES) $^ -C
 	touch $@
