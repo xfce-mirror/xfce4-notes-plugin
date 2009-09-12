@@ -36,7 +36,7 @@
 #define NEW_WINDOW_TABS                 TRUE
 #define NEW_WINDOW_TRANSPARENCY         10
 #define NEW_WINDOW_USE_FONT             FALSE
-#define NEW_WINDOW_FONT_DESCR           "Sans 10"
+#define NEW_WINDOW_FONT_DESCR           "Sans 13"
 #define NEW_WINDOW_WIDTH                SIZE_NORMAL
 #define NEW_WINDOW_HEIGHT               ((gint)NEW_WINDOW_WIDTH*SIZE_FACTOR)
 
