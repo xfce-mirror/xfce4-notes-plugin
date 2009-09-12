@@ -1,3 +1,23 @@
+2009-09-12  Mike Massonnet <mmassonnet@xfce.org>
+
+Add an option for the navigation bar
+	* panel-plugin/window.vala:
+	  - New public property show-nabar set by default to true. The motion
+	  callbacks take a look over the boolean and perform only if it is set
+	  to true.
+	* panel-plugin/xfce4-notes-settings.c:
+	  - New option in the settings dialog.
+
+2009-09-08  Mike Massonnet <mmassonnet@xfce.org>
+
+Update the autotools build to Automake 1.11
+	* configure.ac.in:
+	  - Drop custom check on valac against AM_PROG_VALAC.
+
+2009-09-03  Mike Massonnet <mmassonnet@xfce.org>
+
+=== Release 1.7.1 ===
+
 2009-08-22  Mike Massonnet <mmassonnet@xfce.org>
 
 Notify note name change after insertion in the notebook

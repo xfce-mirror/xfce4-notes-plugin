@@ -118,6 +118,13 @@ prop_dialog_new ()
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
+  /* Show navigation bar */
+  button = gtk_check_button_new_with_label (_("Show the automatic navigation bar"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_SHOW_NAVBAR);
+  xfconf_g_property_bind (xfconf_channel, "/global/show-navbar",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
+  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
+
   /* Background color */
   hbox = gtk_hbox_new (FALSE, BORDER);
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);

@@ -91,6 +91,18 @@ namespace Xnp {
 			}
 		}
 
+		private bool _show_navbar;
+		public bool show_navbar {
+			get {
+				return this._show_navbar;
+			}
+			set {
+				this._show_navbar = value;
+				if (this._show_navbar == false)
+					navigation_box.hide ();
+			}
+		}
+
 		private bool _above;
 		public bool above {
 			get {
@@ -127,6 +139,7 @@ namespace Xnp {
 			this.title = _("Notes");
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
+			this.show_navbar = true;
 			this.default_height = 380;
 			this.default_width = 300;
 			this.decorated = false;
@@ -342,6 +355,9 @@ namespace Xnp {
 		 * Hide the navigation when the mouse pointer is leaving the window.
 		 */
 		private bool navigation_leaved_cb () {
+			if (!_show_navbar)
+				return false;
+
 			int timeout = 2;
 			if (is_active) {
 				int x, y;
@@ -364,6 +380,9 @@ namespace Xnp {
 		 * Show the navigation when the mouse pointer is hovering the window.
 		 */
 		private bool navigation_motion_cb () {
+			if (!_show_navbar)
+				return false;
+
 			if (navigation_timeout != 0) {
 				Source.remove (navigation_timeout);
 				navigation_timeout = 0;
