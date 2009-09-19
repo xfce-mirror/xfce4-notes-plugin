@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.90.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 08:56+0200\n"
+"POT-Creation-Date: 2009-09-19 22:43+0200\n"
 "PO-Revision-Date: 2009-06-09 18:04+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -23,172 +23,200 @@ msgstr "Ideální pro rychlé poznámky"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:127
-#: ../panel-plugin/window.vala:914 ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
+#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:917
+#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Poznámky %d"
 
-#: ../panel-plugin/application.vala:324
+#: ../panel-plugin/application.vala:327
 msgid "Rename group"
 msgstr "Přejmenovat skupinu"
 
-#: ../panel-plugin/application.vala:345 ../panel-plugin/window.vala:1037
+#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Název %s se již používá"
 
-#: ../panel-plugin/application.vala:371
+#: ../panel-plugin/application.vala:374
 msgid "Are you sure you want to delete this group?"
 msgstr "Opravdu chcete smazat tuto skupinu?"
 
-#: ../panel-plugin/application.vala:428
+#: ../panel-plugin/application.vala:431
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Název \"%s\" je neplatný."
 
-#: ../panel-plugin/application.vala:429
+#: ../panel-plugin/application.vala:432
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Neplatné znaky: %s"
 
-#: ../panel-plugin/application.vala:486
+#: ../panel-plugin/application.vala:489
 msgid "Unable to open the settings dialog"
 msgstr "Nelze otevřít dialogové okno s nastavením"
 
-#: ../panel-plugin/window.vala:657
+#: ../panel-plugin/window.vala:688
 msgid "_Go"
 msgstr "_Přejít"
 
-#: ../panel-plugin/window.vala:680
+#: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "_Přejmenovat"
 
 #. Always on top
-#: ../panel-plugin/window.vala:700 ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Vždy nahoře"
 
-#: ../panel-plugin/window.vala:705
+#: ../panel-plugin/window.vala:736
 msgid "Sticky window"
 msgstr "Přilepené okno"
 
-#: ../panel-plugin/window.vala:767
+#: ../panel-plugin/window.vala:798
 msgid "_Rename group"
 msgstr "_Přejmenovat skupinu"
 
-#: ../panel-plugin/window.vala:774
+#: ../panel-plugin/window.vala:805
 msgid "_Delete group"
 msgstr "_Smazat skupinu"
 
-#: ../panel-plugin/window.vala:781
+#: ../panel-plugin/window.vala:812
 msgid "_Add a new group"
 msgstr "_Přidat novou skupinu"
 
-#: ../panel-plugin/window.vala:990
+#: ../panel-plugin/window.vala:1022
 msgid "Are you sure you want to delete this note?"
 msgstr "Opravdu chcete smazat tuto poznámku?"
 
-#: ../panel-plugin/window.vala:1016
+#: ../panel-plugin/window.vala:1048
 msgid "Rename note"
 msgstr "Přejmenovat poznámku"
 
-#: ../panel-plugin/xfce4-notes-settings.c:84
+#: ../panel-plugin/xfce4-notes-settings.c:95
 msgid "Configure the plugin"
 msgstr "Konfigurovat zásuvný modul"
 
-#: ../panel-plugin/xfce4-notes-settings.c:103
+#: ../panel-plugin/xfce4-notes-settings.c:114
 msgid "Global settings"
 msgstr "Globální nastavení"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:108
+#: ../panel-plugin/xfce4-notes-settings.c:119
 msgid "Hide notes from taskbar"
 msgstr "Skrýt poznámky z panelu úloh"
 
-#. Show tabs
-#: ../panel-plugin/xfce4-notes-settings.c:115
-#, fuzzy
-msgid "Show tabs in the notes"
-msgstr "Zobrazovat v seznamu úloh"
+#. Show navigation bar
+#: ../panel-plugin/xfce4-notes-settings.c:126
+msgid "Show the automatic navigation bar"
+msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:125
+#: ../panel-plugin/xfce4-notes-settings.c:136
+msgid "Tabs position:"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
 msgstr "Pozadí"
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:159
 msgid "Font:"
 msgstr "Písmo:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:148
+#: ../panel-plugin/xfce4-notes-settings.c:169
 msgid "New group settings"
 msgstr "Nastavení nové skupiny"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Sticky"
 msgstr "Přilepené"
 
-#: ../panel-plugin/xfce4-notes-settings.c:170
+#: ../panel-plugin/xfce4-notes-settings.c:191
 msgid "Size:"
 msgstr "Velikost:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:189
+#: ../panel-plugin/xfce4-notes-settings.c:209
+#, fuzzy
+msgid "None"
+msgstr "Poznámka"
+
+#: ../panel-plugin/xfce4-notes-settings.c:210
+msgid "Top"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:211
+msgid "Right"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:212
+msgid "Bottom"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:213
+msgid "Left"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
 msgstr "Malé"
 
-#: ../panel-plugin/xfce4-notes-settings.c:190
+#: ../panel-plugin/xfce4-notes-settings.c:230
 msgid "Normal"
 msgstr "Běžné"
 
-#: ../panel-plugin/xfce4-notes-settings.c:191
+#: ../panel-plugin/xfce4-notes-settings.c:231
 msgid "Large"
 msgstr "Velké"
 
-#: ../panel-plugin/xfce4-notes-settings.c:249
+#: ../panel-plugin/xfce4-notes-settings.c:289
 msgid "Yellow"
 msgstr "Žluté"
 
-#: ../panel-plugin/xfce4-notes-settings.c:250
+#: ../panel-plugin/xfce4-notes-settings.c:290
 msgid "Blue"
 msgstr "Modré"
 
-#: ../panel-plugin/xfce4-notes-settings.c:251
+#: ../panel-plugin/xfce4-notes-settings.c:291
 msgid "Green"
 msgstr "Zelené"
 
-#: ../panel-plugin/xfce4-notes-settings.c:252
+#: ../panel-plugin/xfce4-notes-settings.c:292
 msgid "Indigo"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:253
+#: ../panel-plugin/xfce4-notes-settings.c:293
 msgid "Olive"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:294
 msgid "Carmin"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:295
 msgid "Mimosa"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:296
 msgid "White"
 msgstr "Bílé"
 
-#: ../panel-plugin/xfce4-notes-settings.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:297
 msgid "Custom..."
 msgstr "Vlastní..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:354
+#: ../panel-plugin/xfce4-notes-settings.c:394
 msgid "Background Color"
 msgstr "Barva pozadí"
+
+#, fuzzy
+#~ msgid "Show tabs in the notes"
+#~ msgstr "Zobrazovat v seznamu úloh"
 
 #~ msgid "Red"
 #~ msgstr "Červené"
@@ -208,9 +236,6 @@ msgstr "Barva pozadí"
 
 #~ msgid "_Options"
 #~ msgstr "_Volby"
-
-#~ msgid "Note"
-#~ msgstr "Poznámka"
 
 #~ msgid "R_ename..."
 #~ msgstr "Př_ejmenovat..."

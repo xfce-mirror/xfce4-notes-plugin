@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 08:56+0200\n"
+"POT-Creation-Date: 2009-09-19 22:43+0200\n"
 "PO-Revision-Date: 2009-06-16 00:43+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -23,169 +23,194 @@ msgstr "一个理想的快速便笺程序"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82 ../panel-plugin/window.vala:127
-#: ../panel-plugin/window.vala:914 ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
+#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "便笺"
 
-#: ../panel-plugin/application.vala:107 ../panel-plugin/window.vala:917
+#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "便笺 %d"
 
-#: ../panel-plugin/application.vala:324
+#: ../panel-plugin/application.vala:327
 msgid "Rename group"
 msgstr "重命名组"
 
-#: ../panel-plugin/application.vala:345 ../panel-plugin/window.vala:1037
+#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "名称 %s 已被使用"
 
-#: ../panel-plugin/application.vala:371
+#: ../panel-plugin/application.vala:374
 msgid "Are you sure you want to delete this group?"
 msgstr "您确定要删除该组？"
 
-#: ../panel-plugin/application.vala:428
+#: ../panel-plugin/application.vala:431
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "名称“%s”无效。"
 
-#: ../panel-plugin/application.vala:429
+#: ../panel-plugin/application.vala:432
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "无效字符是: %s"
 
-#: ../panel-plugin/application.vala:486
+#: ../panel-plugin/application.vala:489
 msgid "Unable to open the settings dialog"
 msgstr "无法打开设置对话框"
 
-#: ../panel-plugin/window.vala:657
+#: ../panel-plugin/window.vala:688
 msgid "_Go"
 msgstr "转到(_G)"
 
-#: ../panel-plugin/window.vala:680
+#: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "重命名(_R)"
 
 #. Always on top
-#: ../panel-plugin/window.vala:700 ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "总是置顶"
 
-#: ../panel-plugin/window.vala:705
+#: ../panel-plugin/window.vala:736
 msgid "Sticky window"
 msgstr "粘住窗口"
 
-#: ../panel-plugin/window.vala:767
+#: ../panel-plugin/window.vala:798
 msgid "_Rename group"
 msgstr "重命名组(_R)"
 
-#: ../panel-plugin/window.vala:774
+#: ../panel-plugin/window.vala:805
 msgid "_Delete group"
 msgstr "删除组(_D)"
 
-#: ../panel-plugin/window.vala:781
+#: ../panel-plugin/window.vala:812
 msgid "_Add a new group"
 msgstr "添加一个组(_A)"
 
-#: ../panel-plugin/window.vala:990
+#: ../panel-plugin/window.vala:1022
 msgid "Are you sure you want to delete this note?"
 msgstr "确定要删除该便笺?"
 
-#: ../panel-plugin/window.vala:1016
+#: ../panel-plugin/window.vala:1048
 msgid "Rename note"
 msgstr "重命名便笺"
 
-#: ../panel-plugin/xfce4-notes-settings.c:84
+#: ../panel-plugin/xfce4-notes-settings.c:95
 msgid "Configure the plugin"
 msgstr "配置此插件"
 
-#: ../panel-plugin/xfce4-notes-settings.c:103
+#: ../panel-plugin/xfce4-notes-settings.c:114
 msgid "Global settings"
 msgstr "全局设置"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:108
+#: ../panel-plugin/xfce4-notes-settings.c:119
 msgid "Hide notes from taskbar"
 msgstr "从任务栏中隐藏"
 
-#. Show tabs
-#: ../panel-plugin/xfce4-notes-settings.c:115
-msgid "Show tabs in the notes"
+#. Show navigation bar
+#: ../panel-plugin/xfce4-notes-settings.c:126
+msgid "Show the automatic navigation bar"
 msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:125
+#: ../panel-plugin/xfce4-notes-settings.c:136
+msgid "Tabs position:"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
 msgstr "背景："
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:159
 msgid "Font:"
 msgstr "字体："
 
-#: ../panel-plugin/xfce4-notes-settings.c:148
+#: ../panel-plugin/xfce4-notes-settings.c:169
 msgid "New group settings"
 msgstr "新组设置"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Sticky"
 msgstr "粘滞"
 
-#: ../panel-plugin/xfce4-notes-settings.c:170
+#: ../panel-plugin/xfce4-notes-settings.c:191
 msgid "Size:"
 msgstr "尺寸："
 
-#: ../panel-plugin/xfce4-notes-settings.c:189
+#: ../panel-plugin/xfce4-notes-settings.c:209
+#, fuzzy
+msgid "None"
+msgstr "便笺"
+
+#: ../panel-plugin/xfce4-notes-settings.c:210
+msgid "Top"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:211
+msgid "Right"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:212
+msgid "Bottom"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:213
+msgid "Left"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
 msgstr "小"
 
-#: ../panel-plugin/xfce4-notes-settings.c:190
+#: ../panel-plugin/xfce4-notes-settings.c:230
 msgid "Normal"
 msgstr "中等"
 
-#: ../panel-plugin/xfce4-notes-settings.c:191
+#: ../panel-plugin/xfce4-notes-settings.c:231
 msgid "Large"
 msgstr "大"
 
-#: ../panel-plugin/xfce4-notes-settings.c:249
+#: ../panel-plugin/xfce4-notes-settings.c:289
 msgid "Yellow"
 msgstr "黄色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:250
+#: ../panel-plugin/xfce4-notes-settings.c:290
 msgid "Blue"
 msgstr "蓝色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:251
+#: ../panel-plugin/xfce4-notes-settings.c:291
 msgid "Green"
 msgstr "绿色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:252
+#: ../panel-plugin/xfce4-notes-settings.c:292
 msgid "Indigo"
 msgstr "靛青色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:253
+#: ../panel-plugin/xfce4-notes-settings.c:293
 msgid "Olive"
 msgstr "橄榄色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:294
 msgid "Carmin"
 msgstr "胭脂色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:295
 msgid "Mimosa"
 msgstr "淡黄色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:296
 msgid "White"
 msgstr "白色"
 
-#: ../panel-plugin/xfce4-notes-settings.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:297
 msgid "Custom..."
 msgstr "自定义..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:354
+#: ../panel-plugin/xfce4-notes-settings.c:394
 msgid "Background Color"
 msgstr "背景颜色"
 
@@ -206,9 +231,6 @@ msgstr "背景颜色"
 
 #~ msgid "_Options"
 #~ msgstr "选项(_O)"
-
-#~ msgid "Note"
-#~ msgstr "便笺"
 
 #~ msgid "R_ename..."
 #~ msgstr "重命名(_e)"

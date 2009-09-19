@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 08:56+0200\n"
+"POT-Creation-Date: 2009-09-19 22:43+0200\n"
 "PO-Revision-Date: 2009-08-22 17:13+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -25,216 +25,251 @@ msgstr "Ideel til dine hurtignoter"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72
-#: ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82
-#: ../panel-plugin/window.vala:127
-#: ../panel-plugin/window.vala:914
-#: ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
+#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Noter"
 
-#: ../panel-plugin/application.vala:107
-#: ../panel-plugin/window.vala:917
+#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Noter %d"
 
-#: ../panel-plugin/application.vala:324
+#: ../panel-plugin/application.vala:327
 msgid "Rename group"
 msgstr "Omdøb gruppe"
 
-#: ../panel-plugin/application.vala:345
-#: ../panel-plugin/window.vala:1037
+#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Navnet %s er allerede i brug"
 
-#: ../panel-plugin/application.vala:371
+#: ../panel-plugin/application.vala:374
 msgid "Are you sure you want to delete this group?"
 msgstr "Er du sikker på, at du vil slette denne gruppe?"
 
-#: ../panel-plugin/application.vala:428
+#: ../panel-plugin/application.vala:431
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Navnet \"%s\" er ugyldigt."
 
-#: ../panel-plugin/application.vala:429
+#: ../panel-plugin/application.vala:432
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Det ugyldige tegn er: %s"
 
-#: ../panel-plugin/application.vala:486
+#: ../panel-plugin/application.vala:489
 msgid "Unable to open the settings dialog"
 msgstr "Kunne ikke åbne indstillingsvinduet"
 
-#: ../panel-plugin/window.vala:657
+#: ../panel-plugin/window.vala:688
 msgid "_Go"
 msgstr "_Gå til"
 
-#: ../panel-plugin/window.vala:680
+#: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "_Omdøb"
 
 #. Always on top
-#: ../panel-plugin/window.vala:700
-#: ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Altid øverst"
 
-#: ../panel-plugin/window.vala:705
+#: ../panel-plugin/window.vala:736
 msgid "Sticky window"
 msgstr "Hold vindue permanent"
 
-#: ../panel-plugin/window.vala:767
+#: ../panel-plugin/window.vala:798
 msgid "_Rename group"
 msgstr "_Omdøb gruppe"
 
-#: ../panel-plugin/window.vala:774
+#: ../panel-plugin/window.vala:805
 msgid "_Delete group"
 msgstr "_Slet gruppe"
 
-#: ../panel-plugin/window.vala:781
+#: ../panel-plugin/window.vala:812
 msgid "_Add a new group"
 msgstr "_Tilføj en ny gruppe"
 
-#: ../panel-plugin/window.vala:990
+#: ../panel-plugin/window.vala:1022
 msgid "Are you sure you want to delete this note?"
 msgstr "Er du sikker på, at du vil slette denne note?"
 
-#: ../panel-plugin/window.vala:1016
+#: ../panel-plugin/window.vala:1048
 msgid "Rename note"
 msgstr "Omdøb note"
 
-#: ../panel-plugin/xfce4-notes-settings.c:84
+#: ../panel-plugin/xfce4-notes-settings.c:95
 msgid "Configure the plugin"
 msgstr "Indstil udvidelsesmodulet"
 
-#: ../panel-plugin/xfce4-notes-settings.c:103
+#: ../panel-plugin/xfce4-notes-settings.c:114
 msgid "Global settings"
 msgstr "Globale indstillinger"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:108
+#: ../panel-plugin/xfce4-notes-settings.c:119
 msgid "Hide notes from taskbar"
 msgstr "Skjul noter på proceslinjen"
 
-#. Show tabs
-#: ../panel-plugin/xfce4-notes-settings.c:115
-msgid "Show tabs in the notes"
-msgstr "Vis faneblade i noterne"
+#. Show navigation bar
+#: ../panel-plugin/xfce4-notes-settings.c:126
+msgid "Show the automatic navigation bar"
+msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:125
+#: ../panel-plugin/xfce4-notes-settings.c:136
+msgid "Tabs position:"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
 msgstr "Baggrund:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:159
 msgid "Font:"
 msgstr "Skrifttype:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:148
+#: ../panel-plugin/xfce4-notes-settings.c:169
 msgid "New group settings"
 msgstr "Nye gruppeindstillinger"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Sticky"
 msgstr "Klæbende"
 
-#: ../panel-plugin/xfce4-notes-settings.c:170
+#: ../panel-plugin/xfce4-notes-settings.c:191
 msgid "Size:"
 msgstr "Størrelse:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:189
+#: ../panel-plugin/xfce4-notes-settings.c:209
+#, fuzzy
+msgid "None"
+msgstr "Notat"
+
+#: ../panel-plugin/xfce4-notes-settings.c:210
+msgid "Top"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:211
+msgid "Right"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:212
+msgid "Bottom"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:213
+msgid "Left"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
 msgstr "Lille"
 
-#: ../panel-plugin/xfce4-notes-settings.c:190
+#: ../panel-plugin/xfce4-notes-settings.c:230
 msgid "Normal"
 msgstr "Normal"
 
-#: ../panel-plugin/xfce4-notes-settings.c:191
+#: ../panel-plugin/xfce4-notes-settings.c:231
 msgid "Large"
 msgstr "Stor"
 
-#: ../panel-plugin/xfce4-notes-settings.c:249
+#: ../panel-plugin/xfce4-notes-settings.c:289
 msgid "Yellow"
 msgstr "Gul"
 
-#: ../panel-plugin/xfce4-notes-settings.c:250
+#: ../panel-plugin/xfce4-notes-settings.c:290
 msgid "Blue"
 msgstr "Blå"
 
-#: ../panel-plugin/xfce4-notes-settings.c:251
+#: ../panel-plugin/xfce4-notes-settings.c:291
 msgid "Green"
 msgstr "Grøn"
 
-#: ../panel-plugin/xfce4-notes-settings.c:252
+#: ../panel-plugin/xfce4-notes-settings.c:292
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../panel-plugin/xfce4-notes-settings.c:253
+#: ../panel-plugin/xfce4-notes-settings.c:293
 msgid "Olive"
 msgstr "Olive"
 
-#: ../panel-plugin/xfce4-notes-settings.c:254
+#: ../panel-plugin/xfce4-notes-settings.c:294
 msgid "Carmin"
 msgstr "Carmin"
 
-#: ../panel-plugin/xfce4-notes-settings.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:295
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../panel-plugin/xfce4-notes-settings.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:296
 msgid "White"
 msgstr "Hvid"
 
-#: ../panel-plugin/xfce4-notes-settings.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:297
 msgid "Custom..."
 msgstr "Tilpasset..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:354
+#: ../panel-plugin/xfce4-notes-settings.c:394
 msgid "Background Color"
 msgstr "Baggrundsfarve"
 
+#~ msgid "Show tabs in the notes"
+#~ msgstr "Vis faneblade i noterne"
+
 #~ msgid "Red"
 #~ msgstr "Rød"
+
 #~ msgid "Purple"
 #~ msgstr "Lilla"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Vælg skrifttype for vinduet"
+
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Er du sikker på, at du vil slette dette vindue?"
+
 #~ msgid "Window"
 #~ msgstr "Vindue"
+
 #~ msgid "_Options"
 #~ msgstr "_Indstillinger"
-#~ msgid "Note"
-#~ msgstr "Notat"
+
 #~ msgid "R_ename..."
 #~ msgstr "O_mdøb..."
+
 #~ msgid "Show tabs"
 #~ msgstr "Vis faneblade"
+
 #~ msgid "Show on startup"
 #~ msgstr "Vis ved opstart"
+
 #~ msgid "Always"
 #~ msgstr "Altid"
+
 #~ msgid "Never"
 #~ msgstr "Aldrig"
+
 #~ msgid "Last state"
 #~ msgstr "Sidste tilstand"
+
 #~ msgid "Rename window"
 #~ msgstr "Omdøb vindue"
+
 #~ msgid "Error"
 #~ msgstr "Fejl"
+
 #~ msgid "Unable to rename window"
 #~ msgstr "Kunne ikke omdøbe vindue"
+
 #~ msgid "Unable to rename note"
 #~ msgstr "Kunne ikke omdøbe notat"
+
 #~ msgid "Hide arrow button"
 #~ msgstr "Skjul pileknap"
+
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Notat-udvidelsesmodul til Xfce4-skrivebordet"
-
