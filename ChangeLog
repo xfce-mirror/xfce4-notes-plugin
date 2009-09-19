@@ -1,5 +1,13 @@
 2009-09-19  Mike Massonnet <mmassonnet@xfce.org>
 
+Drop top-right/left resize handles
+	* panel-plugin/window.vala:
+	  - Remove ability to resize from the top-right/left corners.
+	  - Pack the menu and close buttons closer to the window border and
+	  display a capsed X.
+
+2009-09-19  Mike Massonnet <mmassonnet@xfce.org>
+
 Change tab option against a tabs position combobox
 	* panel-plugin/application.vala:
 	  - Connect global xfconf bindings after loading the notes.

@@ -71,8 +71,6 @@ namespace Xnp {
 		};
 
 		private int CORNER_MARGIN = 20;
-		private Gdk.Cursor CURSOR_TOP_LC = new Gdk.Cursor (Gdk.CursorType.TOP_LEFT_CORNER);
-		private Gdk.Cursor CURSOR_TOP_RC = new Gdk.Cursor (Gdk.CursorType.TOP_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
@@ -217,21 +215,21 @@ namespace Xnp {
 			var menu_box = new Gtk.EventBox ();
 			var menu_image = new Gtk.Image.from_icon_name ("xfce4-notes-plugin", Gtk.IconSize.MENU);
 			menu_box.add (menu_image);
-			title_box.pack_start (menu_box, false, false, 4);
+			title_box.pack_start (menu_box, false, false, 2);
 			var title_evbox = new Gtk.EventBox ();
 			this.title_label = new Gtk.Label (null);
 			this.title_label.set_markup ("<b>"+this.title+"</b>");
 			this.title_label.ellipsize = Pango.EllipsizeMode.END;
 			title_evbox.add (this.title_label);
-			title_box.pack_start (title_evbox, true, true, 0);
+			title_box.pack_start (title_evbox, true, true, 2);
 			var close_box = new Gtk.Button ();
 			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0); // GDK_Escape
 			close_box.set_relief (Gtk.ReliefStyle.NONE);
 			close_box.can_focus = false;
-			var close_label = new Gtk.Label ("<b>x</b>");
+			var close_label = new Gtk.Label ("<b>X</b>");
 			close_label.use_markup = true;
 			close_box.add (close_label);
-			title_box.pack_start (close_box, false, false, 4);
+			title_box.pack_start (close_box, false, false, 2);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
 			if (close_box.allocation.width < 22)
@@ -444,16 +442,8 @@ namespace Xnp {
 				return false;
 			}
 
-			// Top left corner
-			if (event.x <= 4
-				&& event.y <= this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_TOP_LC);
-			// Top right corner
-			else if (event.x >= allocation.width - 4
-				&& event.y <= this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_TOP_RC);
 			// Bottom right corner
-			else if (event.x >= allocation.width - this.CORNER_MARGIN
+			if (event.x >= allocation.width - this.CORNER_MARGIN
 				&& event.y >= allocation.height - this.CORNER_MARGIN)
 				window.set_cursor (this.CURSOR_BOTTOM_RC);
 			// Bottom
@@ -484,16 +474,8 @@ namespace Xnp {
 				&& event.y < allocation.height - 4)
 				return false;
 
-			// Top left corner
-			if (event.x <= 4
-				&& event.y <= this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.NORTH_WEST;
-			// Top right corner
-			else if (event.x >= allocation.width - 4
-				&& event.y <= this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.NORTH_EAST;
 			// Right
-			else if (event.y > this.CORNER_MARGIN
+			if (event.y > this.CORNER_MARGIN
 				&& event.x > allocation.width - this.CORNER_MARGIN
 				&& event.y < allocation.height - this.CORNER_MARGIN)
 				edge = Gdk.WindowEdge.EAST;
