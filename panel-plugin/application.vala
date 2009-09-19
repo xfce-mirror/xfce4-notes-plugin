@@ -39,6 +39,7 @@ namespace Xnp {
 
 			string color = xfconf_channel.get_string ("/global/background-color", "#F2F1EF");
 			Xnp.Color.set_background (color);
+
 			xfconf_channel.property_changed += (channel, prop, val) => {
 				if (prop == "/global/background-color") {
 					Xnp.Color.set_background (val.get_string ());
@@ -80,14 +81,6 @@ namespace Xnp {
 		 */
 		public Xnp.Window create_window (string? name = null) {
 			var window = new Xnp.Window ();
-
-			/* Global settings */
-			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
-				typeof (bool), window, "skip-taskbar-hint");
-			Xfconf.Property.bind (xfconf_channel, "/global/show-tabs",
-				typeof (bool), window, "show-tabs");
-			Xfconf.Property.bind (xfconf_channel, "/global/show-navbar",
-				typeof (bool), window, "show-navbar");
 
 			/* Default settings */
 			if (name == null) {
@@ -142,6 +135,14 @@ namespace Xnp {
 			else {
 				this.load_window_data (window);
 			}
+
+			/* Global settings */
+			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
+				typeof (bool), window, "skip-taskbar-hint");
+			Xfconf.Property.bind (xfconf_channel, "/global/show-navbar",
+				typeof (bool), window, "show-navbar");
+			Xfconf.Property.bind (xfconf_channel, "/global/tabs-position",
+				typeof (int), window, "tabs-position");
 
 			/* Connect signals */
 			window.action += (win, action) => {

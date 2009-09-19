@@ -1,3 +1,15 @@
+2009-09-19  Mike Massonnet <mmassonnet@xfce.org>
+
+Change tab option against a tabs position combobox
+	* panel-plugin/application.vala:
+	  - Connect global xfconf bindings after loading the notes.
+	* panel-plugin/window.vala:
+	  - New property tabs-position with a function to update the angle of
+	  the labels in the tabs.
+	  - Set the border within the tabs to 4 and always show the border.
+	* panel-plugin/xfce4-notes-settings.c:
+	  - Drop the checkbox and add a combobox.
+
 2009-09-13  Mike Massonnet <mmassonnet@xfce.org>
 
 Set default font bigger

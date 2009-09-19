@@ -31,6 +31,17 @@
 
 enum
 {
+  COMBOBOX_TABS_NONE,
+  COMBOBOX_TABS_TOP,
+  COMBOBOX_TABS_RIGHT,
+  COMBOBOX_TABS_BOTTOM,
+  COMBOBOX_TABS_LEFT,
+};
+
+static GtkWidget *tabs_combo_box_new ();
+
+enum
+{
   COMBOBOX_SIZE_SMALL,
   COMBOBOX_SIZE_NORMAL,
   COMBOBOX_SIZE_LARGE,
@@ -111,19 +122,22 @@ prop_dialog_new ()
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
-  /* Show tabs */
-  button = gtk_check_button_new_with_label (_("Show tabs in the notes"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_SHOW_TABS);
-  xfconf_g_property_bind (xfconf_channel, "/global/show-tabs",
-                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
-  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
-
   /* Show navigation bar */
   button = gtk_check_button_new_with_label (_("Show the automatic navigation bar"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_SHOW_NAVBAR);
   xfconf_g_property_bind (xfconf_channel, "/global/show-navbar",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
+
+  /* Tabs position */
+  hbox = gtk_hbox_new (FALSE, BORDER);
+  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
+
+  label = gtk_label_new (_("Tabs position:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+  button = tabs_combo_box_new ();
+  gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* Background color */
   hbox = gtk_hbox_new (FALSE, BORDER);
@@ -184,6 +198,25 @@ prop_dialog_new ()
   gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 
   return dialog;
+}
+
+static GtkWidget *
+tabs_combo_box_new ()
+{
+  GtkWidget *combobox;
+
+  combobox = gtk_combo_box_new_text ();
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("None"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Top"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Right"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Bottom"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Left"));
+  gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), 0);
+
+  xfconf_g_property_bind (xfconf_channel, "/global/tabs-position",
+                          G_TYPE_INT, G_OBJECT (combobox), "active");
+
+  return combobox;
 }
 
 static GtkWidget *

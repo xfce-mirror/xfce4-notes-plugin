@@ -103,6 +103,34 @@ namespace Xnp {
 			}
 		}
 
+		private int _tabs_position;
+		public int tabs_position {
+			get {
+				return this._tabs_position;
+			}
+			set {
+				this._tabs_position = value;
+				if (this._tabs_position == 0)
+					show_tabs = false;
+				else {
+					show_tabs = true;
+					_notebook_update_tabs_angle ();
+					if (this._tabs_position == 1)
+						this.notebook.tab_pos = Gtk.PositionType.TOP;
+					else if (this._tabs_position == 2)
+						this.notebook.tab_pos = Gtk.PositionType.RIGHT;
+					else if (this._tabs_position == 3)
+						this.notebook.tab_pos = Gtk.PositionType.BOTTOM;
+					else if (this._tabs_position == 4)
+						this.notebook.tab_pos = Gtk.PositionType.LEFT;
+					else {
+						this.show_tabs = false;
+						warning ("Bad value for tabs-position");
+					}
+				}
+			}
+		}
+
 		private bool _above;
 		public bool above {
 			get {
@@ -216,8 +244,10 @@ namespace Xnp {
 
 			/* Build Notebook */
 			this.notebook = new Gtk.Notebook ();
-			this.notebook.show_border = false;
+			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
+			this.notebook.tab_pos = Gtk.PositionType.TOP;
+			this.notebook.tab_border = 4;
 			this.notebook.scrollable = true;
 			this.notebook.show ();
 			this.content_box.pack_start (this.notebook, true, true, 0);
@@ -951,6 +981,7 @@ namespace Xnp {
 			this.notebook.insert_page (note, null, page);
 			note.name = note.name; //note.notify ("name");
 			this.note_inserted (note);
+			_notebook_update_tabs_angle ();
 			return note;
 		}
 
@@ -1115,6 +1146,28 @@ namespace Xnp {
 				if (note.dirty) {
 					note.dirty = false;
 					save_data (note);
+				}
+			}
+		}
+
+		/**
+		 * _notebook_update_tabs_angle:
+		 *
+		 * Set the angle of each label in the tab.
+		 */
+		private void _notebook_update_tabs_angle () {
+			int angle = 0;
+			if (_tabs_position == 2)
+				angle = 270;
+			else if (_tabs_position == 4)
+				angle = 90;
+
+			int pages = this.notebook.get_n_pages ();
+			for (int i = 0; i < pages; i++) {
+				var widget = this.notebook.get_nth_page (i);
+				var label = this.notebook.get_tab_label (widget) as Gtk.Label;
+				if (label is Gtk.Label) {
+					label.angle = angle;
 				}
 			}
 		}
