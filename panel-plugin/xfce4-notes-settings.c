@@ -291,7 +291,7 @@ background_combo_box_new ()
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Green"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Indigo"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Olive"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Carmin"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Carmine"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Mimosa"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("White"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Custom..."));

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 08:56+0200\n"
-"PO-Revision-Date: \n"
+"POT-Creation-Date: 2009-09-20 14:53+0200\n"
+"PO-Revision-Date: 2009-09-20 14:56+0200\n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,220 +18,257 @@ msgstr "Hızlı not almak için idealdir"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72
-#: ../panel-plugin/application.vala:103
-#: ../panel-plugin/window.vala:82
-#: ../panel-plugin/window.vala:127
-#: ../panel-plugin/window.vala:914
-#: ../panel-plugin/xfce4-notes-settings.c:80
+#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
+#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Notlar"
 
-#: ../panel-plugin/application.vala:107
-#: ../panel-plugin/window.vala:917
+#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Notlar %d"
 
-#: ../panel-plugin/application.vala:324
+#: ../panel-plugin/application.vala:327
 msgid "Rename group"
 msgstr "Grubu yeniden adlandır"
 
-#: ../panel-plugin/application.vala:345
-#: ../panel-plugin/window.vala:1037
+#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "İsim %s zaten kullanımda"
 
-#: ../panel-plugin/application.vala:371
+#: ../panel-plugin/application.vala:374
 msgid "Are you sure you want to delete this group?"
 msgstr "Bu grubu silmek istediğinizden emin misiniz?"
 
-#: ../panel-plugin/application.vala:428
+#: ../panel-plugin/application.vala:431
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Verilen isim \"%s\" geçersiz."
 
-#: ../panel-plugin/application.vala:429
+#: ../panel-plugin/application.vala:432
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Geçersiz karakterler: %s"
 
-#: ../panel-plugin/application.vala:486
+#: ../panel-plugin/application.vala:489
 msgid "Unable to open the settings dialog"
 msgstr "Yapılandırma menüsü açılamadı"
 
-#: ../panel-plugin/window.vala:657
+#: ../panel-plugin/window.vala:688
 msgid "_Go"
 msgstr "_Git"
 
-#: ../panel-plugin/window.vala:680
+#: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "Yeniden Adlandı_r"
 
 #. Always on top
-#: ../panel-plugin/window.vala:700
-#: ../panel-plugin/xfce4-notes-settings.c:153
+#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Her zaman üstte"
 
-#: ../panel-plugin/window.vala:705
+#: ../panel-plugin/window.vala:736
 msgid "Sticky window"
 msgstr "Yapışkan pencere"
 
-#: ../panel-plugin/window.vala:767
+#: ../panel-plugin/window.vala:798
 msgid "_Rename group"
 msgstr "G_rubu yeniden adlandır"
 
-#: ../panel-plugin/window.vala:774
+#: ../panel-plugin/window.vala:805
 msgid "_Delete group"
 msgstr "Grubu _Sil"
 
-#: ../panel-plugin/window.vala:781
+#: ../panel-plugin/window.vala:812
 msgid "_Add a new group"
 msgstr "_Yeni grup ekle"
 
-#: ../panel-plugin/window.vala:990
+#: ../panel-plugin/window.vala:1022
 msgid "Are you sure you want to delete this note?"
 msgstr "Bu notu silmek istediğinizden emin misiniz?"
 
-#: ../panel-plugin/window.vala:1016
+#: ../panel-plugin/window.vala:1048
 msgid "Rename note"
 msgstr "Notu yeniden adlandır"
 
-#: ../panel-plugin/xfce4-notes-settings.c:84
+#: ../panel-plugin/xfce4-notes-settings.c:95
 msgid "Configure the plugin"
 msgstr "Eklentiyi yapılandır"
 
-#: ../panel-plugin/xfce4-notes-settings.c:103
+#: ../panel-plugin/xfce4-notes-settings.c:114
 msgid "Global settings"
 msgstr "Genel ayarlar"
 
 #. Hide from taskbar
-#: ../panel-plugin/xfce4-notes-settings.c:108
+#: ../panel-plugin/xfce4-notes-settings.c:119
 msgid "Hide notes from taskbar"
 msgstr "Notları görev listesi menüsünde gösterme"
 
-#. Show tabs
-#: ../panel-plugin/xfce4-notes-settings.c:115
-msgid "Show tabs in the notes"
-msgstr "Notlarda sekmeleri göster"
+#. Show navigation bar
+#: ../panel-plugin/xfce4-notes-settings.c:126
+msgid "Show the automatic navigation bar"
+msgstr ""
 
-#: ../panel-plugin/xfce4-notes-settings.c:125
+#: ../panel-plugin/xfce4-notes-settings.c:136
+msgid "Tabs position:"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
 msgstr "Arkaplan:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:138
+#: ../panel-plugin/xfce4-notes-settings.c:159
 msgid "Font:"
 msgstr "Yazıtipi:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:148
+#: ../panel-plugin/xfce4-notes-settings.c:169
 msgid "New group settings"
 msgstr "Yeni grup ayarları"
 
 #. Sticky window
-#: ../panel-plugin/xfce4-notes-settings.c:160
+#: ../panel-plugin/xfce4-notes-settings.c:181
 msgid "Sticky"
 msgstr "Yapışkan"
 
-#: ../panel-plugin/xfce4-notes-settings.c:170
+#: ../panel-plugin/xfce4-notes-settings.c:191
 msgid "Size:"
 msgstr "Boyut:"
 
-#: ../panel-plugin/xfce4-notes-settings.c:189
+#: ../panel-plugin/xfce4-notes-settings.c:209
+#, fuzzy
+msgid "None"
+msgstr "Not"
+
+#: ../panel-plugin/xfce4-notes-settings.c:210
+msgid "Top"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:211
+msgid "Right"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:212
+msgid "Bottom"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:213
+msgid "Left"
+msgstr ""
+
+#: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
 msgstr "Küçük"
 
-#: ../panel-plugin/xfce4-notes-settings.c:190
+#: ../panel-plugin/xfce4-notes-settings.c:230
 msgid "Normal"
 msgstr "Normal"
 
-#: ../panel-plugin/xfce4-notes-settings.c:191
+#: ../panel-plugin/xfce4-notes-settings.c:231
 msgid "Large"
 msgstr "Büyük"
 
-#: ../panel-plugin/xfce4-notes-settings.c:249
+#: ../panel-plugin/xfce4-notes-settings.c:289
 msgid "Yellow"
 msgstr "Sarı"
 
-#: ../panel-plugin/xfce4-notes-settings.c:250
+#: ../panel-plugin/xfce4-notes-settings.c:290
 msgid "Blue"
 msgstr "Mavi"
 
-#: ../panel-plugin/xfce4-notes-settings.c:251
+#: ../panel-plugin/xfce4-notes-settings.c:291
 msgid "Green"
 msgstr "Yeşil"
 
-#: ../panel-plugin/xfce4-notes-settings.c:252
+#: ../panel-plugin/xfce4-notes-settings.c:292
 msgid "Indigo"
 msgstr "Çivit rengi"
 
-#: ../panel-plugin/xfce4-notes-settings.c:253
+#: ../panel-plugin/xfce4-notes-settings.c:293
 msgid "Olive"
 msgstr "Zeytin rengi"
 
-#: ../panel-plugin/xfce4-notes-settings.c:254
-msgid "Carmin"
+#: ../panel-plugin/xfce4-notes-settings.c:294
+msgid "Carmine"
 msgstr "Kızıl"
 
-#: ../panel-plugin/xfce4-notes-settings.c:255
+#: ../panel-plugin/xfce4-notes-settings.c:295
 msgid "Mimosa"
 msgstr "Mimoza"
 
-#: ../panel-plugin/xfce4-notes-settings.c:256
+#: ../panel-plugin/xfce4-notes-settings.c:296
 msgid "White"
 msgstr "Beyaz"
 
-#: ../panel-plugin/xfce4-notes-settings.c:257
+#: ../panel-plugin/xfce4-notes-settings.c:297
 msgid "Custom..."
 msgstr "Özel..."
 
-#: ../panel-plugin/xfce4-notes-settings.c:354
+#: ../panel-plugin/xfce4-notes-settings.c:394
 msgid "Background Color"
 msgstr "Arkaplan Rengi"
 
+#~ msgid "Show tabs in the notes"
+#~ msgstr "Notlarda sekmeleri göster"
+
 #~ msgid "Red"
 #~ msgstr "Kırmızı"
+
 #~ msgid "Purple"
 #~ msgstr "Mor"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Pencere Yazıtipi Seçin"
+
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Bu pencereyi silmek istediğinizden emin misiniz?"
+
 #~ msgid "Window"
 #~ msgstr "Pencere"
+
 #~ msgid "_Options"
 #~ msgstr "_Seçenekler"
-#~ msgid "Note"
-#~ msgstr "Not"
+
 #~ msgid "R_ename..."
 #~ msgstr "Y_eniden Adlandır..."
+
 #~ msgid "Show tabs"
 #~ msgstr "Sekmeleri göster"
+
 #~ msgid "Show on startup"
 #~ msgstr "Açılışta çalıştır"
+
 #~ msgid "Always"
 #~ msgstr "Her zaman"
+
 #~ msgid "Never"
 #~ msgstr "Asla"
+
 #~ msgid "Last state"
 #~ msgstr "En son durumu"
+
 #~ msgid "Rename window"
 #~ msgstr "Pencereyi yeniden adlandır"
+
 #~ msgid "Error"
 #~ msgstr "Hata"
+
 #~ msgid "Unable to rename window"
 #~ msgstr "Pencere yeniden adlandırılamadı"
+
 #~ msgid "Unable to rename note"
 #~ msgstr "Not yeniden adlandırılamadı"
+
 #~ msgid "Hide arrow button"
 #~ msgstr "Ok tuşunu gizle"
+
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Xfce4 masaüstü için Notlar eklentisi"
+
 #~ msgid "Resize grip"
 #~ msgstr "Tekrar boyutlandırma tutamacı"
+
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Xfce 4 Not Eklentisi"
-

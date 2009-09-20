@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-19 22:43+0200\n"
+"POT-Creation-Date: 2009-09-20 14:53+0200\n"
 "PO-Revision-Date: 2008-11-04 23:26+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -206,7 +206,7 @@ msgid "Olive"
 msgstr ""
 
 #: ../panel-plugin/xfce4-notes-settings.c:294
-msgid "Carmin"
+msgid "Carmine"
 msgstr ""
 
 #: ../panel-plugin/xfce4-notes-settings.c:295

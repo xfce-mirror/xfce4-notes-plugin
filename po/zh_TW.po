@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-19 22:43+0200\n"
+"POT-Creation-Date: 2009-09-20 14:53+0200\n"
 "PO-Revision-Date: 2007-03-08 00:54+0800\n"
 "Last-Translator: Hydonsingore Cia <hydonsingore@educities.edu.tw>\n"
 "Language-Team: Tradictional Chinese <zh-l10n@linux.org.tw>\n"
@@ -203,7 +203,7 @@ msgid "Olive"
 msgstr ""
 
 #: ../panel-plugin/xfce4-notes-settings.c:294
-msgid "Carmin"
+msgid "Carmine"
 msgstr ""
 
 #: ../panel-plugin/xfce4-notes-settings.c:295

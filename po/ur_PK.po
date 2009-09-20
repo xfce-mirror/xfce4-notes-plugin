@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-19 22:43+0200\n"
-"PO-Revision-Date: 2009-06-19 10:28+0500\n"
+"POT-Creation-Date: 2009-09-20 14:53+0200\n"
+"PO-Revision-Date: 2009-09-20 14:56+0200\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: Urdu <makki.ma@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -198,7 +198,7 @@ msgid "Olive"
 msgstr "زیتونی"
 
 #: ../panel-plugin/xfce4-notes-settings.c:294
-msgid "Carmin"
+msgid "Carmine"
 msgstr "قرمزی"
 
 #: ../panel-plugin/xfce4-notes-settings.c:295
