@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-20 14:53+0200\n"
-"PO-Revision-Date: 2009-09-20 14:55+0200\n"
+"PO-Revision-Date: 2009-09-20 18:16+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -117,11 +117,11 @@ msgstr "Slēpt piezīmes no uzdevumu joslas"
 #. Show navigation bar
 #: ../panel-plugin/xfce4-notes-settings.c:126
 msgid "Show the automatic navigation bar"
-msgstr ""
+msgstr "Rādīt automātisko navigācijas joslu"
 
 #: ../panel-plugin/xfce4-notes-settings.c:136
 msgid "Tabs position:"
-msgstr ""
+msgstr "Cilņu pozīcija:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
@@ -145,25 +145,24 @@ msgid "Size:"
 msgstr "Izmērs:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:209
-#, fuzzy
 msgid "None"
-msgstr "Piezīmes"
+msgstr "Nekas"
 
 #: ../panel-plugin/xfce4-notes-settings.c:210
 msgid "Top"
-msgstr ""
+msgstr "Augša"
 
 #: ../panel-plugin/xfce4-notes-settings.c:211
 msgid "Right"
-msgstr ""
+msgstr "Pa labi"
 
 #: ../panel-plugin/xfce4-notes-settings.c:212
 msgid "Bottom"
-msgstr ""
+msgstr "Apakša"
 
 #: ../panel-plugin/xfce4-notes-settings.c:213
 msgid "Left"
-msgstr ""
+msgstr "Pa kreisi"
 
 #: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
