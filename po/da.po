@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-20 14:53+0200\n"
-"PO-Revision-Date: 2009-09-20 17:32+0100\n"
+"PO-Revision-Date: 2009-09-20 17:42+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,7 @@ msgstr "Vis den automatiske navigeringsbjælke"
 
 #: ../panel-plugin/xfce4-notes-settings.c:136
 msgid "Tabs position:"
-msgstr "Position af faneblade:"
+msgstr "Placering af faneblade:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
