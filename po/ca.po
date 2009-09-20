@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-20 14:53+0200\n"
-"PO-Revision-Date: 2009-09-20 14:54+0200\n"
+"PO-Revision-Date: 2009-09-20 23:28+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
@@ -119,11 +119,11 @@ msgstr "No mostris les notes a la barra de tasques"
 #. Show navigation bar
 #: ../panel-plugin/xfce4-notes-settings.c:126
 msgid "Show the automatic navigation bar"
-msgstr ""
+msgstr "Mostra la barra de navegació automàtica"
 
 #: ../panel-plugin/xfce4-notes-settings.c:136
 msgid "Tabs position:"
-msgstr ""
+msgstr "Posició de les pestanyes:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
@@ -147,29 +147,28 @@ msgid "Size:"
 msgstr "Mida:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:209
-#, fuzzy
 msgid "None"
-msgstr "Nota"
+msgstr "Cap"
 
 #: ../panel-plugin/xfce4-notes-settings.c:210
 msgid "Top"
-msgstr ""
+msgstr "A dalt"
 
 #: ../panel-plugin/xfce4-notes-settings.c:211
 msgid "Right"
-msgstr ""
+msgstr "A la dreta"
 
 #: ../panel-plugin/xfce4-notes-settings.c:212
 msgid "Bottom"
-msgstr ""
+msgstr "A baix"
 
 #: ../panel-plugin/xfce4-notes-settings.c:213
 msgid "Left"
-msgstr ""
+msgstr "A l'esquerra"
 
 #: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
-msgstr "Petit"
+msgstr "Petita"
 
 #: ../panel-plugin/xfce4-notes-settings.c:230
 msgid "Normal"
