@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-20 14:53+0200\n"
-"PO-Revision-Date: 2009-09-20 14:55+0200\n"
+"PO-Revision-Date: 2009-09-20 23:33+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "MIME-Version: 1.0\n"
@@ -115,11 +115,11 @@ msgstr "Hide notes from taskbar"
 #. Show navigation bar
 #: ../panel-plugin/xfce4-notes-settings.c:126
 msgid "Show the automatic navigation bar"
-msgstr ""
+msgstr "Show the automatic navigation bar"
 
 #: ../panel-plugin/xfce4-notes-settings.c:136
 msgid "Tabs position:"
-msgstr ""
+msgstr "Tabs position:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
@@ -143,25 +143,24 @@ msgid "Size:"
 msgstr "Size:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:209
-#, fuzzy
 msgid "None"
-msgstr "Note"
+msgstr "None"
 
 #: ../panel-plugin/xfce4-notes-settings.c:210
 msgid "Top"
-msgstr ""
+msgstr "Top"
 
 #: ../panel-plugin/xfce4-notes-settings.c:211
 msgid "Right"
-msgstr ""
+msgstr "Right"
 
 #: ../panel-plugin/xfce4-notes-settings.c:212
 msgid "Bottom"
-msgstr ""
+msgstr "Bottom"
 
 #: ../panel-plugin/xfce4-notes-settings.c:213
 msgid "Left"
-msgstr ""
+msgstr "Left"
 
 #: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
