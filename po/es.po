@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-20 14:53+0200\n"
-"PO-Revision-Date: 2009-09-20 14:55+0200\n"
+"PO-Revision-Date: 2009-09-20 23:48-0300\n"
 "Last-Translator: elega <elega@elega.com.ar>\n"
 "Language-Team: Spanish <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,13 +23,17 @@ msgstr "Ideal para sus notas rápidas"
 
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
-#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
-#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
+#: ../panel-plugin/main.vala:72
+#: ../panel-plugin/application.vala:98
+#: ../panel-plugin/window.vala:80
+#: ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945
+#: ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Notas"
 
-#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
+#: ../panel-plugin/application.vala:102
+#: ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Notas %d"
@@ -38,7 +42,8 @@ msgstr "Notas %d"
 msgid "Rename group"
 msgstr "Renombrar grupo"
 
-#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
+#: ../panel-plugin/application.vala:348
+#: ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "El nombre %s ya está en uso"
@@ -70,7 +75,8 @@ msgid "_Rename"
 msgstr "_Renombrar"
 
 #. Always on top
-#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
+#: ../panel-plugin/window.vala:731
+#: ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Siempre encima"
 
@@ -114,11 +120,11 @@ msgstr "Ocultar notas de la barra de tareas"
 #. Show navigation bar
 #: ../panel-plugin/xfce4-notes-settings.c:126
 msgid "Show the automatic navigation bar"
-msgstr ""
+msgstr "Mostrar la barra de navegación automática"
 
 #: ../panel-plugin/xfce4-notes-settings.c:136
 msgid "Tabs position:"
-msgstr ""
+msgstr "Posici"
 
 #: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
@@ -142,25 +148,24 @@ msgid "Size:"
 msgstr "Tamaño:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:209
-#, fuzzy
 msgid "None"
-msgstr "Nota"
+msgstr "Ninguno"
 
 #: ../panel-plugin/xfce4-notes-settings.c:210
 msgid "Top"
-msgstr ""
+msgstr "Arriba"
 
 #: ../panel-plugin/xfce4-notes-settings.c:211
 msgid "Right"
-msgstr ""
+msgstr "Derecha"
 
 #: ../panel-plugin/xfce4-notes-settings.c:212
 msgid "Bottom"
-msgstr ""
+msgstr "Abajo"
 
 #: ../panel-plugin/xfce4-notes-settings.c:213
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
@@ -216,64 +221,46 @@ msgstr "Color de fondo"
 
 #~ msgid "Show tabs in the notes"
 #~ msgstr "Mostrar pestañas en las notas"
-
 #~ msgid "Red"
 #~ msgstr "Rojo"
-
 #~ msgid "Purple"
 #~ msgstr "Violeta"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Elegir tipo de letra de la ventana"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "¿Está seguro de querer eliminar esta ventana?"
-
 #~ msgid "Window"
 #~ msgstr "Ventana"
-
 #~ msgid "_Options"
 #~ msgstr "_Opciones"
-
 #~ msgid "R_ename..."
 #~ msgstr "R_enombrar..."
-
 #~ msgid "Show tabs"
 #~ msgstr "Mostrar pestañas"
-
 #~ msgid "Show on startup"
 #~ msgstr "Mostrar al inicio"
-
 #~ msgid "Always"
 #~ msgstr "Siempre"
-
 #~ msgid "Never"
 #~ msgstr "Nunca"
-
 #~ msgid "Last state"
 #~ msgstr "Último estado"
-
 #~ msgid "Rename window"
 #~ msgstr "Renombrar ventana"
-
 #~ msgid "Error"
 #~ msgstr "Error"
-
 #~ msgid "Unable to rename window"
 #~ msgstr "Imposible renombrar ventana"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Imposible renombrar nota"
-
 #~ msgid "Hide arrow button"
 #~ msgstr "Ocultar botón flecha"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Complemento de notas para el escritorio Xfce4"
-
 #~ msgid "Resize grip"
 #~ msgstr "Pulsador de redimensionado"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Complemento de notas de Xfce 4"
+
