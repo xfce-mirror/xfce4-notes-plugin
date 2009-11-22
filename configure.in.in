@@ -41,10 +41,8 @@ dnl Check for standard header files
 AC_HEADER_STDC()
 AC_CHECK_HEADERS([math.h])
 
-dnl Check for X11 installed
-XDT_CHECK_LIBX11_REQUIRE()
-
 dnl Check for required packages
+XDT_CHECK_LIBX11_REQUIRE()
 XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
 XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])

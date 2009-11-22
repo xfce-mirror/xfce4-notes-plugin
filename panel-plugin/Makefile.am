@@ -34,11 +34,13 @@ xfce4_notes_settings_SOURCES =						\
 	xfce4-notes-settings.c
 
 xfce4_notes_settings_CFLAGS =						\
+	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCEGUI4_CFLAGS@						\
 	@XFCONF_CFLAGS@
 
 xfce4_notes_settings_LDADD =						\
+	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCEGUI4_LIBS@						\
 	@XFCONF_LIBS@
@@ -91,12 +93,14 @@ libnotes_la_SOURCES =							\
 	$(notes_VALABUILTSOURCES)
 
 libnotes_la_CFLAGS =							\
+	@LIBX11_CFLAGS@							\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@LIBXFCEGUI4_CFLAGS@						\
 	@XFCONF_CFLAGS@
 
 libnotes_la_LIBADD =							\
+	@LIBX11_LIBS@							\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@LIBXFCEGUI4_LIBS@						\
@@ -115,12 +119,14 @@ xfce4_notes_plugin_SOURCES =						\
 	$(notes_VALABUILTSOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
+	@LIBX11_CFLAGS@							\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@LIBXFCEGUI4_CFLAGS@						\
 	@XFCONF_CFLAGS@
 
 xfce4_notes_plugin_LDADD =						\
+	@LIBX11_LIBS@							\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@LIBXFCEGUI4_LIBS@						\
