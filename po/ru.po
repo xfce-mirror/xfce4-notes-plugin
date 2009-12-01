@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-20 14:53+0200\n"
+"POT-Creation-Date: 2009-12-01 23:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Urmas <dwqwt3i02@sneakemail.com>\n"
 "Language-Team: \n"
@@ -11,26 +11,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
-"Plural-Forms: n%10==1 && n%100!=11 ?0: n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)?1:2\n"
+"Plural-Forms: n%10==1 && n%100!=11 ?0: n%10>=2 && n%10<=4 && (n%100<10 || n%"
+"100>=20)?1:2\n"
 
+#: ../xfce4-notes.desktop.in.h:1
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:1
+#: ../panel-plugin/application.vala:527
 msgid "Ideal for your quick notes"
 msgstr "Средство создания текстовых заметок"
 
+#: ../xfce4-notes.desktop.in.h:2
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72
-#: ../panel-plugin/application.vala:98
-#: ../panel-plugin/window.vala:80
-#: ../panel-plugin/window.vala:165
-#: ../panel-plugin/window.vala:945
-#: ../panel-plugin/xfce4-notes-settings.c:91
+#: ../panel-plugin/main-panel-plugin.vala:72
+#: ../panel-plugin/main-status-icon.vala:53
+#: ../panel-plugin/main-status-icon.vala:131
+#: ../panel-plugin/application.vala:98 ../panel-plugin/application.vala:525
+#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Заметки"
 
-#: ../panel-plugin/application.vala:102
-#: ../panel-plugin/window.vala:948
+#: ../panel-plugin/main-panel-plugin.vala:76
+#: ../panel-plugin/main-status-icon.vala:98 ../panel-plugin/window.vala:688
+msgid "_Go"
+msgstr "П_ереход"
+
+#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Заметка %d"
@@ -39,8 +49,7 @@ msgstr "Заметка %d"
 msgid "Rename group"
 msgstr "Переименование"
 
-#: ../panel-plugin/application.vala:348
-#: ../panel-plugin/window.vala:1069
+#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Название «%s» уже используется"
@@ -63,17 +72,16 @@ msgstr "Недопустимые символы: %s"
 msgid "Unable to open the settings dialog"
 msgstr "Не удалось открыть окно настроек"
 
-#: ../panel-plugin/window.vala:688
-msgid "_Go"
-msgstr "П_ереход"
+#: ../panel-plugin/application.vala:534
+msgid "translator-credits"
+msgstr ""
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "Пере_именовать"
 
 #. Always on top
-#: ../panel-plugin/window.vala:731
-#: ../panel-plugin/xfce4-notes-settings.c:174
+#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Поверх всех окон"
 
@@ -215,4 +223,3 @@ msgstr "Другой..."
 #: ../panel-plugin/xfce4-notes-settings.c:394
 msgid "Background Color"
 msgstr "Цвет фона"
-

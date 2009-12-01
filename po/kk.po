@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 08:56+0200\n"
+"POT-Creation-Date: 2009-12-01 23:13+0100\n"
 "PO-Revision-Date: 2009-09-20 20:50+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -16,24 +16,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
+#: ../xfce4-notes.desktop.in.h:1
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:1
+#: ../panel-plugin/application.vala:527
 msgid "Ideal for your quick notes"
 msgstr "Жылдам жазбаларыңыз үшін жарайды"
 
+#: ../xfce4-notes.desktop.in.h:2
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72
-#: ../panel-plugin/application.vala:98
-#: ../panel-plugin/window.vala:80
-#: ../panel-plugin/window.vala:165
-#: ../panel-plugin/window.vala:945
-#: ../panel-plugin/xfce4-notes-settings.c:91
+#: ../panel-plugin/main-panel-plugin.vala:72
+#: ../panel-plugin/main-status-icon.vala:53
+#: ../panel-plugin/main-status-icon.vala:131
+#: ../panel-plugin/application.vala:98 ../panel-plugin/application.vala:525
+#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Жазбалар"
 
-#: ../panel-plugin/application.vala:102
-#: ../panel-plugin/window.vala:948
+#: ../panel-plugin/main-panel-plugin.vala:76
+#: ../panel-plugin/main-status-icon.vala:98 ../panel-plugin/window.vala:688
+msgid "_Go"
+msgstr "Ө_ту"
+
+#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Жазба %d"
@@ -42,8 +51,7 @@ msgstr "Жазба %d"
 msgid "Rename group"
 msgstr "Топтың атын ауыстыру"
 
-#: ../panel-plugin/application.vala:348
-#: ../panel-plugin/window.vala:1069
+#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "%s аты қазір қоланылып тұр"
@@ -66,17 +74,16 @@ msgstr "Дұрыс емес таңбалар: %s"
 msgid "Unable to open the settings dialog"
 msgstr "Баптаулар терез сұзбатын ашу мүмкін емес"
 
-#: ../panel-plugin/window.vala:688
-msgid "_Go"
-msgstr "Ө_ту"
+#: ../panel-plugin/application.vala:534
+msgid "translator-credits"
+msgstr ""
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "Атын ауысты_ру"
 
 #. Always on top
-#: ../panel-plugin/window.vala:731
-#: ../panel-plugin/xfce4-notes-settings.c:174
+#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Әрқашан үстінде"
 
@@ -218,4 +225,3 @@ msgstr "Таңдауыңызша..."
 #: ../panel-plugin/xfce4-notes-settings.c:394
 msgid "Background Color"
 msgstr "Фон түсі"
-

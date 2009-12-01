@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.6.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-20 14:53+0200\n"
+"POT-Creation-Date: 2009-12-01 23:13+0100\n"
 "PO-Revision-Date: 2009-09-20 14:55+0200\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <xfce-it-translators@googlegroups.com>\n"
@@ -16,18 +16,31 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../xfce4-notes.desktop.in.h:1
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:1
+#: ../panel-plugin/application.vala:527
 msgid "Ideal for your quick notes"
 msgstr "Ideale per le proprie annotazioni"
 
+#: ../xfce4-notes.desktop.in.h:2
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
+#: ../panel-plugin/main-panel-plugin.vala:72
+#: ../panel-plugin/main-status-icon.vala:53
+#: ../panel-plugin/main-status-icon.vala:131
+#: ../panel-plugin/application.vala:98 ../panel-plugin/application.vala:525
 #: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
 #: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Note"
+
+#: ../panel-plugin/main-panel-plugin.vala:76
+#: ../panel-plugin/main-status-icon.vala:98 ../panel-plugin/window.vala:688
+msgid "_Go"
+msgstr "_Vai"
 
 #: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
@@ -61,9 +74,9 @@ msgstr "I caratteri non validi sono: %s"
 msgid "Unable to open the settings dialog"
 msgstr "Impossibile aprire la finestra delle impostazioni"
 
-#: ../panel-plugin/window.vala:688
-msgid "_Go"
-msgstr "_Vai"
+#: ../panel-plugin/application.vala:534
+msgid "translator-credits"
+msgstr ""
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"

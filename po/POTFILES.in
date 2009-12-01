@@ -1,8 +1,12 @@
+xfce4-notes.desktop.in
+panel-plugin/xfce4-notes-autostart.desktop.in
 panel-plugin/xfce4-notes-plugin.desktop.in.in
 panel-plugin/xfce4-notes-plugin-47.desktop.in.in
 panel-plugin/color.c
 panel-plugin/popup.c
-panel-plugin/main.vala
+panel-plugin/xfce-autostart.c
+panel-plugin/main-panel-plugin.vala
+panel-plugin/main-status-icon.vala
 panel-plugin/application.vala
 panel-plugin/window.vala
 panel-plugin/note.vala

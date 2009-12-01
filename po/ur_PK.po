@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-20 14:53+0200\n"
+"POT-Creation-Date: 2009-12-01 23:13+0100\n"
 "PO-Revision-Date: 2009-09-20 14:56+0200\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: Urdu <makki.ma@gmail.com>\n"
@@ -19,18 +19,31 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: ../xfce4-notes.desktop.in.h:1
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:1
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:1
+#: ../panel-plugin/application.vala:527
 msgid "Ideal for your quick notes"
 msgstr "آپ کے فوری نوٹس کے لیے بہترین ہے"
 
+#: ../xfce4-notes.desktop.in.h:2
+#: ../panel-plugin/xfce4-notes-autostart.desktop.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../panel-plugin/xfce4-notes-plugin-47.desktop.in.in.h:2
-#: ../panel-plugin/main.vala:72 ../panel-plugin/application.vala:98
+#: ../panel-plugin/main-panel-plugin.vala:72
+#: ../panel-plugin/main-status-icon.vala:53
+#: ../panel-plugin/main-status-icon.vala:131
+#: ../panel-plugin/application.vala:98 ../panel-plugin/application.vala:525
 #: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
 #: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "نوٹ"
+
+#: ../panel-plugin/main-panel-plugin.vala:76
+#: ../panel-plugin/main-status-icon.vala:98 ../panel-plugin/window.vala:688
+msgid "_Go"
+msgstr "_منتقل"
 
 #: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
 #, c-format
@@ -64,9 +77,9 @@ msgstr "ناموزوں حرف ہے: %s"
 msgid "Unable to open the settings dialog"
 msgstr "ترتیبات ڈائیلاگ نہیں کھولا جاسکا"
 
-#: ../panel-plugin/window.vala:688
-msgid "_Go"
-msgstr "_منتقل"
+#: ../panel-plugin/application.vala:534
+msgid "translator-credits"
+msgstr ""
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"
