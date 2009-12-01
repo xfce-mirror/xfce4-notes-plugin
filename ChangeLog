@@ -1,5 +1,15 @@
 2009-12-01  Mike Massonnet <mmassonnet@xfce.org>
 
+Add context menu for quick access to window list
+	* panel-plugin/application.vala:
+	  - New public function context_menu. It builds a menu to be used for
+	  context menus like in the systray.
+	* panel-plugin/main.vala:
+	  - Build the context menu as a submenu inside the right click action
+	  menu of the panel plugin.
+
+2009-12-01  Mike Massonnet <mmassonnet@xfce.org>
+
 Update build-env
 
 2009-11-22  Mike Massonnet <mmassonnet@xfce.org>

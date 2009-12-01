@@ -493,6 +493,39 @@ namespace Xnp {
 			}
 		}
 
+		/**
+		 * context_menu:
+		 *
+		 * Provides a GtkMenu to be used for right click context menus
+		 * like in trayicons. Its items are destroyed/refreshed every
+		 * time the menu is shown.
+		 */
+		public Gtk.Menu context_menu () {
+			var menu = new Gtk.Menu ();
+
+			menu.show += (menu) => {
+				// Clean up menu
+				menu.@foreach ((w) => {
+					w.destroy ();
+				});
+
+				// Add fresh items
+				foreach (var win in this.window_list) {
+					var mi = new Gtk.MenuItem.with_label (win.name);
+					mi.set_data ("window", (void*)win);
+					mi.show ();
+					mi.activate += (i) => {
+						// Jump to win
+						var w = (Xnp.Window)i.get_data ("window");
+						w.present ();
+					};
+					menu.append (mi);
+				}
+			};
+
+			return menu;
+		}
+
 	}
 
 }

@@ -72,6 +72,12 @@ public class NotesPlugin : GLib.Object {
 		panel_plugin.set_tooltip_text (_("Notes"));
 		panel_plugin.menu_show_configure ();
 
+		var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
+		var menu = application.context_menu ();
+		mi.set_submenu (menu);
+		mi.show_all ();
+		panel_plugin.menu_insert_item (mi);
+
 		set_x_selection ();
 
 		panel_plugin.size_changed += (p, size) => {
