@@ -58,26 +58,38 @@ notes_VALASOURCES =							\
 	hypertextview.vala						\
 	note.vala							\
 	window.vala							\
-	application.vala						\
-	main.vala
+	application.vala
+
+notes_panel_plugin_VALASOURCES =					\
+	main-panel-plugin.vala
+
+notes_status_icon_VALASOURCES =						\
+	main-status-icon.vala
 
 notes_VALABUILTSOURCES = $(notes_VALASOURCES:.vala=.c)
+notes_panel_plugin_VALABUILTSOURCES = $(notes_panel_plugin_VALASOURCES:.vala=.c)
+notes_status_icon_VALABUILTSOURCES = $(notes_status_icon_VALASOURCES:.vala=.c)
 
 if MAINTAINER_MODE
 if HAVE_LIBXFCE4PANEL47
 DEFINES=-D HAVE_LIBXFCE4PANEL47
-PACKAGES=--pkg=libxfcegui4-1.0 --pkg=libxfce4panel-1.0
+PACKAGES=--pkg=libxfcegui4-1.0 --pkg=gtk+-2.0
 else
-PACKAGES=--pkg=libxfce4panel-1.0
+PACKAGES=--pkg=gtk+-2.0
 endif
 BUILT_SOURCES = vala.stamp
-vala.stamp: $(notes_VALASOURCES)
-	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup --pkg=libxfconf-0 $(PACKAGES) $^ -C
+vala.stamp: $(notes_VALASOURCES) $(notes_panel_plugin_VALASOURCES) $(notes_status_icon_VALASOURCES)
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup	\
+		 --pkg=libxfconf-0 $(PACKAGES) --pkg=libxfce4panel-1.0			\
+		 $(notes_VALASOURCES) $(notes_panel_plugin_VALASOURCES) -C
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup	\
+		 --pkg=libxfconf-0 --pkg=libxfce4util-1.0 $(PACKAGES)						\
+		 $(notes_VALASOURCES) $(notes_status_icon_VALASOURCES) -C
 	touch $@
 endif
 
 #
-# Plugin
+# Panel plugin
 #
 
 if HAVE_LIBXFCE4PANEL47
@@ -90,7 +102,8 @@ libnotes_la_SOURCES =							\
 	color.h								\
 	popup.c								\
 	popup.h								\
-	$(notes_VALABUILTSOURCES)
+	$(notes_VALABUILTSOURCES)					\
+	$(notes_panel_plugin_VALABUILTSOURCES)
 
 libnotes_la_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
@@ -116,7 +129,8 @@ xfce4_notes_plugin_SOURCES =						\
 	color.h								\
 	popup.c								\
 	popup.h								\
-	$(notes_VALABUILTSOURCES)
+	$(notes_VALABUILTSOURCES)					\
+	$(notes_panel_plugin_VALABUILTSOURCES)
 
 xfce4_notes_plugin_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
@@ -133,6 +147,34 @@ xfce4_notes_plugin_LDADD =						\
 	@XFCONF_LIBS@
 
 endif
+
+#
+# Status icon
+#
+
+bin_PROGRAMS += xfce4-notes
+
+xfce4_notes_SOURCES =							\
+	color.c								\
+	color.h								\
+	popup.c								\
+	popup.h								\
+	$(notes_VALABUILTSOURCES)					\
+	$(notes_status_icon_VALABUILTSOURCES)
+
+xfce4_notes_CFLAGS =							\
+	@LIBX11_CFLAGS@							\
+	@GTK_CFLAGS@							\
+	@LIBXFCE4UTIL_CFLAGS@						\
+	@LIBXFCEGUI4_CFLAGS@						\
+	@XFCONF_CFLAGS@
+
+xfce4_notes_LDADD =							\
+	@LIBX11_LIBS@							\
+	@GTK_LIBS@							\
+	@LIBXFCE4UTIL_LIBS@						\
+	@LIBXFCEGUI4_LIBS@						\
+	@XFCONF_LIBS@
 
 #
 # Plugin desktop file
@@ -162,6 +204,8 @@ endif
 EXTRA_DIST =								\
 	$(notes_VAPISOURCES)						\
 	$(notes_VALASOURCES)						\
+	$(notes_panel_plugin_VALASOURCES)				\
+	$(notes_status_icon_VALASOURCES)				\
 	$(desktop_in_in_files)
 
 if MAINTAINER_MODE

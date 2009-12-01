@@ -1,5 +1,18 @@
 2009-12-01  Mike Massonnet <mmassonnet@xfce.org>
 
+Do as for Clipman, let the plugin be a standalone app
+	* panel-plugin/Makefile.am:
+	  - Update Makefile to build both plugin and binary C.
+	* panel-plugin/application.vala(open_about_dialog):
+	  - Add public dialog to show an about dialog.
+	* panel-plugin/main-panel-plugin.vala:
+	  - Rename main.vala to main-panel-plugin.vala.
+	  - Show about item in panel plugin context menu.
+	* panel-plugin/main-status-icon.vala:
+	  - New main source to build binary xfce4-notes.
+
+2009-12-01  Mike Massonnet <mmassonnet@xfce.org>
+
 Add context menu for quick access to window list
 	* panel-plugin/application.vala:
 	  - New public function context_menu. It builds a menu to be used for

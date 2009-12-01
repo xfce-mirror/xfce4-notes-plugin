@@ -494,6 +494,48 @@ namespace Xnp {
 		}
 
 		/**
+		 * open_about_dialog:
+		 *
+		 * Open the about dialog.
+		 */
+		public void open_about_dialog () {
+			Gtk.AboutDialog.set_url_hook ((dialog, uri) => {
+					string command;
+					try {
+						command = "exo-open %s".printf (uri);
+						Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), command);
+						return;
+					} catch (GLib.Error e) {
+					}
+					try {
+						command = "firefox %s".printf (uri);
+						Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), command);
+						return;
+					} catch (GLib.Error e) {
+					}
+				});
+
+			string[] authors = {
+					"(c) 2006-2009 Mike Massonnet",
+					"(c) 2003 Jakob Henriksson",
+					null
+				};
+
+			Gtk.show_about_dialog (null,
+				"program-name", _("Notes"),
+				"logo-icon-name", "xfce4-notes-plugin",
+				"comments", _("Ideal for your quick notes"),
+				"version", Config.PACKAGE_VERSION,
+				"copyright", "Copyright © 2003-2009 The Xfce development team",
+				"license", Xfce.get_license_text (Xfce.LicenseTextType.GPL),
+				"website", "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin",
+				"website-label", "goodies.xfce.org",
+				"authors", authors,
+				"translator-credits", _("translator-credits"),
+				null);
+		}
+
+		/**
 		 * context_menu:
 		 *
 		 * Provides a GtkMenu to be used for right click context menus
