@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xfce 4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-01 23:13+0100\n"
-"PO-Revision-Date: 2009-09-21 17:20+0100\n"
+"PO-Revision-Date: 2009-12-01 23:30+0100\n"
 "Last-Translator: Vincent Tunru <projects@vinnl.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,18 +31,23 @@ msgstr "Ideaal voor snelle notities"
 #: ../panel-plugin/main-panel-plugin.vala:72
 #: ../panel-plugin/main-status-icon.vala:53
 #: ../panel-plugin/main-status-icon.vala:131
-#: ../panel-plugin/application.vala:98 ../panel-plugin/application.vala:525
-#: ../panel-plugin/window.vala:80 ../panel-plugin/window.vala:165
-#: ../panel-plugin/window.vala:945 ../panel-plugin/xfce4-notes-settings.c:91
+#: ../panel-plugin/application.vala:98
+#: ../panel-plugin/application.vala:525
+#: ../panel-plugin/window.vala:80
+#: ../panel-plugin/window.vala:165
+#: ../panel-plugin/window.vala:945
+#: ../panel-plugin/xfce4-notes-settings.c:91
 msgid "Notes"
 msgstr "Notities"
 
 #: ../panel-plugin/main-panel-plugin.vala:76
-#: ../panel-plugin/main-status-icon.vala:98 ../panel-plugin/window.vala:688
+#: ../panel-plugin/main-status-icon.vala:98
+#: ../panel-plugin/window.vala:688
 msgid "_Go"
 msgstr "_Ga"
 
-#: ../panel-plugin/application.vala:102 ../panel-plugin/window.vala:948
+#: ../panel-plugin/application.vala:102
+#: ../panel-plugin/window.vala:948
 #, c-format
 msgid "Notes %d"
 msgstr "Notities %d"
@@ -51,7 +56,8 @@ msgstr "Notities %d"
 msgid "Rename group"
 msgstr "Groepsnaam wijzigen"
 
-#: ../panel-plugin/application.vala:348 ../panel-plugin/window.vala:1069
+#: ../panel-plugin/application.vala:348
+#: ../panel-plugin/window.vala:1069
 #, c-format
 msgid "The name %s is already in use"
 msgstr "De naam %s is al in gebruik"
@@ -76,14 +82,15 @@ msgstr "Kon het configuratievenster niet openen"
 
 #: ../panel-plugin/application.vala:534
 msgid "translator-credits"
-msgstr ""
+msgstr "Vincent Tunru"
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"
 msgstr "Naam _wijzigen"
 
 #. Always on top
-#: ../panel-plugin/window.vala:731 ../panel-plugin/xfce4-notes-settings.c:174
+#: ../panel-plugin/window.vala:731
+#: ../panel-plugin/xfce4-notes-settings.c:174
 msgid "Always on top"
 msgstr "Altijd bovenop"
 
@@ -228,61 +235,44 @@ msgstr "Achtergrondkleur"
 
 #~ msgid "Show tabs in the notes"
 #~ msgstr "Tabbladen bij notities weergeven"
-
 #~ msgid "Red"
 #~ msgstr "Rood"
-
 #~ msgid "Purple"
 #~ msgstr "Paars"
 
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Kies vensterlettertype"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Weet u zeker dat u dit venster wilt verwijderen?"
-
 #~ msgid "Window"
 #~ msgstr "Venster"
-
 #~ msgid "_Options"
 #~ msgstr "_Opties"
-
 #~ msgid "R_ename..."
 #~ msgstr "Naam _wijzigen"
-
 #~ msgid "Show on startup"
 #~ msgstr "Notities altijd weergeven na het opstarten"
-
 #~ msgid "Always"
 #~ msgstr "Altijd"
-
 #~ msgid "Never"
 #~ msgstr "Nooit"
-
 #~ msgid "Last state"
 #~ msgstr "Laatste status"
-
 #~ msgid "Rename window"
 #~ msgstr "Vensternaam wijzigen"
-
 #~ msgid "Error"
 #~ msgstr "Fout"
-
 #~ msgid "Unable to rename window"
 #~ msgstr "Kon de naam van het venster niet wijzigen"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Kon de naam van de notitie niet wijzigen"
-
 #~ msgid "Hide arrow button"
 #~ msgstr "Pijlknop verbergen"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Notitie-plugin voor Xfce4"
-
 #~ msgid "Resize grip"
 #~ msgstr "Handvat voor venstergrootte"
-
 #~ msgid "Xfce 4 Notes Plugin"
 #~ msgstr "Xfce 4 notities plugin"
+
