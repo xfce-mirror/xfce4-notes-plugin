@@ -116,7 +116,7 @@ public class Notes : GLib.Object {
 
 		mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
 		mi.activate += () => {
-			// Set autostart file hidden
+			Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
 			Gtk.main_quit ();
 		};
 		menu.append (mi);
@@ -130,8 +130,7 @@ public class Notes : GLib.Object {
 		Gtk.init (ref args);
 		GLib.Environment.set_application_name (_("Notes"));
 		var notes = new Notes ();
-		// Install initial autostart file
-		//Xfce.Autostart.set ("Notes", "xfce4-notes", true);
+		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);
 		Gtk.main ();
 		notes = null;
 		return 0;

@@ -52,7 +52,8 @@ xfce4_notes_settings_LDADD =						\
 notes_VAPISOURCES =							\
 	config.vapi							\
 	color.vapi							\
-	popup.vapi
+	popup.vapi							\
+	xfce-autostart.vapi
 
 notes_VALASOURCES =							\
 	hypertextview.vala						\
@@ -73,17 +74,17 @@ notes_status_icon_VALABUILTSOURCES = $(notes_status_icon_VALASOURCES:.vala=.c)
 if MAINTAINER_MODE
 if HAVE_LIBXFCE4PANEL47
 DEFINES=-D HAVE_LIBXFCE4PANEL47
-PACKAGES=--pkg=libxfcegui4-1.0 --pkg=gtk+-2.0
+PACKAGES=--pkg=config --pkg=color --pkg=popup --pkg=libxfcegui4-1.0 --pkg=gtk+-2.0
 else
-PACKAGES=--pkg=gtk+-2.0
+PACKAGES=--pkg=config --pkg=color --pkg=popup --pkg=gtk+-2.0
 endif
 BUILT_SOURCES = vala.stamp
 vala.stamp: $(notes_VALASOURCES) $(notes_panel_plugin_VALASOURCES) $(notes_status_icon_VALASOURCES)
-	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup	\
-		 --pkg=libxfconf-0 $(PACKAGES) --pkg=libxfce4panel-1.0			\
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) $(PACKAGES)				\
+		 --pkg=libxfconf-0 --pkg=libxfce4panel-1.0				\
 		 $(notes_VALASOURCES) $(notes_panel_plugin_VALASOURCES) -C
-	$(VALAC) $(DEFINES) --vapidir=$(srcdir) --pkg=config --pkg=color --pkg=popup	\
-		 --pkg=libxfconf-0 --pkg=libxfce4util-1.0 $(PACKAGES)						\
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) $(PACKAGES)				\
+		 --pkg=xfce-autostart --pkg=libxfconf-0 --pkg=libxfce4util-1.0		\
 		 $(notes_VALASOURCES) $(notes_status_icon_VALASOURCES) -C
 	touch $@
 endif
@@ -159,6 +160,8 @@ xfce4_notes_SOURCES =							\
 	color.h								\
 	popup.c								\
 	popup.h								\
+	xfce-autostart.c						\
+	xfce-autostart.h						\
 	$(notes_VALABUILTSOURCES)					\
 	$(notes_status_icon_VALABUILTSOURCES)
 
@@ -196,6 +199,15 @@ endif
 %.desktop.in: %.desktop.in.in
 	sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(plugindir)^" \
 		$< > $@
+
+#
+# Autostart file
+#
+
+autostartdir = $(sysconfdir)/xdg/autostart
+autostart_in_files = xfce4-notes-autostart.desktop.in
+autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
 
 #
 # Extra
