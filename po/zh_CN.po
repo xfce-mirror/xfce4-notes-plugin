@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-01 23:13+0100\n"
-"PO-Revision-Date: 2009-11-09 20:04+0800\n"
+"PO-Revision-Date: 2009-12-02 15:01+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,8 @@ msgstr "无法打开设置对话框"
 #: ../panel-plugin/application.vala:534
 msgid "translator-credits"
 msgstr ""
+"Hunt Xu <huntxu@live.cn>, 2009.\n"
+"Dig <Dig.Ge.CN@gmail.com>, 2009."
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"
