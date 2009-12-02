@@ -128,6 +128,19 @@ public class Notes : GLib.Object {
 
 	public static int main (string[] args) {
 		Gtk.init (ref args);
+		Unique.App app = new Unique.App ("org.xfce.Notes", null);
+		if (app.is_running) {
+			if (app.send_message (Unique.Command.ACTIVATE, null) == Unique.Response.OK) {
+				app = null;
+				return 0;
+			}
+		}
+		app.message_received += (command, message_data, time_) => {
+			if (command != Unique.Command.ACTIVATE) {
+				return Unique.Response.PASSTHROUGH;
+			}
+			return Unique.Response.OK;
+		};
 		GLib.Environment.set_application_name (_("Notes"));
 		var notes = new Notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);

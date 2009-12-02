@@ -37,13 +37,15 @@ xfce4_notes_settings_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCEGUI4_CFLAGS@						\
-	@XFCONF_CFLAGS@
+	@XFCONF_CFLAGS@							\
+	@UNIQUE_CFLAGS@
 
 xfce4_notes_settings_LDADD =						\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCEGUI4_LIBS@						\
-	@XFCONF_LIBS@
+	@XFCONF_LIBS@							\
+	@UNIQUE_LIBS@
 
 #
 # Vala sources
@@ -83,7 +85,7 @@ vala.stamp: $(notes_VALASOURCES) $(notes_panel_plugin_VALASOURCES) $(notes_statu
 	$(VALAC) $(DEFINES) --vapidir=$(srcdir) $(PACKAGES)				\
 		 --pkg=libxfconf-0 --pkg=libxfce4panel-1.0				\
 		 $(notes_VALASOURCES) $(notes_panel_plugin_VALASOURCES) -C
-	$(VALAC) $(DEFINES) --vapidir=$(srcdir) $(PACKAGES)				\
+	$(VALAC) $(DEFINES) --vapidir=$(srcdir) $(PACKAGES) --pkg=unique-1.0		\
 		 --pkg=xfce-autostart --pkg=libxfconf-0 --pkg=libxfce4util-1.0		\
 		 $(notes_VALASOURCES) $(notes_status_icon_VALASOURCES) -C
 	touch $@
@@ -170,14 +172,16 @@ xfce4_notes_CFLAGS =							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@LIBXFCEGUI4_CFLAGS@						\
-	@XFCONF_CFLAGS@
+	@XFCONF_CFLAGS@							\
+	@UNIQUE_CFLAGS@
 
 xfce4_notes_LDADD =							\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UTIL_LIBS@						\
 	@LIBXFCEGUI4_LIBS@						\
-	@XFCONF_LIBS@
+	@XFCONF_LIBS@							\
+	@UNIQUE_LIBS@
 
 #
 # Plugin desktop file

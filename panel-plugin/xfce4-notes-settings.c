@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#include <unique/unique.h>
 #include <xfconf/xfconf.h>
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
@@ -474,6 +475,22 @@ cb_color_button_pressed (GtkButton *button,
 
 
 
+static UniqueResponse
+cb_unique_app (UniqueApp *app,
+               gint command,
+               UniqueMessageData *message_data,
+               guint time_,
+               gpointer user_data)
+{
+  GtkWidget *dialog = user_data;
+  if (command != UNIQUE_ACTIVATE)
+    {
+      return UNIQUE_RESPONSE_PASSTHROUGH;
+    }
+  gtk_window_present (GTK_WINDOW (dialog));
+  return UNIQUE_RESPONSE_OK;
+}
+
 gint main (gint argc,
           gchar *argv[])
 {
@@ -481,7 +498,17 @@ gint main (gint argc,
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, NULL);
   xfconf_init (NULL);
   gtk_init (&argc, &argv);
+  UniqueApp *app = unique_app_new ("org.xfce.NotesSettings", NULL);
+  if (unique_app_is_running (app))
+    {
+      if (unique_app_send_message (app, UNIQUE_ACTIVATE, NULL) == UNIQUE_RESPONSE_OK)
+        {
+          g_object_unref (app);
+          return;
+        }
+    }
   dialog = prop_dialog_new ();
+  g_signal_connect (app, "message-received", G_CALLBACK (cb_unique_app), dialog);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
   xfconf_shutdown ();
