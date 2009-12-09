@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 1.6.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-01 23:13+0100\n"
-"PO-Revision-Date: 2009-09-20 14:55+0200\n"
+"PO-Revision-Date: 2009-12-08 12:01+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <xfce-it-translators@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "Il nome %s è già in uso"
 
 #: ../panel-plugin/application.vala:374
 msgid "Are you sure you want to delete this group?"
-msgstr "Cancellare veramente questo gruppo?"
+msgstr "Cancellare davvero questo gruppo?"
 
 #: ../panel-plugin/application.vala:431
 #, c-format
@@ -76,7 +76,7 @@ msgstr "Impossibile aprire la finestra delle impostazioni"
 
 #: ../panel-plugin/application.vala:534
 msgid "translator-credits"
-msgstr ""
+msgstr "Cristian Marchi <cri.penta@gmail.com>, 2009"
 
 #: ../panel-plugin/window.vala:711
 msgid "_Rename"
@@ -105,7 +105,7 @@ msgstr "_Aggiungi un nuovo gruppo"
 
 #: ../panel-plugin/window.vala:1022
 msgid "Are you sure you want to delete this note?"
-msgstr "Eliminare veramente questa nota?"
+msgstr "Eliminare davvero questa nota?"
 
 #: ../panel-plugin/window.vala:1048
 msgid "Rename note"
@@ -127,11 +127,11 @@ msgstr "Nascondi le note dalla barra delle applicazioni"
 #. Show navigation bar
 #: ../panel-plugin/xfce4-notes-settings.c:126
 msgid "Show the automatic navigation bar"
-msgstr ""
+msgstr "Mostra la barra di navigazione automatica"
 
 #: ../panel-plugin/xfce4-notes-settings.c:136
 msgid "Tabs position:"
-msgstr ""
+msgstr "Posizione delle schede:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:146
 msgid "Background:"
@@ -155,25 +155,24 @@ msgid "Size:"
 msgstr "Dimensione:"
 
 #: ../panel-plugin/xfce4-notes-settings.c:209
-#, fuzzy
 msgid "None"
-msgstr "Nota"
+msgstr "Nessuna"
 
 #: ../panel-plugin/xfce4-notes-settings.c:210
 msgid "Top"
-msgstr ""
+msgstr "Alto"
 
 #: ../panel-plugin/xfce4-notes-settings.c:211
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #: ../panel-plugin/xfce4-notes-settings.c:212
 msgid "Bottom"
-msgstr ""
+msgstr "Basso"
 
 #: ../panel-plugin/xfce4-notes-settings.c:213
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 #: ../panel-plugin/xfce4-notes-settings.c:229
 msgid "Small"
