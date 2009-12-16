@@ -1,5 +1,9 @@
 2009-12-16  Mike Massonnet <mmassonnet@xfce.org>
 
+Update 2 bits in the TODO file
+
+2009-12-16  Mike Massonnet <mmassonnet@xfce.org>
+
 Move Xfconf init/shutdown into Xnp.Application
 	* panel-plugin/application.vala:
 	  - Init Xfconf at construction.
