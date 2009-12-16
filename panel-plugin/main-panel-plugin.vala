@@ -18,7 +18,6 @@
  */
 
 using Config;
-using Xfconf;
 using Xfce;
 using Gtk;
 
@@ -34,12 +33,6 @@ public class NotesPlugin : GLib.Object {
 	private weak Xfce.PanelPlugin panel_plugin;
 	private Xnp.Application application;
 
-	~NotesPlugin () {
-		// Destroy application before calling Xfconf.shutdown()
-		application = null;
-		Xfconf.shutdown ();
-	}
-
 #if HAVE_LIBXFCE4PANEL47
 	public override void @construct () {
 		panel_plugin = this;
@@ -49,13 +42,6 @@ public class NotesPlugin : GLib.Object {
 #endif
 
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-		try {
-			Xfconf.init ();
-		}
-		catch (Xfconf.Error e) {
-			warning ("%s", e.message);
-		}
-
 		application = new Xnp.Application (panel_plugin.save_location (true));
 
 #if HAVE_LIBXFCE4PANEL47

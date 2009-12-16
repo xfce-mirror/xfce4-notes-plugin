@@ -18,7 +18,6 @@
  */
 
 using Config;
-using Xfconf;
 using Xfce;
 using Gtk;
 
@@ -29,23 +28,8 @@ public class Notes : GLib.Object {
 	private Xnp.Application application;
 	private Gtk.Menu context_menu;
 
-	~NotesPlugin () {
-		application.save_windows_configuration ();
-		application.save_notes ();
-		// Destroy application before calling Xfconf.shutdown()
-		application = null;
-		Xfconf.shutdown ();
-	}
-
 	public Notes () {
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-		try {
-			Xfconf.init ();
-		}
-		catch (Xfconf.Error e) {
-			warning ("%s", e.message);
-		}
-
 		var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
 		application = new Xnp.Application (save_location);
 
@@ -145,7 +129,6 @@ public class Notes : GLib.Object {
 		var notes = new Notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);
 		Gtk.main ();
-		notes = null;
 		return 0;
 	}
 }

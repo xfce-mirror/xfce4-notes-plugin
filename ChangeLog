@@ -1,3 +1,17 @@
+2009-12-16  Mike Massonnet <mmassonnet@xfce.org>
+
+Move Xfconf init/shutdown into Xnp.Application
+	* panel-plugin/application.vala:
+	  - Init Xfconf at construction.
+	  - Shutdown Xfconf at finalize.
+	* panel-plugin/main-panel-plugin.vala,
+	panel-plugin/main-status-icon.vala:
+	  - Drop Xfconf code.
+	* panel-plugin/main-status-icon.vala:
+	  - No need to call save_notes/windows_configuration at NotesPlugin
+	  finalize as it is done during the Application finalize.
+	  - No need to set notes to null (destroy it manually).
+
 2009-12-02  Mike Massonnet <mmassonnet@xfce.org>
 
 Add Unique support for xfce4-notes and the settings dialog

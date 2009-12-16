@@ -34,9 +34,15 @@ namespace Xnp {
 		}
 
 		public Application (string config_file) {
+			try {
+				Xfconf.init ();
+			}
+			catch (Xfconf.Error e) {
+				critical ("%s", e.message);
+			}
+
 			this.config_file = config_file;
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
-
 			string color = xfconf_channel.get_string ("/global/background-color", "#F2F1EF");
 			Xnp.Color.set_background (color);
 
@@ -67,6 +73,7 @@ namespace Xnp {
 			save_windows_configuration ();
 			save_notes ();
 			xfconf_channel.unref ();
+			Xfconf.shutdown ();
 		}
 
 		/*
