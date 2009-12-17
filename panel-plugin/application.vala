@@ -43,7 +43,7 @@ namespace Xnp {
 
 			this.config_file = config_file;
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
-			string color = xfconf_channel.get_string ("/global/background-color", "#F2F1EF");
+			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			Xnp.Color.set_background (color);
 
 			xfconf_channel.property_changed += (channel, prop, val) => {
