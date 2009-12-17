@@ -71,6 +71,8 @@ namespace Xnp {
 		};
 
 		private int CORNER_MARGIN = 20;
+		private Gdk.Cursor CURSOR_RIGHT = new Gdk.Cursor (Gdk.CursorType.RIGHT_SIDE);
+		private Gdk.Cursor CURSOR_LEFT = new Gdk.Cursor (Gdk.CursorType.LEFT_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
@@ -442,8 +444,13 @@ namespace Xnp {
 				return false;
 			}
 
-			// Bottom right corner
+			// Right
 			if (event.x >= allocation.width - this.CORNER_MARGIN
+				&& event.y >= this.CORNER_MARGIN
+				&& event.y < allocation.height - this.CORNER_MARGIN)
+				window.set_cursor (this.CURSOR_RIGHT);
+			// Bottom right corner
+			else if (event.x >= allocation.width - this.CORNER_MARGIN
 				&& event.y >= allocation.height - this.CORNER_MARGIN)
 				window.set_cursor (this.CURSOR_BOTTOM_RC);
 			// Bottom
@@ -455,6 +462,10 @@ namespace Xnp {
 			else if (event.x <= this.CORNER_MARGIN
 				&& event.y >= allocation.height - this.CORNER_MARGIN)
 				window.set_cursor (this.CURSOR_BOTTOM_LC);
+			// Left
+			else if (event.x <= this.CORNER_MARGIN && event.y >= this.CORNER_MARGIN
+				&& event.y < allocation.height - this.CORNER_MARGIN)
+				window.set_cursor (this.CURSOR_LEFT);
 			// Default
 			else
 				window.set_cursor (null);
