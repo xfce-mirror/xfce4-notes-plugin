@@ -1,6 +1,0 @@
-SYSTRAY
-- The sticky bit is set while it is false in the configuration, but the window is not sticky (so after all it's 50% right). Same seems to go for visible, always on top, etc. On Compiz it looked even more broken.
-
-GENERAL
-- When the gtk theme is set for the very first time, it isn't visible within the notes plugin. Should also look at making the theme color switcher apply better, in fact when the color is switched too fast the theme will be applied but not saved/reload in time.
-- 2 pixels resize cursor on the left/right.
