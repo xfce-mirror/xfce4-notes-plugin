@@ -149,6 +149,7 @@ namespace Xnp {
 			}
 			set {
 				this._sticky = value;
+				this.mi_sticky.active = this._sticky;
 				if (value == true)
 					stick ();
 				else
