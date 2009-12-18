@@ -21,114 +21,103 @@ using Config;
 using Xfce;
 using Gtk;
 
-public class Notes : GLib.Object {
+static Xnp.Application application;
+static Gtk.Invisible invisible;
+static Gtk.StatusIcon status_icon;
+static Gtk.Menu context_menu;
 
-	private Gtk.Invisible invisible;
-	private Gtk.StatusIcon status_icon;
-	private Xnp.Application application;
-	private Gtk.Menu context_menu;
-
-	public Notes () {
-		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-		var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
-		application = new Xnp.Application (save_location);
-
-		status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
-		status_icon.set_tooltip_text (_("Notes"));
-		Timeout.add_seconds (60, () => {
-				if (!status_icon.is_embedded ()) {
-					warning ("Status Icon is not embedded");
-					Gtk.main_quit ();
-				}
-				return false;
-			});
-		status_icon.activate += () => { application.show_hide_notes (); };
-		context_menu = build_context_menu ();
-		status_icon.popup_menu += () => {
-			context_menu.popup (null, null, status_icon.position_menu, 0, Gtk.get_current_event_time ());
-		};
-
-		set_x_selection ();
-	}
-
-	/**
-	 * set_x_selection:
-	 *
-	 * Set an X selection to listen to for the popup command.
-	 */
-	private bool set_x_selection () {
-		invisible = new Gtk.Invisible ();
-		if (!Xnp.Popup.set_x_selection (invisible)) {
-			return false;
-		}
-		invisible.client_event += (w, event) => {
-			if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
-				application.show_hide_notes ();
-				return true;
+static void build_plugin () {
+	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
+	var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
+	application = new Xnp.Application (save_location);
+	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
+	status_icon.set_tooltip_text (_("Notes"));
+	Timeout.add_seconds (60, () => {
+			if (!status_icon.is_embedded ()) {
+				warning ("Status Icon is not embedded");
+				Gtk.main_quit ();
 			}
 			return false;
-		};
-		return true;
+		});
+	status_icon.activate += () => { application.show_hide_notes (); };
+	context_menu = build_context_menu ();
+	status_icon.popup_menu += () => {
+		context_menu.popup (null, null, status_icon.position_menu, 0, Gtk.get_current_event_time ());
+	};
+	set_x_selection ();
+}
+
+static Gtk.Menu build_context_menu () {
+	var menu = new Gtk.Menu ();
+
+	var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
+	var menu_go = application.context_menu ();
+	mi.set_submenu (menu_go);
+	menu.append (mi);
+
+	mi = new Gtk.SeparatorMenuItem ();
+	menu.append (mi);
+
+	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
+	mi.activate += () => { application.open_settings_dialog (); };
+	menu.append (mi);
+
+	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ABOUT, null);
+	mi.activate += () => { application.open_about_dialog (); };
+	menu.append (mi);
+
+	mi = new Gtk.SeparatorMenuItem ();
+	menu.append (mi);
+
+	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
+	mi.activate += () => {
+		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
+		Gtk.main_quit ();
+	};
+	menu.append (mi);
+
+	menu.show_all ();
+
+	return menu;
+}
+
+static bool set_x_selection () {
+	invisible = new Gtk.Invisible ();
+	if (!Xnp.Popup.set_x_selection (invisible)) {
+		return false;
 	}
-
-	/**
-	 * build_context_menu:
-	 *
-	 * Builds the context menu for right click on status icon.
-	 */
-	private Gtk.Menu build_context_menu () {
-		var menu = new Gtk.Menu ();
-
-                var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
-                var menu_go = application.context_menu ();
-                mi.set_submenu (menu_go);
-                menu.append (mi);
-
-		mi = new Gtk.SeparatorMenuItem ();
-		menu.append (mi);
-
-		mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
-		mi.activate += () => { application.open_settings_dialog (); };
-		menu.append (mi);
-
-		mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ABOUT, null);
-		mi.activate += () => { application.open_about_dialog (); };
-		menu.append (mi);
-
-		mi = new Gtk.SeparatorMenuItem ();
-		menu.append (mi);
-
-		mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
-		mi.activate += () => {
-			Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
-			Gtk.main_quit ();
-		};
-		menu.append (mi);
-
-		menu.show_all ();
-
-		return menu;
-	}
-
-	public static int main (string[] args) {
-		Gtk.init (ref args);
-		Unique.App app = new Unique.App ("org.xfce.Notes", null);
-		if (app.is_running) {
-			if (app.send_message (Unique.Command.ACTIVATE, null) == Unique.Response.OK) {
-				app = null;
-				return 0;
-			}
+	invisible.client_event += (w, event) => {
+		if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
+			application.show_hide_notes ();
+			return true;
 		}
-		app.message_received += (command, message_data, time_) => {
-			if (command != Unique.Command.ACTIVATE) {
-				return Unique.Response.PASSTHROUGH;
-			}
-			return Unique.Response.OK;
-		};
-		GLib.Environment.set_application_name (_("Notes"));
-		var notes = new Notes ();
-		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);
-		Gtk.main ();
-		return 0;
+		return false;
+	};
+	return true;
+}
+
+static int main (string[] args) {
+	Gtk.init (ref args);
+	Unique.App app = new Unique.App ("org.xfce.Notes", null);
+	if (app.is_running) {
+		if (app.send_message (Unique.Command.ACTIVATE, null) == Unique.Response.OK) {
+			app = null;
+			return 0;
+		}
 	}
+	app.message_received += (command, message_data, time_) => {
+		if (command != Unique.Command.ACTIVATE) {
+			return Unique.Response.PASSTHROUGH;
+		}
+		return Unique.Response.OK;
+	};
+	GLib.Environment.set_application_name (_("Notes"));
+	build_plugin ();
+	Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);
+	Gtk.main ();
+	application = null;
+	invisible = null;
+	status_icon = null;
+	context_menu = null;
+	return 0;
 }

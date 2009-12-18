@@ -1,5 +1,22 @@
 2009-12-17  Mike Massonnet <mmassonnet@xfce.org>
 
+Vala fixies
+	* panel-plugin/application.vala:
+	  - Set xfconf_channel to null, calling unref on it will keep the
+	  pointer intact and print a warning during the next call on unref.
+	* panel-plugin/window.vala:
+	  - Fix earlier commit to sync the menu item sticky with the internal
+	  bool value, the menu item needs to be checked if it is constructed
+	  or it will print a warning.
+	* panel-plugin/main-status-icon.vala:
+	  - Last but not least, using Timeout.add inside an Object passes the
+	  reference to it (the object will be ref'ed/unref'ed automatically)
+	  and this is a no-go in this case, when the Timeout is used to kill
+	  the application. As it cannot be unref'ed magically twice the whole
+	  Object is now replaced by static functions.
+
+2009-12-17  Mike Massonnet <mmassonnet@xfce.org>
+
 Clean up TODO file
 
 2009-12-17  Mike Massonnet <mmassonnet@xfce.org>

@@ -72,7 +72,7 @@ namespace Xnp {
 		~Application () {
 			save_windows_configuration ();
 			save_notes ();
-			xfconf_channel.unref ();
+			xfconf_channel = null;
 			Xfconf.shutdown ();
 		}
 
