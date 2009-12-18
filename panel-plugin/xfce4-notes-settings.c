@@ -70,6 +70,7 @@ static void cb_background_changed (GtkComboBox *combobox, gpointer data);
 static GtkWidget *background_dialog_new ();
 static gchar *background_dialog_get_color (GtkColorSelectionDialog *dialog);
 static void cb_selection_changed (GtkColorSelection *selection, gpointer data);
+static gboolean timeout_cb_background_changed (gchar *color);
 
 static GtkWidget *color_button_new ();
 static gboolean cb_color_button_pressed (GtkButton *button, GdkEventButton *event, gpointer data);
@@ -328,10 +329,11 @@ static void
 cb_background_changed (GtkComboBox *combobox,
                        gpointer data)
 {
+  static guint timeout_background;
   GtkWidget *dialog;
-  GdkColor gdkcolor;
   gchar *color = NULL;
   gint id;
+  gint res;
 
   id = gtk_combo_box_get_active (combobox);
 
@@ -364,22 +366,35 @@ cb_background_changed (GtkComboBox *combobox,
       gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
       gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 
-      if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
+      res = gtk_dialog_run (GTK_DIALOG (dialog));
+      if (res == GTK_RESPONSE_OK)
         {
           color = background_dialog_get_color (GTK_COLOR_SELECTION_DIALOG (dialog));
-          gdk_color_parse (color, &gdkcolor);
-          xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
-          g_free (color);
-
-          gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
         }
 
       gtk_widget_destroy (dialog);
-      return;
+
+      if (res != GTK_RESPONSE_OK)
+        {
+          return;
+        }
     }
 
-  xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
+  if (id != COMBOBOX_BACKGROUND_CUSTOM)
+    color = g_strdup (color);
 
+  /* Postpone the real-setting change, otherwise switching too briefly through
+   * the combobox won't always update the theme. */
+  if (timeout_background != 0)
+    g_source_remove (timeout_background);
+  timeout_background = g_timeout_add (500, (GSourceFunc)timeout_cb_background_changed, color);
+}
+
+static gboolean
+timeout_cb_background_changed (gchar *color)
+{
+  GdkColor gdkcolor;
+  xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
 }

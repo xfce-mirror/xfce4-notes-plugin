@@ -1,3 +1,11 @@
+2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
+
+Postone the background-color setting change
+	* panel-plugin/xfce4-notes-settings.c:
+	  - When updating the gtkrc file that defines the colors for the
+	  notes, despite being done via an atomic operation, the real call to
+	  gtk_rc_reparse_all is postponed with a GTimeout operation.
+
 2009-12-18  Mike Massonnet <mmassonnet@xfce.org>
 
 Vala fixies
