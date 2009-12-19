@@ -57,7 +57,6 @@ main (gint argc, gchar *argv[])
   GdkEventClient        gev;
   GtkWidget            *win;
   Window                id;
-  gchar                *message = NULL;
 
   gboolean              opt_show_hide = FALSE;
   GError               *opt_error = NULL;
@@ -80,8 +79,6 @@ main (gint argc, gchar *argv[])
       return -1;
     }
 
-  message = g_strdup_printf (NOTES_MSG_SHOW_HIDE);
-
   gtk_init (&argc, &argv);
 
   win = gtk_invisible_new ();
@@ -92,7 +89,7 @@ main (gint argc, gchar *argv[])
   gev.send_event        = TRUE;
   gev.message_type      = gdk_atom_intern ("STRING", FALSE);
   gev.data_format       = 8;
-  g_snprintf (gev.data.b, sizeof (gev.data.b), message);
+  g_snprintf (gev.data.b, sizeof (gev.data.b), NOTES_MSG_SHOW_HIDE);
 
   if (notes_plugin_check_is_running (win, &id))
     gdk_event_send_client_message ((GdkEvent *)&gev, (GdkNativeWindow)id);

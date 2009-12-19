@@ -79,8 +79,8 @@ static XfconfChannel *xfconf_channel = NULL;
 static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
 
-GtkWidget *
-prop_dialog_new ()
+static GtkWidget *
+prop_dialog_new (void)
 {
   GtkWidget *dialog, *notebook, *vbox, *frame, *box, *hbox, *button, *label;
 
@@ -203,7 +203,7 @@ prop_dialog_new ()
 }
 
 static GtkWidget *
-tabs_combo_box_new ()
+tabs_combo_box_new (void)
 {
   GtkWidget *combobox;
 
@@ -222,7 +222,7 @@ tabs_combo_box_new ()
 }
 
 static GtkWidget *
-size_combo_box_new ()
+size_combo_box_new (void)
 {
   GtkWidget *combobox;
   gint size;
@@ -281,7 +281,7 @@ cb_size_combobox_changed (GtkComboBox *combobox,
 }
 
 static GtkWidget *
-background_combo_box_new ()
+background_combo_box_new (void)
 {
   GtkWidget *combobox;
   gchar *color;
@@ -401,7 +401,7 @@ timeout_cb_background_changed (gchar *color)
 }
 
 static GtkWidget *
-background_dialog_new ()
+background_dialog_new (void)
 {
   GtkWidget *dialog;
   GtkWidget *selection;
@@ -451,7 +451,7 @@ cb_selection_changed (GtkColorSelection *selection,
 }
 
 static GtkWidget *
-color_button_new ()
+color_button_new (void)
 {
   GtkWidget *button;
   GdkColor gdkcolor;
@@ -508,19 +508,20 @@ cb_unique_app (UniqueApp *app,
 }
 
 gint main (gint argc,
-          gchar *argv[])
+           gchar *argv[])
 {
   GtkWidget *dialog;
+  UniqueApp *app;
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, NULL);
   xfconf_init (NULL);
   gtk_init (&argc, &argv);
-  UniqueApp *app = unique_app_new ("org.xfce.NotesSettings", NULL);
+  app = unique_app_new ("org.xfce.NotesSettings", NULL);
   if (unique_app_is_running (app))
     {
       if (unique_app_send_message (app, UNIQUE_ACTIVATE, NULL) == UNIQUE_RESPONSE_OK)
         {
           g_object_unref (app);
-          return;
+          return 0;
         }
     }
   dialog = prop_dialog_new ();

@@ -1,5 +1,9 @@
 2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix compile warnings from .c files
+
+2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
+
 Damn I forgot the return in the GTimeout operation
 
 2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
