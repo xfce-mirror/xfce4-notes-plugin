@@ -1,4 +1,5 @@
-panel-plugin/main.c
+panel-plugin/main-panel-plugin.c
+panel-plugin/main-status-icon.c
 panel-plugin/application.c
 panel-plugin/window.c
 panel-plugin/note.c

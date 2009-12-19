@@ -1,3 +1,21 @@
+VERSION 1.7.2
+
+- Unique support has been introduced as a hard-dependency (because you just
+  can't provide soft-dependencies when building from Vala sources)
+- The plugin is provided both as a panel plugin and as a standalone app that
+  sits in the notification area (a menu item is available under Accessories)
+- A context menu to go to a specific notes-group appears in the context menu
+  (right click the panel plugin or the systray icon)
+- Navigation bar can be set on/off in the settings dialog
+- The tabs can be positioned instead of only on/off
+- The top-right/left corners are no more resizable
+- A cursor handle to resize on the right/left is displayed
+- Some minor esthetic changes
+- Small bug fixes
+- Updated translations: Catalan, Latvian, Turkish, English (United Kingdom),
+  Japanese, Indonesian, Greek, Dutch, Kazakh, Danish, Portuguese, Spanish,
+  Hungarian, Galician, Slovak, Chinese (Simplified), Russian, Basque
+
 VERSION 1.7.1
 
 - Show tabs option is back in the settings dialog

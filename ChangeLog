@@ -1,5 +1,9 @@
 2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
 
+=== Release 1.7.2 ===
+
+2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
+
 Fix compile warnings from .c files
 
 2009-12-19  Mike Massonnet <mmassonnet@xfce.org>

@@ -222,7 +222,8 @@ EXTRA_DIST =								\
 	$(notes_VALASOURCES)						\
 	$(notes_panel_plugin_VALASOURCES)				\
 	$(notes_status_icon_VALASOURCES)				\
-	$(desktop_in_in_files)
+	$(desktop_in_in_files)						\
+	$(autostart_in_files)
 
 if MAINTAINER_MODE
 CLEANFILES =								\
@@ -232,5 +233,6 @@ endif
 
 DISTCLEANFILES =							\
 	$(desktop_DATA)							\
-	$(desktop_in_files)
+	$(desktop_in_files)						\
+	$(autostart_DATA)
 

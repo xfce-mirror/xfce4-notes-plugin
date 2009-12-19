@@ -22,7 +22,8 @@ EXTRA_DIST =								\
 	README								\
 	intltool-extract.in						\
 	intltool-merge.in						\
-	intltool-update.in
+	intltool-update.in						\
+	$(desktop_in_files)
 
 DISTCLEANFILES =							\
 	aclocal.m4							\
@@ -39,5 +40,6 @@ DISTCLEANFILES =							\
 	mkinstalldirs							\
 	intltool-extract						\
 	intltool-merge							\
-	intltool-update
+	intltool-update							\
+	$(desktop_DATA)
 
