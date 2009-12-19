@@ -397,6 +397,7 @@ timeout_cb_background_changed (gchar *color)
   xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
+  return FALSE;
 }
 
 static GtkWidget *
