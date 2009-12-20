@@ -344,17 +344,15 @@ namespace Xnp {
 				update_title (note.name);
 				update_navigation_sensitivity ((int)p);
 			};
-			notify += (o, p) => {
-				if (p.name == "name") {
-					int page = this.notebook.get_current_page ();
-					if (page == -1)
-						return;
-					var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-					update_title (current_note.name);
-				}
-				else if (p.name == "title") {
-					title_label.set_markup ("<b>"+title+"</b>");
-				}
+			notify["name"] += () => {
+				int page = this.notebook.get_current_page ();
+				if (page == -1)
+					return;
+				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
+				update_title (current_note.name);
+			};
+			notify["title"] += () => {
+				title_label.set_markup ("<b>"+title+"</b>");
 			};
 		}
 
@@ -438,7 +436,7 @@ namespace Xnp {
 		 *
 		 * Update mouse cursor.
 		 */
-		private bool window_motion_cb (Gtk.Widget widget, Gdk.EventMotion event) {
+		private bool window_motion_cb (Gdk.EventMotion event) {
 			if (event.x > 4 && event.y > 4
 				&& event.x < allocation.width - 4
 				&& event.y < allocation.height - 4) {
@@ -480,7 +478,7 @@ namespace Xnp {
 		 *
 		 * Start a window resize depending on mouse pointer location.
 		 */
-		private bool window_pressed_cb (Gtk.Widget widget, Gdk.EventButton event) {
+		private bool window_pressed_cb (Gdk.EventButton event) {
 			Gdk.WindowEdge edge;
 			if (event.x > 4 && event.y > 4
 				&& event.x < allocation.width - 4
@@ -524,7 +522,7 @@ namespace Xnp {
 		 * Watch window manager actions always on top and sticky
 		 * window.
 		 */
-		private bool window_state_cb (Gtk.Widget widget, Gdk.EventWindowState event) {
+		private bool window_state_cb (Gdk.EventWindowState event) {
 			if ((bool)(event.changed_mask & Gdk.WindowState.ABOVE)) {
 				/* FIXME above state is never notified despit
 				 * of xfwm4 switching the state */
@@ -586,23 +584,6 @@ namespace Xnp {
 				}
 			}
 			return false;
-		}
-
-		/**
-		 * note_notify:
-		 *
-		 * Update the window title on note name changes.
-		 */
-		private void note_notify (GLib.Object object, GLib.ParamSpec pspec) {
-			if (pspec.name == "name") {
-				/* Update the window title and notebook tab label */
-				var note = (Xnp.Note)object;
-				this.notebook.set_tab_label_text (note, note.name);
-				int page = this.notebook.get_current_page ();
-				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-				if (note == current_note)
-					this.update_title (note.name);
-			}
 		}
 
 		/*
@@ -968,7 +949,15 @@ namespace Xnp {
 			int page = this.notebook.get_current_page () + 1;
 			var note = new Xnp.Note (name);
 
-			note.notify += note_notify;
+			note.notify["name"] += (o) => {
+				/* Update the window title and notebook tab label */
+				var _note = (Xnp.Note)o;
+				this.notebook.set_tab_label_text (_note, _note.name);
+				int _page = this.notebook.get_current_page ();
+				var current_note = (Xnp.Note)(this.notebook.get_nth_page (_page));
+				if (_note == current_note)
+					this.update_title (_note.name);
+            };
 			note.save_data += (note) => { save_data (note); };
 
 			note.show ();

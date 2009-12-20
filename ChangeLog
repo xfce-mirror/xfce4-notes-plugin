@@ -1,3 +1,11 @@
+2009-12-20  Mike Massonnet <mmassonnet@xfce.org>
+
+Woohoo! A build without warnings
+
+I sent Vala binding bugs to bgo and changed the notify signal against notify
+with details e.g. notify::detail. Also changed the signature of the signals
+for motion and pressed callbacks. All warnings are gone :-)
+
 2009-12-19  Mike Massonnet <mmassonnet@xfce.org>
 
 === Release 1.7.2 ===
