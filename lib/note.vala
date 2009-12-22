@@ -52,6 +52,8 @@ namespace Xnp {
 		public signal void save_data ();
 
 		public Note (string name) {
+			GLib.Object ();
+
 			this.name = name;
 
 			this.scrolled_window = new Gtk.ScrolledWindow (null, null);

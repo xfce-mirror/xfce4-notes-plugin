@@ -6,5 +6,4 @@ _Comment=Ideal for your quick notes
 Icon=xfce4-notes-plugin
 X-XFCE-Unique=true
 X-XFCE-Module=notes
-X-XFCE-Module-Path=@EXTERNAL_PLUGIN_PATH@
 X-XFCE-Internal=FALSE

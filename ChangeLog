@@ -1,3 +1,26 @@
+2009-12-22  Mike Massonnet <mmassonnet@xfce.org>
+
+Update build for Xfce 4.7
+
+Clean up the autoconf/automake scripts:
+- Always use AM_SILENT_RULES (can be disabled while compiling with make V=1).
+- Check for Vala 0.7.8 as the code uses construction chain up to Object.
+- Update xfce4-vala to 4.6/4.7, fix missing $ in front of LIBXFCE4PANEL47.
+
+Move shared code between the systray and the panel to lib/
+- Xfce 4.7 Panel is build with GTypeModule which results in different .c files
+  for note.vala, etc. The generated code cannot be reused to build the panel
+  plugin and the standalone systray application.
+- Use valac to build a library libnotes.vapi/libnotes.h.
+- Update panel-plugin/Makefile.am to build with libnotes, and drop the custom
+  VALAC compilation against pure automake 1.11. In fact automake 1.11 is all
+  about provide release tarballs without the need to compile Vala with its
+  pros and cons.
+
+Split main-panel-plugin.vala into two separate files because Vala provides
+targets for the .c files and it breaks when using one .vala file to build two
+different resulting .c files.
+
 2009-12-20  Mike Massonnet <mmassonnet@xfce.org>
 
 Woohoo! A build without warnings

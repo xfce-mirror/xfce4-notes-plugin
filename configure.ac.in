@@ -23,7 +23,7 @@ AC_CANONICAL_TARGET()
 AM_INIT_AUTOMAKE([1.11 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+AM_SILENT_RULES([yes])
 
 dnl Avoid g77 and g++ checks
 m4_undefine([AC_PROG_CXX])
@@ -56,14 +56,14 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4PANEL47], [libxfce4panel-1.0], [4.7.0], [], 
 
 dnl Check for valac
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	AM_PROG_VALAC([0.7.1])
+	AM_PROG_VALAC([0.7.8])
 	if test "x$VALAC" = "x" ; then
 		AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
 	fi
-	if test "xLIBXFCE4PANEL47_FOUND" = "xyes" ; then
-		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1]) # 4.8
+	if test "x$LIBXFCE4PANEL47_FOUND" = "xyes" ; then
+		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.7])
 	else
-		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1]) # 4.6
+		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.6])
 	fi
 fi
 
@@ -81,6 +81,7 @@ icons/22x22/Makefile
 icons/24x24/Makefile
 icons/32x32/Makefile
 icons/scalable/Makefile
+lib/Makefile
 panel-plugin/Makefile
 po/Makefile.in
 ])
@@ -97,8 +98,8 @@ echo
 echo "    * Vala:               $VALAC $am__vala_version"
 echo
 fi
-if test "xLIBXFCE4PANEL47_FOUND" = "xyes" ; then
-echo "* Xfce Panel:             4.8"
+if test "x$LIBXFCE4PANEL47_FOUND" = "xyes" ; then
+echo "* Xfce Panel:             4.7"
 else
 echo "* Xfce Panel:             4.6"
 fi

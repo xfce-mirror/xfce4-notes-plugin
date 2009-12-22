@@ -21,22 +21,27 @@ using Config;
 using Xfce;
 using Gtk;
 
-public class NotesPlugin : GLib.Object {
+public class NotesPlugin : Xfce.PanelPlugin {
 
 	private Gtk.Invisible invisible;
 	private Gtk.Button button;
-	private Gtk.Image image;
+	private Xfce.PanelImage image;
 	private weak Xfce.PanelPlugin panel_plugin;
 	private Xnp.Application application;
 
-	public NotesPlugin (Xfce.PanelPlugin panel_plugin) {
-		this.panel_plugin = panel_plugin;
+	public NotesPlugin () {
+		GLib.Object ();
+		debug ("constructor");
+	}
+
+	public override void @construct () {
+		panel_plugin = this;
 
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
 		application = new Xnp.Application (panel_plugin.save_location (true));
 
-		button = Xfce.create_panel_button ();
-		image = new Gtk.Image ();
+		button = Xfce.panel_create_button ();
+		image = new Xfce.PanelImage.from_source ("xfce4-notes-plugin");
 		button.add (image);
 		button.clicked += () => { application.show_hide_notes (); };
 		button.show_all ();
@@ -56,11 +61,6 @@ public class NotesPlugin : GLib.Object {
 
 		panel_plugin.size_changed += (p, size) => {
 			button.set_size_request (size, size);
-			size -= 2 + 2 * ((button.style.xthickness > button.style.ythickness) ? button.style.xthickness : button.style.ythickness);
-			var pixbuf = Xfce.Icon.load ("xfce4-notes-plugin", size);
-			if (pixbuf == null)
-				pixbuf = Xfce.Icon.load (Gtk.STOCK_EDIT, size);
-			image.set_from_pixbuf (pixbuf);
 			return true;
 		};
 		panel_plugin.save += () => {
@@ -100,11 +100,8 @@ public class NotesPlugin : GLib.Object {
 
 }
 
-static NotesPlugin plugin;
-public static void panel_plugin_register (Xfce.PanelPlugin panel_plugin) {
-	plugin = new NotesPlugin (panel_plugin);
-}
-public static int main (string[] args) {
-	return Xfce.PanelPluginRegisterExternal (ref args, panel_plugin_register);
+[ModuleInit]
+public Type xfce_panel_module_init (TypeModule module) {
+	return typeof (NotesPlugin);
 }
 

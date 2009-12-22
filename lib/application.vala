@@ -34,6 +34,8 @@ namespace Xnp {
 		}
 
 		public Application (string config_file) {
+			GLib.Object (config_file: config_file);
+
 			try {
 				Xfconf.init ();
 			}
@@ -41,7 +43,6 @@ namespace Xnp {
 				critical ("%s", e.message);
 			}
 
-			this.config_file = config_file;
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			Xnp.Color.set_background (color);
