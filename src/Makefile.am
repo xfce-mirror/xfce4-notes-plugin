@@ -110,7 +110,7 @@ xfce4_notes_plugin_VALAFLAGS =						\
 if MAINTAINER_MODE
 BUILT_SOURCES = main-panel-plugin.c main-panel-plugin-47.c
 main-panel-plugin.c: main-panel-plugin.vala
-	$(AM_V_VALAC) $(VALAC) $(xfce4_notes_plugin_VALAFLAGS) $< -C
+	$(AM_V_GEN) $(VALAC) $(xfce4_notes_plugin_VALAFLAGS) $< -C
 
 main-panel-plugin-47.c:
 	$(AM_V_GEN) echo "*** The build-env is configured for Xfce Panel 4.4 ***" > $@
@@ -155,7 +155,7 @@ xfce4_notes_VALAFLAGS =							\
 if MAINTAINER_MODE
 BUILT_SOURCES += main-status-icon.c
 main-status-icon.c: main-status-icon.vala
-	$(AM_V_VALAC) $(VALAC) $(xfce4_notes_VALAFLAGS) $< -C
+	$(AM_V_GEN) $(VALAC) $(xfce4_notes_VALAFLAGS) $< -C
 endif
 
 xfce4_notes_SOURCES =							\

@@ -1,5 +1,15 @@
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
 
+Crap, another one, forget ChangeLog
+
+Also switch AM_V_VALAC to GEN as I would need to define it which is gross.
+
+2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
+Forget config.vapi
+
+2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
 Make distcheck happy
 
 no-comments.
