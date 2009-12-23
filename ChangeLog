@@ -1,5 +1,9 @@
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix earlier commit with note.notify["name"]
+
+2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
 Move xfce4-notes desktop file inside src directory
 
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>

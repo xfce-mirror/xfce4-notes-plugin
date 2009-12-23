@@ -586,6 +586,18 @@ namespace Xnp {
 			return false;
 		}
 
+		/**
+		 * note_notify_name_cb:
+		 *
+		 */
+		private void note_notify_name_cb (Xnp.Note note, GLib.ParamSpec pspec) {
+			this.notebook.set_tab_label_text (note, note.name);
+			int page = this.notebook.get_current_page ();
+			var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
+			if (note == current_note)
+				this.update_title (note.name);
+		}
+
 		/*
 		 * Action callbacks
 		 */
@@ -949,15 +961,7 @@ namespace Xnp {
 			int page = this.notebook.get_current_page () + 1;
 			var note = new Xnp.Note (name);
 
-			note.notify["name"] += (o) => {
-				/* Update the window title and notebook tab label */
-				var _note = (Xnp.Note)o;
-				this.notebook.set_tab_label_text (_note, _note.name);
-				int _page = this.notebook.get_current_page ();
-				var current_note = (Xnp.Note)(this.notebook.get_nth_page (_page));
-				if (_note == current_note)
-					this.update_title (_note.name);
-            };
+			note.notify["name"] += note_notify_name_cb;
 			note.save_data += (note) => { save_data (note); };
 
 			note.show ();
