@@ -173,7 +173,16 @@ xfce4-notes-plugin.desktop.in: xfce4-notes-plugin.desktop.in.in
 	$(AM_V_GEN) sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(plugindir)^" $< > $@
 
 #
-# Autostart file
+# Applications desktop file
+#
+
+applicationsdir = $(datadir)/applications
+applications_in_files = xfce4-notes.desktop.in
+applications_DATA = $(applications_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
+
+#
+# Autostart desktop file
 #
 
 autostartdir = $(sysconfdir)/xdg/autostart
