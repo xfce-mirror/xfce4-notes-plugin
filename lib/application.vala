@@ -75,6 +75,10 @@ namespace Xnp {
 			save_notes ();
 			xfconf_channel = null;
 			Xfconf.shutdown ();
+			foreach (var win in this.window_list) {
+				win.destroy ();
+				win = null;
+			}
 		}
 
 		/*
@@ -257,7 +261,7 @@ namespace Xnp {
 					window.show ();
 			}
 			catch (GLib.Error e) {
-				warning ("Unable to load window configuration from %s: %s", config_file, e.message);
+				message ("Unable to load window configuration from %s: %s", config_file, e.message);
 				window.show ();
 			}
 		}

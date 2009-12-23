@@ -1,5 +1,16 @@
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
 
+Properly quit on remove
+
+The panel plugin needs to call Gtk.main_quit() either on free or simpler on
+destroy otherwise the wrapper process will be around after removing the plugin
+from the panel.
+Drop the useless panel_plugin pointer.
+Change the call to warning() inside Xnp.Application to message() otherwise the
+panel will automatically drop the plugin.
+
+2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
 Fix earlier commit with note.notify["name"]
 
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
