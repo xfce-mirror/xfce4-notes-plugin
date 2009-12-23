@@ -1,6 +1,7 @@
-panel-plugin/main-panel-plugin.c
-panel-plugin/main-status-icon.c
-panel-plugin/application.c
-panel-plugin/window.c
-panel-plugin/note.c
-panel-plugin/hypertextview.c
+lib/application.c
+lib/window.c
+lib/note.c
+lib/hypertextview.c
+src/main-panel-plugin-47.c
+src/main-panel-plugin.c
+src/main-status-icon.c
