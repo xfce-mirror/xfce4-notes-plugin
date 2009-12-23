@@ -1,5 +1,11 @@
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
 
+Make distcheck happy
+
+no-comments.
+
+2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
 Properly quit on remove
 
 The panel plugin needs to call Gtk.main_quit() either on free or simpler on

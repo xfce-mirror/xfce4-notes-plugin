@@ -67,8 +67,17 @@ libnotes_la_VALAFLAGS =							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
 
+if MAINTAINER_MODE
+BUILT_SOURCES = main-panel-plugin-47.c main-panel-plugin.c
+main-panel-plugin-47.c: main-panel-plugin-47.vala
+	$(AM_V_GEN) $(VALAC) $(libnotes_la_VALAFLAGS) $< -C
+
+main-panel-plugin.c:
+	$(AM_V_GEN) echo "*** The build-env is configured for Xfce Panel 4.7 ***" > $@
+endif
+
 libnotes_la_SOURCES =							\
-	main-panel-plugin-47.vala
+	main-panel-plugin-47.c
 
 libnotes_la_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
@@ -77,7 +86,7 @@ libnotes_la_CFLAGS =							\
 	@XFCONF_CFLAGS@
 
 libnotes_la_LIBADD =							\
-	$(top_srcdir)/lib/libnotes.la					\
+	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
@@ -98,8 +107,17 @@ xfce4_notes_plugin_VALAFLAGS =						\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
 
+if MAINTAINER_MODE
+BUILT_SOURCES = main-panel-plugin.c main-panel-plugin-47.c
+main-panel-plugin.c: main-panel-plugin.vala
+	$(AM_V_VALAC) $(VALAC) $(xfce4_notes_plugin_VALAFLAGS) $< -C
+
+main-panel-plugin-47.c:
+	$(AM_V_GEN) echo "*** The build-env is configured for Xfce Panel 4.4 ***" > $@
+endif
+
 xfce4_notes_plugin_SOURCES =						\
-	main-panel-plugin.vala
+	main-panel-plugin.c
 
 xfce4_notes_plugin_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
@@ -108,7 +126,7 @@ xfce4_notes_plugin_CFLAGS =						\
 	@XFCONF_CFLAGS@
 
 xfce4_notes_plugin_LDADD =						\
-	$(top_srcdir)/lib/libnotes.la					\
+	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
@@ -134,9 +152,16 @@ xfce4_notes_VALAFLAGS =							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
 
+if MAINTAINER_MODE
+BUILT_SOURCES += main-status-icon.c
+main-status-icon.c: main-status-icon.vala
+	$(AM_V_VALAC) $(VALAC) $(xfce4_notes_VALAFLAGS) $< -C
+endif
+
 xfce4_notes_SOURCES =							\
 	xfce-autostart.c						\
-	main-status-icon.vala
+	xfce-autostart.h						\
+	main-status-icon.c
 
 xfce4_notes_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
@@ -146,7 +171,7 @@ xfce4_notes_CFLAGS =							\
 	@UNIQUE_CFLAGS@
 
 xfce4_notes_LDADD =							\
-	$(top_srcdir)/lib/libnotes.la					\
+	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UTIL_LIBS@						\
@@ -195,11 +220,16 @@ autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 #
 
 EXTRA_DIST =								\
+	main-panel-plugin-47.vala					\
+	main-panel-plugin.vala						\
+	main-status-icon.vala						\
 	$(desktop_in_in_files)						\
+	$(applications_in_files)					\
 	$(autostart_in_files)
 
 DISTCLEANFILES =							\
 	$(desktop_DATA)							\
 	$(desktop_in_files)						\
+	$(applications_DATA)						\
 	$(autostart_DATA)
 

@@ -33,3 +33,6 @@ libnotes_la_LIBADD =							\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
 
+EXTRA_DIST =								\
+	libnotes.vapi							\
+	libnotes.h
