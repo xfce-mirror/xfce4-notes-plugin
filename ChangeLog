@@ -1,3 +1,7 @@
+2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
+
+Rename panel-plugin to src
+
 2009-12-22  Mike Massonnet <mmassonnet@xfce.org>
 
 Update build for Xfce 4.7

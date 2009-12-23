@@ -82,7 +82,7 @@ icons/24x24/Makefile
 icons/32x32/Makefile
 icons/scalable/Makefile
 lib/Makefile
-panel-plugin/Makefile
+src/Makefile
 po/Makefile.in
 ])
 

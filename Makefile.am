@@ -2,7 +2,8 @@
 
 SUBDIRS =								\
 	icons								\
-	panel-plugin							\
+	lib								\
+	src								\
 	po
 
 distclean-local:
