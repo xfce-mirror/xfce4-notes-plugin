@@ -1,3 +1,12 @@
+2009-12-26  Mike Massonnet <mmassonnet@xfce.org>
+
+Save notes before Xnp.Application destruction
+
+The Xnp.Application.save_notes method emits a signal to tell the notes must be
+saved and then receives for each note a signal back. This cannot be achieved
+while the object is being destroyed. The only affected source was the
+xfce4-notes binary.
+
 2009-12-23  Mike Massonnet <mmassonnet@xfce.org>
 
 Crap, another one, forget ChangeLog

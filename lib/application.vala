@@ -72,7 +72,6 @@ namespace Xnp {
 
 		~Application () {
 			save_windows_configuration ();
-			save_notes ();
 			xfconf_channel = null;
 			Xfconf.shutdown ();
 			foreach (var win in this.window_list) {

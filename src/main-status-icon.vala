@@ -71,6 +71,7 @@ static Gtk.Menu build_context_menu () {
 
 	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
 	mi.activate += () => {
+		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
 		Gtk.main_quit ();
 	};
