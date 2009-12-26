@@ -1,5 +1,12 @@
 2009-12-26  Mike Massonnet <mmassonnet@xfce.org>
 
+Fix sticky window not restored on true
+
+The last change "unsynced sticky bit" was incomplete. On window state event
+"sticky" set the internal bool value instead of toggling the menu item.
+
+2009-12-26  Mike Massonnet <mmassonnet@xfce.org>
+
 Save notes before Xnp.Application destruction
 
 The Xnp.Application.save_notes method emits a signal to tell the notes must be

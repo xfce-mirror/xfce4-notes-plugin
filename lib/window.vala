@@ -530,7 +530,7 @@ namespace Xnp {
 			}
 			if ((bool)(event.changed_mask & Gdk.WindowState.STICKY) &&
 				(bool)(get_flags () & Gtk.WidgetFlags.VISIBLE)) {
-				this.mi_sticky.active = (bool)(event.new_window_state & Gdk.WindowState.STICKY);
+				this.sticky = (bool)((event.new_window_state & Gdk.WindowState.STICKY) != 0);
 			}
 			return false;
 		}
