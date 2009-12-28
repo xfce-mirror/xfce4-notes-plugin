@@ -64,6 +64,10 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.7])
 	else
 		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.6])
+		PKG_CHECK_EXISTS([xfce4-vala >= 4.7],
+				AC_ERROR([
+	*** Build configured for Xfce Panel 4.6 but  ***
+	*** Xfce Vala bindings for 4.7 are installed ***]), [])
 	fi
 fi
 
