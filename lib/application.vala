@@ -566,7 +566,6 @@ namespace Xnp {
 				foreach (var win in this.window_list) {
 					var mi = new Gtk.MenuItem.with_label (win.name);
 					mi.set_data ("window", (void*)win);
-					mi.show ();
 					mi.activate += (i) => {
 						// Jump to win
 						var w = (Xnp.Window)i.get_data ("window");
@@ -574,6 +573,21 @@ namespace Xnp {
 					};
 					menu.append (mi);
 				}
+
+				// New group menu item
+				var mi_sep = new Gtk.SeparatorMenuItem ();
+				menu.append (mi_sep);
+				var mi_add = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
+				mi_add.activate += () => {
+					var new_win = create_window ();
+					new_win.show ();
+				};
+				var image = new Gtk.Image.from_stock (Gtk.STOCK_ADD, Gtk.IconSize.MENU);
+				mi_add.set_image (image);
+				menu.append (mi_add);
+
+				// Show all items
+				menu.show_all ();
 			};
 
 			return menu;

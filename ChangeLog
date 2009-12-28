@@ -1,5 +1,9 @@
 2009-12-28  Mike Massonnet <mmassonnet@xfce.org>
 
+Add submenu item "Add new group" in the panel/status icon
+
+2009-12-28  Mike Massonnet <mmassonnet@xfce.org>
+
 Quit configure script with an error on bad Vala Bindings version
 
 When the Xfce Panel 4.6 is installed, we have to make sure the Xfce Vala
