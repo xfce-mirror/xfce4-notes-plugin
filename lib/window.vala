@@ -377,6 +377,7 @@ namespace Xnp {
 			deiconify ();
 			unshade ();
 			move (winx, winy);
+			set_keep_above (this.above);
 		}
 
 		/**
