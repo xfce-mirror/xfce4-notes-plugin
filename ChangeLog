@@ -1,6 +1,6 @@
 2009-12-28  Mike Massonnet <mmassonnet@xfce.org>
 
-Reset above state after hidding an Xnp.Window
+Reset above state after hidding an Xnp.Window (bug #6099)
 
 2009-12-26  Mike Massonnet <mmassonnet@xfce.org>
 
