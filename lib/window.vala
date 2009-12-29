@@ -741,12 +741,16 @@ namespace Xnp {
 			((Gtk.CheckMenuItem)mi).toggled += (o) => { sticky = o.active; };
 			menu.append (mi);
 
-			/* Settings dialog */
+			/* Settings/About dialog */
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
 			mi.activate += () => { action ("properties"); };
+			menu.append (mi);
+
+			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ABOUT, null);
+			mi.activate += () => { action ("about"); };
 			menu.append (mi);
 
 			return menu;

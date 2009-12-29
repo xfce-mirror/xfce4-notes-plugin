@@ -170,6 +170,9 @@ namespace Xnp {
 				else if (action == "properties") {
 					open_settings_dialog ();
 				}
+				else if (action == "about") {
+					open_about_dialog ();
+				}
 			};
 			window.save_data += (win, note) => {
 				save_note (win, note);
