@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-23 18:28+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/xfce4-notes.desktop.in.h:1
+#: ../src/xfce4-notes-autostart.desktop.in.h:1
+#: ../src/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:539
+msgid "Ideal for your quick notes"
+msgstr ""
+
+#: ../src/xfce4-notes.desktop.in.h:2
+#: ../src/xfce4-notes-autostart.desktop.in.h:2
+#: ../src/xfce4-notes-plugin.desktop.in.in.h:2
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:110
+#: ../lib/application.vala:537 ../lib/window.vala:82 ../lib/window.vala:169
+#: ../lib/window.vala:951 ../src/xfce4-notes-settings.c:93
+#: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:114
+msgid "Notes"
+msgstr ""
+
+#: ../lib/application.vala:114 ../lib/window.vala:954
+#, c-format
+msgid "Notes %d"
+msgstr ""
+
+#: ../lib/application.vala:339
+msgid "Rename group"
+msgstr ""
+
+#: ../lib/application.vala:360 ../lib/window.vala:1075
+#, c-format
+msgid "The name %s is already in use"
+msgstr ""
+
+#: ../lib/application.vala:386
+msgid "Are you sure you want to delete this group?"
+msgstr ""
+
+#: ../lib/application.vala:443
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr ""
+
+#: ../lib/application.vala:444
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr ""
+
+#: ../lib/application.vala:501
+msgid "Unable to open the settings dialog"
+msgstr ""
+
+#: ../lib/application.vala:546
+msgid "translator-credits"
+msgstr ""
+
+#: ../lib/window.vala:694 ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+msgid "_Go"
+msgstr ""
+
+#: ../lib/window.vala:717
+msgid "_Rename"
+msgstr ""
+
+#. Always on top
+#: ../lib/window.vala:737 ../src/xfce4-notes-settings.c:176
+msgid "Always on top"
+msgstr ""
+
+#: ../lib/window.vala:742
+msgid "Sticky window"
+msgstr ""
+
+#: ../lib/window.vala:804
+msgid "_Rename group"
+msgstr ""
+
+#: ../lib/window.vala:811
+msgid "_Delete group"
+msgstr ""
+
+#: ../lib/window.vala:818
+msgid "_Add a new group"
+msgstr ""
+
+#: ../lib/window.vala:1028
+msgid "Are you sure you want to delete this note?"
+msgstr ""
+
+#: ../lib/window.vala:1054
+msgid "Rename note"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:97
+msgid "Configure the plugin"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:116
+msgid "Global settings"
+msgstr ""
+
+#. Hide from taskbar
+#: ../src/xfce4-notes-settings.c:121
+msgid "Hide notes from taskbar"
+msgstr ""
+
+#. Show navigation bar
+#: ../src/xfce4-notes-settings.c:128
+msgid "Show the automatic navigation bar"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:138
+msgid "Tabs position:"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:148
+msgid "Background:"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:161
+msgid "Font:"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:171
+msgid "New group settings"
+msgstr ""
+
+#. Sticky window
+#: ../src/xfce4-notes-settings.c:183
+msgid "Sticky"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:193
+msgid "Size:"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:211
+msgid "None"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:212
+msgid "Top"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:213
+msgid "Right"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:214
+msgid "Bottom"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:215
+msgid "Left"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:231
+msgid "Small"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:232
+msgid "Normal"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:233
+msgid "Large"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:291
+msgid "Yellow"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:292
+msgid "Blue"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:293
+msgid "Green"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:294
+msgid "Indigo"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:295
+msgid "Olive"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:296
+msgid "Carmine"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:297
+msgid "Mimosa"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:298
+msgid "White"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:299
+msgid "Custom..."
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:411
+msgid "Background Color"
+msgstr ""
