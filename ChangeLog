@@ -1,3 +1,7 @@
+2009-12-29  Mike Massonnet <mmassonnet@xfce.org>
+
+Move the Properties menu item from the window menu at the bottom
+
 2009-12-28  Mike Massonnet <mmassonnet@xfce.org>
 
 Add submenu item "Add new group" in the panel/status icon

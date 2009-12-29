@@ -731,10 +731,6 @@ namespace Xnp {
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
-			mi.activate += () => { action ("properties"); };
-			menu.append (mi);
-
 			mi = this.mi_above = new Gtk.CheckMenuItem.with_label (_("Always on top"));
 			((Gtk.CheckMenuItem)mi).active = this.above;
 			((Gtk.CheckMenuItem)mi).toggled += (o) => { above = o.active; };
@@ -743,6 +739,14 @@ namespace Xnp {
 			mi = this.mi_sticky = new Gtk.CheckMenuItem.with_label (_("Sticky window"));
 			((Gtk.CheckMenuItem)mi).active = this.sticky;
 			((Gtk.CheckMenuItem)mi).toggled += (o) => { sticky = o.active; };
+			menu.append (mi);
+
+			/* Settings dialog */
+			mi = new Gtk.SeparatorMenuItem ();
+			menu.append (mi);
+
+			mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
+			mi.activate += () => { action ("properties"); };
 			menu.append (mi);
 
 			return menu;
