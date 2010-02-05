@@ -1,7 +1,7 @@
 # Hungarian translation of xfce4-notes-plugin
 # Copyright 2009. Free Software Foundation, Inc.
 # This file is distributed under the same license as the xfce4-notes-plugin package.
-#
+# 
 # SZERVÁC Attila <sas@321.hu>, 2009.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2009.
 msgid ""
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
@@ -70,7 +70,7 @@ msgstr "A beállítások ablak nem nyitható meg"
 
 #: ../lib/application.vala:546
 msgid "translator-credits"
-msgstr ""
+msgstr "Kelemen Gábor <kelemeng@gnome.hu>"
 
 #: ../lib/window.vala:694 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
