@@ -9,35 +9,42 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-23 18:28+0100\n"
-"PO-Revision-Date: 2009-09-20 18:16+0100\n"
-"Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
+"PO-Revision-Date: 2010-02-20 12:57+0100\n"
+"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:539
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1
+#: ../lib/application.vala:539
 msgid "Ideal for your quick notes"
 msgstr "Ideāls ātrām piezīmēm"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:110
-#: ../lib/application.vala:537 ../lib/window.vala:82 ../lib/window.vala:169
-#: ../lib/window.vala:951 ../src/xfce4-notes-settings.c:93
-#: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:114
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2
+#: ../lib/application.vala:110
+#: ../lib/application.vala:537
+#: ../lib/window.vala:82
+#: ../lib/window.vala:169
+#: ../lib/window.vala:951
+#: ../src/xfce4-notes-settings.c:93
+#: ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45
+#: ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:114
 msgid "Notes"
 msgstr "Piezīmes"
 
-#: ../lib/application.vala:114 ../lib/window.vala:954
+#: ../lib/application.vala:114
+#: ../lib/window.vala:954
 #, c-format
 msgid "Notes %d"
 msgstr "Piezīmes %d"
@@ -46,7 +53,8 @@ msgstr "Piezīmes %d"
 msgid "Rename group"
 msgstr "Pārdēvēt grupu"
 
-#: ../lib/application.vala:360 ../lib/window.vala:1075
+#: ../lib/application.vala:360
+#: ../lib/window.vala:1075
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Nosaukums %s jau tiek lietots"
@@ -71,10 +79,12 @@ msgstr "Nevarēja atvērt uzstādījumu dialogu"
 
 #: ../lib/application.vala:546
 msgid "translator-credits"
-msgstr ""
+msgstr "Rihards Priedītis"
 
-#: ../lib/window.vala:694 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+#: ../lib/window.vala:694
+#: ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49
+#: ../src/main-status-icon.vala:53
 msgid "_Go"
 msgstr "_Aiziet"
 
@@ -83,7 +93,8 @@ msgid "_Rename"
 msgstr "_Pārdēvēt"
 
 #. Always on top
-#: ../lib/window.vala:737 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:737
+#: ../src/xfce4-notes-settings.c:176
 msgid "Always on top"
 msgstr "Vienmēr priekšā"
 
@@ -232,43 +243,32 @@ msgstr "Fona krāsa"
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Izēlaties Loga Fontu"
-
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Esat drošs, ka vēlaties dzēst šo logu?"
-
 #~ msgid "Window"
 #~ msgstr "Logs"
-
 #~ msgid "_Options"
 #~ msgstr "_Uzstādījumi"
-
 #~ msgid "R_ename..."
 #~ msgstr "Pār_dēvēt..."
 
 #, fuzzy
 #~ msgid "Show tabs"
 #~ msgstr "Rādīt statusajoslu"
-
 #~ msgid "Show on startup"
 #~ msgstr "Rādit pie sāknēšanas"
-
 #~ msgid "Always"
 #~ msgstr "Vienmēr"
-
 #~ msgid "Never"
 #~ msgstr "Nekad"
-
 #~ msgid "Last state"
 #~ msgstr "Pēdējo stāvokli"
-
 #~ msgid "Rename window"
 #~ msgstr "Pārdēvēt logu"
-
 #~ msgid "Error"
 #~ msgstr "Kļūda"
-
 #~ msgid "Unable to rename note"
 #~ msgstr "Nevarēju pārdēvēt piezīmi"
-
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Piezīmju spraudnis Xfce4 darbavirsmai"
+
