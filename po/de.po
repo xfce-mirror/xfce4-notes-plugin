@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-23 18:28+0100\n"
-"PO-Revision-Date: 2009-06-11 19:34+0200\n"
+"PO-Revision-Date: 2010-02-19 21:57+0100\n"
 "Last-Translator: Fabian Nowak <timystery@arcor.de>\n"
 "Language-Team: German <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -128,11 +128,12 @@ msgstr "Fenster aus der Taskleiste ausblenden"
 #. Show navigation bar
 #: ../src/xfce4-notes-settings.c:128
 msgid "Show the automatic navigation bar"
-msgstr ""
+msgstr "Automatische Navigationsleiste anzeigen"
 
 #: ../src/xfce4-notes-settings.c:138
+#, fuzzy
 msgid "Tabs position:"
-msgstr ""
+msgstr "Tableistenposition:"
 
 #: ../src/xfce4-notes-settings.c:148
 msgid "Background:"
@@ -158,23 +159,23 @@ msgstr "Größe:"
 #: ../src/xfce4-notes-settings.c:211
 #, fuzzy
 msgid "None"
-msgstr "Notiz"
+msgstr "Keine"
 
 #: ../src/xfce4-notes-settings.c:212
 msgid "Top"
-msgstr ""
+msgstr "Oben"
 
 #: ../src/xfce4-notes-settings.c:213
 msgid "Right"
-msgstr ""
+msgstr "Rechts"
 
 #: ../src/xfce4-notes-settings.c:214
 msgid "Bottom"
-msgstr ""
+msgstr "Unten"
 
 #: ../src/xfce4-notes-settings.c:215
 msgid "Left"
-msgstr ""
+msgstr "Links"
 
 #: ../src/xfce4-notes-settings.c:231
 msgid "Small"
@@ -202,11 +203,11 @@ msgstr "Grün"
 
 #: ../src/xfce4-notes-settings.c:294
 msgid "Indigo"
-msgstr ""
+msgstr "Indigo"
 
 #: ../src/xfce4-notes-settings.c:295
 msgid "Olive"
-msgstr ""
+msgstr "Olivgrün"
 
 #: ../src/xfce4-notes-settings.c:296
 msgid "Carmine"
