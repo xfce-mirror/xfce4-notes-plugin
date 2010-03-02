@@ -4,44 +4,52 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-23 18:28+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Urmas <dwqwt3i02@sneakemail.com>\n"
+"Last-Translator: Dima Smirnov <arch@cnc-parts.info>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
-"Plural-Forms: n%10==1 && n%100!=11 ?0: n%10>=2 && n%10<=4 && (n%100<10 || n%"
-"100>=20)?1:2\n"
+"Plural-Forms: n%10==1 && n%100!=11 ?0: n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)?1:2\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:539
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1
+#: ../lib/application.vala:539
 msgid "Ideal for your quick notes"
 msgstr "Средство создания текстовых заметок"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:110
-#: ../lib/application.vala:537 ../lib/window.vala:82 ../lib/window.vala:169
-#: ../lib/window.vala:951 ../src/xfce4-notes-settings.c:93
-#: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:114
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2
+#: ../lib/application.vala:110
+#: ../lib/application.vala:537
+#: ../lib/window.vala:82
+#: ../lib/window.vala:169
+#: ../lib/window.vala:951
+#: ../src/xfce4-notes-settings.c:93
+#: ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45
+#: ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:114
 msgid "Notes"
 msgstr "Заметки"
 
-#: ../lib/application.vala:114 ../lib/window.vala:954
+#: ../lib/application.vala:114
+#: ../lib/window.vala:954
 #, c-format
 msgid "Notes %d"
-msgstr "Заметка %d"
+msgstr "Заметки %d"
 
 #: ../lib/application.vala:339
 msgid "Rename group"
-msgstr "Переименование"
+msgstr "Переименование группы"
 
-#: ../lib/application.vala:360 ../lib/window.vala:1075
+#: ../lib/application.vala:360
+#: ../lib/window.vala:1075
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Название «%s» уже используется"
@@ -66,10 +74,12 @@ msgstr "Не удалось открыть окно настроек"
 
 #: ../lib/application.vala:546
 msgid "translator-credits"
-msgstr ""
+msgstr "Переводчики"
 
-#: ../lib/window.vala:694 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+#: ../lib/window.vala:694
+#: ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49
+#: ../src/main-status-icon.vala:53
 msgid "_Go"
 msgstr "П_ереход"
 
@@ -78,7 +88,8 @@ msgid "_Rename"
 msgstr "Пере_именовать"
 
 #. Always on top
-#: ../lib/window.vala:737 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:737
+#: ../src/xfce4-notes-settings.c:176
 msgid "Always on top"
 msgstr "Поверх всех окон"
 
@@ -220,3 +231,4 @@ msgstr "Другой..."
 #: ../src/xfce4-notes-settings.c:411
 msgid "Background Color"
 msgstr "Цвет фона"
+
