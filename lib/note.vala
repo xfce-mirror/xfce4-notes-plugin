@@ -29,9 +29,8 @@ namespace Xnp {
 		public new string name { get; set; }
 
 		private uint save_timeout;
-		private bool _dirty;
+		private bool _dirty = false;
 		public bool dirty {
-			default = false;
 			get {
 				return this._dirty;
 			}
