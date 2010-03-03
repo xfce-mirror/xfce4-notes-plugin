@@ -593,6 +593,7 @@ namespace Xnp {
 		 */
 		private void note_notify_name_cb (Xnp.Note note, GLib.ParamSpec pspec) {
 			this.notebook.set_tab_label_text (note, note.name);
+			_notebook_update_tabs_angle ();
 			int page = this.notebook.get_current_page ();
 			var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
 			if (note == current_note)

@@ -1,3 +1,7 @@
+2010-03-03  Mike Massonnet <mmassonnet@xfce.org>
+
+Restore tab orientation when the tab label changes (bug #6246)
+
 2009-12-29  Mike Massonnet <mmassonnet@xfce.org>
 
 New About menu item in the window menu
