@@ -7,11 +7,11 @@ msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-23 18:28+0100\n"
-"PO-Revision-Date: 2009-11-05 16:48+0100\n"
+"PO-Revision-Date: 2010-03-08 10:32+0100\n"
 "Last-Translator: Robert Hartl <hartl.robert@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
@@ -66,7 +66,7 @@ msgstr "Nedá sa otvoriť dialógové okno s nastavením"
 
 #: ../lib/application.vala:546
 msgid "translator-credits"
-msgstr ""
+msgstr "Robert Hartl <hartl.robert@gmail.com>, 2010."
 
 #: ../lib/window.vala:694 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
