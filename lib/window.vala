@@ -226,8 +226,9 @@ namespace Xnp {
 			this.title_label = new Gtk.Label (null);
 			this.title_label.set_markup ("<b>"+this.title+"</b>");
 			this.title_label.ellipsize = Pango.EllipsizeMode.END;
+			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
-			title_box.pack_start (title_evbox, true, true, 2);
+			title_box.pack_start (title_evbox, true, true, 6);
 			var close_box = new Gtk.Button ();
 			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0); // GDK_Escape
 			close_box.set_relief (Gtk.ReliefStyle.NONE);
