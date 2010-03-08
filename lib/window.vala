@@ -32,6 +32,7 @@ namespace Xnp {
 		private Gtk.Menu menu;
 		private Gtk.CheckMenuItem mi_above;
 		private Gtk.CheckMenuItem mi_sticky;
+		private Gtk.Image menu_image;
 		private Gtk.Label title_label;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
@@ -218,8 +219,16 @@ namespace Xnp {
 			var title_box = new Gtk.HBox (false, 0);
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.set_visible_window (false);
-			var menu_image = new Gtk.Image.from_icon_name ("xfce4-notes-plugin", Gtk.IconSize.MENU);
-			menu_evbox.add (menu_image);
+			this.menu_image = new Gtk.Image.from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
+			menu_evbox.add (this.menu_image);
+			menu_evbox.enter_notify_event.connect (() => {
+				this.menu_image.set_from_file ("%s/pixmaps/notes-menu-active.png".printf (Config.PKGDATADIR));
+				return false;
+			});
+			menu_evbox.leave_notify_event.connect (() => {
+				this.menu_image.set_from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
+				return false;
+			});
 			title_box.pack_start (menu_evbox, false, false, 2);
 			var title_evbox = new Gtk.EventBox ();
 			title_evbox.set_visible_window (false);
