@@ -1,5 +1,9 @@
 2010-03-08  Mike Massonnet <mmassonnet@xfce.org>
 
+Rename sub-menu "Go" to "Groups" (bug #6249)
+
+2010-03-08  Mike Massonnet <mmassonnet@xfce.org>
+
 Rework the gtkrc theme
 
 The gtkrc file is installed (without colors) system wide and contains

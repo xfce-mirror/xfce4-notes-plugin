@@ -47,7 +47,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		menu_show_configure ();
 		menu_show_about ();
 
-		var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
+		var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
 		var menu = application.context_menu ();
 		mi.set_submenu (menu);
 		mi.show_all ();

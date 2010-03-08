@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-23 18:28+0100\n"
+"POT-Creation-Date: 2010-03-08 21:24+0100\n"
 "PO-Revision-Date: 2010-03-08 10:32+0100\n"
 "Last-Translator: Robert Hartl <hartl.robert@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -17,92 +17,93 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:539
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:544
 msgid "Ideal for your quick notes"
 msgstr "Ideálny pre rýchle poznámky"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:110
-#: ../lib/application.vala:537 ../lib/window.vala:82 ../lib/window.vala:169
-#: ../lib/window.vala:951 ../src/xfce4-notes-settings.c:93
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:112
+#: ../lib/application.vala:542 ../lib/window.vala:82 ../lib/window.vala:169
+#: ../lib/window.vala:964 ../src/xfce4-notes-settings.c:93
 #: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:114
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../lib/application.vala:114 ../lib/window.vala:954
+#: ../lib/application.vala:116 ../lib/window.vala:967
 #, c-format
 msgid "Notes %d"
 msgstr "Poznámky %d"
 
-#: ../lib/application.vala:339
+#: ../lib/application.vala:344
 msgid "Rename group"
 msgstr "Premenovať skupinu"
 
-#: ../lib/application.vala:360 ../lib/window.vala:1075
+#: ../lib/application.vala:365 ../lib/window.vala:1088
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Názov %s sa už používa"
 
-#: ../lib/application.vala:386
+#: ../lib/application.vala:391
 msgid "Are you sure you want to delete this group?"
 msgstr "Naozaj chcete zmazať túto skupinu?"
 
-#: ../lib/application.vala:443
+#: ../lib/application.vala:448
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Názov \"%s\" je neplatný."
 
-#: ../lib/application.vala:444
+#: ../lib/application.vala:449
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Neplatné znaky: %s"
 
-#: ../lib/application.vala:501
+#: ../lib/application.vala:506
 msgid "Unable to open the settings dialog"
 msgstr "Nedá sa otvoriť dialógové okno s nastavením"
 
-#: ../lib/application.vala:546
+#: ../lib/application.vala:551
 msgid "translator-credits"
 msgstr "Robert Hartl <hartl.robert@gmail.com>, 2010."
 
-#: ../lib/window.vala:694 ../src/main-panel-plugin-47.vala:50
+#: ../lib/application.vala:586 ../lib/window.vala:831
+msgid "_Add a new group"
+msgstr "_Pridať novú skupinu"
+
+#: ../lib/window.vala:699 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
-msgid "_Go"
+#, fuzzy
+msgid "_Groups"
 msgstr "_Prejsť"
 
-#: ../lib/window.vala:717
+#: ../lib/window.vala:722
 msgid "_Rename"
 msgstr "_Premenovať"
 
 #. Always on top
-#: ../lib/window.vala:737 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:738 ../src/xfce4-notes-settings.c:176
 msgid "Always on top"
 msgstr "Vždy navrchu"
 
-#: ../lib/window.vala:742
+#: ../lib/window.vala:743
 msgid "Sticky window"
 msgstr "Prilepené okno"
 
-#: ../lib/window.vala:804
+#: ../lib/window.vala:817
 msgid "_Rename group"
 msgstr "_Premenovať skupinu"
 
-#: ../lib/window.vala:811
+#: ../lib/window.vala:824
 msgid "_Delete group"
 msgstr "_Zmazať skupinu"
 
-#: ../lib/window.vala:818
-msgid "_Add a new group"
-msgstr "_Pridať novú skupinu"
-
-#: ../lib/window.vala:1028
+#: ../lib/window.vala:1041
 msgid "Are you sure you want to delete this note?"
 msgstr "Naozaj chcete zmazať túto poznámku?"
 
-#: ../lib/window.vala:1054
+#: ../lib/window.vala:1067
 msgid "Rename note"
 msgstr "Premenovať poznámku"
 

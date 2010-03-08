@@ -50,7 +50,7 @@ static void build_plugin () {
 static Gtk.Menu build_context_menu () {
 	var menu = new Gtk.Menu ();
 
-	var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
+	var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
 	var menu_go = application.context_menu ();
 	mi.set_submenu (menu_go);
 	menu.append (mi);

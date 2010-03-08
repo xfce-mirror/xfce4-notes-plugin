@@ -696,7 +696,7 @@ namespace Xnp {
 			var menu = new Gtk.Menu ();
 			menu.set_accel_group (this.ui.get_accel_group ());
 
-			var mi = new Gtk.MenuItem.with_mnemonic (_("_Go"));
+			var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
 			menu.append (mi);
 
 			/* Navigation */
