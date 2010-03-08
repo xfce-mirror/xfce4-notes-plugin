@@ -1,6 +1,3 @@
-INCLUDES =								\
-	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"
-
 noinst_LTLIBRARIES = libnotes.la
 
 libnotes_la_VALAFLAGS =							\
@@ -22,6 +19,8 @@ libnotes_la_SOURCES =							\
 	popup.c
 
 libnotes_la_CFLAGS =							\
+	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
+	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UTIL_CFLAGS@						\

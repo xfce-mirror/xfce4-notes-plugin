@@ -165,7 +165,7 @@ namespace Xnp {
 		public signal void note_renamed (Xnp.Note note, string old_name);
 
 		construct {
-			base.name = "xfce4-notes-plugin";
+			base.name = "notes-window";
 			this.title = _("Notes");
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
@@ -216,11 +216,13 @@ namespace Xnp {
 
 			/* Build title */
 			var title_box = new Gtk.HBox (false, 0);
-			var menu_box = new Gtk.EventBox ();
+			var menu_evbox = new Gtk.EventBox ();
+			menu_evbox.set_visible_window (false);
 			var menu_image = new Gtk.Image.from_icon_name ("xfce4-notes-plugin", Gtk.IconSize.MENU);
-			menu_box.add (menu_image);
-			title_box.pack_start (menu_box, false, false, 2);
+			menu_evbox.add (menu_image);
+			title_box.pack_start (menu_evbox, false, false, 2);
 			var title_evbox = new Gtk.EventBox ();
+			title_evbox.set_visible_window (false);
 			this.title_label = new Gtk.Label (null);
 			this.title_label.set_markup ("<b>"+this.title+"</b>");
 			this.title_label.ellipsize = Pango.EllipsizeMode.END;
@@ -246,6 +248,7 @@ namespace Xnp {
 
 			/* Build Notebook */
 			this.notebook = new Gtk.Notebook ();
+			this.notebook.name = "notes-notebook";
 			this.notebook.show_border = false;
 			this.notebook.show_tabs = false;
 			this.notebook.tab_pos = Gtk.PositionType.TOP;
@@ -303,7 +306,7 @@ namespace Xnp {
 			this.content_box.pack_start (this.navigation_box, false, false, 1);
 
 			/* Connect mouse click signals */
-			menu_box.button_press_event += menu_box_pressed_cb;
+			menu_evbox.button_press_event += menu_evbox_pressed_cb;
 			close_box.clicked += () => { hide (); };
 			add_box.clicked += action_new_note;
 			del_box.clicked += action_delete_note;
@@ -649,11 +652,11 @@ namespace Xnp {
 		 */
 
 		/**
-		 * menu_box_pressed_cb:
+		 * menu_evbox_pressed_cb:
 		 *
 		 * Popup the window menu.
 		 */
-		private bool menu_box_pressed_cb (Gtk.EventBox box, Gdk.EventButton event) {
+		private bool menu_evbox_pressed_cb (Gtk.EventBox box, Gdk.EventButton event) {
 			this.menu.popup (null, null, menu_position, 0, Gtk.get_current_event_time ());
 			return false;
 		}

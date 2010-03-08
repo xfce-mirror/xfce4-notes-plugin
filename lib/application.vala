@@ -36,6 +36,9 @@ namespace Xnp {
 		public Application (string config_file) {
 			GLib.Object (config_file: config_file);
 
+			var notesgtkrc = "%s/xfce4/xfce4-notes.gtkrc".printf (GLib.Environment.get_user_config_dir ());
+			Gtk.rc_parse (notesgtkrc);
+
 			try {
 				Xfconf.init ();
 			}

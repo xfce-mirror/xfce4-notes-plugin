@@ -16,4 +16,6 @@ namespace Config {
 	public const string PACKAGE_TARNAME;
 	[CCode (cname = "PACKAGE_VERSION")]
 	public const string PACKAGE_VERSION;
+	[CCode (cname = "PKGDATADIR")]
+	public const string PKGDATADIR;
 }

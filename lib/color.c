@@ -37,69 +37,7 @@
 
 #define RC_STYLE \
   "gtk_color_scheme = \"notes_fg_color:#xxxxxxxxxxxx\\nnotes_bg_color:#xxxxxxxxxxxx\\nnotes_base_color:#xxxxxxxxxxxx\\nnotes_text_color:#xxxxxxxxxxxx\\nnotes_selected_bg_color:#xxxxxxxxxxxx\\nnotes_selected_fg_color:#xxxxxxxxxxxx\"\n" \
-  "style \"notes-default\" {\n" \
-  "xthickness = 1\n" \
-  "ythickness = 1\n" \
-  "fg[NORMAL] = @notes_fg_color\n" \
-  "fg[ACTIVE] = @notes_fg_color\n" \
-  "fg[PRELIGHT] = @notes_fg_color\n" \
-  "fg[SELECTED] = @notes_selected_fg_color\n" \
-  "fg[INSENSITIVE] = shade(3.0,@notes_fg_color)\n" \
-  "bg[NORMAL] = @notes_bg_color\n" \
-  "bg[ACTIVE] = shade(1.0233,@notes_bg_color)\n" \
-  "bg[PRELIGHT] = mix(0.90,shade(1.1,@notes_bg_color),@notes_selected_bg_color)\n" \
-  "bg[SELECTED] = @notes_selected_bg_color\n" \
-  "bg[INSENSITIVE] = shade(1.03,@notes_bg_color)\n" \
-  "base[NORMAL] = @notes_base_color\n" \
-  "base[ACTIVE] = shade(0.65,@notes_base_color)\n" \
-  "base[PRELIGHT] = @notes_base_color\n" \
-  "base[SELECTED] = @notes_selected_bg_color\n" \
-  "base[INSENSITIVE] = shade(1.025,@notes_bg_color)\n" \
-  "text[NORMAL] = @notes_text_color\n" \
-  "text[ACTIVE] = shade(0.95,@notes_base_color)\n" \
-  "text[PRELIGHT] = @notes_text_color\n" \
-  "text[SELECTED] = @notes_selected_fg_color\n" \
-  "text[INSENSITIVE] = mix(0.675,shade(0.95,@notes_bg_color),@notes_fg_color)\n" \
-  "}\n" \
-  "widget \"xfce4-notes-plugin*\" style \"notes-default\"\n"
-
-#define INCLUDE_CONTENT \
-  "\n\n# include rc style for the xfce4-notes-plugin" \
-  "\n\n%s" \
-  "\n\n# end of automatic change\n\n"
-
-static inline void
-update_gtkrc (const gchar *notesrc_file)
-{
-  gchar *gtkrc_file;
-  gchar *include_line;
-  gchar *include_content;
-  gchar *contents, *tmp;
-
-  gtkrc_file = g_strdup_printf ("%s/.gtkrc-2.0", g_get_home_dir ());
-  include_line = g_strdup_printf ("include \"%s\"", notesrc_file);
-  include_content = g_strdup_printf (INCLUDE_CONTENT, include_line);
-
-  g_file_get_contents (gtkrc_file, &contents, NULL, NULL);
-
-  if (contents == NULL)
-    {
-      g_file_set_contents (gtkrc_file, include_content, -1, NULL);
-    }
-  else if (!g_strrstr (contents, include_line))
-    {
-      tmp = contents;
-      contents = g_strconcat (tmp, include_content, NULL);
-      g_free (tmp);
-
-      g_file_set_contents (gtkrc_file, contents, -1, NULL);
-    }
-
-  g_free (include_content);
-  g_free (include_line);
-  g_free (gtkrc_file);
-  g_free (contents);
-}
+  "include \"" PKGDATADIR "/gtk-2.0/notes.gtkrc\""
 
 void
 color_set_background (const gchar *background)
@@ -155,9 +93,8 @@ color_set_background (const gchar *background)
   memcpy (offset, bg, 13);
 
   /* set the rc style */
-  notesrc_file = g_strdup_printf ("%s/xfce4/panel/xfce4-notes-plugin.gtkrc", g_get_user_config_dir ());
+  notesrc_file = g_strdup_printf ("%s/xfce4/xfce4-notes.gtkrc", g_get_user_config_dir ());
   g_file_set_contents (notesrc_file, rc_style, -1, NULL);
-  update_gtkrc (notesrc_file);
 
   gtk_rc_reparse_all ();
 

@@ -1,6 +1,7 @@
 @SET_MAKE@
 
 SUBDIRS =								\
+	data								\
 	icons								\
 	lib								\
 	src								\

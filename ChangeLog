@@ -1,3 +1,18 @@
+2010-03-08  Mike Massonnet <mmassonnet@xfce.org>
+
+Rework the gtkrc theme
+
+The gtkrc file is installed (without colors) system wide and contains
+more customization for coloured scrollbars, gradient title-bar, standing
+out colour for the current tab, and tooltip colours.
+
+The custom colours are installed inside the user's configuration
+directory and includes a line to the system wide gtkrc file.
+
+To avoid conflicts with the existing theme included through ~/.gtkrc-2.0
+the widget names are renamed and the user's gtkrc file is saved with the
+name xfce4-notes.gtkrc.
+
 2010-03-03  Mike Massonnet <mmassonnet@xfce.org>
 
 Restore tab orientation when the tab label changes (bug #6246)

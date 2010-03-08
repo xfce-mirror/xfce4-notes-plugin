@@ -1,6 +1,7 @@
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(top_srcdir)/lib						\
+	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\"
 
