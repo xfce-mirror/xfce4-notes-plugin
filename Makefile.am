@@ -2,7 +2,6 @@
 
 SUBDIRS =								\
 	data								\
-	icons								\
 	lib								\
 	src								\
 	po
