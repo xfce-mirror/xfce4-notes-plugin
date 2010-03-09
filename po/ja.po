@@ -1,7 +1,7 @@
 # Japanese translation for xfce4-notes-plugin package.
 # This file is distributed under the same license as the xfce4-notes-plugin package.
 # Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
@@ -23,7 +23,8 @@ msgstr ""
 msgid "Ideal for your quick notes"
 msgstr "ちょっとしたメモに最適です"
 
-# Label for Add panel-items dialog, tip help of notes icon on panel, default group name and default note name.
+# Label for Add panel-items dialog, tip help of notes icon on panel, default
+# group name and default note name.
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
@@ -79,9 +80,8 @@ msgstr "新しいグループの追加(_A)"
 
 #: ../lib/window.vala:699 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
-#, fuzzy
 msgid "_Groups"
-msgstr "移動(_G)"
+msgstr "グループ(_G)"
 
 #: ../lib/window.vala:722
 msgid "_Rename"
@@ -120,8 +120,8 @@ msgstr "プラグインの設定"
 msgid "Global settings"
 msgstr "一般設定"
 
-# Exact name is 'task list', not 'task bar'.
 #. Hide from taskbar
+# Exact name is 'task list', not 'task bar'.
 #: ../src/xfce4-notes-settings.c:121
 msgid "Hide notes from taskbar"
 msgstr "タスクリストにウィンドウを表示しない"
