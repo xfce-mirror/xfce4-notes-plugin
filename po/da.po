@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Danish\n"
-"X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: DENMARK\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
@@ -82,9 +82,8 @@ msgstr "_Tilføj en ny gruppe"
 
 #: ../lib/window.vala:699 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
-#, fuzzy
 msgid "_Groups"
-msgstr "_Gå til"
+msgstr "_Grupper"
 
 #: ../lib/window.vala:722
 msgid "_Rename"
@@ -239,7 +238,6 @@ msgstr "Baggrundsfarve"
 #~ msgid "Purple"
 #~ msgstr "Lilla"
 
-#, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Vælg skrifttype for vinduet"
 
