@@ -11,6 +11,7 @@ libnotes_la_VALAFLAGS =							\
 	--pkg=libxfce4util-1.0
 
 libnotes_la_SOURCES =							\
+	icon-button.vala						\
 	application.vala						\
 	hypertextview.vala						\
 	note.vala							\

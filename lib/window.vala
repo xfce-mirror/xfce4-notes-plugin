@@ -1,6 +1,6 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (c) 2009  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (c) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
  *
  *  TODO:
  *  - Follow GNOME bug #551184 to change accelerators hexa values
@@ -238,18 +238,11 @@ namespace Xnp {
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
-			var close_box = new Gtk.Button ();
+			var close_box = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
 			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0); // GDK_Escape
-			close_box.set_relief (Gtk.ReliefStyle.NONE);
-			close_box.can_focus = false;
-			var close_label = new Gtk.Label ("<b>X</b>");
-			close_label.use_markup = true;
-			close_box.add (close_label);
 			title_box.pack_start (close_box, false, false, 2);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
-			if (close_box.allocation.width < 22)
-				close_box.set_size_request (22, -1);
 
 			/* Build content box */
 			this.content_box = new Gtk.VBox (false, 0);
