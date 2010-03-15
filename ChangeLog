@@ -1,5 +1,9 @@
 2010-03-15  Mike Massonnet <mmassonnet@xfce.org>
 
+Set tooltip for title bar buttons
+
+2010-03-15  Mike Massonnet <mmassonnet@xfce.org>
+
 Always show notebook borders
 
 If the notebook border is not shown with hidden tabs, the scrollbars are drawn

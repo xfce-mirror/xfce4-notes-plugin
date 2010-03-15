@@ -218,6 +218,7 @@ namespace Xnp {
 			/* Build title */
 			var title_box = new Gtk.HBox (false, 0);
 			var menu_evbox = new Gtk.EventBox ();
+			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
 			this.menu_image = new Gtk.Image.from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
 			menu_evbox.add (this.menu_image);
@@ -239,7 +240,7 @@ namespace Xnp {
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
 			var close_box = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
-			close_box.tooltip_text = Gtk.accelerator_get_label (0xff1b, 0); // GDK_Escape
+			close_box.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (0xff1b, 0)); // GDK_Escape
 			title_box.pack_start (close_box, false, false, 2);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
