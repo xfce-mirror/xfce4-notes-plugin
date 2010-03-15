@@ -252,7 +252,7 @@ namespace Xnp {
 			/* Build Notebook */
 			this.notebook = new Gtk.Notebook ();
 			this.notebook.name = "notes-notebook";
-			this.notebook.show_border = false;
+			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
 			this.notebook.tab_pos = Gtk.PositionType.TOP;
 			this.notebook.tab_border = 4;
