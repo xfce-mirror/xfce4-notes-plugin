@@ -1,3 +1,11 @@
+2010-03-16  Mike Massonnet <mmassonnet@xfce.org>
+
+Fix undo feature
+
+The undo timeout id wasn't reset to 0 which made the undo action think there
+was still a need to make a snapshot, and every time one hit the undo action it
+simply took a new snapshot and the undo/redo buffers ended the same.
+
 2010-03-15  Mike Massonnet <mmassonnet@xfce.org>
 
 Set tooltip for title bar buttons

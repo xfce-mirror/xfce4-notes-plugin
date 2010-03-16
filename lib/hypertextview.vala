@@ -320,6 +320,11 @@ namespace Xnp {
 			this.undo_text = this.redo_text;
 			this.redo_text = this.buffer.get_text (start, end, false);
 
+			if (this.undo_timeout > 0) {
+				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
+			}
+
 			return false;
 		}
 
