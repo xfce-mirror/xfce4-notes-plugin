@@ -40,6 +40,15 @@ namespace Xnp {
 			Gtk.rc_parse (notesgtkrc);
 
 			try {
+				Xfce.PosixSignalHandler.init ();
+				Xfce.PosixSignalHandler.set_handler(ProcessSignal.TERM, quit);
+				Xfce.PosixSignalHandler.set_handler(ProcessSignal.INT, quit);
+			}
+			catch (GLib.Error e) {
+				critical ("Unable to connect to UNIX signals. %s", e.message);
+			}
+
+			try {
 				Xfconf.init ();
 			}
 			catch (Xfconf.Error e) {
@@ -81,6 +90,10 @@ namespace Xnp {
 				win.destroy ();
 				win = null;
 			}
+		}
+
+		private void quit () {
+			Gtk.main_quit ();
 		}
 
 		/*

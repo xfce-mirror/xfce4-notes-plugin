@@ -1,3 +1,7 @@
+2010-03-21  Mike Massonnet <mmassonnet@xfce.org>
+
+Listen to UNIX signals TERM and INT and properly quit
+
 2010-03-16  Mike Massonnet <mmassonnet@xfce.org>
 
 Fix undo feature
