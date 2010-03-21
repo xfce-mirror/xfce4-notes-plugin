@@ -93,6 +93,8 @@ namespace Xnp {
 		}
 
 		private void quit () {
+			// Save notes before leaving the main loop since it works with GObject signals
+			save_notes ();
 			Gtk.main_quit ();
 		}
 
