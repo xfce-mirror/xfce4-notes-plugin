@@ -548,7 +548,7 @@ namespace Xnp {
 				});
 
 			string[] authors = {
-					"(c) 2006-2009 Mike Massonnet",
+					"(c) 2006-2010 Mike Massonnet",
 					"(c) 2003 Jakob Henriksson",
 					null
 				};
@@ -558,7 +558,7 @@ namespace Xnp {
 				"logo-icon-name", "xfce4-notes-plugin",
 				"comments", _("Ideal for your quick notes"),
 				"version", Config.PACKAGE_VERSION,
-				"copyright", "Copyright © 2003-2009 The Xfce development team",
+				"copyright", "Copyright © 2003-2010 The Xfce development team",
 				"license", Xfce.get_license_text (Xfce.LicenseTextType.GPL),
 				"website", "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin",
 				"website-label", "goodies.xfce.org",

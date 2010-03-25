@@ -1,3 +1,21 @@
+VERSION 1.7.3
+
+- Bump GTK+ version to 2.14
+- Properly save notes when leaving (handle UNIX TERM and INT signals)
+- Rework the GTK+ RC theme with custom scrollbars, a shaded title bar and
+  replaced the close button against a self painted widget with Cairo
+- Align the note name in the title bar on the left near the menu icon
+- Restore tab orientation when the tab label changes (bug #6246)
+- Reorganize right click title bar menu and add new item "About"
+- Renamed sub-menu "Go" into "Groups" (bug #6249)
+- New right click menu option in panel "Add new group"
+- Fix undo feature not working after a small delay
+- Fix sticky window not being restored and reset "keep-above" after hidding
+- Updated build for Xfce 4.7 (compile in maintainer mode)
+- Updated translations: Kazakh, Catalan, Russian, Ukrainian, Hungarian,
+  Galician, Japanese, Czech, French, German, Danish, Basque, Latvian, Slovak,
+  Portuguese
+
 VERSION 1.7.2
 
 - Unique support has been introduced as a hard-dependency (because you just

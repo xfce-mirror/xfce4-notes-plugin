@@ -10,7 +10,7 @@ m4_define([xfce4_notes_plugin_version_minor], [7])
 m4_define([xfce4_notes_plugin_version_micro], [3])
 m4_define([xfce4_notes_plugin_version_nano], [])
 m4_define([xfce4_notes_plugin_version_build], [@REVISION@])
-m4_define([xfce4_notes_plugin_version_tag], [git]) # Leave empty for releases
+m4_define([xfce4_notes_plugin_version_tag], []) # Leave empty for releases
 m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [git], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
 
 AC_PREREQ([2.50])
@@ -44,7 +44,7 @@ AC_CHECK_HEADERS([math.h])
 dnl Check for required packages
 XDT_CHECK_LIBX11_REQUIRE()
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.16.0])
-XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.14.0])
 XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
@@ -106,11 +106,8 @@ echo
 echo "    * Vala:               $VALAC $am__vala_version"
 echo
 fi
-if test "x$LIBXFCE4PANEL47_FOUND" = "xyes" ; then
-echo "* Xfce Panel:             4.7"
-else
-echo "* Xfce Panel:             4.6"
-fi
+echo "* GTK+:                   $GTK_VERSION"
+echo "* Xfce Panel:             $LIBXFCE4PANEL_VERSION"
 echo "* Debug Support:          $enable_debug"
 echo
 

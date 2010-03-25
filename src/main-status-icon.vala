@@ -31,7 +31,7 @@ static void build_plugin () {
 	var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
 	application = new Xnp.Application (save_location);
 	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
-	status_icon.set_tooltip_text (_("Notes"));
+	status_icon.set_tooltip (_("Notes"));
 	Timeout.add_seconds (60, () => {
 			if (!status_icon.is_embedded ()) {
 				warning ("Status Icon is not embedded");
