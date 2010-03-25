@@ -1,5 +1,9 @@
 2010-03-25  Mike Massonnet <mmassonnet@xfce.org>
 
+Make notes-menu.png icon in title bar a tad more transparent
+
+2010-03-25  Mike Massonnet <mmassonnet@xfce.org>
+
 Update build to compile CCode for both panel plugins version 4.6 and 4.7
 
 2010-03-21  Mike Massonnet <mmassonnet@xfce.org>
