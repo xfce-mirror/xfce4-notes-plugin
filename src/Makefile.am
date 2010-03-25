@@ -53,12 +53,8 @@ xfce4_notes_settings_LDADD =						\
 # Panel plugin
 #
 
-if HAVE_LIBXFCE4PANEL47
-
-plugindir = $(libdir)/xfce4/panel-plugins
-plugin_LTLIBRARIES = libnotes.la
-
-libnotes_la_VALAFLAGS =							\
+if MAINTAINER_MODE
+notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
 	--pkg=libnotes							\
 	--pkg=config							\
@@ -68,14 +64,17 @@ libnotes_la_VALAFLAGS =							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
 
-if MAINTAINER_MODE
-BUILT_SOURCES = main-panel-plugin-47.c main-panel-plugin.c
+BUILT_SOURCES = main-panel-plugin.c main-panel-plugin-47.c
+main-panel-plugin.c: main-panel-plugin.vala
+	$(AM_V_GEN) $(VALAC) --vapidir=$(top_srcdir)/data/vapi/xfce46 $(notes_VALAFLAGS) $< -C
 main-panel-plugin-47.c: main-panel-plugin-47.vala
-	$(AM_V_GEN) $(VALAC) $(libnotes_la_VALAFLAGS) $< -C
-
-main-panel-plugin.c:
-	$(AM_V_GEN) echo "*** The build-env is configured for Xfce Panel 4.7 ***" > $@
+	$(AM_V_GEN) $(VALAC) --vapidir=$(top_srcdir)/data/vapi/xfce47 $(notes_VALAFLAGS) $< -C
 endif
+
+if HAVE_LIBXFCE4PANEL47
+
+plugindir = $(libdir)/xfce4/panel-plugins
+plugin_LTLIBRARIES = libnotes.la
 
 libnotes_la_SOURCES =							\
 	main-panel-plugin-47.c
@@ -97,25 +96,6 @@ else
 
 plugindir = $(libexecdir)/xfce4/panel-plugins
 plugin_PROGRAMS = xfce4-notes-plugin
-
-xfce4_notes_plugin_VALAFLAGS =						\
-	--vapidir=$(top_srcdir)/lib					\
-	--pkg=libnotes							\
-	--pkg=config							\
-	--pkg=popup							\
-	--pkg=gtk+-2.0							\
-	--pkg=libxfce4panel-1.0						\
-	--pkg=libxfconf-0						\
-	--pkg=libxfce4util-1.0
-
-if MAINTAINER_MODE
-BUILT_SOURCES = main-panel-plugin.c main-panel-plugin-47.c
-main-panel-plugin.c: main-panel-plugin.vala
-	$(AM_V_GEN) $(VALAC) $(xfce4_notes_plugin_VALAFLAGS) $< -C
-
-main-panel-plugin-47.c:
-	$(AM_V_GEN) echo "*** The build-env is configured for Xfce Panel 4.4 ***" > $@
-endif
 
 xfce4_notes_plugin_SOURCES =						\
 	main-panel-plugin.c

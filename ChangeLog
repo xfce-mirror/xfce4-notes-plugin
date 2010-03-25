@@ -1,3 +1,7 @@
+2010-03-25  Mike Massonnet <mmassonnet@xfce.org>
+
+Update build to compile CCode for both panel plugins version 4.6 and 4.7
+
 2010-03-21  Mike Massonnet <mmassonnet@xfce.org>
 
 Don't forget to properly save notes with the last commit
