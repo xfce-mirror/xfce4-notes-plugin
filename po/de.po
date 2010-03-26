@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-25 18:07+0100\n"
+"POT-Creation-Date: 2010-03-26 12:07+0100\n"
 "PO-Revision-Date: 2010-02-19 21:57+0100\n"
 "Last-Translator: Fabian Nowak <timystery@arcor.de>\n"
 "Language-Team: German <xfce-i18n@xfce.org>\n"
@@ -80,18 +80,17 @@ msgstr "_Neue Gruppe hinzufügen"
 
 #: ../lib/window.vala:221
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: ../lib/window.vala:243
-#, c-format
+#, c-format, fuzzy
 msgid "Hide (%s)"
-msgstr ""
+msgstr "%s verbergen"
 
 #: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
-#, fuzzy
 msgid "_Groups"
-msgstr "_Gehe zu"
+msgstr "_Gruppen"
 
 #: ../lib/window.vala:726
 msgid "_Rename"
@@ -141,9 +140,8 @@ msgid "Show the automatic navigation bar"
 msgstr "Automatische Navigationsleiste anzeigen"
 
 #: ../src/xfce4-notes-settings.c:138
-#, fuzzy
 msgid "Tabs position:"
-msgstr "Tableistenposition:"
+msgstr "Reiterleistenposition:"
 
 #: ../src/xfce4-notes-settings.c:148
 msgid "Background:"
@@ -167,7 +165,6 @@ msgid "Size:"
 msgstr "Größe:"
 
 #: ../src/xfce4-notes-settings.c:211
-#, fuzzy
 msgid "None"
 msgstr "Keine"
 
@@ -220,13 +217,13 @@ msgid "Olive"
 msgstr "Olivgrün"
 
 #: ../src/xfce4-notes-settings.c:296
-#, fuzzy
 msgid "Carmine"
-msgstr "kaminrot"
+msgstr "Karminrot"
 
 #: ../src/xfce4-notes-settings.c:297
+#, fuzzy
 msgid "Mimosa"
-msgstr ""
+msgstr "Mimosengelb"
 
 #: ../src/xfce4-notes-settings.c:298
 msgid "White"
