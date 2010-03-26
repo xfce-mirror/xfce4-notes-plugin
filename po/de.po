@@ -83,9 +83,9 @@ msgid "Menu"
 msgstr "Menü"
 
 #: ../lib/window.vala:243
-#, c-format, fuzzy
+#, c-format
 msgid "Hide (%s)"
-msgstr "%s verbergen"
+msgstr "»%s« verbergen"
 
 #: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
@@ -141,7 +141,7 @@ msgstr "Automatische Navigationsleiste anzeigen"
 
 #: ../src/xfce4-notes-settings.c:138
 msgid "Tabs position:"
-msgstr "Reiterleistenposition:"
+msgstr "Position der Reiterleiste:"
 
 #: ../src/xfce4-notes-settings.c:148
 msgid "Background:"
