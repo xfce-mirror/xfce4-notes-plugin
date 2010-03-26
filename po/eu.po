@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-12 06:07+0100\n"
+"POT-Creation-Date: 2010-03-26 06:07+0100\n"
 "PO-Revision-Date: 2009-12-15 11:57+0100\n"
 "Last-Translator: Piarres Beobide <pi+debian@beobide.net>\n"
 "Language-Team: Basque <debian-l10n-basque@lists.debian.org>\n"
@@ -22,92 +22,101 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:544
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:559
 msgid "Ideal for your quick notes"
 msgstr "Zure ohar azkarrentzat erabilgarria"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:112
-#: ../lib/application.vala:542 ../lib/window.vala:83 ../lib/window.vala:170
-#: ../lib/window.vala:974 ../src/xfce4-notes-settings.c:93
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:127
+#: ../lib/application.vala:557 ../lib/window.vala:83 ../lib/window.vala:170
+#: ../lib/window.vala:968 ../src/xfce4-notes-settings.c:93
 #: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Oharrak"
 
-#: ../lib/application.vala:116 ../lib/window.vala:977
+#: ../lib/application.vala:131 ../lib/window.vala:971
 #, c-format
 msgid "Notes %d"
 msgstr "%d oharrak"
 
-#: ../lib/application.vala:344
+#: ../lib/application.vala:359
 msgid "Rename group"
 msgstr "Berrizendatu taldea"
 
-#: ../lib/application.vala:365 ../lib/window.vala:1098
+#: ../lib/application.vala:380 ../lib/window.vala:1092
 #, c-format
 msgid "The name %s is already in use"
 msgstr "%s izenda dagoneko erabilia dago"
 
-#: ../lib/application.vala:391
+#: ../lib/application.vala:406
 msgid "Are you sure you want to delete this group?"
 msgstr "Ziur zaude talde hau ezabatu nahi duzula?"
 
-#: ../lib/application.vala:448
+#: ../lib/application.vala:463
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "\"%s\" izena baliogabea da."
 
-#: ../lib/application.vala:449
+#: ../lib/application.vala:464
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Karaktere baliogabeak: %s"
 
-#: ../lib/application.vala:506
+#: ../lib/application.vala:521
 msgid "Unable to open the settings dialog"
 msgstr "Ezin da ezarpen leihoa ireki"
 
-#: ../lib/application.vala:551
+#: ../lib/application.vala:566
 msgid "translator-credits"
 msgstr "Piarres Beobide "
 
-#: ../lib/application.vala:586 ../lib/window.vala:841
+#: ../lib/application.vala:601 ../lib/window.vala:835
 msgid "_Add a new group"
 msgstr "_Gehitu talde bat"
 
-#: ../lib/window.vala:709 ../src/main-panel-plugin-47.vala:50
+#: ../lib/window.vala:221
+msgid "Menu"
+msgstr "Menua"
+
+#: ../lib/window.vala:243
+#, c-format
+msgid "Hide (%s)"
+msgstr "Ezkutatu (%s)"
+
+#: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Taldeak"
 
-#: ../lib/window.vala:732
+#: ../lib/window.vala:726
 msgid "_Rename"
 msgstr "Be_rrizendatu"
 
 #. Always on top
-#: ../lib/window.vala:748 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:742 ../src/xfce4-notes-settings.c:176
 msgid "Always on top"
 msgstr "Beti goian"
 
-#: ../lib/window.vala:753
+#: ../lib/window.vala:747
 msgid "Sticky window"
 msgstr "Finkatu liehoa"
 
-#: ../lib/window.vala:827
+#: ../lib/window.vala:821
 msgid "_Rename group"
 msgstr "Be_rrizendatu taldea"
 
-#: ../lib/window.vala:834
+#: ../lib/window.vala:828
 msgid "_Delete group"
 msgstr "_Ezabatu taldea"
 
-#: ../lib/window.vala:1051
+#: ../lib/window.vala:1045
 msgid "Are you sure you want to delete this note?"
 msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
 
-#: ../lib/window.vala:1077
+#: ../lib/window.vala:1071
 msgid "Rename note"
 msgstr "Berrizendatu oharra"
 
