@@ -1,15 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Hunt Xu <huntxu@live.cn>, 2009.
+# Hunt Xu <huntxu@live.cn>, 2009, 2010.
 # Dig <Dig.Ge.CN@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 21:24+0100\n"
-"PO-Revision-Date: 2009-12-02 15:01+0800\n"
+"POT-Creation-Date: 2010-03-26 00:06+0100\n"
+"PO-Revision-Date: 2010-03-26 11:47+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,95 +19,103 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:544
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:559
 msgid "Ideal for your quick notes"
 msgstr "一个理想的快速便笺程序"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:112
-#: ../lib/application.vala:542 ../lib/window.vala:82 ../lib/window.vala:169
-#: ../lib/window.vala:964 ../src/xfce4-notes-settings.c:93
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:127
+#: ../lib/application.vala:557 ../lib/window.vala:83 ../lib/window.vala:170
+#: ../lib/window.vala:968 ../src/xfce4-notes-settings.c:93
 #: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "便笺"
 
-#: ../lib/application.vala:116 ../lib/window.vala:967
+#: ../lib/application.vala:131 ../lib/window.vala:971
 #, c-format
 msgid "Notes %d"
 msgstr "便笺 %d"
 
-#: ../lib/application.vala:344
+#: ../lib/application.vala:359
 msgid "Rename group"
 msgstr "重命名组"
 
-#: ../lib/application.vala:365 ../lib/window.vala:1088
+#: ../lib/application.vala:380 ../lib/window.vala:1092
 #, c-format
 msgid "The name %s is already in use"
 msgstr "名称 %s 已被使用"
 
-#: ../lib/application.vala:391
+#: ../lib/application.vala:406
 msgid "Are you sure you want to delete this group?"
 msgstr "您确定要删除该组？"
 
-#: ../lib/application.vala:448
+#: ../lib/application.vala:463
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "名称“%s”无效。"
 
-#: ../lib/application.vala:449
+#: ../lib/application.vala:464
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "无效字符是: %s"
 
-#: ../lib/application.vala:506
+#: ../lib/application.vala:521
 msgid "Unable to open the settings dialog"
 msgstr "无法打开设置对话框"
 
-#: ../lib/application.vala:551
+#: ../lib/application.vala:566
 msgid "translator-credits"
 msgstr ""
 "Hunt Xu <huntxu@live.cn>, 2009.\n"
 "Dig <Dig.Ge.CN@gmail.com>, 2009."
 
-#: ../lib/application.vala:586 ../lib/window.vala:831
+#: ../lib/application.vala:601 ../lib/window.vala:835
 msgid "_Add a new group"
 msgstr "添加一个组(_A)"
 
-#: ../lib/window.vala:699 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
-#, fuzzy
-msgid "_Groups"
-msgstr "转到(_G)"
+#: ../lib/window.vala:221
+msgid "Menu"
+msgstr "菜单"
 
-#: ../lib/window.vala:722
+#: ../lib/window.vala:243
+#, c-format
+msgid "Hide (%s)"
+msgstr "隐藏 (%s)"
+
+#: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+msgid "_Groups"
+msgstr "分组(_G)"
+
+#: ../lib/window.vala:726
 msgid "_Rename"
 msgstr "重命名(_R)"
 
 #. Always on top
-#: ../lib/window.vala:738 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:742 ../src/xfce4-notes-settings.c:176
 msgid "Always on top"
 msgstr "总是置顶"
 
-#: ../lib/window.vala:743
+#: ../lib/window.vala:747
 msgid "Sticky window"
 msgstr "粘住窗口"
 
-#: ../lib/window.vala:817
+#: ../lib/window.vala:821
 msgid "_Rename group"
 msgstr "重命名组(_R)"
 
-#: ../lib/window.vala:824
+#: ../lib/window.vala:828
 msgid "_Delete group"
 msgstr "删除组(_D)"
 
-#: ../lib/window.vala:1041
+#: ../lib/window.vala:1045
 msgid "Are you sure you want to delete this note?"
 msgstr "确定要删除该便笺?"
 
-#: ../lib/window.vala:1067
+#: ../lib/window.vala:1071
 msgid "Rename note"
 msgstr "重命名便笺"
 
