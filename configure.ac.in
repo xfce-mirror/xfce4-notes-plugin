@@ -39,7 +39,10 @@ AC_PROG_INTLTOOL()
 
 dnl Check for standard header files
 AC_HEADER_STDC()
+
+dnl Check for Math lib useful for lib/color.c
 AC_CHECK_HEADERS([math.h])
+AC_SUBST([MATH_LIBS], [" -lm"])
 
 dnl Check for required packages
 XDT_CHECK_LIBX11_REQUIRE()

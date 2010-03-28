@@ -28,6 +28,7 @@ libnotes_la_CFLAGS =							\
 	@XFCONF_CFLAGS@
 
 libnotes_la_LIBADD =							\
+	@MATH_LIBS@							\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UTIL_LIBS@						\
