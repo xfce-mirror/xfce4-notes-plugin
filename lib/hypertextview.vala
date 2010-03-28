@@ -115,10 +115,15 @@ namespace Xnp {
 				link = start.get_text (end);
 
 				try {
+					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "exo-open "+link);
+					return false;
+				} catch (Error e) {
+				}
+				try {
 					GLib.AppInfo.launch_default_for_uri (link, null);
 					return false;
 				} catch (Error e) {
-					critical ("Unable to open link with default handler: %s", e.message);
+					message ("Unable to open link with default handler: %s", e.message);
 				}
 				try {
 					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "xdg-open "+link);
@@ -133,7 +138,7 @@ namespace Xnp {
 				catch (Error e) {
 				}
 
-				critical ("Unable to find an appropriate fallback to open the link");
+				message ("Unable to find an appropriate fallback to open the link");
 			}
 
 			return false;
