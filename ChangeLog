@@ -1,5 +1,9 @@
 2010-03-28  Mike Massonnet <mmassonnet@xfce.org>
 
+Set notebook tab reorderable via drag and drop
+
+2010-03-28  Mike Massonnet <mmassonnet@xfce.org>
+
 Link to Math lib (-lm) useful for lib/color.c
 
 2010-03-27  Mike Massonnet <mmassonnet@xfce.org>

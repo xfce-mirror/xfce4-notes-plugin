@@ -984,6 +984,7 @@ namespace Xnp {
 			note.show ();
 			this.n_pages++;
 			this.notebook.insert_page (note, null, page);
+			this.notebook.set_tab_reorderable (note, true);
 			note.name = note.name; //note.notify ("name");
 			this.note_inserted (note);
 			_notebook_update_tabs_angle ();
