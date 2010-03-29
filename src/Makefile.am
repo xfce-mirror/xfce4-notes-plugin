@@ -123,6 +123,7 @@ bin_PROGRAMS += xfce4-notes
 
 xfce4_notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
+	--vapidir=$(top_srcdir)/data/vapi/gtk214			\
 	--pkg=libnotes							\
 	--pkg=config							\
 	--pkg=popup							\

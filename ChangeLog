@@ -1,5 +1,12 @@
 2010-03-29  Mike Massonnet <mmassonnet@xfce.org>
 
+Include gtk+-2.0.vapi file with deprecations from GTK+ 2.14
+
+Only added the method Gtk.StatusIcon.set_tooltip(string text) used in
+main-status-icon.vala.
+
+2010-03-29  Mike Massonnet <mmassonnet@xfce.org>
+
 === Release 1.7.4 ===
 
 2010-03-28  Mike Massonnet <mmassonnet@xfce.org>
