@@ -1,3 +1,10 @@
+VERSION 1.7.4
+
+- Set Notebook tab reorderable via drag and drop
+- Link to Math lib (-lm) useful for lib/color.c
+- Try to open a link with exo-open first
+- Updated translations: Japanese, German, Portuguese (Brazilian)
+
 VERSION 1.7.3
 
 - Bump GTK+ version to 2.14
