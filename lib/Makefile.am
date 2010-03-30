@@ -16,8 +16,8 @@ libnotes_la_SOURCES =							\
 	hypertextview.vala						\
 	note.vala							\
 	window.vala							\
-	color.c			color.h					\
-	popup.c			popup.h
+	color.c								\
+	popup.c
 
 libnotes_la_CFLAGS =							\
 	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
@@ -35,5 +35,7 @@ libnotes_la_LIBADD =							\
 	@XFCONF_LIBS@
 
 EXTRA_DIST =								\
+	color.h								\
+	popup.h								\
 	libnotes.vapi							\
 	libnotes.h
