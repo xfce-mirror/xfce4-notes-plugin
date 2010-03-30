@@ -1,3 +1,7 @@
+VERSION 1.7.5
+
+- Fix xfce4-notes-settings not being linked against Math lib
+
 VERSION 1.7.4
 
 - Set Notebook tab reorderable via drag and drop

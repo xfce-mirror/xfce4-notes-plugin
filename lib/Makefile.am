@@ -16,8 +16,8 @@ libnotes_la_SOURCES =							\
 	hypertextview.vala						\
 	note.vala							\
 	window.vala							\
-	color.c								\
-	popup.c
+	color.c			color.h					\
+	popup.c			popup.h
 
 libnotes_la_CFLAGS =							\
 	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
