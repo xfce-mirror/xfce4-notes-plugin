@@ -30,8 +30,6 @@ xfce4_popup_notes_LDADD =						\
 bin_PROGRAMS += xfce4-notes-settings
 
 xfce4_notes_settings_SOURCES =						\
-	$(top_srcdir)/lib/color.c					\
-	$(top_srcdir)/lib/color.h					\
 	defines.h							\
 	xfce4-notes-settings.c
 
@@ -43,6 +41,7 @@ xfce4_notes_settings_CFLAGS =						\
 	@UNIQUE_CFLAGS@
 
 xfce4_notes_settings_LDADD =						\
+	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCEGUI4_LIBS@						\
