@@ -1,12 +1,12 @@
 # Slovak translation for xfce4-notes-plugin package.
 # Copyright (C) 2006 the xfce4-notes-plugin's copyright holder
 # This file is distributed under the same license as the xfce4-notes-plugin package.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 21:24+0100\n"
+"POT-Creation-Date: 2010-04-29 04:07+0000\n"
 "PO-Revision-Date: 2010-03-08 10:32+0100\n"
 "Last-Translator: Robert Hartl <hartl.robert@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -17,93 +17,101 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:544
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:559
 msgid "Ideal for your quick notes"
 msgstr "Ideálny pre rýchle poznámky"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:112
-#: ../lib/application.vala:542 ../lib/window.vala:82 ../lib/window.vala:169
-#: ../lib/window.vala:964 ../src/xfce4-notes-settings.c:93
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:127
+#: ../lib/application.vala:557 ../lib/window.vala:83 ../lib/window.vala:170
+#: ../lib/window.vala:968 ../src/xfce4-notes-settings.c:93
 #: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../lib/application.vala:116 ../lib/window.vala:967
+#: ../lib/application.vala:131 ../lib/window.vala:971
 #, c-format
 msgid "Notes %d"
 msgstr "Poznámky %d"
 
-#: ../lib/application.vala:344
+#: ../lib/application.vala:359
 msgid "Rename group"
 msgstr "Premenovať skupinu"
 
-#: ../lib/application.vala:365 ../lib/window.vala:1088
+#: ../lib/application.vala:380 ../lib/window.vala:1093
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Názov %s sa už používa"
 
-#: ../lib/application.vala:391
+#: ../lib/application.vala:406
 msgid "Are you sure you want to delete this group?"
 msgstr "Naozaj chcete zmazať túto skupinu?"
 
-#: ../lib/application.vala:448
+#: ../lib/application.vala:463
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Názov \"%s\" je neplatný."
 
-#: ../lib/application.vala:449
+#: ../lib/application.vala:464
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Neplatné znaky: %s"
 
-#: ../lib/application.vala:506
+#: ../lib/application.vala:521
 msgid "Unable to open the settings dialog"
 msgstr "Nedá sa otvoriť dialógové okno s nastavením"
 
-#: ../lib/application.vala:551
+#: ../lib/application.vala:566
 msgid "translator-credits"
 msgstr "Robert Hartl <hartl.robert@gmail.com>, 2010."
 
-#: ../lib/application.vala:586 ../lib/window.vala:831
+#: ../lib/application.vala:601 ../lib/window.vala:835
 msgid "_Add a new group"
 msgstr "_Pridať novú skupinu"
 
-#: ../lib/window.vala:699 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
-#, fuzzy
-msgid "_Groups"
-msgstr "_Prejsť"
+#: ../lib/window.vala:221
+msgid "Menu"
+msgstr "Ponuka"
 
-#: ../lib/window.vala:722
+#: ../lib/window.vala:243
+#, c-format
+msgid "Hide (%s)"
+msgstr "Skryť (%s)"
+
+#: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+msgid "_Groups"
+msgstr "_Skupiny"
+
+#: ../lib/window.vala:726
 msgid "_Rename"
 msgstr "_Premenovať"
 
 #. Always on top
-#: ../lib/window.vala:738 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:742 ../src/xfce4-notes-settings.c:176
 msgid "Always on top"
 msgstr "Vždy navrchu"
 
-#: ../lib/window.vala:743
+#: ../lib/window.vala:747
 msgid "Sticky window"
 msgstr "Prilepené okno"
 
-#: ../lib/window.vala:817
+#: ../lib/window.vala:821
 msgid "_Rename group"
 msgstr "_Premenovať skupinu"
 
-#: ../lib/window.vala:824
+#: ../lib/window.vala:828
 msgid "_Delete group"
 msgstr "_Zmazať skupinu"
 
-#: ../lib/window.vala:1041
+#: ../lib/window.vala:1046
 msgid "Are you sure you want to delete this note?"
 msgstr "Naozaj chcete zmazať túto poznámku?"
 
-#: ../lib/window.vala:1067
+#: ../lib/window.vala:1072
 msgid "Rename note"
 msgstr "Premenovať poznámku"
 
