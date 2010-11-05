@@ -39,11 +39,11 @@ static void build_plugin () {
 			}
 			return false;
 		});
-	status_icon.activate += () => { application.show_hide_notes (); };
+	status_icon.activate.connect (() => { application.show_hide_notes (); });
 	context_menu = build_context_menu ();
-	status_icon.popup_menu += () => {
+	status_icon.popup_menu.connect (() => {
 		context_menu.popup (null, null, status_icon.position_menu, 0, Gtk.get_current_event_time ());
-	};
+	});
 	set_x_selection ();
 }
 
@@ -59,22 +59,22 @@ static Gtk.Menu build_context_menu () {
 	menu.append (mi);
 
 	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_PROPERTIES, null);
-	mi.activate += () => { application.open_settings_dialog (); };
+	mi.activate.connect (() => { application.open_settings_dialog (); });
 	menu.append (mi);
 
 	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_ABOUT, null);
-	mi.activate += () => { application.open_about_dialog (); };
+	mi.activate.connect (() => { application.open_about_dialog (); });
 	menu.append (mi);
 
 	mi = new Gtk.SeparatorMenuItem ();
 	menu.append (mi);
 
 	mi = new Gtk.ImageMenuItem.from_stock (Gtk.STOCK_REMOVE, null);
-	mi.activate += () => {
+	mi.activate.connect (() => {
 		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
 		Gtk.main_quit ();
-	};
+	});
 	menu.append (mi);
 
 	menu.show_all ();
@@ -87,13 +87,13 @@ static bool set_x_selection () {
 	if (!Xnp.Popup.set_x_selection (invisible)) {
 		return false;
 	}
-	invisible.client_event += (w, event) => {
+	invisible.client_event.connect ((w, event) => {
 		if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
 			application.show_hide_notes ();
 			return true;
 		}
 		return false;
-	};
+	});
 	return true;
 }
 
@@ -106,12 +106,12 @@ static int main (string[] args) {
 			return 0;
 		}
 	}
-	app.message_received += (command, message_data, time_) => {
+	app.message_received.connect ((command, message_data, time_) => {
 		if (command != Unique.Command.ACTIVATE) {
 			return Unique.Response.PASSTHROUGH;
 		}
 		return Unique.Response.OK;
-	};
+	});
 	GLib.Environment.set_application_name (_("Notes"));
 	build_plugin ();
 	Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);

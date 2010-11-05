@@ -59,7 +59,7 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4PANEL47], [libxfce4panel-1.0], [4.7.0], [], 
 
 dnl Check for valac
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	AM_PROG_VALAC([0.7.8])
+	AM_PROG_VALAC([0.10.0])
 	if test "x$VALAC" = "x" ; then
 		AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
 	fi

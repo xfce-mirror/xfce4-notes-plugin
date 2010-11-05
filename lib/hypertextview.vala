@@ -56,12 +56,12 @@ namespace Xnp {
 		public HypertextView () {
 			Gtk.TextIter iter;
 
-			this.button_release_event += button_release_event_cb;
-			this.motion_notify_event += motion_notify_event_cb;
-			this.move_cursor += move_cursor_cb;
-			this.buffer.changed += buffer_changed_cb;
-			this.buffer.insert_text += insert_text_cb;
-			this.buffer.delete_range += delete_range_cb;
+			this.button_release_event.connect (button_release_event_cb);
+			this.motion_notify_event.connect (motion_notify_event_cb);
+			this.move_cursor.connect (move_cursor_cb);
+			this.buffer.changed.connect (buffer_changed_cb);
+			this.buffer.insert_text.connect (insert_text_cb);
+			this.buffer.delete_range.connect (delete_range_cb);
 
 			this.buffer.get_iter_at_offset (out iter, 0);
 			this.buffer.create_mark ("undo-pos", iter, false);
@@ -88,7 +88,7 @@ namespace Xnp {
 		 *
 		 * Event to open links.
 		 */
-		private bool button_release_event_cb (HypertextView hypertextview, Gdk.EventButton event) {
+		private bool button_release_event_cb (Gtk.Widget hypertextview, Gdk.EventButton event) {
 			Gtk.TextIter start, end, iter;
 			string link;
 			int x, y;
@@ -149,7 +149,7 @@ namespace Xnp {
 		 *
 		 * Event to update the cursor of the pointer.
 		 */
-		private bool motion_notify_event_cb (HypertextView hypertextview, Gdk.EventMotion event) {
+		private bool motion_notify_event_cb (Gtk.Widget hypertextview, Gdk.EventMotion event) {
 			Gtk.TextIter iter;
 			Gdk.Window win;
 			bool over_link;
@@ -173,7 +173,7 @@ namespace Xnp {
 		 *
 		 * Destroys existing timeouts and executes the actions immediately.
 		 */
-		private void move_cursor_cb (HypertextView hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
+		private void move_cursor_cb (Gtk.Widget hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
 			if (this.undo_timeout > 0) {
 				/* Make an undo snapshot and save cursor_position before it really moves */
 				Source.remove (this.undo_timeout);

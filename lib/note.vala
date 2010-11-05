@@ -70,7 +70,7 @@ namespace Xnp {
 			add (this.scrolled_window);
 
 			var buffer = this.text_view.get_buffer ();
-			buffer.changed += buffer_changed_cb;
+			buffer.changed.connect (buffer_changed_cb);
 		}
 
 		~Note () {

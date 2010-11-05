@@ -59,11 +59,11 @@ namespace Xnp {
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			Xnp.Color.set_background (color);
 
-			xfconf_channel.property_changed += (channel, prop, val) => {
+			xfconf_channel.property_changed.connect ((channel, prop, val) => {
 				if (prop == "/global/background-color") {
 					Xnp.Color.set_background (val.get_string ());
 				}
-			};
+			});
 
 			string name;
 			bool found = false;
@@ -174,7 +174,7 @@ namespace Xnp {
 				typeof (int), window, "tabs-position");
 
 			/* Connect signals */
-			window.action += (win, action) => {
+			window.action.connect ((win, action) => {
 				if (action == "rename") {
 					rename_window (win);
 				}
@@ -191,11 +191,11 @@ namespace Xnp {
 				else if (action == "about") {
 					open_about_dialog ();
 				}
-			};
-			window.save_data += (win, note) => {
+			});
+			window.save_data.connect ((win, note) => {
 				save_note (win, note);
-			};
-			window.note_inserted += (win, note) => {
+			});
+			window.note_inserted.connect ((win, note) => {
 				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
 					typeof (string), note.text_view, "font");
 
@@ -205,12 +205,12 @@ namespace Xnp {
 				}
 				catch (FileError e) {
 				}
-			};
-			window.note_deleted += (win, note) => {
+			});
+			window.note_deleted.connect ((win, note) => {
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.unlink (path);
-			};
-			window.note_renamed += (win, note, old_name) => {
+			});
+			window.note_renamed.connect ((win, note, old_name) => {
 				if (!name_is_valid (note.name)) {
 					note.name = old_name;
 					return;
@@ -218,7 +218,7 @@ namespace Xnp {
 				string old_path = "%s/%s/%s".printf (notes_path, win.name, old_name);
 				string new_path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.rename (old_path, new_path);
-			};
+			});
 
 			return window;
 		}
@@ -577,7 +577,7 @@ namespace Xnp {
 		public Gtk.Menu context_menu () {
 			var menu = new Gtk.Menu ();
 
-			menu.show += (menu) => {
+			menu.show.connect (() => {
 				// Clean up menu
 				menu.@foreach ((w) => {
 					w.destroy ();
@@ -587,11 +587,11 @@ namespace Xnp {
 				foreach (var win in this.window_list) {
 					var mi = new Gtk.MenuItem.with_label (win.name);
 					mi.set_data ("window", (void*)win);
-					mi.activate += (i) => {
+					mi.activate.connect ((i) => {
 						// Jump to win
-						var w = (Xnp.Window)i.get_data ("window");
+						var w = i.get_data<Xnp.Window> ("window");
 						w.present ();
-					};
+					});
 					menu.append (mi);
 				}
 
@@ -599,17 +599,17 @@ namespace Xnp {
 				var mi_sep = new Gtk.SeparatorMenuItem ();
 				menu.append (mi_sep);
 				var mi_add = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
-				mi_add.activate += () => {
+				mi_add.activate.connect (() => {
 					var new_win = create_window ();
 					new_win.show ();
-				};
+				});
 				var image = new Gtk.Image.from_stock (Gtk.STOCK_ADD, Gtk.IconSize.MENU);
 				mi_add.set_image (image);
 				menu.append (mi_add);
 
 				// Show all items
 				menu.show_all ();
-			};
+			});
 
 			return menu;
 		}

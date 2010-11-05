@@ -38,7 +38,7 @@ public class NotesPlugin : GLib.Object {
 		button = Xfce.create_panel_button ();
 		image = new Gtk.Image ();
 		button.add (image);
-		button.clicked += () => { application.show_hide_notes (); };
+		button.clicked.connect (() => { application.show_hide_notes (); });
 		button.show_all ();
 		panel_plugin.add (button);
 		panel_plugin.add_action_widget (button);
@@ -54,7 +54,7 @@ public class NotesPlugin : GLib.Object {
 
 		set_x_selection ();
 
-		panel_plugin.size_changed += (p, size) => {
+		panel_plugin.size_changed.connect ((p, size) => {
 			button.set_size_request (size, size);
 			size -= 2 + 2 * ((button.style.xthickness > button.style.ythickness) ? button.style.xthickness : button.style.ythickness);
 			var pixbuf = Xfce.Icon.load ("xfce4-notes-plugin", size);
@@ -62,20 +62,20 @@ public class NotesPlugin : GLib.Object {
 				pixbuf = Xfce.Icon.load (Gtk.STOCK_EDIT, size);
 			image.set_from_pixbuf (pixbuf);
 			return true;
-		};
-		panel_plugin.save += () => {
+		});
+		panel_plugin.save.connect (() => {
 			application.save_windows_configuration ();
-		};
-		panel_plugin.free_data += () => {
+		});
+		panel_plugin.free_data.connect (() => {
 			application.save_windows_configuration ();
 			application.save_notes ();
-		};
-		panel_plugin.configure_plugin += () => {
+		});
+		panel_plugin.configure_plugin.connect (() => {
 			application.open_settings_dialog ();
-		};
-		panel_plugin.about += () => {
+		});
+		panel_plugin.about.connect (() => {
 			application.open_about_dialog ();
-		};
+		});
 	}
 
 	/**
@@ -88,13 +88,13 @@ public class NotesPlugin : GLib.Object {
 		if (!Xnp.Popup.set_x_selection (invisible)) {
 			return false;
 		}
-		invisible.client_event += (w, event) => {
+		invisible.client_event.connect ((w, event) => {
 			if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
 				application.show_hide_notes ();
 				return true;
 			}
 			return false;
-		};
+		});
 		return true;
 	}
 
