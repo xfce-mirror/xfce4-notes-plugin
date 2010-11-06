@@ -101,6 +101,8 @@ namespace Xnp {
 
 	public enum TitleBarButtonType {
 		EMPTY,
+		LEFT_ARROW,
+		RIGHT_ARROW,
 		CLOSE,
 	}
 
@@ -117,8 +119,74 @@ namespace Xnp {
 				case TitleBarButtonType.CLOSE:
 					draw_close_button (cr, width, height);
 					break;
+				case TitleBarButtonType.LEFT_ARROW:
+					draw_left_arrow_button (cr, width, height);
+					break;
+				case TitleBarButtonType.RIGHT_ARROW:
+					draw_right_arrow_button (cr, width, height);
+					break;
 				default:
 					break;
+			}
+		}
+
+		private void draw_left_arrow_button (Cairo.Context cr, int width, int height) {
+			int border = 4;
+			int x1 = border;
+			int x2 = width - border;
+			int y1 = border;
+			int y2 = height - border;
+			if (x2 <= x1 || y2 <= y1) {
+				return;
+			}
+
+			cr.set_line_cap (Cairo.LineCap.ROUND);
+
+			for (int i = 0; i < 2; i++) {
+				if (i == 0) {
+					cr.set_source_rgba (1, 1, 1, active ? 0.4 : 0.2);
+					cr.set_line_width (4);
+				}
+				else {
+					set_widget_source_color (cr);
+					cr.set_line_width (2.66);
+				}
+				cr.move_to (x1, height / 2);
+				cr.line_to (x2, height / 2);
+				cr.move_to (width / 2, y1);
+				cr.line_to (x1, height / 2);
+				cr.line_to (width / 2, y2);
+				cr.stroke ();
+			}
+		}
+
+		private void draw_right_arrow_button (Cairo.Context cr, int width, int height) {
+			int border = 4;
+			int x1 = border;
+			int x2 = width - border;
+			int y1 = border;
+			int y2 = height - border;
+			if (x2 <= x1 || y2 <= y1) {
+				return;
+			}
+
+			cr.set_line_cap (Cairo.LineCap.ROUND);
+
+			for (int i = 0; i < 2; i++) {
+				if (i == 0) {
+					cr.set_source_rgba (1, 1, 1, active ? 0.4 : 0.2);
+					cr.set_line_width (4);
+				}
+				else {
+					set_widget_source_color (cr);
+					cr.set_line_width (2.66);
+				}
+				cr.move_to (x1, height / 2);
+				cr.line_to (x2, height / 2);
+				cr.move_to (width / 2, y1);
+				cr.line_to (x2, height / 2);
+				cr.line_to (width / 2, y2);
+				cr.stroke ();
 			}
 		}
 
@@ -134,25 +202,22 @@ namespace Xnp {
 
 			cr.set_line_cap (Cairo.LineCap.ROUND);
 
-			cr.set_source_rgba (1, 1, 1, active ? 0.4 : 0.2);
-			cr.set_line_width (4);
-			cr.move_to (x1, y1);
-			cr.line_to (x2, y2);
-			cr.move_to (x2, y1);
-			cr.line_to (x1, y2);
-
-			cr.stroke ();
-
-			set_widget_source_color (cr);
-			cr.set_line_width (2.66);
-			cr.move_to (x1, y1);
-			cr.line_to (x2, y2);
-			cr.move_to (x2, y1);
-			cr.line_to (x1, y2);
-
-			cr.stroke ();
+			for (int i = 0; i < 2; i++) {
+				if (i == 0) {
+					cr.set_source_rgba (1, 1, 1, active ? 0.4 : 0.2);
+					cr.set_line_width (4);
+				}
+				else {
+					set_widget_source_color (cr);
+					cr.set_line_width (2.66);
+				}
+				cr.move_to (x1, y1);
+				cr.line_to (x2, y2);
+				cr.move_to (x2, y1);
+				cr.line_to (x1, y2);
+				cr.stroke ();
+			}
 		}
-
 	}
 
 }
