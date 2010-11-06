@@ -36,6 +36,7 @@ namespace Xnp {
 		private Gdk.Pixbuf menu_pixbuf;
 		private Gdk.Pixbuf menu_hover_pixbuf;
 		private Gtk.Label title_label;
+		private Xnp.IconButton close_button;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
 		private Gtk.HBox navigation_box;
@@ -248,9 +249,9 @@ namespace Xnp {
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
-			var close_box = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
-			close_box.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (0xff1b, 0)); // GDK_Escape
-			title_box.pack_start (close_box, false, false, 2);
+			this.close_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
+			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (0xff1b, 0)); // GDK_Escape
+			title_box.pack_start (this.close_button, false, false, 2);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
 
@@ -320,7 +321,7 @@ namespace Xnp {
 
 			/* Connect mouse click signals */
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
-			close_box.clicked.connect (() => { hide (); });
+			this.close_button.clicked.connect (() => { hide (); });
 			add_box.clicked.connect (action_new_note);
 			del_box.clicked.connect (action_delete_note);
 			this.goleft_box.clicked.connect (action_prev_note);
@@ -333,11 +334,15 @@ namespace Xnp {
 				return true;
 			});
 			focus_in_event.connect (() => {
+				menu_image.sensitive = true;
 				title_label.sensitive = true;
+				close_button.sensitive = true;
 				return false;
 			});
 			focus_out_event.connect (() => {
+				menu_image.sensitive = false;
 				title_label.sensitive = false;
+				close_button.sensitive = false;
 				return false;
 			});
 			leave_notify_event.connect (navigation_leaved_cb);

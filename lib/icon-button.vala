@@ -38,6 +38,15 @@ namespace Xnp {
 
 		protected abstract void draw_icon (Cairo.Context cr, int width, int height);
 
+		protected void set_widget_source_color (Cairo.Context cr) {
+			if (sensitive && active)
+				Gdk.cairo_set_source_color (cr, style.base[Gtk.StateType.NORMAL]);
+			else if (sensitive && !active)
+				Gdk.cairo_set_source_color (cr, style.fg[Gtk.StateType.INSENSITIVE]);
+			else if (!sensitive)
+				Gdk.cairo_set_source_color (cr, style.text[Gtk.StateType.INSENSITIVE]);
+		}
+
 		public override void add (Gtk.Widget widget) {
 			warning ("This object doesn't allow packing child widgets.");
 		}
@@ -134,9 +143,7 @@ namespace Xnp {
 
 			cr.stroke ();
 
-			Gdk.cairo_set_source_color (cr,
-					active ? style.base[Gtk.StateType.NORMAL]
-						  : style.fg[Gtk.StateType.INSENSITIVE]);
+			set_widget_source_color (cr);
 			cr.set_line_width (2.66);
 			cr.move_to (x1, y1);
 			cr.line_to (x2, y2);
