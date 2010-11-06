@@ -36,13 +36,13 @@ namespace Xnp {
 		private Gdk.Pixbuf menu_pixbuf;
 		private Gdk.Pixbuf menu_hover_pixbuf;
 		private Gtk.Label title_label;
-		private Xnp.IconButton close_button;
+		private Xnp.TitleBarButton left_arrow_button;
+		private Xnp.TitleBarButton right_arrow_button;
+		private Xnp.TitleBarButton close_button;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
 		private Gtk.HBox navigation_box;
 		private uint navigation_timeout = 0;
-		private Gtk.Button goleft_box;
-		private Gtk.Button goright_box;
 
 		private Gtk.UIManager ui;
 		private const string ui_string =
@@ -218,7 +218,7 @@ namespace Xnp {
 			vbox_frame.show ();
 			frame.add (vbox_frame);
 
-			/* Build title */
+			/* Build title bar */
 			var title_box = new Gtk.HBox (false, 0);
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
@@ -249,6 +249,14 @@ namespace Xnp {
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
+			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
+			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Up
+			this.left_arrow_button.sensitive = false;
+			title_box.pack_start (this.left_arrow_button, false, false, 2);
+			this.right_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.RIGHT_ARROW);
+			this.right_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Down
+			this.right_arrow_button.sensitive = false;
+			title_box.pack_start (this.right_arrow_button, false, false, 2);
 			this.close_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
 			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (0xff1b, 0)); // GDK_Escape
 			title_box.pack_start (this.close_button, false, false, 2);
@@ -273,17 +281,6 @@ namespace Xnp {
 
 			/* Build navigation toolbar */
 			this.navigation_box = new Gtk.HBox (false, 2);
-			this.goleft_box = new Gtk.Button ();
-			this.goleft_box.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Up
-			this.goleft_box.set_relief (Gtk.ReliefStyle.NONE);
-			this.goleft_box.can_focus = false;
-			this.goleft_box.sensitive = false;
-			var goleft_label = new Gtk.Label ("<b>&lt;</b>");
-			goleft_label.use_markup = true;
-			this.goleft_box.add (goleft_label);
-			this.navigation_box.pack_start (this.goleft_box, true, false, 0);
-			if (this.goleft_box.allocation.width < 22)
-				this.goleft_box.set_size_request (22, -1);
 			var add_box = new Gtk.Button ();
 			add_box.set_tooltip_text (Gtk.accelerator_get_label ('N', Gdk.ModifierType.CONTROL_MASK));
 			add_box.set_relief (Gtk.ReliefStyle.NONE);
@@ -304,28 +301,16 @@ namespace Xnp {
 			this.navigation_box.pack_start (del_box, true, false, 0);
 			if (del_box.allocation.width < 22)
 				del_box.set_size_request (22, -1);
-			this.goright_box = new Gtk.Button ();
-			this.goright_box.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Down
-			this.goright_box.set_relief (Gtk.ReliefStyle.NONE);
-			this.goright_box.can_focus = false;
-			this.goright_box.sensitive = false;
-			var goright_label = new Gtk.Label ("<b>&gt;</b>");
-			goright_label.use_markup = true;
-			this.goright_box.add (goright_label);
-			this.navigation_box.pack_start (this.goright_box, true, false, 0);
-			if (this.goright_box.allocation.width < 22)
-				this.goright_box.set_size_request (22, -1);
 			this.navigation_box.show_all ();
-			this.navigation_box.hide ();
 			this.content_box.pack_start (this.navigation_box, false, false, 1);
 
 			/* Connect mouse click signals */
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
+			this.left_arrow_button.clicked.connect (action_prev_note);
+			this.right_arrow_button.clicked.connect (action_next_note);
 			this.close_button.clicked.connect (() => { hide (); });
 			add_box.clicked.connect (action_new_note);
 			del_box.clicked.connect (action_delete_note);
-			this.goleft_box.clicked.connect (action_prev_note);
-			this.goright_box.clicked.connect (action_next_note);
 
 			/* Connect extra signals */
 			delete_event.connect (() => {
@@ -336,12 +321,15 @@ namespace Xnp {
 			focus_in_event.connect (() => {
 				menu_image.sensitive = true;
 				title_label.sensitive = true;
+				update_navigation_sensitivity (this.notebook.get_current_page ());
 				close_button.sensitive = true;
 				return false;
 			});
 			focus_out_event.connect (() => {
 				menu_image.sensitive = false;
 				title_label.sensitive = false;
+				left_arrow_button.sensitive = false;
+				right_arrow_button.sensitive = false;
 				close_button.sensitive = false;
 				return false;
 			});
@@ -960,12 +948,12 @@ namespace Xnp {
 		private void update_navigation_sensitivity (int page_num) {
 			int n_pages = notebook.get_n_pages ();
 			if (n_pages <= 1) {
-				this.goleft_box.sensitive = false;
-				this.goright_box.sensitive = false;
+				this.left_arrow_button.sensitive = false;
+				this.right_arrow_button.sensitive = false;
 			}
 			else {
-				this.goleft_box.sensitive = page_num > 0 ? true : false;
-				this.goright_box.sensitive = page_num + 1 < n_pages ? true : false;
+				this.left_arrow_button.sensitive = page_num > 0 ? true : false;
+				this.right_arrow_button.sensitive = page_num + 1 < n_pages ? true : false;
 			}
 		}
 
