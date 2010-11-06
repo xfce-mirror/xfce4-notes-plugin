@@ -56,13 +56,14 @@ namespace Xnp {
 			}
 
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
-			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
-			Xnp.Color.set_background (color);
+			update_color ();
 
-			xfconf_channel.property_changed.connect ((channel, prop, val) => {
-				if (prop == "/global/background-color") {
-					Xnp.Color.set_background (val.get_string ());
-				}
+			xfconf_channel.property_changed["/global/background-color"].connect (() => {
+				update_color ();
+			});
+
+			Gtk.Settings.get_default ().notify["gtk-theme-name"].connect (() => {
+				update_color ();
 			});
 
 			string name;
@@ -90,6 +91,15 @@ namespace Xnp {
 				win.destroy ();
 				win = null;
 			}
+		}
+
+		private void update_color () {
+			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
+			if (color == "GTK+") {
+				var style_widget = new Gtk.Invisible ();
+				color = style_widget.get_style ().bg[Gtk.StateType.NORMAL].to_string ();
+			}
+			Xnp.Color.set_background (color);
 		}
 
 		private void quit () {

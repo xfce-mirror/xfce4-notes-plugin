@@ -56,5 +56,7 @@
 #define BACKGROUND_CARMIN               "#FF96AC"
 #define BACKGROUND_MIMOSA               "#FCF66F"
 #define BACKGROUND_WHITE                "#F2F1EF"
+#define BACKGROUND_ANDROID              "#C1D756"
+#define BACKGROUND_GTK                  "GTK+"
 
 #endif

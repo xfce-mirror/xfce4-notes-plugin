@@ -61,6 +61,8 @@ enum
   COMBOBOX_BACKGROUND_CARMIN,
   COMBOBOX_BACKGROUND_MIMOSA,
   COMBOBOX_BACKGROUND_WHITE,
+  COMBOBOX_BACKGROUND_ANDROID,
+  COMBOBOX_BACKGROUND_GTK,
   COMBOBOX_BACKGROUND_CUSTOM,
 };
 
@@ -289,6 +291,8 @@ background_combo_box_new (void)
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Carmine"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Mimosa"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("White"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Android"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("GTK+"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Custom..."));
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
@@ -308,6 +312,10 @@ background_combo_box_new (void)
     id = COMBOBOX_BACKGROUND_MIMOSA;
   else if (!g_ascii_strcasecmp (color, BACKGROUND_WHITE))
     id = COMBOBOX_BACKGROUND_WHITE;
+  else if (!g_ascii_strcasecmp (color, BACKGROUND_ANDROID))
+    id = COMBOBOX_BACKGROUND_ANDROID;
+  else if (!g_ascii_strcasecmp (color, BACKGROUND_GTK))
+    id = COMBOBOX_BACKGROUND_GTK;
   else
     id = COMBOBOX_BACKGROUND_CUSTOM;
   gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), id);
@@ -316,6 +324,14 @@ background_combo_box_new (void)
   g_signal_connect (combobox, "changed", G_CALLBACK (cb_background_changed), NULL);
 
   return combobox;
+}
+
+static gchar *
+__gtk_widget_bg (void)
+{
+  GtkWidget *style_widget = gtk_invisible_new ();
+  GtkStyle *style = gtk_widget_get_style (style_widget);
+  return gdk_color_to_string (&style->bg[GTK_STATE_NORMAL]);
 }
 
 static void
@@ -352,6 +368,10 @@ cb_background_changed (GtkComboBox *combobox,
     color = BACKGROUND_MIMOSA;
   else if (id == COMBOBOX_BACKGROUND_WHITE)
     color = BACKGROUND_WHITE;
+  else if (id == COMBOBOX_BACKGROUND_ANDROID)
+    color = BACKGROUND_ANDROID;
+  else if (id == COMBOBOX_BACKGROUND_GTK)
+    color = BACKGROUND_GTK;
   else if (id == COMBOBOX_BACKGROUND_CUSTOM)
     {
       dialog = background_dialog_new ();
@@ -388,6 +408,8 @@ timeout_cb_background_changed (gchar *color)
 {
   GdkColor gdkcolor;
   xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
+  if (!g_strcmp0 (color, "GTK+"))
+      color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
   return FALSE;
@@ -408,6 +430,8 @@ background_dialog_new (void)
   g_signal_connect (selection, "color-changed", G_CALLBACK (cb_selection_changed), NULL);
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
+  if (!g_strcmp0 (color, "GTK+"))
+      color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection), &gdkcolor);
   g_free (color);
@@ -451,6 +475,8 @@ color_button_new (void)
   gchar *color;
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
+  if (!g_strcmp0 (color, "GTK+"))
+      color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   g_free (color);
 
