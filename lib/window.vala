@@ -33,6 +33,8 @@ namespace Xnp {
 		private Gtk.CheckMenuItem mi_above;
 		private Gtk.CheckMenuItem mi_sticky;
 		private Gtk.Image menu_image;
+		private Gdk.Pixbuf menu_pixbuf;
+		private Gdk.Pixbuf menu_hover_pixbuf;
 		private Gtk.Label title_label;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
@@ -220,14 +222,21 @@ namespace Xnp {
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
-			this.menu_image = new Gtk.Image.from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
+			try {
+				this.menu_pixbuf = new Gdk.Pixbuf.from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
+				this.menu_hover_pixbuf = new Gdk.Pixbuf.from_file ("%s/pixmaps/notes-menu-active.png".printf (Config.PKGDATADIR));
+			}
+			catch (Error e) {
+				this.menu_pixbuf = this.menu_hover_pixbuf = null;
+			}
+			this.menu_image = new Gtk.Image.from_pixbuf (this.menu_pixbuf);
 			menu_evbox.add (this.menu_image);
 			menu_evbox.enter_notify_event.connect (() => {
-				this.menu_image.set_from_file ("%s/pixmaps/notes-menu-active.png".printf (Config.PKGDATADIR));
+				this.menu_image.set_from_pixbuf (this.menu_hover_pixbuf);
 				return false;
 			});
 			menu_evbox.leave_notify_event.connect (() => {
-				this.menu_image.set_from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
+				this.menu_image.set_from_pixbuf (this.menu_pixbuf);
 				return false;
 			});
 			title_box.pack_start (menu_evbox, false, false, 2);
