@@ -41,8 +41,6 @@ namespace Xnp {
 		private Xnp.TitleBarButton close_button;
 		private Gtk.VBox content_box;
 		private Gtk.Notebook notebook;
-		private Gtk.HBox navigation_box;
-		private uint navigation_timeout = 0;
 
 		private Gtk.UIManager ui;
 		private const string ui_string =
@@ -92,18 +90,6 @@ namespace Xnp {
 			}
 			set {
 				this.notebook.show_tabs = value;
-			}
-		}
-
-		private bool _show_navbar;
-		public bool show_navbar {
-			get {
-				return this._show_navbar;
-			}
-			set {
-				this._show_navbar = value;
-				if (this._show_navbar == false)
-					navigation_box.hide ();
 			}
 		}
 
@@ -173,7 +159,6 @@ namespace Xnp {
 			this.title = _("Notes");
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
-			this.show_navbar = true;
 			this.default_height = 380;
 			this.default_width = 300;
 			this.decorated = false;
@@ -279,38 +264,11 @@ namespace Xnp {
 			this.notebook.show ();
 			this.content_box.pack_start (this.notebook, true, true, 0);
 
-			/* Build navigation toolbar */
-			this.navigation_box = new Gtk.HBox (false, 2);
-			var add_box = new Gtk.Button ();
-			add_box.set_tooltip_text (Gtk.accelerator_get_label ('N', Gdk.ModifierType.CONTROL_MASK));
-			add_box.set_relief (Gtk.ReliefStyle.NONE);
-			add_box.can_focus = false;
-			var add_label = new Gtk.Label ("<b>+</b>");
-			add_label.use_markup = true;
-			add_box.add (add_label);
-			this.navigation_box.pack_start (add_box, true, false, 0);
-			if (add_box.allocation.width < 22)
-				add_box.set_size_request (22, -1);
-			var del_box = new Gtk.Button ();
-			del_box.set_tooltip_text (Gtk.accelerator_get_label ('W', Gdk.ModifierType.CONTROL_MASK));
-			del_box.set_relief (Gtk.ReliefStyle.NONE);
-			del_box.can_focus = false;
-			var del_label = new Gtk.Label ("<b>−</b>");
-			del_label.use_markup = true;
-			del_box.add (del_label);
-			this.navigation_box.pack_start (del_box, true, false, 0);
-			if (del_box.allocation.width < 22)
-				del_box.set_size_request (22, -1);
-			this.navigation_box.show_all ();
-			this.content_box.pack_start (this.navigation_box, false, false, 1);
-
 			/* Connect mouse click signals */
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
 			this.left_arrow_button.clicked.connect (action_prev_note);
 			this.right_arrow_button.clicked.connect (action_next_note);
 			this.close_button.clicked.connect (() => { hide (); });
-			add_box.clicked.connect (action_new_note);
-			del_box.clicked.connect (action_delete_note);
 
 			/* Connect extra signals */
 			delete_event.connect (() => {
@@ -333,8 +291,6 @@ namespace Xnp {
 				close_button.sensitive = false;
 				return false;
 			});
-			leave_notify_event.connect (navigation_leaved_cb);
-			motion_notify_event.connect (navigation_motion_cb);
 			leave_notify_event.connect (window_leaved_cb);
 			motion_notify_event.connect (window_motion_cb);
 			button_press_event.connect (window_pressed_cb);
@@ -366,8 +322,6 @@ namespace Xnp {
 		}
 
 		~Window () {
-			if (this.navigation_timeout != 0)
-				Source.remove (this.navigation_timeout);
 		}
 
 		/*
@@ -387,48 +341,6 @@ namespace Xnp {
 			unshade ();
 			move (winx, winy);
 			set_keep_above (this.above);
-		}
-
-		/**
-		 * navigation_leaved_cb:
-		 *
-		 * Hide the navigation when the mouse pointer is leaving the window.
-		 */
-		private bool navigation_leaved_cb () {
-			if (!_show_navbar)
-				return false;
-
-			int timeout = 2;
-			if (is_active) {
-				int x, y;
-				get_pointer (out x, out y);
-				if (x >= 0 && x < allocation.width && y >= 0 && y < allocation.height) {
-					timeout = 10;
-				}
-			}
-			navigation_timeout = Timeout.add_seconds (timeout, () => {
-				navigation_box.hide ();
-				navigation_timeout = 0;
-				return false;
-				});
-			return false;
-		}
-
-		/**
-		 * navigation_motion_cb:
-		 *
-		 * Show the navigation when the mouse pointer is hovering the window.
-		 */
-		private bool navigation_motion_cb () {
-			if (!_show_navbar)
-				return false;
-
-			if (navigation_timeout != 0) {
-				Source.remove (navigation_timeout);
-				navigation_timeout = 0;
-			}
-			navigation_box.show ();
-			return false;
 		}
 
 		/**

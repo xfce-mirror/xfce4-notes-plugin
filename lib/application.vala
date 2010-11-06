@@ -168,8 +168,6 @@ namespace Xnp {
 			/* Global settings */
 			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
 				typeof (bool), window, "skip-taskbar-hint");
-			Xfconf.Property.bind (xfconf_channel, "/global/show-navbar",
-				typeof (bool), window, "show-navbar");
 			Xfconf.Property.bind (xfconf_channel, "/global/tabs-position",
 				typeof (int), window, "tabs-position");
 
