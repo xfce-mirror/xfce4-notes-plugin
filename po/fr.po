@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.99.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-15 19:29+0100\n"
+"POT-Creation-Date: 2010-11-06 21:08+0000\n"
 "PO-Revision-Date: 2010-03-08 21:23+0100\n"
 "Last-Translator: Mike Massonnet <mmassonnet@gmail.com>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -20,220 +20,226 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:544
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:567
 msgid "Ideal for your quick notes"
 msgstr "Idéal pour vos petites notes"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:112
-#: ../lib/application.vala:542 ../lib/window.vala:83 ../lib/window.vala:170
-#: ../lib/window.vala:968 ../src/xfce4-notes-settings.c:93
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:137
+#: ../lib/application.vala:565 ../lib/window.vala:84 ../lib/window.vala:159
+#: ../lib/window.vala:884 ../src/xfce4-notes-settings.c:95
 #: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Notes"
 
-#: ../lib/application.vala:116 ../lib/window.vala:971
+#: ../lib/application.vala:141 ../lib/window.vala:887
 #, c-format
 msgid "Notes %d"
 msgstr "Notes %d"
 
-#: ../lib/application.vala:344
+#: ../lib/application.vala:367
 msgid "Rename group"
 msgstr "Renommer le groupe"
 
-#: ../lib/application.vala:365 ../lib/window.vala:1092
+#: ../lib/application.vala:388 ../lib/window.vala:1009
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Le nom %s est déjà utilisé"
 
-#: ../lib/application.vala:391
+#: ../lib/application.vala:414
 msgid "Are you sure you want to delete this group?"
 msgstr "Êtes-vous certain(e) de vouloir supprimer ce groupe ?"
 
-#: ../lib/application.vala:448
+#: ../lib/application.vala:471
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Le nom « %s » est invalide."
 
-#: ../lib/application.vala:449
+#: ../lib/application.vala:472
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Les caractères invalides sont : %s"
 
-#: ../lib/application.vala:506
+#: ../lib/application.vala:529
 msgid "Unable to open the settings dialog"
 msgstr "Impossible d'ouvrir le dialogue des paramètres."
 
-#: ../lib/application.vala:551
+#: ../lib/application.vala:574
 msgid "translator-credits"
 msgstr ""
 "Mike Massonnet\n"
 "Maximilian Schleiss"
 
-#: ../lib/application.vala:586 ../lib/window.vala:835
+#: ../lib/application.vala:609 ../lib/window.vala:751
 msgid "_Add a new group"
 msgstr "_Ajouter un nouveau groupe"
 
-#: ../lib/window.vala:221
+#: ../lib/window.vala:209
 msgid "Menu"
 msgstr "Menu"
 
-#: ../lib/window.vala:243
+#: ../lib/window.vala:246
 #, c-format
 msgid "Hide (%s)"
 msgstr "Cacher (%s)"
 
-#: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
+#: ../lib/window.vala:618 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Groupes"
 
-#: ../lib/window.vala:726
+#: ../lib/window.vala:641
 msgid "_Rename"
 msgstr "_Renommer"
 
 #. Always on top
-#: ../lib/window.vala:742 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:657 ../src/xfce4-notes-settings.c:171
 msgid "Always on top"
 msgstr "Toujours en dessus"
 
-#: ../lib/window.vala:747
+#: ../lib/window.vala:662
 msgid "Sticky window"
 msgstr "Coller sur tous les bureaux"
 
-#: ../lib/window.vala:821
+#: ../lib/window.vala:737
 msgid "_Rename group"
 msgstr "_Renommer le groupe"
 
-#: ../lib/window.vala:828
+#: ../lib/window.vala:744
 msgid "_Delete group"
 msgstr "_Supprimer le groupe"
 
-#: ../lib/window.vala:1045
+#: ../lib/window.vala:962
 msgid "Are you sure you want to delete this note?"
 msgstr "Êtes-vous certain(e) de vouloir supprimer cette note ?"
 
-#: ../lib/window.vala:1071
+#: ../lib/window.vala:988
 msgid "Rename note"
 msgstr "Renommer la note"
 
-#: ../src/xfce4-notes-settings.c:97
+#: ../src/xfce4-notes-settings.c:99
 msgid "Configure the plugin"
 msgstr "Configurer le greffon"
 
-#: ../src/xfce4-notes-settings.c:116
+#: ../src/xfce4-notes-settings.c:118
 msgid "Global settings"
 msgstr "Paramètres globaux"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:121
+#: ../src/xfce4-notes-settings.c:123
 msgid "Hide notes from taskbar"
 msgstr "Cacher les notes de la barre des tâches"
 
-#. Show navigation bar
-#: ../src/xfce4-notes-settings.c:128
-msgid "Show the automatic navigation bar"
-msgstr "Afficher la barre de navigation automatique"
-
-#: ../src/xfce4-notes-settings.c:138
+#: ../src/xfce4-notes-settings.c:133
 msgid "Tabs position:"
 msgstr "Position des onglets :"
 
-#: ../src/xfce4-notes-settings.c:148
+#: ../src/xfce4-notes-settings.c:143
 msgid "Background:"
 msgstr "Arrière-plan :"
 
-#: ../src/xfce4-notes-settings.c:161
+#: ../src/xfce4-notes-settings.c:156
 msgid "Font:"
 msgstr "Police :"
 
-#: ../src/xfce4-notes-settings.c:171
+#: ../src/xfce4-notes-settings.c:166
 msgid "New group settings"
 msgstr "Paramètres d'un nouveau groupe"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:183
+#: ../src/xfce4-notes-settings.c:178
 msgid "Sticky"
 msgstr "Toujours sur l'espace de travail courant"
 
-#: ../src/xfce4-notes-settings.c:193
+#: ../src/xfce4-notes-settings.c:188
 msgid "Size:"
 msgstr "Taille :"
 
-#: ../src/xfce4-notes-settings.c:211
+#: ../src/xfce4-notes-settings.c:206
 msgid "None"
 msgstr "Aucun"
 
-#: ../src/xfce4-notes-settings.c:212
+#: ../src/xfce4-notes-settings.c:207
 msgid "Top"
 msgstr "Haut"
 
-#: ../src/xfce4-notes-settings.c:213
+#: ../src/xfce4-notes-settings.c:208
 msgid "Right"
 msgstr "Droite"
 
-#: ../src/xfce4-notes-settings.c:214
+#: ../src/xfce4-notes-settings.c:209
 msgid "Bottom"
 msgstr "Bas"
 
-#: ../src/xfce4-notes-settings.c:215
+#: ../src/xfce4-notes-settings.c:210
 msgid "Left"
 msgstr "Gauche"
 
-#: ../src/xfce4-notes-settings.c:231
+#: ../src/xfce4-notes-settings.c:226
 msgid "Small"
 msgstr "Petite"
 
-#: ../src/xfce4-notes-settings.c:232
+#: ../src/xfce4-notes-settings.c:227
 msgid "Normal"
 msgstr "Normale"
 
-#: ../src/xfce4-notes-settings.c:233
+#: ../src/xfce4-notes-settings.c:228
 msgid "Large"
 msgstr "Grande"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/xfce4-notes-settings.c:286
 msgid "Yellow"
 msgstr "Jaune"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/xfce4-notes-settings.c:287
 msgid "Blue"
 msgstr "Bleu"
 
-#: ../src/xfce4-notes-settings.c:293
+#: ../src/xfce4-notes-settings.c:288
 msgid "Green"
 msgstr "Vert"
 
-#: ../src/xfce4-notes-settings.c:294
+#: ../src/xfce4-notes-settings.c:289
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/xfce4-notes-settings.c:295
+#: ../src/xfce4-notes-settings.c:290
 msgid "Olive"
 msgstr "Olive"
 
-#: ../src/xfce4-notes-settings.c:296
+#: ../src/xfce4-notes-settings.c:291
 msgid "Carmine"
 msgstr "Carmin"
 
-#: ../src/xfce4-notes-settings.c:297
+#: ../src/xfce4-notes-settings.c:292
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/xfce4-notes-settings.c:298
+#: ../src/xfce4-notes-settings.c:293
 msgid "White"
 msgstr "Blanc"
 
-#: ../src/xfce4-notes-settings.c:299
+#: ../src/xfce4-notes-settings.c:294
+msgid "Android"
+msgstr "Android"
+
+#: ../src/xfce4-notes-settings.c:295
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../src/xfce4-notes-settings.c:296
 msgid "Custom..."
 msgstr "Personnalisée..."
 
-#: ../src/xfce4-notes-settings.c:411
+#: ../src/xfce4-notes-settings.c:426
 msgid "Background Color"
 msgstr "Couleur d'arrière plan"
+
+#~ msgid "Show the automatic navigation bar"
+#~ msgstr "Afficher la barre de navigation automatique"
 
 #~ msgid "Show tabs in the notes"
 #~ msgstr "Afficher les onglets dans les notes"
