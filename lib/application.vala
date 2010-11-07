@@ -158,17 +158,15 @@ namespace Xnp {
 
 			/* Insert initial notes */
 			if (name == null) {
-				var note = window.insert_note ();
-				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
-					typeof (string), note.text_view, "font");
-
-				string window_path = "%s/%s".printf (notes_path, window.name);
-				GLib.DirUtils.create_with_parents (window_path, 0700);
 				try {
-					string note_path = "%s/%s".printf (window_path, note.name);
+					string window_path = "%s/%s".printf (notes_path, window.name);
+					GLib.DirUtils.create_with_parents (window_path, 0700);
+					string note_path = "%s/%s".printf (window_path, _("Notes"));
 					GLib.FileUtils.set_contents (note_path, "", -1);
+					this.load_window_data (window);
 				}
 				catch (FileError e) {
+					critical ("Unable to initialize a notes group: %s", e.message);
 				}
 			}
 			else {
@@ -289,7 +287,6 @@ namespace Xnp {
 					window.show ();
 			}
 			catch (GLib.Error e) {
-				message ("Unable to load window configuration from %s: %s", config_file, e.message);
 				window.show ();
 			}
 		}
@@ -325,6 +322,7 @@ namespace Xnp {
 				GLib.FileUtils.set_contents (config_file, contents);
 			}
 			catch (FileError e) {
+				message ("Unable to save window configuration from %s: %s", config_file, e.message);
 			}
 		}
 
