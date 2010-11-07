@@ -1,3 +1,62 @@
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+=== Release 1.7.7 ===
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Initialize the first group with load_window_data
+
+Redone the way the first group is created in order to keep the xfconf
+binding in one place.
+
+This will be useful in order to create FileMonitors later.
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Add two background colors GTK+ and Android
+
+The Android is a dummy color while GTK+ looks at the theme normal
+background and listen to theme changes.
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Remove automatic navigation bar completely
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Add Go left/right buttons in the title bar beside the close button
+
+Added two buttons in the title bar to go to the previous/next note, very
+useful when the tabs are hidden.
+
+Removed the analogue buttons from the automatic navigation bar.
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Add LeftArrow/RightArrow to Xnp.TitleBarButton
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Make title bar more insensitive when window is unfocused
+
+Set all of the title bar elements (the menu button, title label and
+close button) insensitive when the window is unfocused.
+
+Add the method set_widget_source_color() to Xnp.IconButton to set the
+Cairo context source color normal, active or insensitive.
+
+2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
+
+Cache menu image inside two pixbufs
+
+The menu icon (top left corner) was always loaded from the files.
+Instead of loading from the files, cache the two files inside
+pixbufs.
+
+2010-11-05  Mike Massonnet <mmassonnet@xfce.org>
+
+Port code to Vala 0.10
+
 2010-04-21  Mike Massonnet <mmassonnet@xfce.org>
 
 Buid lib/ with gtk+-2.0.vapi file from data/vapi

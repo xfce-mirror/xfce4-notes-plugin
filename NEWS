@@ -1,3 +1,12 @@
+VERSION 1.7.7
+
+- Ported code to Vala 0.10
+- Make title bar more insensitive while window is unfocused
+- Show Go left/right buttons in the window
+- Remove the automatic navigation bar completely
+- Added new colors Android and GTK+
+- Updated translations: Italian, Galician, Uyghur, Swedish, French
+
 VERSION 1.7.6
 
 - Fix xfce4-notes-settings not being linked against Math lib
