@@ -25,17 +25,11 @@ namespace Xnp {
 	public class Application : GLib.Object {
 
 		private SList<Xnp.Window> window_list;
-		private string notes_path;
+		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
 		private Xfconf.Channel xfconf_channel;
 
 		construct {
-			notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
-		}
-
-		public Application (string config_file) {
-			GLib.Object (config_file: config_file);
-
 			var notesgtkrc = "%s/xfce4/xfce4-notes.gtkrc".printf (GLib.Environment.get_user_config_dir ());
 			Gtk.rc_parse (notesgtkrc);
 
@@ -56,19 +50,27 @@ namespace Xnp {
 			}
 
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
-			update_color ();
 
+			update_color ();
 			xfconf_channel.property_changed["/global/background-color"].connect (() => {
 				update_color ();
 			});
-
 			Gtk.Settings.get_default ().notify["gtk-theme-name"].connect (() => {
 				update_color ();
+			});
+
+			if (notes_path == null) {
+				var default_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
+				notes_path = xfconf_channel.get_string ("/global/notes-path", default_path);
+			}
+			xfconf_channel.property_changed["/global/notes-path"].connect (() => {
+				update_notes_path ();
 			});
 
 			string name;
 			bool found = false;
 			try {
+				/* Load existing windows */
 				var dir = Dir.open (notes_path, 0);
 				while ((name = dir.read_name ()) != null) {
 					create_window (name);
@@ -79,8 +81,17 @@ namespace Xnp {
 				GLib.DirUtils.create_with_parents (notes_path, 0700);
 			}
 			if (found == false) {
+				/* Create first-run window */
 				create_window ();
 			}
+		}
+
+		public Application (string config_file) {
+			GLib.Object (config_file: config_file);
+		}
+
+		public Application.with_notes_path (string config_file, string notes_path) {
+			GLib.Object (config_file: config_file, notes_path: notes_path);
 		}
 
 		~Application () {
@@ -90,6 +101,41 @@ namespace Xnp {
 			foreach (var win in this.window_list) {
 				win.destroy ();
 				win = null;
+			}
+		}
+
+		private void update_notes_path () {
+			var new_notes_path = xfconf_channel.get_string ("/global/notes-path", notes_path);
+			if (notes_path == new_notes_path) {
+				return;
+			}
+
+			/* Check that the new path is empty */
+			try {
+				var dir = Dir.open (new_notes_path, 0);
+				if (dir.read_name () != null) {
+					var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
+						_("Select notes path"));
+					error_dialog.format_secondary_text (_("The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."), new_notes_path);
+					error_dialog.run ();
+					error_dialog.destroy ();
+					xfconf_channel.set_string ("/global/notes-path", notes_path);
+					return;
+				}
+			}
+			catch (GLib.Error e) {
+			}
+
+			/* Create/move to the new path */
+			var dirname = Path.get_dirname (new_notes_path);
+			if (GLib.DirUtils.create_with_parents (dirname, 0700) != 0 || GLib.FileUtils.rename (notes_path, new_notes_path) != 0) {
+				var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
+					_("Select notes path"));
+				error_dialog.format_secondary_text (_("Unable to select directory for new notes path: %s"), strerror (errno));
+				error_dialog.run ();
+				error_dialog.destroy ();
+				xfconf_channel.set_string ("/global/notes-path", notes_path);
+				return;
 			}
 		}
 
@@ -243,8 +289,8 @@ namespace Xnp {
 				while ((name = dir.read_name ()) != null) {
 					try {
 						string contents;
-						string filename = "%s/%s".printf (path, name);
-						GLib.FileUtils.get_contents (filename, out contents, null);
+						var file = File.new_for_path ("%s/%s".printf (path, name));
+						GLib.FileUtils.get_contents (file.get_path (), out contents, null);
 						var note = window.insert_note ();
 						note.name = name;
 						var buffer = note.text_view.get_buffer ();

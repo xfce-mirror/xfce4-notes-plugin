@@ -30,6 +30,9 @@
 #include "defines.h"
 #include "color.h"
 
+static GtkWidget *notes_path_button_new ();
+static void cb_notes_path_changed (GtkFileChooserButton *button, gpointer data);
+
 enum
 {
   COMBOBOX_TABS_NONE,
@@ -77,6 +80,7 @@ static gboolean timeout_cb_background_changed (gchar *color);
 static GtkWidget *color_button_new ();
 static gboolean cb_color_button_pressed (GtkButton *button, GdkEventButton *event, gpointer data);
 
+static GtkWidget *parent_window = NULL;
 static XfconfChannel *xfconf_channel = NULL;
 static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
@@ -91,7 +95,7 @@ prop_dialog_new (void)
     xfconf_channel = xfconf_channel_new_with_property_base ("xfce4-panel", "/plugins/notes");
 
   /* Dialog */
-  dialog =
+  parent_window = dialog =
     xfce_titled_dialog_new_with_buttons (_("Notes"), NULL,
                                          GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
@@ -125,6 +129,16 @@ prop_dialog_new (void)
   xfconf_g_property_bind (xfconf_channel, "/global/skip-taskbar-hint",
                           G_TYPE_BOOLEAN, G_OBJECT (button), "active");
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
+
+  /* Notes path */
+  hbox = gtk_hbox_new (FALSE, BORDER);
+  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
+
+  label = gtk_label_new (_("Notes path:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+  button = notes_path_button_new (dialog);
+  gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* Tabs position */
   hbox = gtk_hbox_new (FALSE, BORDER);
@@ -195,6 +209,56 @@ prop_dialog_new (void)
   gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 
   return dialog;
+}
+
+static GtkWidget *
+notes_path_button_new (void)
+{
+  GtkWidget *dialog, *button;
+  gchar *default_path, *notes_path;
+
+  default_path = g_strdup_printf ("%s/notes", g_get_user_data_dir ());
+  notes_path = xfconf_channel_get_string (xfconf_channel, "/global/notes-path", default_path);
+
+  dialog = gtk_file_chooser_dialog_new (_("Select notes path"), GTK_WINDOW (parent_window),
+                                        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                        NULL);
+  gtk_window_set_icon_name (GTK_WINDOW (dialog), GTK_STOCK_DIRECTORY);
+
+  button = GTK_WIDGET (g_object_new (GTK_TYPE_FILE_CHOOSER_BUTTON,
+                                     "title", _("Select notes path"),
+                                     "width-chars", 15,
+                                     "action", GTK_FILE_CHOOSER_ACTION_OPEN,
+                                     "dialog", dialog,
+                                     NULL));
+  g_object_set (dialog, "action", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL);
+  gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (button), notes_path);
+
+  g_signal_connect (button, "file-set", G_CALLBACK (cb_notes_path_changed), NULL);
+
+  g_free (default_path);
+  g_free (notes_path);
+
+  return button;
+}
+
+static void
+cb_notes_path_changed (GtkFileChooserButton *button,
+                       gpointer data)
+{
+  GFile *file;
+  gchar *notes_path;
+
+  file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (button));
+  notes_path = g_file_get_path (file);
+
+  if (notes_path != NULL)
+    xfconf_channel_set_string (xfconf_channel, "/global/notes-path", notes_path);
+
+  g_object_unref (file);
+  g_free (notes_path);
 }
 
 static GtkWidget *
