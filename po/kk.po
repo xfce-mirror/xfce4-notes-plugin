@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-26 00:06+0100\n"
+"POT-Creation-Date: 2010-11-27 05:03+0000\n"
 "PO-Revision-Date: 2009-09-20 20:50+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -19,215 +19,241 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:559
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:611
 msgid "Ideal for your quick notes"
 msgstr "Жылдам жазбаларыңыз үшін жарайды"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:127
-#: ../lib/application.vala:557 ../lib/window.vala:83 ../lib/window.vala:170
-#: ../lib/window.vala:968 ../src/xfce4-notes-settings.c:93
-#: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:183
+#: ../lib/application.vala:210 ../lib/application.vala:609
+#: ../lib/window.vala:84 ../lib/window.vala:159 ../lib/window.vala:884
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Жазбалар"
 
-#: ../lib/application.vala:131 ../lib/window.vala:971
+#: ../lib/application.vala:118 ../lib/application.vala:133
+#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+msgid "Select notes path"
+msgstr "Жазбалар орнын таңдау"
+
+#: ../lib/application.vala:119
+#, c-format
+msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
+msgstr "Жаңа жазбалар үшін бума (%s) ішінде файлдар бар. Сізге бос буманы таңдау не жасау керек."
+
+#: ../lib/application.vala:134
+#, c-format
+msgid "Unable to select directory for new notes path: %s"
+msgstr "Жаңа жазбалар үшін буманы таңдау мүмкін емес, орны: %s"
+
+#: ../lib/application.vala:187 ../lib/window.vala:887
 #, c-format
 msgid "Notes %d"
 msgstr "Жазба %d"
 
-#: ../lib/application.vala:359
+#: ../lib/application.vala:411
 msgid "Rename group"
 msgstr "Топтың атын ауыстыру"
 
-#: ../lib/application.vala:380 ../lib/window.vala:1092
+#: ../lib/application.vala:432 ../lib/window.vala:1009
 #, c-format
 msgid "The name %s is already in use"
 msgstr "%s аты қазір қоланылып тұр"
 
-#: ../lib/application.vala:406
+#: ../lib/application.vala:458
 msgid "Are you sure you want to delete this group?"
 msgstr "Осы топты өшіруді шынымен қалайсыз ба?"
 
-#: ../lib/application.vala:463
+#: ../lib/application.vala:515
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "\"%s\" аты қате."
 
-#: ../lib/application.vala:464
+#: ../lib/application.vala:516
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Дұрыс емес таңбалар: %s"
 
-#: ../lib/application.vala:521
+#: ../lib/application.vala:573
 msgid "Unable to open the settings dialog"
 msgstr "Баптаулар терез сұзбатын ашу мүмкін емес"
 
-#: ../lib/application.vala:566
+#: ../lib/application.vala:618
 msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com> 2010"
 
-#: ../lib/application.vala:601 ../lib/window.vala:835
+#: ../lib/application.vala:653 ../lib/window.vala:751
 msgid "_Add a new group"
 msgstr "Ж_аңа топты қосу"
 
-#: ../lib/window.vala:221
+#: ../lib/window.vala:209
 msgid "Menu"
 msgstr "Мәзір"
 
-#: ../lib/window.vala:243
+#: ../lib/window.vala:246
 #, c-format
 msgid "Hide (%s)"
 msgstr "Жасыру (%s)"
 
-#: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
+#: ../lib/window.vala:618 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "Топ_тар"
 
-#: ../lib/window.vala:726
+#: ../lib/window.vala:641
 msgid "_Rename"
 msgstr "Атын ауысты_ру"
 
 #. Always on top
-#: ../lib/window.vala:742 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:657 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Әрқашан үстінде"
 
-#: ../lib/window.vala:747
+#: ../lib/window.vala:662
 msgid "Sticky window"
 msgstr "Жабысқақ терезе"
 
-#: ../lib/window.vala:821
+#: ../lib/window.vala:737
 msgid "_Rename group"
 msgstr "То_п атын ауыстыру"
 
-#: ../lib/window.vala:828
+#: ../lib/window.vala:744
 msgid "_Delete group"
 msgstr "Т_опты өшіру"
 
-#: ../lib/window.vala:1045
+#: ../lib/window.vala:962
 msgid "Are you sure you want to delete this note?"
 msgstr "Бұл жазбаны өшіруді шынымен қалайсыз ба?"
 
-#: ../lib/window.vala:1071
+#: ../lib/window.vala:988
 msgid "Rename note"
 msgstr "Жазба атын ауыстыру"
 
-#: ../src/xfce4-notes-settings.c:97
+#: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
 msgstr "Плагинді баптау"
 
-#: ../src/xfce4-notes-settings.c:116
+#: ../src/xfce4-notes-settings.c:122
 msgid "Global settings"
 msgstr "Жалпы баптаулар"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:121
+#: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
 msgstr "Жазбаларды есептер панелінен жасыру"
 
-#. Show navigation bar
-#: ../src/xfce4-notes-settings.c:128
-msgid "Show the automatic navigation bar"
-msgstr "Автоматты навигация панелін көрсету"
+#: ../src/xfce4-notes-settings.c:137
+msgid "Notes path:"
+msgstr "Жазбалар орны:"
 
-#: ../src/xfce4-notes-settings.c:138
+#: ../src/xfce4-notes-settings.c:147
 msgid "Tabs position:"
 msgstr "Беттердің орналасуы:"
 
-#: ../src/xfce4-notes-settings.c:148
+#: ../src/xfce4-notes-settings.c:157
 msgid "Background:"
 msgstr "Фон:"
 
-#: ../src/xfce4-notes-settings.c:161
+#: ../src/xfce4-notes-settings.c:170
 msgid "Font:"
 msgstr "Қаріп:"
 
-#: ../src/xfce4-notes-settings.c:171
+#: ../src/xfce4-notes-settings.c:180
 msgid "New group settings"
 msgstr "Жаңа топтың баптаулары"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:183
+#: ../src/xfce4-notes-settings.c:192
 msgid "Sticky"
 msgstr "Жабысқақ"
 
-#: ../src/xfce4-notes-settings.c:193
+#: ../src/xfce4-notes-settings.c:202
 msgid "Size:"
 msgstr "Өлшемі:"
 
-#: ../src/xfce4-notes-settings.c:211
+#: ../src/xfce4-notes-settings.c:270
 msgid "None"
 msgstr "Жоқ"
 
-#: ../src/xfce4-notes-settings.c:212
+#: ../src/xfce4-notes-settings.c:271
 msgid "Top"
 msgstr "Жоғары"
 
-#: ../src/xfce4-notes-settings.c:213
+#: ../src/xfce4-notes-settings.c:272
 msgid "Right"
 msgstr "Оң жақ"
 
-#: ../src/xfce4-notes-settings.c:214
+#: ../src/xfce4-notes-settings.c:273
 msgid "Bottom"
 msgstr "Төмен"
 
-#: ../src/xfce4-notes-settings.c:215
+#: ../src/xfce4-notes-settings.c:274
 msgid "Left"
 msgstr "Сол жақ"
 
-#: ../src/xfce4-notes-settings.c:231
+#: ../src/xfce4-notes-settings.c:290
 msgid "Small"
 msgstr "Кішкентай"
 
-#: ../src/xfce4-notes-settings.c:232
+#: ../src/xfce4-notes-settings.c:291
 msgid "Normal"
 msgstr "Қалыпты"
 
-#: ../src/xfce4-notes-settings.c:233
+#: ../src/xfce4-notes-settings.c:292
 msgid "Large"
 msgstr "Үлкен"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/xfce4-notes-settings.c:350
 msgid "Yellow"
 msgstr "Сары"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/xfce4-notes-settings.c:351
 msgid "Blue"
 msgstr "Көк"
 
-#: ../src/xfce4-notes-settings.c:293
+#: ../src/xfce4-notes-settings.c:352
 msgid "Green"
 msgstr "Жасыл"
 
-#: ../src/xfce4-notes-settings.c:294
+#: ../src/xfce4-notes-settings.c:353
 msgid "Indigo"
 msgstr "Индиго"
 
-#: ../src/xfce4-notes-settings.c:295
+#: ../src/xfce4-notes-settings.c:354
 msgid "Olive"
 msgstr "Олив"
 
-#: ../src/xfce4-notes-settings.c:296
+#: ../src/xfce4-notes-settings.c:355
 msgid "Carmine"
 msgstr "Кармин"
 
-#: ../src/xfce4-notes-settings.c:297
+#: ../src/xfce4-notes-settings.c:356
 msgid "Mimosa"
 msgstr "Мимоза"
 
-#: ../src/xfce4-notes-settings.c:298
+#: ../src/xfce4-notes-settings.c:357
 msgid "White"
 msgstr "Ақ"
 
-#: ../src/xfce4-notes-settings.c:299
+#: ../src/xfce4-notes-settings.c:358
+msgid "Android"
+msgstr "Android"
+
+#: ../src/xfce4-notes-settings.c:359
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
 msgstr "Таңдауыңызша..."
 
-#: ../src/xfce4-notes-settings.c:411
+#: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
 msgstr "Фон түсі"
+
+#~ msgid "Show the automatic navigation bar"
+#~ msgstr "Автоматты навигация панелін көрсету"
