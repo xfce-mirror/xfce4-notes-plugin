@@ -150,7 +150,7 @@ msgstr "Jegyzetek elrejtése a feladatsávról"
 
 #: ../src/xfce4-notes-settings.c:137
 msgid "Notes path:"
-msgstr "Jegyzetútvonal"
+msgstr "Jegyzetútvonal:"
 
 #: ../src/xfce4-notes-settings.c:147
 msgid "Tabs position:"
