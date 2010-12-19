@@ -114,7 +114,7 @@ namespace Xnp {
 			Object (icon_type: icon_type);
 		}
 
-		private override void draw_icon (Cairo.Context cr, int width, int height) {
+		protected override void draw_icon (Cairo.Context cr, int width, int height) {
 			switch (icon_type) {
 				case TitleBarButtonType.CLOSE:
 					draw_close_button (cr, width, height);
