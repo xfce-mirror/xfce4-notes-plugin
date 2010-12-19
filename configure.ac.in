@@ -107,6 +107,7 @@ echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 echo
 echo "    * Vala:               $VALAC $am__vala_version"
+echo "    * Xfce4-vala:         $XFCE4VALA_VERSION"
 echo
 fi
 echo "* GTK+:                   $GTK_VERSION"
