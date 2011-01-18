@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-12 17:03+0000\n"
+"POT-Creation-Date: 2011-01-18 17:04+0000\n"
 "PO-Revision-Date: 2010-01-08 16:10+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -122,7 +122,7 @@ msgstr "Sempre enriba"
 
 #: ../lib/window.vala:662
 msgid "Sticky window"
-msgstr "Fiestra persistente"
+msgstr "Xanela persistente"
 
 #: ../lib/window.vala:737
 msgid "_Rename group"
