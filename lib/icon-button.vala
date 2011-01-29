@@ -17,6 +17,8 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
+const double M_PI = 3.14159265358979323846;
+
 namespace Xnp {
 
 	public abstract class IconButton : Gtk.EventBox {
@@ -101,9 +103,10 @@ namespace Xnp {
 
 	public enum TitleBarButtonType {
 		EMPTY,
+		CLOSE,
 		LEFT_ARROW,
 		RIGHT_ARROW,
-		CLOSE,
+		REFRESH,
 	}
 
 	public class TitleBarButton : IconButton {
@@ -124,6 +127,9 @@ namespace Xnp {
 					break;
 				case TitleBarButtonType.RIGHT_ARROW:
 					draw_right_arrow_button (cr, width, height);
+					break;
+				case TitleBarButtonType.REFRESH:
+					draw_refresh_button (cr, width, height);
 					break;
 				default:
 					break;
@@ -218,7 +224,47 @@ namespace Xnp {
 				cr.stroke ();
 			}
 		}
+
+		private void draw_refresh_button (Cairo.Context cr, int width, int height) {
+			int border = 6;
+			int x1 = border;
+			int x2 = width - border;
+			int y1 = border;
+			int y2 = height - border;
+			if (x2 <= x1 || y2 <= y1) {
+				return;
+			}
+
+			cr.set_line_cap (Cairo.LineCap.ROUND);
+
+			for (int j = 0; j < 2; j++) {
+				for (int i = 0; i < 2; i++) {
+					if (i == 0) {
+						cr.set_source_rgba (1, 1, 1, active ? 0.4 : 0.2);
+						cr.set_line_width (4);
+					}
+					else {
+						set_widget_source_color (cr);
+						cr.set_line_width (2.44);
+					}
+					cr.save ();
+					cr.translate (x1 + (x2 - x1) / 2, y1 + (y2 - y1) / 2);
+					if (j == 0) {
+						cr.rotate (-M_PI / 16.0);
+					}
+					else {
+						cr.rotate ((15.0 * M_PI) / 16.0);
+					}
+					cr.arc (0, 0, x2 - x1, (5.0 * M_PI) / 16.0, M_PI);
+					var r = (x2 - x1) / 2.0;
+					cr.line_to (-r * 2.0, (3.0 * r) / 2.0);
+					cr.move_to (-r * 2.0, 0.0);
+					cr.line_to (-r, r / 2.0);
+					cr.stroke ();
+					cr.restore ();
+				}
+			}
+		}
 	}
 
 }
-

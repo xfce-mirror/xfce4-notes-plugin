@@ -24,6 +24,7 @@ namespace Xnp {
 
 	public class Application : GLib.Object {
 
+		private SList<Xnp.WindowMonitor> window_monitor_list;
 		private SList<Xnp.Window> window_list;
 		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
@@ -203,9 +204,9 @@ namespace Xnp {
 			}
 
 			/* Insert initial notes */
-			if (name == null) {
+			string window_path = "%s/%s".printf (notes_path, window.name);
+			if (name == null || !GLib.FileUtils.test (window_path, GLib.FileTest.IS_DIR|GLib.FileTest.EXISTS)) {
 				try {
-					string window_path = "%s/%s".printf (notes_path, window.name);
 					GLib.DirUtils.create_with_parents (window_path, 0700);
 					string note_path = "%s/%s".printf (window_path, _("Notes"));
 					GLib.FileUtils.set_contents (note_path, "", -1);
@@ -219,6 +220,9 @@ namespace Xnp {
 				this.load_window_data (window);
 			}
 
+			/* Window monitor */
+			window_monitor_list_add (window);
+
 			/* Global settings */
 			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
 				typeof (bool), window, "skip-taskbar-hint");
@@ -229,13 +233,19 @@ namespace Xnp {
 			window.action.connect ((win, action) => {
 				if (action == "rename") {
 					rename_window (win);
+					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "delete") {
 					delete_window (win);
+					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "create-new-window") {
 					var new_win = create_window ();
 					new_win.show ();
+					set_data_value (win, "internal-change", true);
+				}
+				else if (action == "refresh-notes") {
+					refresh_notes (win);
 				}
 				else if (action == "properties") {
 					open_settings_dialog ();
@@ -245,7 +255,10 @@ namespace Xnp {
 				}
 			});
 			window.save_data.connect ((win, note) => {
-				save_note (win, note);
+				if (!get_data_value (win, "external-change")) {
+					set_data_value (win, "internal-change", true);
+					save_note (win, note);
+				}
 			});
 			window.note_inserted.connect ((win, note) => {
 				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
@@ -254,6 +267,7 @@ namespace Xnp {
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				try {
 					GLib.FileUtils.set_contents (path, "", -1);
+					set_data_value (win, "internal-change", true);
 				}
 				catch (FileError e) {
 				}
@@ -261,6 +275,7 @@ namespace Xnp {
 			window.note_deleted.connect ((win, note) => {
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.unlink (path);
+				set_data_value (win, "internal-change", true);
 			});
 			window.note_renamed.connect ((win, note, old_name) => {
 				if (!name_is_valid (note.name)) {
@@ -270,6 +285,7 @@ namespace Xnp {
 				string old_path = "%s/%s/%s".printf (notes_path, win.name, old_name);
 				string new_path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				GLib.FileUtils.rename (old_path, new_path);
+				set_data_value (win, "internal-change", true);
 			});
 
 			return window;
@@ -379,6 +395,7 @@ namespace Xnp {
 		 */
 		public void save_notes () {
 			foreach (var win in this.window_list) {
+				set_data_value (win, "external-change", false);
 				win.save_notes ();
 			}
 		}
@@ -442,6 +459,9 @@ namespace Xnp {
 					window.name = name;
 					GLib.FileUtils.rename (old_path, new_path);
 					this.window_list.sort ((GLib.CompareFunc)window.compare_func);
+
+					window_monitor_list_remove (window);
+					window_monitor_list_add (window);
 				}
 			}
 			dialog.destroy ();
@@ -475,6 +495,8 @@ namespace Xnp {
 			catch (FileError e) {
 			}
 
+			window_monitor_list_remove (window);
+
 			this.window_list.remove (window);
 			window.destroy ();
 
@@ -487,6 +509,114 @@ namespace Xnp {
 				var new_win = create_window ();
 				new_win.show ();
 			}
+		}
+
+		/**
+		 * refresh_notes:
+		 *
+		 * Prompt for reloading notes from disk.
+		 */
+		private void refresh_notes (Xnp.Window window) {
+			var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
+				_("The group \"%s\" has been modified on the disk"), window.name);
+			dialog.set_title (window.name);
+			dialog.set_icon_name ("xfce4-notes-plugin");
+			dialog.format_secondary_text (_("Do you want to reload the group?"));
+			var res = dialog.run ();
+			dialog.destroy ();
+
+			if (res == Gtk.ResponseType.YES) {
+				// Delete existing window object
+				var name = window.name;
+				window_monitor_list_remove (window);
+				this.window_list.remove (window);
+				window.destroy ();
+				// Create new window object
+				var win = create_window (name);
+				win.show ();
+			}
+
+			set_data_value (window, "external-change", false);
+			window.show_refresh_button = false;
+		}
+
+		/*
+		 * Window monitor list management
+		 */
+
+		/**
+		 * window_monitor_list_add:
+		 *
+		 * Creates an Xnp.WindowMonitor object and stores it inside window_monitor_list.
+		 */
+		private void window_monitor_list_add (Xnp.Window window) {
+			var file = File.new_for_path ("%s/%s".printf (notes_path, window.name));
+			var monitor = new Xnp.WindowMonitor (window, file);
+
+			monitor.window_updated.connect ((window) => {
+				if (get_data_value (window, "internal-change")) {
+					set_data_value (window, "internal-change", false);
+				}
+				else {
+					set_data_value (window, "external-change", true);
+					window.show_refresh_button = true;
+				}
+			});
+
+			this.window_monitor_list.prepend (monitor);
+		}
+
+		/**
+		 * window_monitor_list_remove:
+		 *
+		 * Removes a monitor from window_monitor_list matching @window.
+		 */
+		private void window_monitor_list_remove (Xnp.Window window) {
+			var monitor = window_monitor_list_lookup (window);
+			if (monitor != null) {
+				this.window_monitor_list.remove (monitor);
+				monitor.unref ();
+				monitor = null;
+			}
+		}
+
+		/**
+		 * window_monitor_list_lookup:
+		 *
+		 * Returns the window_monitor object that contains @window from the window_monitor_list.
+		 */
+		private Xnp.WindowMonitor window_monitor_list_lookup (Xnp.Window window) {
+			Xnp.WindowMonitor window_monitor = null;
+			foreach (var monitor in this.window_monitor_list) {
+				if (monitor.window == window) {
+					window_monitor = monitor;
+					break;
+				}
+			}
+			return window_monitor;
+		}
+
+		/*
+		 * Utility functions
+		 */
+
+		/**
+		 * get_data_value:
+		 *
+		 * Convenience function to return a GObject data boolean value.
+		 */
+		private bool get_data_value (GLib.Object object, string data) {
+			return object.get_data<bool> (data);
+		}
+
+		/**
+		 * set_data_value:
+		 *
+		 * Convenience function to set a GObject data boolean value.
+		 */
+		private void set_data_value (GLib.Object object, string data, bool val) {
+			object.set_data (data, ((int)val).to_pointer ());
 		}
 
 		/**

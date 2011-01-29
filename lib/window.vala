@@ -36,6 +36,7 @@ namespace Xnp {
 		private Gdk.Pixbuf menu_pixbuf;
 		private Gdk.Pixbuf menu_hover_pixbuf;
 		private Gtk.Label title_label;
+		private Xnp.TitleBarButton refresh_button;
 		private Xnp.TitleBarButton left_arrow_button;
 		private Xnp.TitleBarButton right_arrow_button;
 		private Xnp.TitleBarButton close_button;
@@ -148,6 +149,22 @@ namespace Xnp {
 			}
 		}
 
+		private bool _show_refresh_button;
+		public bool show_refresh_button {
+			get {
+				return this._show_refresh_button;
+			}
+			set {
+				this._show_refresh_button = value;
+				if (value == true) {
+					this.refresh_button.show ();
+				}
+				else {
+					this.refresh_button.hide ();
+				}
+			}
+		}
+
 		public signal void action (string action);
 		public signal void save_data (Xnp.Note note);
 		public signal void note_inserted (Xnp.Note note);
@@ -234,6 +251,11 @@ namespace Xnp {
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
+			this.refresh_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.REFRESH);
+			this.refresh_button.tooltip_text = _("Refresh notes");
+			this.refresh_button.no_show_all = true;
+			this.refresh_button.sensitive = false;
+			title_box.pack_start (this.refresh_button, false, false, 2);
 			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
 			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Up
 			this.left_arrow_button.sensitive = false;
@@ -266,6 +288,7 @@ namespace Xnp {
 
 			/* Connect mouse click signals */
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
+			this.refresh_button.clicked.connect (action_refresh_notes);
 			this.left_arrow_button.clicked.connect (action_prev_note);
 			this.right_arrow_button.clicked.connect (action_next_note);
 			this.close_button.clicked.connect (() => { hide (); });
@@ -279,6 +302,7 @@ namespace Xnp {
 			focus_in_event.connect (() => {
 				menu_image.sensitive = true;
 				title_label.sensitive = true;
+				refresh_button.sensitive = true;
 				update_navigation_sensitivity (this.notebook.get_current_page ());
 				close_button.sensitive = true;
 				return false;
@@ -286,6 +310,7 @@ namespace Xnp {
 			focus_out_event.connect (() => {
 				menu_image.sensitive = false;
 				title_label.sensitive = false;
+				refresh_button.sensitive = false;
 				left_arrow_button.sensitive = false;
 				right_arrow_button.sensitive = false;
 				close_button.sensitive = false;
@@ -556,6 +581,10 @@ namespace Xnp {
 				return;
 			Gtk.Widget child = notebook.get_nth_page (page);
 			((Xnp.Note)child).text_view.undo ();
+		}
+
+		private void action_refresh_notes () {
+			action ("refresh-notes");
 		}
 
 		private void action_next_note () {
@@ -1107,4 +1136,3 @@ namespace Xnp {
 	}
 
 }
-
