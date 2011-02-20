@@ -170,6 +170,8 @@ desktop_in_in_files =							\
 desktop_in_files = xfce4-notes-plugin.desktop.in
 if HAVE_LIBXFCE4PANEL47
 desktop_DATA = xfce4-notes-plugin-47.desktop
+install-data-hook:
+	mv $(desktopdir)/xfce4-notes-plugin-47.desktop $(desktopdir)/xfce4-notes-plugin.desktop
 else
 desktop_DATA = xfce4-notes-plugin.desktop
 endif
