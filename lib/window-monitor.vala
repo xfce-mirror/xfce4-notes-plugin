@@ -66,7 +66,7 @@ namespace Xnp {
 			if (monitor_timeout != 0) {
 				Source.remove (monitor_timeout);
 			}
-			monitor_timeout = Timeout.add_seconds (1, () => {
+			monitor_timeout = Timeout.add_seconds (5, () => {
 				window_updated (window);
 				monitor_timeout = 0;
 				return false;

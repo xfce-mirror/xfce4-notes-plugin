@@ -536,9 +536,12 @@ namespace Xnp {
 				var win = create_window (name);
 				win.show ();
 			}
+			else {
+				set_data_value (window, "external-change", false);
+				window.show_refresh_button = false;
+				window.save_notes ();
 
-			set_data_value (window, "external-change", false);
-			window.show_refresh_button = false;
+			}
 		}
 
 		/*
