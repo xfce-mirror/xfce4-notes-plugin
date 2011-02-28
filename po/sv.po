@@ -73,9 +73,8 @@ msgid "The group \"%s\" has been modified on the disk"
 msgstr "Gruppen \"%s\" har ändrats på disken"
 
 #: ../lib/application.vala:525
-#, fuzzy
 msgid "Do you want to reload the group?"
-msgstr "Är du säker på att du vill ta bort denna grupp?"
+msgstr "Vill du uppdatera gruppen?"
 
 #: ../lib/application.vala:648
 #, c-format
