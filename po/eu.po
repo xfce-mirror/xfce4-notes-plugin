@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-26 06:07+0100\n"
+"POT-Creation-Date: 2011-05-14 22:03+0000\n"
 "PO-Revision-Date: 2009-12-15 11:57+0100\n"
 "Last-Translator: Piarres Beobide <pi+debian@beobide.net>\n"
 "Language-Team: Basque <debian-l10n-basque@lists.debian.org>\n"
@@ -22,215 +22,254 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:559
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:744
 msgid "Ideal for your quick notes"
 msgstr "Zure ohar azkarrentzat erabilgarria"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:127
-#: ../lib/application.vala:557 ../lib/window.vala:83 ../lib/window.vala:170
-#: ../lib/window.vala:968 ../src/xfce4-notes-settings.c:93
-#: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
+#: ../lib/application.vala:211 ../lib/application.vala:742
+#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Oharrak"
 
-#: ../lib/application.vala:131 ../lib/window.vala:971
+#: ../lib/application.vala:119 ../lib/application.vala:134
+#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+msgid "Select notes path"
+msgstr "Hautatu oharren bidea"
+
+#: ../lib/application.vala:120
+#, c-format
+msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
+msgstr "Ohar berrientzako hautatutako direktorioak (%s) dagoeneko fitxategiak ditu. Karpeta huts bat hautatu edo sortu behar duzu."
+
+#: ../lib/application.vala:135
+#, c-format
+msgid "Unable to select directory for new notes path: %s"
+msgstr "Ezin da ohar berrien direktorioa hautatu: %s"
+
+#: ../lib/application.vala:188 ../lib/window.vala:916
 #, c-format
 msgid "Notes %d"
 msgstr "%d oharrak"
 
-#: ../lib/application.vala:359
+#: ../lib/application.vala:428
 msgid "Rename group"
 msgstr "Berrizendatu taldea"
 
-#: ../lib/application.vala:380 ../lib/window.vala:1092
+#: ../lib/application.vala:449 ../lib/window.vala:1038
 #, c-format
 msgid "The name %s is already in use"
 msgstr "%s izenda dagoneko erabilia dago"
 
-#: ../lib/application.vala:406
+#: ../lib/application.vala:478
 msgid "Are you sure you want to delete this group?"
 msgstr "Ziur zaude talde hau ezabatu nahi duzula?"
 
-#: ../lib/application.vala:463
+#: ../lib/application.vala:522
+#, c-format
+msgid "The group \"%s\" has been modified on the disk"
+msgstr "\"\"%s\" taldea diskoan eraldatu izan da"
+
+#: ../lib/application.vala:525
+msgid "Do you want to reload the group?"
+msgstr "Talde hau birkargatu nahi duzula?"
+
+#: ../lib/application.vala:648
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "\"%s\" izena baliogabea da."
 
-#: ../lib/application.vala:464
+#: ../lib/application.vala:649
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Karaktere baliogabeak: %s"
 
-#: ../lib/application.vala:521
+#: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
 msgstr "Ezin da ezarpen leihoa ireki"
 
-#: ../lib/application.vala:566
+#: ../lib/application.vala:751
 msgid "translator-credits"
 msgstr "Piarres Beobide "
 
-#: ../lib/application.vala:601 ../lib/window.vala:835
+#: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
 msgstr "_Gehitu talde bat"
 
-#: ../lib/window.vala:221
+#: ../lib/window.vala:226
 msgid "Menu"
 msgstr "Menua"
 
-#: ../lib/window.vala:243
+#: ../lib/window.vala:255
+msgid "Refresh notes"
+msgstr "Birkargatu oharrak"
+
+#: ../lib/window.vala:268
 #, c-format
 msgid "Hide (%s)"
 msgstr "Ezkutatu (%s)"
 
-#: ../lib/window.vala:703 ../src/main-panel-plugin-47.vala:50
+#: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Taldeak"
 
-#: ../lib/window.vala:726
+#: ../lib/window.vala:670
 msgid "_Rename"
 msgstr "Be_rrizendatu"
 
 #. Always on top
-#: ../lib/window.vala:742 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Beti goian"
 
-#: ../lib/window.vala:747
+#: ../lib/window.vala:691
 msgid "Sticky window"
 msgstr "Finkatu liehoa"
 
-#: ../lib/window.vala:821
+#: ../lib/window.vala:766
 msgid "_Rename group"
 msgstr "Be_rrizendatu taldea"
 
-#: ../lib/window.vala:828
+#: ../lib/window.vala:773
 msgid "_Delete group"
 msgstr "_Ezabatu taldea"
 
-#: ../lib/window.vala:1045
+#: ../lib/window.vala:991
 msgid "Are you sure you want to delete this note?"
 msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
 
-#: ../lib/window.vala:1071
+#: ../lib/window.vala:1017
 msgid "Rename note"
 msgstr "Berrizendatu oharra"
 
-#: ../src/xfce4-notes-settings.c:97
+#: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
 msgstr "Konfiguratu plugina"
 
-#: ../src/xfce4-notes-settings.c:116
+#: ../src/xfce4-notes-settings.c:122
 msgid "Global settings"
 msgstr "Ezarpen orokorrak"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:121
+#: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
 msgstr "Ezkutatu oharrak ataza-barratik"
 
-#. Show navigation bar
-#: ../src/xfce4-notes-settings.c:128
-msgid "Show the automatic navigation bar"
-msgstr "Ikusi nabigazio barra automatikoa"
+#: ../src/xfce4-notes-settings.c:137
+msgid "Notes path:"
+msgstr "Ohar bidea:"
 
-#: ../src/xfce4-notes-settings.c:138
+#: ../src/xfce4-notes-settings.c:147
 msgid "Tabs position:"
 msgstr "Fitxa kokalekua:"
 
-#: ../src/xfce4-notes-settings.c:148
+#: ../src/xfce4-notes-settings.c:157
 msgid "Background:"
 msgstr "Atzeko-planoa:"
 
-#: ../src/xfce4-notes-settings.c:161
+#: ../src/xfce4-notes-settings.c:170
 msgid "Font:"
 msgstr "Letra-tipoa"
 
-#: ../src/xfce4-notes-settings.c:171
+#: ../src/xfce4-notes-settings.c:180
 msgid "New group settings"
 msgstr "Leiho berri ezarpenak"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:183
+#: ../src/xfce4-notes-settings.c:192
 msgid "Sticky"
 msgstr "Finkatu"
 
-#: ../src/xfce4-notes-settings.c:193
+#: ../src/xfce4-notes-settings.c:202
 msgid "Size:"
 msgstr "Tamaina:"
 
-#: ../src/xfce4-notes-settings.c:211
+#: ../src/xfce4-notes-settings.c:270
 msgid "None"
 msgstr "Batez"
 
-#: ../src/xfce4-notes-settings.c:212
+#: ../src/xfce4-notes-settings.c:271
 msgid "Top"
 msgstr "Goian"
 
-#: ../src/xfce4-notes-settings.c:213
+#: ../src/xfce4-notes-settings.c:272
 msgid "Right"
 msgstr "Eskuinean"
 
-#: ../src/xfce4-notes-settings.c:214
+#: ../src/xfce4-notes-settings.c:273
 msgid "Bottom"
 msgstr "Behean"
 
-#: ../src/xfce4-notes-settings.c:215
+#: ../src/xfce4-notes-settings.c:274
 msgid "Left"
 msgstr "Ezkerrean"
 
-#: ../src/xfce4-notes-settings.c:231
+#: ../src/xfce4-notes-settings.c:290
 msgid "Small"
 msgstr "Txikia"
 
-#: ../src/xfce4-notes-settings.c:232
+#: ../src/xfce4-notes-settings.c:291
 msgid "Normal"
 msgstr "Normala"
 
-#: ../src/xfce4-notes-settings.c:233
+#: ../src/xfce4-notes-settings.c:292
 msgid "Large"
 msgstr "Handia"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/xfce4-notes-settings.c:350
 msgid "Yellow"
 msgstr "Horia"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/xfce4-notes-settings.c:351
 msgid "Blue"
 msgstr "Urdina"
 
-#: ../src/xfce4-notes-settings.c:293
+#: ../src/xfce4-notes-settings.c:352
 msgid "Green"
 msgstr "Berdea"
 
-#: ../src/xfce4-notes-settings.c:294
+#: ../src/xfce4-notes-settings.c:353
 msgid "Indigo"
 msgstr "Indigoa"
 
-#: ../src/xfce4-notes-settings.c:295
+#: ../src/xfce4-notes-settings.c:354
 msgid "Olive"
 msgstr "Oliba berdea"
 
-#: ../src/xfce4-notes-settings.c:296
+#: ../src/xfce4-notes-settings.c:355
 msgid "Carmine"
 msgstr "Karmina"
 
-#: ../src/xfce4-notes-settings.c:297
+#: ../src/xfce4-notes-settings.c:356
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/xfce4-notes-settings.c:298
+#: ../src/xfce4-notes-settings.c:357
 msgid "White"
 msgstr "Zuria"
 
-#: ../src/xfce4-notes-settings.c:299
+#: ../src/xfce4-notes-settings.c:358
+msgid "Android"
+msgstr "Android"
+
+#: ../src/xfce4-notes-settings.c:359
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
 msgstr "Pertsonalizatu..."
 
-#: ../src/xfce4-notes-settings.c:411
+#: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
 msgstr "Atzeko planoaren kolorea"
+
+#~ msgid "Show the automatic navigation bar"
+#~ msgstr "Ikusi nabigazio barra automatikoa"
