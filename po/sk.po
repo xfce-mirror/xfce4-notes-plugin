@@ -1,236 +1,288 @@
 # Slovak translation for xfce4-notes-plugin package.
 # Copyright (C) 2006 the xfce4-notes-plugin's copyright holder
 # This file is distributed under the same license as the xfce4-notes-plugin package.
-# 
+# Tomáš Vadina <kyberdev@gmail.com>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin 1.7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-09 17:03+0000\n"
-"PO-Revision-Date: 2010-03-08 10:32+0100\n"
-"Last-Translator: Robert Hartl <hartl.robert@gmail.com>\n"
+"POT-Creation-Date: 2011-06-03 10:03+0000\n"
+"PO-Revision-Date: 2011-06-03 12:16+0100\n"
+"Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:565
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1
+#: ../lib/application.vala:744
 msgid "Ideal for your quick notes"
 msgstr "Ideálny pre rýchle poznámky"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:137
-#: ../lib/application.vala:164 ../lib/application.vala:563
-#: ../lib/window.vala:84 ../lib/window.vala:159 ../lib/window.vala:884
-#: ../src/xfce4-notes-settings.c:95 ../src/main-panel-plugin-47.vala:46
-#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2
+#: ../lib/application.vala:184
+#: ../lib/application.vala:211
+#: ../lib/application.vala:742
+#: ../lib/window.vala:85
+#: ../lib/window.vala:176
+#: ../lib/window.vala:913
+#: ../src/xfce4-notes-settings.c:99
+#: ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45
+#: ../src/main-status-icon.vala:34
 #: ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../lib/application.vala:141 ../lib/window.vala:887
+#: ../lib/application.vala:119
+#: ../lib/application.vala:134
+#: ../src/xfce4-notes-settings.c:223
+#: ../src/xfce4-notes-settings.c:231
+msgid "Select notes path"
+msgstr "Vyberte cestu pre poznámky"
+
+#: ../lib/application.vala:120
+#, c-format
+msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
+msgstr "Vybraný adresár pre poznámky (%s) už obsahuje súbory. Je potrebné vybrať, alebo vytvoriť nový prázdny adresár."
+
+#: ../lib/application.vala:135
+#, c-format
+msgid "Unable to select directory for new notes path: %s"
+msgstr "Nie je možné vybrať adresár pre cestu k novým poznámkam: %s"
+
+#: ../lib/application.vala:188
+#: ../lib/window.vala:916
 #, c-format
 msgid "Notes %d"
 msgstr "Poznámky %d"
 
-#: ../lib/application.vala:365
+#: ../lib/application.vala:428
 msgid "Rename group"
 msgstr "Premenovať skupinu"
 
-#: ../lib/application.vala:386 ../lib/window.vala:1009
+#: ../lib/application.vala:449
+#: ../lib/window.vala:1038
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Názov %s sa už používa"
 
-#: ../lib/application.vala:412
+#: ../lib/application.vala:478
 msgid "Are you sure you want to delete this group?"
 msgstr "Naozaj chcete zmazať túto skupinu?"
 
-#: ../lib/application.vala:469
+#: ../lib/application.vala:522
+#, c-format
+msgid "The group \"%s\" has been modified on the disk"
+msgstr "Skupina \"%s\" bola na disku zmenená"
+
+#: ../lib/application.vala:525
+msgid "Do you want to reload the group?"
+msgstr "Naozaj chcete znovu načítať túto skupinu?"
+
+#: ../lib/application.vala:648
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Názov \"%s\" je neplatný."
 
-#: ../lib/application.vala:470
+#: ../lib/application.vala:649
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Neplatné znaky: %s"
 
-#: ../lib/application.vala:527
+#: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
 msgstr "Nedá sa otvoriť dialógové okno s nastavením"
 
-#: ../lib/application.vala:572
+#: ../lib/application.vala:751
 msgid "translator-credits"
-msgstr "Robert Hartl <hartl.robert@gmail.com>, 2010."
+msgstr ""
+"Robert Hartl <hartl.robert@gmail.com>, 2010.\n"
+"Tomáš Vadina <kyberdev@gmail.com>, 2011."
 
-#: ../lib/application.vala:607 ../lib/window.vala:751
+#: ../lib/application.vala:786
+#: ../lib/window.vala:780
 msgid "_Add a new group"
 msgstr "_Pridať novú skupinu"
 
-#: ../lib/window.vala:209
+#: ../lib/window.vala:226
 msgid "Menu"
 msgstr "Ponuka"
 
-#: ../lib/window.vala:246
+#: ../lib/window.vala:255
+msgid "Refresh notes"
+msgstr "Obnoviť poznámku"
+
+#: ../lib/window.vala:268
 #, c-format
 msgid "Hide (%s)"
 msgstr "Skryť (%s)"
 
-#: ../lib/window.vala:618 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+#: ../lib/window.vala:647
+#: ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49
+#: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Skupiny"
 
-#: ../lib/window.vala:641
+#: ../lib/window.vala:670
 msgid "_Rename"
 msgstr "_Premenovať"
 
 #. Always on top
-#: ../lib/window.vala:657 ../src/xfce4-notes-settings.c:171
+#: ../lib/window.vala:686
+#: ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Vždy navrchu"
 
-#: ../lib/window.vala:662
+#: ../lib/window.vala:691
 msgid "Sticky window"
 msgstr "Prilepené okno"
 
-#: ../lib/window.vala:737
+#: ../lib/window.vala:766
 msgid "_Rename group"
 msgstr "_Premenovať skupinu"
 
-#: ../lib/window.vala:744
+#: ../lib/window.vala:773
 msgid "_Delete group"
 msgstr "_Zmazať skupinu"
 
-#: ../lib/window.vala:962
+#: ../lib/window.vala:991
 msgid "Are you sure you want to delete this note?"
 msgstr "Naozaj chcete zmazať túto poznámku?"
 
-#: ../lib/window.vala:988
+#: ../lib/window.vala:1017
 msgid "Rename note"
 msgstr "Premenovať poznámku"
 
-#: ../src/xfce4-notes-settings.c:99
+#: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
 msgstr "Konfigurovať zásuvný modul"
 
-#: ../src/xfce4-notes-settings.c:118
+#: ../src/xfce4-notes-settings.c:122
 msgid "Global settings"
 msgstr "Globálne nastavenia"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:123
+#: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
 msgstr "Skryť poznámky z panelu úloh"
 
-#: ../src/xfce4-notes-settings.c:133
+#: ../src/xfce4-notes-settings.c:137
+msgid "Notes path:"
+msgstr "Cesta k poznámkam:"
+
+#: ../src/xfce4-notes-settings.c:147
 msgid "Tabs position:"
 msgstr "Umiestnenie kariet:"
 
-#: ../src/xfce4-notes-settings.c:143
+#: ../src/xfce4-notes-settings.c:157
 msgid "Background:"
 msgstr "Pozadie:"
 
-#: ../src/xfce4-notes-settings.c:156
+#: ../src/xfce4-notes-settings.c:170
 msgid "Font:"
 msgstr "Písmo:"
 
-#: ../src/xfce4-notes-settings.c:166
+#: ../src/xfce4-notes-settings.c:180
 msgid "New group settings"
 msgstr "Nastavenia novej skupiny:"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:178
+#: ../src/xfce4-notes-settings.c:192
 msgid "Sticky"
 msgstr "Prilepené"
 
-#: ../src/xfce4-notes-settings.c:188
+#: ../src/xfce4-notes-settings.c:202
 msgid "Size:"
 msgstr "Veľkosť:"
 
-#: ../src/xfce4-notes-settings.c:206
+#: ../src/xfce4-notes-settings.c:270
 msgid "None"
 msgstr "Žiadne"
 
-#: ../src/xfce4-notes-settings.c:207
+#: ../src/xfce4-notes-settings.c:271
 msgid "Top"
 msgstr "Hore"
 
-#: ../src/xfce4-notes-settings.c:208
+#: ../src/xfce4-notes-settings.c:272
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../src/xfce4-notes-settings.c:209
+#: ../src/xfce4-notes-settings.c:273
 msgid "Bottom"
 msgstr "Dole"
 
-#: ../src/xfce4-notes-settings.c:210
+#: ../src/xfce4-notes-settings.c:274
 msgid "Left"
 msgstr "Vľavo"
 
-#: ../src/xfce4-notes-settings.c:226
+#: ../src/xfce4-notes-settings.c:290
 msgid "Small"
 msgstr "Malé"
 
-#: ../src/xfce4-notes-settings.c:227
+#: ../src/xfce4-notes-settings.c:291
 msgid "Normal"
 msgstr "Bežné"
 
-#: ../src/xfce4-notes-settings.c:228
+#: ../src/xfce4-notes-settings.c:292
 msgid "Large"
 msgstr "Veľké"
 
-#: ../src/xfce4-notes-settings.c:286
+#: ../src/xfce4-notes-settings.c:350
 msgid "Yellow"
 msgstr "Žlté"
 
-#: ../src/xfce4-notes-settings.c:287
+#: ../src/xfce4-notes-settings.c:351
 msgid "Blue"
 msgstr "Modré"
 
-#: ../src/xfce4-notes-settings.c:288
+#: ../src/xfce4-notes-settings.c:352
 msgid "Green"
 msgstr "Zelené"
 
-#: ../src/xfce4-notes-settings.c:289
+#: ../src/xfce4-notes-settings.c:353
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/xfce4-notes-settings.c:290
+#: ../src/xfce4-notes-settings.c:354
 msgid "Olive"
 msgstr "Olivové"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/xfce4-notes-settings.c:355
 msgid "Carmine"
 msgstr "Karmínové"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/xfce4-notes-settings.c:356
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/xfce4-notes-settings.c:293
+#: ../src/xfce4-notes-settings.c:357
 msgid "White"
 msgstr "Biele"
 
-#: ../src/xfce4-notes-settings.c:294
+#: ../src/xfce4-notes-settings.c:358
 msgid "Android"
 msgstr "Android"
 
-#: ../src/xfce4-notes-settings.c:295
+#: ../src/xfce4-notes-settings.c:359
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/xfce4-notes-settings.c:296
+#: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
 msgstr "Vlastné..."
 
-#: ../src/xfce4-notes-settings.c:426
+#: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
 msgstr "Farba pozadia"
 
