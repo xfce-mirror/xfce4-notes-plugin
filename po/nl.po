@@ -9,13 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-27 16:02+0000\n"
-"PO-Revision-Date: 2010-03-26 22:32+0100\n"
+"POT-Creation-Date: 2011-06-16 10:03+0000\n"
+"PO-Revision-Date: 2011-06-15 22:32+0200\n"
 "Last-Translator: Pjotr\n"
-"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"Language-Team: Dutch (Flemish)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl (Dutch)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
@@ -48,8 +49,8 @@ msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr ""
-"De gekozen map (%s) voor de nieuwe notities bevat al bestanden. "
-"U dient een lege map te kiezen of te maken."
+"De gekozen map (%s) voor de nieuwe notities bevat al bestanden. U dient een "
+"lege map te kiezen of te maken."
 
 #: ../lib/application.vala:135
 #, c-format
@@ -99,7 +100,8 @@ msgstr "Kan de instellingendialoog niet openen"
 
 #: ../lib/application.vala:751
 msgid "translator-credits"
-msgstr "Vincent Tunru"
+msgstr "Vincent Tunru\n"
+"Pjotr"
 
 #: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
