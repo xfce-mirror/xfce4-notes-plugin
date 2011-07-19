@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-14 17:03+0000\n"
+"POT-Creation-Date: 2011-07-19 16:04+0000\n"
 "PO-Revision-Date: 2010-03-26 19:15+0100\n"
 "Last-Translator: Javier Sánchez <donoban@gmail.com>\n"
 "Language-Team: Spanish <xfce-i18n@xfce.org>\n"
@@ -38,17 +38,17 @@ msgstr "Notas"
 #: ../lib/application.vala:119 ../lib/application.vala:134
 #: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
 msgid "Select notes path"
-msgstr ""
+msgstr "Seleccione la ruta de las notas"
 
 #: ../lib/application.vala:120
 #, c-format
 msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
-msgstr ""
+msgstr "El directorio seleccionado (%s) para la nueva ruta de notas contiene archivos. Debe seleccionar o crear un directorio vacio."
 
 #: ../lib/application.vala:135
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr ""
+msgstr "Imposible seleccionar la ruta del directorio para nuevas notas: %s"
 
 #: ../lib/application.vala:188 ../lib/window.vala:916
 #, c-format
