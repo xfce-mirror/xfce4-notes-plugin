@@ -52,7 +52,7 @@ msgstr "新選擇的資料夾 (%s) 已經有檔案存在。您必須選擇其他
 #: ../lib/application.vala:135
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "無法使用新選擇的筆記路徑: %s"
+msgstr "無法使用新選擇的筆記路徑：%s"
 
 #: ../lib/application.vala:188 ../lib/window.vala:916
 #, c-format
@@ -89,7 +89,7 @@ msgstr "無效的名稱「%s」。"
 #: ../lib/application.vala:649
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr "無效的字元： %s"
+msgstr "無效的字元：%s"
 
 #: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
@@ -101,7 +101,7 @@ msgstr "翻譯人員名單"
 
 #: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
-msgstr "新增群組 (_A)"
+msgstr "新增群組(_A)"
 
 #: ../lib/window.vala:226
 msgid "Menu"
@@ -114,16 +114,16 @@ msgstr "重新載入筆記"
 #: ../lib/window.vala:268
 #, c-format
 msgid "Hide (%s)"
-msgstr "隱藏 (%s)"
+msgstr "隱藏(%s)"
 
 #: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
-msgstr "群組 (_G)"
+msgstr "群組(_G)"
 
 #: ../lib/window.vala:670
 msgid "_Rename"
-msgstr "重新命名 (_R)"
+msgstr "重新命名(_R)"
 
 #. Always on top
 #: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
@@ -132,15 +132,15 @@ msgstr "置於最上層"
 
 #: ../lib/window.vala:691
 msgid "Sticky window"
-msgstr "附黏模式"
+msgstr "附黏視窗"
 
 #: ../lib/window.vala:766
 msgid "_Rename group"
-msgstr "重新命名群組 (_R)"
+msgstr "重新命名群組(_R)"
 
 #: ../lib/window.vala:773
 msgid "_Delete group"
-msgstr "刪除群組 (_D)"
+msgstr "刪除群組(_D)"
 
 #: ../lib/window.vala:991
 msgid "Are you sure you want to delete this note?"
@@ -258,15 +258,15 @@ msgstr "白色"
 
 #: ../src/xfce4-notes-settings.c:358
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../src/xfce4-notes-settings.c:359
 msgid "GTK+"
-msgstr ""
+msgstr "GTK+"
 
 #: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
-msgstr "自訂..."
+msgstr "自訂…"
 
 #: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
