@@ -40,7 +40,7 @@ msgstr "Notas"
 #: ../lib/application.vala:119 ../lib/application.vala:134
 #: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
 msgid "Select notes path"
-msgstr ""
+msgstr "Selecione o caminho das notas"
 
 #: ../lib/application.vala:120
 #, c-format
