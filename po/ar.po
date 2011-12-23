@@ -1,219 +1,268 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 21:24+0100\n"
+"POT-Creation-Date: 2011-12-23 18:30+0000\n"
 "PO-Revision-Date: 2008-07-15 22:05+0200\n"
 "Last-Translator: Mohamed Magdy <mohamedmk@gmail.com>\n"
 "Language-Team: Arabeyes <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Language: Arabic\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:544
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:744
 msgid "Ideal for your quick notes"
-msgstr ""
+msgstr "مثالي لملاحظاتك السريعة"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:112
-#: ../lib/application.vala:542 ../lib/window.vala:82 ../lib/window.vala:169
-#: ../lib/window.vala:964 ../src/xfce4-notes-settings.c:93
-#: ../src/main-panel-plugin-47.vala:46 ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
+#: ../lib/application.vala:211 ../lib/application.vala:742
+#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:115
 msgid "Notes"
-msgstr ""
+msgstr "ملاجظات"
 
-#: ../lib/application.vala:116 ../lib/window.vala:967
+#: ../lib/application.vala:119 ../lib/application.vala:134
+#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+msgid "Select notes path"
+msgstr "حدد مسار الملاحظات"
+
+#: ../lib/application.vala:120
+#, c-format
+msgid ""
+"The selected directory (%s) for the new notes path already contains files. "
+"You must select or create an empty directory."
+msgstr "الدليل المحدد (%s) للمسار الملحوظات الجديدة يحتوي على ملفات أصلا. يجب إنشاء أو تحديد دليل فارغ."
+
+#: ../lib/application.vala:135
+#, c-format
+msgid "Unable to select directory for new notes path: %s"
+msgstr "غير قادر على تحديد الدليل لمسار الملحوظات الجديد: %s"
+
+#: ../lib/application.vala:188 ../lib/window.vala:916
 #, c-format
 msgid "Notes %d"
-msgstr ""
+msgstr "ملاحظات %d"
 
-#: ../lib/application.vala:344
+#: ../lib/application.vala:428
 msgid "Rename group"
-msgstr ""
+msgstr "إعادة تسمية المجموعة"
 
-#: ../lib/application.vala:365 ../lib/window.vala:1088
+#: ../lib/application.vala:449 ../lib/window.vala:1038
 #, c-format
 msgid "The name %s is already in use"
-msgstr ""
+msgstr "الإسم %s يستعمل حاليا"
 
-#: ../lib/application.vala:391
+#: ../lib/application.vala:478
 msgid "Are you sure you want to delete this group?"
-msgstr ""
+msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
 
-#: ../lib/application.vala:448
+#: ../lib/application.vala:522
+#, c-format
+msgid "The group \"%s\" has been modified on the disk"
+msgstr "المجموعة \"%s\" تم تحريرها في القرص"
+
+#: ../lib/application.vala:525
+msgid "Do you want to reload the group?"
+msgstr "هل تريد إعادة تحميل المجموعة؟"
+
+#: ../lib/application.vala:648
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr ""
+msgstr "الإسم \"%s\" غير صالح."
 
-#: ../lib/application.vala:449
+#: ../lib/application.vala:649
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr ""
+msgstr "الرموز الغير سليم هي:%s"
 
-#: ../lib/application.vala:506
+#: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
-msgstr ""
+msgstr "غير قادر على فتح حوار الإعدادات"
 
-#: ../lib/application.vala:551
+#: ../lib/application.vala:751
 msgid "translator-credits"
-msgstr ""
+msgstr "كريم أولاد الشلحة <herr.linux88@gmail.com>"
 
-#: ../lib/application.vala:586 ../lib/window.vala:831
+#: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
-msgstr ""
+msgstr "أ_ضف مجموعة جديدة"
 
-#: ../lib/window.vala:699 ../src/main-panel-plugin-47.vala:50
+#: ../lib/window.vala:226
+msgid "Menu"
+msgstr "قائمة"
+
+#: ../lib/window.vala:255
+msgid "Refresh notes"
+msgstr "إنعاش الملحوظات"
+
+#: ../lib/window.vala:268
+#, c-format
+msgid "Hide (%s)"
+msgstr "إخفاء (%s)"
+
+#: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
 #: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
-msgstr ""
+msgstr "_مجموعات"
 
-#: ../lib/window.vala:722
+#: ../lib/window.vala:670
 msgid "_Rename"
-msgstr ""
+msgstr "_إعادة تسمية"
 
 #. Always on top
-#: ../lib/window.vala:738 ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
-msgstr ""
+msgstr "دائما في الأعلى"
 
-#: ../lib/window.vala:743
+#: ../lib/window.vala:691
 msgid "Sticky window"
-msgstr ""
+msgstr "نافذة لزجة"
 
-#: ../lib/window.vala:817
+#: ../lib/window.vala:766
 msgid "_Rename group"
-msgstr ""
+msgstr "_إعادة تسمية المجموعة"
 
-#: ../lib/window.vala:824
+#: ../lib/window.vala:773
 msgid "_Delete group"
-msgstr ""
+msgstr "_حذف المجموعة"
 
-#: ../lib/window.vala:1041
+#: ../lib/window.vala:991
 msgid "Are you sure you want to delete this note?"
-msgstr ""
+msgstr "هل انت متأكد من أنك تريد حذف هذه الملحوظة؟"
 
-#: ../lib/window.vala:1067
+#: ../lib/window.vala:1017
 msgid "Rename note"
-msgstr ""
+msgstr "تسمية الملحوظة"
 
-#: ../src/xfce4-notes-settings.c:97
+#: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
-msgstr ""
+msgstr "إعداد الملحق"
 
-#: ../src/xfce4-notes-settings.c:116
+#: ../src/xfce4-notes-settings.c:122
 msgid "Global settings"
-msgstr ""
+msgstr "إعدادات عالمية"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:121
+#: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
-msgstr ""
+msgstr "إخفاء الملاحظات من شريط المهام"
 
-#. Show navigation bar
-#: ../src/xfce4-notes-settings.c:128
-msgid "Show the automatic navigation bar"
-msgstr ""
+#: ../src/xfce4-notes-settings.c:137
+msgid "Notes path:"
+msgstr "مسار الملاحظات:"
 
-#: ../src/xfce4-notes-settings.c:138
+#: ../src/xfce4-notes-settings.c:147
 msgid "Tabs position:"
-msgstr ""
+msgstr "موقع التبويب:"
 
-#: ../src/xfce4-notes-settings.c:148
+#: ../src/xfce4-notes-settings.c:157
 msgid "Background:"
-msgstr ""
+msgstr "الخلفية:"
 
-#: ../src/xfce4-notes-settings.c:161
+#: ../src/xfce4-notes-settings.c:170
 msgid "Font:"
-msgstr ""
+msgstr "خظ:"
 
-#: ../src/xfce4-notes-settings.c:171
+#: ../src/xfce4-notes-settings.c:180
 msgid "New group settings"
-msgstr ""
+msgstr "إعدادات مجموعة جديدة"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:183
+#: ../src/xfce4-notes-settings.c:192
 msgid "Sticky"
-msgstr ""
+msgstr "لزج"
 
-#: ../src/xfce4-notes-settings.c:193
+#: ../src/xfce4-notes-settings.c:202
 msgid "Size:"
-msgstr ""
+msgstr "حجم:"
 
-#: ../src/xfce4-notes-settings.c:211
+#: ../src/xfce4-notes-settings.c:270
 msgid "None"
-msgstr ""
+msgstr "بدون"
 
-#: ../src/xfce4-notes-settings.c:212
+#: ../src/xfce4-notes-settings.c:271
 msgid "Top"
-msgstr ""
+msgstr "أعلى"
 
-#: ../src/xfce4-notes-settings.c:213
+#: ../src/xfce4-notes-settings.c:272
 msgid "Right"
-msgstr ""
+msgstr "يمين"
 
-#: ../src/xfce4-notes-settings.c:214
+#: ../src/xfce4-notes-settings.c:273
 msgid "Bottom"
-msgstr ""
+msgstr "أسفل"
 
-#: ../src/xfce4-notes-settings.c:215
+#: ../src/xfce4-notes-settings.c:274
 msgid "Left"
-msgstr ""
+msgstr "يسار"
 
-#: ../src/xfce4-notes-settings.c:231
+#: ../src/xfce4-notes-settings.c:290
 msgid "Small"
-msgstr ""
-
-#: ../src/xfce4-notes-settings.c:232
-msgid "Normal"
-msgstr ""
-
-#: ../src/xfce4-notes-settings.c:233
-msgid "Large"
-msgstr ""
+msgstr "صغير"
 
 #: ../src/xfce4-notes-settings.c:291
-msgid "Yellow"
-msgstr ""
+msgid "Normal"
+msgstr "عادي"
 
 #: ../src/xfce4-notes-settings.c:292
+msgid "Large"
+msgstr "كبير"
+
+#: ../src/xfce4-notes-settings.c:350
+msgid "Yellow"
+msgstr "أصفر"
+
+#: ../src/xfce4-notes-settings.c:351
 msgid "Blue"
-msgstr ""
+msgstr "أزرق"
 
-#: ../src/xfce4-notes-settings.c:293
+#: ../src/xfce4-notes-settings.c:352
 msgid "Green"
-msgstr ""
+msgstr "أخضر"
 
-#: ../src/xfce4-notes-settings.c:294
+#: ../src/xfce4-notes-settings.c:353
 msgid "Indigo"
-msgstr ""
+msgstr "لون ليني"
 
-#: ../src/xfce4-notes-settings.c:295
+#: ../src/xfce4-notes-settings.c:354
 msgid "Olive"
-msgstr ""
+msgstr "زيتوني"
 
-#: ../src/xfce4-notes-settings.c:296
+#: ../src/xfce4-notes-settings.c:355
 msgid "Carmine"
-msgstr ""
+msgstr "قرمزي"
 
-#: ../src/xfce4-notes-settings.c:297
+#: ../src/xfce4-notes-settings.c:356
 msgid "Mimosa"
-msgstr ""
+msgstr "ميموزا"
 
-#: ../src/xfce4-notes-settings.c:298
+#: ../src/xfce4-notes-settings.c:357
 msgid "White"
-msgstr ""
+msgstr "أبيض"
 
-#: ../src/xfce4-notes-settings.c:299
+#: ../src/xfce4-notes-settings.c:358
+msgid "Android"
+msgstr "أندرويد"
+
+#: ../src/xfce4-notes-settings.c:359
+msgid "GTK+"
+msgstr "جتك+"
+
+#: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
-msgstr ""
+msgstr "مخصص..."
 
-#: ../src/xfce4-notes-settings.c:411
+#: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
-msgstr ""
+msgstr "لون الخلفية"
