@@ -2,13 +2,13 @@
 # Copyright (C) 2006 THE xfce4-notes-plugin'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce4-notes-plugin package.
 # Nuno Miguel <nunis@netcabo.pt>, 2007, 2008, 2009.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-30 11:03+0000\n"
-"PO-Revision-Date: 2010-03-16 11:10-0000\n"
+"PO-Revision-Date: 2012-01-09 15:35-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,50 +18,61 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:741
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1
+#: ../lib/application.vala:741
 msgid "Ideal for your quick notes"
 msgstr "Ideal para as suas notas rápidas"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:739
-#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
-#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
-#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2
+#: ../lib/application.vala:184
+#: ../lib/application.vala:211
+#: ../lib/application.vala:739
+#: ../lib/window.vala:85
+#: ../lib/window.vala:176
+#: ../lib/window.vala:913
+#: ../src/xfce4-notes-settings.c:99
+#: ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45
+#: ../src/main-status-icon.vala:34
 #: ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Notas"
 
-#: ../lib/application.vala:119 ../lib/application.vala:134
-#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+#: ../lib/application.vala:119
+#: ../lib/application.vala:134
+#: ../src/xfce4-notes-settings.c:223
+#: ../src/xfce4-notes-settings.c:231
 msgid "Select notes path"
-msgstr "Seleccione o caminho das notas"
+msgstr "Selecione o caminho das notas"
 
 #: ../lib/application.vala:120
 #, c-format
 msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
-msgstr "O directório escolhido (%s) para as notas já possui ficheiros. tem que escolher ou criar um directório vazio."
+msgstr "O diretório escolhido oara as notas (%s), já possui ficheiros. Tem que escolher ou criar um diretório vazio."
 
 #: ../lib/application.vala:135
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "Não foi possível seleccionar o directório das novas notas: %s"
+msgstr "Incapaz de selecionar o diretório das notas: %s"
 
-#: ../lib/application.vala:188 ../lib/window.vala:916
+#: ../lib/application.vala:188
+#: ../lib/window.vala:916
 #, c-format
 msgid "Notes %d"
 msgstr "Notas %d"
 
 #: ../lib/application.vala:428
 msgid "Rename group"
-msgstr "Renomear grupo"
+msgstr "Mudar nome do grupo"
 
-#: ../lib/application.vala:449 ../lib/window.vala:1038
+#: ../lib/application.vala:449
+#: ../lib/window.vala:1038
 #, c-format
 msgid "The name %s is already in use"
-msgstr "O nome %s já é utilizado"
+msgstr "O nome %s já é utilizado."
 
 #: ../lib/application.vala:478
 msgid "Are you sure you want to delete this group?"
@@ -70,11 +81,11 @@ msgstr "Tem a certeza que quer apagar este grupo?"
 #: ../lib/application.vala:522
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "O grupo \"%s\" foi modificado no disco"
+msgstr "O grupo \"%s\" foi modificado no disco."
 
 #: ../lib/application.vala:525
 msgid "Do you want to reload the group?"
-msgstr "Tem a certeza que quer actualizar o grupo?"
+msgstr "Tem a certeza que quer recarregar o grupo?"
 
 #: ../lib/application.vala:645
 #, c-format
@@ -94,7 +105,8 @@ msgstr "Incapaz de abrir a janela de definições"
 msgid "translator-credits"
 msgstr "Nuno Miguel<nunis@netcabo.pt>"
 
-#: ../lib/application.vala:783 ../lib/window.vala:780
+#: ../lib/application.vala:783
+#: ../lib/window.vala:780
 msgid "_Add a new group"
 msgstr "_Adicionar um novo grupo"
 
@@ -104,24 +116,27 @@ msgstr "Menu"
 
 #: ../lib/window.vala:255
 msgid "Refresh notes"
-msgstr "Actualizar notas"
+msgstr "Atualizar notas"
 
 #: ../lib/window.vala:268
 #, c-format
 msgid "Hide (%s)"
 msgstr "Ocultar (%s)"
 
-#: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+#: ../lib/window.vala:647
+#: ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49
+#: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Grupos"
 
 #: ../lib/window.vala:670
 msgid "_Rename"
-msgstr "_Renomear"
+msgstr "Muda_r nome"
 
 #. Always on top
-#: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
+#: ../lib/window.vala:686
+#: ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Sempre no topo"
 
@@ -131,7 +146,7 @@ msgstr "Janela presa"
 
 #: ../lib/window.vala:766
 msgid "_Rename group"
-msgstr "_Renomear grupo"
+msgstr "Muda_r nome do grupo"
 
 #: ../lib/window.vala:773
 msgid "_Delete group"
@@ -143,7 +158,7 @@ msgstr "Tem a certeza que quer apagar esta nota?"
 
 #: ../lib/window.vala:1017
 msgid "Rename note"
-msgstr "Renomear nota"
+msgstr "Mudar nome da nota"
 
 #: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
@@ -267,77 +282,3 @@ msgstr "Personalizar..."
 msgid "Background Color"
 msgstr "Cor de fundo"
 
-#~ msgid "Show the automatic navigation bar"
-#~ msgstr "Mostrar a barra de navegação automática"
-
-#~ msgid "Show tabs in the notes"
-#~ msgstr "Mostrar separadores nas notas"
-
-#~ msgid "Red"
-#~ msgstr "Vermelho"
-
-#~ msgid "Purple"
-#~ msgstr "Púrpura"
-
-#~ msgid "Choose current note font"
-#~ msgstr "Escolher Fonte de Janela"
-
-#~ msgid "Are you sure you want to delete this window?"
-#~ msgstr "Tem a certeza que quer apagar esta janela?"
-
-#~ msgid "Window"
-#~ msgstr "Janela"
-
-#~ msgid "_Options"
-#~ msgstr "_Opções"
-
-#~ msgid "R_ename..."
-#~ msgstr "R_enomear..."
-
-#~ msgid "Show tabs"
-#~ msgstr "Mostrar separadores"
-
-#~ msgid "Show on startup"
-#~ msgstr "Mostrar no arranque"
-
-#~ msgid "Always"
-#~ msgstr "Sempre"
-
-#~ msgid "Never"
-#~ msgstr "Nunca"
-
-#~ msgid "Last state"
-#~ msgstr "Último estado"
-
-#~ msgid "Rename window"
-#~ msgstr "Renomear janela"
-
-#~ msgid "Error"
-#~ msgstr "Erro"
-
-#~ msgid "Unable to rename window"
-#~ msgstr "Incapaz de renomear janela"
-
-#~ msgid "Unable to rename note"
-#~ msgstr "Incapaz de renomear nota"
-
-#~ msgid "Hide arrow button"
-#~ msgstr "Ocultar botão seta"
-
-#~ msgid "Notes plugin for the Xfce4 desktop"
-#~ msgstr "Plugin de notas para o Xfce4 desktop"
-
-#~ msgid "Resize grip"
-#~ msgstr "Redimensionar grelha"
-
-#~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Xfce 4 Notes Plugin"
-
-#~ msgid "Create new note"
-#~ msgstr "Criar nova nota"
-
-#~ msgid "Delete this note"
-#~ msgstr "Apagar esta nota"
-
-#~ msgid "<b>Notes</b>"
-#~ msgstr "<b>Notas</b>"
