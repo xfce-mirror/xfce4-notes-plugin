@@ -4,15 +4,15 @@
 # the xfce4-notes-plugin package.
 # Hunt Xu <huntxu@live.cn>, 2009, 2010.
 # Dig <Dig.Ge.CN@gmail.com>, 2009.
-# Chipong Luo <chipong_l@yahoo.com>, 2011.
+# Chipong Luo <chipong.luo@yahoo.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-09 04:01+0000\n"
+"POT-Creation-Date: 2012-02-08 12:09+0000\n"
 "PO-Revision-Date: 2010-11-27 20:48+0800\n"
-"Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
+"Last-Translator: Chipong Luo <chipong.luo@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -49,12 +49,13 @@ msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr ""
-"以新便笺路径选择的目录(%s)中已包含文件。您必须选择或新建一个空目录。"
+"为新便笺路径选择的目录(%s)中已包含文件。"
+"您必须选择或新建一个空目录。"
 
 #: ../lib/application.vala:135
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "不能以新便笺路径选择目录：%s"
+msgstr "未能为新便笺路径选择目录：%s"
 
 #: ../lib/application.vala:188 ../lib/window.vala:916
 #, c-format
@@ -77,7 +78,7 @@ msgstr "您确定要删除此群组吗？"
 #: ../lib/application.vala:522
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "磁盘上的群组 “%s” 已经修改"
+msgstr "已经在磁盘上修改了群组 “%s”"
 
 #: ../lib/application.vala:525
 msgid "Do you want to reload the group?"
@@ -95,14 +96,14 @@ msgstr "无效的字符是：%s"
 
 #: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
-msgstr "不能打开设置对话框"
+msgstr "未能打开设置对话框"
 
 #: ../lib/application.vala:751
 msgid "translator-credits"
 msgstr ""
 "Hunt Xu <huntxu@live.cn>, 2009, 2010.\n"
 "Dig <Dig.Ge.CN@gmail.com>, 2009.\n"
-"Chipong Luo <chipong_l@yahoo.com>, 2011."
+"Chipong Luo <chipong.luo@yahoo.com>, 2011, 2012."
 
 #: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
