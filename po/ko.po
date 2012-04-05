@@ -92,7 +92,7 @@ msgstr "정말로 이 그룹을 삭제하시렵니까?"
 #: ../lib/application.vala:522
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "\"%s\" 그룹이 디스크에서 수정되었습니다"
+msgstr "\"%s\" 그룹을 디스크에서 수정했습니다"
 
 #: ../lib/application.vala:525
 msgid "Do you want to reload the group?"
