@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-09 11:04+0000\n"
+"POT-Creation-Date: 2012-04-19 08:21+0000\n"
 "PO-Revision-Date: 2010-12-11 22:52+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-i18n@xfce.org>\n"
@@ -20,9 +20,9 @@ msgstr ""
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:741
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:744
 msgid "Ideal for your quick notes"
-msgstr "ちょっとしたメモに最適です"
+msgstr "ちょっとしたメモに最適な付箋紙プラグインです"
 
 # Label for Add panel-items dialog, tip help of notes icon on panel, default
 # group name and default note name.
@@ -30,7 +30,7 @@ msgstr "ちょっとしたメモに最適です"
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.in.h:2
 #: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:739
+#: ../lib/application.vala:211 ../lib/application.vala:742
 #: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
 #: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
 #: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
@@ -45,8 +45,12 @@ msgstr "Notes パスを選択してください"
 
 #: ../lib/application.vala:120
 #, c-format
-msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
-msgstr "選択された新しい Notes パス用ディレクトリ (%s) にはすでにファイルが存在します。空のディレクトリを選択あるいは作成してください。"
+msgid ""
+"The selected directory (%s) for the new notes path already contains files. "
+"You must select or create an empty directory."
+msgstr ""
+"選択された新しい Notes パス用ディレクトリ (%s) にはすでにファイルが存在しま"
+"す。空のディレクトリを選択あるいは作成してください。"
 
 #: ../lib/application.vala:135
 #, c-format
@@ -80,27 +84,27 @@ msgstr "グループ \"%s\" はディスク上で変更されています"
 msgid "Do you want to reload the group?"
 msgstr "このグループを再読込みしますか?"
 
-#: ../lib/application.vala:645
+#: ../lib/application.vala:648
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "\"%s\" は不正な名前です。"
 
-#: ../lib/application.vala:646
+#: ../lib/application.vala:649
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "不正な文字です: %s"
 
-#: ../lib/application.vala:703
+#: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
 msgstr "設定ダイアログを表示できません"
 
-#: ../lib/application.vala:748
+#: ../lib/application.vala:751
 msgid "translator-credits"
 msgstr ""
 "Nobuhiro Iwamatsu\n"
 "Masato Hashimoto"
 
-#: ../lib/application.vala:783 ../lib/window.vala:780
+#: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
 msgstr "新しいグループの追加(_A)"
 
