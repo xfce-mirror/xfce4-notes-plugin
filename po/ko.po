@@ -182,7 +182,7 @@ msgstr "전체 설정"
 #. Hide from taskbar
 #: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
-msgstr "작업 표시줄에서 노트 숨기기"
+msgstr "작업표시줄에서 노트 숨기기"
 
 #: ../src/xfce4-notes-settings.c:137
 msgid "Notes path:"
