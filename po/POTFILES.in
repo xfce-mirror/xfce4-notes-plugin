@@ -1,7 +1,6 @@
 src/xfce4-notes.desktop.in
 src/xfce4-notes-autostart.desktop.in
-src/xfce4-notes-plugin.desktop.in.in
-src/xfce4-notes-plugin-47.desktop.in
+src/xfce4-notes-plugin.desktop.in
 lib/color.c
 lib/popup.c
 lib/application.vala
@@ -10,7 +9,6 @@ lib/note.vala
 lib/hypertextview.vala
 src/xfce4-popup-notes.c
 src/xfce4-notes-settings.c
-src/main-panel-plugin-47.vala
 src/main-panel-plugin.vala
 src/xfce-autostart.c
 src/main-status-icon.vala

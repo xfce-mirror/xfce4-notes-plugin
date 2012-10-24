@@ -2,7 +2,5 @@ lib/application.c
 lib/window.c
 lib/note.c
 lib/hypertextview.c
-src/main-panel-plugin-47.c
 src/main-panel-plugin.c
 src/main-status-icon.c
-src/xfce4-notes-plugin.desktop.in
