@@ -620,6 +620,7 @@ namespace Xnp {
 			window.get_geometry (out winx, out winy, out width, out height, out depth);
 			window.get_origin (out x, out y);
 			menu.size_request (out requisition);
+			push_in = false;
 
 			if (y + content_box.allocation.y + requisition.height > Gdk.Screen.height ()) {
 				/* Show menu above */

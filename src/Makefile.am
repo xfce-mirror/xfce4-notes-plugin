@@ -36,7 +36,7 @@ xfce4_notes_settings_SOURCES =						\
 xfce4_notes_settings_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
-	@LIBXFCEGUI4_CFLAGS@						\
+	@LIBXFCE4UI_CFLAGS@						\
 	@XFCONF_CFLAGS@							\
 	@UNIQUE_CFLAGS@
 
@@ -44,7 +44,7 @@ xfce4_notes_settings_LDADD =						\
 	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
-	@LIBXFCEGUI4_LIBS@						\
+	@LIBXFCE4UI_LIBS@						\
 	@XFCONF_LIBS@							\
 	@UNIQUE_LIBS@
 
@@ -63,20 +63,16 @@ notes_VALAFLAGS =							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
 
-BUILT_SOURCES = main-panel-plugin.c main-panel-plugin-47.c
+BUILT_SOURCES = main-panel-plugin.c
 main-panel-plugin.c: main-panel-plugin.vala
-	$(AM_V_GEN) $(VALAC) --vapidir=$(top_srcdir)/data/vapi/xfce46 $(notes_VALAFLAGS) $< -C
-main-panel-plugin-47.c: main-panel-plugin-47.vala
 	$(AM_V_GEN) $(VALAC) --vapidir=$(top_srcdir)/data/vapi/xfce47 $(notes_VALAFLAGS) $< -C
 endif
-
-if HAVE_LIBXFCE4PANEL47
 
 plugindir = $(libdir)/xfce4/panel-plugins
 plugin_LTLIBRARIES = libnotes.la
 
 libnotes_la_SOURCES =							\
-	main-panel-plugin-47.c
+	main-panel-plugin.c
 
 libnotes_la_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
@@ -90,29 +86,6 @@ libnotes_la_LIBADD =							\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
-
-else
-
-plugindir = $(libexecdir)/xfce4/panel-plugins
-plugin_PROGRAMS = xfce4-notes-plugin
-
-xfce4_notes_plugin_SOURCES =						\
-	main-panel-plugin.c
-
-xfce4_notes_plugin_CFLAGS =						\
-	@LIBX11_CFLAGS@							\
-	@LIBXFCE4PANEL_CFLAGS@						\
-	@LIBXFCE4UTIL_CFLAGS@						\
-	@XFCONF_CFLAGS@
-
-xfce4_notes_plugin_LDADD =						\
-	$(top_builddir)/lib/libnotes.la					\
-	@LIBX11_LIBS@							\
-	@LIBXFCE4PANEL_LIBS@						\
-	@LIBXFCE4UTIL_LIBS@						\
-	@XFCONF_LIBS@
-
-endif
 
 #
 # Status icon
@@ -164,21 +137,9 @@ xfce4_notes_LDADD =							\
 #
 
 desktopdir = $(datadir)/xfce4/panel-plugins
-desktop_in_in_files =							\
-	xfce4-notes-plugin-47.desktop.in				\
-	xfce4-notes-plugin.desktop.in.in
 desktop_in_files = xfce4-notes-plugin.desktop.in
-if HAVE_LIBXFCE4PANEL47
-desktop_DATA = xfce4-notes-plugin-47.desktop
-install-data-hook:
-	mv $(desktopdir)/xfce4-notes-plugin-47.desktop $(desktopdir)/xfce4-notes-plugin.desktop
-else
 desktop_DATA = xfce4-notes-plugin.desktop
-endif
 @INTLTOOL_DESKTOP_RULE@
-
-xfce4-notes-plugin.desktop.in: xfce4-notes-plugin.desktop.in.in
-	$(AM_V_GEN) sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(plugindir)^" $< > $@
 
 #
 # Applications desktop file
@@ -186,7 +147,7 @@ xfce4-notes-plugin.desktop.in: xfce4-notes-plugin.desktop.in.in
 
 applicationsdir = $(datadir)/applications
 applications_in_files = xfce4-notes.desktop.in
-applications_DATA = $(applications_in_files:.desktop.in=.desktop)
+applications_DATA = xfce4-notes.desktop
 @INTLTOOL_DESKTOP_RULE@
 
 #
@@ -195,7 +156,7 @@ applications_DATA = $(applications_in_files:.desktop.in=.desktop)
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = xfce4-notes-autostart.desktop.in
-autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
+autostart_DATA = xfce4-notes-autostart.desktop
 @INTLTOOL_DESKTOP_RULE@
 
 #
@@ -203,16 +164,14 @@ autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 #
 
 EXTRA_DIST =								\
-	main-panel-plugin-47.vala					\
 	main-panel-plugin.vala						\
 	main-status-icon.vala						\
-	$(desktop_in_in_files)						\
+	$(desktop_in_files)						\
 	$(applications_in_files)					\
 	$(autostart_in_files)
 
 DISTCLEANFILES =							\
 	$(desktop_DATA)							\
-	$(desktop_in_files)						\
 	$(applications_DATA)						\
 	$(autostart_DATA)
 

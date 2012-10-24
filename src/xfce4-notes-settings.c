@@ -25,7 +25,7 @@
 #include <xfconf/xfconf.h>
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
-#include <libxfcegui4/libxfcegui4.h>
+#include <libxfce4ui/libxfce4ui.h>
 
 #include "defines.h"
 #include "color.h"
@@ -119,7 +119,7 @@ prop_dialog_new (void)
 
   /* === Global settings === */
   box = gtk_vbox_new (FALSE, BORDER);
-  frame = xfce_create_framebox_with_content (_("Global settings"), box);
+  frame = xfce_gtk_frame_box_new_with_content (_("Global settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
 
@@ -177,7 +177,7 @@ prop_dialog_new (void)
 
   /* === New window settings === */
   box = gtk_vbox_new (FALSE, BORDER);
-  frame = xfce_create_framebox_with_content (_("New group settings"), box);
+  frame = xfce_gtk_frame_box_new_with_content (_("New group settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
 

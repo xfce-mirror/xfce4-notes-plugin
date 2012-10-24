@@ -21,61 +21,52 @@ using Config;
 using Xfce;
 using Gtk;
 
-public class NotesPlugin : GLib.Object {
+public class NotesPlugin : Xfce.PanelPlugin {
 
 	private Gtk.Invisible invisible;
 	private Gtk.Button button;
-	private Gtk.Image image;
-	private weak Xfce.PanelPlugin panel_plugin;
+	private Xfce.PanelImage image;
 	private Xnp.Application application;
 
-	public NotesPlugin (Xfce.PanelPlugin panel_plugin) {
-		this.panel_plugin = panel_plugin;
+	public NotesPlugin () {
+		GLib.Object ();
+	}
 
+	public override void @construct () {
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-		application = new Xnp.Application (panel_plugin.save_location (true));
+		application = new Xnp.Application (save_location (true));
 
-		button = Xfce.create_panel_button ();
-		image = new Gtk.Image ();
+		button = Xfce.panel_create_button ();
+		image = new Xfce.PanelImage.from_source ("xfce4-notes-plugin");
 		button.add (image);
 		button.clicked.connect (() => { application.show_hide_notes (); });
 		button.show_all ();
-		panel_plugin.add (button);
-		panel_plugin.add_action_widget (button);
-		panel_plugin.set_tooltip_text (_("Notes"));
-		panel_plugin.menu_show_configure ();
-		panel_plugin.menu_show_about ();
+		add (button);
+		add_action_widget (button);
+		set_tooltip_text (_("Notes"));
+		menu_show_configure ();
+		menu_show_about ();
 
 		var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
 		var menu = application.context_menu ();
 		mi.set_submenu (menu);
 		mi.show_all ();
-		panel_plugin.menu_insert_item (mi);
+		menu_insert_item (mi);
 
 		set_x_selection ();
 
-		panel_plugin.size_changed.connect ((p, size) => {
+		size_changed.connect ((p, size) => {
 			button.set_size_request (size, size);
-			size -= 2 + 2 * ((button.style.xthickness > button.style.ythickness) ? button.style.xthickness : button.style.ythickness);
-			var pixbuf = Xfce.Icon.load ("xfce4-notes-plugin", size);
-			if (pixbuf == null)
-				pixbuf = Xfce.Icon.load (Gtk.STOCK_EDIT, size);
-			image.set_from_pixbuf (pixbuf);
 			return true;
 		});
-		panel_plugin.save.connect (() => {
-			application.save_windows_configuration ();
-		});
-		panel_plugin.free_data.connect (() => {
+		save.connect (() => { application.save_windows_configuration (); });
+		free_data.connect (() => {
 			application.save_windows_configuration ();
 			application.save_notes ();
 		});
-		panel_plugin.configure_plugin.connect (() => {
-			application.open_settings_dialog ();
-		});
-		panel_plugin.about.connect (() => {
-			application.open_about_dialog ();
-		});
+		configure_plugin.connect (() => { application.open_settings_dialog (); });
+		about.connect (() => { application.open_about_dialog (); });
+		destroy.connect (() => { Gtk.main_quit (); });
 	}
 
 	/**
@@ -100,11 +91,8 @@ public class NotesPlugin : GLib.Object {
 
 }
 
-static NotesPlugin plugin;
-public static void panel_plugin_register (Xfce.PanelPlugin panel_plugin) {
-	plugin = new NotesPlugin (panel_plugin);
-}
-public static int main (string[] args) {
-	return Xfce.PanelPluginRegisterExternal (ref args, panel_plugin_register);
+[ModuleInit]
+public Type xfce_panel_module_init (TypeModule module) {
+	return typeof (NotesPlugin);
 }
 

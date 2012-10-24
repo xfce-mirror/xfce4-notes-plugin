@@ -19,21 +19,17 @@ AC_INIT([Notes], [xfce4_notes_plugin_version], [http://bugzilla.xfce.org/], [xfc
 AC_REVISION([xfce4_notes_plugin_version_build])
 AC_CANONICAL_TARGET()
 
+LT_PREREQ([2.2.6])
+LT_INIT([disable-static])
+
 AM_INIT_AUTOMAKE([1.11 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
 
-dnl Avoid g77 and g++ checks
-m4_undefine([AC_PROG_CXX])
-m4_defun([AC_PROG_CXX],[])
-m4_undefine([AC_PROG_F77])
-m4_defun([AC_PROG_F77],[])
-
 dnl Check for basic programs
 AM_PROG_CC_C_O()
 AC_PROG_LD()
-AC_PROG_LIBTOOL()
 AC_PROG_INSTALL()
 AC_PROG_INTLTOOL()
 
@@ -46,33 +42,22 @@ AC_SUBST([MATH_LIBS], [" -lm"])
 
 dnl Check for required packages
 XDT_CHECK_LIBX11_REQUIRE()
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.16.0])
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.16.0])
-XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.14.0])
-XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.4.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
-XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
-XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.6.0])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.24.0])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.24.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.20.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.10.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.10.0])
+XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.10.0])
+XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
 XDT_CHECK_PACKAGE([UNIQUE], [unique-1.0], [1.0.0])
-
-dnl Check for libxfce4panel >= 4.7
-XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4PANEL47], [libxfce4panel-1.0], [4.7.0], [], [])
 
 dnl Check for valac
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	AM_PROG_VALAC([0.10.0])
+	AM_PROG_VALAC([0.16.0])
 	if test "x$VALAC" = "x" ; then
 		AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
 	fi
-	if test "x$LIBXFCE4PANEL47_FOUND" = "xyes" ; then
-		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.7])
-	else
-		XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.6])
-		PKG_CHECK_EXISTS([xfce4-vala >= 4.7],
-				AC_ERROR([
-	*** Build configured for Xfce Panel 4.6 but  ***
-	*** Xfce Vala bindings for 4.7 are installed ***]), [])
-	fi
+	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.10])
 fi
 
 dnl Translations
