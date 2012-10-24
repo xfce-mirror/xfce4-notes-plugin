@@ -1,38 +1,36 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-06 11:02+0000\n"
+"POT-Creation-Date: 2012-10-24 17:16+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Dima Smirnov <arch@cnc-parts.info>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: n%10==1 && n%100!=11 ?0: n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)?1:2\n"
+"Plural-Forms: n%10==1 && n%100!=11 ?0: n%10>=2 && n%10<=4 && (n%100<10 || n"
+"%100>=20)?1:2\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:744
-msgid "Ideal for your quick notes"
-msgstr "Средство создания текстовых заметок"
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:184
+#: ../lib/application.vala:211 ../lib/application.vala:742
+#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:914
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin.vala:46
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+msgid "Notes"
+msgstr "Заметки"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:742
-#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
-#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
-#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
-#: ../src/main-status-icon.vala:115
-msgid "Notes"
-msgstr "Заметки"
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:744
+msgid "Ideal for your quick notes"
+msgstr "Средство создания текстовых заметок"
 
 #: ../lib/application.vala:119 ../lib/application.vala:134
 #: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
@@ -53,7 +51,7 @@ msgstr ""
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Не удалось выбрать каталог для новых заметок: %s"
 
-#: ../lib/application.vala:188 ../lib/window.vala:916
+#: ../lib/application.vala:188 ../lib/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Заметки %d"
@@ -62,7 +60,7 @@ msgstr "Заметки %d"
 msgid "Rename group"
 msgstr "Переименование группы"
 
-#: ../lib/application.vala:449 ../lib/window.vala:1038
+#: ../lib/application.vala:449 ../lib/window.vala:1039
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Название «%s» уже используется"
@@ -98,7 +96,7 @@ msgstr "Не удалось открыть окно настроек"
 msgid "translator-credits"
 msgstr "Переводчики"
 
-#: ../lib/application.vala:786 ../lib/window.vala:780
+#: ../lib/application.vala:786 ../lib/window.vala:781
 msgid "_Add a new group"
 msgstr "Со_здать группу"
 
@@ -115,37 +113,37 @@ msgstr "Обновить заметки"
 msgid "Hide (%s)"
 msgstr "Спрятать (%s)"
 
-#: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+#: ../lib/window.vala:648 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Группы"
 
-#: ../lib/window.vala:670
+#: ../lib/window.vala:671
 msgid "_Rename"
 msgstr "Пере_именовать"
 
 #. Always on top
-#: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
+#: ../lib/window.vala:687 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Поверх всех окон"
 
-#: ../lib/window.vala:691
+#: ../lib/window.vala:692
 msgid "Sticky window"
 msgstr "Поверх рабочих столов"
 
-#: ../lib/window.vala:766
+#: ../lib/window.vala:767
 msgid "_Rename group"
 msgstr "Пере_именовать группу"
 
-#: ../lib/window.vala:773
+#: ../lib/window.vala:774
 msgid "_Delete group"
 msgstr "_Удалить группу"
 
-#: ../lib/window.vala:991
+#: ../lib/window.vala:992
 msgid "Are you sure you want to delete this note?"
 msgstr "Вы действительно хотите удалить эту заметку?"
 
-#: ../lib/window.vala:1017
+#: ../lib/window.vala:1018
 msgid "Rename note"
 msgstr "Переименование"
 

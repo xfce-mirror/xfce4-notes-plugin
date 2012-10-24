@@ -8,244 +8,274 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-25 18:07+0100\n"
+"POT-Creation-Date: 2012-10-24 17:16+0200\n"
 "PO-Revision-Date: 2010-03-25 21:32+0100\n"
 "Last-Translator: Rihards Priedītis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1
-#: ../lib/application.vala:559
-msgid "Ideal for your quick notes"
-msgstr "Ideāls ātrām piezīmēm"
-
-#: ../src/xfce4-notes.desktop.in.h:2
-#: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2
-#: ../lib/application.vala:127
-#: ../lib/application.vala:557
-#: ../lib/window.vala:83
-#: ../lib/window.vala:170
-#: ../lib/window.vala:968
-#: ../src/xfce4-notes-settings.c:93
-#: ../src/main-panel-plugin-47.vala:46
-#: ../src/main-panel-plugin.vala:45
-#: ../src/main-status-icon.vala:34
-#: ../src/main-status-icon.vala:115
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:184
+#: ../lib/application.vala:211 ../lib/application.vala:742
+#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:914
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin.vala:46
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
 msgid "Notes"
 msgstr "Piezīmes"
 
-#: ../lib/application.vala:131
-#: ../lib/window.vala:971
+#: ../src/xfce4-notes.desktop.in.h:2
+#: ../src/xfce4-notes-autostart.desktop.in.h:2
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:744
+msgid "Ideal for your quick notes"
+msgstr "Ideāls ātrām piezīmēm"
+
+#: ../lib/application.vala:119 ../lib/application.vala:134
+#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+msgid "Select notes path"
+msgstr ""
+
+#: ../lib/application.vala:120
+#, c-format
+msgid ""
+"The selected directory (%s) for the new notes path already contains files. "
+"You must select or create an empty directory."
+msgstr ""
+
+#: ../lib/application.vala:135
+#, c-format
+msgid "Unable to select directory for new notes path: %s"
+msgstr ""
+
+#: ../lib/application.vala:188 ../lib/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Piezīmes %d"
 
-#: ../lib/application.vala:359
+#: ../lib/application.vala:428
 msgid "Rename group"
 msgstr "Pārdēvēt grupu"
 
-#: ../lib/application.vala:380
-#: ../lib/window.vala:1092
+#: ../lib/application.vala:449 ../lib/window.vala:1039
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Nosaukums %s jau tiek lietots"
 
-#: ../lib/application.vala:406
+#: ../lib/application.vala:478
 msgid "Are you sure you want to delete this group?"
 msgstr "Esat drošs, ka vēlaties dzēst šo grupu?"
 
-#: ../lib/application.vala:463
+#: ../lib/application.vala:522
+#, c-format
+msgid "The group \"%s\" has been modified on the disk"
+msgstr ""
+
+#: ../lib/application.vala:525
+#, fuzzy
+msgid "Do you want to reload the group?"
+msgstr "Esat drošs, ka vēlaties dzēst šo grupu?"
+
+#: ../lib/application.vala:648
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Nosaukums \"%s\" ir nederīgs."
 
-#: ../lib/application.vala:464
+#: ../lib/application.vala:649
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Nederīgās rakstzīmes ir: %s"
 
-#: ../lib/application.vala:521
+#: ../lib/application.vala:706
 msgid "Unable to open the settings dialog"
 msgstr "Nevarēja atvērt uzstādījumu dialogu"
 
-#: ../lib/application.vala:566
+#: ../lib/application.vala:751
 msgid "translator-credits"
 msgstr "Rihards Priedītis"
 
-#: ../lib/application.vala:601
-#: ../lib/window.vala:835
+#: ../lib/application.vala:786 ../lib/window.vala:781
 msgid "_Add a new group"
 msgstr "_Pievienot jaunu grupu"
 
-#: ../lib/window.vala:221
+#: ../lib/window.vala:226
 msgid "Menu"
 msgstr "Izvēlne"
 
-#: ../lib/window.vala:243
+#: ../lib/window.vala:255
+#, fuzzy
+msgid "Refresh notes"
+msgstr "Pārdēvēt piezīmi"
+
+#: ../lib/window.vala:268
 #, c-format
 msgid "Hide (%s)"
 msgstr "Slēpt (%s)"
 
-#: ../lib/window.vala:703
-#: ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49
+#: ../lib/window.vala:648 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Grupas"
 
-#: ../lib/window.vala:726
+#: ../lib/window.vala:671
 msgid "_Rename"
 msgstr "_Pārdēvēt"
 
 #. Always on top
-#: ../lib/window.vala:742
-#: ../src/xfce4-notes-settings.c:176
+#: ../lib/window.vala:687 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Vienmēr priekšā"
 
-#: ../lib/window.vala:747
+#: ../lib/window.vala:692
 msgid "Sticky window"
 msgstr "Lipīgs logs"
 
-#: ../lib/window.vala:821
+#: ../lib/window.vala:767
 msgid "_Rename group"
 msgstr "_Pārdēvēt grupu"
 
-#: ../lib/window.vala:828
+#: ../lib/window.vala:774
 msgid "_Delete group"
 msgstr "_Dzēst grupu"
 
-#: ../lib/window.vala:1045
+#: ../lib/window.vala:992
 msgid "Are you sure you want to delete this note?"
 msgstr "Esat drošs, ka vēlaties dzēst šo piezīmi?"
 
-#: ../lib/window.vala:1071
+#: ../lib/window.vala:1018
 msgid "Rename note"
 msgstr "Pārdēvēt piezīmi"
 
-#: ../src/xfce4-notes-settings.c:97
+#: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
 msgstr "Konfigurēt spraudni"
 
-#: ../src/xfce4-notes-settings.c:116
+#: ../src/xfce4-notes-settings.c:122
 msgid "Global settings"
 msgstr "Globālie uzstādījumi"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:121
+#: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
 msgstr "Slēpt piezīmes no uzdevumu joslas"
 
-#. Show navigation bar
-#: ../src/xfce4-notes-settings.c:128
-msgid "Show the automatic navigation bar"
-msgstr "Rādīt automātisko navigācijas joslu"
+#: ../src/xfce4-notes-settings.c:137
+#, fuzzy
+msgid "Notes path:"
+msgstr "Piezīmes %d"
 
-#: ../src/xfce4-notes-settings.c:138
+#: ../src/xfce4-notes-settings.c:147
 msgid "Tabs position:"
 msgstr "Ciļņu pozīcija:"
 
-#: ../src/xfce4-notes-settings.c:148
+#: ../src/xfce4-notes-settings.c:157
 msgid "Background:"
 msgstr "Fons:"
 
-#: ../src/xfce4-notes-settings.c:161
+#: ../src/xfce4-notes-settings.c:170
 msgid "Font:"
 msgstr "Fonts:"
 
-#: ../src/xfce4-notes-settings.c:171
+#: ../src/xfce4-notes-settings.c:180
 msgid "New group settings"
 msgstr "Jaunas grupas uzstādījumi"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:183
+#: ../src/xfce4-notes-settings.c:192
 msgid "Sticky"
 msgstr "Lipīgs"
 
-#: ../src/xfce4-notes-settings.c:193
+#: ../src/xfce4-notes-settings.c:202
 msgid "Size:"
 msgstr "Izmērs:"
 
-#: ../src/xfce4-notes-settings.c:211
+#: ../src/xfce4-notes-settings.c:270
 msgid "None"
 msgstr "Nekas"
 
-#: ../src/xfce4-notes-settings.c:212
+#: ../src/xfce4-notes-settings.c:271
 msgid "Top"
 msgstr "Augša"
 
-#: ../src/xfce4-notes-settings.c:213
+#: ../src/xfce4-notes-settings.c:272
 msgid "Right"
 msgstr "Pa labi"
 
-#: ../src/xfce4-notes-settings.c:214
+#: ../src/xfce4-notes-settings.c:273
 msgid "Bottom"
 msgstr "Apakša"
 
-#: ../src/xfce4-notes-settings.c:215
+#: ../src/xfce4-notes-settings.c:274
 msgid "Left"
 msgstr "Pa kreisi"
 
-#: ../src/xfce4-notes-settings.c:231
+#: ../src/xfce4-notes-settings.c:290
 msgid "Small"
 msgstr "Mazs"
 
-#: ../src/xfce4-notes-settings.c:232
+#: ../src/xfce4-notes-settings.c:291
 msgid "Normal"
 msgstr "Parasts"
 
-#: ../src/xfce4-notes-settings.c:233
+#: ../src/xfce4-notes-settings.c:292
 msgid "Large"
 msgstr "Liels"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/xfce4-notes-settings.c:350
 msgid "Yellow"
 msgstr "Dzeltens"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/xfce4-notes-settings.c:351
 msgid "Blue"
 msgstr "Zils"
 
-#: ../src/xfce4-notes-settings.c:293
+#: ../src/xfce4-notes-settings.c:352
 msgid "Green"
 msgstr "Zaļš"
 
-#: ../src/xfce4-notes-settings.c:294
+#: ../src/xfce4-notes-settings.c:353
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/xfce4-notes-settings.c:295
+#: ../src/xfce4-notes-settings.c:354
 msgid "Olive"
 msgstr "Olīvzaļš"
 
-#: ../src/xfce4-notes-settings.c:296
+#: ../src/xfce4-notes-settings.c:355
 msgid "Carmine"
 msgstr "Karmīna"
 
-#: ../src/xfce4-notes-settings.c:297
+#: ../src/xfce4-notes-settings.c:356
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/xfce4-notes-settings.c:298
+#: ../src/xfce4-notes-settings.c:357
 msgid "White"
 msgstr "Balts"
 
-#: ../src/xfce4-notes-settings.c:299
+#: ../src/xfce4-notes-settings.c:358
+msgid "Android"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:359
+msgid "GTK+"
+msgstr ""
+
+#: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
 msgstr "Pielāgots..."
 
-#: ../src/xfce4-notes-settings.c:411
+#: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
 msgstr "Fona krāsa"
+
+#~ msgid "Show the automatic navigation bar"
+#~ msgstr "Rādīt automātisko navigācijas joslu"
 
 #~ msgid "Show tabs in the notes"
 #~ msgstr "Rādīt cilnes piezīmēs"
@@ -253,32 +283,43 @@ msgstr "Fona krāsa"
 #, fuzzy
 #~ msgid "Choose current note font"
 #~ msgstr "Izēlaties Loga Fontu"
+
 #~ msgid "Are you sure you want to delete this window?"
 #~ msgstr "Esat drošs, ka vēlaties dzēst šo logu?"
+
 #~ msgid "Window"
 #~ msgstr "Logs"
+
 #~ msgid "_Options"
 #~ msgstr "_Uzstādījumi"
+
 #~ msgid "R_ename..."
 #~ msgstr "Pār_dēvēt..."
 
 #, fuzzy
 #~ msgid "Show tabs"
 #~ msgstr "Rādīt statusajoslu"
+
 #~ msgid "Show on startup"
 #~ msgstr "Rādit pie sāknēšanas"
+
 #~ msgid "Always"
 #~ msgstr "Vienmēr"
+
 #~ msgid "Never"
 #~ msgstr "Nekad"
+
 #~ msgid "Last state"
 #~ msgstr "Pēdējo stāvokli"
+
 #~ msgid "Rename window"
 #~ msgstr "Pārdēvēt logu"
+
 #~ msgid "Error"
 #~ msgstr "Kļūda"
+
 #~ msgid "Unable to rename note"
 #~ msgstr "Nevarēju pārdēvēt piezīmi"
+
 #~ msgid "Notes plugin for the Xfce4 desktop"
 #~ msgstr "Piezīmju spraudnis Xfce4 darbavirsmai"
-

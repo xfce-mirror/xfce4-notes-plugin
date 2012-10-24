@@ -3,37 +3,35 @@
 # This file is distributed under the same license as the xfce4-notes-plugin package.
 # Roberto <roberdmd@gmail.com>,
 # Abel Martín <abel.martin.ruiz@gmail.com>, 2008
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 16:04+0000\n"
+"POT-Creation-Date: 2012-10-24 17:16+0200\n"
 "PO-Revision-Date: 2010-03-26 19:15+0100\n"
 "Last-Translator: Javier Sánchez <donoban@gmail.com>\n"
 "Language-Team: Spanish <xfce-i18n@xfce.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.in.h:1
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:744
-msgid "Ideal for your quick notes"
-msgstr "Ideal para sus notas rápidas"
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:184
+#: ../lib/application.vala:211 ../lib/application.vala:742
+#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:914
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin.vala:46
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+msgid "Notes"
+msgstr "Notas"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.in.h:2
-#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:742
-#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
-#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
-#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
-#: ../src/main-status-icon.vala:115
-msgid "Notes"
-msgstr "Notas"
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:744
+msgid "Ideal for your quick notes"
+msgstr "Ideal para sus notas rápidas"
 
 #: ../lib/application.vala:119 ../lib/application.vala:134
 #: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
@@ -42,15 +40,19 @@ msgstr "Seleccione la ruta de las notas"
 
 #: ../lib/application.vala:120
 #, c-format
-msgid "The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."
-msgstr "El directorio seleccionado (%s) para la nueva ruta de notas contiene archivos. Debe seleccionar o crear un directorio vacio."
+msgid ""
+"The selected directory (%s) for the new notes path already contains files. "
+"You must select or create an empty directory."
+msgstr ""
+"El directorio seleccionado (%s) para la nueva ruta de notas contiene "
+"archivos. Debe seleccionar o crear un directorio vacio."
 
 #: ../lib/application.vala:135
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Imposible seleccionar la ruta del directorio para nuevas notas: %s"
 
-#: ../lib/application.vala:188 ../lib/window.vala:916
+#: ../lib/application.vala:188 ../lib/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Notas %d"
@@ -59,7 +61,7 @@ msgstr "Notas %d"
 msgid "Rename group"
 msgstr "Renombrar grupo"
 
-#: ../lib/application.vala:449 ../lib/window.vala:1038
+#: ../lib/application.vala:449 ../lib/window.vala:1039
 #, c-format
 msgid "The name %s is already in use"
 msgstr "El nombre %s ya está en uso"
@@ -95,7 +97,7 @@ msgstr "No se puede abrir el diálogo de configuración"
 msgid "translator-credits"
 msgstr "Elega <elega@elega.com.ar>"
 
-#: ../lib/application.vala:786 ../lib/window.vala:780
+#: ../lib/application.vala:786 ../lib/window.vala:781
 msgid "_Add a new group"
 msgstr "_Añadir un nuevo grupo"
 
@@ -112,37 +114,37 @@ msgstr "Actualizar notas"
 msgid "Hide (%s)"
 msgstr "Ocultar (%s)"
 
-#: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
-#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
+#: ../lib/window.vala:648 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Grupos"
 
-#: ../lib/window.vala:670
+#: ../lib/window.vala:671
 msgid "_Rename"
 msgstr "_Renombrar"
 
 #. Always on top
-#: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
+#: ../lib/window.vala:687 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "Siempre encima"
 
-#: ../lib/window.vala:691
+#: ../lib/window.vala:692
 msgid "Sticky window"
 msgstr "Ventana adhesiva"
 
-#: ../lib/window.vala:766
+#: ../lib/window.vala:767
 msgid "_Rename group"
 msgstr "_Renombrar grupo"
 
-#: ../lib/window.vala:773
+#: ../lib/window.vala:774
 msgid "_Delete group"
 msgstr "_Eliminar grupo"
 
-#: ../lib/window.vala:991
+#: ../lib/window.vala:992
 msgid "Are you sure you want to delete this note?"
 msgstr "¿Está seguro de querer borrar ésta nota?"
 
-#: ../lib/window.vala:1017
+#: ../lib/window.vala:1018
 msgid "Rename note"
 msgstr "Renombrar nota"
 
