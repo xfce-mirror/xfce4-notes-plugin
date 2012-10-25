@@ -1,37 +1,39 @@
-# Uyghur translations for xfce4-notes-plugin package.
-# This file is distributed under the same license as the xfce4-notes-plugin package.
-# Gheyret T.Kenji <gheyret@gmail.com>, 2010.
+# Uyghur translation for xfce4-notes-plugin.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gheyret Kenji <gheyret@gmail.com>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notes-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-24 17:16+0200\n"
-"PO-Revision-Date: 2009-12-02 22:56+0900\n"
-"Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
+"POT-Creation-Date: 2012-10-24 03:27+0000\n"
+"PO-Revision-Date: 2011-11-09 16:10+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# Label for Add panel-items dialog, tip help of notes icon on panel, default
-# group name and default note name.
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:742
-#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:914
-#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin.vala:46
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
-msgid "Notes"
-msgstr "ئىزاھ"
+#: ../src/xfce4-notes-plugin.desktop.in.in.h:1
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:1 ../lib/application.vala:744
+msgid "Ideal for your quick notes"
+msgstr "كىچىككىنە ئىزاھ ئۈچۈن بەكمۇ قۇلاي"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:744
-msgid "Ideal for your quick notes"
-msgstr "كىچىككىنە ئىزاھ ئۈچۈن بەكمۇ قۇلاي"
+#: ../src/xfce4-notes-plugin.desktop.in.in.h:2
+#: ../src/xfce4-notes-plugin-47.desktop.in.h:2 ../lib/application.vala:184
+#: ../lib/application.vala:211 ../lib/application.vala:742
+#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:913
+#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin-47.vala:46
+#: ../src/main-panel-plugin.vala:45 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:115
+msgid "Notes"
+msgstr "ئىزاھ"
 
 #: ../lib/application.vala:119 ../lib/application.vala:134
 #: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
@@ -43,16 +45,14 @@ msgstr "نوتېس (Notes) نىڭ يولىنى كۆرسىتىڭ"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr ""
-"تاللانغان يېڭى نوتېس (Notes) مۇندەرىجىسىدە ھۆججەتلەر بار ئىكەن. قۇرۇق "
-"مۇندەرىجىنى كۆرسىتىپ بېرىڭ ياكى يېڭىدىن ياساڭ."
+msgstr "تاللانغان يېڭى نوتېس (Notes) مۇندەرىجىسى(%s) نىڭدا ھۆججەتلەر بار ئىكەن. قۇرۇق مۇندەرىجىنى كۆرسىتىپ بېرىڭ ياكى يېڭىدىن ياساڭ."
 
 #: ../lib/application.vala:135
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "يېڭى نوتېس (Notes) يولى ئۈچۈن مۇندەرىجە تاللىغىلى بولمىدى."
+msgstr "يېڭى نوتېس (Notes) يولى ئۈچۈن مۇندەرىجە تاللىغىلى بولمىدى: %s"
 
-#: ../lib/application.vala:188 ../lib/window.vala:917
+#: ../lib/application.vala:188 ../lib/window.vala:916
 #, c-format
 msgid "Notes %d"
 msgstr "ئىزاھلار %d"
@@ -61,7 +61,7 @@ msgstr "ئىزاھلار %d"
 msgid "Rename group"
 msgstr "گۇرۇپپا ئاتىنى ئۆزگەرت"
 
-#: ../lib/application.vala:449 ../lib/window.vala:1039
+#: ../lib/application.vala:449 ../lib/window.vala:1038
 #, c-format
 msgid "The name %s is already in use"
 msgstr "%s دېگەن ئات ئىشلىتىلىۋېتىپتۇ"
@@ -95,9 +95,9 @@ msgstr "تەڭشەك كۆزنىكىنى كۆرسەتكىلى بولمىدى"
 
 #: ../lib/application.vala:751
 msgid "translator-credits"
-msgstr "Gheyret T.Kenji <gheyret@gmail.com> 2010"
+msgstr "غەيرەت ت.كەنجى <gheyret@gmail.com>"
 
-#: ../lib/application.vala:786 ../lib/window.vala:781
+#: ../lib/application.vala:786 ../lib/window.vala:780
 msgid "_Add a new group"
 msgstr "يېڭى گۇرۇپپا قوش(_A)"
 
@@ -114,37 +114,37 @@ msgstr "ئىزاھنى يېڭىلا"
 msgid "Hide (%s)"
 msgstr "يوشۇر(%s)"
 
-#: ../lib/window.vala:648 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:53
+#: ../lib/window.vala:647 ../src/main-panel-plugin-47.vala:50
+#: ../src/main-panel-plugin.vala:49 ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "گۇرۇپپىلار(_G)"
 
-#: ../lib/window.vala:671
+#: ../lib/window.vala:670
 msgid "_Rename"
 msgstr "ئاتىنى ئۆزگەرت(_R)"
 
 #. Always on top
-#: ../lib/window.vala:687 ../src/xfce4-notes-settings.c:185
+#: ../lib/window.vala:686 ../src/xfce4-notes-settings.c:185
 msgid "Always on top"
 msgstr "ئىزچىل ئەڭ ئۈستىدە"
 
-#: ../lib/window.vala:692
+#: ../lib/window.vala:691
 msgid "Sticky window"
 msgstr "چاپلاشقاق كۆزنەك"
 
-#: ../lib/window.vala:767
+#: ../lib/window.vala:766
 msgid "_Rename group"
 msgstr "گۇرۇپپا ئاتىنى ئۆزگەرت(_R)"
 
-#: ../lib/window.vala:774
+#: ../lib/window.vala:773
 msgid "_Delete group"
 msgstr "گۇرۇپپا ئۆچۈر(_D)"
 
-#: ../lib/window.vala:992
+#: ../lib/window.vala:991
 msgid "Are you sure you want to delete this note?"
 msgstr "راستلا بۇ ئىزاھنى ئۆچۈرەمسىز؟"
 
-#: ../lib/window.vala:1018
+#: ../lib/window.vala:1017
 msgid "Rename note"
 msgstr "ئىزاھ ئاتىنى ئۆزگەرتىش"
 
@@ -156,7 +156,6 @@ msgstr "قىستۇرما سەپلەش"
 msgid "Global settings"
 msgstr "ئومۇمىي تەڭشەك"
 
-# Exact name is 'task list', not 'task bar'.
 #. Hide from taskbar
 #: ../src/xfce4-notes-settings.c:127
 msgid "Hide notes from taskbar"
@@ -265,11 +264,8 @@ msgstr "گ ت ك +(GTK+)"
 
 #: ../src/xfce4-notes-settings.c:360
 msgid "Custom..."
-msgstr "ئىختىيارىي.."
+msgstr "ئىختىيارىي…"
 
 #: ../src/xfce4-notes-settings.c:490
 msgid "Background Color"
 msgstr "تەگلىك رەڭگى"
-
-#~ msgid "Show the automatic navigation bar"
-#~ msgstr "ئاپتوماتىك يولچى بالدىقىنى كۆرسەتسۇن"
