@@ -9,6 +9,9 @@ INCLUDES =								\
 # Popup program
 #
 
+if ENABLE_GTK3
+bin_PROGRAMS = 
+else
 bin_PROGRAMS = xfce4-popup-notes
 
 xfce4_popup_notes_SOURCES =						\
@@ -22,11 +25,13 @@ xfce4_popup_notes_CFLAGS =						\
 xfce4_popup_notes_LDADD =						\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@
+endif
 
 #
 # Settings dialog
 #
 
+if !ENABLE_GTK3
 bin_PROGRAMS += xfce4-notes-settings
 
 xfce4_notes_settings_SOURCES =						\
@@ -47,6 +52,7 @@ xfce4_notes_settings_LDADD =						\
 	@LIBXFCE4UI_LIBS@						\
 	@XFCONF_LIBS@							\
 	@UNIQUE_LIBS@
+endif
 
 #
 # Panel plugin
@@ -57,11 +63,19 @@ notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
 	--pkg=libnotes							\
 	--pkg=config							\
-	--pkg=popup							\
-	--pkg=gtk+-2.0							\
 	--pkg=libxfce4panel-1.0						\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
+
+if ENABLE_GTK3
+notes_VALAFLAGS +=							\
+	-D ENABLE_GTK3							\
+	--pkg=gtk+-3.0
+else
+notes_VALAFLAGS +=							\
+	--pkg=popup							\
+	--pkg=gtk+-2.0
+endif
 
 BUILT_SOURCES = main-panel-plugin.c
 main-panel-plugin.c: main-panel-plugin.vala
@@ -93,20 +107,28 @@ libnotes_la_LIBADD =							\
 
 bin_PROGRAMS += xfce4-notes
 
+if MAINTAINER_MODE
 xfce4_notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
 	--vapidir=$(top_srcdir)/data/vapi/gtk214			\
 	--pkg=libnotes							\
 	--pkg=config							\
-	--pkg=popup							\
 	--vapidir=.							\
 	--pkg=xfce-autostart						\
-	--pkg=unique-1.0						\
-	--pkg=gtk+-2.0							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
 
-if MAINTAINER_MODE
+if ENABLE_GTK3
+xfce4_notes_VALAFLAGS +=						\
+	-D ENABLE_GTK3							\
+	--pkg=gtk+-3.0
+else
+xfce4_notes_VALAFLAGS +=						\
+	--pkg=popup							\
+	--pkg=unique-1.0						\
+	--pkg=gtk+-2.0
+endif
+
 BUILT_SOURCES += main-status-icon.c
 main-status-icon.c: main-status-icon.vala
 	$(AM_V_GEN) $(VALAC) $(xfce4_notes_VALAFLAGS) $< -C
@@ -169,6 +191,11 @@ EXTRA_DIST =								\
 	$(desktop_in_files)						\
 	$(applications_in_files)					\
 	$(autostart_in_files)
+
+if ENABLE_GTK3
+EXTRA_DIST +=								\
+	xfce4-popup-notes.c
+endif
 
 DISTCLEANFILES =							\
 	$(desktop_DATA)							\

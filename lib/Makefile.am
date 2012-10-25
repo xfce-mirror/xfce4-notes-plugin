@@ -7,9 +7,17 @@ libnotes_la_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/data/vapi/gtk214			\
 	--pkg=config							\
 	--pkg=color							\
-	--pkg=gtk+-2.0							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
+
+if ENABLE_GTK3
+libnotes_la_VALAFLAGS +=						\
+	-D ENABLE_GTK3							\
+	--pkg=gtk+-3.0
+else
+libnotes_la_VALAFLAGS +=						\
+	--pkg=gtk+-2.0
+endif
 
 libnotes_la_SOURCES =							\
 	icon-button.vala						\
@@ -18,8 +26,12 @@ libnotes_la_SOURCES =							\
 	hypertextview.vala						\
 	note.vala							\
 	window.vala							\
-	color.c								\
+	color.c
+
+if !ENABLE_GTK3
+libnotes_la_SOURCES +=							\
 	popup.c
+endif
 
 libnotes_la_CFLAGS =							\
 	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
@@ -43,3 +55,9 @@ EXTRA_DIST =								\
 	popup.h								\
 	libnotes.vapi							\
 	libnotes.h
+
+if ENABLE_GTK3
+EXTRA_DIST +=								\
+	popup.c
+endif
+
