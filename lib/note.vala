@@ -77,9 +77,32 @@ namespace Xnp {
 			this.dirty = false;
 		}
 
+#if ENABLE_GTK3
+		public override void get_preferred_width (out int minimum_width, out int natural_width) {
+			var child = this.get_child ();
+			if (child != null && child.get_visible ()) {
+				child.get_preferred_width (out minimum_width, out natural_width);
+			}
+			else {
+				minimum_width = 0;
+				natural_width = 0;
+			}
+		}
+
+		public override void get_preferred_height (out int minimum_height, out int natural_height) {
+			var child = this.get_child ();
+			if (child != null && child.get_visible ()) {
+				child.get_preferred_height (out minimum_height, out natural_height);
+			}
+			else {
+				minimum_height = 0;
+				natural_height = 0;
+			}
+		}
+#else
 		public override void size_request (ref Gtk.Requisition requisition) {
 			Gtk.Requisition child_requisition;
-			if (this.child != null && (bool)(this.child.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+			if (this.child != null && (this.child.get_visible ())) {
 				this.child.size_request (out child_requisition);
 				requisition = child_requisition;
 			}
@@ -91,10 +114,11 @@ namespace Xnp {
 
 		public override void size_allocate (Gdk.Rectangle allocation) {
 			this.allocation = (Gtk.Allocation)allocation;
-			if (this.child != null && (bool)(this.child.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+			if (this.child != null && this.child.get_visible ()) {
 				this.child.size_allocate (allocation);
 			}
 		}
+#endif
 
 		/*
 		 * Signal callbacks

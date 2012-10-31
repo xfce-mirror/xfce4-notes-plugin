@@ -367,7 +367,7 @@ namespace Xnp {
 					string[] tabs_order = win.get_note_names ();
 					int last_page = win.get_current_page ();
 					int transparency = (int)((1 - win.opacity) * 100);
-					bool visible = (bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE);
+					bool visible = win.get_visible ();
 
 					keyfile.set_integer (win.name, "PosX", winx);
 					keyfile.set_integer (win.name, "PosY", winy);
@@ -426,19 +426,26 @@ namespace Xnp {
 		 */
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename group"), window,
+#if ENABLE_GTK3
+					Gtk.DialogFlags.DESTROY_WITH_PARENT,
+#else
 					Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
+#endif
 					Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
+			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
 			dialog.icon_name = Gtk.STOCK_EDIT;
 			dialog.border_width = 4;
-			dialog.vbox.border_width = 6;
+#if !ENABLE_GTK3
+			content_area.border_width = 6;
+#endif
 
 			var entry = new Gtk.Entry ();
 			entry.text = window.name;
 			entry.activates_default = true;
-			dialog.vbox.add (entry);
-			dialog.vbox.show_all ();
+			content_area.add (entry);
+			content_area.show_all ();
 
 			int res = dialog.run ();
 			dialog.hide ();
@@ -666,7 +673,7 @@ namespace Xnp {
 				if (win.is_active) {
 					active_found = true;
 				}
-				if (!(bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+				if (!win.get_visible ()) {
 					invisible_found = true;
 				}
 				else {
@@ -677,7 +684,7 @@ namespace Xnp {
 			foreach (var win in this.window_list) {
 				// Present visible windows
 				if (!active_found && visible_found) {
-					if ((bool)(win.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+					if (win.get_visible ()) {
 						win.present ();
 					}
 				}
@@ -699,7 +706,7 @@ namespace Xnp {
 		 */
 		public void open_settings_dialog () {
 			try {
-				Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "xfce4-notes-settings");
+				GLib.Process.spawn_command_line_async ("xfce4-notes-settings");
 			}
 			catch (GLib.Error e) {
 				var error_dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -716,21 +723,23 @@ namespace Xnp {
 		 * Open the about dialog.
 		 */
 		public void open_about_dialog () {
+#if !ENABLE_GTK3
 			Gtk.AboutDialog.set_url_hook ((dialog, uri) => {
 					string command;
 					try {
 						command = "exo-open %s".printf (uri);
-						Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), command);
+						GLib.Process.spawn_command_line_async (command);
 						return;
 					} catch (GLib.Error e) {
 					}
 					try {
 						command = "firefox %s".printf (uri);
-						Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), command);
+						GLib.Process.spawn_command_line_async (command);
 						return;
 					} catch (GLib.Error e) {
 					}
 				});
+#endif
 
 			string[] authors = {
 					"(c) 2006-2010 Mike Massonnet",

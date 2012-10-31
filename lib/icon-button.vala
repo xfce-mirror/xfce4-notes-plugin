@@ -53,13 +53,22 @@ namespace Xnp {
 			warning ("This object doesn't allow packing child widgets.");
 		}
 
+#if ENABLE_GTK3
+		public override bool draw (Cairo.Context cr) {
+#else
 		public override bool expose_event (Gdk.EventExpose event) {
+#endif
+			Gtk.Allocation allocation;
+			get_allocation (out allocation);
+
 			int width = allocation.width - (int)border_width * 2;
 			int height = allocation.height - (int)border_width * 2;
 			int x = allocation.width / 2 - width / 2 + allocation.x;
 			int y = allocation.height / 2 - height / 2 + allocation.y;
 
-			var cr = Gdk.cairo_create(window);
+#if !ENABLE_GTK3
+			var cr = Gdk.cairo_create (get_window ());
+#endif
 			cr.rectangle (x, y, width, height);
 			cr.clip ();
 
@@ -74,13 +83,13 @@ namespace Xnp {
 
 		private bool on_enter_notify_event (Gdk.EventCrossing event) {
 			active = true;
-			window.invalidate_rect (null, false);
+			get_window ().invalidate_rect (null, false);
 			return false;
 		}
 
 		private bool on_leave_notify_event (Gdk.EventCrossing event) {
 			active = false;
-			window.invalidate_rect (null, false);
+			get_window ().invalidate_rect (null, false);
 			return false;
 		}
 

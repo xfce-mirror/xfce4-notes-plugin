@@ -115,7 +115,7 @@ namespace Xnp {
 				link = start.get_text (end);
 
 				try {
-					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "exo-open "+link);
+					GLib.Process.spawn_command_line_async ("exo-open "+link);
 					return false;
 				} catch (Error e) {
 				}
@@ -126,13 +126,13 @@ namespace Xnp {
 					message ("Unable to open link with default handler: %s", e.message);
 				}
 				try {
-					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "xdg-open "+link);
+					GLib.Process.spawn_command_line_async ("xdg-open "+link);
 					return false;
 				}
 				catch (Error e) {
 				}
 				try {
-					Gdk.spawn_command_line_on_screen (Gdk.Screen.get_default (), "firefox "+link);
+					GLib.Process.spawn_command_line_async ("firefox "+link);
 					return false;
 				}
 				catch (Error e) {

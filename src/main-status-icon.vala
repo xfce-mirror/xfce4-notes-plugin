@@ -31,7 +31,7 @@ static void build_plugin () {
 	var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
 	application = new Xnp.Application (save_location);
 	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
-	status_icon.set_tooltip (_("Notes"));
+	status_icon.set_tooltip_text (_("Notes"));
 	Timeout.add_seconds (60, () => {
 			if (!status_icon.is_embedded ()) {
 				warning ("Status Icon is not embedded");
@@ -83,6 +83,7 @@ static Gtk.Menu build_context_menu () {
 }
 
 static bool set_x_selection () {
+#if !ENABLE_GTK3
 	invisible = new Gtk.Invisible ();
 	if (!Xnp.Popup.set_x_selection (invisible)) {
 		return false;
@@ -94,11 +95,15 @@ static bool set_x_selection () {
 		}
 		return false;
 	});
+#endif
 	return true;
 }
 
 static int main (string[] args) {
 	Gtk.init (ref args);
+#if ENABLE_GTK3
+	// TODO: Gtk.Application
+#else
 	Unique.App app = new Unique.App ("org.xfce.Notes", null);
 	if (app.is_running) {
 		if (app.send_message (Unique.Command.ACTIVATE, null) == Unique.Response.OK) {
@@ -112,6 +117,7 @@ static int main (string[] args) {
 		}
 		return Unique.Response.OK;
 	});
+#endif
 	GLib.Environment.set_application_name (_("Notes"));
 	build_plugin ();
 	Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);

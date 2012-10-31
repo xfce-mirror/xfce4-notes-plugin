@@ -75,6 +75,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 	 * Set an X selection to listen to for the popup command.
 	 */
 	private bool set_x_selection () {
+#if !ENABLE_GTK3
 		invisible = new Gtk.Invisible ();
 		if (!Xnp.Popup.set_x_selection (invisible)) {
 			return false;
@@ -86,6 +87,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 			}
 			return false;
 		});
+#endif
 		return true;
 	}
 

@@ -281,7 +281,9 @@ namespace Xnp {
 			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
 			this.notebook.tab_pos = Gtk.PositionType.TOP;
+#if !ENABLE_GTK3
 			this.notebook.tab_border = 4;
+#endif
 			this.notebook.scrollable = true;
 			this.notebook.show ();
 			this.content_box.pack_start (this.notebook, true, true, 0);
@@ -374,7 +376,7 @@ namespace Xnp {
 		 * Reset the mouse cursor.
 		 */
 		private bool window_leaved_cb () {
-			window.set_cursor (null);
+			get_window ().set_cursor (null);
 			return true;
 		}
 
@@ -384,10 +386,14 @@ namespace Xnp {
 		 * Update mouse cursor.
 		 */
 		private bool window_motion_cb (Gdk.EventMotion event) {
+			Gtk.Allocation allocation;
+
+			get_allocation (out allocation);
+
 			if (event.x > 4 && event.y > 4
 				&& event.x < allocation.width - 4
 				&& event.y < allocation.height - 4) {
-				window.set_cursor (null);
+				get_window ().set_cursor (null);
 				return false;
 			}
 
@@ -395,27 +401,27 @@ namespace Xnp {
 			if (event.x >= allocation.width - this.CORNER_MARGIN
 				&& event.y >= this.CORNER_MARGIN
 				&& event.y < allocation.height - this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_RIGHT);
+				get_window ().set_cursor (this.CURSOR_RIGHT);
 			// Bottom right corner
 			else if (event.x >= allocation.width - this.CORNER_MARGIN
 				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_BOTTOM_RC);
+				get_window ().set_cursor (this.CURSOR_BOTTOM_RC);
 			// Bottom
 			else if (event.x > this.CORNER_MARGIN
 				&& event.y > allocation.height - this.CORNER_MARGIN
 				&& event.x < allocation.width - this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_BOTTOM);
+				get_window ().set_cursor (this.CURSOR_BOTTOM);
 			// Bottom left corner
 			else if (event.x <= this.CORNER_MARGIN
 				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_BOTTOM_LC);
+				get_window ().set_cursor (this.CURSOR_BOTTOM_LC);
 			// Left
 			else if (event.x <= this.CORNER_MARGIN && event.y >= this.CORNER_MARGIN
 				&& event.y < allocation.height - this.CORNER_MARGIN)
-				window.set_cursor (this.CURSOR_LEFT);
+				get_window ().set_cursor (this.CURSOR_LEFT);
 			// Default
 			else
-				window.set_cursor (null);
+				get_window ().set_cursor (null);
 
 			return true;
 		}
@@ -427,6 +433,10 @@ namespace Xnp {
 		 */
 		private bool window_pressed_cb (Gdk.EventButton event) {
 			Gdk.WindowEdge edge;
+			Gtk.Allocation allocation;
+
+			get_allocation (out allocation);
+
 			if (event.x > 4 && event.y > 4
 				&& event.x < allocation.width - 4
 				&& event.y < allocation.height - 4)
@@ -475,8 +485,7 @@ namespace Xnp {
 				 * of xfwm4 switching the state */
 				this.mi_above.active = (bool)(event.new_window_state & Gdk.WindowState.ABOVE);
 			}
-			if ((bool)(event.changed_mask & Gdk.WindowState.STICKY) &&
-				(bool)(get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+			if ((bool)(event.changed_mask & Gdk.WindowState.STICKY) && get_visible ()) {
 				this.sticky = (bool)((event.new_window_state & Gdk.WindowState.STICKY) != 0);
 			}
 			return false;
@@ -491,7 +500,7 @@ namespace Xnp {
 			if (event.type != Gdk.EventType.BUTTON_PRESS)
 				return false;
 			if (event.button == 1) {
-				this.window.show ();
+				get_window ().show ();
 				int winx, winy, curx, cury;
 				get_position (out winx, out winy);
 				get_pointer (out curx, out cury);
@@ -500,7 +509,7 @@ namespace Xnp {
 				begin_move_drag (1, winx, winy, Gtk.get_current_event_time ());
 			}
 			else if (event.button == 2) {
-				this.window.lower ();
+				get_window ().lower ();
 			}
 			else if (event.button == 3) {
 				this.menu.popup (null, null, null, 0, Gtk.get_current_event_time ());
@@ -615,24 +624,39 @@ namespace Xnp {
 		 * Menu position function for the window menu.
 		 */
 		private void menu_position (Gtk.Menu menu, out int x, out int y, out bool push_in) {
-			int winx, winy, width, height, depth;
+			int winx, winy, width, height;
 			Gtk.Requisition requisition;
-			window.get_geometry (out winx, out winy, out width, out height, out depth);
-			window.get_origin (out x, out y);
+			Gtk.Allocation allocation;
+
+#if ENABLE_GTK3
+			get_window ().get_geometry (out winx, out winy, out width, out height);
+			menu.get_preferred_size (out requisition, null);
+#else
+			get_window ().get_geometry (out winx, out winy, out width, out height, null);
 			menu.size_request (out requisition);
+#endif
+			get_window ().get_origin (out x, out y);
 			push_in = false;
 
-			if (y + content_box.allocation.y + requisition.height > Gdk.Screen.height ()) {
+			content_box.get_allocation (out allocation);
+
+			if (y + allocation.y + requisition.height > Gdk.Screen.height ()) {
 				/* Show menu above */
 				y -= requisition.height;
 			}
 			else {
 				/* Show menu below */
-				y += content_box.allocation.y;
+				y += allocation.y;
 			}
 			if (x + requisition.width > Gdk.Screen.width ()) {
 				/* Adjust menu left */
+#if ENABLE_GTK3
+				int menu_width;
+				menu.get_preferred_width (out menu_width, null);
+				x = x - menu_width + allocation.y;
+#else
 				x = x - menu.requisition.width + content_box.allocation.y;
+#endif
 			}
 		}
 
@@ -795,7 +819,7 @@ namespace Xnp {
 		 */
 		public void get_geometry (out int winx, out int winy, out int width, out int height) {
 			// Window is shaded
-			if (!(bool)(this.content_box.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+			if (!this.content_box.get_visible ()) {
 				get_size (out this.width, null);
 			}
 			else {
@@ -853,7 +877,7 @@ namespace Xnp {
 		 * Shade the window (roll up) to show only the title bar.
 		 */
 		private void shade () {
-			if ((bool)(this.content_box.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+			if (this.content_box.get_visible ()) {
 				this.content_box.hide ();
 				get_size (out this.width, out this.height);
 				resize (this.width, 1);
@@ -866,7 +890,7 @@ namespace Xnp {
 		 * Unshade the window (roll down).
 		 */
 		private void unshade () {
-			if (!(bool)(this.content_box.get_flags () & Gtk.WidgetFlags.VISIBLE)) {
+			if (!this.content_box.get_visible ()) {
 				this.content_box.show ();
 				get_size (out this.width, null);
 				resize (this.width, this.height);
@@ -1016,19 +1040,24 @@ namespace Xnp {
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
+#if ENABLE_GTK3
+				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+#else
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
+#endif
 				Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
+			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
 			dialog.icon_name = Gtk.STOCK_EDIT;
 			dialog.border_width = 4;
-			dialog.vbox.border_width = 6;
+			content_area.border_width = 6;
 
 			var entry = new Gtk.Entry ();
 			entry.text = note.name;
 			entry.activates_default = true;
-			dialog.vbox.add (entry);
-			dialog.vbox.show_all ();
+			content_area.add (entry);
+			content_area.show_all ();
 
 			int res = dialog.run ();
 			dialog.hide ();
@@ -1124,15 +1153,15 @@ namespace Xnp {
 			}
 		}
 
-/*
+/* valac -X '-I..' -X '-DGETTEXT_PACKAGE="xfce4-notes-plugin"' -X '-DPKGDATADIR="../data"' -D ENABLE_GTK3 --pkg=gtk+-3.0 --pkg=libxfce4util-1.0 --pkg=libxfconf-0 --pkg=color --pkg=config --vapidir=.. --vapidir=. window.vala note.vala hypertextview.vala icon-button.vala
 		static int main (string[] args) {
 			Gtk.init (ref args);
-			var sample = new Xnp.Window ("Note");
+			var sample = new Xnp.Window ();
 			sample.show ();
 			Gtk.main ();
 			return 0;
 		}
-*/
+// */
 
 	}
 
