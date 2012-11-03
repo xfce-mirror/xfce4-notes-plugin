@@ -41,12 +41,21 @@ namespace Xnp {
 		protected abstract void draw_icon (Cairo.Context cr, int width, int height);
 
 		protected void set_widget_source_color (Cairo.Context cr) {
+#if ENABLE_GTK3
+			if (sensitive && active)
+				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.PRELIGHT));
+			else if (sensitive && !active)
+				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.NORMAL));
+			else if (!sensitive)
+				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.INSENSITIVE));
+#else
 			if (sensitive && active)
 				Gdk.cairo_set_source_color (cr, style.base[Gtk.StateType.NORMAL]);
 			else if (sensitive && !active)
 				Gdk.cairo_set_source_color (cr, style.fg[Gtk.StateType.INSENSITIVE]);
 			else if (!sensitive)
 				Gdk.cairo_set_source_color (cr, style.text[Gtk.StateType.INSENSITIVE]);
+#endif
 		}
 
 		public override void add (Gtk.Widget widget) {
@@ -55,9 +64,13 @@ namespace Xnp {
 
 #if ENABLE_GTK3
 		public override bool draw (Cairo.Context cr) {
+			int width = get_allocated_width ();
+			int height = get_allocated_height ();
+			draw_icon (cr, width, height);
+			return false;
+		}
 #else
 		public override bool expose_event (Gdk.EventExpose event) {
-#endif
 			Gtk.Allocation allocation;
 			get_allocation (out allocation);
 
@@ -66,9 +79,7 @@ namespace Xnp {
 			int x = allocation.width / 2 - width / 2 + allocation.x;
 			int y = allocation.height / 2 - height / 2 + allocation.y;
 
-#if !ENABLE_GTK3
 			var cr = Gdk.cairo_create (get_window ());
-#endif
 			cr.rectangle (x, y, width, height);
 			cr.clip ();
 
@@ -80,6 +91,7 @@ namespace Xnp {
 
 			return false;
 		}
+#endif
 
 		private bool on_enter_notify_event (Gdk.EventCrossing event) {
 			active = true;
