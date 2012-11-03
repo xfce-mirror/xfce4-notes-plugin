@@ -3,4 +3,3 @@ SUBDIRS =								\
 	icons								\
 	pixmaps
 
-EXTRA_DIST = vapi

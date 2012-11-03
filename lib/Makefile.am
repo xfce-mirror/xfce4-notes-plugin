@@ -4,7 +4,6 @@ libnotes_la_VALAFLAGS =							\
 	--library=libnotes						\
 	--header=libnotes.h						\
 	--vapidir=$(srcdir)						\
-	--vapidir=$(top_srcdir)/data/vapi/gtk214			\
 	--pkg=config							\
 	--pkg=color							\
 	--pkg=libxfconf-0						\

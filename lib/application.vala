@@ -31,8 +31,12 @@ namespace Xnp {
 		private Xfconf.Channel xfconf_channel;
 
 		construct {
+#if ENABLE_GTK3
+			// TODO use GtkCssProvider
+#else
 			var notesgtkrc = "%s/xfce4/xfce4-notes.gtkrc".printf (GLib.Environment.get_user_config_dir ());
 			Gtk.rc_parse (notesgtkrc);
+#endif
 
 			try {
 				Xfce.PosixSignalHandler.init ();
@@ -143,8 +147,12 @@ namespace Xnp {
 		private void update_color () {
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			if (color == "GTK+") {
+#if ENABLE_GTK3
+				// TODO use GtkStyleContext
+#else
 				var style_widget = new Gtk.Invisible ();
 				color = style_widget.get_style ().bg[Gtk.StateType.NORMAL].to_string ();
+#endif
 			}
 			Xnp.Color.set_background (color);
 		}
@@ -431,11 +439,11 @@ namespace Xnp {
 #else
 					Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
 #endif
-					Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
+					Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
-			dialog.icon_name = Gtk.STOCK_EDIT;
+			dialog.icon_name = Gtk.Stock.EDIT;
 			dialog.border_width = 4;
 #if !ENABLE_GTK3
 			content_area.border_width = 6;
@@ -797,7 +805,7 @@ namespace Xnp {
 					var new_win = create_window ();
 					new_win.show ();
 				});
-				var image = new Gtk.Image.from_stock (Gtk.STOCK_ADD, Gtk.IconSize.MENU);
+				var image = new Gtk.Image.from_stock (Gtk.Stock.ADD, Gtk.IconSize.MENU);
 				mi_add.set_image (image);
 				menu.append (mi_add);
 

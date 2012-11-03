@@ -79,7 +79,7 @@ endif
 
 BUILT_SOURCES = main-panel-plugin.c
 main-panel-plugin.c: main-panel-plugin.vala
-	$(AM_V_GEN) $(VALAC) --vapidir=$(top_srcdir)/data/vapi/xfce47 $(notes_VALAFLAGS) $< -C
+	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
 endif
 
 plugindir = $(libdir)/xfce4/panel-plugins
@@ -110,7 +110,6 @@ bin_PROGRAMS += xfce4-notes
 if MAINTAINER_MODE
 xfce4_notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
-	--vapidir=$(top_srcdir)/data/vapi/gtk214			\
 	--pkg=libnotes							\
 	--pkg=config							\
 	--vapidir=.							\
