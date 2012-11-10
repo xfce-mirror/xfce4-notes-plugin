@@ -5,34 +5,27 @@ The notes plugin provides you a quick way to write down a todo list,
 to paste a piece of code, to leave a note to your friend, or whatever
 else you had like to do with a post'it.
 
-	“ I like to write down a todo list and mark what I did,
-	and once I'm done with the whole job I destroy the note.
+		___Todo_list___
 	
-			___Todo_list___
-		
-		☑ Show an example
-		☑ Show some UTF8 codes
-		☐ Release a new version
-		
-			___Random_thoughts___
-		
-		☐ Add bold/italic/… style
-		☐ Hope this gives you some ideas
-		
-			___UTF8_codes___
-		
-		Type Ctrl+Shift+u in GTK+ applications
-		
-		— 2014		“ 201C
-		” 201D		‣ 2023
-		… 2026		⁂ 2042
-		☐ 2610		☑ 2611
+	☑ Show an example
+	☑ Show some UTF8 codes
+	☐ Release a new version
 	
-	Update 2009-06-06: actually I switched to the application
-	Tasks from the Pimlico project in regard to todo lists.
-	”, Mike
+		___Random_thoughts___
+	
+	☐ Add bold/italic/… style
+	☐ Hope this gives you some ideas
+	
+		___UTF8_codes___
+	
+	Type Ctrl+Shift+u in GTK+ applications
+	
+	— 2014		“ 201C
+	” 201D		‣ 2023
+	… 2026		⁂ 2042
+	☐ 2610		☑ 2611
 
-The notes are saved under $XDG_DATA_HOME/notes/[0].  This way you can
+The notes are saved under $XDG_DATA_HOME/notes/[0]. This way you can
 continue to access your notes remotely, if you have a SSH account for
 example, and fire up your favorite editor ^_~
 
@@ -43,7 +36,7 @@ directory specification[1] and defaults to $HOME/.local/share.
 
 You most probably want to tweak Xfwm4 by disabling the “Skip windows
 that have skip pager or skip taskbar properties set” (cf. Settings >
-Window Manager Tweaks > Cycling).  The reason is that the notes plugin
+Window Manager Tweaks > Cycling). The reason is that the notes plugin
 sets the skip pager hint so it doesn't clutter your pager, but you still
 want to access your notes by cycling to them (Alt+Tab by default).
 
@@ -57,13 +50,12 @@ http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
  Dependencies
 --------------
 
-* glib 2.14
-* gtk+ 2.14
-* libxfcegui4 4.4.0
-* libxfce4util 4.4.0
-* libxfce4panel 4.4.0
-* xfconf 4.6.0
-* unique 1.0.0
+* glib 2.24
+* gtk+ 2.28 (or 3.2)
+* libxfce4util 4.10
+* libxfce4panel 4.10
+* xfconf 4.10
+* unique 1.0 (with gtk+ 2.28 only)
 
 
  Install

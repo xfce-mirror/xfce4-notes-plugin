@@ -2,12 +2,12 @@ dnl
 dnl xfce4-notes-plugin - Notes plugin for the Xfce4 panel
 dnl
 dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
-dnl 2006-2010 Mike Massonnet <mmassonnet@gmail.com>
+dnl 2006-2012 Mike Massonnet <mmassonnet@gmail.com>
 dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])
-m4_define([xfce4_notes_plugin_version_minor], [7])
-m4_define([xfce4_notes_plugin_version_micro], [8])
+m4_define([xfce4_notes_plugin_version_minor], [8])
+m4_define([xfce4_notes_plugin_version_micro], [0])
 m4_define([xfce4_notes_plugin_version_nano], [])
 m4_define([xfce4_notes_plugin_version_build], [@REVISION@])
 m4_define([xfce4_notes_plugin_version_tag], [git]) # Leave empty for releases
@@ -22,7 +22,7 @@ AC_CANONICAL_TARGET()
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
 
-AM_INIT_AUTOMAKE([1.11 dist-bzip2])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
