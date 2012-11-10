@@ -31,7 +31,9 @@ namespace Xnp {
 			set_visible_window (false);
 			set_above_child (true);
 			set_size_request (22, 22);
+#if !ENABLE_GTK3
 			set_border_width (2);
+#endif
 
 			enter_notify_event.connect (on_enter_notify_event);
 			leave_notify_event.connect (on_leave_notify_event);
@@ -42,8 +44,17 @@ namespace Xnp {
 
 		protected void set_widget_source_color (Cairo.Context cr) {
 #if ENABLE_GTK3
-			if (sensitive && active)
-				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.PRELIGHT));
+			if (sensitive && active) {
+				int width = get_allocated_width ();
+				int height = get_allocated_height ();
+				var style_context = get_style_context ();
+				style_context.save ();
+				style_context.add_class (Gtk.STYLE_CLASS_BUTTON);
+				style_context.render_frame (cr, 0, 0, width, height);
+				style_context.render_background (cr, 0, 0, width, height);
+				style_context.restore ();
+				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.PRELIGHT));
+			}
 			else if (sensitive && !active)
 				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.NORMAL));
 			else if (!sensitive)
