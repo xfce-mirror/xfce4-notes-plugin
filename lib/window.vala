@@ -172,7 +172,7 @@ namespace Xnp {
 		public signal void note_renamed (Xnp.Note note, string old_name);
 
 		construct {
-			base.name = "notes-window";
+			((Gtk.Widget)this).name = "notes-window";
 			this.title = _("Notes");
 			this.deletable = false;
 			this.skip_taskbar_hint = true;
