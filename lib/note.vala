@@ -22,9 +22,8 @@ using Pango;
 
 namespace Xnp {
 
-	public class Note : Gtk.Bin {
+	public class Note : Gtk.ScrolledWindow {
 
-		public Gtk.ScrolledWindow scrolled_window;
 		public Xnp.HypertextView text_view;
 		public new string name { get; set; }
 
@@ -55,19 +54,17 @@ namespace Xnp {
 
 			this.name = name;
 
-			this.scrolled_window = new Gtk.ScrolledWindow (null, null);
-			this.scrolled_window.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+			this.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
 			this.text_view = new Xnp.HypertextView ();
+			this.text_view.show ();
 			this.text_view.wrap_mode = Gtk.WrapMode.WORD;
 			this.text_view.left_margin = 2;
 			this.text_view.right_margin = 2;
 			this.text_view.pixels_above_lines = 1;
 			this.text_view.pixels_below_lines = 1;
 
-			this.scrolled_window.add (this.text_view);
-			this.scrolled_window.show_all ();
-			add (this.scrolled_window);
+			add (this.text_view);
 
 			var buffer = this.text_view.get_buffer ();
 			buffer.changed.connect (buffer_changed_cb);
@@ -76,49 +73,6 @@ namespace Xnp {
 		~Note () {
 			this.dirty = false;
 		}
-
-#if ENABLE_GTK3
-		public override void get_preferred_width (out int minimum_width, out int natural_width) {
-			var child = this.get_child ();
-			if (child != null && child.get_visible ()) {
-				child.get_preferred_width (out minimum_width, out natural_width);
-			}
-			else {
-				minimum_width = 0;
-				natural_width = 0;
-			}
-		}
-
-		public override void get_preferred_height (out int minimum_height, out int natural_height) {
-			var child = this.get_child ();
-			if (child != null && child.get_visible ()) {
-				child.get_preferred_height (out minimum_height, out natural_height);
-			}
-			else {
-				minimum_height = 0;
-				natural_height = 0;
-			}
-		}
-#else
-		public override void size_request (ref Gtk.Requisition requisition) {
-			Gtk.Requisition child_requisition;
-			if (this.child != null && (this.child.get_visible ())) {
-				this.child.size_request (out child_requisition);
-				requisition = child_requisition;
-			}
-			else {
-				requisition.width = 0;
-				requisition.height = 0;
-			}
-		}
-
-		public override void size_allocate (Gdk.Rectangle allocation) {
-			this.allocation = (Gtk.Allocation)allocation;
-			if (this.child != null && this.child.get_visible ()) {
-				this.child.size_allocate (allocation);
-			}
-		}
-#endif
 
 		/*
 		 * Signal callbacks
