@@ -58,6 +58,10 @@ endif
 # Panel plugin
 #
 
+if !ENABLE_GTK3
+# REM Xfce Panel is not yet built with GTK3 support
+# hence it's impossible to build a panel plugin yet
+
 if MAINTAINER_MODE
 notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
@@ -100,6 +104,10 @@ libnotes_la_LIBADD =							\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
+
+else
+BUILT_SOURCES =
+endif
 
 #
 # Status icon
