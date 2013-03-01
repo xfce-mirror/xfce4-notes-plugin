@@ -44,10 +44,11 @@ namespace Xnp {
 
 		protected void set_widget_source_color (Cairo.Context cr) {
 #if ENABLE_GTK3
+			var style_context = get_style_context ();
+
 			if (sensitive && active) {
 				int width = get_allocated_width ();
 				int height = get_allocated_height ();
-				var style_context = get_style_context ();
 				style_context.save ();
 				style_context.add_class (Gtk.STYLE_CLASS_BUTTON);
 				style_context.render_frame (cr, 0, 0, width, height);
@@ -56,9 +57,9 @@ namespace Xnp {
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.PRELIGHT));
 			}
 			else if (sensitive && !active)
-				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.NORMAL));
+				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.NORMAL));
 			else if (!sensitive)
-				Gdk.cairo_set_source_rgba (cr, get_style_context ().get_color (Gtk.StateFlags.INSENSITIVE));
+				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.INSENSITIVE));
 #else
 			if (sensitive && active)
 				Gdk.cairo_set_source_color (cr, style.base[Gtk.StateType.NORMAL]);
