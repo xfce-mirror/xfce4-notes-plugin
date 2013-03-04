@@ -109,8 +109,8 @@ prop_dialog_new (void)
   /* Notebook */
   notebook = gtk_notebook_new ();
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), FALSE);
-  gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
-  gtk_container_set_border_width (GTK_CONTAINER (notebook), 0);
+  gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), TRUE);
+  gtk_container_set_border_width (GTK_CONTAINER (notebook), 6);
   gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), notebook);
 
   /* VBox */

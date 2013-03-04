@@ -22,7 +22,7 @@
 #define PLUGIN_WEBSITE                  "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
 #define PLUGIN_XFCONF_CHANNEL           "xfce4-notes-plugin"
 
-#define BORDER                          8
+#define BORDER                          6
 #define CORNER_MARGIN                   20
 
 /* Default settings */
