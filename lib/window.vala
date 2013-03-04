@@ -763,7 +763,7 @@ namespace Xnp {
 							image = new Gtk.Image.from_stock (Gtk.Stock.GO_FORWARD, Gtk.IconSize.MENU);
 							((Gtk.ImageMenuItem)mi).set_image (image);
 						}
-						mi.set_data ("page", (void*)p);
+						mi.set_data ("page", p.to_pointer ());
 						mi.activate.connect ((i) => {
 							int page = i.get_data<int> ("page");
 							notebook.set_current_page (page);
