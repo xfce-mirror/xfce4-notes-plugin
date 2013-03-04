@@ -40,7 +40,11 @@ namespace Xnp {
 		private Xnp.TitleBarButton left_arrow_button;
 		private Xnp.TitleBarButton right_arrow_button;
 		private Xnp.TitleBarButton close_button;
+#if ENABLE_GTK3
+		private Gtk.Box content_box;
+#else
 		private Gtk.VBox content_box;
+#endif
 		private Gtk.Notebook notebook;
 
 		private Gtk.UIManager ui;
@@ -215,13 +219,22 @@ namespace Xnp {
 			frame.modify_style (style);
 			frame.show ();
 			add (frame);
+#if ENABLE_GTK3
+			var vbox_frame = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+#else
 			var vbox_frame = new Gtk.VBox (false, 0);
+#endif
+
 			vbox_frame.spacing = 1;
 			vbox_frame.show ();
 			frame.add (vbox_frame);
 
 			/* Build title bar */
+#if ENABLE_GTK3
+			var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+#else
 			var title_box = new Gtk.HBox (false, 0);
+#endif
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
@@ -271,7 +284,11 @@ namespace Xnp {
 			vbox_frame.pack_start (title_box, false, false, 0);
 
 			/* Build content box */
+#if ENABLE_GTK3
+			this.content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+#else
 			this.content_box = new Gtk.VBox (false, 0);
+#endif
 			this.content_box.show ();
 			vbox_frame.pack_start (this.content_box, true, true, 0);
 
