@@ -36,7 +36,7 @@ bin_PROGRAMS += xfce4-notes-settings
 
 xfce4_notes_settings_SOURCES =						\
 	defines.h							\
-	xfce4-notes-settings.c
+	main-settings-dialog.c
 
 xfce4_notes_settings_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
