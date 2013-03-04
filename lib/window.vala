@@ -1089,12 +1089,21 @@ namespace Xnp {
 				return;
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
+#if ENABLE_GTK3
+			var dialog = new Gtk.FontChooserDialog ("Choose current note font", this);
+			dialog.set_font (note.text_view.font);
+#else
 			var dialog = new Gtk.FontSelectionDialog ("Choose current note font");
 			dialog.set_font_name (note.text_view.font);
+#endif
 			int res = dialog.run ();
 			dialog.hide ();
 			if (res == Gtk.ResponseType.OK) {
+#if ENABLE_GTK3
+				note.text_view.font = dialog.get_font ();
+#else
 				note.text_view.font = dialog.get_font_name ();
+#endif
 			}
 			dialog.destroy ();
 		}
