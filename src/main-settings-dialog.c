@@ -120,11 +120,19 @@ prop_dialog_new (void)
   gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), notebook);
 
   /* VBox */
+#ifdef ENABLE_GTK3
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+#else
   vbox = gtk_vbox_new (FALSE, 0);
+#endif
   gtk_container_add (GTK_CONTAINER (notebook), vbox);
 
   /* === Global settings === */
+#ifdef ENABLE_GTK3
+  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, BORDER);
+#else
   box = gtk_vbox_new (FALSE, BORDER);
+#endif
   frame = xfce_gtk_frame_box_new_with_content (_("Global settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
@@ -137,7 +145,11 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* Notes path */
+#ifdef ENABLE_GTK3
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+#else
   hbox = gtk_hbox_new (FALSE, BORDER);
+#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Notes path:"));
@@ -147,7 +159,11 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* Tabs position */
+#ifdef ENABLE_GTK3
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+#else
   hbox = gtk_hbox_new (FALSE, BORDER);
+#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Tabs position:"));
@@ -157,7 +173,11 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* Background color */
+#ifdef ENABLE_GTK3
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+#else
   hbox = gtk_hbox_new (FALSE, BORDER);
+#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Background:"));
@@ -170,7 +190,11 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (hbox), color_button, FALSE, FALSE, 0);
 
   /* Font description */
+#ifdef ENABLE_GTK3
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+#else
   hbox = gtk_hbox_new (FALSE, BORDER);
+#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Font:"));
@@ -182,7 +206,11 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* === New window settings === */
+#ifdef ENABLE_GTK3
+  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, BORDER);
+#else
   box = gtk_vbox_new (FALSE, BORDER);
+#endif
   frame = xfce_gtk_frame_box_new_with_content (_("New group settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
@@ -202,7 +230,11 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* Size */
+#ifdef ENABLE_GTK3
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+#else
   hbox = gtk_hbox_new (FALSE, BORDER);
+#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Size:"));
@@ -582,7 +614,9 @@ color_button_new (void)
   g_free (color);
 
   button = gtk_color_button_new_with_color (&gdkcolor);
+#ifndef ENABLE_GTK3
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+#endif
 
   g_signal_connect (button, "button-press-event", G_CALLBACK (cb_color_button_pressed), NULL);
 
