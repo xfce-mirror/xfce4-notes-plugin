@@ -21,7 +21,9 @@
 #include <config.h>
 #endif
 
+#ifndef ENABLE_GTK3
 #include <unique/unique.h>
+#endif
 #include <xfconf/xfconf.h>
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
@@ -97,7 +99,11 @@ prop_dialog_new (void)
   /* Dialog */
   parent_window = dialog =
     xfce_titled_dialog_new_with_buttons (_("Notes"), NULL,
+#ifdef ENABLE_GTK3
+                                         GTK_DIALOG_DESTROY_WITH_PARENT,
+#else
                                          GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
+#endif
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
   xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog), _("Configure the plugin"));
@@ -111,7 +117,7 @@ prop_dialog_new (void)
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), FALSE);
   gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), TRUE);
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 6);
-  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), notebook);
+  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), notebook);
 
   /* VBox */
   vbox = gtk_vbox_new (FALSE, 0);
@@ -206,7 +212,7 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* === Ending === */
-  gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+  gtk_widget_show_all (gtk_dialog_get_content_area (GTK_DIALOG (dialog)));
 
   return dialog;
 }
@@ -266,12 +272,21 @@ tabs_combo_box_new (void)
 {
   GtkWidget *combobox;
 
+#ifdef ENABLE_GTK3
+  combobox = gtk_combo_box_text_new ();
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("None"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Top"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Right"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Bottom"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Left"));
+#else
   combobox = gtk_combo_box_new_text ();
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("None"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Top"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Right"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Bottom"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Left"));
+#endif
   gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), 0);
 
   xfconf_g_property_bind (xfconf_channel, "/global/tabs-position",
@@ -286,10 +301,17 @@ size_combo_box_new (void)
   GtkWidget *combobox;
   gint size;
 
+#ifdef ENABLE_GTK3
+  combobox = gtk_combo_box_text_new ();
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Small"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Normal"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Large"));
+#else
   combobox = gtk_combo_box_new_text ();
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Small"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Normal"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Large"));
+#endif
 
   size = xfconf_channel_get_int (xfconf_channel, "/new-window/width", SIZE_NORMAL);
   if (size == SIZE_SMALL)
@@ -346,6 +368,20 @@ background_combo_box_new (void)
   gchar *color;
   gint id;
 
+#ifdef ENABLE_GTK3
+  combobox = gtk_combo_box_text_new ();
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Yellow"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Blue"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Green"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Indigo"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Olive"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Carmine"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Mimosa"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("White"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Android"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("GTK+"));
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Custom..."));
+#else
   combobox = gtk_combo_box_new_text ();
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Yellow"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Blue"));
@@ -358,6 +394,7 @@ background_combo_box_new (void)
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Android"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("GTK+"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Custom..."));
+#endif
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   if (!g_ascii_strcasecmp (color, BACKGROUND_YELLOW))
@@ -574,6 +611,8 @@ cb_color_button_pressed (GtkButton *button,
 
 
 
+#ifdef ENABLE_GTK3
+#else
 static UniqueResponse
 cb_unique_app (UniqueApp *app,
                gint command,
@@ -589,15 +628,21 @@ cb_unique_app (UniqueApp *app,
   gtk_window_present (GTK_WINDOW (dialog));
   return UNIQUE_RESPONSE_OK;
 }
+#endif
 
 gint main (gint argc,
            gchar *argv[])
 {
   GtkWidget *dialog;
+#ifdef ENABLE_GTK3
+#else
   UniqueApp *app;
+#endif
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, NULL);
   xfconf_init (NULL);
   gtk_init (&argc, &argv);
+#ifdef ENABLE_GTK3
+#else
   app = unique_app_new ("org.xfce.NotesSettings", NULL);
   if (unique_app_is_running (app))
     {
@@ -607,8 +652,12 @@ gint main (gint argc,
           return 0;
         }
     }
+#endif
   dialog = prop_dialog_new ();
+#ifdef ENABLE_GTK3
+#else
   g_signal_connect (app, "message-received", G_CALLBACK (cb_unique_app), dialog);
+#endif
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
   xfconf_shutdown ();

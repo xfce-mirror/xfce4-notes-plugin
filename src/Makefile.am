@@ -31,7 +31,6 @@ endif
 # Settings dialog
 #
 
-if !ENABLE_GTK3
 bin_PROGRAMS += xfce4-notes-settings
 
 xfce4_notes_settings_SOURCES =						\
@@ -52,7 +51,6 @@ xfce4_notes_settings_LDADD =						\
 	@LIBXFCE4UI_LIBS@						\
 	@XFCONF_LIBS@							\
 	@UNIQUE_LIBS@
-endif
 
 #
 # Panel plugin
