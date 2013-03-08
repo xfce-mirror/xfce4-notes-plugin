@@ -645,8 +645,7 @@ cb_color_button_pressed (GtkButton *button,
 
 
 
-#ifdef ENABLE_GTK3
-#else
+#ifndef ENABLE_GTK3
 static UniqueResponse
 cb_unique_app (UniqueApp *app,
                gint command,
@@ -669,6 +668,8 @@ gint main (gint argc,
 {
   GtkWidget *dialog;
 #ifdef ENABLE_GTK3
+  GtkApplication *app;
+  GError *error = NULL;
 #else
   UniqueApp *app;
 #endif
@@ -676,6 +677,22 @@ gint main (gint argc,
   xfconf_init (NULL);
   gtk_init (&argc, &argv);
 #ifdef ENABLE_GTK3
+  app = gtk_application_new ("org.xfce.NotesSettings", 0);
+
+  g_application_register (G_APPLICATION (app), NULL, &error);
+  if (error != NULL)
+    {
+      g_warning ("Unable to register GApplication: %s", error->message);
+      g_error_free (error);
+      error = NULL;
+    }
+
+  if (g_application_get_is_remote (G_APPLICATION (app)))
+    {
+      g_application_activate (G_APPLICATION (app));
+      g_object_unref (app);
+      return 0;
+    }
 #else
   app = unique_app_new ("org.xfce.NotesSettings", NULL);
   if (unique_app_is_running (app))
@@ -687,11 +704,15 @@ gint main (gint argc,
         }
     }
 #endif
+
   dialog = prop_dialog_new ();
+
 #ifdef ENABLE_GTK3
+  g_signal_connect_swapped (app, "activate", G_CALLBACK (gtk_window_present), dialog);
 #else
   g_signal_connect (app, "message-received", G_CALLBACK (cb_unique_app), dialog);
 #endif
+
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
   xfconf_shutdown ();
