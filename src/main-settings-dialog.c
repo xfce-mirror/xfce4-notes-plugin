@@ -32,8 +32,10 @@
 #include "defines.h"
 #include "color.h"
 
+#if 0
 static GtkWidget *notes_path_button_new ();
 static void cb_notes_path_changed (GtkFileChooserButton *button, gpointer data);
+#endif
 
 enum
 {
@@ -145,6 +147,14 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* Notes path */
+#if 0
+/*
+ * I currently dislike this setting in the middle here, plus the
+ * setting is not easy to understand since the notes are stored
+ * within a specific structure (notes_path/GroupX/NoteY). One has
+ * to select an empty directory otherwise things might really get
+ * mixed up.
+ */
 #ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
 #else
@@ -157,6 +167,7 @@ prop_dialog_new (void)
 
   button = notes_path_button_new (dialog);
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+#endif
 
   /* Tabs position */
 #ifdef ENABLE_GTK3
@@ -249,6 +260,7 @@ prop_dialog_new (void)
   return dialog;
 }
 
+#if 0
 static GtkWidget *
 notes_path_button_new (void)
 {
@@ -298,6 +310,7 @@ cb_notes_path_changed (GtkFileChooserButton *button,
   g_object_unref (file);
   g_free (notes_path);
 }
+#endif
 
 static GtkWidget *
 tabs_combo_box_new (void)
