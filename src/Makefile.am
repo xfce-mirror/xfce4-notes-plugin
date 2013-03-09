@@ -1,3 +1,4 @@
+BUILT_SOURCES =
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(top_srcdir)/lib						\
@@ -10,7 +11,25 @@ INCLUDES =								\
 #
 
 if ENABLE_GTK3
-bin_PROGRAMS = 
+bin_PROGRAMS = xfce4-popup-notes
+
+if MAINTAINER_MODE
+xfce4_popup_notes_VALAFLAGS =						\
+	--pkg=gtk+-3.0
+
+BUILT_SOURCES += main-popup.c
+main-popup.c: main-popup.vala
+	$(AM_V_GEN) $(VALAC) $(xfce4_popup_notes_VALAFLAGS) $< -C
+endif
+
+xfce4_popup_notes_SOURCES =						\
+	main-popup.c
+
+xfce4_popup_notes_CFLAGS =						\
+	@GTK_CFLAGS@
+
+xfce4_popup_notes_LDADD =						\
+	@GTK_LIBS@
 else
 bin_PROGRAMS = xfce4-popup-notes
 
@@ -79,7 +98,7 @@ notes_VALAFLAGS +=							\
 	--pkg=gtk+-2.0
 endif
 
-BUILT_SOURCES = main-panel-plugin.c
+BUILT_SOURCES += main-panel-plugin.c
 main-panel-plugin.c: main-panel-plugin.vala
 	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
 endif
@@ -103,8 +122,6 @@ libnotes_la_LIBADD =							\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
 
-else
-BUILT_SOURCES =
 endif
 
 #

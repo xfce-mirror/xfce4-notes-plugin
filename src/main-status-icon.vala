@@ -102,7 +102,22 @@ static bool set_x_selection () {
 static int main (string[] args) {
 	Gtk.init (ref args);
 #if ENABLE_GTK3
-	// TODO: Gtk.Application
+	Gtk.Application app = new Gtk.Application ("org.xfce.Notes", 0);
+
+	try {
+		app.register ();
+	} catch (GLib.Error e) {
+		warning ("Application cannot be registered: %s", e.message);
+	}
+
+	if (app.get_is_remote ()) {
+		app.activate ();
+		return 0;
+	}
+
+	app.activate.connect (() => {
+		application.show_hide_notes ();
+	});
 #else
 	Unique.App app = new Unique.App ("org.xfce.Notes", null);
 	if (app.is_running) {
