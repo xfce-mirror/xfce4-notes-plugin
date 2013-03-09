@@ -58,6 +58,7 @@ enum
 static GtkWidget *size_combo_box_new ();
 static void cb_size_combobox_changed (GtkComboBox *combobox, gpointer data);
 
+#ifndef ENABLE_GTK3
 enum
 {
   COMBOBOX_BACKGROUND_YELLOW,
@@ -83,11 +84,14 @@ static gboolean timeout_cb_background_changed (gchar *color);
 
 static GtkWidget *color_button_new ();
 static gboolean cb_color_button_pressed (GtkButton *button, GdkEventButton *event, gpointer data);
+#endif
 
 static GtkWidget *parent_window = NULL;
 static XfconfChannel *xfconf_channel = NULL;
+#ifndef ENABLE_GTK3
 static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
+#endif
 
 static GtkWidget *
 prop_dialog_new (void)
@@ -183,6 +187,7 @@ prop_dialog_new (void)
   button = tabs_combo_box_new ();
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
+#ifndef ENABLE_GTK3
   /* Background color */
 #ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
@@ -199,6 +204,7 @@ prop_dialog_new (void)
 
   color_button = color_button_new ();
   gtk_box_pack_start (GTK_BOX (hbox), color_button, FALSE, FALSE, 0);
+#endif
 
   /* Font description */
 #ifdef ENABLE_GTK3
@@ -406,6 +412,7 @@ cb_size_combobox_changed (GtkComboBox *combobox,
   xfconf_channel_set_int (xfconf_channel, "/new-window/height", height);
 }
 
+#ifndef ENABLE_GTK3
 static GtkWidget *
 background_combo_box_new (void)
 {
@@ -655,6 +662,7 @@ cb_color_button_pressed (GtkButton *button,
 
   return TRUE;
 }
+#endif
 
 
 
