@@ -47,13 +47,6 @@ namespace Xnp {
 			var style_context = get_style_context ();
 
 			if (sensitive && active) {
-				int width = get_allocated_width ();
-				int height = get_allocated_height ();
-				style_context.save ();
-				style_context.add_class (Gtk.STYLE_CLASS_BUTTON);
-				style_context.render_frame (cr, 0, 0, width, height);
-				style_context.render_background (cr, 0, 0, width, height);
-				style_context.restore ();
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.PRELIGHT));
 			}
 			else if (sensitive && !active)
@@ -78,7 +71,19 @@ namespace Xnp {
 		public override bool draw (Cairo.Context cr) {
 			int width = get_allocated_width ();
 			int height = get_allocated_height ();
-			draw_icon (cr, width, height);
+			var style_context = get_style_context ();
+
+			style_context.save ();
+			style_context.add_class (Gtk.STYLE_CLASS_BUTTON);
+			style_context.render_frame (cr, 0, 0, width, height);
+			style_context.render_background (cr, 0, 0, width, height);
+			style_context.restore ();
+
+			cr.save ();
+			cr.translate (2, 2);
+			draw_icon (cr, width - 4, height - 4);
+			cr.restore ();
+
 			return false;
 		}
 #else
