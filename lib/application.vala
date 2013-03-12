@@ -31,9 +31,7 @@ namespace Xnp {
 		private Xfconf.Channel xfconf_channel;
 
 		construct {
-#if ENABLE_GTK3
-			// TODO use GtkCssProvider
-#else
+#if !ENABLE_GTK3
 			var notesgtkrc = "%s/xfce4/xfce4-notes.gtkrc".printf (GLib.Environment.get_user_config_dir ());
 			Gtk.rc_parse (notesgtkrc);
 #endif
@@ -148,13 +146,14 @@ namespace Xnp {
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			if (color == "GTK+") {
 #if ENABLE_GTK3
-				// TODO use GtkStyleContext
+				// TODO: Read from StyleContext with default CssProvider
+				return;
 #else
 				var style_widget = new Gtk.Invisible ();
 				color = style_widget.get_style ().bg[Gtk.StateType.NORMAL].to_string ();
 #endif
 			}
-			Xnp.Color.set_background (color);
+			Xnp.Theme.set_background_color (color);
 		}
 
 		private void quit () {

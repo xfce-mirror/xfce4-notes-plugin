@@ -1,4 +1,5 @@
 BUILT_SOURCES =
+
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(top_srcdir)/lib						\
@@ -10,9 +11,9 @@ INCLUDES =								\
 # Popup program
 #
 
-if ENABLE_GTK3
 bin_PROGRAMS = xfce4-popup-notes
 
+if ENABLE_GTK3
 if MAINTAINER_MODE
 xfce4_popup_notes_VALAFLAGS =						\
 	--pkg=gtk+-3.0
@@ -31,8 +32,6 @@ xfce4_popup_notes_CFLAGS =						\
 xfce4_popup_notes_LDADD =						\
 	@GTK_LIBS@
 else
-bin_PROGRAMS = xfce4-popup-notes
-
 xfce4_popup_notes_SOURCES =						\
 	$(top_srcdir)/lib/popup.h					\
 	xfce4-popup-notes.c

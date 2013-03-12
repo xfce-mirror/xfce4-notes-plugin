@@ -1,6 +1,6 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
- *  Copyright (C) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (c) 2006-2013  Mike Massonnet <mmassonnet@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -10,29 +10,20 @@
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ *  GNU Library General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef THEME_GTKRC_H
+#define THEME_GTKRC_H
 
 #include <glib.h>
 #include <gdk/gdk.h>
-#include <gtk/gtk.h>
 
-void                    color_set_background            (const gchar *background);
-void                    __gdk_color_contrast            (GdkColor *color,
-                                                         gdouble contrast);
-#if !GTK_CHECK_VERSION (2,12,0)
-gchar *                 gdk_color_to_string             (const GdkColor *color);
-#endif
-#if !GTK_CHECK_VERSION (2,14,0)
-GtkWidget*              gtk_color_selection_dialog_get_color_selection (GtkColorSelectionDialog *colorsel);
-#endif
+void                     xnp_theme_update_gtkrc         (const GdkColor color);
 
 #endif
 

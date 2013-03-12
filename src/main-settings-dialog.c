@@ -30,7 +30,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "defines.h"
-#include "color.h"
+#include "ext-gdk.h"
 
 #if 0
 static GtkWidget *notes_path_button_new ();
