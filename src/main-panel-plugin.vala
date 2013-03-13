@@ -36,7 +36,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
 		application = new Xnp.Application (save_location (true));
 
-		button = Xfce.panel_create_button ();
+		button = (Gtk.Button)Xfce.panel_create_button ();
 		image = new Xfce.PanelImage.from_source ("xfce4-notes-plugin");
 		button.add (image);
 		button.clicked.connect (() => { application.show_hide_notes (); });
