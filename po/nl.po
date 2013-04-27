@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the 
 # xfce4-notes-plugin package.
 # Stephan Arts <stephan@xfce.org>, 2007.
-# Pjotr, 2011.
+# Pjotr <pjotrvertaalt@gmail.com> , 2011 - 2013.
 #
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-24 17:16+0200\n"
 "PO-Revision-Date: 2011-06-15 22:32+0200\n"
-"Last-Translator: Pjotr\n"
+"Last-Translator: Pjotr pjotrvertaalt@gmail.com\n"
 "Language-Team: Dutch (Flemish)\n"
 "Language: nl (Dutch)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Weet u zeker dat u deze groep wilt verwijderen?"
 #: ../lib/application.vala:522
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "De groep \"%s\" is gewijzigd op de schijf"
+msgstr "De groep '%s' is gewijzigd op de schijf"
 
 #: ../lib/application.vala:525
 msgid "Do you want to reload the group?"
@@ -84,7 +84,7 @@ msgstr "Wilt u de groep herladen?"
 #: ../lib/application.vala:648
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "De naam \"%s\" is ongeldig."
+msgstr "De naam '%s' is ongeldig."
 
 #: ../lib/application.vala:649
 #, c-format
@@ -154,7 +154,7 @@ msgstr "Notitienaam wijzigen"
 
 #: ../src/xfce4-notes-settings.c:103
 msgid "Configure the plugin"
-msgstr "Plugin configureren"
+msgstr "Invoegtoepassing configureren"
 
 #: ../src/xfce4-notes-settings.c:122
 msgid "Global settings"
@@ -329,10 +329,10 @@ msgstr "Achtergrondkleur"
 #~ msgstr "Pijlknop verbergen"
 
 #~ msgid "Notes plugin for the Xfce4 desktop"
-#~ msgstr "Notitie-plugin voor de Xfce4-werkomgeving"
+#~ msgstr "Notitie-invoegtoepassing voor de Xfce4-werkomgeving"
 
 #~ msgid "Resize grip"
 #~ msgstr "Handvat voor grootteverandering"
 
 #~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Xfce 4-notities-plugin"
+#~ msgstr "Xfce 4-notities-invoegtoepassing"
