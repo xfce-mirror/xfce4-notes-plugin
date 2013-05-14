@@ -2,5 +2,7 @@ lib/application.c
 lib/window.c
 lib/note.c
 lib/hypertextview.c
+lib/ext-gdk.c
+lib/theme-gtkrc.c
 src/main-panel-plugin.c
 src/main-status-icon.c
