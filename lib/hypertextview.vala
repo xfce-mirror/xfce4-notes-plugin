@@ -51,6 +51,7 @@ namespace Xnp {
 
 		construct {
 			this.font = "Sans 13";
+			this.tabs = new Pango.TabArray.with_positions (1, true, Pango.TabAlign.LEFT, 12);
 		}
 
 		public HypertextView () {
