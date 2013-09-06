@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2013-08-02 13:19+0000\n"
+"PO-Revision-Date: 2013-09-06 10:44+0000\n"
 "Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/xfce/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -44,12 +44,12 @@ msgstr "Notların kaydedileceği dizini seçin"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr ""
+msgstr "Yeni notları saklamak için seçilen dizin (%s) dosyalar içeriyor. Yeni bir dizin oluşturmalı veya seçmelisiniz."
 
 #: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr ""
+msgstr "Yeni notlar için dizin seçilemedi: %s"
 
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
