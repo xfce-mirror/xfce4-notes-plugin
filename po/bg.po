@@ -1,0 +1,270 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# lyubomirv, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-03 21:09+0200\n"
+"PO-Revision-Date: 2014-01-17 11:08+0000\n"
+"Last-Translator: lyubomirv\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/xfce/language/bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/xfce4-notes.desktop.in.h:1
+#: ../src/xfce4-notes-autostart.desktop.in.h:1
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:191
+#: ../lib/application.vala:218 ../lib/application.vala:758
+#: ../lib/window.vala:89 ../lib/window.vala:180 ../lib/window.vala:955
+#: ../src/main-settings-dialog.c:107 ../src/main-panel-plugin.vala:46
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:136
+msgid "Notes"
+msgstr "Бележки"
+
+#: ../src/xfce4-notes.desktop.in.h:2
+#: ../src/xfce4-notes-autostart.desktop.in.h:2
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
+msgid "Ideal for your quick notes"
+msgstr "Перфектно за Вашите бързи бележки"
+
+#: ../lib/application.vala:121 ../lib/application.vala:136
+#: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
+msgid "Select notes path"
+msgstr "Избор на директория за бележките"
+
+#: ../lib/application.vala:122
+#, c-format
+msgid ""
+"The selected directory (%s) for the new notes path already contains files. "
+"You must select or create an empty directory."
+msgstr "В избраната директория (%s) за новите бележки вече има файлове. Трябва да създадете нова директория."
+
+#: ../lib/application.vala:137
+#, c-format
+msgid "Unable to select directory for new notes path: %s"
+msgstr "Неуспешен избор на директория за новите бележки: %s"
+
+#: ../lib/application.vala:195 ../lib/window.vala:958
+#, c-format
+msgid "Notes %d"
+msgstr "Бележки %d"
+
+#: ../lib/application.vala:435
+msgid "Rename group"
+msgstr "Преименуване на група"
+
+#: ../lib/application.vala:463 ../lib/window.vala:1085
+#, c-format
+msgid "The name %s is already in use"
+msgstr "Името „%s“ вече се използва"
+
+#: ../lib/application.vala:492
+msgid "Are you sure you want to delete this group?"
+msgstr "Сигурни ли сте, че искате да изтриете тази група?"
+
+#: ../lib/application.vala:536
+#, c-format
+msgid "The group \"%s\" has been modified on the disk"
+msgstr "Групата „%s“ беше променена на диска"
+
+#: ../lib/application.vala:539
+msgid "Do you want to reload the group?"
+msgstr "Искате ли да презаредите групата?"
+
+#: ../lib/application.vala:662
+#, c-format
+msgid "The name \"%s\" is invalid."
+msgstr "Името „%s“ е невалидно."
+
+#: ../lib/application.vala:663
+#, c-format
+msgid "The invalid characters are: %s"
+msgstr "Невалидните символи са: %s"
+
+#: ../lib/application.vala:720
+msgid "Unable to open the settings dialog"
+msgstr "Неуспех при отварянето на диалога с настройките"
+
+#: ../lib/application.vala:767
+msgid "translator-credits"
+msgstr "Любомир Василев <lyubomirv@abv.bg>"
+
+#: ../lib/application.vala:802 ../lib/window.vala:822
+msgid "_Add a new group"
+msgstr "_Добавяне на нова група"
+
+#: ../lib/window.vala:239
+msgid "Menu"
+msgstr "Меню"
+
+#: ../lib/window.vala:268
+msgid "Refresh notes"
+msgstr "Обновяване на бележките"
+
+#: ../lib/window.vala:281
+#, c-format
+msgid "Hide (%s)"
+msgstr "Скриване (%s)"
+
+#: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:53
+msgid "_Groups"
+msgstr "_Групи"
+
+#: ../lib/window.vala:712
+msgid "_Rename"
+msgstr "_Преименуване"
+
+#. Always on top
+#: ../lib/window.vala:728 ../src/main-settings-dialog.c:236
+msgid "Always on top"
+msgstr "Винаги на преден план"
+
+#: ../lib/window.vala:733
+msgid "Sticky window"
+msgstr "Лепкав прозорец"
+
+#: ../lib/window.vala:808
+msgid "_Rename group"
+msgstr "_Преименуване на групата"
+
+#: ../lib/window.vala:815
+msgid "_Delete group"
+msgstr "_Изтриване на групата"
+
+#: ../lib/window.vala:1033
+msgid "Are you sure you want to delete this note?"
+msgstr "Сигурни ли сте, че искате да изтриете тази бележка?"
+
+#: ../lib/window.vala:1059
+msgid "Rename note"
+msgstr "Преименуване на бележка"
+
+#: ../src/main-settings-dialog.c:115
+msgid "Configure the plugin"
+msgstr "Настройка на добавката"
+
+#: ../src/main-settings-dialog.c:142
+msgid "Global settings"
+msgstr "Глобални настройки"
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:147
+msgid "Hide notes from taskbar"
+msgstr "Скриване на бележките от списъка с прозорци"
+
+#: ../src/main-settings-dialog.c:169
+msgid "Notes path:"
+msgstr "Път до бележките:"
+
+#: ../src/main-settings-dialog.c:184
+msgid "Tabs position:"
+msgstr "Позиция на етикетите:"
+
+#: ../src/main-settings-dialog.c:199
+msgid "Background:"
+msgstr "Фон:"
+
+#: ../src/main-settings-dialog.c:217
+msgid "Font:"
+msgstr "Шрифт:"
+
+#: ../src/main-settings-dialog.c:231
+msgid "New group settings"
+msgstr "Настройки за нова група"
+
+#. Sticky window
+#: ../src/main-settings-dialog.c:243
+msgid "Sticky"
+msgstr "Лепкава"
+
+#: ../src/main-settings-dialog.c:257
+msgid "Size:"
+msgstr "Размер:"
+
+#: ../src/main-settings-dialog.c:328 ../src/main-settings-dialog.c:335
+msgid "None"
+msgstr "Без"
+
+#: ../src/main-settings-dialog.c:329 ../src/main-settings-dialog.c:336
+msgid "Top"
+msgstr "Отгоре"
+
+#: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
+msgid "Right"
+msgstr "Отдясно"
+
+#: ../src/main-settings-dialog.c:331 ../src/main-settings-dialog.c:338
+msgid "Bottom"
+msgstr "Отдолу"
+
+#: ../src/main-settings-dialog.c:332 ../src/main-settings-dialog.c:339
+msgid "Left"
+msgstr "Отляво"
+
+#: ../src/main-settings-dialog.c:357 ../src/main-settings-dialog.c:362
+msgid "Small"
+msgstr "Малък"
+
+#: ../src/main-settings-dialog.c:358 ../src/main-settings-dialog.c:363
+msgid "Normal"
+msgstr "Нормален"
+
+#: ../src/main-settings-dialog.c:359 ../src/main-settings-dialog.c:364
+msgid "Large"
+msgstr "Голям"
+
+#: ../src/main-settings-dialog.c:425 ../src/main-settings-dialog.c:438
+msgid "Yellow"
+msgstr "Жълт"
+
+#: ../src/main-settings-dialog.c:426 ../src/main-settings-dialog.c:439
+msgid "Blue"
+msgstr "Син"
+
+#: ../src/main-settings-dialog.c:427 ../src/main-settings-dialog.c:440
+msgid "Green"
+msgstr "Зелен"
+
+#: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
+msgid "Indigo"
+msgstr "Индиго"
+
+#: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
+msgid "Olive"
+msgstr "Маслина"
+
+#: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
+msgid "Carmine"
+msgstr "Кармин"
+
+#: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
+msgid "Mimosa"
+msgstr "Мимоза"
+
+#: ../src/main-settings-dialog.c:432 ../src/main-settings-dialog.c:445
+msgid "White"
+msgstr "Бял"
+
+#: ../src/main-settings-dialog.c:433 ../src/main-settings-dialog.c:446
+msgid "Android"
+msgstr "Андроид"
+
+#: ../src/main-settings-dialog.c:434 ../src/main-settings-dialog.c:447
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
+msgid "Custom..."
+msgstr "Потребителски..."
+
+#: ../src/main-settings-dialog.c:579
+msgid "Background Color"
+msgstr "Цвят на фона"
