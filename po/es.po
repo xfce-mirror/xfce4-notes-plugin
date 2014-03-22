@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2014-03-22 11:00+0000\n"
+"PO-Revision-Date: 2014-03-22 12:59+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/xfce/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "El nombre %s ya está en uso"
 
 #: ../lib/application.vala:492
 msgid "Are you sure you want to delete this group?"
-msgstr "¿Está seguro de querer borrar éste grupo?"
+msgstr "¿Está seguro de que quiere eliminar este grupo?"
 
 #: ../lib/application.vala:536
 #, c-format
@@ -142,7 +142,7 @@ msgstr "_Eliminar grupo"
 
 #: ../lib/window.vala:1033
 msgid "Are you sure you want to delete this note?"
-msgstr "¿Está seguro de querer borrar ésta nota?"
+msgstr "¿Está seguro de de quiere eliminar esta nota?"
 
 #: ../lib/window.vala:1059
 msgid "Rename note"
