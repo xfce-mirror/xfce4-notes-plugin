@@ -6,14 +6,15 @@
 # jc1 <jc1.quebecos@gmail.com>, 2013
 # Maximilian Schleiss <maximilian@xfce.org>, 2006
 # Mike Massonnet <mmassonnet@gmail.com>, 2006,2009
+# Yannick Le Guen <leguen.yannick@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2013-08-03 20:47+0000\n"
-"Last-Translator: jc1 <jc1.quebecos@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/xfce/language/fr/)\n"
+"PO-Revision-Date: 2014-06-22 14:52+0000\n"
+"Last-Translator: Yannick Le Guen <leguen.yannick@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/xfce-panel-plugins/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -96,7 +97,7 @@ msgstr "Impossible d'ouvrir la fenêtre des paramètres."
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
-msgstr "Mike Massonnet\nMaximilian Schleiss"
+msgstr "L’équipe de traduction francophone de Xfce"
 
 #: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
@@ -127,11 +128,11 @@ msgstr "_Renommer"
 #. Always on top
 #: ../lib/window.vala:728 ../src/main-settings-dialog.c:236
 msgid "Always on top"
-msgstr "Toujours au dessus"
+msgstr "Toujours au-dessus"
 
 #: ../lib/window.vala:733
 msgid "Sticky window"
-msgstr "Coller sur tous les bureaux"
+msgstr "Fenêtre collante"
 
 #: ../lib/window.vala:808
 msgid "_Rename group"
