@@ -4,15 +4,16 @@
 # 
 # Translators:
 # Abel Martín <abel.martin.ruiz@gmail.com>, 2008
-# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2014
+# Adolfo Jayme Barrientos <fito@libreoffice.org>, 2014
+# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2014-03-22 12:59+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@ubuntu.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/xfce/language/es/)\n"
+"PO-Revision-Date: 2014-12-26 00:15+0000\n"
+"Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,7 +60,7 @@ msgstr "Notas %d"
 
 #: ../lib/application.vala:435
 msgid "Rename group"
-msgstr "Renombrar grupo"
+msgstr "Cambiar nombre al grupo"
 
 #: ../lib/application.vala:463 ../lib/window.vala:1085
 #, c-format
@@ -73,7 +74,7 @@ msgstr "¿Está seguro de que quiere eliminar este grupo?"
 #: ../lib/application.vala:536
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "El grupo \"%s\" ha sido modificado fuera de la aplicación"
+msgstr "El grupo «%s» ha sido modificado fuera de la aplicación"
 
 #: ../lib/application.vala:539
 msgid "Do you want to reload the group?"
@@ -82,7 +83,7 @@ msgstr "¿Quiere cargar el grupo de nuevo?"
 #: ../lib/application.vala:662
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "El nombre \"%s\" no es válido."
+msgstr "El nombre «%s» no es válido."
 
 #: ../lib/application.vala:663
 #, c-format
@@ -95,7 +96,7 @@ msgstr "No se puede abrir el diálogo de configuración"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
-msgstr "Elega <elega@elega.com.ar>"
+msgstr "Elega <elega@elega.com.ar>\nPAblo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>"
 
 #: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
@@ -142,11 +143,11 @@ msgstr "_Eliminar grupo"
 
 #: ../lib/window.vala:1033
 msgid "Are you sure you want to delete this note?"
-msgstr "¿Está seguro de de quiere eliminar esta nota?"
+msgstr "¿Está seguro de que quiere eliminar esta nota?"
 
 #: ../lib/window.vala:1059
 msgid "Rename note"
-msgstr "Renombrar nota"
+msgstr "Cambiar nombre a la nota"
 
 #: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
@@ -163,11 +164,11 @@ msgstr "Ocultar notas de la barra de tareas"
 
 #: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
-msgstr "Notas %d"
+msgstr "ruta de las notas:"
 
 #: ../src/main-settings-dialog.c:184
 msgid "Tabs position:"
-msgstr "Posici"
+msgstr "Posición de pestaña:"
 
 #: ../src/main-settings-dialog.c:199
 msgid "Background:"
@@ -244,7 +245,7 @@ msgstr "Oliva"
 
 #: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
 msgid "Carmine"
-msgstr "Carmin"
+msgstr "Carmín"
 
 #: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
 msgid "Mimosa"
