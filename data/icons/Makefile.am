@@ -18,3 +18,9 @@ install-data-hook:
 		echo "***";												\
 	fi
 
+uninstall-hook:
+	@-if test -z "$(DESTDIR)"; then								\
+		echo "Updating Gtk icon cache.";						\
+		$(gtk_update_icon_cache);								\
+	fi
+
