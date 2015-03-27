@@ -1,6 +1,6 @@
-[CCode (cprefix = "", lower_case_prefix = "", cheader_filename = "theme-gtkrc.h")]
 namespace Xnp {
 	public class ThemeGtkrc {
+		[CCode (cname = "update_gtkrc", cheader_filename = "theme-gtkrc.h")]
 		public static void update_gtkrc (Gdk.Color color);
 	}
 }

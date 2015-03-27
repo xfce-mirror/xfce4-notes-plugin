@@ -41,7 +41,7 @@
 
 
 void
-update_gtkrc (const GdkColor color)
+update_gtkrc (const GdkColor *color)
 {
   GdkColor *color2;
   gchar *notesrc_file;
@@ -52,16 +52,16 @@ update_gtkrc (const GdkColor color)
   gchar *offset;
 
   /* bg */
-  bg = gdk_color_to_string (&color);
+  bg = gdk_color_to_string (color);
 
   /* text */
-  color2 = gdk_color_copy (&color);
+  color2 = gdk_color_copy (color);
   __gdk_color_contrast (color2, 5.);
   text = gdk_color_to_string (color2);
   gdk_color_free (color2);
 
   /* selected */
-  color2 = gdk_color_copy (&color);
+  color2 = gdk_color_copy (color);
   __gdk_color_contrast (color2, 3.2);
   selected = gdk_color_to_string (color2);
   gdk_color_free (color2);

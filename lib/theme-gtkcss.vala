@@ -17,6 +17,7 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
+#if ENABLE_GTK3
 namespace Xnp {
 
 	public class ThemeGtkcss : GLib.Object {
@@ -48,3 +49,5 @@ namespace Xnp {
 	}
 
 }
+#endif
+
