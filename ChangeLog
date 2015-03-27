@@ -1,3 +1,209 @@
+2015-03-27  Mike Massonnet <mmassonnet@xfce.org>
+
+=== Release 1.7.8-git ===
+
+Beta release for testing before releasing, should not be packaged into
+distros.
+
+2015-03-27  Mike Massonnet <mmassonnet@xfce.org>
+
+vala: Fix compilation errors, and fix build for GTK2 and GTK3 to work
+together.
+
+2013-05-21  Mike Massonnet <mmassonnet@xfce.org>
+
+hypertextview: Use small tab stops
+
+2013-05-13  Mike Massonnet <mmassonnet@xfce.org>
+
+vala: Cast Gtk.Widget to Gtk.Button
+
+2013-03-12  Mike Massonnet <mmassonnet@xfce.org>
+
+gtk3: Added theming support through GtkCssProvider
+
+	Added a custom CSS file that is installed system-wide and contains
+	modifications on top of the Adwaita theme to look monochrome with a
+	customizable background color set within xfconf.
+	
+	Reading the default background color from GTK+ is not supported yet.
+	
+	Splitted color.c,h,vapi in two sections inside ext-gdk.c,h,vapi and
+	theme-gtkrc.c,h,vapi. The source theme-gtkrc is used for GTK+2 and
+	theme-gtkcss for GTK+3.
+
+2013-03-10  Mike Massonnet <mmassonnet@xfce.org>
+
+gtk3: Smaller icon buttons to fit better in the button frame
+
+2013-03-09  Mike Massonnet <mmassonnet@xfce.org>
+
+gtk3: Implement popup command with Gtk.Application
+
+	Instead of depending on oldish X11 code to show/hide the notes, use
+	Gtk.Application. For GTK3, the binary xfce4-popup-notes is build out
+	of main-popup.vala, while xfce4-popup-notes.c is kept as-is for GTK2.
+	
+	Both xfce4-popup-notes and xfce4-notes binaries define a unique ID
+	org.xfce.Notes and send an activate signal in case a primary instance
+	of xfce4-notes is already running.
+
+gtk3: Drop the background color setting
+
+	Theming the notes window with GTK3 will need something different than
+	gtkrc, and currently the background setting depends on a gtkrc file.
+
+settings: Drop the notes path setting
+
+	The notes path setting is not explained, thus one has to guess what
+	path to choose and if set incorrectly, things might really get mixed
+	up.
+	
+	For the moment simply "hide" the code.
+
+2013-03-08  Mike Massonnet <mmassonnet@xfce.org>
+
+gtk3: Make settings dialog unique by using GtkApplication
+
+2013-03-06  Mike Massonnet <mmassonnet@xfce.org>
+
+gtk3: Use Gtk.Box.new in place of GTK.H/VBox.new
+
+gtk3: Make settings dialog build with GTK3
+
+2013-03-04  Mike Massonnet <mmassonnet@xfce.org>
+
+settings: Make notebook visible and set border width 6
+
+settings: Rename source file xfce4-notes-settings.c
+
+gtk3: Replace Gtk.H/VBox with Gtk.Box
+
+vala: Shut up cast warning from int to pointer
+
+	Use to_pointer() which converts to GINT_TO_POINTER instead of (void*).
+
+gtk3: Use FontChooser instead of FontSelection
+
+	FontSelection is deprecated in GTK+3.
+
+	NB: the code is actually not used, may be useful for giving an option
+	for none global font description in the future.
+
+2013-03-01  Mike Massonnet <mmassonnet@xfce.org>
+
+Make Xnp.Note inherit from Gtk.ScrolledWindow
+
+	Forget about the Gtk.Bin implementation, and replace it with
+	Gtk.ScrolledWindow. The class Xnp.Note is anyway using the
+	Gtk.ScrolledWindow inside Gtk.Bin.
+
+gtk3: Keep style_context inside a single variable
+
+vala: Use newer Gtk.Stock.* syntax
+
+gtk3: Ignore panel plugin from build toolchain
+
+	The Xfce Panel is not yet compatible with GTK3 therefore it's
+	impossible to build a panel plugin.
+	
+	src/Makefile.am accordingly updated to avoid building the panel
+	plugin.
+
+	configure.ac.in warns that GTK3 support is only experimental.
+
+2012-11-11  Mike Massonnet <mmassonnet@xfce.org>
+
+Fix for base property Gtk.Widget.name
+
+Button effect for IconButton on mouse hover (only GTK+3)
+
+	Since GTK+3 has only background and foreground colors, the icon-button
+	class has a button like effect on mouse hover when sensitive.
+
+2012-11-03  Mike Massonnet <mmassonnet@xfce.org>
+
+Fix "draw" handler for XnpIconButton class
+
+Drop old GTK+ Vapi files and deprecated VAPI symbols
+
+	A custom GTK+ Vapi file was used to have support for GTK+2 2.14, but
+	with the the latest Vapi files provided by Vala there is support for
+	GTK+2 2.24.
+	
+	Also drop the Vapi files from the tree that were used for libxfcegui4
+	and libxfce4panel, instead depend on the Vapi files provided with
+	xfce4-vala bindings.
+
+	Use Gtk.Stocks.* instead of Gtk.STOCK_*.
+
+	Update build appropriately.
+
+2012-10-31  Mike Massonnet <mmassonnet@xfce.org>
+
+Update code to build with GTK+3
+
+2012-10-25  Mike Massonnet <mmassonnet@xfce.org>
+
+Include --enable-gtk3 flag in build
+
+	NB: the build with GTK3 will fail currently, and only the xfce4-notes
+	standalone program is being build with GTK+3.
+
+2012-10-24  Mike Massonnet <mmassonnet@xfce.org>
+
+Bump dependency to Xfce 4.10
+
+	Drop support for Xfce <= 4.6.
+	Replace libxfcegui4 dependency against libxfce4ui.
+	Update to new libtool syntax (use LT_PREREQ.)
+
+2011-02-20  Mike Massonnet <mmassonnet@xfce.org>
+
+Allow for smooth migration between Xfce 4.3 and 4.7 (bug #6993)
+
+	When installing the xfce4-notes-plugin-47.desktop file rename it to
+	xfce4-notes-plugin.desktop
+
+Fix race condition that needlessly showed the refresh-button
+
+	The monitoring support is meant to be something simple and not
+	overcomplicated, therefore there is a single point-of-entry that marks
+	a window as being edited from an external tool. While a window
+	contains several notes, saving more than one of them shifted by 1
+	second results in false positive. The simple fix to avoid this race
+	condition is currently to increase the window-updated timeout.
+
+	Also in this commit, when the user decides to not reload the notes
+	from the disk, save the current notes right back to the disk.
+
+2011-01-29  Mike Massonnet <mmassonnet@xfce.org>
+
+Add notes monitoring with GIO
+
+	Ability to reload a group when notes have been edited through an
+	external editor.
+
+	Refresh button (Xnp.IconButton) is drawn inside the window title bar
+	when updates are done outside. A prompt allows to reload the whole
+	group by clicking the button.
+
+	New class Xnp.WindowMonitor to send signals on note updates.
+
+2010-12-19  Mike Massonnet <mmassonnet@xfce.org>
+
+Vala-git: fix error implementing overriden method as private
+
+2010-11-15  Mike Massonnet <mmassonnet@xfce.org>
+
+Add configurable notes path
+
+	Xnp.Application has a new notes-path property that can be tweaked
+	through Xfconf. The new directory must be writable and empty.
+
+	Added a directory button inside the settings dialog to choose the new
+	notes path.
+
 2010-11-06  Mike Massonnet <mmassonnet@xfce.org>
 
 === Release 1.7.7 ===
