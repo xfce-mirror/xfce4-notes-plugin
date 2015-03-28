@@ -102,7 +102,7 @@ main-panel-plugin.c: main-panel-plugin.vala
 	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
 endif
 
-plugindir = $(libdir)/xfce4/panel-plugins
+plugindir = $(libdir)/xfce4/panel/plugins
 plugin_LTLIBRARIES = libnotes.la
 
 libnotes_la_SOURCES =							\
@@ -121,6 +121,12 @@ libnotes_la_LIBADD =							\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
 
+libnotes_la_LDFLAGS =							\
+	-avoid-version							\
+	-module								\
+	-no-undefined							\
+	-export-symbols-regex '^xfce_panel_module_(preinit|init|construct)' \
+	$(PLATFORM_LDFLAGS)
 endif
 
 #
