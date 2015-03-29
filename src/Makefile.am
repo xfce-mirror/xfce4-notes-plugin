@@ -1,6 +1,6 @@
 BUILT_SOURCES =
 
-AM_CFLAGS =								\
+AM_CPPFLAGS =								\
 	-I$(top_srcdir)							\
 	-I$(top_srcdir)/lib						\
 	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
