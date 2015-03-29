@@ -18,12 +18,12 @@ AC_INIT([Notes], [xfce4_notes_plugin_version], [http://bugzilla.xfce.org/], [xfc
 	[http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin])
 AC_REVISION([xfce4_notes_plugin_version_build])
 AC_CANONICAL_TARGET()
+AC_CONFIG_HEADERS([config.h])
 
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
 
 AM_INIT_AUTOMAKE([1.13 dist-bzip2 no-dist-gzip])
-AM_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
 
@@ -31,7 +31,6 @@ dnl Check for basic programs
 AM_PROG_CC_C_O()
 AC_PROG_LD()
 AC_PROG_INSTALL()
-AC_PROG_INTLTOOL()
 
 dnl Check for standard header files
 AC_HEADER_STDC()
@@ -79,6 +78,7 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 fi
 
 dnl Translations
+IT_PROG_INTLTOOL()
 XDT_I18N([@LINGUAS@])
 
 dnl Check for debugging support
