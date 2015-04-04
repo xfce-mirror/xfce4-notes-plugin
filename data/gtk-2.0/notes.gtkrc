@@ -61,7 +61,7 @@ fg[ACTIVE] = @notes_fg_color
 		function        = EXTENSION
 		state           = ACTIVE
 		file            = "tabs/tab-top.png"
-		border          = { 3,3,5,3 }
+		border          = { 3,3,5,5 }
 		stretch         = TRUE
 		gap_side        = BOTTOM
 		}
