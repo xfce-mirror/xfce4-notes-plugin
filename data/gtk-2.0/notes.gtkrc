@@ -41,12 +41,92 @@ fg[NORMAL] = @notes_bg_color
 }
 
 style "notes-notebook" = "notes-default" {
-xthickness = 3
-ythickness = 3
+xthickness = 0
+ythickness = 1
 bg[NORMAL] = @notes_fg_color
 fg[NORMAL] = @notes_bg_color
 bg[ACTIVE] = shade(1.166,@notes_bg_color)
 fg[ACTIVE] = @notes_fg_color
+
+	engine "pixmap" {
+		image {
+		function        = EXTENSION
+		state           = ACTIVE
+		file            = "tabs/tab-bottom.png"
+		border          = { 3,3,3,5 }
+		stretch         = TRUE
+		gap_side        = TOP
+		}
+		image {
+		function        = EXTENSION
+		state           = ACTIVE
+		file            = "tabs/tab-top.png"
+		border          = { 3,3,5,3 }
+		stretch         = TRUE
+		gap_side        = BOTTOM
+		}
+		image {
+		function        = EXTENSION
+		state           = ACTIVE
+		file            = "tabs/tab-left.png"
+		border          = { 3,3,3,3 }
+		stretch         = TRUE
+		gap_side        = RIGHT
+		}
+		image {
+		function        = EXTENSION
+		state           = ACTIVE
+		file            = "tabs/tab-right.png"
+		border          = { 3,3,3,3 }
+		stretch         = TRUE
+		gap_side        = LEFT
+		}
+
+		image {
+		function        = EXTENSION
+		state           = NORMAL
+		file            = "tabs/tab-bottom-active.png"
+		border          = { 3,3,3,5 }
+		stretch         = TRUE
+		gap_side        = TOP
+		}
+		image {
+		function        = EXTENSION
+		state           = NORMAL
+		file            = "tabs/tab-top-active.png"
+		border          = { 3,3,5,3 }
+		stretch         = TRUE
+		gap_side        = BOTTOM
+		}
+		image {
+		function        = EXTENSION
+		state           = NORMAL
+		file            = "tabs/tab-left-active.png"
+		border          = { 3,3,3,3 }
+		stretch         = TRUE
+		gap_side        = RIGHT
+		}
+		image {
+		function        = EXTENSION
+		state           = NORMAL
+		file            = "tabs/tab-right-active.png"
+		border          = { 3,3,3,3 }
+		stretch         = TRUE
+		gap_side        = LEFT
+		}
+
+		image {
+		function        = BOX_GAP
+		file            = "tabs/notebook.png"
+		border          = { 4, 4, 4, 4 }
+		stretch         = TRUE
+		}
+		image {
+		function        = BOX
+		file            = "tabs/notebook.png"
+		border          = { 4, 4, 4, 4 }
+		stretch         = TRUE
+		}
 }
 
 style "notes-scrollbar" = "notes-default" {
