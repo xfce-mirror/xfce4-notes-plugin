@@ -45,15 +45,14 @@ xthickness = 0
 ythickness = 1
 bg[NORMAL] = @notes_fg_color
 fg[NORMAL] = @notes_bg_color
-bg[ACTIVE] = shade(1.166,@notes_bg_color)
-fg[ACTIVE] = @notes_fg_color
+fg[ACTIVE] = shade(0.77,@notes_fg_color)
 
 	engine "pixmap" {
 		image {
 		function        = EXTENSION
 		state           = ACTIVE
 		file            = "tabs/tab-bottom.png"
-		border          = { 3,3,3,5 }
+		border          = { 3,3,3,3 }
 		stretch         = TRUE
 		gap_side        = TOP
 		}
@@ -61,7 +60,7 @@ fg[ACTIVE] = @notes_fg_color
 		function        = EXTENSION
 		state           = ACTIVE
 		file            = "tabs/tab-top.png"
-		border          = { 3,3,5,5 }
+		border          = { 3,3,3,3 }
 		stretch         = TRUE
 		gap_side        = BOTTOM
 		}
@@ -86,7 +85,7 @@ fg[ACTIVE] = @notes_fg_color
 		function        = EXTENSION
 		state           = NORMAL
 		file            = "tabs/tab-bottom-active.png"
-		border          = { 3,3,3,5 }
+		border          = { 3,3,3,3 }
 		stretch         = TRUE
 		gap_side        = TOP
 		}
@@ -94,7 +93,7 @@ fg[ACTIVE] = @notes_fg_color
 		function        = EXTENSION
 		state           = NORMAL
 		file            = "tabs/tab-top-active.png"
-		border          = { 3,3,5,3 }
+		border          = { 3,3,3,3 }
 		stretch         = TRUE
 		gap_side        = BOTTOM
 		}
