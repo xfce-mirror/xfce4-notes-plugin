@@ -43,8 +43,9 @@ fg[NORMAL] = @notes_bg_color
 style "notes-notebook" = "notes-default" {
 xthickness = 0
 ythickness = 1
+
 bg[NORMAL] = @notes_fg_color
-fg[NORMAL] = @notes_bg_color
+fg[NORMAL] = @notes_fg_color
 fg[ACTIVE] = shade(0.77,@notes_fg_color)
 
 	engine "pixmap" {
@@ -126,6 +127,7 @@ fg[ACTIVE] = shade(0.77,@notes_fg_color)
 		border          = { 4, 4, 4, 4 }
 		stretch         = TRUE
 		}
+	}
 }
 
 style "notes-scrollbar" = "notes-default" {
@@ -369,5 +371,5 @@ widget "notes-window*" style "notes-default"
 widget "notes-window" style "notes-window"
 widget "gtk-tooltip*" style "notes-tooltips"
 widget "*notes-notebook*" style "notes-notebook"
-widget_class "*GtkScrolledWindow*" style "notes-scrollbar"
+widget_class "*<GtkScrolledWindow>*" style "notes-scrollbar"
 
