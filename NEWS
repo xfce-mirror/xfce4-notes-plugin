@@ -1,3 +1,16 @@
+VERSION 1.8.0
+
+- Dependencies: match Xfce 4.10 requirements.
+- Vala: Compilation fixes, and fixed build for GTK2 and GTK3 to work together.
+- GTK3: Added support for GTK3 and theming through GtkCssProvider, it's still
+  missing features from GTK2 code, and doesn't build a panel plugin. Build with
+  --enable-gtk3 from Git (dist do not permit to rebuild from Vala.)
+- Settings: New hidden notes-path setting tweakable through xfconf.
+- Monitor: Add monitoring of notes files to allow hot-edition and refresh in
+  notes windows.
+- Other misc fixes.
+- Updated translations: all of them, lots of them!
+
 VERSION 1.7.7
 
 - Ported code to Vala 0.10

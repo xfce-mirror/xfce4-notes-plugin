@@ -1,6 +1,41 @@
+2015-04-13  Mike Massonnet <mmassonnet@xfce.org>
+
+=== Release 1.8.0 ===
+
+2015-04-04  Mike Massonnet <mmassonnet@xfce.org>
+
+gtkrc: always show steppers
+
+gtkrc: theme GtkNotebook
+
+	Use pixmap engine to theme the tabs and the notebook in order to keep
+	a common theming between different engines.
+
+gtkrc: fix top tabs gap
+
+gtkrc: set background tabs less opaque
+
+gtkrc: no need for bg[ACTIVE], use shade on fg[ACTIVE], and redefine tabs
+border
+
+gtkrc: fix syntax and switch fg[NORMAL] to @notes_fg_color
+
+2015-03-28  Mike Massonnet <mmassonnet@xfce.org>
+
+build: remove soname versioning and install panel plugin to
+$datadir/xfce4/panel/plugins
+
+build: bump automake to 1.13
+
+build: adjust to newer AM/AC macros
+
+build: fix s/AM_CFLAGS/AM_CPPFLAGS/
+
 2015-03-27  Mike Massonnet <mmassonnet@xfce.org>
 
-=== Release 1.7.8-git ===
+build: Uinstall hook for icon cache file
+
+=== Release 1.8.0-git ===
 
 Beta release for testing before releasing, should not be packaged into
 distros.
