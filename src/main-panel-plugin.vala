@@ -41,6 +41,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		button.add (image);
 		button.clicked.connect (() => { application.show_hide_notes (); });
 		button.show_all ();
+		small = true;
 		add (button);
 		add_action_widget (button);
 		set_tooltip_text (_("Notes"));
@@ -56,6 +57,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		set_x_selection ();
 
 		size_changed.connect ((p, size) => {
+			size = size / (int)nrows;
 			button.set_size_request (size, size);
 			return true;
 		});
