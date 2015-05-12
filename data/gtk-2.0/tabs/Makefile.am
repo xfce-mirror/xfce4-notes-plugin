@@ -1,5 +1,5 @@
-scrollbarsdir = $(pkgdatadir)/gtk-2.0/scrollbars
-dist_scrollbars_DATA =							\
+tabsdir = $(pkgdatadir)/gtk-2.0/tabs
+dist_tabs_DATA =							\
 	notebook.png							\
 	tab-bottom-active.png						\
 	tab-bottom.png							\
