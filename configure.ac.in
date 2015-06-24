@@ -7,7 +7,7 @@ dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])
 m4_define([xfce4_notes_plugin_version_minor], [8])
-m4_define([xfce4_notes_plugin_version_micro], [0])
+m4_define([xfce4_notes_plugin_version_micro], [1])
 m4_define([xfce4_notes_plugin_version_nano], [])
 m4_define([xfce4_notes_plugin_version_build], [@REVISION@])
 m4_define([xfce4_notes_plugin_version_tag], []) # Leave empty for releases
