@@ -1,357 +1,272 @@
-# Catalan translation of xfce4-notes-plugin
-# Copyright (C) 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
-# 2006 Mike Massonnet <mmassonnet@gmail.com>
-# This file is distributed under the same license as the xfce4-notes-plugin package.
-# Pau Ruŀlan Ferragut <paurullan@bulma.net>, 2006.
-# Carles Muñoz Gorriz <carlesmu@internautas.org>, 2008-2010.
-# Harald Servat <redcrash@gmail.com>, 2009.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Harald Servat <redcrash@gmail.com>, 2009
+# Pau Ruŀlan Ferragut <paurullan@bulma.net>, 2006
+# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notes-plugin 1.3.0\n"
+"Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-24 17:16+0200\n"
-"PO-Revision-Date: 2010-11-27 09:40+0100\n"
-"Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
-"Language-Team: Catalan\n"
-"Language: Catalan\n"
+"POT-Creation-Date: 2013-07-03 21:09+0200\n"
+"PO-Revision-Date: 2016-05-01 16:07+0000\n"
+"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Catalan\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:742
-#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:914
-#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin.vala:46
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:191
+#: ../lib/application.vala:218 ../lib/application.vala:758
+#: ../lib/window.vala:89 ../lib/window.vala:180 ../lib/window.vala:955
+#: ../src/main-settings-dialog.c:107 ../src/main-panel-plugin.vala:46
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:136
 msgid "Notes"
 msgstr "Notes"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:744
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
 msgid "Ideal for your quick notes"
 msgstr "Ideal per notes ràpides"
 
-#: ../lib/application.vala:119 ../lib/application.vala:134
-#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+#: ../lib/application.vala:121 ../lib/application.vala:136
+#: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
 msgid "Select notes path"
 msgstr "Seleccioneu el camí de les notes"
 
-#: ../lib/application.vala:120
+#: ../lib/application.vala:122
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr ""
-"En el directori seleccionar «%s» de les noves notes ja hi han fitxers. Heu "
-"de seleccionar o crear un directori buit."
+msgstr "El directori seleccionat (%s) per a les noves notes ja conté fitxers. Heu de seleccionar o crear un directori buit."
 
-#: ../lib/application.vala:135
+#: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "No s'ha pogut seleccionar el directori per les noves notes: %s"
 
-#: ../lib/application.vala:188 ../lib/window.vala:917
+#: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
 msgid "Notes %d"
 msgstr "Notes %d"
 
-#: ../lib/application.vala:428
+#: ../lib/application.vala:435
 msgid "Rename group"
 msgstr "Canvia el nom del grup"
 
-#: ../lib/application.vala:449 ../lib/window.vala:1039
+#: ../lib/application.vala:463 ../lib/window.vala:1085
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Ja s'està emprant el nom «%s»"
 
-#: ../lib/application.vala:478
+#: ../lib/application.vala:492
 msgid "Are you sure you want to delete this group?"
 msgstr "Voleu suprimir aquest grup?"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:536
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "El grup \"%s\" s'ha modificat al disc."
 
-#: ../lib/application.vala:525
+#: ../lib/application.vala:539
 msgid "Do you want to reload the group?"
 msgstr "Voleu tornar a carregar aquest grup?"
 
-#: ../lib/application.vala:648
+#: ../lib/application.vala:662
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "El nom «%s» no és vàlid."
 
-#: ../lib/application.vala:649
+#: ../lib/application.vala:663
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "El caràcter no vàlid és: %s"
 
-#: ../lib/application.vala:706
+#: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
 msgstr "No s'ha pogut obrir la finestra de paràmetres"
 
-#: ../lib/application.vala:751
+#: ../lib/application.vala:767
 msgid "translator-credits"
-msgstr ""
-"Pau Ruŀlan Ferragut <paurullan@bulma.net>, 2006.\n"
-"Carles Muñoz Gorriz <carlesmu@internautas.org>, 2008-2010.\n"
-"Harald Servat <redcrash@gmail.com>, 2009."
+msgstr "Pau Rul·lan Ferragut <paurullan@bulma.net>, 2006.\nCarles Muñoz Gorriz <carlesmu@internautas.org>, 2008-2010.\nHarald Servat <redcrash@gmail.com>, 2009.\nRobert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016."
 
-#: ../lib/application.vala:786 ../lib/window.vala:781
+#: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
 msgstr "_Afegeix un grup"
 
-#: ../lib/window.vala:226
+#: ../lib/window.vala:239
 msgid "Menu"
 msgstr "Menú"
 
-#: ../lib/window.vala:255
+#: ../lib/window.vala:268
 msgid "Refresh notes"
 msgstr "Refrescar les notes"
 
-#: ../lib/window.vala:268
+#: ../lib/window.vala:281
 #, c-format
 msgid "Hide (%s)"
 msgstr "Ocultar (%s)"
 
-#: ../lib/window.vala:648 ../src/main-panel-plugin.vala:50
+#: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Grups"
 
-#: ../lib/window.vala:671
+#: ../lib/window.vala:712
 msgid "_Rename"
 msgstr "_Canvia el nom"
 
 #. Always on top
-#: ../lib/window.vala:687 ../src/xfce4-notes-settings.c:185
+#: ../lib/window.vala:728 ../src/main-settings-dialog.c:236
 msgid "Always on top"
 msgstr "Sempre en primer pla"
 
-#: ../lib/window.vala:692
+#: ../lib/window.vala:733
 msgid "Sticky window"
 msgstr "Finestra enganxosa"
 
-#: ../lib/window.vala:767
+#: ../lib/window.vala:808
 msgid "_Rename group"
 msgstr "_Canvia el nom del grup"
 
-#: ../lib/window.vala:774
+#: ../lib/window.vala:815
 msgid "_Delete group"
 msgstr "_Suprimeix un grup"
 
-#: ../lib/window.vala:992
+#: ../lib/window.vala:1033
 msgid "Are you sure you want to delete this note?"
 msgstr "Voleu suprimir aquesta nota?"
 
-#: ../lib/window.vala:1018
+#: ../lib/window.vala:1059
 msgid "Rename note"
 msgstr "Canvia el nom de la nota"
 
-#: ../src/xfce4-notes-settings.c:103
+#: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
 msgstr "Configura el connector"
 
-#: ../src/xfce4-notes-settings.c:122
+#: ../src/main-settings-dialog.c:142
 msgid "Global settings"
 msgstr "Paràmetres globals"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:127
+#: ../src/main-settings-dialog.c:147
 msgid "Hide notes from taskbar"
 msgstr "No mostris les notes a la barra de tasques"
 
-#: ../src/xfce4-notes-settings.c:137
+#: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
 msgstr "Camí de les notes:"
 
-#: ../src/xfce4-notes-settings.c:147
+#: ../src/main-settings-dialog.c:184
 msgid "Tabs position:"
 msgstr "Posició de les pestanyes:"
 
-#: ../src/xfce4-notes-settings.c:157
+#: ../src/main-settings-dialog.c:199
 msgid "Background:"
 msgstr "Fons:"
 
-#: ../src/xfce4-notes-settings.c:170
+#: ../src/main-settings-dialog.c:217
 msgid "Font:"
 msgstr "Tipus de lletra:"
 
-#: ../src/xfce4-notes-settings.c:180
+#: ../src/main-settings-dialog.c:231
 msgid "New group settings"
 msgstr "Paràmetres del nou grup"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:192
+#: ../src/main-settings-dialog.c:243
 msgid "Sticky"
 msgstr "Enganxosa"
 
-#: ../src/xfce4-notes-settings.c:202
+#: ../src/main-settings-dialog.c:257
 msgid "Size:"
 msgstr "Mida:"
 
-#: ../src/xfce4-notes-settings.c:270
+#: ../src/main-settings-dialog.c:328 ../src/main-settings-dialog.c:335
 msgid "None"
 msgstr "Cap"
 
-#: ../src/xfce4-notes-settings.c:271
+#: ../src/main-settings-dialog.c:329 ../src/main-settings-dialog.c:336
 msgid "Top"
 msgstr "A dalt"
 
-#: ../src/xfce4-notes-settings.c:272
+#: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
 msgid "Right"
 msgstr "A la dreta"
 
-#: ../src/xfce4-notes-settings.c:273
+#: ../src/main-settings-dialog.c:331 ../src/main-settings-dialog.c:338
 msgid "Bottom"
 msgstr "A baix"
 
-#: ../src/xfce4-notes-settings.c:274
+#: ../src/main-settings-dialog.c:332 ../src/main-settings-dialog.c:339
 msgid "Left"
 msgstr "A l'esquerra"
 
-#: ../src/xfce4-notes-settings.c:290
+#: ../src/main-settings-dialog.c:357 ../src/main-settings-dialog.c:362
 msgid "Small"
 msgstr "Petita"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/main-settings-dialog.c:358 ../src/main-settings-dialog.c:363
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/main-settings-dialog.c:359 ../src/main-settings-dialog.c:364
 msgid "Large"
 msgstr "Gran"
 
-#: ../src/xfce4-notes-settings.c:350
+#: ../src/main-settings-dialog.c:425 ../src/main-settings-dialog.c:438
 msgid "Yellow"
 msgstr "Groc"
 
-#: ../src/xfce4-notes-settings.c:351
+#: ../src/main-settings-dialog.c:426 ../src/main-settings-dialog.c:439
 msgid "Blue"
 msgstr "Blau"
 
-#: ../src/xfce4-notes-settings.c:352
+#: ../src/main-settings-dialog.c:427 ../src/main-settings-dialog.c:440
 msgid "Green"
 msgstr "Verd"
 
-#: ../src/xfce4-notes-settings.c:353
+#: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
 msgid "Indigo"
 msgstr "Indi"
 
-#: ../src/xfce4-notes-settings.c:354
+#: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
 msgid "Olive"
 msgstr "Oliva"
 
-#: ../src/xfce4-notes-settings.c:355
+#: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
 msgid "Carmine"
 msgstr "Carmí"
 
-#: ../src/xfce4-notes-settings.c:356
+#: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/xfce4-notes-settings.c:357
+#: ../src/main-settings-dialog.c:432 ../src/main-settings-dialog.c:445
 msgid "White"
 msgstr "Blanc"
 
-#: ../src/xfce4-notes-settings.c:358
+#: ../src/main-settings-dialog.c:433 ../src/main-settings-dialog.c:446
 msgid "Android"
 msgstr "Android"
 
-#: ../src/xfce4-notes-settings.c:359
+#: ../src/main-settings-dialog.c:434 ../src/main-settings-dialog.c:447
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/xfce4-notes-settings.c:360
+#: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
 msgid "Custom..."
-msgstr "Personalitzat…"
+msgstr "Personalitzat..."
 
-#: ../src/xfce4-notes-settings.c:490
+#: ../src/main-settings-dialog.c:579
 msgid "Background Color"
 msgstr "Color de fons"
-
-#~ msgid "Show the automatic navigation bar"
-#~ msgstr "Mostra la barra de navegació automàtica"
-
-#~ msgid "Show tabs in the notes"
-#~ msgstr "Mostra pestanyes a les notes"
-
-#~ msgid "Red"
-#~ msgstr "Vermell"
-
-#~ msgid "Purple"
-#~ msgstr "Porpra"
-
-#~ msgid "Choose current note font"
-#~ msgstr "Trieu la font de la finestra"
-
-#~ msgid "Are you sure you want to delete this window?"
-#~ msgstr "Esteu segurs que voleu suprimir aquesta finestra?"
-
-#~ msgid "Window"
-#~ msgstr "Finestra"
-
-#~ msgid "_Options"
-#~ msgstr "_Opcions"
-
-#~ msgid "R_ename..."
-#~ msgstr "R_eanomena…"
-
-#~ msgid "Show tabs"
-#~ msgstr "Mostra les pestanyes"
-
-#~ msgid "Show on startup"
-#~ msgstr "Mostra al iniciar"
-
-#~ msgid "Always"
-#~ msgstr "Sempre"
-
-#~ msgid "Never"
-#~ msgstr "Mai"
-
-#~ msgid "Last state"
-#~ msgstr "Últim estat"
-
-#~ msgid "Rename window"
-#~ msgstr "Reanomena la finestra"
-
-#~ msgid "Error"
-#~ msgstr "Error"
-
-#~ msgid "Unable to rename window"
-#~ msgstr "No s'ha pogut reanomenar la finestra"
-
-#~ msgid "Unable to rename note"
-#~ msgstr "No s'ha pogut reanomenar la nota"
-
-#~ msgid "Hide arrow button"
-#~ msgstr "Amaga el botó de fletxa"
-
-#~ msgid "Notes plugin for the Xfce4 desktop"
-#~ msgstr "Connector de notes per l’escriptori Xfce4"
-
-#~ msgid "Resize grip"
-#~ msgstr "Redimensiona la barra"
-
-#~ msgid "Xfce 4 Notes Plugin"
-#~ msgstr "Connector de notes de Xfce 4"
-
-#~ msgid "Create new note"
-#~ msgstr "Crea una nota nova"
-
-#~ msgid "Delete this note"
-#~ msgstr "Suprimeix aquesta nota"
-
-#~ msgid "<b>Notes</b>"
-#~ msgstr "<b>Notes</b>"
-
-#~ msgid "Properties"
-#~ msgstr "Propietats"
