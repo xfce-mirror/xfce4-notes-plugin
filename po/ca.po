@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2016-05-01 16:07+0000\n"
+"PO-Revision-Date: 2016-05-01 17:54+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Canvia el nom del grup"
 #: ../lib/application.vala:463 ../lib/window.vala:1085
 #, c-format
 msgid "The name %s is already in use"
-msgstr "Ja s'està emprant el nom «%s»"
+msgstr "Ja s'està utilitzant el nom «%s»"
 
 #: ../lib/application.vala:492
 msgid "Are you sure you want to delete this group?"
