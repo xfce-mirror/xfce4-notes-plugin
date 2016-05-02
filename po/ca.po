@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2016-05-01 17:54+0000\n"
+"PO-Revision-Date: 2016-05-02 13:07+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr "El caràcter no vàlid és: %s"
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
-msgstr "No s'ha pogut obrir la finestra de paràmetres"
+msgstr "No s'ha pogut obrir el diàleg d'ajusts"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
@@ -155,7 +155,7 @@ msgstr "Configura el connector"
 
 #: ../src/main-settings-dialog.c:142
 msgid "Global settings"
-msgstr "Paràmetres globals"
+msgstr "Ajusts globals"
 
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:147
@@ -180,7 +180,7 @@ msgstr "Tipus de lletra:"
 
 #: ../src/main-settings-dialog.c:231
 msgid "New group settings"
-msgstr "Paràmetres del nou grup"
+msgstr "Ajusts del nou grup"
 
 #. Sticky window
 #: ../src/main-settings-dialog.c:243
