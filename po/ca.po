@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2016-05-02 13:07+0000\n"
+"PO-Revision-Date: 2016-05-02 20:58+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Voleu suprimir aquest grup?"
 #: ../lib/application.vala:536
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "El grup \"%s\" s'ha modificat al disc."
+msgstr "El grup «%s» s'ha modificat al disc."
 
 #: ../lib/application.vala:539
 msgid "Do you want to reload the group?"
