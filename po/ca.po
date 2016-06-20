@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2016-06-06 00:58+0000\n"
+"PO-Revision-Date: 2016-06-20 15:09+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Refrescar les notes"
 #: ../lib/window.vala:281
 #, c-format
 msgid "Hide (%s)"
-msgstr "Ocultar (%s)"
+msgstr "Oculta (%s)"
 
 #: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:53
