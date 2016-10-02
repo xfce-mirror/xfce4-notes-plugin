@@ -58,8 +58,7 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
         if test "x$VALAC" = "x" ; then
                 AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
         fi
-        # TODO look forward for an xfce4-vala 4.12 release
-        XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.10])
+        XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.12])
 fi
 
 dnl Translations
@@ -95,10 +94,7 @@ echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 echo
 echo "    * Vala:               $VALAC $am__vala_version"
-# TODO needed for panel plugin
-#if test "x$enable_gtk3" = "xno" ; then
-#echo "    * Xfce4-vala:         $XFCE4VALA_VERSION"
-#fi
+echo "    * Xfce4-vala:         $XFCE4VALA_VERSION"
 echo
 fi
 echo "* GTK+:                   $GTK_VERSION"

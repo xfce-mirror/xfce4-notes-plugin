@@ -45,16 +45,14 @@ xfce4_notes_settings_CFLAGS =						\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UI_CFLAGS@						\
-	@XFCONF_CFLAGS@							\
-	@UNIQUE_CFLAGS@
+	@XFCONF_CFLAGS@
 
 xfce4_notes_settings_LDADD =						\
 	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UI_LIBS@						\
-	@XFCONF_LIBS@							\
-	@UNIQUE_LIBS@
+	@XFCONF_LIBS@
 
 #
 # Panel plugin
@@ -147,16 +145,14 @@ xfce4_notes_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UTIL_CFLAGS@						\
-	@XFCONF_CFLAGS@							\
-	@UNIQUE_CFLAGS@
+	@XFCONF_CFLAGS@
 
 xfce4_notes_LDADD =							\
 	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UTIL_LIBS@						\
-	@XFCONF_LIBS@							\
-	@UNIQUE_LIBS@
+	@XFCONF_LIBS@
 
 #
 # Plugin desktop file
