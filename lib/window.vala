@@ -40,11 +40,7 @@ namespace Xnp {
 		private Xnp.TitleBarButton left_arrow_button;
 		private Xnp.TitleBarButton right_arrow_button;
 		private Xnp.TitleBarButton close_button;
-#if ENABLE_GTK3
 		private Gtk.Box content_box;
-#else
-		private Gtk.VBox content_box;
-#endif
 		private Gtk.Notebook notebook;
 
 		private Gtk.UIManager ui;
@@ -219,22 +215,14 @@ namespace Xnp {
 			frame.modify_style (style);
 			frame.show ();
 			add (frame);
-#if ENABLE_GTK3
 			var vbox_frame = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-#else
-			var vbox_frame = new Gtk.VBox (false, 0);
-#endif
 
 			vbox_frame.spacing = 1;
 			vbox_frame.show ();
 			frame.add (vbox_frame);
 
 			/* Build title bar */
-#if ENABLE_GTK3
 			var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-#else
-			var title_box = new Gtk.HBox (false, 0);
-#endif
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
@@ -284,11 +272,7 @@ namespace Xnp {
 			vbox_frame.pack_start (title_box, false, false, 0);
 
 			/* Build content box */
-#if ENABLE_GTK3
 			this.content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-#else
-			this.content_box = new Gtk.VBox (false, 0);
-#endif
 			this.content_box.show ();
 			vbox_frame.pack_start (this.content_box, true, true, 0);
 
@@ -298,9 +282,6 @@ namespace Xnp {
 			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
 			this.notebook.tab_pos = Gtk.PositionType.TOP;
-#if !ENABLE_GTK3
-			this.notebook.tab_border = 4;
-#endif
 			this.notebook.scrollable = true;
 			this.notebook.show ();
 			this.content_box.pack_start (this.notebook, true, true, 0);
@@ -645,13 +626,8 @@ namespace Xnp {
 			Gtk.Requisition requisition;
 			Gtk.Allocation allocation;
 
-#if ENABLE_GTK3
 			get_window ().get_geometry (out winx, out winy, out width, out height);
 			menu.get_preferred_size (out requisition, null);
-#else
-			get_window ().get_geometry (out winx, out winy, out width, out height, null);
-			menu.size_request (out requisition);
-#endif
 			get_window ().get_origin (out x, out y);
 			push_in = false;
 
@@ -667,13 +643,9 @@ namespace Xnp {
 			}
 			if (x + requisition.width > Gdk.Screen.width ()) {
 				/* Adjust menu left */
-#if ENABLE_GTK3
 				int menu_width;
 				menu.get_preferred_width (out menu_width, null);
 				x = x - menu_width + allocation.y;
-#else
-				x = x - menu.requisition.width + content_box.allocation.y;
-#endif
 			}
 		}
 
@@ -1057,11 +1029,7 @@ namespace Xnp {
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
-#if ENABLE_GTK3
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
-#else
-				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
-#endif
 				Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
@@ -1106,21 +1074,12 @@ namespace Xnp {
 				return;
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
-#if ENABLE_GTK3
 			var dialog = new Gtk.FontChooserDialog ("Choose current note font", this);
 			dialog.set_font (note.text_view.font);
-#else
-			var dialog = new Gtk.FontSelectionDialog ("Choose current note font");
-			dialog.set_font_name (note.text_view.font);
-#endif
 			int res = dialog.run ();
 			dialog.hide ();
 			if (res == Gtk.ResponseType.OK) {
-#if ENABLE_GTK3
 				note.text_view.font = dialog.get_font ();
-#else
-				note.text_view.font = dialog.get_font_name ();
-#endif
 			}
 			dialog.destroy ();
 		}
@@ -1179,7 +1138,8 @@ namespace Xnp {
 			}
 		}
 
-/* valac -X '-I..' -X '-DGETTEXT_PACKAGE="xfce4-notes-plugin"' -X '-DPKGDATADIR="../data"' -D ENABLE_GTK3 --pkg=gtk+-3.0 --pkg=libxfce4util-1.0 --pkg=libxfconf-0 --pkg=color --pkg=config --vapidir=.. --vapidir=. window.vala note.vala hypertextview.vala icon-button.vala
+/* valac -X '-I..' -X '-DGETTEXT_PACKAGE="xfce4-notes-plugin"' -X '-DPKGDATADIR="../data"' -D DEBUG_XNP_WINDOW --pkg=gtk+-3.0 --pkg=libxfce4util-1.0 --pkg=libxfconf-0 --pkg=color --pkg=config --vapidir=.. --vapidir=. window.vala note.vala hypertextview.vala icon-button.vala */
+#if DEBUG_XNP_WINDOW
 		static int main (string[] args) {
 			Gtk.init (ref args);
 			var sample = new Xnp.Window ();
@@ -1187,8 +1147,7 @@ namespace Xnp {
 			Gtk.main ();
 			return 0;
 		}
-// */
-
+#endif
 	}
 
 }

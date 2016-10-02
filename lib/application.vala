@@ -31,11 +31,6 @@ namespace Xnp {
 		private Xfconf.Channel xfconf_channel;
 
 		construct {
-#if !ENABLE_GTK3
-			var notesgtkrc = "%s/xfce4/xfce4-notes.gtkrc".printf (GLib.Environment.get_user_config_dir ());
-			Gtk.rc_parse (notesgtkrc);
-#endif
-
 			try {
 				Xfce.PosixSignalHandler.init ();
 				Xfce.PosixSignalHandler.set_handler(ProcessSignal.TERM, quit);
@@ -145,13 +140,8 @@ namespace Xnp {
 		private void update_color () {
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			if (color == "GTK+") {
-#if ENABLE_GTK3
 				// TODO: Read from StyleContext with default CssProvider
 				return;
-#else
-				var style_widget = new Gtk.Invisible ();
-				color = style_widget.get_style ().bg[Gtk.StateType.NORMAL].to_string ();
-#endif
 			}
 			Xnp.Theme.set_background_color (color);
 		}
@@ -433,20 +423,13 @@ namespace Xnp {
 		 */
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename group"), window,
-#if ENABLE_GTK3
 					Gtk.DialogFlags.DESTROY_WITH_PARENT,
-#else
-					Gtk.DialogFlags.DESTROY_WITH_PARENT|Gtk.DialogFlags.NO_SEPARATOR,
-#endif
 					Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
 			dialog.icon_name = Gtk.Stock.EDIT;
 			dialog.border_width = 4;
-#if !ENABLE_GTK3
-			content_area.border_width = 6;
-#endif
 
 			var entry = new Gtk.Entry ();
 			entry.text = window.name;
@@ -730,24 +713,6 @@ namespace Xnp {
 		 * Open the about dialog.
 		 */
 		public void open_about_dialog () {
-#if !ENABLE_GTK3
-			Gtk.AboutDialog.set_url_hook ((dialog, uri) => {
-					string command;
-					try {
-						command = "exo-open %s".printf (uri);
-						GLib.Process.spawn_command_line_async (command);
-						return;
-					} catch (GLib.Error e) {
-					}
-					try {
-						command = "firefox %s".printf (uri);
-						GLib.Process.spawn_command_line_async (command);
-						return;
-					} catch (GLib.Error e) {
-					}
-				});
-#endif
-
 			string[] authors = {
 					"(c) 2006-2010 Mike Massonnet",
 					"(c) 2003 Jakob Henriksson",

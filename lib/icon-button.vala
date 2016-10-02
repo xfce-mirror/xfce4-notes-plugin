@@ -31,9 +31,6 @@ namespace Xnp {
 			set_visible_window (false);
 			set_above_child (true);
 			set_size_request (22, 22);
-#if !ENABLE_GTK3
-			set_border_width (2);
-#endif
 
 			enter_notify_event.connect (on_enter_notify_event);
 			leave_notify_event.connect (on_leave_notify_event);
@@ -43,7 +40,6 @@ namespace Xnp {
 		protected abstract void draw_icon (Cairo.Context cr, int width, int height);
 
 		protected void set_widget_source_color (Cairo.Context cr) {
-#if ENABLE_GTK3
 			var style_context = get_style_context ();
 
 			if (sensitive && active) {
@@ -53,21 +49,12 @@ namespace Xnp {
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.NORMAL));
 			else if (!sensitive)
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.INSENSITIVE));
-#else
-			if (sensitive && active)
-				Gdk.cairo_set_source_color (cr, style.base[Gtk.StateType.NORMAL]);
-			else if (sensitive && !active)
-				Gdk.cairo_set_source_color (cr, style.fg[Gtk.StateType.INSENSITIVE]);
-			else if (!sensitive)
-				Gdk.cairo_set_source_color (cr, style.text[Gtk.StateType.INSENSITIVE]);
-#endif
 		}
 
 		public override void add (Gtk.Widget widget) {
 			warning ("This object doesn't allow packing child widgets.");
 		}
 
-#if ENABLE_GTK3
 		public override bool draw (Cairo.Context cr) {
 			int width = get_allocated_width ();
 			int height = get_allocated_height ();
@@ -86,29 +73,6 @@ namespace Xnp {
 
 			return false;
 		}
-#else
-		public override bool expose_event (Gdk.EventExpose event) {
-			Gtk.Allocation allocation;
-			get_allocation (out allocation);
-
-			int width = allocation.width - (int)border_width * 2;
-			int height = allocation.height - (int)border_width * 2;
-			int x = allocation.width / 2 - width / 2 + allocation.x;
-			int y = allocation.height / 2 - height / 2 + allocation.y;
-
-			var cr = Gdk.cairo_create (get_window ());
-			cr.rectangle (x, y, width, height);
-			cr.clip ();
-
-			var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, width, height);
-			var cr_ = new Cairo.Context (surface);
-			draw_icon (cr_, width, height);
-			cr.set_source_surface (surface, x, y);
-			cr.paint ();
-
-			return false;
-		}
-#endif
 
 		private bool on_enter_notify_event (Gdk.EventCrossing event) {
 			active = true;

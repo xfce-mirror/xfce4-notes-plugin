@@ -44,7 +44,6 @@ static void build_plugin () {
 	status_icon.popup_menu.connect (() => {
 		context_menu.popup (null, null, status_icon.position_menu, 0, Gtk.get_current_event_time ());
 	});
-	set_x_selection ();
 }
 
 static Gtk.Menu build_context_menu () {
@@ -82,26 +81,8 @@ static Gtk.Menu build_context_menu () {
 	return menu;
 }
 
-static bool set_x_selection () {
-#if !ENABLE_GTK3
-	invisible = new Gtk.Invisible ();
-	if (!Xnp.Popup.set_x_selection (invisible)) {
-		return false;
-	}
-	invisible.client_event.connect ((w, event) => {
-		if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
-			application.show_hide_notes ();
-			return true;
-		}
-		return false;
-	});
-#endif
-	return true;
-}
-
 static int main (string[] args) {
 	Gtk.init (ref args);
-#if ENABLE_GTK3
 	Gtk.Application app = new Gtk.Application ("org.xfce.Notes", 0);
 
 	try {
@@ -118,21 +99,7 @@ static int main (string[] args) {
 	app.activate.connect (() => {
 		application.show_hide_notes ();
 	});
-#else
-	Unique.App app = new Unique.App ("org.xfce.Notes", null);
-	if (app.is_running) {
-		if (app.send_message (Unique.Command.ACTIVATE, null) == Unique.Response.OK) {
-			app = null;
-			return 0;
-		}
-	}
-	app.message_received.connect ((command, message_data, time_) => {
-		if (command != Unique.Command.ACTIVATE) {
-			return Unique.Response.PASSTHROUGH;
-		}
-		return Unique.Response.OK;
-	});
-#endif
+
 	GLib.Environment.set_application_name (_("Notes"));
 	build_plugin ();
 	Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", false);
