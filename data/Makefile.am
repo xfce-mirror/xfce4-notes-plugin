@@ -1,5 +1,5 @@
 SUBDIRS =								\
-	gtk-2.0								\
+	gtk-3.0								\
 	icons								\
 	pixmaps
 

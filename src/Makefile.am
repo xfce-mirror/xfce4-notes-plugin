@@ -13,7 +13,6 @@ AM_CPPFLAGS =								\
 
 bin_PROGRAMS = xfce4-popup-notes
 
-if ENABLE_GTK3
 if MAINTAINER_MODE
 xfce4_popup_notes_VALAFLAGS =						\
 	--pkg=gtk+-3.0
@@ -31,19 +30,6 @@ xfce4_popup_notes_CFLAGS =						\
 
 xfce4_popup_notes_LDADD =						\
 	@GTK_LIBS@
-else
-xfce4_popup_notes_SOURCES =						\
-	$(top_srcdir)/lib/popup.h					\
-	xfce4-popup-notes.c
-
-xfce4_popup_notes_CFLAGS =						\
-	@LIBX11_CFLAGS@							\
-	@GTK_CFLAGS@
-
-xfce4_popup_notes_LDADD =						\
-	@LIBX11_LIBS@							\
-	@GTK_LIBS@
-endif
 
 #
 # Settings dialog
@@ -74,60 +60,61 @@ xfce4_notes_settings_LDADD =						\
 # Panel plugin
 #
 
-if !ENABLE_GTK3
-# REM Xfce Panel is not yet built with GTK3 support
-# hence it's impossible to build a panel plugin yet
-
-if MAINTAINER_MODE
-notes_VALAFLAGS =							\
-	--vapidir=$(top_srcdir)/lib					\
-	--pkg=libnotes							\
-	--pkg=config							\
-	--pkg=libxfce4panel-1.0						\
-	--pkg=libxfconf-0						\
-	--pkg=libxfce4util-1.0
-
-if ENABLE_GTK3
-notes_VALAFLAGS +=							\
-	-D ENABLE_GTK3							\
-	--pkg=gtk+-3.0
-else
-notes_VALAFLAGS +=							\
-	--pkg=popup							\
-	--pkg=gtk+-2.0
-endif
-
-BUILT_SOURCES += main-panel-plugin.c
-main-panel-plugin.c: main-panel-plugin.vala
-	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
-endif
-
-plugindir = $(libdir)/xfce4/panel/plugins
-plugin_LTLIBRARIES = libnotes.la
-
-libnotes_la_SOURCES =							\
-	main-panel-plugin.c
-
-libnotes_la_CFLAGS =							\
-	@LIBX11_CFLAGS@							\
-	@LIBXFCE4PANEL_CFLAGS@						\
-	@LIBXFCE4UTIL_CFLAGS@						\
-	@XFCONF_CFLAGS@
-
-libnotes_la_LIBADD =							\
-	$(top_builddir)/lib/libnotes.la					\
-	@LIBX11_LIBS@							\
-	@LIBXFCE4PANEL_LIBS@						\
-	@LIBXFCE4UTIL_LIBS@						\
-	@XFCONF_LIBS@
-
-libnotes_la_LDFLAGS =							\
-	-avoid-version							\
-	-module								\
-	-no-undefined							\
-	-export-symbols-regex '^xfce_panel_module_(preinit|init|construct)' \
-	$(PLATFORM_LDFLAGS)
-endif
+# TODO port plugin to gtk3
+#if !ENABLE_GTK3
+## REM Xfce Panel is not yet built with GTK3 support
+## hence it's impossible to build a panel plugin yet
+#
+#if MAINTAINER_MODE
+#notes_VALAFLAGS =							\
+#	--vapidir=$(top_srcdir)/lib					\
+#	--pkg=libnotes							\
+#	--pkg=config							\
+#	--pkg=libxfce4panel-1.0						\
+#	--pkg=libxfconf-0						\
+#	--pkg=libxfce4util-1.0
+#
+#if ENABLE_GTK3
+#notes_VALAFLAGS +=							\
+#	-D ENABLE_GTK3							\
+#	--pkg=gtk+-3.0
+#else
+#notes_VALAFLAGS +=							\
+#	--pkg=popup							\
+#	--pkg=gtk+-2.0
+#endif
+#
+#BUILT_SOURCES += main-panel-plugin.c
+#main-panel-plugin.c: main-panel-plugin.vala
+#	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
+#endif
+#
+#plugindir = $(libdir)/xfce4/panel/plugins
+#plugin_LTLIBRARIES = libnotes.la
+#
+#libnotes_la_SOURCES =							\
+#	main-panel-plugin.c
+#
+#libnotes_la_CFLAGS =							\
+#	@LIBX11_CFLAGS@							\
+#	@LIBXFCE4PANEL_CFLAGS@						\
+#	@LIBXFCE4UTIL_CFLAGS@						\
+#	@XFCONF_CFLAGS@
+#
+#libnotes_la_LIBADD =							\
+#	$(top_builddir)/lib/libnotes.la					\
+#	@LIBX11_LIBS@							\
+#	@LIBXFCE4PANEL_LIBS@						\
+#	@LIBXFCE4UTIL_LIBS@						\
+#	@XFCONF_LIBS@
+#
+#libnotes_la_LDFLAGS =							\
+#	-avoid-version							\
+#	-module								\
+#	-no-undefined							\
+#	-export-symbols-regex '^xfce_panel_module_(preinit|init|construct)' \
+#	$(PLATFORM_LDFLAGS)
+#endif
 
 #
 # Status icon
@@ -143,18 +130,8 @@ xfce4_notes_VALAFLAGS =							\
 	--vapidir=.							\
 	--pkg=xfce-autostart						\
 	--pkg=libxfconf-0						\
-	--pkg=libxfce4util-1.0
-
-if ENABLE_GTK3
-xfce4_notes_VALAFLAGS +=						\
-	-D ENABLE_GTK3							\
+	--pkg=libxfce4util-1.0						\
 	--pkg=gtk+-3.0
-else
-xfce4_notes_VALAFLAGS +=						\
-	--pkg=popup							\
-	--pkg=unique-1.0						\
-	--pkg=gtk+-2.0
-endif
 
 BUILT_SOURCES += main-status-icon.c
 main-status-icon.c: main-status-icon.vala
@@ -218,11 +195,6 @@ EXTRA_DIST =								\
 	$(desktop_in_files)						\
 	$(applications_in_files)					\
 	$(autostart_in_files)
-
-if ENABLE_GTK3
-EXTRA_DIST +=								\
-	xfce4-popup-notes.c
-endif
 
 DISTCLEANFILES =							\
 	$(desktop_DATA)							\

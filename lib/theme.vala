@@ -28,13 +28,8 @@ namespace Xnp {
 				return;
 			}
 
-#if ENABLE_GTK3
 			Xnp.ThemeGtkcss.update_css (gdkcolor);
 			Xnp.ThemeGtkcss.update_style_context ();
-#else
-			Xnp.ThemeGtkrc.update_gtkrc (gdkcolor);
-			Gtk.rc_reparse_all ();
-#endif
 		}
 
 	}

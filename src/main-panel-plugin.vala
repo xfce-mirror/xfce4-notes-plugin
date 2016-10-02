@@ -54,8 +54,6 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		mi.show_all ();
 		menu_insert_item (mi);
 
-		set_x_selection ();
-
 		size_changed.connect ((p, size) => {
 			size = size / (int)nrows;
 			button.set_size_request (size, size);
@@ -69,28 +67,6 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		configure_plugin.connect (() => { application.open_settings_dialog (); });
 		about.connect (() => { application.open_about_dialog (); });
 		destroy.connect (() => { Gtk.main_quit (); });
-	}
-
-	/**
-	 * set_x_selection:
-	 *
-	 * Set an X selection to listen to for the popup command.
-	 */
-	private bool set_x_selection () {
-#if !ENABLE_GTK3
-		invisible = new Gtk.Invisible ();
-		if (!Xnp.Popup.set_x_selection (invisible)) {
-			return false;
-		}
-		invisible.client_event.connect ((w, event) => {
-			if (Xnp.Popup.get_message_from_event (event) == "SHOW_HIDE") {
-				application.show_hide_notes ();
-				return true;
-			}
-			return false;
-		});
-#endif
-		return true;
 	}
 
 }

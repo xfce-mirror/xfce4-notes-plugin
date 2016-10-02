@@ -104,7 +104,8 @@ namespace Xnp {
 
 }
 
-/*public class GtkSample : Window {
+#if DEBUG_XNP_NOTE
+public class GtkSample : Window {
 
 	public GtkSample () {
 		this.title = "Sample Window";
@@ -122,5 +123,6 @@ namespace Xnp {
 		return 0;
 	}
 
-}*/
+}
+#endif
 
