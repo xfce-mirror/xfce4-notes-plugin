@@ -1,337 +1,271 @@
-# translation of xfce4-notes-plugin to Danish
-# Copyright (C) 2007 THE xfce4-notes-plugin'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the xfce4-notes-plugin package.
-# Jens Hyllegaard <jens.hyllegaard@gmail.com>, 2007.
-# Per Kongstad <p_kongstad@op.pl>, 2008, 09.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Jens Hyllegaard <jens.hyllegaard@gmail.com>, 2007
+# scootergrisen, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notes-plugin 1.7.2\n"
+"Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-24 17:16+0200\n"
-"PO-Revision-Date: 2009-12-02 10:55+0100\n"
-"Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
-"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
-"Language: da\n"
+"POT-Creation-Date: 2013-07-03 21:09+0200\n"
+"PO-Revision-Date: 2017-01-17 12:57+0000\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Danish\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: DENMARK\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:184
-#: ../lib/application.vala:211 ../lib/application.vala:742
-#: ../lib/window.vala:85 ../lib/window.vala:176 ../lib/window.vala:914
-#: ../src/xfce4-notes-settings.c:99 ../src/main-panel-plugin.vala:46
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:115
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:191
+#: ../lib/application.vala:218 ../lib/application.vala:758
+#: ../lib/window.vala:89 ../lib/window.vala:180 ../lib/window.vala:955
+#: ../src/main-settings-dialog.c:107 ../src/main-panel-plugin.vala:46
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:136
 msgid "Notes"
 msgstr "Noter"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:744
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
 msgid "Ideal for your quick notes"
 msgstr "Ideel til dine hurtignoter"
 
-#: ../lib/application.vala:119 ../lib/application.vala:134
-#: ../src/xfce4-notes-settings.c:223 ../src/xfce4-notes-settings.c:231
+#: ../lib/application.vala:121 ../lib/application.vala:136
+#: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
 msgid "Select notes path"
 msgstr "Vælg notesti"
 
-#: ../lib/application.vala:120
+#: ../lib/application.vala:122
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr ""
-"Den valgte mappe (%s) for de nye noter indeholder allerede filer. Du er nødt "
-"til at vælge eller oprette en tom mappe."
+msgstr "Den valgte mappe (%s) for de nye noter indeholder allerede filer. Du er nødt til at vælge eller oprette en tom mappe."
 
-#: ../lib/application.vala:135
+#: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Kunne ikke vælge mappe for ny notesti: %s"
 
-#: ../lib/application.vala:188 ../lib/window.vala:917
+#: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
 msgid "Notes %d"
 msgstr "Noter %d"
 
-#: ../lib/application.vala:428
+#: ../lib/application.vala:435
 msgid "Rename group"
 msgstr "Omdøb gruppe"
 
-#: ../lib/application.vala:449 ../lib/window.vala:1039
+#: ../lib/application.vala:463 ../lib/window.vala:1085
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Navnet %s er allerede i brug"
 
-#: ../lib/application.vala:478
+#: ../lib/application.vala:492
 msgid "Are you sure you want to delete this group?"
 msgstr "Er du sikker på, at du vil slette denne gruppe?"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:536
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Gruppen \"%s\" er blevet ændret på disken"
 
-#: ../lib/application.vala:525
+#: ../lib/application.vala:539
 msgid "Do you want to reload the group?"
 msgstr "Vil du genindlæse denne gruppe?"
 
-#: ../lib/application.vala:648
+#: ../lib/application.vala:662
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Navnet \"%s\" er ugyldigt."
 
-#: ../lib/application.vala:649
+#: ../lib/application.vala:663
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Det ugyldige tegn er: %s"
 
-#: ../lib/application.vala:706
+#: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
 msgstr "Kunne ikke åbne indstillingsvinduet"
 
-#: ../lib/application.vala:751
+#: ../lib/application.vala:767
 msgid "translator-credits"
-msgstr ""
-"Per Kongstad <p_kongstad@op.pl>\n"
-"\n"
-"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
-"Mere info: http://www.dansk-gruppen.dk"
+msgstr "Per Kongstad <p_kongstad@op.pl>\n\nDansk-gruppen <dansk@dansk-gruppen.dk>\nMere info: http://www.dansk-gruppen.dk"
 
-#: ../lib/application.vala:786 ../lib/window.vala:781
+#: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
 msgstr "_Tilføj en ny gruppe"
 
-#: ../lib/window.vala:226
+#: ../lib/window.vala:239
 msgid "Menu"
 msgstr "Menu"
 
-#: ../lib/window.vala:255
+#: ../lib/window.vala:268
 msgid "Refresh notes"
 msgstr "Genopfrisk noter"
 
-#: ../lib/window.vala:268
+#: ../lib/window.vala:281
 #, c-format
 msgid "Hide (%s)"
 msgstr "Skjul (%s)"
 
-#: ../lib/window.vala:648 ../src/main-panel-plugin.vala:50
+#: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:53
 msgid "_Groups"
 msgstr "_Grupper"
 
-#: ../lib/window.vala:671
+#: ../lib/window.vala:712
 msgid "_Rename"
 msgstr "_Omdøb"
 
 #. Always on top
-#: ../lib/window.vala:687 ../src/xfce4-notes-settings.c:185
+#: ../lib/window.vala:728 ../src/main-settings-dialog.c:236
 msgid "Always on top"
 msgstr "Altid øverst"
 
-#: ../lib/window.vala:692
+#: ../lib/window.vala:733
 msgid "Sticky window"
 msgstr "Hold vindue permanent"
 
-#: ../lib/window.vala:767
+#: ../lib/window.vala:808
 msgid "_Rename group"
 msgstr "_Omdøb gruppe"
 
-#: ../lib/window.vala:774
+#: ../lib/window.vala:815
 msgid "_Delete group"
 msgstr "_Slet gruppe"
 
-#: ../lib/window.vala:992
+#: ../lib/window.vala:1033
 msgid "Are you sure you want to delete this note?"
 msgstr "Er du sikker på, at du vil slette denne note?"
 
-#: ../lib/window.vala:1018
+#: ../lib/window.vala:1059
 msgid "Rename note"
 msgstr "Omdøb note"
 
-#: ../src/xfce4-notes-settings.c:103
+#: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
 msgstr "Indstil udvidelsesmodulet"
 
-#: ../src/xfce4-notes-settings.c:122
+#: ../src/main-settings-dialog.c:142
 msgid "Global settings"
 msgstr "Globale indstillinger"
 
 #. Hide from taskbar
-#: ../src/xfce4-notes-settings.c:127
+#: ../src/main-settings-dialog.c:147
 msgid "Hide notes from taskbar"
 msgstr "Skjul noter på proceslinjen"
 
-#: ../src/xfce4-notes-settings.c:137
+#: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
 msgstr "Sti til noter:"
 
-#: ../src/xfce4-notes-settings.c:147
+#: ../src/main-settings-dialog.c:184
 msgid "Tabs position:"
 msgstr "Placering af faneblade:"
 
-#: ../src/xfce4-notes-settings.c:157
+#: ../src/main-settings-dialog.c:199
 msgid "Background:"
 msgstr "Baggrund:"
 
-#: ../src/xfce4-notes-settings.c:170
+#: ../src/main-settings-dialog.c:217
 msgid "Font:"
 msgstr "Skrifttype:"
 
-#: ../src/xfce4-notes-settings.c:180
+#: ../src/main-settings-dialog.c:231
 msgid "New group settings"
 msgstr "Nye gruppeindstillinger"
 
 #. Sticky window
-#: ../src/xfce4-notes-settings.c:192
+#: ../src/main-settings-dialog.c:243
 msgid "Sticky"
 msgstr "Klæbende"
 
-#: ../src/xfce4-notes-settings.c:202
+#: ../src/main-settings-dialog.c:257
 msgid "Size:"
 msgstr "Størrelse:"
 
-#: ../src/xfce4-notes-settings.c:270
+#: ../src/main-settings-dialog.c:328 ../src/main-settings-dialog.c:335
 msgid "None"
 msgstr "Ingen"
 
-#: ../src/xfce4-notes-settings.c:271
+#: ../src/main-settings-dialog.c:329 ../src/main-settings-dialog.c:336
 msgid "Top"
 msgstr "Top"
 
-#: ../src/xfce4-notes-settings.c:272
+#: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
 msgid "Right"
 msgstr "Højre"
 
-#: ../src/xfce4-notes-settings.c:273
+#: ../src/main-settings-dialog.c:331 ../src/main-settings-dialog.c:338
 msgid "Bottom"
-msgstr "Bund"
+msgstr "Nederst"
 
-#: ../src/xfce4-notes-settings.c:274
+#: ../src/main-settings-dialog.c:332 ../src/main-settings-dialog.c:339
 msgid "Left"
 msgstr "Venstre"
 
-#: ../src/xfce4-notes-settings.c:290
+#: ../src/main-settings-dialog.c:357 ../src/main-settings-dialog.c:362
 msgid "Small"
 msgstr "Lille"
 
-#: ../src/xfce4-notes-settings.c:291
+#: ../src/main-settings-dialog.c:358 ../src/main-settings-dialog.c:363
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/xfce4-notes-settings.c:292
+#: ../src/main-settings-dialog.c:359 ../src/main-settings-dialog.c:364
 msgid "Large"
 msgstr "Stor"
 
-#: ../src/xfce4-notes-settings.c:350
+#: ../src/main-settings-dialog.c:425 ../src/main-settings-dialog.c:438
 msgid "Yellow"
 msgstr "Gul"
 
-#: ../src/xfce4-notes-settings.c:351
+#: ../src/main-settings-dialog.c:426 ../src/main-settings-dialog.c:439
 msgid "Blue"
 msgstr "Blå"
 
-#: ../src/xfce4-notes-settings.c:352
+#: ../src/main-settings-dialog.c:427 ../src/main-settings-dialog.c:440
 msgid "Green"
 msgstr "Grøn"
 
-#: ../src/xfce4-notes-settings.c:353
+#: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/xfce4-notes-settings.c:354
+#: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
 msgid "Olive"
 msgstr "Olive"
 
-#: ../src/xfce4-notes-settings.c:355
+#: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
 msgid "Carmine"
 msgstr "Carmin"
 
-#: ../src/xfce4-notes-settings.c:356
+#: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/xfce4-notes-settings.c:357
+#: ../src/main-settings-dialog.c:432 ../src/main-settings-dialog.c:445
 msgid "White"
 msgstr "Hvid"
 
-#: ../src/xfce4-notes-settings.c:358
+#: ../src/main-settings-dialog.c:433 ../src/main-settings-dialog.c:446
 msgid "Android"
 msgstr "Android"
 
-#: ../src/xfce4-notes-settings.c:359
+#: ../src/main-settings-dialog.c:434 ../src/main-settings-dialog.c:447
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/xfce4-notes-settings.c:360
+#: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
 msgid "Custom..."
 msgstr "Tilpasset..."
 
-#: ../src/xfce4-notes-settings.c:490
+#: ../src/main-settings-dialog.c:579
 msgid "Background Color"
 msgstr "Baggrundsfarve"
-
-#~ msgid "Show the automatic navigation bar"
-#~ msgstr "Vis den automatiske navigeringsbjælke"
-
-#~ msgid "Show tabs in the notes"
-#~ msgstr "Vis faneblade i noterne"
-
-#~ msgid "Red"
-#~ msgstr "Rød"
-
-#~ msgid "Purple"
-#~ msgstr "Lilla"
-
-#~ msgid "Choose current note font"
-#~ msgstr "Vælg skrifttype for vinduet"
-
-#~ msgid "Are you sure you want to delete this window?"
-#~ msgstr "Er du sikker på, at du vil slette dette vindue?"
-
-#~ msgid "Window"
-#~ msgstr "Vindue"
-
-#~ msgid "_Options"
-#~ msgstr "_Indstillinger"
-
-#~ msgid "R_ename..."
-#~ msgstr "O_mdøb..."
-
-#~ msgid "Show tabs"
-#~ msgstr "Vis faneblade"
-
-#~ msgid "Show on startup"
-#~ msgstr "Vis ved opstart"
-
-#~ msgid "Always"
-#~ msgstr "Altid"
-
-#~ msgid "Never"
-#~ msgstr "Aldrig"
-
-#~ msgid "Last state"
-#~ msgstr "Sidste tilstand"
-
-#~ msgid "Rename window"
-#~ msgstr "Omdøb vindue"
-
-#~ msgid "Error"
-#~ msgstr "Fejl"
-
-#~ msgid "Unable to rename window"
-#~ msgstr "Kunne ikke omdøbe vindue"
-
-#~ msgid "Unable to rename note"
-#~ msgstr "Kunne ikke omdøbe notat"
-
-#~ msgid "Hide arrow button"
-#~ msgstr "Skjul pileknap"
-
-#~ msgid "Notes plugin for the Xfce4 desktop"
-#~ msgstr "Notat-udvidelsesmodul til Xfce4-skrivebordet"
