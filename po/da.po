@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-01-20 13:44+0000\n"
+"PO-Revision-Date: 2017-01-20 19:53+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -240,7 +240,7 @@ msgstr "Indigo"
 
 #: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
 msgid "Olive"
-msgstr "Olivenfarvet"
+msgstr "Oliven"
 
 #: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
 msgid "Carmine"
