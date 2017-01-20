@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-01-17 12:57+0000\n"
+"PO-Revision-Date: 2017-01-20 13:44+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgstr "Det ugyldige tegn er: %s"
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
-msgstr "Kunne ikke åbne indstillingsvinduet"
+msgstr "Kan ikke åbne indstillingsdialogen"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
@@ -240,7 +240,7 @@ msgstr "Indigo"
 
 #: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
 msgid "Olive"
-msgstr "Olive"
+msgstr "Olivenfarvet"
 
 #: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
 msgid "Carmine"
@@ -248,7 +248,7 @@ msgstr "Carmin"
 
 #: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
 msgid "Mimosa"
-msgstr "Mimosa"
+msgstr "Mimose"
 
 #: ../src/main-settings-dialog.c:432 ../src/main-settings-dialog.c:445
 msgid "White"
