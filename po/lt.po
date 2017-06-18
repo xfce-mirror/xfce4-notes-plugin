@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012
-# Moo, 2016
+# Moo, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2016-03-17 17:37+0000\n"
+"PO-Revision-Date: 2017-06-17 23:30+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-panel-plugins/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -45,12 +45,12 @@ msgstr "Pasirinkite pastabų kelią"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr "Aplanke (%s), kuris pasirinktas naujoms pastaboms, jau yra failų. Jūs turite pasirinkti arba sukurti tuščią aplanką."
+msgstr "Kataloge (%s), kuris yra pasirinktas naujoms pastaboms, jau yra failų. Jūs turite pasirinkti arba sukurti tuščią katalogą."
 
 #: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "Naujoms pastaboms pasirinkti aplanko nepavyko: %s"
+msgstr "Nepavyko pasirinkti katalogo naujoms pastaboms: %s"
 
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
