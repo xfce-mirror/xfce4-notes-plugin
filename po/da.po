@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-07-25 11:28+0000\n"
+"PO-Revision-Date: 2017-09-13 14:35+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -196,7 +196,7 @@ msgstr "Ingen"
 
 #: ../src/main-settings-dialog.c:329 ../src/main-settings-dialog.c:336
 msgid "Top"
-msgstr "Top"
+msgstr "Øverst"
 
 #: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
 msgid "Right"
