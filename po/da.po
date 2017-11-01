@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-09-30 14:21+0000\n"
+"PO-Revision-Date: 2017-11-01 16:34+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgstr "Den valgte mappe (%s) for de nye noter indeholder allerede filer. Du er 
 #: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "Kunne ikke vælge mappe for ny notesti: %s"
+msgstr "Kan ikke vælge mappe til ny notesti: %s"
 
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
@@ -150,7 +150,7 @@ msgstr "Omdøb note"
 
 #: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
-msgstr "Indstil pluginet"
+msgstr "Konfigurer pluginet"
 
 #: ../src/main-settings-dialog.c:142
 msgid "Global settings"
