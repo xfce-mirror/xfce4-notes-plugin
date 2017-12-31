@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-12-28 17:07+0000\n"
+"PO-Revision-Date: 2017-12-31 14:02+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "El directori seleccionat (%s) per a les noves notes ja conté fitxers. H
 #: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "No s'ha pogut seleccionar el directori per les notes noves: %s"
+msgstr "No es pot seleccionar el directori per a les notes noves: %s"
 
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
@@ -93,7 +93,7 @@ msgstr "El caràcter no vàlid és: %s"
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
-msgstr "No s'ha pogut obrir el diàleg d'ajusts"
+msgstr "No es pot obrir el diàleg d'ajusts"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
