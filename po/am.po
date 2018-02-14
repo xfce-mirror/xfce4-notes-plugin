@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# samson <sambelet@yahoo.com>, 2016
+# samson <sambelet@yahoo.com>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-09-19 18:06+0000\n"
+"PO-Revision-Date: 2018-02-14 00:37+0000\n"
 "Last-Translator: samson <sambelet@yahoo.com>\n"
 "Language-Team: Amharic (http://www.transifex.com/xfce/xfce-panel-plugins/language/am/)\n"
 "MIME-Version: 1.0\n"
@@ -141,7 +141,7 @@ msgstr "ቡድን _ማጥፊያ"
 
 #: ../lib/window.vala:1033
 msgid "Are you sure you want to delete this note?"
-msgstr ""
+msgstr "እርስዎ ይህን ማስታወሻ በ እርግጥ ማጥፋት ይፈልጋሉ?"
 
 #: ../lib/window.vala:1059
 msgid "Rename note"
@@ -149,7 +149,7 @@ msgstr "ማስታወሻ እንደገና መሰየሚያ"
 
 #: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
-msgstr ""
+msgstr "ተሰኪ ማሰናጃ"
 
 #: ../src/main-settings-dialog.c:142
 msgid "Global settings"
@@ -158,7 +158,7 @@ msgstr "አለም አቀፍ ማሰናጃ"
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:147
 msgid "Hide notes from taskbar"
-msgstr ""
+msgstr "ከ ስራ መደርደሪያ ላይ ማስታወሻ መደበቂያ"
 
 #: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
@@ -235,7 +235,7 @@ msgstr "አረንጓዴ"
 
 #: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
 msgid "Indigo"
-msgstr ""
+msgstr "ኢንዲጎ"
 
 #: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
 msgid "Olive"
