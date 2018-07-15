@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2018-07-15 10:32+0000\n"
+"PO-Revision-Date: 2018-07-15 10:38+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -150,7 +150,7 @@ msgstr "Rinomina questa nota"
 
 #: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
-msgstr "Confugurazione del plugin"
+msgstr "Configurazione del componente aggiuntivo"
 
 #: ../src/main-settings-dialog.c:142
 msgid "Global settings"
@@ -163,7 +163,7 @@ msgstr "Nascondi le note dalla barra delle applicazioni"
 
 #: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
-msgstr "Percorso delle note"
+msgstr "Percorso delle note:"
 
 #: ../src/main-settings-dialog.c:184
 msgid "Tabs position:"
@@ -175,7 +175,7 @@ msgstr "Sfondo:"
 
 #: ../src/main-settings-dialog.c:217
 msgid "Font:"
-msgstr "Tipo di carattere:"
+msgstr "Carattere:"
 
 #: ../src/main-settings-dialog.c:231
 msgid "New group settings"
@@ -236,15 +236,15 @@ msgstr "Verde"
 
 #: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
 msgid "Indigo"
-msgstr "Indigo"
+msgstr "Indaco"
 
 #: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
 msgid "Olive"
-msgstr "Olive"
+msgstr "Verde oliva"
 
 #: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
 msgid "Carmine"
-msgstr "Carmin"
+msgstr "Carminio"
 
 #: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
 msgid "Mimosa"
@@ -264,7 +264,7 @@ msgstr "GTK+"
 
 #: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
 msgid "Custom..."
-msgstr "Personalizzato"
+msgstr "Personalizzato…"
 
 #: ../src/main-settings-dialog.c:579
 msgid "Background Color"
