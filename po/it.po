@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Cristian Marchi <cri.penta@gmail.com>, 2009
+# Emanuele Petriglia <inbox@emanuelepetriglia.me>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2018-07-13 12:40+0000\n"
+"PO-Revision-Date: 2018-07-15 10:32+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +45,7 @@ msgstr "Selezione del percorso per le note"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr "La cartella «%s» selezionata per il percorso delle nuove note contiene già dei file. È necessario creare o selezionare una cartella vuota."
+msgstr "La cartella (%s) selezionata per il percorso delle nuove note contiene già dei file. È necessario creare o selezionare una cartella vuota."
 
 #: ../lib/application.vala:137
 #, c-format
@@ -54,7 +55,7 @@ msgstr "Impossibile selezionare la cartella per il percorso delle nuove note: %s
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
 msgid "Notes %d"
-msgstr "Nota %d"
+msgstr "Note %d"
 
 #: ../lib/application.vala:435
 msgid "Rename group"
@@ -81,7 +82,7 @@ msgstr "Ricaricare il gruppo?"
 #: ../lib/application.vala:662
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "Il nome %s non è valido."
+msgstr "Il nome \"%s\" non è valido."
 
 #: ../lib/application.vala:663
 #, c-format
@@ -94,7 +95,7 @@ msgstr "Impossibile aprire la finestra delle impostazioni"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
-msgstr "Cristian Marchi <cri.penta@gmail.com>, 2009"
+msgstr "Emanuele Petriglia <inbox@emanuelepetriglia.me>, 2018\nCristian Marchi <cri.penta@gmail.com>, 2009"
 
 #: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
