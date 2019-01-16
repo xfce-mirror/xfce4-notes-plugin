@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Zmicer Turok <zmicerturok@gmail.com>, 2019
 # Zmicer Turok <zmicerturok@gmail.com >, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2018-06-23 18:29+0000\n"
+"PO-Revision-Date: 2019-01-16 08:52+0000\n"
 "Last-Translator: Zmicer Turok <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/xfce/xfce-panel-plugins/language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +73,7 @@ msgstr "Сапраўды хочаце выдаліць гэтую групу?"
 #: ../lib/application.vala:536
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "Група \"%s\" была зменена на дыску"
+msgstr "Група \"%s\" была змененая на дыску"
 
 #: ../lib/application.vala:539
 msgid "Do you want to reload the group?"
@@ -129,7 +130,7 @@ msgstr "Заўсёды наверсе"
 
 #: ../lib/window.vala:733
 msgid "Sticky window"
-msgstr "Прылепліваць акно"
+msgstr "Прыляпляць акно"
 
 #: ../lib/window.vala:808
 msgid "_Rename group"
@@ -183,7 +184,7 @@ msgstr "Налады новых груп"
 #. Sticky window
 #: ../src/main-settings-dialog.c:243
 msgid "Sticky"
-msgstr "Прылепліваць"
+msgstr "Прыляпляць"
 
 #: ../src/main-settings-dialog.c:257
 msgid "Size:"
@@ -199,7 +200,7 @@ msgstr "Зверху"
 
 #: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
 msgid "Right"
-msgstr "Зправа"
+msgstr "Справа"
 
 #: ../src/main-settings-dialog.c:331 ../src/main-settings-dialog.c:338
 msgid "Bottom"
