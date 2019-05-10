@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Sveinn í Felli <sv1@fellsnet.is>, 2013-2015
+# Sveinn í Felli <sv1@fellsnet.is>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-05-10 10:23+0000\n"
+"PO-Revision-Date: 2019-05-10 11:27+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-panel-plugins/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +99,7 @@ msgstr "Sveinn í Felli, sv1@fellsnet.is"
 
 #: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
-msgstr "Bæt_a við nýjum hóp"
+msgstr "Bæt_a við nýjum hópi"
 
 #: ../lib/window.vala:239
 msgid "Menu"
