@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-04-27 20:16+0000\n"
+"PO-Revision-Date: 2019-05-17 11:50+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -264,7 +264,7 @@ msgstr "GTK+"
 
 #: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
 msgid "Custom..."
-msgstr "Tilpasset..."
+msgstr "Tilpasset ..."
 
 #: ../src/main-settings-dialog.c:579
 msgid "Background Color"
