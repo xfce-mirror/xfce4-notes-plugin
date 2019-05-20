@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-05-17 11:50+0000\n"
+"PO-Revision-Date: 2019-05-20 12:25+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Noter"
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
 msgid "Ideal for your quick notes"
-msgstr "Ideel til dine hurtignoter"
+msgstr "Ideel til dine hurtige noter"
 
 #: ../lib/application.vala:121 ../lib/application.vala:136
 #: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
@@ -130,7 +130,7 @@ msgstr "Altid øverst"
 
 #: ../lib/window.vala:733
 msgid "Sticky window"
-msgstr "Hold vindue permanent"
+msgstr "Fastgør vindue"
 
 #: ../lib/window.vala:808
 msgid "_Rename group"
@@ -159,7 +159,7 @@ msgstr "Globale indstillinger"
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:147
 msgid "Hide notes from taskbar"
-msgstr "Skjul noter på proceslinjen"
+msgstr "Skjul noter på opgavelinjen"
 
 #: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
@@ -179,12 +179,12 @@ msgstr "Skrifttype:"
 
 #: ../src/main-settings-dialog.c:231
 msgid "New group settings"
-msgstr "Nye gruppeindstillinger"
+msgstr "Indstillinger for ny gruppe"
 
 #. Sticky window
 #: ../src/main-settings-dialog.c:243
 msgid "Sticky"
-msgstr "Klæbende"
+msgstr "Fastgør"
 
 #: ../src/main-settings-dialog.c:257
 msgid "Size:"
