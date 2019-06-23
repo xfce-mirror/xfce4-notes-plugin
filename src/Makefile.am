@@ -58,11 +58,6 @@ xfce4_notes_settings_LDADD =						\
 # Panel plugin
 #
 
-# TODO port plugin to gtk3
-#if !ENABLE_GTK3
-## REM Xfce Panel is not yet built with GTK3 support
-## hence it's impossible to build a panel plugin yet
-#
 if MAINTAINER_MODE
 notes_VALAFLAGS =							\
    --vapidir=$(top_srcdir)/lib					\
@@ -71,22 +66,16 @@ notes_VALAFLAGS =							\
 	--pkg=libxfce4panel-2.0						\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
-#
-#if ENABLE_GTK3
+
 notes_VALAFLAGS +=							\
 	-D ENABLE_GTK3							\
 	--pkg=gtk+-3.0
-#else
-#notes_VALAFLAGS +=							\
-#	--pkg=popup							\
-#	--pkg=gtk+-2.0
-#endif
-#
+
 BUILT_SOURCES += main-panel-plugin.c
 main-panel-plugin.c: main-panel-plugin.vala
 	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
 endif
-#
+
 plugindir = $(libdir)/xfce4/panel/plugins
 plugin_LTLIBRARIES = libnotes.la
 #

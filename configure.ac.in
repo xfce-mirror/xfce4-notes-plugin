@@ -26,6 +26,7 @@ LT_INIT([disable-static])
 AM_INIT_AUTOMAKE([1.13 dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
+AC_CONFIG_MACRO_DIRS([m4])
 
 dnl Check for basic programs
 AM_PROG_CC_C_O()
@@ -43,13 +44,10 @@ dnl Check for required packages
 XDT_CHECK_LIBX11_REQUIRE()
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.30.0])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.30.0])
-XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.14.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
-XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.12.0])
-
-dnl Check for Xfce Panel
-# TODO port plugin to gtk3
+XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.13.7])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.12.0])
 
 dnl Translations
