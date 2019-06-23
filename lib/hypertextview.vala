@@ -24,8 +24,8 @@ namespace Xnp {
 
 	public class HypertextView : Gtk.TextView {
 
-		private Gdk.Cursor hand_cursor = new Gdk.Cursor (Gdk.CursorType.HAND2);
-		private Gdk.Cursor regular_cursor = new Gdk.Cursor (Gdk.CursorType.XTERM);
+		private Gdk.Cursor hand_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.HAND2);
+		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
 
 		private bool cursor_over_link = false;
 
