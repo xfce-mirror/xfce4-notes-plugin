@@ -74,13 +74,13 @@ namespace Xnp {
 		};
 
 		private int CORNER_MARGIN = 20;
-		private Gdk.Cursor CURSOR_RIGHT = new Gdk.Cursor (Gdk.CursorType.RIGHT_SIDE);
-		private Gdk.Cursor CURSOR_LEFT = new Gdk.Cursor (Gdk.CursorType.LEFT_SIDE);
-		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_RIGHT_CORNER);
-		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor (Gdk.CursorType.BOTTOM_SIDE);
-		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor (Gdk.CursorType.BOTTOM_LEFT_CORNER);
+		private Gdk.Cursor CURSOR_RIGHT = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.RIGHT_SIDE);
+		private Gdk.Cursor CURSOR_LEFT = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.LEFT_SIDE);
+		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_RIGHT_CORNER);
+		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_SIDE);
+		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
-		private unowned SList<unowned Xnp.Window> window_list;
+		private unowned SList<Xnp.Window> window_list;
 
 		public new string name { default = _("Notes"); get; set; }
 		public int n_pages { get; set; }
@@ -671,24 +671,24 @@ namespace Xnp {
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.NEW, null);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_New"));
 			mi.set_accel_path (this.action_group.get_action ("new-note").get_accel_path ());
 			mi.activate.connect (action_new_note);
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.DELETE, null);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete"));
 			mi.set_accel_path (this.action_group.get_action ("delete-note").get_accel_path ());
 			mi.activate.connect (action_delete_note);
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename"));
-			var image = new Gtk.Image.from_stock (Gtk.Stock.EDIT, Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename"));
+            //var image = new Gtk.Image.from_stock (Gtk.Stock.EDIT, Gtk.IconSize.MENU);
+			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
 			mi.activate.connect (action_rename_note);
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.UNDO, null);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_Undo"));
 			mi.set_accel_path (this.action_group.get_action ("cancel").get_accel_path ());
 			mi.activate.connect (action_cancel);
 			menu.append (mi);
@@ -711,11 +711,11 @@ namespace Xnp {
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.PROPERTIES, null);
+			mi = new Gtk.MenuItem.with_mnemonic ("_Properties");
 			mi.activate.connect (() => { action ("properties"); });
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.ABOUT, null);
+			mi = new Gtk.MenuItem.with_mnemonic ("_About");
 			mi.activate.connect (() => { action ("about"); });
 			menu.append (mi);
 
@@ -747,11 +747,11 @@ namespace Xnp {
 					int n_pages = this.notebook.get_n_pages ();
 					for (int p = 0; p < n_pages; p++) {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
-						mi = new Gtk.ImageMenuItem.with_label (note.name);
-						if (note == current_note) {
-							image = new Gtk.Image.from_stock (Gtk.Stock.GO_FORWARD, Gtk.IconSize.MENU);
-							((Gtk.ImageMenuItem)mi).set_image (image);
-						}
+						mi = new Gtk.MenuItem.with_label (note.name);
+						//if (note == current_note) {
+						//	image = new Gtk.Image.from_icon_name ("go-next", Gtk.IconSize.MENU);
+						//	((Gtk.ImageMenuItem)mi).set_image (image);
+						//}
 						mi.set_data ("page", p.to_pointer ());
 						mi.activate.connect ((i) => {
 							int page = i.get_data<int> ("page");
@@ -777,23 +777,23 @@ namespace Xnp {
 				}
 			}
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename group"));
-			image = new Gtk.Image.from_stock (Gtk.Stock.EDIT, Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename group"));
+			//image = new Gtk.Image.from_icon_name ("gtk-edit", Gtk.IconSize.MENU);
+			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
 			mi.activate.connect (action_rename_window);
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Delete group"));
-			image = new Gtk.Image.from_stock (Gtk.Stock.REMOVE, Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete group"));
+			//image = new Gtk.Image.from_icon_name ("list-remove", Gtk.IconSize.MENU);
+			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
 			mi.activate.connect (action_delete_window);
 			menu.append (mi);
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
-			image = new Gtk.Image.from_stock (Gtk.Stock.ADD, Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
+			mi = new Gtk.MenuItem.with_mnemonic (_("_Add a new group"));
+			//image = new Gtk.Image.from_icon_name ("list-add", Gtk.IconSize.MENU);
+			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
 			mi.activate.connect (action_new_window);
 			menu.append (mi);
@@ -825,7 +825,7 @@ namespace Xnp {
 		 * Saves a list of window inside window.window_list to be shown
 		 * within the window menu.
 		 */
-		public void set_window_list (SList<Xnp.Window> list) {
+		public void set_window_list (SList <Xnp.Window> list) {
 			this.window_list = list;
 		}
 
@@ -1030,11 +1030,11 @@ namespace Xnp {
 
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
+				"_Cancel", Gtk.ResponseType.CANCEL, "_OK", Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
-			dialog.icon_name = Gtk.Stock.EDIT;
+			dialog.icon_name = "gtk-edit";
 			dialog.border_width = 4;
 			content_area.border_width = 6;
 
