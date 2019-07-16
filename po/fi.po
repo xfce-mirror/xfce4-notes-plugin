@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Elias Julkunen <elias.julkunen@gmail.com>, 2008
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2019
 # Pasi Lallinaho <pasi@shimmerproject.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-09-19 18:06+0000\n"
-"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
+"PO-Revision-Date: 2019-07-16 22:00+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/xfce/xfce-panel-plugins/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,7 +176,7 @@ msgstr "Taustaväri:"
 
 #: ../src/main-settings-dialog.c:217
 msgid "Font:"
-msgstr "Kirjasin:"
+msgstr "Fontti:"
 
 #: ../src/main-settings-dialog.c:231
 msgid "New group settings"
