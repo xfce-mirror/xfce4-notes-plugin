@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-07-24 11:43+0000\n"
+"PO-Revision-Date: 2019-08-11 05:58+0000\n"
 "Last-Translator: Kjell Cato Heskjestad <cato@heskjestad.xyz>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-panel-plugins/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Valgt mappe (%s) for nye notater inneholder allerede filer. Du må velge
 #: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "Kunne ikke velge mappe for ny notat-sti: %s"
+msgstr "Klarte ikke velge mappe for ny notat-sti: %s"
 
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
@@ -94,7 +94,7 @@ msgstr "Følgende tegn er ugyldig: %s"
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
-msgstr "Kunne ikke åpne innstillings-dialogen"
+msgstr "Klarte ikke åpne innstillingsdialogen"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
@@ -267,7 +267,7 @@ msgstr "GTK+"
 
 #: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
 msgid "Custom..."
-msgstr "Egendefinert ..."
+msgstr "Egendefinert …"
 
 #: ../src/main-settings-dialog.c:579
 msgid "Background Color"
