@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-08-15 09:57+0000\n"
+"PO-Revision-Date: 2019-08-21 14:47+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/xfce-panel-plugins/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -82,12 +82,12 @@ msgstr "Desexa recargar o grupo?"
 #: ../lib/application.vala:662
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "O nome \"%s\" non é válido."
+msgstr "O nome \"%s\" non é correcto."
 
 #: ../lib/application.vala:663
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr "Os caracteres non válidos son: %s"
+msgstr "Os caracteres non correctos son: %s"
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
@@ -112,7 +112,7 @@ msgstr "Actualizar as notas"
 #: ../lib/window.vala:281
 #, c-format
 msgid "Hide (%s)"
-msgstr "Ocultar (%s)"
+msgstr "Agochar (%s)"
 
 #: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:53
@@ -159,7 +159,7 @@ msgstr "Configuración global"
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:147
 msgid "Hide notes from taskbar"
-msgstr "Ocultar as notas da barra de ferramentas"
+msgstr "Agochar as notas da barra de ferramentas"
 
 #: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
