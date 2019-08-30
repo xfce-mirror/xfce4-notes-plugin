@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-08-21 14:47+0000\n"
+"PO-Revision-Date: 2019-08-30 08:46+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/xfce-panel-plugins/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -82,12 +82,12 @@ msgstr "Desexa recargar o grupo?"
 #: ../lib/application.vala:662
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "O nome \"%s\" non é correcto."
+msgstr "O nome \"%s\" é incorrecto."
 
 #: ../lib/application.vala:663
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr "Os caracteres non correctos son: %s"
+msgstr "Os caracteres incorrectos son: %s"
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
