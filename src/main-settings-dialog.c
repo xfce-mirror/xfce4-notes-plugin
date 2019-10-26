@@ -21,16 +21,12 @@
 #include <config.h>
 #endif
 
-#ifndef ENABLE_GTK3
-#include <unique/unique.h>
-#endif
 #include <xfconf/xfconf.h>
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "defines.h"
-#include "ext-gdk.h"
 
 #if 0
 static GtkWidget *notes_path_button_new ();
@@ -58,7 +54,7 @@ enum
 static GtkWidget *size_combo_box_new ();
 static void cb_size_combobox_changed (GtkComboBox *combobox, gpointer data);
 
-#ifndef ENABLE_GTK3
+#if 0
 enum
 {
   COMBOBOX_BACKGROUND_YELLOW,
@@ -88,7 +84,7 @@ static gboolean cb_color_button_pressed (GtkButton *button, GdkEventButton *even
 
 static GtkWidget *parent_window = NULL;
 static XfconfChannel *xfconf_channel = NULL;
-#ifndef ENABLE_GTK3
+#if 0
 static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
 #endif
@@ -105,11 +101,7 @@ prop_dialog_new (void)
   /* Dialog */
   parent_window = dialog =
     xfce_titled_dialog_new_with_buttons (_("Notes"), NULL,
-#ifdef ENABLE_GTK3
                                          GTK_DIALOG_DESTROY_WITH_PARENT,
-#else
-                                         GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
-#endif
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
   xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog), _("Configure the plugin"));
@@ -126,19 +118,11 @@ prop_dialog_new (void)
   gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), notebook);
 
   /* VBox */
-#ifdef ENABLE_GTK3
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-#else
-  vbox = gtk_vbox_new (FALSE, 0);
-#endif
   gtk_container_add (GTK_CONTAINER (notebook), vbox);
 
   /* === Global settings === */
-#ifdef ENABLE_GTK3
   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, BORDER);
-#else
-  box = gtk_vbox_new (FALSE, BORDER);
-#endif
   frame = xfce_gtk_frame_box_new_with_content (_("Global settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
@@ -159,11 +143,7 @@ prop_dialog_new (void)
  * to select an empty directory otherwise things might really get
  * mixed up.
  */
-#ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-#else
-  hbox = gtk_hbox_new (FALSE, BORDER);
-#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Notes path:"));
@@ -174,11 +154,7 @@ prop_dialog_new (void)
 #endif
 
   /* Tabs position */
-#ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-#else
-  hbox = gtk_hbox_new (FALSE, BORDER);
-#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Tabs position:"));
@@ -187,13 +163,9 @@ prop_dialog_new (void)
   button = tabs_combo_box_new ();
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
-#ifndef ENABLE_GTK3
+#if 0
   /* Background color */
-#ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-#else
-  hbox = gtk_hbox_new (FALSE, BORDER);
-#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Background:"));
@@ -207,11 +179,7 @@ prop_dialog_new (void)
 #endif
 
   /* Font description */
-#ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-#else
-  hbox = gtk_hbox_new (FALSE, BORDER);
-#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Font:"));
@@ -223,11 +191,7 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* === New window settings === */
-#ifdef ENABLE_GTK3
   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, BORDER);
-#else
-  box = gtk_vbox_new (FALSE, BORDER);
-#endif
   frame = xfce_gtk_frame_box_new_with_content (_("New group settings"), box);
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
@@ -247,11 +211,7 @@ prop_dialog_new (void)
   gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* Size */
-#ifdef ENABLE_GTK3
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-#else
-  hbox = gtk_hbox_new (FALSE, BORDER);
-#endif
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
 
   label = gtk_label_new (_("Size:"));
@@ -323,21 +283,12 @@ tabs_combo_box_new (void)
 {
   GtkWidget *combobox;
 
-#ifdef ENABLE_GTK3
   combobox = gtk_combo_box_text_new ();
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("None"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Top"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Right"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Bottom"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Left"));
-#else
-  combobox = gtk_combo_box_new_text ();
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("None"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Top"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Right"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Bottom"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Left"));
-#endif
   gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), 0);
 
   xfconf_g_property_bind (xfconf_channel, "/global/tabs-position",
@@ -352,17 +303,10 @@ size_combo_box_new (void)
   GtkWidget *combobox;
   gint size;
 
-#ifdef ENABLE_GTK3
   combobox = gtk_combo_box_text_new ();
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Small"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Normal"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Large"));
-#else
-  combobox = gtk_combo_box_new_text ();
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Small"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Normal"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Large"));
-#endif
 
   size = xfconf_channel_get_int (xfconf_channel, "/new-window/width", SIZE_NORMAL);
   if (size == SIZE_SMALL)
@@ -412,7 +356,7 @@ cb_size_combobox_changed (GtkComboBox *combobox,
   xfconf_channel_set_int (xfconf_channel, "/new-window/height", height);
 }
 
-#ifndef ENABLE_GTK3
+#if 0
 static GtkWidget *
 background_combo_box_new (void)
 {
@@ -420,7 +364,6 @@ background_combo_box_new (void)
   gchar *color;
   gint id;
 
-#ifdef ENABLE_GTK3
   combobox = gtk_combo_box_text_new ();
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Yellow"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Blue"));
@@ -433,20 +376,6 @@ background_combo_box_new (void)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Android"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("GTK+"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Custom..."));
-#else
-  combobox = gtk_combo_box_new_text ();
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Yellow"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Blue"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Green"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Indigo"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Olive"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Carmine"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Mimosa"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("White"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Android"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("GTK+"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox), _("Custom..."));
-#endif
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   if (!g_ascii_strcasecmp (color, BACKGROUND_YELLOW))
@@ -634,9 +563,6 @@ color_button_new (void)
   g_free (color);
 
   button = gtk_color_button_new_with_color (&gdkcolor);
-#ifndef ENABLE_GTK3
-  gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
-#endif
 
   g_signal_connect (button, "button-press-event", G_CALLBACK (cb_color_button_pressed), NULL);
 
@@ -666,38 +592,16 @@ cb_color_button_pressed (GtkButton *button,
 
 
 
-#ifndef ENABLE_GTK3
-static UniqueResponse
-cb_unique_app (UniqueApp *app,
-               gint command,
-               UniqueMessageData *message_data,
-               guint time_,
-               gpointer user_data)
-{
-  GtkWidget *dialog = user_data;
-  if (command != UNIQUE_ACTIVATE)
-    {
-      return UNIQUE_RESPONSE_PASSTHROUGH;
-    }
-  gtk_window_present (GTK_WINDOW (dialog));
-  return UNIQUE_RESPONSE_OK;
-}
-#endif
-
 gint main (gint argc,
            gchar *argv[])
 {
   GtkWidget *dialog;
-#ifdef ENABLE_GTK3
   GtkApplication *app;
   GError *error = NULL;
-#else
-  UniqueApp *app;
-#endif
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, NULL);
   xfconf_init (NULL);
   gtk_init (&argc, &argv);
-#ifdef ENABLE_GTK3
+
   app = gtk_application_new ("org.xfce.NotesSettings", 0);
 
   g_application_register (G_APPLICATION (app), NULL, &error);
@@ -714,25 +618,10 @@ gint main (gint argc,
       g_object_unref (app);
       return 0;
     }
-#else
-  app = unique_app_new ("org.xfce.NotesSettings", NULL);
-  if (unique_app_is_running (app))
-    {
-      if (unique_app_send_message (app, UNIQUE_ACTIVATE, NULL) == UNIQUE_RESPONSE_OK)
-        {
-          g_object_unref (app);
-          return 0;
-        }
-    }
-#endif
 
   dialog = prop_dialog_new ();
 
-#ifdef ENABLE_GTK3
   g_signal_connect_swapped (app, "activate", G_CALLBACK (gtk_window_present), dialog);
-#else
-  g_signal_connect (app, "message-received", G_CALLBACK (cb_unique_app), dialog);
-#endif
 
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
