@@ -28,6 +28,7 @@ namespace Xnp {
 		public signal void clicked ();
 
 		construct {
+			((Gtk.Widget)this).name = "notes-icon-button";
 			set_visible_window (false);
 			set_above_child (true);
 			set_size_request (22, 22);

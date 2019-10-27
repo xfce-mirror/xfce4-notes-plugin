@@ -39,7 +39,7 @@ namespace Xnp {
 			try {
 				var cssprovider = new Gtk.CssProvider ();
 				cssprovider.load_from_path (get_css_path ());
-				Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), cssprovider, 255);
+				Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), cssprovider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
 			} catch (GLib.Error e) {
 				warning ("%s", e.message);
 			}

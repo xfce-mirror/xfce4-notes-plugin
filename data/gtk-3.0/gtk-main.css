@@ -4,34 +4,161 @@
 @define-color theme_fg_color shade (@theme_base_color, 0.3);
 @define-color theme_selected_bg_color shade (@theme_base_color, 0.8);
 @define-color theme_selected_fg_color shade (@theme_base_color, 1.4);
-@define-color insensitive_fg_color shade (@theme_fg_color, 1.8);
 @define-color insensitive_bg_color shade (@theme_bg_color, 1.1);
+@define-color insensitive_fg_color shade (@theme_fg_color, 1.8);
 
 @define-color borders shade (@theme_base_color, 0.8);
-@define-color frame_color shade (@theme_base_color, 0.8);
+@define-color frame_color shade (@theme_base_color, 0.7);
 @define-color notebook_active_tab_border shade (@theme_base_color, 1.1);
 @define-color notebook_selected_tab_color shade (@theme_base_color, 0.9);
 
-GtkWindow {
+* {
+	border-width: 0px;
+}
+
+/* window and frame */
+window {
 	background-image: linear-gradient(to bottom,
 	                                  shade (@theme_base_color, 0.8),
 	                                  shade (@theme_base_color, 0.95) 87px);
 }
 
-.button {
+window *:disabled {
+	color: @insensitive_fg_color;
+}
+
+window frame {
+	padding: 1px 2px 4px 2px;
+	border: 1px solid shade (@theme_base_color, 0.7);
+}
+
+/* icon buttons in window title bar */
+window widget#notes-icon-button {
+	color: black;
 	background-color: transparent;
 }
-
-.button *:active {
-        color: darker (@theme_fg_color);
-        text-shadow: 1 1 lighter (@theme_bg_color);
+window widget#notes-icon-button:active {
+	color: darker (@theme_fg_color);
+	text-shadow: 1px 1px lighter (@theme_bg_color);
+}
+window widget#notes-icon-button:disabled {
+	color: shade (@insensitive_fg_color, 1.2);
+}
+window widget#notes-icon-button:hover {
+	color: shade (@insensitive_fg_color, 0.8);
 }
 
-.tooltip {
-	border-style: solid;
-	border-width: 1px;
-	border-color: lighter (@theme_fg_color);
-	color: darker (@theme_fg_color);
-	text-shadow: 1 1 lighter (@theme_bg_color);
+/* notebook */
+notebook > header {
+	background: transparent;
+}
+notebook > header.top {
+	border-bottom: 2px solid @theme_selected_bg_color;
+}
+notebook > header.bottom {
+	border-top: 2px solid @theme_selected_bg_color;
+}
+notebook > header.left {
+	border-right: 2px solid @theme_selected_bg_color;
+}
+notebook > header.right {
+	border-left: 2px solid @theme_selected_bg_color;
+}
+
+/* notebook tab style */
+notebook > header.top tab, notebook > header.bottom tab {
+	padding: 0px 4px;
+}
+notebook > header.right tab, notebook > header.left tab {
+	padding: 4px 0px;
+}
+
+notebook > header tab {
+	box-shadow: none;
+	color: @insensitive_fg_color;
+	background: transparent;
+}
+notebook > header tab:checked {
+	color: shade (@theme_text_color, 0.8);
+}
+notebook > header tab.dnd {
+	background: @theme_selected_bg_color;
+}
+
+notebook > header.top > tabs > tab:checked {
+	box-shadow: inset 0px -3px shade (@theme_selected_bg_color, 1.3), 0px 2px 3px @theme_selected_bg_color;
+}
+notebook > header.top > tabs > tab:checked:hover {
+	box-shadow: inset 0px -2px shade (@theme_selected_bg_color, 1.3), 0px 2px 3px @theme_selected_bg_color;
+	background: @theme_selected_bg_color; /* NOTE: must be set before .dnd */
+}
+notebook > header.top > tabs > tab:hover {
+	box-shadow: inset 0px -2px shade (@theme_selected_bg_color, 1.3);
+}
+
+notebook > header.bottom > tabs > tab:checked {
+	box-shadow: inset 0px 3px shade (@theme_selected_bg_color, 1.3), 0px -2px 3px @theme_selected_bg_color;
+}
+notebook > header.bottom > tabs > tab:checked:hover {
+	box-shadow: inset 0px 2px shade (@theme_selected_bg_color, 1.3), 0px -2px 3px @theme_selected_bg_color;
+	background: @theme_selected_bg_color;
+}
+notebook > header.bottom > tabs > tab:hover {
+	box-shadow: inset 0px 2px shade (@theme_selected_bg_color, 1.3);
+}
+
+notebook > header.left > tabs > tab:checked {
+	box-shadow: inset -3px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
+}
+notebook > header.left > tabs > tab:checked:hover {
+	box-shadow: inset -2px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
+	background: @theme_selected_bg_color;
+}
+notebook > header.left > tabs > tab:hover {
+	box-shadow: inset -2px 0px shade (@theme_selected_bg_color, 1.3);
+}
+
+notebook > header.right > tabs > tab:checked {
+	box-shadow: inset 3px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
+}
+notebook > header.right > tabs > tab:checked:hover {
+	box-shadow: inset 2px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
+	background: @theme_selected_bg_color;
+}
+notebook > header.right > tabs > tab:hover {
+	box-shadow: inset 2px 0px shade (@theme_selected_bg_color, 1.3);
+}
+
+textview > text {
+	color: @theme_text_color;
+	background-image: linear-gradient(to bottom,
+	                                  shade (@theme_bg_color, 1.2),
+	                                  shade (@theme_bg_color, 1.3) 20em);
+}
+
+textview > text > selection {
+	color: @theme_selected_fg_color;
+	background-color: @theme_selected_bg_color;
+}
+
+scrollbar {
+	background-color: transparent;
+}
+scrollbar slider {
+	background-color: shade (@theme_bg_color, 0.55);
+	min-width: 8px;
+}
+scrollbar slider:hover {
+	background-color: shade (@theme_bg_color, 0.7);
+	transition: 400ms;
+}
+scrollbar slider:hover:active {
+	background-color: shade (@theme_bg_color, 0.55);
+	transition: 200ms;
+}
+
+tooltip, tooltip * {
+	margin: 0px;
+	padding: 0px;
 }
 
