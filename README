@@ -44,7 +44,7 @@ want to access your notes by cycling to them (Alt+Tab by default).
  Homepage
 ----------
 
-http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
+https://docs.xfce.org/panel-plugins/xfce4-notes-plugin
 
 
  Dependencies
@@ -76,6 +76,6 @@ Select the product “Xfce Panel Plugins” and the component “notes”.
 
 Feature requests are always welcome.
 
-You can also join the Xfce Goodies mailing-list:
-http://foo-projects.org/mailman/listinfo/goodies-dev.
+You can also join the Xfce development  mailing-list:
+https://mail.xfce.org/mailman/listinfo/xfce4-dev
 

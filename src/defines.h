@@ -19,7 +19,7 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define PLUGIN_WEBSITE                  "http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin"
+#define PLUGIN_WEBSITE                  "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin"
 #define PLUGIN_XFCONF_CHANNEL           "xfce4-notes-plugin"
 
 #define BORDER                          6
