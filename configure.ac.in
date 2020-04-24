@@ -50,17 +50,7 @@ XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.12.0])
 
 dnl Check for Xfce Panel
 # TODO port plugin to gtk3
-#XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.10.0])
-
-dnl Check for valac
-if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-        AM_PROG_VALAC([0.26.0])
-        if test "x$VALAC" = "x" ; then
-                AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
-        fi
-        # TODO look forward for an xfce4-vala 4.12 release
-        XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.10])
-fi
+XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.12.0])
 
 dnl Translations
 IT_PROG_INTLTOOL()

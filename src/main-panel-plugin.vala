@@ -33,7 +33,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 	}
 
 	public override void @construct () {
-		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
+		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
 		application = new Xnp.Application (save_location (true));
 
 		button = (Gtk.Button)Xfce.panel_create_button ();

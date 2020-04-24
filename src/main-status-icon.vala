@@ -27,8 +27,8 @@ static Gtk.StatusIcon status_icon;
 static Gtk.Menu context_menu;
 
 static void build_plugin () {
-	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-	var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
+	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
+	var save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
 	application = new Xnp.Application (save_location);
 	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
 	status_icon.set_tooltip_text (_("Notes"));
