@@ -32,9 +32,9 @@ namespace Xnp {
 
 		construct {
 			try {
-				Xfce.PosixSignalHandler.init ();
-				Xfce.PosixSignalHandler.set_handler(ProcessSignal.TERM, quit);
-				Xfce.PosixSignalHandler.set_handler(ProcessSignal.INT, quit);
+				Xfce.posix_signal_handler_init ();
+				Xfce.posix_signal_handler_set_handler(ProcessSignal.TERM, quit);
+				Xfce.posix_signal_handler_set_handler(ProcessSignal.INT, quit);
 			}
 			catch (GLib.Error e) {
 				critical ("Unable to connect to UNIX signals. %s", e.message);
@@ -43,7 +43,7 @@ namespace Xnp {
 			try {
 				Xfconf.init ();
 			}
-			catch (Xfconf.Error e) {
+			catch (GLib.Error e) {
 				critical ("%s", e.message);
 			}
 
@@ -221,9 +221,9 @@ namespace Xnp {
 			window_monitor_list_add (window);
 
 			/* Global settings */
-			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
+			Xfconf.property_bind (xfconf_channel, "/global/skip-taskbar-hint",
 				typeof (bool), window, "skip-taskbar-hint");
-			Xfconf.Property.bind (xfconf_channel, "/global/tabs-position",
+			Xfconf.property_bind (xfconf_channel, "/global/tabs-position",
 				typeof (int), window, "tabs-position");
 
 			/* Connect signals */
@@ -258,7 +258,7 @@ namespace Xnp {
 				}
 			});
 			window.note_inserted.connect ((win, note) => {
-				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+				Xfconf.property_bind (xfconf_channel, "/global/font-description",
 					typeof (string), note.text_view, "font");
 
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
@@ -308,7 +308,7 @@ namespace Xnp {
 						note.name = name;
 						var buffer = note.text_view.get_buffer ();
 						buffer.set_text (contents, -1);
-						Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+						Xfconf.property_bind (xfconf_channel, "/global/font-description",
 								typeof (string), note.text_view, "font");
 					}
 					catch (FileError e) {

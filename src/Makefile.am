@@ -63,55 +63,55 @@ xfce4_notes_settings_LDADD =						\
 ## REM Xfce Panel is not yet built with GTK3 support
 ## hence it's impossible to build a panel plugin yet
 #
-#if MAINTAINER_MODE
-#notes_VALAFLAGS =							\
-#	--vapidir=$(top_srcdir)/lib					\
-#	--pkg=libnotes							\
-#	--pkg=config							\
-#	--pkg=libxfce4panel-1.0						\
-#	--pkg=libxfconf-0						\
-#	--pkg=libxfce4util-1.0
+if MAINTAINER_MODE
+notes_VALAFLAGS =							\
+   --vapidir=$(top_srcdir)/lib					\
+   --pkg=libnotes							\
+	--pkg=config							\
+	--pkg=libxfce4panel-2.0						\
+	--pkg=libxfconf-0						\
+	--pkg=libxfce4util-1.0
 #
 #if ENABLE_GTK3
-#notes_VALAFLAGS +=							\
-#	-D ENABLE_GTK3							\
-#	--pkg=gtk+-3.0
+notes_VALAFLAGS +=							\
+	-D ENABLE_GTK3							\
+	--pkg=gtk+-3.0
 #else
 #notes_VALAFLAGS +=							\
 #	--pkg=popup							\
 #	--pkg=gtk+-2.0
 #endif
 #
-#BUILT_SOURCES += main-panel-plugin.c
-#main-panel-plugin.c: main-panel-plugin.vala
-#	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
-#endif
+BUILT_SOURCES += main-panel-plugin.c
+main-panel-plugin.c: main-panel-plugin.vala
+	$(AM_V_GEN) $(VALAC) $(notes_VALAFLAGS) $< -C
+endif
 #
-#plugindir = $(libdir)/xfce4/panel/plugins
-#plugin_LTLIBRARIES = libnotes.la
+plugindir = $(libdir)/xfce4/panel/plugins
+plugin_LTLIBRARIES = libnotes.la
 #
-#libnotes_la_SOURCES =							\
-#	main-panel-plugin.c
+libnotes_la_SOURCES =							\
+	main-panel-plugin.c
 #
-#libnotes_la_CFLAGS =							\
-#	@LIBX11_CFLAGS@							\
-#	@LIBXFCE4PANEL_CFLAGS@						\
-#	@LIBXFCE4UTIL_CFLAGS@						\
-#	@XFCONF_CFLAGS@
+libnotes_la_CFLAGS =							\
+	@LIBX11_CFLAGS@							\
+	@LIBXFCE4PANEL_CFLAGS@						\
+	@LIBXFCE4UTIL_CFLAGS@						\
+	@XFCONF_CFLAGS@
 #
-#libnotes_la_LIBADD =							\
-#	$(top_builddir)/lib/libnotes.la					\
-#	@LIBX11_LIBS@							\
-#	@LIBXFCE4PANEL_LIBS@						\
-#	@LIBXFCE4UTIL_LIBS@						\
-#	@XFCONF_LIBS@
+libnotes_la_LIBADD =							\
+	$(top_builddir)/lib/libnotes.la					\
+	@LIBX11_LIBS@							\
+	@LIBXFCE4PANEL_LIBS@						\
+	@LIBXFCE4UTIL_LIBS@						\
+	@XFCONF_LIBS@
 #
-#libnotes_la_LDFLAGS =							\
-#	-avoid-version							\
-#	-module								\
-#	-no-undefined							\
-#	-export-symbols-regex '^xfce_panel_module_(preinit|init|construct)' \
-#	$(PLATFORM_LDFLAGS)
+libnotes_la_LDFLAGS =							\
+	-avoid-version							\
+	-module								\
+	-no-undefined							\
+	-export-symbols-regex '^xfce_panel_module_(preinit|init|construct)' \
+	$(PLATFORM_LDFLAGS)
 #endif
 
 #
@@ -158,7 +158,7 @@ xfce4_notes_LDADD =							\
 # Plugin desktop file
 #
 
-desktopdir = $(datadir)/xfce4/panel-plugins
+desktopdir = $(datadir)/xfce4/panel/plugins
 desktop_in_files = xfce4-notes-plugin.desktop.in
 desktop_DATA = xfce4-notes-plugin.desktop
 @INTLTOOL_DESKTOP_RULE@
