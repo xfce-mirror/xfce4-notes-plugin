@@ -5,13 +5,14 @@
 # Translators:
 # Cristian Marchi <cri.penta@gmail.com>, 2009
 # Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2018
+# Vincenzo Reale <vinx.reale@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2018-07-17 12:02+0000\n"
-"Last-Translator: Emanuele Petriglia <transifex@emanuelepetriglia.com>\n"
+"PO-Revision-Date: 2020-05-21 18:52+0000\n"
+"Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,7 +96,7 @@ msgstr "Impossibile aprire la finestra delle impostazioni"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
-msgstr "Emanuele Petriglia <inbox@emanuelepetriglia.me>, 2018\nCristian Marchi <cri.penta@gmail.com>, 2009"
+msgstr "Vincenzo Reale <smart2128@baslug.org> 2020\nEmanuele Petriglia <inbox@emanuelepetriglia.me>, 2018\nCristian Marchi <cri.penta@gmail.com>, 2009"
 
 #: ../lib/application.vala:802 ../lib/window.vala:822
 msgid "_Add a new group"
