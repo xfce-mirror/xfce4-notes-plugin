@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Elishai Eliyahu <e1907@mm.st>, 2016
+# Omer, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-09-23 19:03+0000\n"
-"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
+"PO-Revision-Date: 2020-06-22 19:59+0000\n"
+"Last-Translator: Omer\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,35 +27,35 @@ msgstr ""
 #: ../src/main-settings-dialog.c:107 ../src/main-panel-plugin.vala:46
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:136
 msgid "Notes"
-msgstr "Notes"
+msgstr "פתקים"
 
 #: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
 msgid "Ideal for your quick notes"
-msgstr "אידיאלי להערות המהירות שלך"
+msgstr "אידיאלי לפתקים המהירים שלך"
 
 #: ../lib/application.vala:121 ../lib/application.vala:136
 #: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
 msgid "Select notes path"
-msgstr "בחר נתיב הערות"
+msgstr "בחר נתיב פתקים"
 
 #: ../lib/application.vala:122
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr "התיקייה הנבחרת (%s) לנתיב ההערות החדשות כבר מכילה קבצים. אתה חייב לבחור או ליצור תיקייה ריקה."
+msgstr "התיקייה הנבחרת (%s) לנתיב הפתקים החדשיפ כבר מכילה קבצים. אתה חייב לבחור או ליצור תיקייה ריקה."
 
 #: ../lib/application.vala:137
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "לא יכול לבחור תיקייה לנתיב הערות חדשות: %s "
+msgstr "לא יכול לבחור תיקייה לנתיב פתקים חדשים: %s "
 
 #: ../lib/application.vala:195 ../lib/window.vala:958
 #, c-format
 msgid "Notes %d"
-msgstr "הערות %d "
+msgstr "פתקים %d "
 
 #: ../lib/application.vala:435
 msgid "Rename group"
@@ -90,7 +91,7 @@ msgstr "התווים הלא חוקיים הם: %s "
 
 #: ../lib/application.vala:720
 msgid "Unable to open the settings dialog"
-msgstr "לא יכול לפתוח את דיאלוג ההגדרות"
+msgstr "לא יכול לפתוח את דו־שיח ההגדרות"
 
 #: ../lib/application.vala:767
 msgid "translator-credits"
@@ -106,7 +107,7 @@ msgstr "תפריט"
 
 #: ../lib/window.vala:268
 msgid "Refresh notes"
-msgstr "רענן הערות"
+msgstr "רענן פתקים"
 
 #: ../lib/window.vala:281
 #, c-format
@@ -141,11 +142,11 @@ msgstr "_מחק קבוצה"
 
 #: ../lib/window.vala:1033
 msgid "Are you sure you want to delete this note?"
-msgstr "האם אתה בטוח שברצונך למחוק הערה זו?"
+msgstr "האם אתה בטוח שברצונך למחוק פתק זה?"
 
 #: ../lib/window.vala:1059
 msgid "Rename note"
-msgstr "שנה שם הערה"
+msgstr "שנה שם פתק"
 
 #: ../src/main-settings-dialog.c:115
 msgid "Configure the plugin"
@@ -158,11 +159,11 @@ msgstr "הגדרות גלובליות"
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:147
 msgid "Hide notes from taskbar"
-msgstr "הסתר הערות מסרגל המשימות"
+msgstr "הסתר פתקים מסרגל המשימות"
 
 #: ../src/main-settings-dialog.c:169
 msgid "Notes path:"
-msgstr "נתיב הערות:"
+msgstr "נתיב פתקים:"
 
 #: ../src/main-settings-dialog.c:184
 msgid "Tabs position:"
