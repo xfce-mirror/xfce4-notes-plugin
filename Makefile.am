@@ -25,7 +25,7 @@ EXTRA_DIST =								\
 	ChangeLog							\
 	COPYING								\
 	NEWS								\
-	README								\
+	README.md								\
 	intltool-extract.in						\
 	intltool-merge.in						\
 	intltool-update.in						\
