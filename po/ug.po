@@ -9,13 +9,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-03 21:09+0200\n"
 "PO-Revision-Date: 2017-09-23 19:03+0000\n"
-"Last-Translator: Gheyret Kenji\n"
-"Language-Team: Uighur (http://www.transifex.com/xfce/xfce-panel-plugins/language/ug/)\n"
+"Last-Translator: Gheyret Kenji <gheyret@yahoo.com>\n"
+"Language-Team: Uyghur (http://www.transifex.com/xfce/xfce-panel-plugins/language/ug/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ug\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
