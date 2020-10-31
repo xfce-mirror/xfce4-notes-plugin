@@ -45,7 +45,7 @@ namespace Xnp {
 			set {
 				this._font = value;
 				Pango.FontDescription font_descr = Pango.FontDescription.from_string (value);
-				modify_font (font_descr);
+				override_font (font_descr);
 			}
 		}
 

@@ -769,8 +769,6 @@ namespace Xnp {
 					var new_win = create_window ();
 					new_win.show ();
 				});
-				//var image = new Gtk.Image.from_stock (Gtk.Stock.ADD, Gtk.IconSize.MENU);
-				//mi_add.set_image (image);
 				menu.append (mi_add);
 
 				// Show all items
