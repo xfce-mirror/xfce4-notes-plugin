@@ -28,7 +28,13 @@ stamp-h1
 intltool-extract.in
 intltool-merge.in
 intltool-update.in
+lib/*.c
+lib/*.h
+lib/libnotes.vapi
 po/.intltool-merge-cache
 po/Makefile.in.in
 po/POTFILES
 po/stamp-it
+src/main-panel-plugin.c
+src/main-popup.c
+src/main-status-icon.c
