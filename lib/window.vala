@@ -682,8 +682,6 @@ namespace Xnp {
 			menu.append (mi);
 
 			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename"));
-            //var image = new Gtk.Image.from_stock (Gtk.Stock.EDIT, Gtk.IconSize.MENU);
-			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
 			mi.activate.connect (action_rename_note);
 			menu.append (mi);
@@ -748,10 +746,6 @@ namespace Xnp {
 					for (int p = 0; p < n_pages; p++) {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
 						mi = new Gtk.MenuItem.with_label (note.name);
-						//if (note == current_note) {
-						//	image = new Gtk.Image.from_icon_name ("go-next", Gtk.IconSize.MENU);
-						//	((Gtk.ImageMenuItem)mi).set_image (image);
-						//}
 						mi.set_data ("page", p.to_pointer ());
 						mi.activate.connect ((i) => {
 							int page = i.get_data<int> ("page");
@@ -778,22 +772,16 @@ namespace Xnp {
 			}
 
 			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename group"));
-			//image = new Gtk.Image.from_icon_name ("gtk-edit", Gtk.IconSize.MENU);
-			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
 			mi.activate.connect (action_rename_window);
 			menu.append (mi);
 
 			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete group"));
-			//image = new Gtk.Image.from_icon_name ("list-remove", Gtk.IconSize.MENU);
-			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
 			mi.activate.connect (action_delete_window);
 			menu.append (mi);
 
 			mi = new Gtk.MenuItem.with_mnemonic (_("_Add a new group"));
-			//image = new Gtk.Image.from_icon_name ("list-add", Gtk.IconSize.MENU);
-			//((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
 			mi.activate.connect (action_new_window);
 			menu.append (mi);
