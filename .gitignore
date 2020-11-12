@@ -9,6 +9,7 @@ Makefile.in
 .libs
 aclocal.m4
 autom4te.cache
+ChangeLog
 compile
 config.guess
 config.h
@@ -31,6 +32,7 @@ intltool-update.in
 lib/*.c
 lib/*.h
 lib/libnotes.vapi
+lib/libnotes.la
 po/.intltool-merge-cache
 po/Makefile.in.in
 po/POTFILES
@@ -38,3 +40,5 @@ po/stamp-it
 src/main-panel-plugin.c
 src/main-popup.c
 src/main-status-icon.c
+src/xfce4-popup-notes
+*.desktop
