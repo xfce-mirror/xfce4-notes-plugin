@@ -23,10 +23,6 @@ window {
 	                                  shade (@theme_base_color, 0.95) 87px);
 }
 
-window *:disabled {
-	color: @insensitive_fg_color;
-}
-
 window frame {
 	padding: 1px 2px 4px 2px;
 	border: 1px solid shade (@theme_base_color, 0.7);
