@@ -7,3 +7,4 @@ Icon=xfce4-notes-plugin
 X-XFCE-Unique=true
 X-XFCE-Module=notes
 X-XFCE-Internal=FALSE
+X-XFCE-API=2.0

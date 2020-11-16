@@ -32,9 +32,9 @@ namespace Xnp {
 
 		construct {
 			try {
-				Xfce.PosixSignalHandler.init ();
-				Xfce.PosixSignalHandler.set_handler(ProcessSignal.TERM, quit);
-				Xfce.PosixSignalHandler.set_handler(ProcessSignal.INT, quit);
+				Xfce.posix_signal_handler_init ();
+				Xfce.posix_signal_handler_set_handler(ProcessSignal.TERM, quit);
+				Xfce.posix_signal_handler_set_handler(ProcessSignal.INT, quit);
 			}
 			catch (GLib.Error e) {
 				critical ("Unable to connect to UNIX signals. %s", e.message);
@@ -43,7 +43,7 @@ namespace Xnp {
 			try {
 				Xfconf.init ();
 			}
-			catch (Xfconf.Error e) {
+			catch (GLib.Error e) {
 				critical ("%s", e.message);
 			}
 
@@ -221,9 +221,9 @@ namespace Xnp {
 			window_monitor_list_add (window);
 
 			/* Global settings */
-			Xfconf.Property.bind (xfconf_channel, "/global/skip-taskbar-hint",
+			Xfconf.property_bind (xfconf_channel, "/global/skip-taskbar-hint",
 				typeof (bool), window, "skip-taskbar-hint");
-			Xfconf.Property.bind (xfconf_channel, "/global/tabs-position",
+			Xfconf.property_bind (xfconf_channel, "/global/tabs-position",
 				typeof (int), window, "tabs-position");
 
 			/* Connect signals */
@@ -258,7 +258,7 @@ namespace Xnp {
 				}
 			});
 			window.note_inserted.connect ((win, note) => {
-				Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+				Xfconf.property_bind (xfconf_channel, "/global/font-description",
 					typeof (string), note.text_view, "font");
 
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
@@ -308,7 +308,7 @@ namespace Xnp {
 						note.name = name;
 						var buffer = note.text_view.get_buffer ();
 						buffer.set_text (contents, -1);
-						Xfconf.Property.bind (xfconf_channel, "/global/font-description",
+						Xfconf.property_bind (xfconf_channel, "/global/font-description",
 								typeof (string), note.text_view, "font");
 					}
 					catch (FileError e) {
@@ -424,11 +424,11 @@ namespace Xnp {
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename group"), window,
 					Gtk.DialogFlags.DESTROY_WITH_PARENT,
-					Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
+					"_Cancel", Gtk.ResponseType.CANCEL, "_OK", Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
-			dialog.icon_name = Gtk.Stock.EDIT;
+			dialog.icon_name = "gtk-edit";
 			dialog.border_width = 4;
 
 			var entry = new Gtk.Entry ();
@@ -724,7 +724,7 @@ namespace Xnp {
 				"logo-icon-name", "xfce4-notes-plugin",
 				"comments", _("Ideal for your quick notes"),
 				"version", Config.PACKAGE_VERSION,
-				"copyright", "Copyright © 2003-2010 The Xfce development team",
+				"copyright", "Copyright © 2003-2020 The Xfce development team",
 				"license", Xfce.get_license_text (Xfce.LicenseTextType.GPL),
 				"website", "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin",
 				"website-label", "docs.xfce.org",
@@ -764,13 +764,11 @@ namespace Xnp {
 				// New group menu item
 				var mi_sep = new Gtk.SeparatorMenuItem ();
 				menu.append (mi_sep);
-				var mi_add = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
+				var mi_add = new Gtk.MenuItem.with_mnemonic (_("_Add a new group"));
 				mi_add.activate.connect (() => {
 					var new_win = create_window ();
 					new_win.show ();
 				});
-				var image = new Gtk.Image.from_stock (Gtk.Stock.ADD, Gtk.IconSize.MENU);
-				mi_add.set_image (image);
 				menu.append (mi_add);
 
 				// Show all items

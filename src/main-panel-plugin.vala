@@ -25,7 +25,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 
 	private Gtk.Invisible invisible;
 	private Gtk.Button button;
-	private Xfce.PanelImage image;
+	private Gtk.Image image;
 	private Xnp.Application application;
 
 	public NotesPlugin () {
@@ -33,11 +33,11 @@ public class NotesPlugin : Xfce.PanelPlugin {
 	}
 
 	public override void @construct () {
-		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
+		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
 		application = new Xnp.Application (save_location (true));
 
 		button = (Gtk.Button)Xfce.panel_create_button ();
-		image = new Xfce.PanelImage.from_source ("xfce4-notes-plugin");
+		image = new Gtk.Image.from_icon_name ("xfce4-notes-plugin", BUTTON);
 		button.add (image);
 		button.clicked.connect (() => { application.show_hide_notes (); });
 		button.show_all ();
@@ -57,6 +57,8 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		size_changed.connect ((p, size) => {
 			size = size / (int)nrows;
 			button.set_size_request (size, size);
+			var icon_size = p.get_icon_size();
+			image.set_pixel_size(icon_size);
 			return true;
 		});
 		save.connect (() => { application.save_windows_configuration (); });

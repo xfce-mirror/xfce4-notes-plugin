@@ -1,0 +1,4 @@
+lib/application.c
+lib/window.c
+src/main-panel-plugin.c
+src/main-status-icon.c

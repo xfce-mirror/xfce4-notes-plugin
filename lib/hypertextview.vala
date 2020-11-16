@@ -24,8 +24,8 @@ namespace Xnp {
 
 	public class HypertextView : Gtk.TextView {
 
-		private Gdk.Cursor hand_cursor = new Gdk.Cursor (Gdk.CursorType.HAND2);
-		private Gdk.Cursor regular_cursor = new Gdk.Cursor (Gdk.CursorType.XTERM);
+		private Gdk.Cursor hand_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.HAND2);
+		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
 
 		private bool cursor_over_link = false;
 
@@ -45,7 +45,7 @@ namespace Xnp {
 			set {
 				this._font = value;
 				Pango.FontDescription font_descr = Pango.FontDescription.from_string (value);
-				modify_font (font_descr);
+				override_font (font_descr);
 			}
 		}
 
@@ -107,7 +107,7 @@ namespace Xnp {
 			if (iter.has_tag (this.tag_link)) {
 				start = end = iter;
 
-				if (!start.begins_tag (this.tag_link)) {
+				if (!start.starts_tag (this.tag_link)) {
 					start.backward_to_tag_toggle (this.tag_link);
 				}
 
@@ -220,7 +220,7 @@ namespace Xnp {
 			Gtk.TextIter start, end;
 
 			/* Text is inserted inside a tag */
-			if (location.has_tag (this.tag_link) && !location.begins_tag (this.tag_link)) {
+			if (location.has_tag (this.tag_link) && !location.starts_tag (this.tag_link)) {
 				start = location;
 				start.backward_to_tag_toggle (this.tag_link);
 
@@ -406,7 +406,7 @@ namespace Xnp {
 			while (iter.forward_search ("http://", Gtk.TextSearchFlags.TEXT_ONLY, out start, out end, null)) {
 				iter = end;
 
-				if (start.begins_tag (this.tag_link))
+				if (start.starts_tag (this.tag_link))
 					continue;
 
 				if (!iter.forward_search  (" ", Gtk.TextSearchFlags.TEXT_ONLY, out end, null, null)) {

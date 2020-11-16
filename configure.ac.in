@@ -14,7 +14,7 @@ m4_define([xfce4_notes_plugin_version_tag], [git]) # Leave empty for releases
 m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [git], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
 
 AC_PREREQ([2.50])
-AC_INIT([Notes], [xfce4_notes_plugin_version], [http://bugzilla.xfce.org/], [xfce4-notes-plugin],
+AC_INIT([Notes], [xfce4_notes_plugin_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
 	[https://docs.xfce.org/panel-plugins/xfce4-notes-plugin])
 AC_REVISION([xfce4_notes_plugin_version_build])
 AC_CANONICAL_TARGET()
@@ -23,9 +23,10 @@ AC_CONFIG_HEADERS([config.h])
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
 
-AM_INIT_AUTOMAKE([1.13 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.13 dist-bzip2 no-dist-gzip foreign])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
+AC_CONFIG_MACRO_DIRS([m4])
 
 dnl Check for basic programs
 AM_PROG_CC_C_O()
@@ -43,23 +44,17 @@ dnl Check for required packages
 XDT_CHECK_LIBX11_REQUIRE()
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.30.0])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.30.0])
-XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.14.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
-XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.12.0])
-
-dnl Check for Xfce Panel
-# TODO port plugin to gtk3
-#XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.10.0])
-
+XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.14.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.14.0])
+XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.14.0])
+XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.14.0])
 dnl Check for valac
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-        AM_PROG_VALAC([0.26.0])
+        AM_PROG_VALAC([0.46.0])
         if test "x$VALAC" = "x" ; then
                 AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
         fi
-        # TODO look forward for an xfce4-vala 4.12 release
-        XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.10])
 fi
 
 dnl Translations
@@ -95,17 +90,10 @@ echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 echo
 echo "    * Vala:               $VALAC $am__vala_version"
-# TODO needed for panel plugin
-#if test "x$enable_gtk3" = "xno" ; then
-#echo "    * Xfce4-vala:         $XFCE4VALA_VERSION"
-#fi
 echo
 fi
 echo "* GTK+:                   $GTK_VERSION"
-# TODO needed for panel plugin, no code yet for gtk3
-#if test "x$enable_gtk3" = "xno" ; then
-#echo "* Xfce Panel:             $LIBXFCE4PANEL_VERSION"
-#fi
+echo "* Xfce Panel:             $LIBXFCE4PANEL_VERSION"
 echo "* Debug Support:          $enable_debug"
 echo
 

@@ -27,8 +27,8 @@ static Gtk.StatusIcon status_icon;
 static Gtk.Menu context_menu;
 
 static void build_plugin () {
-	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR);
-	var save_location = Xfce.Resource.save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
+	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
+	var save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
 	application = new Xnp.Application (save_location);
 	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
 	status_icon.set_tooltip_text (_("Notes"));
@@ -57,18 +57,18 @@ static Gtk.Menu build_context_menu () {
 	mi = new Gtk.SeparatorMenuItem ();
 	menu.append (mi);
 
-	mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.PROPERTIES, null);
+	mi = new Gtk.MenuItem.with_mnemonic (_("_Properties"));
 	mi.activate.connect (() => { application.open_settings_dialog (); });
 	menu.append (mi);
 
-	mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.ABOUT, null);
+	mi = new Gtk.MenuItem.with_mnemonic (_("_About"));
 	mi.activate.connect (() => { application.open_about_dialog (); });
 	menu.append (mi);
 
 	mi = new Gtk.SeparatorMenuItem ();
 	menu.append (mi);
 
-	mi = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.REMOVE, null);
+	mi = new Gtk.MenuItem.with_mnemonic (_("_Remove"));
 	mi.activate.connect (() => {
 		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
