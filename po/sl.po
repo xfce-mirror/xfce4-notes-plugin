@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Arnold Marko <arnold.marko@gmail.com>, 2019
+# Arnold Marko <arnold.marko@gmail.com>, 2019-2020
 # Kernc, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2019-11-03 17:36+0000\n"
+"POT-Creation-Date: 2020-11-17 00:48+0100\n"
+"PO-Revision-Date: 2020-11-21 21:25+0000\n"
 "Last-Translator: Arnold Marko <arnold.marko@gmail.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,253 +19,277 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-#: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:191
-#: ../lib/application.vala:218 ../lib/application.vala:758
-#: ../lib/window.vala:89 ../lib/window.vala:180 ../lib/window.vala:955
-#: ../src/main-settings-dialog.c:107 ../src/main-panel-plugin.vala:46
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:136
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
+#: ../lib/application.vala:181 ../lib/application.vala:208
+#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
+#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
+#: ../src/main-settings-dialog.c:103
 msgid "Notes"
 msgstr "Beležke"
 
-#: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
+#: ../lib/application.vala:725
 msgid "Ideal for your quick notes"
 msgstr "Idealno za hitre beležke"
 
-#: ../lib/application.vala:121 ../lib/application.vala:136
-#: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
+#: ../lib/application.vala:116 ../lib/application.vala:131
+#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
 msgid "Select notes path"
 msgstr "Izberite pot do beležk"
 
-#: ../lib/application.vala:122
+#: ../lib/application.vala:117
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Izbrana mapa (%s) za nove beležke že vsebuje datoteke. Izbrati ali ustvariti morate mapo, ki je prazna."
 
-#: ../lib/application.vala:137
+#: ../lib/application.vala:132
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Ni mogoče izbrati mape za nove beležke: %s"
 
-#: ../lib/application.vala:195 ../lib/window.vala:958
+#: ../lib/application.vala:185 ../lib/window.vala:918
 #, c-format
 msgid "Notes %d"
 msgstr "Beležke %d"
 
-#: ../lib/application.vala:435
+#: ../lib/application.vala:425
 msgid "Rename group"
 msgstr "Preimenuj skupino"
 
-#: ../lib/application.vala:463 ../lib/window.vala:1085
+#: ../lib/application.vala:446 ../lib/window.vala:1041
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Ime %s je že v uporabi"
 
-#: ../lib/application.vala:492
+#: ../lib/application.vala:475
 msgid "Are you sure you want to delete this group?"
 msgstr "Ali ste prepričani, da želite izbrisati to skupino?"
 
-#: ../lib/application.vala:536
+#: ../lib/application.vala:519
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Skupina \"%s\" je bila spremenjena na disku"
 
-#: ../lib/application.vala:539
+#: ../lib/application.vala:522
 msgid "Do you want to reload the group?"
 msgstr "Ali želite ponovno naložiti skupino?"
 
-#: ../lib/application.vala:662
+#: ../lib/application.vala:645
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Ime \"%s\" ni veljavno."
 
-#: ../lib/application.vala:663
+#: ../lib/application.vala:646
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Neveljavni znaki so: %s"
 
-#: ../lib/application.vala:720
+#: ../lib/application.vala:703
 msgid "Unable to open the settings dialog"
 msgstr "Ni mogoče odpreti okna z nastavitvami"
 
-#: ../lib/application.vala:767
+#: ../lib/application.vala:732
 msgid "translator-credits"
 msgstr "Prevod: Kiberpipa, atomicmind"
 
-#: ../lib/application.vala:802 ../lib/window.vala:822
+#: ../lib/application.vala:767 ../lib/window.vala:784
 msgid "_Add a new group"
 msgstr "Dod_aj novo skupino"
 
-#: ../lib/window.vala:239
+#: ../lib/window.vala:227
 msgid "Menu"
 msgstr "Meni"
 
-#: ../lib/window.vala:268
+#: ../lib/window.vala:256
 msgid "Refresh notes"
 msgstr "Osveži beležke"
 
-#: ../lib/window.vala:281
+#: ../lib/window.vala:269
 #, c-format
 msgid "Hide (%s)"
 msgstr "Skrij (%s)"
 
-#: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:53
+#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
+#: ../src/main-status-icon.vala:52
 msgid "_Groups"
 msgstr "S_kupine"
 
-#: ../lib/window.vala:712
+#: ../lib/window.vala:674
+msgid "_New"
+msgstr "_Nova"
+
+#: ../lib/window.vala:679
+msgid "_Delete"
+msgstr "_Izbriši"
+
+#: ../lib/window.vala:684
 msgid "_Rename"
 msgstr "P_reimenuj"
 
+#: ../lib/window.vala:689
+msgid "_Undo"
+msgstr "_Razveljavi"
+
 #. Always on top
-#: ../lib/window.vala:728 ../src/main-settings-dialog.c:236
+#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
 msgid "Always on top"
 msgstr "Vedno na vrhu"
 
-#: ../lib/window.vala:733
+#: ../lib/window.vala:703
 msgid "Sticky window"
 msgstr "Lepljivo okno"
 
-#: ../lib/window.vala:808
+#: ../lib/window.vala:774
 msgid "_Rename group"
 msgstr "P_reimenuj skupino"
 
-#: ../lib/window.vala:815
+#: ../lib/window.vala:779
 msgid "_Delete group"
 msgstr "Iz_briši skupino"
 
-#: ../lib/window.vala:1033
+#: ../lib/window.vala:993
 msgid "Are you sure you want to delete this note?"
 msgstr "Ali ste prepričani, da želite izbrisati to beležko?"
 
-#: ../lib/window.vala:1059
+#: ../lib/window.vala:1019
 msgid "Rename note"
 msgstr "Preimenuj beležko"
 
-#: ../src/main-settings-dialog.c:115
+#: ../src/main-status-icon.vala:60
+msgid "_Properties"
+msgstr "_Lastnosti"
+
+#: ../src/main-status-icon.vala:64
+msgid "_About"
+msgstr "O progr_amu"
+
+#: ../src/main-status-icon.vala:71
+msgid "_Remove"
+msgstr "Odst_rani"
+
+#: ../src/main-settings-dialog.c:107
 msgid "Configure the plugin"
 msgstr "Uredite nastavitve vtičnika"
 
-#: ../src/main-settings-dialog.c:142
+#: ../src/main-settings-dialog.c:126
 msgid "Global settings"
 msgstr "Splošne nastavitve"
 
 #. Hide from taskbar
-#: ../src/main-settings-dialog.c:147
+#: ../src/main-settings-dialog.c:131
 msgid "Hide notes from taskbar"
 msgstr "Skrij beležke v opravilni vrstici"
 
-#: ../src/main-settings-dialog.c:169
+#: ../src/main-settings-dialog.c:149
 msgid "Notes path:"
 msgstr "Pot do beležk:"
 
-#: ../src/main-settings-dialog.c:184
+#: ../src/main-settings-dialog.c:160
 msgid "Tabs position:"
 msgstr "Položaj zavihkov:"
 
-#: ../src/main-settings-dialog.c:199
+#: ../src/main-settings-dialog.c:171
 msgid "Background:"
 msgstr "Ozadje:"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:185
 msgid "Font:"
 msgstr "Pisava:"
 
-#: ../src/main-settings-dialog.c:231
+#: ../src/main-settings-dialog.c:195
 msgid "New group settings"
 msgstr "Nove nastavitve skupine"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:243
+#: ../src/main-settings-dialog.c:207
 msgid "Sticky"
 msgstr "Lepljivo"
 
-#: ../src/main-settings-dialog.c:257
+#: ../src/main-settings-dialog.c:217
 msgid "Size:"
 msgstr "Velikost:"
 
-#: ../src/main-settings-dialog.c:328 ../src/main-settings-dialog.c:335
+#: ../src/main-settings-dialog.c:287
 msgid "None"
 msgstr "Brez"
 
-#: ../src/main-settings-dialog.c:329 ../src/main-settings-dialog.c:336
+#: ../src/main-settings-dialog.c:288
 msgid "Top"
 msgstr "Zgoraj"
 
-#: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
+#: ../src/main-settings-dialog.c:289
 msgid "Right"
 msgstr "Desno"
 
-#: ../src/main-settings-dialog.c:331 ../src/main-settings-dialog.c:338
+#: ../src/main-settings-dialog.c:290
 msgid "Bottom"
 msgstr "Spodaj"
 
-#: ../src/main-settings-dialog.c:332 ../src/main-settings-dialog.c:339
+#: ../src/main-settings-dialog.c:291
 msgid "Left"
 msgstr "Levo"
 
-#: ../src/main-settings-dialog.c:357 ../src/main-settings-dialog.c:362
+#: ../src/main-settings-dialog.c:307
 msgid "Small"
 msgstr "Malo"
 
-#: ../src/main-settings-dialog.c:358 ../src/main-settings-dialog.c:363
+#: ../src/main-settings-dialog.c:308
 msgid "Normal"
 msgstr "Srednje"
 
-#: ../src/main-settings-dialog.c:359 ../src/main-settings-dialog.c:364
+#: ../src/main-settings-dialog.c:309
 msgid "Large"
 msgstr "Veliko"
 
-#: ../src/main-settings-dialog.c:425 ../src/main-settings-dialog.c:438
+#: ../src/main-settings-dialog.c:368
 msgid "Yellow"
 msgstr "Rumeno"
 
-#: ../src/main-settings-dialog.c:426 ../src/main-settings-dialog.c:439
+#: ../src/main-settings-dialog.c:369
 msgid "Blue"
 msgstr "Modro"
 
-#: ../src/main-settings-dialog.c:427 ../src/main-settings-dialog.c:440
+#: ../src/main-settings-dialog.c:370
 msgid "Green"
 msgstr "Zeleno"
 
-#: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
+#: ../src/main-settings-dialog.c:371
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
+#: ../src/main-settings-dialog.c:372
 msgid "Olive"
 msgstr "Olivno"
 
-#: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
+#: ../src/main-settings-dialog.c:373
 msgid "Carmine"
 msgstr "Bordo"
 
-#: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
+#: ../src/main-settings-dialog.c:374
 msgid "Mimosa"
 msgstr "Sončno"
 
-#: ../src/main-settings-dialog.c:432 ../src/main-settings-dialog.c:445
+#: ../src/main-settings-dialog.c:375
 msgid "White"
 msgstr "Belo"
 
-#: ../src/main-settings-dialog.c:433 ../src/main-settings-dialog.c:446
+#: ../src/main-settings-dialog.c:376
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:434 ../src/main-settings-dialog.c:447
+#: ../src/main-settings-dialog.c:377
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
+#: ../src/main-settings-dialog.c:378
 msgid "Custom..."
 msgstr "Po meri ..."
 
-#: ../src/main-settings-dialog.c:579
+#: ../src/main-settings-dialog.c:508
 msgid "Background Color"
 msgstr "Barva ozadja"
