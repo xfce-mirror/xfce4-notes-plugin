@@ -42,7 +42,7 @@ enum
   COMBOBOX_TABS_LEFT,
 };
 
-static GtkWidget *tabs_combo_box_new ();
+static GtkWidget *tabs_combo_box_new (void);
 
 enum
 {
@@ -51,7 +51,7 @@ enum
   COMBOBOX_SIZE_LARGE,
 };
 
-static GtkWidget *size_combo_box_new ();
+static GtkWidget *size_combo_box_new (void);
 static void cb_size_combobox_changed (GtkComboBox *combobox, gpointer data);
 
 #if 0
