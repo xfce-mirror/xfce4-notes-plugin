@@ -219,26 +219,37 @@ namespace Xnp {
 		private void insert_text_cb (Gtk.TextBuffer buffer, Gtk.TextIter location, string text, int len) {
 			Gtk.TextIter start, end;
 
+			if (location.starts_tag (this.tag_link)) {
+				if (text[text.length - 1] != ' ' && text[text.length - 1] != '\n') {
+					start = location;
+					end = location;
+					end.forward_to_tag_toggle (this.tag_link);
+					this.buffer.remove_tag (this.tag_link, start, end);
+				}
+				tag_timeout_init ();
+			}
 			/* Text is inserted inside a tag */
-			if (location.has_tag (this.tag_link) && !location.starts_tag (this.tag_link)) {
+			else if (location.has_tag (this.tag_link)) {
 				start = location;
 				start.backward_to_tag_toggle (this.tag_link);
+				start.forward_search  ("://", Gtk.TextSearchFlags.TEXT_ONLY, null, out end, null);
 
-				if (location.get_offset () - start.get_offset () < 7) {
-					end = start;
-					end.forward_to_tag_toggle (this.tag_link);
+				if (location.get_offset () <= end.get_offset () - 3) {
+					if (text.contains (" ") || text.contains ("\n")) {
+						end.forward_to_tag_toggle (this.tag_link);
 
-					this.buffer.remove_tag (this.tag_link, start, end);
+						this.buffer.remove_tag (this.tag_link, start, end);
 
-					if (len > 1 && (text.contains (" ") || text.contains ("\n"))) {
-						/* We are here because there is a chance in a million that the
-						 * user pasted a text that ends with " ht" in front of "tp://"
-						 */
 						tag_timeout_init ();
 					}
 				}
+				else if (location.get_offset () < end.get_offset ()) {
+					end.forward_to_tag_toggle (this.tag_link);
+
+					this.buffer.remove_tag (this.tag_link, start, end);
+				}
 				else if (text.contains (" ") || text.contains ("\n")) {
-					end = location;
+					start = location;
 					end.forward_to_tag_toggle (this.tag_link);
 
 					this.buffer.remove_tag (this.tag_link, start, end);
@@ -254,16 +265,19 @@ namespace Xnp {
 					start.backward_to_tag_toggle (this.tag_link);
 
 					this.buffer.remove_tag (this.tag_link, start, location);
-
+ 					tag_timeout_init ();
+				}
+				/* Link is inserted after a tag */
+				else if (text.contains ("://")) {
 					tag_timeout_init ();
 				}
 			}
-
-			/* Check if the word being typed is "http://" */
+ 
+			/* Check if the word being typed ends with "://" */
 			else if (len == 1 && text[0] == '/') {
 				start = location;
 
-				if (!start.backward_chars (6) || start.get_text(location).down () != "http:/")
+				if (!start.backward_chars (2) || start.get_text(location) != ":/")
 					return;
 
 				tag_timeout_init ();
@@ -275,7 +289,7 @@ namespace Xnp {
 			}
 
 			/* Text contains links */
-			else if (len > 1 && text.contains ("http://")) {
+			else if (len > 4 && text.contains ("://")) {
 				tag_timeout_init ();
 			}
 		}
@@ -391,7 +405,7 @@ namespace Xnp {
 		/**
 		 * update_tags:
 		 *
-		 * Goes through the entire document to search for untagged HTTP links and tag them.
+		 * Goes through the entire document to search for untagged links and tag them.
 		 */
 		public void update_tags () {
 			Gtk.TextIter iter, start, end, tmp;
@@ -403,8 +417,13 @@ namespace Xnp {
 
 			this.buffer.get_iter_at_offset (out iter, 0);
 
-			while (iter.forward_search ("http://", Gtk.TextSearchFlags.TEXT_ONLY, out start, out end, null)) {
+			while (iter.forward_search ("://", Gtk.TextSearchFlags.TEXT_ONLY, out start, out end, null)) {
 				iter = end;
+
+				if (!start.ends_word ())
+					continue;
+
+				start.backward_word_start ();
 
 				if (start.starts_tag (this.tag_link))
 					continue;
@@ -420,7 +439,7 @@ namespace Xnp {
 					}
 				}
 
-				if (end.get_offset () - start.get_offset () >= 7)
+				if (end.get_offset () - start.get_offset () >= 5)
 					this.buffer.apply_tag (this.tag_link, start, end);
 			}
 		}
