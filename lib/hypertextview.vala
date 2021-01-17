@@ -243,7 +243,7 @@ namespace Xnp {
 						tag_timeout_init ();
 					}
 				}
-				else if (location.get_offset () < end.get_offset ()) {
+				else if (location.get_offset () < end.get_offset () || text.contains (":")) {
 					end.forward_to_tag_toggle (this.tag_link);
 
 					this.buffer.remove_tag (this.tag_link, start, end);
@@ -409,6 +409,7 @@ namespace Xnp {
 		 */
 		public void update_tags () {
 			Gtk.TextIter iter, start, end, tmp;
+			string link;
 
 			if (this.tag_timeout > 0) {
 				Source.remove (this.tag_timeout);
@@ -439,8 +440,13 @@ namespace Xnp {
 					}
 				}
 
-				if (end.get_offset () - start.get_offset () >= 5)
+				if (end.get_offset () - start.get_offset () >= 5) {
+					link = iter.get_text (end);
+					if (link.contains (":")) {
+						continue;
+					}
 					this.buffer.apply_tag (this.tag_link, start, end);
+				}
 			}
 		}
 
