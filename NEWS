@@ -1,3 +1,40 @@
+1.9.0
+======
+- Remove unused variable
+- Update deprecated autotools macros
+- Do not mark text with ':' after '://' as a link (bug #52)
+- Add support for links with scheme other than HTTP (bug #52)
+- Fix missing-prototypes
+- Create README.md. Update configure.ac.in
+- Add basic gitlab CI
+- Fix "Disabled labels on context menu are dark yellow"
+- Fix a few deprecation warnings
+- Fix make distcheck
+- Fix blinking image on panel
+- Remove commented code
+- Update build system
+- Fix make distcheck
+- Remove deprecated gtk stock usage
+- Fix build system
+- Continue the gtk3 port
+- Update URLs from goodies.x.o to docs.x.o (Bug #16171)
+- po: update POTFILES.in
+- gtk3: update css style with required changes from 3.20
+- gtk3: drop libunique leftover flags and code
+- gtk3: Drop support for GTK+-2.0
+- bump post release
+- Translation Updates:
+  , Albanian, Amharic, Arabic, Armenian (Armenia), Asturian, Basque,
+  Belarusian, Bulgarian, Catalan, Chinese (China), Chinese (Taiwan),
+  Croatian, Czech, Danish, Dutch, Eastern Armenian, English
+  (Australia), English (United Kingdom), Estonian, Finnish, French,
+  Galician, German, Greek, Hebrew, Hungarian, Icelandic, Indonesian,
+  Interlingue, Italian, Japanese, Kazakh, Korean, Latvian, Lithuanian,
+  Malay, Norwegian Bokmål, Occitan (post 1500), Polish, Portuguese,
+  Portuguese (Brazil), Romanian, Russian, Serbian, Slovak, Slovenian,
+  Spanish, Swedish, Thai, Turkish, Ukrainian, Urdu, Urdu (Pakistan),
+  Uyghur, Vietnamese
+
 VERSION 1.8.1
 
 - Provide graphics tabs/ for gtk-2.0 theme.
