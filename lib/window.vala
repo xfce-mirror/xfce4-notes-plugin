@@ -728,7 +728,6 @@ namespace Xnp {
 		private void update_menu_go (Gtk.Widget widget) {
 			Gtk.Menu menu = widget as Gtk.Menu;
 			Gtk.MenuItem mi;
-			Gtk.Image image;
 
 			menu.@foreach ((w) => {
 					w.destroy ();
