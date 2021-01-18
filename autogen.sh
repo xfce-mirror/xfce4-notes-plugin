@@ -10,6 +10,9 @@ EOF
   exit 1
 }
 
-XDT_AUTOGEN_REQUIRED_VERSION="4.7.3" \
-exec xdt-autogen $@
+test -d m4 || mkdir m4
+
+
+XDT_AUTOGEN_REQUIRED_VERSION="4.14.0" \
+exec xdt-autogen "$@"
 

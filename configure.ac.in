@@ -13,7 +13,7 @@ m4_define([xfce4_notes_plugin_version_build], [@REVISION@])
 m4_define([xfce4_notes_plugin_version_tag], [git]) # Leave empty for releases
 m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [git], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
 
-AC_PREREQ([2.50])
+AC_PREREQ([2.69])
 AC_INIT([Notes], [xfce4_notes_plugin_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
 	[https://docs.xfce.org/panel-plugins/xfce4-notes-plugin])
 AC_REVISION([xfce4_notes_plugin_version_build])
@@ -30,11 +30,8 @@ AC_CONFIG_MACRO_DIRS([m4])
 
 dnl Check for basic programs
 AM_PROG_CC_C_O()
-AC_PROG_LD()
+LT_PATH_LD([])
 AC_PROG_INSTALL()
-
-dnl Check for standard header files
-AC_HEADER_STDC()
 
 dnl Check for Math lib useful for lib/color.c
 AC_CHECK_HEADERS([math.h])
@@ -64,7 +61,7 @@ XDT_I18N([@LINGUAS@])
 dnl Check for debugging support
 XDT_FEATURE_DEBUG()
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 data/Makefile
 data/gtk-3.0/Makefile
@@ -79,6 +76,7 @@ lib/Makefile
 src/Makefile
 po/Makefile.in
 ])
+AC_OUTPUT
 
 dnl ***************************
 dnl *** Print configuration ***
