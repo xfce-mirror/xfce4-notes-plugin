@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 21:09+0200\n"
-"PO-Revision-Date: 2017-09-19 18:06+0000\n"
-"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"POT-Creation-Date: 2020-11-17 00:48+0100\n"
+"PO-Revision-Date: 2020-11-16 23:48+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Kazakh (http://www.transifex.com/xfce/xfce-panel-plugins/language/kk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,253 +18,277 @@ msgstr ""
 "Language: kk\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: ../src/xfce4-notes.desktop.in.h:1
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../lib/application.vala:191
-#: ../lib/application.vala:218 ../lib/application.vala:758
-#: ../lib/window.vala:89 ../lib/window.vala:180 ../lib/window.vala:955
-#: ../src/main-settings-dialog.c:107 ../src/main-panel-plugin.vala:46
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:136
+#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
+#: ../lib/application.vala:181 ../lib/application.vala:208
+#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
+#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
+#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
+#: ../src/main-settings-dialog.c:103
 msgid "Notes"
 msgstr "Жазбалар"
 
-#: ../src/xfce4-notes.desktop.in.h:2
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../lib/application.vala:760
+#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
+#: ../lib/application.vala:725
 msgid "Ideal for your quick notes"
 msgstr "Жылдам жазбаларыңыз үшін жарайды"
 
-#: ../lib/application.vala:121 ../lib/application.vala:136
-#: ../src/main-settings-dialog.c:279 ../src/main-settings-dialog.c:287
+#: ../lib/application.vala:116 ../lib/application.vala:131
+#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
 msgid "Select notes path"
 msgstr "Жазбалар орнын таңдау"
 
-#: ../lib/application.vala:122
+#: ../lib/application.vala:117
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Жаңа жазбалар үшін бума (%s) ішінде файлдар бар. Сізге бос буманы таңдау не жасау керек."
 
-#: ../lib/application.vala:137
+#: ../lib/application.vala:132
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Жаңа жазбалар үшін буманы таңдау мүмкін емес, орны: %s"
 
-#: ../lib/application.vala:195 ../lib/window.vala:958
+#: ../lib/application.vala:185 ../lib/window.vala:918
 #, c-format
 msgid "Notes %d"
 msgstr "Жазба %d"
 
-#: ../lib/application.vala:435
+#: ../lib/application.vala:425
 msgid "Rename group"
 msgstr "Топтың атын ауыстыру"
 
-#: ../lib/application.vala:463 ../lib/window.vala:1085
+#: ../lib/application.vala:446 ../lib/window.vala:1041
 #, c-format
 msgid "The name %s is already in use"
 msgstr "%s аты қазір қолданылып тұр"
 
-#: ../lib/application.vala:492
+#: ../lib/application.vala:475
 msgid "Are you sure you want to delete this group?"
 msgstr "Осы топты өшіруді шынымен қалайсыз ба?"
 
-#: ../lib/application.vala:536
+#: ../lib/application.vala:519
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "\"%s\" тобы дискте өзгертілген"
 
-#: ../lib/application.vala:539
+#: ../lib/application.vala:522
 msgid "Do you want to reload the group?"
 msgstr "Осы топты қайта жүктеуді шынымен қалайсыз ба?"
 
-#: ../lib/application.vala:662
+#: ../lib/application.vala:645
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "\"%s\" аты қате."
 
-#: ../lib/application.vala:663
+#: ../lib/application.vala:646
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Дұрыс емес таңбалар: %s"
 
-#: ../lib/application.vala:720
+#: ../lib/application.vala:703
 msgid "Unable to open the settings dialog"
 msgstr "Баптаулар сұхбат терезесін ашу мүмкін емес"
 
-#: ../lib/application.vala:767
+#: ../lib/application.vala:732
 msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 
-#: ../lib/application.vala:802 ../lib/window.vala:822
+#: ../lib/application.vala:767 ../lib/window.vala:784
 msgid "_Add a new group"
 msgstr "Ж_аңа топты қосу"
 
-#: ../lib/window.vala:239
+#: ../lib/window.vala:227
 msgid "Menu"
 msgstr "Мәзір"
 
-#: ../lib/window.vala:268
+#: ../lib/window.vala:256
 msgid "Refresh notes"
 msgstr "Жазбаларды жаңарту"
 
-#: ../lib/window.vala:281
+#: ../lib/window.vala:269
 #, c-format
 msgid "Hide (%s)"
 msgstr "Жасыру (%s)"
 
-#: ../lib/window.vala:689 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:53
+#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
+#: ../src/main-status-icon.vala:52
 msgid "_Groups"
 msgstr "Топ_тар"
 
-#: ../lib/window.vala:712
+#: ../lib/window.vala:674
+msgid "_New"
+msgstr ""
+
+#: ../lib/window.vala:679
+msgid "_Delete"
+msgstr ""
+
+#: ../lib/window.vala:684
 msgid "_Rename"
 msgstr "Атын ауысты_ру"
 
+#: ../lib/window.vala:689
+msgid "_Undo"
+msgstr ""
+
 #. Always on top
-#: ../lib/window.vala:728 ../src/main-settings-dialog.c:236
+#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
 msgid "Always on top"
 msgstr "Әрқашан үстінде"
 
-#: ../lib/window.vala:733
+#: ../lib/window.vala:703
 msgid "Sticky window"
 msgstr "Жабысқақ терезе"
 
-#: ../lib/window.vala:808
+#: ../lib/window.vala:774
 msgid "_Rename group"
 msgstr "То_п атын ауыстыру"
 
-#: ../lib/window.vala:815
+#: ../lib/window.vala:779
 msgid "_Delete group"
 msgstr "Т_опты өшіру"
 
-#: ../lib/window.vala:1033
+#: ../lib/window.vala:993
 msgid "Are you sure you want to delete this note?"
 msgstr "Бұл жазбаны өшіруді шынымен қалайсыз ба?"
 
-#: ../lib/window.vala:1059
+#: ../lib/window.vala:1019
 msgid "Rename note"
 msgstr "Жазба атын ауыстыру"
 
-#: ../src/main-settings-dialog.c:115
+#: ../src/main-status-icon.vala:60
+msgid "_Properties"
+msgstr ""
+
+#: ../src/main-status-icon.vala:64
+msgid "_About"
+msgstr ""
+
+#: ../src/main-status-icon.vala:71
+msgid "_Remove"
+msgstr ""
+
+#: ../src/main-settings-dialog.c:107
 msgid "Configure the plugin"
 msgstr "Плагинді баптау"
 
-#: ../src/main-settings-dialog.c:142
+#: ../src/main-settings-dialog.c:126
 msgid "Global settings"
 msgstr "Жалпы баптаулар"
 
 #. Hide from taskbar
-#: ../src/main-settings-dialog.c:147
+#: ../src/main-settings-dialog.c:131
 msgid "Hide notes from taskbar"
 msgstr "Жазбаларды есептер панелінен жасыру"
 
-#: ../src/main-settings-dialog.c:169
+#: ../src/main-settings-dialog.c:149
 msgid "Notes path:"
 msgstr "Жазбалар орны:"
 
-#: ../src/main-settings-dialog.c:184
+#: ../src/main-settings-dialog.c:160
 msgid "Tabs position:"
 msgstr "Беттердің орналасуы:"
 
-#: ../src/main-settings-dialog.c:199
+#: ../src/main-settings-dialog.c:171
 msgid "Background:"
 msgstr "Фон:"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:185
 msgid "Font:"
 msgstr "Қаріп:"
 
-#: ../src/main-settings-dialog.c:231
+#: ../src/main-settings-dialog.c:195
 msgid "New group settings"
 msgstr "Жаңа топтың баптаулары"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:243
+#: ../src/main-settings-dialog.c:207
 msgid "Sticky"
 msgstr "Жабысқақ"
 
-#: ../src/main-settings-dialog.c:257
+#: ../src/main-settings-dialog.c:217
 msgid "Size:"
 msgstr "Өлшемі:"
 
-#: ../src/main-settings-dialog.c:328 ../src/main-settings-dialog.c:335
+#: ../src/main-settings-dialog.c:287
 msgid "None"
 msgstr "Жоқ"
 
-#: ../src/main-settings-dialog.c:329 ../src/main-settings-dialog.c:336
+#: ../src/main-settings-dialog.c:288
 msgid "Top"
 msgstr "Жоғары"
 
-#: ../src/main-settings-dialog.c:330 ../src/main-settings-dialog.c:337
+#: ../src/main-settings-dialog.c:289
 msgid "Right"
 msgstr "Оң жақ"
 
-#: ../src/main-settings-dialog.c:331 ../src/main-settings-dialog.c:338
+#: ../src/main-settings-dialog.c:290
 msgid "Bottom"
 msgstr "Төмен"
 
-#: ../src/main-settings-dialog.c:332 ../src/main-settings-dialog.c:339
+#: ../src/main-settings-dialog.c:291
 msgid "Left"
 msgstr "Сол жақ"
 
-#: ../src/main-settings-dialog.c:357 ../src/main-settings-dialog.c:362
+#: ../src/main-settings-dialog.c:307
 msgid "Small"
 msgstr "Кішкентай"
 
-#: ../src/main-settings-dialog.c:358 ../src/main-settings-dialog.c:363
+#: ../src/main-settings-dialog.c:308
 msgid "Normal"
 msgstr "Қалыпты"
 
-#: ../src/main-settings-dialog.c:359 ../src/main-settings-dialog.c:364
+#: ../src/main-settings-dialog.c:309
 msgid "Large"
 msgstr "Үлкен"
 
-#: ../src/main-settings-dialog.c:425 ../src/main-settings-dialog.c:438
+#: ../src/main-settings-dialog.c:368
 msgid "Yellow"
 msgstr "Сары"
 
-#: ../src/main-settings-dialog.c:426 ../src/main-settings-dialog.c:439
+#: ../src/main-settings-dialog.c:369
 msgid "Blue"
 msgstr "Көк"
 
-#: ../src/main-settings-dialog.c:427 ../src/main-settings-dialog.c:440
+#: ../src/main-settings-dialog.c:370
 msgid "Green"
 msgstr "Жасыл"
 
-#: ../src/main-settings-dialog.c:428 ../src/main-settings-dialog.c:441
+#: ../src/main-settings-dialog.c:371
 msgid "Indigo"
 msgstr "Индиго"
 
-#: ../src/main-settings-dialog.c:429 ../src/main-settings-dialog.c:442
+#: ../src/main-settings-dialog.c:372
 msgid "Olive"
 msgstr "Олив"
 
-#: ../src/main-settings-dialog.c:430 ../src/main-settings-dialog.c:443
+#: ../src/main-settings-dialog.c:373
 msgid "Carmine"
 msgstr "Кармин"
 
-#: ../src/main-settings-dialog.c:431 ../src/main-settings-dialog.c:444
+#: ../src/main-settings-dialog.c:374
 msgid "Mimosa"
 msgstr "Мимоза"
 
-#: ../src/main-settings-dialog.c:432 ../src/main-settings-dialog.c:445
+#: ../src/main-settings-dialog.c:375
 msgid "White"
 msgstr "Ақ"
 
-#: ../src/main-settings-dialog.c:433 ../src/main-settings-dialog.c:446
+#: ../src/main-settings-dialog.c:376
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:434 ../src/main-settings-dialog.c:447
+#: ../src/main-settings-dialog.c:377
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:435 ../src/main-settings-dialog.c:448
+#: ../src/main-settings-dialog.c:378
 msgid "Custom..."
 msgstr "Таңдауыңызша..."
 
-#: ../src/main-settings-dialog.c:579
+#: ../src/main-settings-dialog.c:508
 msgid "Background Color"
 msgstr "Фон түсі"
