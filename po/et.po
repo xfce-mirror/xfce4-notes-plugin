@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Priit Jõerüüt <transifex@joeruut.com>, 2020
+# Priit Jõerüüt <transifex@joeruut.com>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-12-31 10:15+0000\n"
+"PO-Revision-Date: 2021-04-05 11:09+0000\n"
 "Last-Translator: Priit Jõerüüt <transifex@joeruut.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/xfce/xfce-panel-plugins/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -26,18 +26,18 @@ msgstr ""
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
 #: ../src/main-settings-dialog.c:103
 msgid "Notes"
-msgstr ""
+msgstr "Märkmed"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
 #: ../lib/application.vala:725
 msgid "Ideal for your quick notes"
-msgstr ""
+msgstr "Ideaalne lahendus kiirete märkmete tegemiseks"
 
 #: ../lib/application.vala:116 ../lib/application.vala:131
 #: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
 msgid "Select notes path"
-msgstr ""
+msgstr "Vali märkemete jaoks asukoht"
 
 #: ../lib/application.vala:117
 #, c-format
@@ -58,16 +58,16 @@ msgstr ""
 
 #: ../lib/application.vala:425
 msgid "Rename group"
-msgstr ""
+msgstr "Nimeta märkmete rühm ümber"
 
 #: ../lib/application.vala:446 ../lib/window.vala:1041
 #, c-format
 msgid "The name %s is already in use"
-msgstr ""
+msgstr "Nimi %s on juba kasutusel"
 
 #: ../lib/application.vala:475
 msgid "Are you sure you want to delete this group?"
-msgstr ""
+msgstr "Kas sa oled kindel, et soovid seda märkmete rühma kustutada?"
 
 #: ../lib/application.vala:519
 #, c-format
@@ -98,7 +98,7 @@ msgstr "Priit Jõerüüt 2020"
 
 #: ../lib/application.vala:767 ../lib/window.vala:784
 msgid "_Add a new group"
-msgstr ""
+msgstr "_Lisa uus märkmete rühm"
 
 #: ../lib/window.vala:227
 msgid "Menu"
@@ -106,7 +106,7 @@ msgstr "Menüü"
 
 #: ../lib/window.vala:256
 msgid "Refresh notes"
-msgstr ""
+msgstr "Laadi märkmed uuesti"
 
 #: ../lib/window.vala:269
 #, c-format
@@ -116,7 +116,7 @@ msgstr "Peida (%s)"
 #: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
 #: ../src/main-status-icon.vala:52
 msgid "_Groups"
-msgstr ""
+msgstr "_Rühmad"
 
 #: ../lib/window.vala:674
 msgid "_New"
