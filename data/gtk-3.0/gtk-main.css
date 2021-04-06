@@ -1,5 +1,5 @@
 @define-color theme_base_color @notes_bg_color;
-@define-color theme_text_color shade (@theme_base_color, 0.4);
+@define-color theme_text_color shade (@theme_base_color, 0.25);
 @define-color theme_bg_color @theme_base_color;
 @define-color theme_fg_color shade (@theme_base_color, 0.3);
 @define-color theme_selected_bg_color shade (@theme_base_color, 0.8);
