@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2021-05-06 18:07+0000\n"
+"PO-Revision-Date: 2021-05-09 04:04+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -50,12 +50,12 @@ msgstr "Seleccione la ruta de las notas"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr "El directorio seleccionado (%s) para la nueva ruta de notas contiene archivos. Debe seleccionar o crear un directorio vacío."
+msgstr "La carpeta seleccionada (%s) para las notas nuevas ya contiene archivos. Debe seleccionar o crear una carpeta vacía."
 
 #: ../lib/application.vala:132
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr "Imposible seleccionar la ruta del directorio para nuevas notas: %s"
+msgstr "No se puede seleccionar una carpeta para las notas nuevas: %s"
 
 #: ../lib/application.vala:185 ../lib/window.vala:918
 #, c-format
@@ -64,7 +64,7 @@ msgstr "Notas %d"
 
 #: ../lib/application.vala:425
 msgid "Rename group"
-msgstr "Cambiar el nombre al grupo"
+msgstr "Renombrar el bloc"
 
 #: ../lib/application.vala:446 ../lib/window.vala:1041
 #, c-format
@@ -73,26 +73,26 @@ msgstr "El nombre %s ya está en uso"
 
 #: ../lib/application.vala:475
 msgid "Are you sure you want to delete this group?"
-msgstr "¿Está seguro que quiere eliminar este grupo?"
+msgstr "¿Seguro que quiere eliminar este bloc?"
 
 #: ../lib/application.vala:519
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "El grupo «%s» ha sido modificado fuera de la aplicación"
+msgstr "Se ha modificado el bloc «%s» en el disco"
 
 #: ../lib/application.vala:522
 msgid "Do you want to reload the group?"
-msgstr "¿Quiere cargar el grupo de nuevo?"
+msgstr "¿Quiere recargar el bloc?"
 
 #: ../lib/application.vala:645
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "El nombre «%s» no es válido."
+msgstr "El nombre «%s» no es válido"
 
 #: ../lib/application.vala:646
 #, c-format
 msgid "The invalid characters are: %s"
-msgstr "Los caracteres no válidos son: %s "
+msgstr "Los caracteres no válidos son: %s"
 
 #: ../lib/application.vala:703
 msgid "Unable to open the settings dialog"
@@ -100,11 +100,11 @@ msgstr "No se puede abrir el diálogo de configuración"
 
 #: ../lib/application.vala:732
 msgid "translator-credits"
-msgstr "Elega <elega@elega.com.ar>,\nAbel Martín <abel.martin.ruiz@gmail.com> 2008,\nAdolfo Jayme Barrientos 2014,\nPablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com> 2014-2015"
+msgstr "Toni Estevez <toni.estevez@gmail.com>, 2021\nPablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2014-2015\nAdolfo Jayme Barrientos, 2014\nAbel Martín <abel.martin.ruiz@gmail.com>, 2008\nElega <elega@elega.com.ar>, 2008"
 
 #: ../lib/application.vala:767 ../lib/window.vala:784
 msgid "_Add a new group"
-msgstr "_Añadir un nuevo grupo"
+msgstr "_Añadir un bloc nuevo"
 
 #: ../lib/window.vala:227
 msgid "Menu"
@@ -112,7 +112,7 @@ msgstr "Menú"
 
 #: ../lib/window.vala:256
 msgid "Refresh notes"
-msgstr "Actualizar notas"
+msgstr "Recargar las notas"
 
 #: ../lib/window.vala:269
 #, c-format
@@ -122,19 +122,19 @@ msgstr "Ocultar (%s)"
 #: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
 #: ../src/main-status-icon.vala:52
 msgid "_Groups"
-msgstr "_Grupos"
+msgstr "_Blocs de notas"
 
 #: ../lib/window.vala:674
 msgid "_New"
-msgstr "_Nuevo"
+msgstr "_Nota nueva"
 
 #: ../lib/window.vala:679
 msgid "_Delete"
-msgstr "_Borrar"
+msgstr "_Eliminar"
 
 #: ../lib/window.vala:684
 msgid "_Rename"
-msgstr "Cambia_r de nombre"
+msgstr "_Renombrar"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
@@ -151,19 +151,19 @@ msgstr "Ventana adhesiva"
 
 #: ../lib/window.vala:774
 msgid "_Rename group"
-msgstr "Cambia_r de nombre el grupo"
+msgstr "_Renombrar el bloc"
 
 #: ../lib/window.vala:779
 msgid "_Delete group"
-msgstr "_Eliminar el grupo"
+msgstr "_Eliminar el bloc"
 
 #: ../lib/window.vala:993
 msgid "Are you sure you want to delete this note?"
-msgstr "¿Está seguro que quiere eliminar esta nota?"
+msgstr "¿Seguro que quiere eliminar esta nota?"
 
 #: ../lib/window.vala:1019
 msgid "Rename note"
-msgstr "Cambiar nombre a la nota"
+msgstr "Renombrar la nota"
 
 #: ../src/main-status-icon.vala:60
 msgid "_Properties"
@@ -175,28 +175,28 @@ msgstr "_Acerca de"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
-msgstr "Elimina_r"
+msgstr "_Eliminar"
 
 #: ../src/main-settings-dialog.c:107
 msgid "Configure the plugin"
-msgstr "Configurar el complemento"
+msgstr "Configure el complemento"
 
 #: ../src/main-settings-dialog.c:126
 msgid "Global settings"
-msgstr "Configuración global"
+msgstr "Configuración general"
 
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:131
 msgid "Hide notes from taskbar"
-msgstr "Ocultar notas de la barra de tareas"
+msgstr "Ocultar los blocs de notas en la barra de tareas"
 
 #: ../src/main-settings-dialog.c:149
 msgid "Notes path:"
-msgstr "ruta de las notas:"
+msgstr "Ruta de las notas:"
 
 #: ../src/main-settings-dialog.c:160
 msgid "Tabs position:"
-msgstr "Posición de pestaña:"
+msgstr "Posición de las pestañas de las notas:"
 
 #: ../src/main-settings-dialog.c:171
 msgid "Background:"
@@ -204,16 +204,16 @@ msgstr "Fondo:"
 
 #: ../src/main-settings-dialog.c:185
 msgid "Font:"
-msgstr "Tipo de letra:"
+msgstr "Tipografía:"
 
 #: ../src/main-settings-dialog.c:195
 msgid "New group settings"
-msgstr "Nuevo grupo de configuración"
+msgstr "Configuración de los blocs nuevos"
 
 #. Sticky window
 #: ../src/main-settings-dialog.c:207
 msgid "Sticky"
-msgstr "Pegajoso"
+msgstr "Ventana adhesiva"
 
 #: ../src/main-settings-dialog.c:217
 msgid "Size:"
@@ -221,7 +221,7 @@ msgstr "Tamaño:"
 
 #: ../src/main-settings-dialog.c:287
 msgid "None"
-msgstr "Ninguno"
+msgstr "Desactivar"
 
 #: ../src/main-settings-dialog.c:288
 msgid "Top"
@@ -229,7 +229,7 @@ msgstr "Arriba"
 
 #: ../src/main-settings-dialog.c:289
 msgid "Right"
-msgstr "Derecha"
+msgstr "A la derecha"
 
 #: ../src/main-settings-dialog.c:290
 msgid "Bottom"
@@ -237,7 +237,7 @@ msgstr "Abajo"
 
 #: ../src/main-settings-dialog.c:291
 msgid "Left"
-msgstr "Izquierda"
+msgstr "A la izquierda"
 
 #: ../src/main-settings-dialog.c:307
 msgid "Small"
@@ -265,7 +265,7 @@ msgstr "Verde"
 
 #: ../src/main-settings-dialog.c:371
 msgid "Indigo"
-msgstr "Índigo"
+msgstr "Añil"
 
 #: ../src/main-settings-dialog.c:372
 msgid "Olive"
@@ -289,7 +289,7 @@ msgstr "Androide"
 
 #: ../src/main-settings-dialog.c:377
 msgid "GTK+"
-msgstr "GTK+"
+msgstr "GTK"
 
 #: ../src/main-settings-dialog.c:378
 msgid "Custom..."
@@ -297,4 +297,4 @@ msgstr "Personalizar…"
 
 #: ../src/main-settings-dialog.c:508
 msgid "Background Color"
-msgstr "Color de fondo"
+msgstr "Color del fondo"
