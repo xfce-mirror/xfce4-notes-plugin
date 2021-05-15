@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2021-05-15 10:45+0000\n"
+"PO-Revision-Date: 2021-05-15 11:02+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,7 @@ msgstr "_Renombrar"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
-msgstr "_Deshacer"
+msgstr "Des_hacer"
 
 #. Always on top
 #: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
@@ -171,7 +171,7 @@ msgstr "_Propiedades"
 
 #: ../src/main-status-icon.vala:64
 msgid "_About"
-msgstr "_Acerca de"
+msgstr "Acerca _de"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
