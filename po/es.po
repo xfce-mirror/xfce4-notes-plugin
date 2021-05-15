@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2021-05-09 04:04+0000\n"
+"PO-Revision-Date: 2021-05-15 10:45+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -293,7 +293,7 @@ msgstr "GTK"
 
 #: ../src/main-settings-dialog.c:378
 msgid "Custom..."
-msgstr "Personalizar…"
+msgstr "Personalizar..."
 
 #: ../src/main-settings-dialog.c:508
 msgid "Background Color"
