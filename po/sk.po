@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Jan Ziak <0xe2.0x9a.0x9b@gmail.com>, 2021
 # 7dcd6f74323fe8d9c477949ff8fcbb1c_c427b63 <3fcd202e3dfab15fda15b8e88e54d449_7173>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-11-16 23:48+0000\n"
-"Last-Translator: asaas <lofflermichalloffler@gmail.com>\n"
+"PO-Revision-Date: 2021-05-31 16:31+0000\n"
+"Last-Translator: Jan Ziak <0xe2.0x9a.0x9b@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/xfce/xfce-panel-plugins/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -120,11 +121,11 @@ msgstr "_Skupiny"
 
 #: ../lib/window.vala:674
 msgid "_New"
-msgstr ""
+msgstr "_Nový"
 
 #: ../lib/window.vala:679
 msgid "_Delete"
-msgstr ""
+msgstr "_Vymazať"
 
 #: ../lib/window.vala:684
 msgid "_Rename"
@@ -132,7 +133,7 @@ msgstr "_Premenovať"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
-msgstr ""
+msgstr "_Vrátenie späť"
 
 #. Always on top
 #: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
@@ -161,11 +162,11 @@ msgstr "Premenovať poznámku"
 
 #: ../src/main-status-icon.vala:60
 msgid "_Properties"
-msgstr ""
+msgstr "_Vlastnosti"
 
 #: ../src/main-status-icon.vala:64
 msgid "_About"
-msgstr ""
+msgstr "_O programe"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
