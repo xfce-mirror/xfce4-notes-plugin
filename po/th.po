@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2013
+# Theppitak Karoonboonyanan <theppitak@gmail.com>, 2013,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-11-16 23:48+0000\n"
+"PO-Revision-Date: 2021-06-30 05:28+0000\n"
 "Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/xfce/xfce-panel-plugins/language/th/)\n"
 "MIME-Version: 1.0\n"
@@ -120,11 +121,11 @@ msgstr "_กลุ่ม"
 
 #: ../lib/window.vala:674
 msgid "_New"
-msgstr ""
+msgstr "ให_ม่"
 
 #: ../lib/window.vala:679
 msgid "_Delete"
-msgstr ""
+msgstr "_ลบ"
 
 #: ../lib/window.vala:684
 msgid "_Rename"
@@ -132,7 +133,7 @@ msgstr "เ_ปลี่ยนชื่อ"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
-msgstr ""
+msgstr "กลับ_คืน"
 
 #. Always on top
 #: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
@@ -161,15 +162,15 @@ msgstr "เปลี่ยนชื่อบันทึกข้อความ
 
 #: ../src/main-status-icon.vala:60
 msgid "_Properties"
-msgstr ""
+msgstr "_ปรับแต่ง"
 
 #: ../src/main-status-icon.vala:64
 msgid "_About"
-msgstr ""
+msgstr "เ_กี่ยวกับ"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
-msgstr "ตัด_ออก"
+msgstr "ลบ_ออก"
 
 #: ../src/main-settings-dialog.c:107
 msgid "Configure the plugin"
