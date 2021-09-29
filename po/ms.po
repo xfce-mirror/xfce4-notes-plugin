@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# abuyop <abuyop@gmail.com>, 2014
+# abuyop <abuyop@gmail.com>, 2014,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-11-16 23:48+0000\n"
+"PO-Revision-Date: 2021-09-29 13:24+0000\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/xfce/xfce-panel-plugins/language/ms/)\n"
 "MIME-Version: 1.0\n"
@@ -120,11 +120,11 @@ msgstr "_Kumpulan"
 
 #: ../lib/window.vala:674
 msgid "_New"
-msgstr ""
+msgstr "_Baharu"
 
 #: ../lib/window.vala:679
 msgid "_Delete"
-msgstr ""
+msgstr "Pa_dam"
 
 #: ../lib/window.vala:684
 msgid "_Rename"
@@ -132,7 +132,7 @@ msgstr "_Nama Semula"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
-msgstr ""
+msgstr "Buat _Asal"
 
 #. Always on top
 #: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
@@ -161,11 +161,11 @@ msgstr "Nama semula nota"
 
 #: ../src/main-status-icon.vala:60
 msgid "_Properties"
-msgstr ""
+msgstr "Si_fat"
 
 #: ../src/main-status-icon.vala:64
 msgid "_About"
-msgstr ""
+msgstr "Perih_al"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
