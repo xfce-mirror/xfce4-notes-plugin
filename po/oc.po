@@ -121,7 +121,7 @@ msgstr "_Gropes"
 
 #: ../lib/window.vala:674
 msgid "_New"
-msgstr ""
+msgstr "_Novèl"
 
 #: ../lib/window.vala:679
 msgid "_Delete"
@@ -133,7 +133,7 @@ msgstr "_Renomenar"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
-msgstr ""
+msgstr "_Desfar"
 
 #. Always on top
 #: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
@@ -166,7 +166,7 @@ msgstr "_Proprietats"
 
 #: ../src/main-status-icon.vala:64
 msgid "_About"
-msgstr ""
+msgstr "_A prepaus"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
