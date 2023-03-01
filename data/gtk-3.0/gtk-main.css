@@ -17,15 +17,12 @@
 }
 
 /* window and frame */
-window {
-	background-image: linear-gradient(to bottom,
-	                                  shade (@theme_base_color, 0.8),
-	                                  shade (@theme_base_color, 0.95) 87px);
-}
-
 window frame {
 	padding: 1px 2px 4px 2px;
 	border: 1px solid shade (@theme_base_color, 0.7);
+	background-image: linear-gradient(to bottom,
+	                                  shade (@theme_base_color, 0.8),
+	                                  shade (@theme_base_color, 0.95) 87px);
 }
 
 /* icon buttons in window title bar */
