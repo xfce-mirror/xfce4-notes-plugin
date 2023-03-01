@@ -47,5 +47,5 @@ DISTCLEANFILES =							\
 	intltool-extract						\
 	intltool-merge							\
 	intltool-update							\
+	po/.intltool-merge-cache.lock					\
 	$(desktop_DATA)
-
