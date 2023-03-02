@@ -245,6 +245,7 @@ namespace Xnp {
 			});
 			title_box.pack_start (menu_evbox, false, false, 2);
 			var title_evbox = new Gtk.EventBox ();
+			title_evbox.add_events (Gdk.EventMask.SCROLL_MASK);
 			title_evbox.set_visible_window (false);
 			this.title_label = new Gtk.Label (null);
 			this.title_label.set_markup ("<b>"+this.title+"</b>");
