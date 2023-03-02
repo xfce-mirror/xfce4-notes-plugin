@@ -562,6 +562,10 @@ namespace Xnp {
 				event_widget.is_ancestor (child))
 				return false;
 
+			/* We only want to switch tabs on mouse wheel when no accelerators pressed */
+			if ((event.state & Gtk.accelerator_get_default_mod_mask()) != 0)
+				return false;
+
 			switch (event.direction) {
 				case Gdk.ScrollDirection.RIGHT:
 				case Gdk.ScrollDirection.DOWN:
