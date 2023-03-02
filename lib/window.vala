@@ -245,6 +245,7 @@ namespace Xnp {
 			});
 			title_box.pack_start (menu_evbox, false, false, 2);
 			var title_evbox = new Gtk.EventBox ();
+			title_evbox.add_events(Gdk.EventMask.SCROLL_MASK);
 			title_evbox.set_visible_window (false);
 			this.title_label = new Gtk.Label (null);
 			this.title_label.set_markup ("<b>"+this.title+"</b>");
@@ -278,6 +279,7 @@ namespace Xnp {
 
 			/* Build Notebook */
 			this.notebook = new Gtk.Notebook ();
+			this.notebook.add_events(Gdk.EventMask.SCROLL_MASK);
 			this.notebook.name = "notes-notebook";
 			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
@@ -334,6 +336,7 @@ namespace Xnp {
 				update_title (note.name);
 				update_navigation_sensitivity ((int)p);
 			});
+			this.notebook.scroll_event.connect (notebook_scrolled_cb);
 			notify["name"].connect (() => {
 				int page = this.notebook.get_current_page ();
 				if (page == -1)
@@ -538,6 +541,45 @@ namespace Xnp {
 				}
 			}
 			return false;
+		}
+
+		/**
+		 * notebook_scrolled_cb:
+		 *
+		 * Switch tabs with mouse scroll wheel.
+		 */
+		private bool notebook_scrolled_cb (Gtk.Widget widget, Gdk.EventScroll event) {
+			var child = notebook.get_nth_page (notebook.get_current_page ());
+
+			if (child == null)
+				return false;
+
+			var event_widget = Gtk.get_event_widget (event);
+
+			/* Ignore scroll events from the content of the page */
+			if (event_widget == null ||
+				event_widget == child ||
+				event_widget.is_ancestor (child))
+				return false;
+
+			/* We only want to switch tabs on mouse wheel when no accelerators pressed */
+			if ((event.state & Gtk.accelerator_get_default_mod_mask()) != 0)
+				return false;
+
+			switch (event.direction) {
+				case Gdk.ScrollDirection.RIGHT:
+				case Gdk.ScrollDirection.DOWN:
+					notebook.next_page ();
+					break;
+				case Gdk.ScrollDirection.LEFT:
+				case Gdk.ScrollDirection.UP:
+					notebook.prev_page ();
+					break;
+				default:
+					return false;
+			}
+
+			return true;
 		}
 
 		/**
