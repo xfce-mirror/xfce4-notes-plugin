@@ -26,7 +26,8 @@ xfce4_popup_notes_SOURCES =						\
 	main-popup.c
 
 xfce4_popup_notes_CFLAGS =						\
-	@GTK_CFLAGS@
+	@GTK_CFLAGS@ \
+	@VALAC_CFLAGS@
 
 xfce4_popup_notes_LDADD =						\
 	@GTK_LIBS@
@@ -86,7 +87,8 @@ libnotes_la_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
-	@XFCONF_CFLAGS@
+	@XFCONF_CFLAGS@ \
+	@VALAC_CFLAGS@
 #
 libnotes_la_LIBADD =							\
 	$(top_builddir)/lib/libnotes.la					\
@@ -112,9 +114,9 @@ bin_PROGRAMS += xfce4-notes
 if MAINTAINER_MODE
 xfce4_notes_VALAFLAGS =							\
 	--vapidir=$(top_srcdir)/lib					\
+	--vapidir=$(top_srcdir)/libc					\
 	--pkg=libnotes							\
 	--pkg=config							\
-	--vapidir=.							\
 	--pkg=xfce-autostart						\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0						\
@@ -126,18 +128,18 @@ main-status-icon.c: main-status-icon.vala
 endif
 
 xfce4_notes_SOURCES =							\
-	xfce-autostart.c						\
-	xfce-autostart.h						\
 	main-status-icon.c
 
 xfce4_notes_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UTIL_CFLAGS@						\
-	@XFCONF_CFLAGS@
+	@XFCONF_CFLAGS@ \
+	@VALAC_CFLAGS@
 
 xfce4_notes_LDADD =							\
 	$(top_builddir)/lib/libnotes.la					\
+	$(top_builddir)/libc/libcnotes.la					\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UTIL_LIBS@						\
