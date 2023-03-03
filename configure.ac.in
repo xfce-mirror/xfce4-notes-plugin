@@ -51,6 +51,9 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
         AM_PROG_VALAC([0.46.0])
         if test "x$VALAC" = "x" ; then
                 AC_MSG_ERROR([Cannot find the "valac" compiler in your PATH])
+        else
+                VALAC_CFLAGS="-w"
+                AC_SUBST([VALAC_CFLAGS])
         fi
 fi
 
@@ -73,6 +76,7 @@ data/icons/32x32/Makefile
 data/icons/scalable/Makefile
 data/pixmaps/Makefile
 lib/Makefile
+libc/Makefile
 src/Makefile
 po/Makefile.in
 ])
