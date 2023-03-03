@@ -13,4 +13,4 @@ src/main-panel-plugin.vala
 src/main-popup.vala
 src/main-status-icon.vala
 src/main-settings-dialog.c
-src/xfce-autostart.c
+libc/xfce-autostart.c

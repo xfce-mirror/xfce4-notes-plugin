@@ -1,3 +1,4 @@
+*.la
 *.lo
 *.o
 *.gmo
@@ -32,8 +33,8 @@ intltool-update.in
 lib/*.c
 lib/*.h
 lib/libnotes.vapi
-lib/libnotes.la
-po/.intltool-merge-cache
+m4/
+po/.intltool-merge-cache*
 po/Makefile.in.in
 po/POTFILES
 po/stamp-it
@@ -41,4 +42,6 @@ src/main-panel-plugin.c
 src/main-popup.c
 src/main-status-icon.c
 src/xfce4-popup-notes
+src/xfce4-notes
+src/xfce4-notes-settings
 *.desktop
