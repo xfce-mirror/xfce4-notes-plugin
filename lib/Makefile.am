@@ -26,7 +26,8 @@ libnotes_la_CFLAGS =							\
 	@GIO_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UTIL_CFLAGS@						\
-	@XFCONF_CFLAGS@
+	@XFCONF_CFLAGS@ \
+	@VALAC_CFLAGS@
 
 libnotes_la_LIBADD =							\
 	@MATH_LIBS@							\
