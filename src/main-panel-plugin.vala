@@ -68,7 +68,6 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		});
 		configure_plugin.connect (() => { application.open_settings_dialog (); });
 		about.connect (() => { application.open_about_dialog (); });
-		destroy.connect (() => { Gtk.main_quit (); });
 	}
 
 }
