@@ -1,4 +1,4 @@
-[CCode (cprefix = "", lower_case_prefix = "", cheader_filename = "config.h")]
+[CCode (cprefix = "", cheader_filename = "config.h")]
 namespace Config {
 	[CCode (cname = "GETTEXT_PACKAGE")]
 	public const string GETTEXT_PACKAGE;
