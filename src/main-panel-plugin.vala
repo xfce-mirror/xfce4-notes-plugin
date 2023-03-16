@@ -23,7 +23,6 @@ using Gtk;
 
 public class NotesPlugin : Xfce.PanelPlugin {
 
-	private Gtk.Invisible invisible;
 	private Gtk.Button button;
 	private Gtk.Image image;
 	private Xnp.Application application;
