@@ -59,6 +59,9 @@ namespace Xnp {
 				// Don't send window-updated signal, as a CHANGES_DONE_HINT is emitted anyway
 				note_created (note_name);
 				break;
+
+			default:
+				break;
 			}
 		}
 

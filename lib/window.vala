@@ -195,7 +195,7 @@ namespace Xnp {
 			this.ui = new Gtk.UIManager ();
 			this.ui.insert_action_group (this.action_group, 0);
 			try {
-				this.ui.add_ui_from_string (this.ui_string , -1);
+				this.ui.add_ui_from_string (ui_string , -1);
 				add_accel_group (this.ui.get_accel_group ());
 			}
 			catch (Error e) {
@@ -781,8 +781,6 @@ namespace Xnp {
 					mi.sensitive = false;
 					menu.append (mi);
 
-					int current_page = this.notebook.get_current_page ();
-					var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
 					int n_pages = this.notebook.get_n_pages ();
 					for (int p = 0; p < n_pages; p++) {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
