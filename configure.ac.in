@@ -3,6 +3,7 @@ dnl xfce4-notes-plugin - Notes plugin for the Xfce4 panel
 dnl
 dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl 2006-2016 Mike Massonnet <mmassonnet@xfce.org>
+dnl 2023 Arthur Demchenkov <spinal.by@gmail.com>
 dnl
 
 m4_define([xfce4_notes_plugin_version_major], [1])
