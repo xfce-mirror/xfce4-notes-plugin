@@ -576,8 +576,6 @@ namespace Xnp {
 			var monitor = window_monitor_list_lookup (window);
 			if (monitor != null) {
 				this.window_monitor_list.remove (monitor);
-				monitor.unref ();
-				monitor = null;
 			}
 		}
 
