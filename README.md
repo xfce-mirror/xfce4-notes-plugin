@@ -14,7 +14,8 @@ else you had like to do with a Post-It note.
 
 ### Changelog
 
-See [NEWS](https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin/-/blob/master/NEWS) for details on changes and fixes made in the current release.
+See [NEWS](https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin/-/blob/master/NEWS)
+for details on changes and fixes made in the current release.
 
 ### Source Code Repository
 
@@ -45,5 +46,7 @@ From release tarball:
 
 ### Reporting Bugs
 
-Visit the [reporting bugs](https://docs.xfce.org/panel-plugins/xfce4-notes-plugin/bugs) page to view currently open bug reports and instructions on reporting new bugs or submitting bugfixes.
+Visit the [reporting bugs](https://docs.xfce.org/panel-plugins/xfce4-notes-plugin/bugs)
+page to view currently open bug reports and instructions on reporting new bugs or
+submitting bugfixes.
 
