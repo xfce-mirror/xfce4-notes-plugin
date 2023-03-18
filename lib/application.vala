@@ -424,7 +424,7 @@ namespace Xnp {
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename group"), window,
 					Gtk.DialogFlags.DESTROY_WITH_PARENT,
-					"_Cancel", Gtk.ResponseType.CANCEL, "_OK", Gtk.ResponseType.OK);
+					"gtk-cancel", Gtk.ResponseType.CANCEL, "gtk-ok", Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
@@ -763,11 +763,13 @@ namespace Xnp {
 				// New group menu item
 				var mi_sep = new Gtk.SeparatorMenuItem ();
 				menu.append (mi_sep);
-				var mi_add = new Gtk.MenuItem.with_mnemonic (_("_Add a new group"));
+				var mi_add = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
 				mi_add.activate.connect (() => {
 					var new_win = create_window ();
 					new_win.show ();
 				});
+				var image = new Gtk.Image.from_icon_name ("gtk-add", Gtk.IconSize.MENU);
+				mi_add.set_image (image);
 				menu.append (mi_add);
 
 				// Show all items

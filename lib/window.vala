@@ -713,22 +713,24 @@ namespace Xnp {
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_New"));
+			mi = new Gtk.ImageMenuItem.from_stock ("gtk-new", null);
 			mi.set_accel_path (this.action_group.get_action ("new-note").get_accel_path ());
 			mi.activate.connect (action_new_note);
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete"));
+			mi = new Gtk.ImageMenuItem.from_stock ("gtk-delete", null);
 			mi.set_accel_path (this.action_group.get_action ("delete-note").get_accel_path ());
 			mi.activate.connect (action_delete_note);
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename"));
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename"));
+			var image = new Gtk.Image.from_stock ("gtk-edit", Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
 			mi.activate.connect (action_rename_note);
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Undo"));
+			mi = new Gtk.ImageMenuItem.from_stock ("gtk-undo", null);
 			mi.set_accel_path (this.action_group.get_action ("cancel").get_accel_path ());
 			mi.activate.connect (action_cancel);
 			menu.append (mi);
@@ -751,11 +753,11 @@ namespace Xnp {
 			mi = new Gtk.SeparatorMenuItem ();
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic ("_Properties");
+			mi = new Gtk.ImageMenuItem.from_stock ("gtk-properties", null);
 			mi.activate.connect (() => { action ("properties"); });
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic ("_About");
+			mi = new Gtk.ImageMenuItem.from_stock ("gtk-about", null);
 			mi.activate.connect (() => { action ("about"); });
 			menu.append (mi);
 
@@ -770,6 +772,7 @@ namespace Xnp {
 		private void update_menu_go (Gtk.Widget widget) {
 			Gtk.Menu menu = widget as Gtk.Menu;
 			Gtk.MenuItem mi;
+			Gtk.Image image;
 
 			menu.@foreach ((w) => {
 					w.destroy ();
@@ -781,10 +784,17 @@ namespace Xnp {
 					mi.sensitive = false;
 					menu.append (mi);
 
+					int current_page = this.notebook.get_current_page ();
+					var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
+
 					int n_pages = this.notebook.get_n_pages ();
 					for (int p = 0; p < n_pages; p++) {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
-						mi = new Gtk.MenuItem.with_label (note.name);
+						mi = new Gtk.ImageMenuItem.with_label (note.name);
+						if (note == current_note) {
+							image = new Gtk.Image.from_stock ("gtk-go-forward", Gtk.IconSize.MENU);
+							((Gtk.ImageMenuItem)mi).set_image (image);
+						}
 						mi.set_data ("page", p.to_pointer ());
 						mi.activate.connect ((i) => {
 							int page = i.get_data<int> ("page");
@@ -810,17 +820,23 @@ namespace Xnp {
 				}
 			}
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename group"));
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename group"));
+			image = new Gtk.Image.from_stock ("gtk-edit", Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
 			mi.activate.connect (action_rename_window);
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete group"));
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Delete group"));
+			image = new Gtk.Image.from_stock ("gtk-remove", Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
 			mi.activate.connect (action_delete_window);
 			menu.append (mi);
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Add a new group"));
+			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
+			image = new Gtk.Image.from_stock ("gtk-add", Gtk.IconSize.MENU);
+			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
 			mi.activate.connect (action_new_window);
 			menu.append (mi);
@@ -1057,7 +1073,7 @@ namespace Xnp {
 
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				"_Cancel", Gtk.ResponseType.CANCEL, "_OK", Gtk.ResponseType.OK);
+				"gtk-cancel", Gtk.ResponseType.CANCEL, "gtk-ok", Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;

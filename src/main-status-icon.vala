@@ -57,18 +57,18 @@ static Gtk.Menu build_context_menu () {
 	mi = new Gtk.SeparatorMenuItem ();
 	menu.append (mi);
 
-	mi = new Gtk.MenuItem.with_mnemonic (_("_Properties"));
+	mi = new Gtk.ImageMenuItem.from_stock ("gtk-properties", null);
 	mi.activate.connect (() => { application.open_settings_dialog (); });
 	menu.append (mi);
 
-	mi = new Gtk.MenuItem.with_mnemonic (_("_About"));
+	mi = new Gtk.ImageMenuItem.from_stock ("gtk-about", null);
 	mi.activate.connect (() => { application.open_about_dialog (); });
 	menu.append (mi);
 
 	mi = new Gtk.SeparatorMenuItem ();
 	menu.append (mi);
 
-	mi = new Gtk.MenuItem.with_mnemonic (_("_Remove"));
+	mi = new Gtk.ImageMenuItem.from_stock ("gtk-remove", null);
 	mi.activate.connect (() => {
 		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
