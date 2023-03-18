@@ -724,7 +724,7 @@ namespace Xnp {
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename"));
-			var image = new Gtk.Image.from_stock ("gtk-edit", Gtk.IconSize.MENU);
+			var image = new Gtk.Image.from_icon_name ("gtk-edit", Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
 			mi.activate.connect (action_rename_note);
@@ -792,7 +792,7 @@ namespace Xnp {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
 						mi = new Gtk.ImageMenuItem.with_label (note.name);
 						if (note == current_note) {
-							image = new Gtk.Image.from_stock ("gtk-go-forward", Gtk.IconSize.MENU);
+							image = new Gtk.Image.from_icon_name ("gtk-go-forward", Gtk.IconSize.MENU);
 							((Gtk.ImageMenuItem)mi).set_image (image);
 						}
 						mi.set_data ("page", p.to_pointer ());
@@ -821,21 +821,21 @@ namespace Xnp {
 			}
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename group"));
-			image = new Gtk.Image.from_stock ("gtk-edit", Gtk.IconSize.MENU);
+			image = new Gtk.Image.from_icon_name ("gtk-edit", Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
 			mi.activate.connect (action_rename_window);
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Delete group"));
-			image = new Gtk.Image.from_stock ("gtk-remove", Gtk.IconSize.MENU);
+			image = new Gtk.Image.from_icon_name ("gtk-remove", Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
 			mi.activate.connect (action_delete_window);
 			menu.append (mi);
 
 			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
-			image = new Gtk.Image.from_stock ("gtk-add", Gtk.IconSize.MENU);
+			image = new Gtk.Image.from_icon_name ("gtk-add", Gtk.IconSize.MENU);
 			((Gtk.ImageMenuItem)mi).set_image (image);
 			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
 			mi.activate.connect (action_new_window);
