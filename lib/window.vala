@@ -692,6 +692,34 @@ namespace Xnp {
 		}
 
 		/**
+		 * Menu creation helpers
+		 */
+
+		delegate void Callback();
+
+		private void menu_add_item_from_stock (Gtk.Menu menu, string stock, string? accel, Callback callback) {
+			var mi = new Gtk.ImageMenuItem.from_stock (stock, null);
+			if (accel != null) {
+				mi.set_accel_path (this.action_group.get_action (accel).get_accel_path ());
+			}
+			mi.activate.connect (() => { callback (); });
+			menu.append (mi);
+		}
+
+		private Gtk.CheckMenuItem menu_add_check_item (Gtk.Menu menu, string text, bool active, Callback callback) {
+			var mi = new Gtk.CheckMenuItem.with_label (text);
+			mi.active = active;
+			mi.toggled.connect (() => { callback (); });
+			menu.append (mi);
+			return mi;
+		}
+
+		private void menu_add_separator (Gtk.Menu menu) {
+			var mi = new Gtk.SeparatorMenuItem ();
+			menu.append (mi);
+		}
+
+		/**
 		 * build_menu:
 		 *
 		 * Build the window menu.
@@ -710,56 +738,21 @@ namespace Xnp {
 			mi.set_submenu (menu_go);
 
 			/* Note items */
-			mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock ("gtk-new", null);
-			mi.set_accel_path (this.action_group.get_action ("new-note").get_accel_path ());
-			mi.activate.connect (action_new_note);
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock ("gtk-delete", null);
-			mi.set_accel_path (this.action_group.get_action ("delete-note").get_accel_path ());
-			mi.activate.connect (action_delete_note);
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename"));
-			var image = new Gtk.Image.from_icon_name ("gtk-edit", Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
-			mi.activate.connect (action_rename_note);
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock ("gtk-undo", null);
-			mi.set_accel_path (this.action_group.get_action ("cancel").get_accel_path ());
-			mi.activate.connect (action_cancel);
-			menu.append (mi);
+			menu_add_separator (menu);
+			menu_add_item_from_stock (menu, "gtk-new", "new-note", action_new_note);
+			menu_add_item_from_stock (menu, "gtk-delete", "delete-note", action_delete_note);
+			menu_add_item_from_stock (menu, "gtk-edit", "rename-note", action_rename_note);
+			menu_add_item_from_stock (menu, "gtk-undo", "cancel", action_cancel);
 
 			/* Window options */
-			mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
-
-			mi = this.mi_above = new Gtk.CheckMenuItem.with_label (_("Always on top"));
-			((Gtk.CheckMenuItem)mi).active = this.above;
-			((Gtk.CheckMenuItem)mi).toggled.connect ((o) => { above = o.active; });
-			menu.append (mi);
-
-			mi = this.mi_sticky = new Gtk.CheckMenuItem.with_label (_("Sticky window"));
-			((Gtk.CheckMenuItem)mi).active = this.sticky;
-			((Gtk.CheckMenuItem)mi).toggled.connect ((o) => { sticky = o.active; });
-			menu.append (mi);
+			menu_add_separator (menu);
+			this.mi_above  = menu_add_check_item (menu, _("Always on top"), above, () => { above = mi_above.active; });
+			this.mi_sticky = menu_add_check_item (menu, _("Sticky window"), sticky, () => { sticky = mi_sticky.active; });
 
 			/* Settings/About dialog */
-			mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock ("gtk-properties", null);
-			mi.activate.connect (() => { action ("properties"); });
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.from_stock ("gtk-about", null);
-			mi.activate.connect (() => { action ("about"); });
-			menu.append (mi);
+			menu_add_separator (menu);
+			menu_add_item_from_stock (menu, "gtk-properties", null, () => { action("properties"); });
+			menu_add_item_from_stock (menu, "gtk-about", null, () => { action("about"); });
 
 			return menu;
 		}
@@ -803,8 +796,7 @@ namespace Xnp {
 						menu.append (mi);
 					}
 
-					mi = new Gtk.SeparatorMenuItem ();
-					menu.append (mi);
+					menu_add_separator (menu);
 				}
 				else {
 					mi = new Gtk.MenuItem.with_label (win.name);
@@ -815,31 +807,13 @@ namespace Xnp {
 					});
 					menu.append (mi);
 
-					mi = new Gtk.SeparatorMenuItem ();
-					menu.append (mi);
+					menu_add_separator (menu);
 				}
 			}
 
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Rename group"));
-			image = new Gtk.Image.from_icon_name ("gtk-edit", Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
-			mi.activate.connect (action_rename_window);
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Delete group"));
-			image = new Gtk.Image.from_icon_name ("gtk-remove", Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
-			mi.activate.connect (action_delete_window);
-			menu.append (mi);
-
-			mi = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
-			image = new Gtk.Image.from_icon_name ("gtk-add", Gtk.IconSize.MENU);
-			((Gtk.ImageMenuItem)mi).set_image (image);
-			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
-			mi.activate.connect (action_new_window);
-			menu.append (mi);
+			menu_add_item_from_stock (menu, "gtk-edit", "rename-window", action_rename_window);
+			menu_add_item_from_stock (menu, "gtk-remove", "delete-window", action_delete_window);
+			menu_add_item_from_stock (menu, "gtk-add", "new-window", action_new_window);
 
 			menu.show_all ();
 		}

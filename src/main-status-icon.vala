@@ -46,6 +46,19 @@ static void build_plugin () {
 	});
 }
 
+delegate void Callback();
+
+static void menu_add_item_from_stock (Gtk.Menu menu, string stock, Callback callback) {
+	var mi = new Gtk.ImageMenuItem.from_stock (stock, null);
+	mi.activate.connect (() => { callback (); });
+	menu.append (mi);
+}
+
+static void menu_add_separator (Gtk.Menu menu) {
+	var mi = new Gtk.SeparatorMenuItem ();
+	menu.append (mi);
+}
+
 static Gtk.Menu build_context_menu () {
 	var menu = new Gtk.Menu ();
 
@@ -54,27 +67,16 @@ static Gtk.Menu build_context_menu () {
 	mi.set_submenu (menu_go);
 	menu.append (mi);
 
-	mi = new Gtk.SeparatorMenuItem ();
-	menu.append (mi);
+	menu_add_separator (menu);
+	menu_add_item_from_stock (menu, "gtk-properties", () => { application.open_settings_dialog (); });
+	menu_add_item_from_stock (menu, "gtk-about", () => { application.open_about_dialog (); });
 
-	mi = new Gtk.ImageMenuItem.from_stock ("gtk-properties", null);
-	mi.activate.connect (() => { application.open_settings_dialog (); });
-	menu.append (mi);
-
-	mi = new Gtk.ImageMenuItem.from_stock ("gtk-about", null);
-	mi.activate.connect (() => { application.open_about_dialog (); });
-	menu.append (mi);
-
-	mi = new Gtk.SeparatorMenuItem ();
-	menu.append (mi);
-
-	mi = new Gtk.ImageMenuItem.from_stock ("gtk-remove", null);
-	mi.activate.connect (() => {
+	menu_add_separator (menu);
+	menu_add_item_from_stock (menu, "gtk-remove", () => {
 		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
 		Gtk.main_quit ();
 	});
-	menu.append (mi);
 
 	menu.show_all ();
 
