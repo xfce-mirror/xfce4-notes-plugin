@@ -712,9 +712,9 @@ namespace Xnp {
 		 */
 		public void open_about_dialog () {
 			string[] authors = {
-					"(c) 2023 Arthur Demchenkov",
-					"(c) 2006-2010 Mike Massonnet",
-					"(c) 2003 Jakob Henriksson",
+					"© 2003 Jakob Henriksson",
+					"© 2006 Mike Massonnet",
+					"© 2023 Arthur Demchenkov",
 					null
 				};
 
