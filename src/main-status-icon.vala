@@ -48,8 +48,10 @@ static void build_plugin () {
 
 delegate void Callback();
 
-static void menu_add_item_from_stock (Gtk.Menu menu, string stock, Callback callback) {
-	var mi = new Gtk.ImageMenuItem.from_stock (stock, null);
+static void menu_add_icon_item (Gtk.Menu menu, string text, string icon, Callback callback) {
+	var mi = new Gtk.ImageMenuItem.with_mnemonic (text);
+	var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
+	mi.set_image (image);
 	mi.activate.connect (() => { callback (); });
 	menu.append (mi);
 }
@@ -68,11 +70,11 @@ static Gtk.Menu build_context_menu () {
 	menu.append (mi);
 
 	menu_add_separator (menu);
-	menu_add_item_from_stock (menu, "gtk-properties", () => { application.open_settings_dialog (); });
-	menu_add_item_from_stock (menu, "gtk-about", () => { application.open_about_dialog (); });
+	menu_add_icon_item (menu, _("_Properties"), "gtk-properties", () => { application.open_settings_dialog (); });
+	menu_add_icon_item (menu, _("_About"), "gtk-about", () => { application.open_about_dialog (); });
 
 	menu_add_separator (menu);
-	menu_add_item_from_stock (menu, "gtk-remove", () => {
+	menu_add_icon_item (menu, _("_Remove"), "gtk-remove", () => {
 		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
 		Gtk.main_quit ();

@@ -697,8 +697,10 @@ namespace Xnp {
 
 		delegate void Callback();
 
-		private void menu_add_item_from_stock (Gtk.Menu menu, string stock, string? accel, Callback callback) {
-			var mi = new Gtk.ImageMenuItem.from_stock (stock, null);
+		private void menu_add_icon_item (Gtk.Menu menu, string text, string icon, string? accel, Callback callback) {
+			var mi = new Gtk.ImageMenuItem.with_mnemonic (text);
+			var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
+			mi.set_image (image);
 			if (accel != null) {
 				mi.set_accel_path (this.action_group.get_action (accel).get_accel_path ());
 			}
@@ -739,20 +741,20 @@ namespace Xnp {
 
 			/* Note items */
 			menu_add_separator (menu);
-			menu_add_item_from_stock (menu, "gtk-new", "new-note", action_new_note);
-			menu_add_item_from_stock (menu, "gtk-delete", "delete-note", action_delete_note);
-			menu_add_item_from_stock (menu, "gtk-edit", "rename-note", action_rename_note);
-			menu_add_item_from_stock (menu, "gtk-undo", "cancel", action_cancel);
+			menu_add_icon_item (menu, _("_New"), "gtk-new", "new-note", action_new_note);
+			menu_add_icon_item (menu, _("_Delete"), "gtk-delete", "delete-note", action_delete_note);
+			menu_add_icon_item (menu, _("_Rename"), "gtk-edit", "rename-note", action_rename_note);
+			menu_add_icon_item (menu, _("_Undo"), "gtk-undo", "cancel", action_cancel);
 
 			/* Window options */
 			menu_add_separator (menu);
-			this.mi_above  = menu_add_check_item (menu, _("Always on top"), above, () => { above = mi_above.active; });
+			this.mi_above = menu_add_check_item (menu, _("Always on top"), above, () => { above = mi_above.active; });
 			this.mi_sticky = menu_add_check_item (menu, _("Sticky window"), sticky, () => { sticky = mi_sticky.active; });
 
 			/* Settings/About dialog */
 			menu_add_separator (menu);
-			menu_add_item_from_stock (menu, "gtk-properties", null, () => { action("properties"); });
-			menu_add_item_from_stock (menu, "gtk-about", null, () => { action("about"); });
+			menu_add_icon_item (menu, _("_Properties"), "gtk-properties", null, () => { action("properties"); });
+			menu_add_icon_item (menu, _("_About"), "gtk-about", null, () => { action("about"); });
 
 			return menu;
 		}
@@ -811,9 +813,9 @@ namespace Xnp {
 				}
 			}
 
-			menu_add_item_from_stock (menu, "gtk-edit", "rename-window", action_rename_window);
-			menu_add_item_from_stock (menu, "gtk-remove", "delete-window", action_delete_window);
-			menu_add_item_from_stock (menu, "gtk-add", "new-window", action_new_window);
+			menu_add_icon_item (menu, _("_Rename group"), "gtk-edit", "rename-window", action_rename_window);
+			menu_add_icon_item (menu, _("_Delete group"), "gtk-remove", "delete-window", action_delete_window);
+			menu_add_icon_item (menu, _("_Add a new group"), "gtk-add", "new-window", action_new_window);
 
 			menu.show_all ();
 		}
