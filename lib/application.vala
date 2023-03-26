@@ -29,6 +29,7 @@ namespace Xnp {
 		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
 		private Xfconf.Channel xfconf_channel;
+		private Xnp.Theme theme;
 
 		construct {
 			try {
@@ -49,6 +50,7 @@ namespace Xnp {
 
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
 
+			theme = new Xnp.Theme ();
 			update_color ();
 			xfconf_channel.property_changed["/global/background-color"].connect (() => {
 				update_color ();
@@ -143,7 +145,7 @@ namespace Xnp {
 				// TODO: Read from StyleContext with default CssProvider
 				return;
 			}
-			Xnp.Theme.set_background_color (color);
+			theme.set_background_color (color);
 		}
 
 		private void quit () {

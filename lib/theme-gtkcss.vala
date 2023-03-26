@@ -1,6 +1,7 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2006-2013  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (c) 2023       Arthur Demchenkov <spinal.by@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,25 +22,28 @@ namespace Xnp {
 
 	public class ThemeGtkcss : GLib.Object {
 
-		public static string get_css_path () {
-			return Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.css", true);
+		private string css_path;
+		private Gtk.CssProvider css_provider;
+
+		public ThemeGtkcss() {
+			css_provider = new Gtk.CssProvider ();
+			css_path = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.css", true);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
 		}
 
-		public static void update_css (Gdk.RGBA rgba) {
+		public void update_css (Gdk.RGBA rgba) {
 			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk-main.css\");"
 				.printf (rgba.to_string (), Config.PKGDATADIR, GLib.Path.DIR_SEPARATOR, "gtk-3.0", GLib.Path.DIR_SEPARATOR);
 			try {
-				GLib.FileUtils.set_contents (get_css_path (), css, -1);
+				GLib.FileUtils.set_contents (css_path, css, -1);
 			} catch (FileError e) {
 				warning ("Unable to update CSS file: %s", e.message);
 			}
 		}
 
-		public static void update_style_context () {
+		public void update_style_context () {
 			try {
-				var cssprovider = new Gtk.CssProvider ();
-				cssprovider.load_from_path (get_css_path ());
-				Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), cssprovider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+				css_provider.load_from_path (css_path);
 			} catch (GLib.Error e) {
 				warning ("%s", e.message);
 			}
