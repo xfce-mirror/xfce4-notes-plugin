@@ -22,7 +22,7 @@ namespace Xnp {
 	public class ThemeGtkcss : GLib.Object {
 
 		public static string get_css_path () {
-			return "%s/xfce4/xfce4-notes.css".printf (GLib.Environment.get_user_config_dir ());
+			return Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.css", true);
 		}
 
 		public static void update_css (Gdk.RGBA rgba) {
@@ -48,4 +48,3 @@ namespace Xnp {
 	}
 
 }
-
