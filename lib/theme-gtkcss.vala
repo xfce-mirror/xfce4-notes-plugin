@@ -25,9 +25,9 @@ namespace Xnp {
 			return "%s/xfce4/xfce4-notes.css".printf (GLib.Environment.get_user_config_dir ());
 		}
 
-		public static void update_css (Gdk.Color color) {
-			string css = "@define-color notes_bg_color #%x%x%x;\n@import url(\"%s%c%s%cgtk-main.css\");"
-				.printf (color.red >> 8, color.green >> 8, color.blue >> 8, Config.PKGDATADIR, GLib.Path.DIR_SEPARATOR, "gtk-3.0", GLib.Path.DIR_SEPARATOR);
+		public static void update_css (Gdk.RGBA rgba) {
+			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk-main.css\");"
+				.printf (rgba.to_string (), Config.PKGDATADIR, GLib.Path.DIR_SEPARATOR, "gtk-3.0", GLib.Path.DIR_SEPARATOR);
 			try {
 				GLib.FileUtils.set_contents (get_css_path (), css, -1);
 			} catch (FileError e) {

@@ -22,13 +22,13 @@ namespace Xnp {
 	public class Theme : GLib.Object {
 
 		public static void set_background_color (string color) {
-			Gdk.Color gdkcolor;
-			if (!Gdk.Color.parse (color, out gdkcolor)) {
+			Gdk.RGBA rgba = {0};
+			if (!rgba.parse (color)) {
 				warning ("Cannot parse background color %s", color);
 				return;
 			}
 
-			Xnp.ThemeGtkcss.update_css (gdkcolor);
+			Xnp.ThemeGtkcss.update_css (rgba);
 			Xnp.ThemeGtkcss.update_style_context ();
 		}
 
