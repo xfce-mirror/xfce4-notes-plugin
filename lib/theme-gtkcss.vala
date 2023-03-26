@@ -31,9 +31,26 @@ namespace Xnp {
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
 		}
 
+		private bool css_changed (string css) {
+			string old_css;
+			int64 file_size;
+			File file = File.new_for_path(css_path);
+			try {
+				file_size = file.query_info ("standard::size", FileQueryInfoFlags.NONE).get_size ();
+				if (file_size != css.size()) return true;
+				GLib.FileUtils.get_contents (css_path, out old_css);
+				return old_css != css;
+			} catch (Error e) {
+				return true;
+			}
+		}
+
 		public void update_css (Gdk.RGBA rgba) {
+			char dir_separator = GLib.Path.DIR_SEPARATOR;
 			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk-main.css\");"
-				.printf (rgba.to_string (), Config.PKGDATADIR, GLib.Path.DIR_SEPARATOR, "gtk-3.0", GLib.Path.DIR_SEPARATOR);
+				.printf (rgba.to_string (), Config.PKGDATADIR, dir_separator, "gtk-3.0", dir_separator);
+			if (!css_changed (css))
+				return;
 			try {
 				GLib.FileUtils.set_contents (css_path, css, -1);
 			} catch (FileError e) {
