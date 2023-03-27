@@ -237,10 +237,12 @@ namespace Xnp {
 			menu_evbox.add (this.menu_image);
 			menu_evbox.enter_notify_event.connect (() => {
 				this.menu_image.set_from_pixbuf (this.menu_hover_pixbuf);
+				menu_evbox.get_window ().invalidate_rect (null, false);
 				return false;
 			});
 			menu_evbox.leave_notify_event.connect (() => {
 				this.menu_image.set_from_pixbuf (this.menu_pixbuf);
+				menu_evbox.get_window ().invalidate_rect (null, false);
 				return false;
 			});
 			title_box.pack_start (menu_evbox, false, false, 2);
