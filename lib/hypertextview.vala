@@ -57,6 +57,7 @@ namespace Xnp {
 		public HypertextView () {
 			Gtk.TextIter iter;
 
+			this.style_updated.connect (style_updated_cb);
 			this.button_release_event.connect (button_release_event_cb);
 			this.motion_notify_event.connect (motion_notify_event_cb);
 			this.move_cursor.connect (move_cursor_cb);
@@ -68,7 +69,7 @@ namespace Xnp {
 			this.buffer.create_mark ("undo-pos", iter, false);
 
 			this.tag_link = this.buffer.create_tag ("link",
-					"foreground", "blue", // TODO use __gdk_color_constrast function
+					"foreground", "blue",
 					"underline", Pango.Underline.SINGLE,
 					null);
 		}
@@ -83,6 +84,24 @@ namespace Xnp {
 		/*
 		 * Signal callbacks
 		 */
+
+		/**
+		 * style_updated_cb:
+		 *
+		 * Get the link color from the css.
+		 */
+		private void style_updated_cb (Gtk.Widget hypertextview) {
+			Gtk.StyleContext context = this.get_style_context ();
+			Gtk.StateFlags state = context.get_state ();
+			state &= ~Gtk.StateFlags.VISITED;
+			state |= Gtk.StateFlags.LINK;
+			context.save ();
+			context.set_state (state);
+			/* Remove the 'view' style, because it can "confuse" some themes */
+			context.remove_class (Gtk.STYLE_CLASS_VIEW);
+			tag_link.foreground_rgba = context.get_color (state);
+			context.restore ();
+		}
 
 		/**
 		 * button_release_event_cb:
