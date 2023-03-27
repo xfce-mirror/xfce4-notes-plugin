@@ -227,8 +227,8 @@ namespace Xnp {
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
 			try {
-				this.menu_pixbuf = new Gdk.Pixbuf.from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
-				this.menu_hover_pixbuf = new Gdk.Pixbuf.from_file ("%s/pixmaps/notes-menu-active.png".printf (Config.PKGDATADIR));
+				this.menu_pixbuf = load_icon ("notes-menu.png");
+				this.menu_hover_pixbuf = load_icon ("notes-menu-active.png");
 			}
 			catch (Error e) {
 				this.menu_pixbuf = this.menu_hover_pixbuf = null;
@@ -1155,6 +1155,19 @@ namespace Xnp {
 					label.angle = angle;
 				}
 			}
+		}
+
+		/**
+		 * load_icon:
+		 *
+		 * Load icon from user dir or system path.
+		 */
+		private Gdk.Pixbuf load_icon (string filename) throws Error {
+			var icon_path = Xfce.resource_lookup (Xfce.ResourceType.ICONS, filename);
+			if (icon_path == null) {
+				icon_path = "%s/pixmaps/%s".printf (Config.PKGDATADIR, filename);
+			}
+			return new Gdk.Pixbuf.from_file (icon_path);
 		}
 
 /* valac -X '-I..' -X '-DGETTEXT_PACKAGE="xfce4-notes-plugin"' -X '-DPKGDATADIR="../data"' -D DEBUG_XNP_WINDOW --pkg=gtk+-3.0 --pkg=libxfce4util-1.0 --pkg=libxfconf-0 --pkg=color --pkg=config --vapidir=.. --vapidir=. window.vala note.vala hypertextview.vala icon-button.vala */
