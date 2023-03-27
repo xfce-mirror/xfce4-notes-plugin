@@ -22,23 +22,29 @@ namespace Xnp {
 
 	public class ThemeGtkcss : GLib.Object {
 
-		private string css_path;
-		private Gtk.CssProvider css_provider;
+		private string css_path_default;
+		private string css_path_user;
+		private Gtk.CssProvider css_provider_default;
+		private Gtk.CssProvider css_provider_user;
 
 		public ThemeGtkcss() {
-			css_provider = new Gtk.CssProvider ();
-			css_path = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.css", true);
-			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+			css_provider_default = new Gtk.CssProvider ();
+			css_provider_user = new Gtk.CssProvider ();
+			css_path_default = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.css", true);
+			css_path_user = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/gtk.css", true);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+			load_user_css ();
 		}
 
 		private bool css_changed (string css) {
 			string old_css;
 			int64 file_size;
-			File file = File.new_for_path(css_path);
+			File file = File.new_for_path(css_path_default);
 			try {
 				file_size = file.query_info ("standard::size", FileQueryInfoFlags.NONE).get_size ();
 				if (file_size != css.size()) return true;
-				GLib.FileUtils.get_contents (css_path, out old_css);
+				GLib.FileUtils.get_contents (css_path_default, out old_css);
 				return old_css != css;
 			} catch (Error e) {
 				return true;
@@ -52,7 +58,7 @@ namespace Xnp {
 			if (!css_changed (css))
 				return;
 			try {
-				GLib.FileUtils.set_contents (css_path, css, -1);
+				GLib.FileUtils.set_contents (css_path_default, css, -1);
 			} catch (FileError e) {
 				warning ("Unable to update CSS file: %s", e.message);
 			}
@@ -60,7 +66,19 @@ namespace Xnp {
 
 		public void update_style_context () {
 			try {
-				css_provider.load_from_path (css_path);
+				css_provider_default.load_from_path (css_path_default);
+			} catch (GLib.Error e) {
+				warning ("%s", e.message);
+			}
+		}
+
+		private void load_user_css () {
+			try {
+				if (!FileUtils.test (css_path_user, FileTest.EXISTS)) {
+					string css = "/* Put your fun stuff here */";
+						GLib.FileUtils.set_contents (css_path_user, css, -1);
+				}
+				css_provider_user.load_from_path (css_path_user);
 			} catch (GLib.Error e) {
 				warning ("%s", e.message);
 			}
