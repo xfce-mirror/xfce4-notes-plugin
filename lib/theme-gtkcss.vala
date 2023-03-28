@@ -22,24 +22,22 @@ namespace Xnp {
 
 	public class ThemeGtkcss : GLib.Object {
 
-		private string css_path_default;
 		private string css_path_system;
 		private string css_path_user;
 		private Gtk.CssProvider css_provider_default;
 		private Gtk.CssProvider css_provider_system;
 		private Gtk.CssProvider css_provider_user;
+		private Gdk.RGBA bg_color = {0};
 
 		public ThemeGtkcss() {
 			css_provider_default = new Gtk.CssProvider ();
 			css_provider_system = new Gtk.CssProvider ();
 			css_provider_user = new Gtk.CssProvider ();
-			css_path_default = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.css", true);
 			css_path_system = "%s/xdg/xfce4/notes/gtk.css".printf (Config.SYSCONFDIR);
 			css_path_user = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/gtk.css", true);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_USER - 2);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_system, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER);
-			load_default_css ();
 			load_system_css ();
 			load_user_css ();
 		}
@@ -48,37 +46,19 @@ namespace Xnp {
 			return FileUtils.test (path, FileTest.EXISTS);
 		}
 
-		private bool css_changed (string css) {
-			string old_css;
-			int64 file_size;
-			File file = File.new_for_path(css_path_default);
-			try {
-				file_size = file.query_info ("standard::size", FileQueryInfoFlags.NONE).get_size ();
-				if (file_size != css.size()) return true;
-				GLib.FileUtils.get_contents (css_path_default, out old_css);
-				return old_css != css;
-			} catch (Error e) {
-				return true;
-			}
-		}
-
 		public void update_color_css (Gdk.RGBA rgba) {
-			char dir_separator = GLib.Path.DIR_SEPARATOR;
-			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk.css\");"
-				.printf (rgba.to_string (), Config.PKGDATADIR, dir_separator, "gtk-3.0", dir_separator);
-			if (!css_changed (css))
-				return;
-			try {
-				GLib.FileUtils.set_contents (css_path_default, css, -1);
-			} catch (FileError e) {
-				warning ("Unable to update CSS file: %s", e.message);
+			if (bg_color != rgba) {
+				bg_color = rgba;
+				load_default_css ();
 			}
-			load_default_css ();
 		}
 
 		private void load_default_css () {
+			char dir_separator = GLib.Path.DIR_SEPARATOR;
+			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk.css\");"
+				.printf (bg_color.to_string (), Config.PKGDATADIR, dir_separator, "gtk-3.0", dir_separator);
 			try {
-				css_provider_default.load_from_path (css_path_default);
+				css_provider_default.load_from_data (css);
 			} catch (GLib.Error e) {
 				warning ("%s", e.message);
 			}
