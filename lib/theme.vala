@@ -35,8 +35,7 @@ namespace Xnp {
 				return;
 			}
 
-			theme_gtk_css.update_css (rgba);
-			theme_gtk_css.update_style_context ();
+			theme_gtk_css.update_color_css (rgba);
 		}
 
 	}

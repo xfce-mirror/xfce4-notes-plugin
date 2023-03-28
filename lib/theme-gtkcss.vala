@@ -34,6 +34,7 @@ namespace Xnp {
 			css_path_user = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/gtk.css", true);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+			load_default_css ();
 			load_user_css ();
 		}
 
@@ -51,7 +52,7 @@ namespace Xnp {
 			}
 		}
 
-		public void update_css (Gdk.RGBA rgba) {
+		public void update_color_css (Gdk.RGBA rgba) {
 			char dir_separator = GLib.Path.DIR_SEPARATOR;
 			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk-main.css\");"
 				.printf (rgba.to_string (), Config.PKGDATADIR, dir_separator, "gtk-3.0", dir_separator);
@@ -62,9 +63,10 @@ namespace Xnp {
 			} catch (FileError e) {
 				warning ("Unable to update CSS file: %s", e.message);
 			}
+			load_default_css ();
 		}
 
-		public void update_style_context () {
+		private void load_default_css () {
 			try {
 				css_provider_default.load_from_path (css_path_default);
 			} catch (GLib.Error e) {
