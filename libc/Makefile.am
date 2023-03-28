@@ -1,3 +1,4 @@
+pkgdatadir = $(datadir)/xfce4/notes
 noinst_LTLIBRARIES = libcnotes.la
 
 libcnotes_la_SOURCES = \

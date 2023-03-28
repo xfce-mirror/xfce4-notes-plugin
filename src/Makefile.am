@@ -1,3 +1,5 @@
+pkgdatadir = $(datadir)/xfce4/notes
+
 BUILT_SOURCES =
 
 AM_CPPFLAGS =								\

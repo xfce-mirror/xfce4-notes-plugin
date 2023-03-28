@@ -1,4 +1,5 @@
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+pkgdatadir = $(datadir)/xfce4/notes
 
 @SET_MAKE@
 

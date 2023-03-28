@@ -1,3 +1,4 @@
+pkgdatadir = $(datadir)/xfce4/notes
 pixmapsdir = $(pkgdatadir)/pixmaps
 dist_pixmaps_DATA =							\
 	notes-menu-active.png						\

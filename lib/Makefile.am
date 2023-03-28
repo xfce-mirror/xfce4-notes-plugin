@@ -1,3 +1,4 @@
+pkgdatadir = $(datadir)/xfce4/notes
 noinst_LTLIBRARIES = libnotes.la
 
 libnotes_la_VALAFLAGS =							\
