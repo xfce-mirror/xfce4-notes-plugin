@@ -6,6 +6,7 @@ libcnotes_la_SOURCES = \
 	xfce-autostart.h
 
 libcnotes_la_CFLAGS = \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DPKGDATADIR=\""$(pkgdatadir)"\" \
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \

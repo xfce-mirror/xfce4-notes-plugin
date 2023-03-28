@@ -21,6 +21,7 @@ libnotes_la_SOURCES =							\
 	theme-gtkcss.vala
 
 libnotes_la_CFLAGS =							\
+	-DSYSCONFDIR=\""$(sysconfdir)"\"				\
 	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
 	@LIBX11_CFLAGS@							\

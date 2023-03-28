@@ -23,19 +23,29 @@ namespace Xnp {
 	public class ThemeGtkcss : GLib.Object {
 
 		private string css_path_default;
+		private string css_path_system;
 		private string css_path_user;
 		private Gtk.CssProvider css_provider_default;
+		private Gtk.CssProvider css_provider_system;
 		private Gtk.CssProvider css_provider_user;
 
 		public ThemeGtkcss() {
 			css_provider_default = new Gtk.CssProvider ();
+			css_provider_system = new Gtk.CssProvider ();
 			css_provider_user = new Gtk.CssProvider ();
 			css_path_default = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.css", true);
+			css_path_system = "%s/xdg/xfce4/notes/gtk.css".printf (Config.SYSCONFDIR);
 			css_path_user = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/gtk.css", true);
-			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_USER - 2);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_system, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER);
 			load_default_css ();
+			load_system_css ();
 			load_user_css ();
+		}
+
+		private bool file_exists (string path) {
+			return FileUtils.test (path, FileTest.EXISTS);
 		}
 
 		private bool css_changed (string css) {
@@ -74,9 +84,19 @@ namespace Xnp {
 			}
 		}
 
+		private void load_system_css () {
+			try {
+				if (!file_exists (css_path_system))
+					return;
+				css_provider_system.load_from_path (css_path_system);
+			} catch (GLib.Error e) {
+				warning ("%s", e.message);
+			}
+		}
+
 		private void load_user_css () {
 			try {
-				if (!FileUtils.test (css_path_user, FileTest.EXISTS)) {
+				if (!file_exists (css_path_user)) {
 					string css = "/* Put your fun stuff here */";
 						GLib.FileUtils.set_contents (css_path_user, css, -1);
 				}
