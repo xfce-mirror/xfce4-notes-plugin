@@ -64,7 +64,7 @@ namespace Xnp {
 
 		public void update_color_css (Gdk.RGBA rgba) {
 			char dir_separator = GLib.Path.DIR_SEPARATOR;
-			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk-main.css\");"
+			string css = "@define-color notes_bg_color %s;\n@import url(\"%s%c%s%cgtk.css\");"
 				.printf (rgba.to_string (), Config.PKGDATADIR, dir_separator, "gtk-3.0", dir_separator);
 			if (!css_changed (css))
 				return;
