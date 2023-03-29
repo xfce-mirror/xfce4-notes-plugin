@@ -42,7 +42,7 @@ window widget#notes-icon-button:hover {
 }
 
 /* notebook */
-notebook > header {
+notebook > header, notebook arrow {
 	background: transparent;
 }
 notebook > header.top {
