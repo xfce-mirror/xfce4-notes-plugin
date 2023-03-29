@@ -35,9 +35,9 @@ namespace Xnp {
 			css_provider_user = new Gtk.CssProvider ();
 			css_path_system = "%s/xdg/xfce4/notes/gtk.css".printf (Config.SYSCONFDIR);
 			css_path_user = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/gtk.css", true);
-			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_USER - 2);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_system, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
-			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER + 1);
 			load_system_css ();
 			load_user_css ();
 		}
