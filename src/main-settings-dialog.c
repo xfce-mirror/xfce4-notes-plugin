@@ -54,7 +54,6 @@ enum
 static GtkWidget *size_combo_box_new (void);
 static void cb_size_combobox_changed (GtkComboBox *combobox, gpointer data);
 
-#if 0
 enum
 {
   COMBOBOX_BACKGROUND_YELLOW,
@@ -75,19 +74,15 @@ static void cb_background_changed (GtkComboBox *combobox, gpointer data);
 
 static GtkWidget *background_dialog_new ();
 static gchar *background_dialog_get_color (GtkColorSelectionDialog *dialog);
-static void cb_selection_changed (GtkColorSelection *selection, gpointer data);
 static gboolean timeout_cb_background_changed (gchar *color);
 
 static GtkWidget *color_button_new ();
 static gboolean cb_color_button_pressed (GtkButton *button, GdkEventButton *event, gpointer data);
-#endif
 
 static GtkWidget *parent_window = NULL;
 static XfconfChannel *xfconf_channel = NULL;
-#if 0
 static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
-#endif
 
 static GtkWidget *
 prop_dialog_new (void)
@@ -163,7 +158,6 @@ prop_dialog_new (void)
   button = tabs_combo_box_new ();
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
-#if 0
   /* Background color */
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
   gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
@@ -176,7 +170,6 @@ prop_dialog_new (void)
 
   color_button = color_button_new ();
   gtk_box_pack_start (GTK_BOX (hbox), color_button, FALSE, FALSE, 0);
-#endif
 
   /* Font description */
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
@@ -356,7 +349,6 @@ cb_size_combobox_changed (GtkComboBox *combobox,
   xfconf_channel_set_int (xfconf_channel, "/new-window/height", height);
 }
 
-#if 0
 static GtkWidget *
 background_combo_box_new (void)
 {
@@ -509,7 +501,6 @@ background_dialog_new (void)
 
   selection = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (dialog));
   gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (selection), FALSE);
-  g_signal_connect (selection, "color-changed", G_CALLBACK (cb_selection_changed), NULL);
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
   if (!g_strcmp0 (color, "GTK+"))
@@ -531,22 +522,6 @@ background_dialog_get_color (GtkColorSelectionDialog *dialog)
   gtk_color_selection_get_current_color (GTK_COLOR_SELECTION (selection), &color);
 
   return gdk_color_to_string (&color);
-}
-
-static void
-cb_selection_changed (GtkColorSelection *selection,
-                      gpointer data)
-{
-  GdkColor color, *color2;
-
-  gtk_color_selection_get_current_color (selection, &color);
-
-  color2 = gdk_color_copy (&color);
-  __gdk_color_contrast (color2, 5.);
-
-  gtk_color_selection_set_previous_color (selection, color2);
-
-  gdk_color_free (color2);
 }
 
 static GtkWidget *
@@ -588,7 +563,6 @@ cb_color_button_pressed (GtkButton *button,
 
   return TRUE;
 }
-#endif
 
 
 
