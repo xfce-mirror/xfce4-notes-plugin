@@ -142,8 +142,11 @@ namespace Xnp {
 		private void update_color () {
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
 			if (color == "GTK+") {
-				// TODO: Read from StyleContext with default CssProvider
-				return;
+				var style_widget = new Gtk.TextView ();
+				var style_context = style_widget.get_style_context ();
+				var state = style_context.get_state ();
+				var bg_color = style_context.get_background_color (state);
+				color = bg_color.to_string ();
 			}
 			theme.set_background_color (color);
 		}
