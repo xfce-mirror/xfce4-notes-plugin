@@ -83,6 +83,7 @@ static GtkWidget *parent_window = NULL;
 static XfconfChannel *xfconf_channel = NULL;
 static GtkWidget *color_combobox = NULL;
 static GtkWidget *color_button = NULL;
+static guint timeout_background = 0;
 
 static GtkWidget *
 prop_dialog_new (void)
@@ -412,7 +413,6 @@ static void
 cb_background_changed (GtkComboBox *combobox,
                        gpointer data)
 {
-  static guint timeout_background;
   GtkWidget *dialog;
   gchar *color = NULL;
   gint id;
@@ -486,6 +486,7 @@ timeout_cb_background_changed (gchar *color)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
+  timeout_background = 0;
   return FALSE;
 }
 
