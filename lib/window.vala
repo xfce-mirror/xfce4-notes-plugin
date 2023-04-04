@@ -2,9 +2,6 @@
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
  *
- *  TODO:
- *  - Follow GNOME bug #551184 to change accelerators hexa values
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -261,15 +258,15 @@ namespace Xnp {
 			this.refresh_button.sensitive = false;
 			title_box.pack_start (this.refresh_button, false, false, 2);
 			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
-			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Up
+			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Up, Gdk.ModifierType.CONTROL_MASK);
 			this.left_arrow_button.sensitive = false;
 			title_box.pack_start (this.left_arrow_button, false, false, 2);
 			this.right_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.RIGHT_ARROW);
-			this.right_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Down
+			this.right_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Down, Gdk.ModifierType.CONTROL_MASK);
 			this.right_arrow_button.sensitive = false;
 			title_box.pack_start (this.right_arrow_button, false, false, 2);
 			this.close_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
-			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (0xff1b, 0)); // GDK_Escape
+			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (Gdk.Key.Escape, 0));
 			title_box.pack_start (this.close_button, false, false, 2);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
