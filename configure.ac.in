@@ -70,6 +70,7 @@ AC_CONFIG_FILES([
 Makefile
 data/Makefile
 data/gtk-3.0/Makefile
+data/gtk-3.0/gtk.css
 data/icons/Makefile
 data/icons/16x16/Makefile
 data/icons/22x22/Makefile

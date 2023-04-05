@@ -1,3 +1,10 @@
+/*
+ * This can be customized with:
+ * - @sysconfdir@/xfce4/notes.css
+ * - ${XDG_CONFIG_HOME}/gtk-3.0/gtk.css
+ * - ${XDG_CONFIG_HOME}/xfce4/notes/gtk.css
+ */
+
 @define-color theme_base_color @notes_bg_color;
 @define-color theme_text_color shade (@theme_base_color, 0.25);
 @define-color theme_bg_color @theme_base_color;
