@@ -592,7 +592,7 @@ namespace Xnp {
 		 * note_notify_name_cb:
 		 *
 		 */
-		private void note_notify_name_cb (GLib.Object object, GLib.ParamSpec pspec) {
+		private void note_notify_name_cb (GLib.Object object, GLib.ParamSpec? pspec) {
 			Xnp.Note note = object as Xnp.Note;
 			this.notebook.set_tab_label_text (note, note.name);
 			_notebook_update_tabs_angle ();
@@ -969,7 +969,7 @@ namespace Xnp {
 			this.n_pages++;
 			this.notebook.insert_page (note, null, page);
 			this.notebook.set_tab_reorderable (note, true);
-			note.name = note.name; //note.notify ("name");
+			note_notify_name_cb (note, null);
 			this.note_inserted (note);
 			_notebook_update_tabs_angle ();
 			return note;
