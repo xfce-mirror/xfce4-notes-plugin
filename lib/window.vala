@@ -305,7 +305,6 @@ namespace Xnp {
 			});
 			focus_in_event.connect (() => {
 				menu_image.sensitive = true;
-				title_label.sensitive = true;
 				refresh_button.sensitive = true;
 				update_navigation_sensitivity (this.notebook.get_current_page ());
 				close_button.sensitive = true;
@@ -313,7 +312,6 @@ namespace Xnp {
 			});
 			focus_out_event.connect (() => {
 				menu_image.sensitive = false;
-				title_label.sensitive = false;
 				refresh_button.sensitive = false;
 				left_arrow_button.sensitive = false;
 				right_arrow_button.sensitive = false;
