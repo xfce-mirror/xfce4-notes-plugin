@@ -306,7 +306,7 @@ namespace Xnp {
 			focus_in_event.connect (() => {
 				menu_image.sensitive = true;
 				refresh_button.sensitive = true;
-				update_navigation_sensitivity (this.notebook.get_current_page ());
+				update_navigation_sensitivity (this.notebook.page);
 				close_button.sensitive = true;
 				return false;
 			});
@@ -325,7 +325,7 @@ namespace Xnp {
 			title_evbox.button_press_event.connect (title_evbox_pressed_cb);
 			title_evbox.scroll_event.connect (title_evbox_scrolled_cb);
 			this.notebook.page_added.connect ((n, c, p) => {
-				notebook.set_current_page ((int)p);
+				notebook.page = (int)p;
 				update_navigation_sensitivity ((int)p);
 			});
 			this.notebook.page_removed.connect ((n, c, p) => {
@@ -338,7 +338,7 @@ namespace Xnp {
 			});
 			this.notebook.scroll_event.connect (notebook_scrolled_cb);
 			notify["name"].connect (() => {
-				int page = this.notebook.get_current_page ();
+				int page = this.notebook.page;
 				if (page == -1)
 					return;
 				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
@@ -555,7 +555,7 @@ namespace Xnp {
 		 * Switch tabs with mouse scroll wheel.
 		 */
 		private bool notebook_scrolled_cb (Gtk.Widget widget, Gdk.EventScroll event) {
-			var child = notebook.get_nth_page (notebook.get_current_page ());
+			var child = notebook.get_nth_page (notebook.page);
 
 			if (child == null)
 				return false;
@@ -598,7 +598,7 @@ namespace Xnp {
 			var label = tab_evbox.get_child () as Gtk.Label;
 			label.set_text (note.name);
 			_notebook_update_tabs_angle ();
-			int page = this.notebook.get_current_page ();
+			int page = this.notebook.page;
 			var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
 			if (note == current_note)
 				this.update_title (note.name);
@@ -647,7 +647,7 @@ namespace Xnp {
 		}
 
 		private void action_cancel () {
-			int page = notebook.get_current_page ();
+			int page = notebook.page;
 			if (page < 0)
 				return;
 			Gtk.Widget child = notebook.get_nth_page (page);
@@ -801,7 +801,7 @@ namespace Xnp {
 					mi.sensitive = false;
 					menu.append (mi);
 
-					int current_page = this.notebook.get_current_page ();
+					int current_page = this.notebook.page;
 					var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
 
 					int n_pages = this.notebook.get_n_pages ();
@@ -814,8 +814,7 @@ namespace Xnp {
 						}
 						mi.set_data ("page", p.to_pointer ());
 						mi.activate.connect ((i) => {
-							int page = i.get_data<int> ("page");
-							notebook.set_current_page (page);
+							notebook.page = i.get_data<int> ("page");
 						});
 						menu.append (mi);
 					}
@@ -885,7 +884,7 @@ namespace Xnp {
 		 * Get the current page in the notebook.
 		 */
 		public int get_current_page () {
-			return this.notebook.get_current_page ();
+			return this.notebook.page;
 		}
 
 		/**
@@ -894,7 +893,7 @@ namespace Xnp {
 		 * Set the current page in the notebook.
 		 */
 		public void set_current_page (int page) {
-			this.notebook.set_current_page (page);
+			this.notebook.page = page;
 		}
 
 		/*
@@ -975,7 +974,6 @@ namespace Xnp {
 				}
 			}
 
-			int page = this.notebook.get_current_page () + 1;
 			var note = new Xnp.Note (name);
 
 			note.notify["name"].connect (note_notify_name_cb);
@@ -989,7 +987,7 @@ namespace Xnp {
 			tab_evbox.add (label);
 			label.show ();
 			tab_evbox.button_press_event.connect (tab_evbox_pressed_cb);
-			this.notebook.insert_page (note, tab_evbox, page);
+			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
 			this.notebook.set_tab_reorderable (note, true);
 			this.note_inserted (note);
 			_notebook_update_tabs_angle ();
@@ -1035,7 +1033,7 @@ namespace Xnp {
 		 * Delete the current note.
 		 */
 		public void delete_current_note () {
-			this.delete_note (this.notebook.get_current_page ());
+			delete_note (this.notebook.page);
 		}
 
 		/**
@@ -1070,7 +1068,7 @@ namespace Xnp {
 		 * Rename the current note.
 		 */
 		public void rename_current_note () {
-			int page = this.notebook.get_current_page ();
+			int page = this.notebook.page;
 			if (page == -1)
 				return;
 			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
