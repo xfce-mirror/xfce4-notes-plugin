@@ -71,6 +71,9 @@ namespace Xnp {
 		};
 
 		private int CORNER_MARGIN = 20;
+		private Gdk.Cursor CURSOR_TOP_LC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.TOP_LEFT_CORNER);
+		private Gdk.Cursor CURSOR_TOP = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.TOP_SIDE);
+		private Gdk.Cursor CURSOR_TOP_RC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.TOP_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_RIGHT = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.RIGHT_SIDE);
 		private Gdk.Cursor CURSOR_LEFT = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.LEFT_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_RIGHT_CORNER);
@@ -183,7 +186,7 @@ namespace Xnp {
 
 		public Window () {
 			/* Window responses on pointer motion */
-			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.POINTER_MOTION_HINT_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
+			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
 
 			/* Build accelerators */
 			this.action_group = new Gtk.ActionGroup ("XNP");
@@ -375,7 +378,12 @@ namespace Xnp {
 		 *
 		 * Reset the mouse cursor.
 		 */
-		private bool window_leaved_cb () {
+		private bool window_leaved_cb (Gdk.EventCrossing event) {
+			Gtk.Allocation allocation;
+			get_allocation (out allocation);
+			bool outside = event.x <= 0 || event.x >= allocation.width
+				|| event.y <= 0 || event.y >= allocation.height;
+			if (!outside) return true;
 			get_window ().set_cursor (null);
 			return true;
 		}
@@ -387,6 +395,14 @@ namespace Xnp {
 		 */
 		private bool window_motion_cb (Gdk.EventMotion event) {
 			Gtk.Allocation allocation;
+			Gdk.Cursor cursor;
+			void *widget;
+
+			event.window.get_user_data (out widget);
+			if (widget != this) {
+				get_window ().set_cursor (null);
+				return false;
+			}
 
 			get_allocation (out allocation);
 
@@ -397,32 +413,36 @@ namespace Xnp {
 				return false;
 			}
 
-			// Right
-			if (event.x >= allocation.width - this.CORNER_MARGIN
-				&& event.y >= this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_RIGHT);
-			// Bottom right corner
-			else if (event.x >= allocation.width - this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_BOTTOM_RC);
+			// Top
+			if (event.y <= CORNER_MARGIN) {
+				// Top left corner
+				if (event.x <= CORNER_MARGIN)
+					cursor = CURSOR_TOP_LC;
+				// Top right corner
+				else if (event.x >= allocation.width - CORNER_MARGIN)
+					cursor = CURSOR_TOP_RC;
+				else
+					cursor = CURSOR_TOP;
+			}
 			// Bottom
-			else if (event.x > this.CORNER_MARGIN
-				&& event.y > allocation.height - this.CORNER_MARGIN
-				&& event.x < allocation.width - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_BOTTOM);
-			// Bottom left corner
-			else if (event.x <= this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_BOTTOM_LC);
+			else if (event.y > allocation.height - CORNER_MARGIN) {
+				// Bottom left corner
+				if (event.x <= CORNER_MARGIN)
+					cursor = CURSOR_BOTTOM_LC;
+				// Bottom right corner
+				else if (event.x >= allocation.width - CORNER_MARGIN)
+					cursor = CURSOR_BOTTOM_RC;
+				else
+					cursor = CURSOR_BOTTOM;
+			}
 			// Left
-			else if (event.x <= this.CORNER_MARGIN && event.y >= this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_LEFT);
-			// Default
+			else if (event.x <= CORNER_MARGIN)
+				cursor = CURSOR_LEFT;
+			// Right
 			else
-				get_window ().set_cursor (null);
+				cursor = CURSOR_RIGHT;
 
+			get_window ().set_cursor (cursor);
 			return true;
 		}
 
@@ -432,38 +452,25 @@ namespace Xnp {
 		 * Start a window resize depending on mouse pointer location.
 		 */
 		private bool window_pressed_cb (Gdk.EventButton event) {
+			var cursor = get_window ().get_cursor ();
 			Gdk.WindowEdge edge;
-			Gtk.Allocation allocation;
 
-			get_allocation (out allocation);
-
-			if (event.x > 4 && event.y > 4
-				&& event.x < allocation.width - 4
-				&& event.y < allocation.height - 4)
-				return false;
-
-			// Right
-			if (event.y > this.CORNER_MARGIN
-				&& event.x > allocation.width - this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.EAST;
-			// Bottom right corner
-			else if (event.x >= allocation.width - this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.SOUTH_EAST;
-			// Bottom
-			else if (event.x > this.CORNER_MARGIN
-				&& event.y > allocation.height - this.CORNER_MARGIN
-				&& event.x < allocation.width - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.SOUTH;
-			// Bottom left corner
-			else if (event.x <= this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.SOUTH_WEST;
-			// Left
-			else if (event.y > this.CORNER_MARGIN && event.x < this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.WEST;
+			if (cursor == CURSOR_TOP)
+				edge = NORTH;
+			else if (cursor == CURSOR_BOTTOM)
+				edge = SOUTH;
+			else if (cursor == CURSOR_LEFT)
+				edge = WEST;
+			else if (cursor == CURSOR_RIGHT)
+				edge = EAST;
+			else if (cursor == CURSOR_TOP_LC)
+				edge = NORTH_WEST;
+			else if (cursor == CURSOR_TOP_RC)
+				edge = NORTH_EAST;
+			else if (cursor == CURSOR_BOTTOM_LC)
+				edge = SOUTH_WEST;
+			else if (cursor == CURSOR_BOTTOM_RC)
+				edge = SOUTH_EAST;
 			else
 				return false;
 
@@ -498,6 +505,8 @@ namespace Xnp {
 		 */
 		private bool title_evbox_pressed_cb (Gtk.Widget widget, Gdk.EventButton event) {
 			if (event.type != Gdk.EventType.BUTTON_PRESS)
+				return false;
+			if (get_window ().get_cursor () != null)
 				return false;
 			if (event.button == 1) {
 				get_window ().show ();
