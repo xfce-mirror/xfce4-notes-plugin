@@ -594,12 +594,28 @@ namespace Xnp {
 		 */
 		private void note_notify_name_cb (GLib.Object object, GLib.ParamSpec? pspec) {
 			Xnp.Note note = object as Xnp.Note;
-			this.notebook.set_tab_label_text (note, note.name);
+			var tab_evbox = this.notebook.get_tab_label (note) as Gtk.EventBox;
+			var label = tab_evbox.get_child () as Gtk.Label;
+			label.set_text (note.name);
 			_notebook_update_tabs_angle ();
 			int page = this.notebook.get_current_page ();
 			var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
 			if (note == current_note)
 				this.update_title (note.name);
+		}
+
+		/**
+		 * tab_evbox_pressed_cb:
+		 *
+		 * Handle mouse click events on notebook tabs.
+		 */
+		private bool tab_evbox_pressed_cb (Gdk.EventButton event) {
+			if (event.type == DOUBLE_BUTTON_PRESS && event.button == 1)
+				action_rename_note ();
+			else
+				return false;
+
+			return true;
 		}
 
 		/*
@@ -967,9 +983,14 @@ namespace Xnp {
 
 			note.show ();
 			this.n_pages++;
-			this.notebook.insert_page (note, null, page);
+			var tab_evbox = new Gtk.EventBox ();
+			tab_evbox.add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.SCROLL_MASK);
+			var label = new Gtk.Label (name);
+			tab_evbox.add (label);
+			label.show ();
+			tab_evbox.button_press_event.connect (tab_evbox_pressed_cb);
+			this.notebook.insert_page (note, tab_evbox, page);
 			this.notebook.set_tab_reorderable (note, true);
-			note_notify_name_cb (note, null);
 			this.note_inserted (note);
 			_notebook_update_tabs_angle ();
 			return note;
@@ -1072,7 +1093,7 @@ namespace Xnp {
 
 			int res = dialog.run ();
 			dialog.hide ();
-			if (res == Gtk.ResponseType.OK) {
+			if (res == Gtk.ResponseType.OK && entry.text != note.name) {
 				string name = entry.text;
 				if (note_name_exists (name)) {
 					var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -1137,7 +1158,10 @@ namespace Xnp {
 			int pages = this.notebook.get_n_pages ();
 			for (int i = 0; i < pages; i++) {
 				var widget = this.notebook.get_nth_page (i);
-				var label = this.notebook.get_tab_label (widget) as Gtk.Label;
+				var tab_evbox = this.notebook.get_tab_label (widget) as Gtk.EventBox;
+				if (tab_evbox == null)
+					continue;
+				var label = tab_evbox.get_child () as Gtk.Label;
 				if (label is Gtk.Label) {
 					label.angle = angle;
 				}
