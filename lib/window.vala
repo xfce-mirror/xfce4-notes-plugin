@@ -1091,27 +1091,6 @@ namespace Xnp {
 		}
 
 		/**
-		 * set_font:
-		 *
-		 * Set the font for the window.
-		 */
-		public void set_font () {
-			int page = this.notebook.get_current_page ();
-			if (page == -1)
-				return;
-			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
-
-			var dialog = new Gtk.FontChooserDialog ("Choose current note font", this);
-			dialog.set_font (note.text_view.font);
-			int res = dialog.run ();
-			dialog.hide ();
-			if (res == Gtk.ResponseType.OK) {
-				note.text_view.font = dialog.get_font ();
-			}
-			dialog.destroy ();
-		}
-
-		/**
 		 * note_name_exists:
 		 *
 		 * Verify if the given name already exists in the notebook.

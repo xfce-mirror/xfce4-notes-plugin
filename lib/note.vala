@@ -18,7 +18,6 @@
  */
 
 using Gtk;
-using Pango;
 
 namespace Xnp {
 

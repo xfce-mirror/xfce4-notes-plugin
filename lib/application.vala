@@ -426,7 +426,7 @@ namespace Xnp {
 		/**
 		 * rename_window:
 		 *
-		 * Renames the window name.
+		 * Rename the window.
 		 */
 		private void rename_window (Xnp.Window window) {
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename group"), window,
