@@ -223,6 +223,7 @@ namespace Xnp {
 
 			/* Build title bar */
 			var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+			title_box.name = "titlebar";
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
