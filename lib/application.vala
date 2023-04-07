@@ -55,9 +55,6 @@ namespace Xnp {
 			xfconf_channel.property_changed["/global/background-color"].connect (() => {
 				update_color ();
 			});
-			Gtk.Settings.get_default ().notify["gtk-theme-name"].connect (() => {
-				update_color ();
-			});
 
 			if (notes_path == null) {
 				var default_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
@@ -143,14 +140,10 @@ namespace Xnp {
 
 		private void update_color () {
 			string color = xfconf_channel.get_string ("/global/background-color", "#F7EB96");
-			if (color == "GTK+") {
-				var style_widget = new Gtk.TextView ();
-				var style_context = style_widget.get_style_context ();
-				var state = style_context.get_state ();
-				var bg_color = style_context.get_background_color (state);
-				color = bg_color.to_string ();
-			}
-			theme.set_background_color (color);
+			if (color == "GTK+")
+				theme.use_gtk_style ();
+			else
+				theme.use_color (color);
 		}
 
 		private void quit () {

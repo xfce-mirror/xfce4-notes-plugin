@@ -29,24 +29,48 @@ namespace Xnp {
 		private Gtk.CssProvider css_provider_default;
 		private Gtk.CssProvider css_provider_system;
 		private Gtk.CssProvider css_provider_user;
+		private bool _use_gtk_style = true;
 		private Gdk.RGBA bg_color = {0};
 
 		public ThemeGtkcss() {
-			var default_screen = Gdk.Screen.get_default ();
-			css_provider_color = new Gtk.CssProvider ();
-			css_provider_default = new Gtk.CssProvider ();
-			css_provider_system = new Gtk.CssProvider ();
-			css_provider_user = new Gtk.CssProvider ();
 			css_path_default = "%s/gtk-3.0/gtk.css".printf (Config.PKGDATADIR);
 			css_path_system = "%s/xdg/xfce4/notes/gtk.css".printf (Config.SYSCONFDIR);
 			css_path_user = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/gtk.css", true);
-			Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_color, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-			Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-			Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_system, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
-			Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER + 1);
-			load_default_css ();
-			load_system_css ();
-			load_user_css ();
+			css_provider_color = new Gtk.CssProvider ();
+		}
+
+		public bool use_gtk_style {
+			get {
+				return _use_gtk_style;
+			}
+
+			set {
+				if (_use_gtk_style == value)
+					return;
+				var default_screen = Gdk.Screen.get_default ();
+				if (value) {
+					Gtk.StyleContext.remove_provider_for_screen (default_screen, css_provider_color);
+					Gtk.StyleContext.remove_provider_for_screen (default_screen, css_provider_default);
+					Gtk.StyleContext.remove_provider_for_screen (default_screen, css_provider_system);
+					Gtk.StyleContext.remove_provider_for_screen (default_screen, css_provider_user);
+					css_provider_default = null;
+					css_provider_system = null;
+					css_provider_user = null;
+				}
+				else {
+					css_provider_default = new Gtk.CssProvider ();
+					css_provider_system = new Gtk.CssProvider ();
+					css_provider_user = new Gtk.CssProvider ();
+					Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_color, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+					Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_default, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+					Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_system, Gtk.STYLE_PROVIDER_PRIORITY_USER - 1);
+					Gtk.StyleContext.add_provider_for_screen (default_screen, css_provider_user, Gtk.STYLE_PROVIDER_PRIORITY_USER + 1);
+					load_default_css ();
+					load_system_css ();
+					load_user_css ();
+				}
+				_use_gtk_style = value;
+			}
 		}
 
 		public void update_color_css (Gdk.RGBA rgba) {

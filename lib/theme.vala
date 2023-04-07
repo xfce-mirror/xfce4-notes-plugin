@@ -28,14 +28,20 @@ namespace Xnp {
 			theme_gtk_css = new Xnp.ThemeGtkcss ();
 		}
 
-		public void set_background_color (string color) {
+		public void use_gtk_style () {
+			theme_gtk_css.use_gtk_style = true;
+		}
+
+		public void use_color (string color) {
 			Gdk.RGBA rgba = {0};
 			if (!rgba.parse (color)) {
 				warning ("Cannot parse background color %s", color);
+				use_gtk_style ();
 				return;
 			}
 
 			theme_gtk_css.update_color_css (rgba);
+			theme_gtk_css.use_gtk_style = false;
 		}
 
 	}
