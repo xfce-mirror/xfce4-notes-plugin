@@ -262,12 +262,14 @@ namespace Xnp {
 			this.refresh_button.sensitive = false;
 			title_box.pack_start (this.refresh_button, false, false, 2);
 			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
+			this.left_arrow_button.add_events (Gdk.EventMask.SCROLL_MASK);
 			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Up, Gdk.ModifierType.CONTROL_MASK);
-			this.left_arrow_button.sensitive = false;
+			this.left_arrow_button.enabled = false;
 			title_box.pack_start (this.left_arrow_button, false, false, 2);
 			this.right_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.RIGHT_ARROW);
+			this.right_arrow_button.add_events (Gdk.EventMask.SCROLL_MASK);
 			this.right_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Down, Gdk.ModifierType.CONTROL_MASK);
-			this.right_arrow_button.sensitive = false;
+			this.right_arrow_button.enabled = false;
 			title_box.pack_start (this.right_arrow_button, false, false, 2);
 			this.close_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
 			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (Gdk.Key.Escape, 0));
@@ -314,8 +316,8 @@ namespace Xnp {
 			focus_out_event.connect (() => {
 				menu_image.sensitive = false;
 				refresh_button.sensitive = false;
-				left_arrow_button.sensitive = false;
-				right_arrow_button.sensitive = false;
+				left_arrow_button.enabled = false;
+				right_arrow_button.enabled = false;
 				close_button.sensitive = false;
 				return false;
 			});
@@ -325,6 +327,8 @@ namespace Xnp {
 			window_state_event.connect (window_state_cb);
 			title_evbox.button_press_event.connect (title_evbox_pressed_cb);
 			title_evbox.scroll_event.connect (title_evbox_scrolled_cb);
+			left_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
+			right_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			this.notebook.page_added.connect ((n, c, p) => {
 				notebook.page = (int)p;
 				update_navigation_sensitivity ((int)p);
@@ -337,7 +341,7 @@ namespace Xnp {
 				update_title (note.name);
 				update_navigation_sensitivity ((int)p);
 			});
-			this.notebook.scroll_event.connect (notebook_scrolled_cb);
+			this.notebook.scroll_event.connect (notebook_tab_scroll_cb);
 			notify["name"].connect (() => {
 				int page = this.notebook.page;
 				if (page == -1)
@@ -551,11 +555,11 @@ namespace Xnp {
 		}
 
 		/**
-		 * notebook_scrolled_cb:
+		 * notebook_tab_scroll_cb:
 		 *
 		 * Switch tabs with mouse scroll wheel.
 		 */
-		private bool notebook_scrolled_cb (Gtk.Widget widget, Gdk.EventScroll event) {
+		private bool notebook_tab_scroll_cb (Gdk.EventScroll event) {
 			var child = notebook.get_nth_page (notebook.page);
 
 			if (child == null)
@@ -944,12 +948,12 @@ namespace Xnp {
 		private void update_navigation_sensitivity (int page_num) {
 			int n_pages = notebook.get_n_pages ();
 			if (n_pages <= 1) {
-				this.left_arrow_button.sensitive = false;
-				this.right_arrow_button.sensitive = false;
+				this.left_arrow_button.enabled = false;
+				this.right_arrow_button.enabled = false;
 			}
 			else {
-				this.left_arrow_button.sensitive = page_num > 0 ? true : false;
-				this.right_arrow_button.sensitive = page_num + 1 < n_pages ? true : false;
+				this.left_arrow_button.enabled = page_num > 0 ? true : false;
+				this.right_arrow_button.enabled = page_num + 1 < n_pages ? true : false;
 			}
 		}
 
