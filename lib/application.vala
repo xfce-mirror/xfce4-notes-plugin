@@ -81,6 +81,8 @@ namespace Xnp {
 				/* Create first-run window */
 				create_window ();
 			}
+
+			Gtk.Window.set_default_icon_name ("xfce4-notes-plugin");
 		}
 
 		public Application (string config_file) {
