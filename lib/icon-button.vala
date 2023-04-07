@@ -88,7 +88,7 @@ namespace Xnp {
 		}
 
 		private bool on_button_release_event (Gdk.EventButton event) {
-			if (event.button != 1)
+			if (event.button != Gdk.BUTTON_PRIMARY)
 				return false;
 
 			int cur_x = (int)event.x;

@@ -553,7 +553,7 @@ cb_color_button_pressed (GtkButton *button,
 {
   gint id;
 
-  if (event->button != 1)
+  if (event->button != GDK_BUTTON_PRIMARY)
     return TRUE;
 
   id = gtk_combo_box_get_active (GTK_COMBO_BOX (color_combobox));

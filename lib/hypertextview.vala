@@ -113,7 +113,7 @@ namespace Xnp {
 			string link;
 			int x, y;
 
-			if (event.button != 1)
+			if (event.button != Gdk.BUTTON_PRIMARY)
 				return false;
 
 			this.buffer.get_selection_bounds (out start, out end);

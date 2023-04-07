@@ -507,7 +507,7 @@ namespace Xnp {
 				return false;
 			if (get_window ().get_cursor () != null)
 				return false;
-			if (event.button == 1) {
+			if (event.button == Gdk.BUTTON_PRIMARY) {
 				get_window ().show ();
 				int winx, winy, curx, cury;
 				get_position (out winx, out winy);
@@ -516,10 +516,10 @@ namespace Xnp {
 				winy += cury;
 				begin_move_drag (1, winx, winy, Gtk.get_current_event_time ());
 			}
-			else if (event.button == 2) {
+			else if (event.button == Gdk.BUTTON_MIDDLE) {
 				get_window ().lower ();
 			}
-			else if (event.button == 3) {
+			else if (event.button == Gdk.BUTTON_SECONDARY) {
 				this.menu.popup (null, null, null, 0, Gtk.get_current_event_time ());
 			}
 			return false;
@@ -611,7 +611,7 @@ namespace Xnp {
 		 * Handle mouse click events on notebook tabs.
 		 */
 		private bool tab_evbox_pressed_cb (Gdk.EventButton event) {
-			if (event.type == DOUBLE_BUTTON_PRESS && event.button == 1)
+			if (event.type == DOUBLE_BUTTON_PRESS && event.button == Gdk.BUTTON_PRIMARY)
 				action_rename_note ();
 			else
 				return false;
