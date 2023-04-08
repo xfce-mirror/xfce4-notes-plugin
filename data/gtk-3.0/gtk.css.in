@@ -32,11 +32,16 @@ window frame {
 	                                  shade (@theme_base_color, 0.95) 87px);
 }
 
-/* icon buttons in window title bar */
-window widget#notes-icon-button {
+/* title bar */
+#titlebar {
 	color: black;
 	background-color: transparent;
 }
+#titlebar:backdrop {
+	color: shade (@insensitive_fg_color, 0.95);
+}
+
+/* icon buttons in window title bar */
 window widget#notes-icon-button:active {
 	color: darker (@theme_fg_color);
 	text-shadow: 1px 1px lighter (@theme_bg_color);
