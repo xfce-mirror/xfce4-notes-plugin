@@ -117,6 +117,7 @@ namespace Xnp {
 						_("Select notes path"));
 					error_dialog.format_secondary_text (_("The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."), new_notes_path);
 					error_dialog.icon_name = "gtk-dialog-error";
+					error_dialog.title = _("Error");
 					error_dialog.run ();
 					error_dialog.destroy ();
 					xfconf_channel.set_string ("/global/notes-path", notes_path);
@@ -133,6 +134,7 @@ namespace Xnp {
 					_("Select notes path"));
 				error_dialog.format_secondary_text (_("Unable to select directory for new notes path: %s"), strerror (errno));
 				error_dialog.icon_name = "gtk-dialog-error";
+				error_dialog.title = _("Error");
 				error_dialog.run ();
 				error_dialog.destroy ();
 				xfconf_channel.set_string ("/global/notes-path", notes_path);
@@ -447,6 +449,7 @@ namespace Xnp {
 					var error_dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
 					error_dialog.icon_name = "gtk-dialog-error";
+					error_dialog.title = _("Error");
 					error_dialog.run ();
 					error_dialog.destroy ();
 				}
@@ -477,6 +480,7 @@ namespace Xnp {
 				var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this group?"));
 				dialog.icon_name = "gtk-delete";
+				dialog.title = window.name;
 				int res = dialog.run ();
 				dialog.destroy ();
 				if (res != Gtk.ResponseType.YES)
@@ -647,6 +651,7 @@ namespace Xnp {
 					Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name \"%s\" is invalid."), name);
 				error_dialog.format_secondary_markup (_("The invalid characters are: %s").printf ("<tt>*|/\\:\"&lt;&gt;?</tt>"));
 				error_dialog.icon_name = "gtk-dialog-error";
+				error_dialog.title = _("Error");
 				error_dialog.run ();
 				error_dialog.destroy ();
 			}
@@ -706,6 +711,7 @@ namespace Xnp {
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("Unable to open the settings dialog"));
 				error_dialog.format_secondary_text ("%s", e.message);
 				error_dialog.icon_name = "gtk-dialog-error";
+				error_dialog.title = _("Error");
 				error_dialog.run ();
 				error_dialog.destroy ();
 			}

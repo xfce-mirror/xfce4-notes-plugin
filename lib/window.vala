@@ -1052,6 +1052,7 @@ namespace Xnp {
 			if (note.text_view.buffer.get_char_count () > 0) {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this note?"));
+				dialog.title = this.name + " - " + note.name;
 				dialog.icon_name = "gtk-delete";
 				int res = dialog.run ();
 				dialog.destroy ();
@@ -1102,6 +1103,7 @@ namespace Xnp {
 					var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
 					error_dialog.icon_name = "gtk-dialog-error";
+					error_dialog.title = _("Error");
 					error_dialog.run ();
 					error_dialog.destroy ();
 				}
