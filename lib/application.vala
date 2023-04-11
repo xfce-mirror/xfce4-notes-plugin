@@ -314,6 +314,7 @@ namespace Xnp {
 						buffer.set_text (contents, -1);
 						Xfconf.property_bind (xfconf_channel, "/global/font-description",
 								typeof (string), note.text_view, "font");
+						note.dirty = false;
 					}
 					catch (FileError e) {
 						warning ("%s", e.message);
