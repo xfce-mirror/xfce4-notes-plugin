@@ -417,12 +417,19 @@ namespace Xnp {
 		 */
 		private void save_note (Xnp.Window window, Xnp.Note note) {
 			string path = "%s/%s/%s".printf (notes_path, window.name, note.name);
+			string old_contents;
+			try {
+				GLib.FileUtils.get_contents (path, out old_contents);
+			}
+			catch (FileError e) {
+			}
 			try {
 				Gtk.TextIter start, end;
 				var buffer = note.text_view.get_buffer ();
 				buffer.get_bounds (out start, out end);
 				string contents = buffer.get_text (start, end, true);
-				GLib.FileUtils.set_contents (path, contents, -1);
+				if (contents != old_contents)
+					GLib.FileUtils.set_contents (path, contents, -1);
 			}
 			catch (FileError e) {
 				warning ("%s", e.message);
