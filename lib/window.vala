@@ -959,6 +959,20 @@ namespace Xnp {
 			}
 		}
 
+		/**
+		 * popup_error:
+		 *
+		 * Show a pop-up error message.
+		 */
+		public void popup_error (string message) {
+			var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "%s", message);
+			error_dialog.icon_name = "gtk-dialog-error";
+			error_dialog.title = this.name;
+			error_dialog.run ();
+			error_dialog.destroy ();
+		}
+
 		/*
 		 * Note management
 		 */

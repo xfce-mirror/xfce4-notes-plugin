@@ -432,7 +432,7 @@ namespace Xnp {
 					GLib.FileUtils.set_contents (path, contents, -1);
 			}
 			catch (FileError e) {
-				warning ("%s", e.message);
+				window.popup_error (e.message);
 			}
 		}
 
