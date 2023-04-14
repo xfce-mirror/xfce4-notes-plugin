@@ -48,6 +48,13 @@ namespace Xnp {
 
 		public signal void save_data ();
 
+		public void save () {
+			if (this.dirty) {
+				this.dirty = false;
+				this.save_data ();
+			}
+		}
+
 		public Note (string name) {
 			GLib.Object ();
 

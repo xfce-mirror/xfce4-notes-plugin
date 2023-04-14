@@ -314,6 +314,7 @@ namespace Xnp {
 				return false;
 			});
 			focus_out_event.connect (() => {
+				save_current_note ();
 				menu_image.sensitive = false;
 				refresh_button.sensitive = false;
 				left_arrow_button.enabled = false;
@@ -338,6 +339,7 @@ namespace Xnp {
 			});
 			this.notebook.switch_page.connect ((n, c, p) => {
 				var note = (Xnp.Note)(notebook.get_nth_page ((int)p));
+				save_current_note ();
 				update_title (note.name);
 				update_navigation_sensitivity ((int)p);
 			});
@@ -1135,17 +1137,20 @@ namespace Xnp {
 		/**
 		 * save_notes:
 		 *
-		 * Send the save-data signal on every dirty note.
+		 * Save notes.
 		 */
 		public void save_notes () {
 			int n_pages = this.notebook.get_n_pages ();
 			for (int p = 0; p < n_pages; p++) {
 				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				if (note.dirty) {
-					note.dirty = false;
-					save_data (note);
-				}
+				note.save ();
 			}
+		}
+
+		private void save_current_note () {
+			var note = (Xnp.Note)(notebook.get_nth_page (notebook.page));
+			if (note != null)
+				note.save ();
 		}
 
 		/**
