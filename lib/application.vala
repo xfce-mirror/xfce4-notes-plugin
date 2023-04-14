@@ -462,25 +462,24 @@ namespace Xnp {
 			if (res == Gtk.ResponseType.OK) {
 				weak string name = entry.text;
 				if (window_name_exists (name)) {
-					var error_dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
-					error_dialog.icon_name = "gtk-dialog-error";
-					error_dialog.title = _("Error");
-					error_dialog.run ();
-					error_dialog.destroy ();
+					window.popup_error (_("The name %s is already in use").printf (name));
 				}
 				else {
 					if (!name_is_valid (name)) {
 						return;
 					}
-					string old_path = "%s/%s".printf (notes_path, window.name);
-					string new_path = "%s/%s".printf (notes_path, name);
-					window.name = name;
-					GLib.FileUtils.rename (old_path, new_path);
-					this.window_list.sort ((GLib.CompareFunc)window.compare_func);
+					try {
+						string path = "%s/%s".printf (notes_path, window.name);
+						var group_dir = File.new_for_path (path);
+						group_dir.set_display_name (name);
+						window.name = name;
+						this.window_list.sort ((GLib.CompareFunc)window.compare_func);
 
-					window_monitor_list_remove (window);
-					window_monitor_list_add (window);
+						window_monitor_list_remove (window);
+						window_monitor_list_add (window);
+					} catch (GLib.Error e) {
+						window.popup_error (e.message);
+					}
 				}
 			}
 			dialog.destroy ();
