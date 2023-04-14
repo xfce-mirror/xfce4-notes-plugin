@@ -361,7 +361,13 @@ namespace Xnp {
 		 * Save window configuration inside rc file.
 		 */
 		public void save_windows_configuration () {
+			var old_keyfile = new GLib.KeyFile ();
 			var keyfile = new GLib.KeyFile ();
+			try {
+				old_keyfile.load_from_file (config_file, GLib.KeyFileFlags.NONE);
+			}
+			catch (GLib.Error e) {
+			}
 			try {
 				foreach (var win in this.window_list) {
 					int winx, winy, width, height;
@@ -382,8 +388,10 @@ namespace Xnp {
 					keyfile.set_double (win.name, "Transparency", transparency);
 					keyfile.set_boolean (win.name, "Visible", visible);
 				}
+				string old_contents = old_keyfile.to_data (null);
 				string contents = keyfile.to_data (null);
-				GLib.FileUtils.set_contents (config_file, contents);
+				if (contents != old_contents)
+					GLib.FileUtils.set_contents (config_file, contents);
 			}
 			catch (FileError e) {
 				message ("Unable to save window configuration from %s: %s", config_file, e.message);
