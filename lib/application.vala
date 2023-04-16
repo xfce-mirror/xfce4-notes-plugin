@@ -507,12 +507,19 @@ namespace Xnp {
 			try {
 				var dir = GLib.Dir.open (path, 0);
 				while ((name = dir.read_name ()) != null) {
-					string filename = "%s/%s".printf (path, name);
-					GLib.FileUtils.unlink (filename);
+					File.new_for_path ("%s/%s".printf (path, name)).delete ();
 				}
-				GLib.DirUtils.remove (path);
+				File.new_for_path (path).delete ();
 			}
-			catch (FileError e) {
+			catch (GLib.Error e) {
+				window.popup_error (e.message);
+				name = window.name;
+				window_monitor_list_remove (window);
+				this.window_list.remove (window);
+				window.destroy ();
+				var win = create_window (name);
+				win.show ();
+				return;
 			}
 
 			window_monitor_list_remove (window);
