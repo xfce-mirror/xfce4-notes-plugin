@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Andi Chandler <andi@gowling.com>, 2023
 # Jeff Bailes <thepizzaking@gmail.com>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-11-16 23:48+0000\n"
-"Last-Translator: Robert Readman <robert_readman@hotmail.com>\n"
-"Language-Team: English (United Kingdom) (http://www.transifex.com/xfce/xfce-panel-plugins/language/en_GB/)\n"
+"POT-Creation-Date: 2022-11-28 15:07+0100\n"
+"PO-Revision-Date: 2013-07-03 19:09+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
+"Language-Team: English (United Kingdom) (http://app.transifex.com/xfce/xfce-panel-plugins/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +23,7 @@ msgstr ""
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
 #: ../lib/application.vala:181 ../lib/application.vala:208
 #: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
+#: ../lib/window.vala:914 ../src/main-panel-plugin.vala:47
 #: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
 #: ../src/main-settings-dialog.c:103
 msgid "Notes"
@@ -51,7 +52,7 @@ msgstr "The selected directory (%s) for the new notes path already contains file
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Unable to select directory for new notes path: %s"
 
-#: ../lib/application.vala:185 ../lib/window.vala:918
+#: ../lib/application.vala:185 ../lib/window.vala:917
 #, c-format
 msgid "Notes %d"
 msgstr "Notes %d"
@@ -60,7 +61,7 @@ msgstr "Notes %d"
 msgid "Rename group"
 msgstr "Rename group"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1041
+#: ../lib/application.vala:446 ../lib/window.vala:1040
 #, c-format
 msgid "The name %s is already in use"
 msgstr "The name %s is already in use"
@@ -96,7 +97,7 @@ msgstr "Unable to open the settings dialogue"
 msgid "translator-credits"
 msgstr "Jeff Bailes <thepizzaking@gmail.com>, 2010"
 
-#: ../lib/application.vala:767 ../lib/window.vala:784
+#: ../lib/application.vala:767 ../lib/window.vala:783
 msgid "_Add a new group"
 msgstr "_Add a new group"
 
@@ -120,11 +121,11 @@ msgstr "_Groups"
 
 #: ../lib/window.vala:674
 msgid "_New"
-msgstr ""
+msgstr "_New"
 
 #: ../lib/window.vala:679
 msgid "_Delete"
-msgstr ""
+msgstr "_Delete"
 
 #: ../lib/window.vala:684
 msgid "_Rename"
@@ -132,7 +133,7 @@ msgstr "_Rename"
 
 #: ../lib/window.vala:689
 msgid "_Undo"
-msgstr ""
+msgstr "_Undo"
 
 #. Always on top
 #: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
@@ -143,29 +144,29 @@ msgstr "Always on top"
 msgid "Sticky window"
 msgstr "Sticky window"
 
-#: ../lib/window.vala:774
+#: ../lib/window.vala:773
 msgid "_Rename group"
 msgstr "_Rename group"
 
-#: ../lib/window.vala:779
+#: ../lib/window.vala:778
 msgid "_Delete group"
 msgstr "_Delete group"
 
-#: ../lib/window.vala:993
+#: ../lib/window.vala:992
 msgid "Are you sure you want to delete this note?"
 msgstr "Are you sure you want to delete this note?"
 
-#: ../lib/window.vala:1019
+#: ../lib/window.vala:1018
 msgid "Rename note"
 msgstr "Rename note"
 
 #: ../src/main-status-icon.vala:60
 msgid "_Properties"
-msgstr ""
+msgstr "_Properties"
 
 #: ../src/main-status-icon.vala:64
 msgid "_About"
-msgstr ""
+msgstr "_About"
 
 #: ../src/main-status-icon.vala:71
 msgid "_Remove"
