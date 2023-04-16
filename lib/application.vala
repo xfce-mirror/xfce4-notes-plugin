@@ -166,7 +166,7 @@ namespace Xnp {
 		 * Creates a new Xnp.Window and stores it inside window_list.
 		 * If a name is given, it assumes it can load existing notes.
 		 */
-		public Xnp.Window create_window (string? name = null) {
+		public Xnp.Window? create_window (string? name = null) {
 			var window = new Xnp.Window ();
 
 			/* Default settings */
@@ -214,7 +214,11 @@ namespace Xnp {
 					this.load_window_data (window);
 				}
 				catch (FileError e) {
-					critical ("Unable to initialize a notes group: %s", e.message);
+					window.popup_error (e.message);
+					window_monitor_list_remove (window);
+					this.window_list.remove (window);
+					window.destroy ();
+					return null;
 				}
 			}
 			else {
@@ -242,6 +246,8 @@ namespace Xnp {
 				}
 				else if (action == "create-new-window") {
 					var new_win = create_window ();
+					if (new_win == null)
+						return;
 					new_win.show ();
 					set_data_value (win, "internal-change", true);
 				}
@@ -518,7 +524,8 @@ namespace Xnp {
 				this.window_list.remove (window);
 				window.destroy ();
 				var win = create_window (name);
-				win.show ();
+				if (win != null)
+					win.show ();
 				return;
 			}
 
@@ -534,7 +541,8 @@ namespace Xnp {
 			}
 			else {
 				var new_win = create_window ();
-				new_win.show ();
+				if (new_win != null)
+					new_win.show ();
 			}
 		}
 
@@ -561,7 +569,8 @@ namespace Xnp {
 				window.destroy ();
 				// Create new window object
 				var win = create_window (name);
-				win.show ();
+				if (win != null)
+					win.show ();
 			}
 			else {
 				set_data_value (window, "external-change", false);
@@ -800,7 +809,8 @@ namespace Xnp {
 				var mi_add = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
 				mi_add.activate.connect (() => {
 					var new_win = create_window ();
-					new_win.show ();
+					if (new_win != null)
+						new_win.show ();
 				});
 				var image = new Gtk.Image.from_icon_name ("gtk-add", Gtk.IconSize.MENU);
 				mi_add.set_image (image);
