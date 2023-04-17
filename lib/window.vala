@@ -616,9 +616,11 @@ namespace Xnp {
 		 *
 		 * Handle mouse click events on notebook tabs.
 		 */
-		private bool tab_evbox_pressed_cb (Gdk.EventButton event) {
+		private bool tab_evbox_pressed_cb (Gdk.EventButton event, Xnp.Note note) {
 			if (event.type == DOUBLE_BUTTON_PRESS && event.button == Gdk.BUTTON_PRIMARY)
 				action_rename_note ();
+			else if (event.button == Gdk.BUTTON_MIDDLE)
+				delete_note (notebook.page_num (note));
 			else
 				return false;
 
@@ -1007,7 +1009,7 @@ namespace Xnp {
 			var label = new Gtk.Label (name);
 			tab_evbox.add (label);
 			label.show ();
-			tab_evbox.button_press_event.connect (tab_evbox_pressed_cb);
+			tab_evbox.button_press_event.connect ((e) => tab_evbox_pressed_cb (e, note));
 			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
 			this.notebook.set_tab_reorderable (note, true);
 			this.note_inserted (note);
