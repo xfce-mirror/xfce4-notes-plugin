@@ -619,8 +619,10 @@ namespace Xnp {
 		private bool tab_evbox_pressed_cb (Gdk.EventButton event, Xnp.Note note) {
 			if (event.type == DOUBLE_BUTTON_PRESS && event.button == Gdk.BUTTON_PRIMARY)
 				action_rename_note ();
-			else if (event.button == Gdk.BUTTON_MIDDLE)
-				delete_note (notebook.page_num (note));
+			else if (event.button == Gdk.BUTTON_MIDDLE) {
+				notebook.page = notebook.page_num (note);
+				delete_current_note ();
+			}
 			else
 				return false;
 
