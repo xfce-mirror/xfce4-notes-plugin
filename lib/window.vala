@@ -169,7 +169,7 @@ namespace Xnp {
 		public signal void save_data (Xnp.Note note);
 		public signal void note_inserted (Xnp.Note note);
 		public signal void note_deleted (Xnp.Note note);
-		public signal void note_renamed (Xnp.Note note, string old_name);
+		public signal void note_renamed (Xnp.Note note, string name);
 
 		construct {
 			((Gtk.Widget)this).name = "notes-window";
@@ -1128,9 +1128,7 @@ namespace Xnp {
 					error_dialog.destroy ();
 				}
 				else {
-					string old_name = note.name;
-					note.name = name;
-					this.note_renamed (note, old_name);
+					this.note_renamed (note, name);
 				}
 			}
 			dialog.destroy ();

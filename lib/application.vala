@@ -290,15 +290,20 @@ namespace Xnp {
 					win.popup_error (e.message);
 				}
 			});
-			window.note_renamed.connect ((win, note, old_name) => {
-				if (!name_is_valid (note.name)) {
-					note.name = old_name;
+			window.note_renamed.connect ((win, note, name) => {
+				if (!name_is_valid (name)) {
 					return;
 				}
-				string old_path = "%s/%s/%s".printf (notes_path, win.name, old_name);
-				string new_path = "%s/%s/%s".printf (notes_path, win.name, note.name);
-				GLib.FileUtils.rename (old_path, new_path);
-				set_data_value (win, "internal-change", true);
+				try {
+					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
+					var note_file = File.new_for_path (path);
+					note_file.set_display_name (name);
+					set_data_value (win, "internal-change", true);
+					note.name = name;
+				}
+				catch (GLib.Error e) {
+					win.popup_error (e.message);
+				}
 			});
 
 			return window;
