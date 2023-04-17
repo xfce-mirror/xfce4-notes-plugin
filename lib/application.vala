@@ -277,12 +277,18 @@ namespace Xnp {
 					set_data_value (win, "internal-change", true);
 				}
 				catch (FileError e) {
+					win.popup_error (e.message);
 				}
 			});
 			window.note_deleted.connect ((win, note) => {
-				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
-				GLib.FileUtils.unlink (path);
-				set_data_value (win, "internal-change", true);
+				try {
+					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
+					File.new_for_path (path).delete ();
+					set_data_value (win, "internal-change", true);
+				}
+				catch (GLib.Error e) {
+					win.popup_error (e.message);
+				}
 			});
 			window.note_renamed.connect ((win, note, old_name) => {
 				if (!name_is_valid (note.name)) {
