@@ -273,8 +273,10 @@ namespace Xnp {
 
 				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				try {
+					note.backed = false;
 					GLib.FileUtils.set_contents (path, "", -1);
 					set_data_value (win, "internal-change", true);
+					note.backed = true;
 				}
 				catch (FileError e) {
 					win.popup_error (e.message);
@@ -285,6 +287,7 @@ namespace Xnp {
 					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 					File.new_for_path (path).delete ();
 					set_data_value (win, "internal-change", true);
+					note.backed = false;
 				}
 				catch (GLib.Error e) {
 					win.popup_error (e.message);
@@ -332,6 +335,7 @@ namespace Xnp {
 						Xfconf.property_bind (xfconf_channel, "/global/font-description",
 								typeof (string), note.text_view, "font");
 						note.dirty = false;
+						note.backed = true;
 					}
 					catch (FileError e) {
 						warning ("%s", e.message);
@@ -447,6 +451,7 @@ namespace Xnp {
 				string contents = buffer.get_text (start, end, true);
 				if (contents != old_contents)
 					GLib.FileUtils.set_contents (path, contents, -1);
+				note.backed = true;
 			}
 			catch (FileError e) {
 				window.popup_error (e.message);

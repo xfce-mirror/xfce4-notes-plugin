@@ -1000,6 +1000,10 @@ namespace Xnp {
 			}
 
 			var note = new Xnp.Note (name);
+			this.note_inserted (note);
+			if (!note.backed) {
+				return note;
+			}
 
 			note.notify["name"].connect (note_notify_name_cb);
 			note.save_data.connect ((note) => { save_data (note); });
@@ -1014,7 +1018,6 @@ namespace Xnp {
 			tab_evbox.button_press_event.connect ((e) => tab_evbox_pressed_cb (e, note));
 			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
 			this.notebook.set_tab_reorderable (note, true);
-			this.note_inserted (note);
 			_notebook_update_tabs_angle ();
 			return note;
 		}
@@ -1080,9 +1083,12 @@ namespace Xnp {
 					return;
 			}
 
+			this.note_deleted (note);
+			if (note.backed)
+				return;
+
 			this.n_pages--;
 			this.notebook.remove_page (page);
-			this.note_deleted (note);
 			note.destroy ();
 			if (this.notebook.get_n_pages () == 0)
 				action ("delete");

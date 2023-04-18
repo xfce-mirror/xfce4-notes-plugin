@@ -25,6 +25,7 @@ namespace Xnp {
 
 		public Xnp.HypertextView text_view;
 		public new string name { get; set; }
+		public bool backed = true;
 
 		private uint save_timeout;
 		private bool _dirty = false;
