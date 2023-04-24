@@ -75,9 +75,8 @@ static Gtk.Menu build_context_menu () {
 
 	menu_add_separator (menu);
 	menu_add_icon_item (menu, _("_Quit"), "gtk-quit", () => {
-		application.save_notes ();
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
-		Gtk.main_quit ();
+		application.quit ();
 	});
 
 	menu.show_all ();

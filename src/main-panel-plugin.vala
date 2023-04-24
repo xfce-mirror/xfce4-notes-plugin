@@ -61,10 +61,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 			return true;
 		});
 		save.connect (() => { application.save_windows_configuration (); });
-		free_data.connect (() => {
-			application.save_windows_configuration ();
-			application.save_notes ();
-		});
+		free_data.connect (() => { application.save_notes (); });
 		configure_plugin.connect (() => { application.open_settings_dialog (); });
 		about.connect (() => { application.open_about_dialog (); });
 	}

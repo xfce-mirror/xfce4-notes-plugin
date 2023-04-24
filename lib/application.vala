@@ -94,7 +94,6 @@ namespace Xnp {
 		}
 
 		~Application () {
-			save_windows_configuration ();
 			xfconf_channel = null;
 			Xfconf.shutdown ();
 			foreach (var win in this.window_list) {
@@ -150,9 +149,10 @@ namespace Xnp {
 				theme.use_color (color);
 		}
 
-		private void quit () {
+		public void quit () {
 			// Save notes before leaving the main loop since it works with GObject signals
 			save_notes ();
+			save_windows_configuration ();
 			Gtk.main_quit ();
 		}
 
