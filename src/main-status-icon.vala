@@ -44,6 +44,7 @@ static void build_plugin () {
 	status_icon.popup_menu.connect (() => {
 		context_menu.popup (null, null, status_icon.position_menu, 0, Gtk.get_current_event_time ());
 	});
+	application.system_tray_mode = true;
 }
 
 delegate void Callback();

@@ -28,6 +28,7 @@ namespace Xnp {
 		private SList<Xnp.Window> window_list;
 		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
+		public bool system_tray_mode = false;
 		private Xfconf.Channel xfconf_channel;
 		private Xnp.Theme theme;
 
@@ -306,6 +307,17 @@ namespace Xnp {
 				}
 				catch (GLib.Error e) {
 					win.popup_error (e.message);
+				}
+			});
+			/*
+			 * When working in system tray mode, save windows configuration
+			 * when the topmost window switched
+			 */
+			window.state_flags_changed.connect ((widget, flags) => {
+				if (this.system_tray_mode) {
+					if ((widget.get_state_flags () & Gtk.StateFlags.BACKDROP) != 0) {
+						save_windows_configuration ();
+					}
 				}
 			});
 
