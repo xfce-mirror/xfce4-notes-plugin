@@ -51,7 +51,6 @@ namespace Xnp {
 
 		public void save () {
 			if (this.dirty) {
-				this.dirty = false;
 				this.save_data ();
 			}
 		}
@@ -101,9 +100,8 @@ namespace Xnp {
 		 * Send save-data signal.
 		 */
 		private bool save_cb () {
-			this.save_data ();
 			this.save_timeout = 0;
-			this._dirty = false;
+			this.save_data ();
 			return false;
 		}
 

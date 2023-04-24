@@ -451,6 +451,7 @@ namespace Xnp {
 				string contents = buffer.get_text (start, end, true);
 				if (contents != old_contents)
 					GLib.FileUtils.set_contents (path, contents, -1);
+				note.dirty = false;
 				note.backed = true;
 			}
 			catch (FileError e) {
