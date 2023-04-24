@@ -83,7 +83,12 @@ namespace Xnp {
 		private unowned SList<Xnp.Window> window_list;
 
 		public new string name { default = _("Notes"); get; set; }
-		public int n_pages { get; set; }
+
+		public int n_pages {
+			get {
+				return this.notebook.get_n_pages ();
+			}
+		}
 
 		public bool show_tabs {
 			get {
@@ -815,7 +820,7 @@ namespace Xnp {
 					int current_page = this.notebook.page;
 					var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
 
-					int n_pages = this.notebook.get_n_pages ();
+					int n_pages = this.n_pages;
 					for (int p = 0; p < n_pages; p++) {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
 						mi = new Gtk.ImageMenuItem.with_label (note.name);
@@ -952,7 +957,7 @@ namespace Xnp {
 		 * Update the goleft/right sensitivities.
 		 */
 		private void update_navigation_sensitivity (int page_num) {
-			int n_pages = notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			if (n_pages <= 1) {
 				this.left_arrow_button.enabled = false;
 				this.right_arrow_button.enabled = false;
@@ -988,7 +993,7 @@ namespace Xnp {
 		 * the current position.
 		 */
 		public Xnp.Note insert_note () {
-			int len = this.notebook.get_n_pages ();
+			int len = this.n_pages;
 			string name = _("Notes");
 			for (int id = 1; id <= len + 1; id++) {
 				if (id > 1) {
@@ -1009,7 +1014,6 @@ namespace Xnp {
 			note.save_data.connect ((note) => { save_data (note); });
 
 			note.show ();
-			this.n_pages++;
 			var tab_evbox = new Gtk.EventBox ();
 			tab_evbox.add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.SCROLL_MASK);
 			var label = new Gtk.Label (name);
@@ -1028,7 +1032,7 @@ namespace Xnp {
 		 * Moves the note named @note_name to position @page.
 		 */
 		public void move_note (string note_name, int page) {
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
 				var note = (Xnp.Note)this.notebook.get_nth_page (p);
 				if (note.name == note_name) {
@@ -1047,7 +1051,7 @@ namespace Xnp {
 		 */
 		public string[] get_note_names () {
 			string[] note_names = null;
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
 				var note = (Xnp.Note)this.notebook.get_nth_page (p);
 				note_names += note.name;
@@ -1087,10 +1091,9 @@ namespace Xnp {
 			if (note.backed)
 				return;
 
-			this.n_pages--;
 			this.notebook.remove_page (page);
 			note.destroy ();
-			if (this.notebook.get_n_pages () == 0)
+			if (this.n_pages == 0)
 				action ("delete");
 		}
 
@@ -1146,7 +1149,7 @@ namespace Xnp {
 		 * Verify if the given name already exists in the notebook.
 		 */
 		private bool note_name_exists (string name) {
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
 				var note = (Xnp.Note)this.notebook.get_nth_page (p);
 				if (note.name == name) {
@@ -1162,7 +1165,7 @@ namespace Xnp {
 		 * Save notes.
 		 */
 		public void save_notes () {
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
 				var note = (Xnp.Note)this.notebook.get_nth_page (p);
 				note.save ();
@@ -1187,8 +1190,8 @@ namespace Xnp {
 			else if (_tabs_position == 4)
 				angle = 90;
 
-			int pages = this.notebook.get_n_pages ();
-			for (int i = 0; i < pages; i++) {
+			int n_pages = this.n_pages;
+			for (int i = 0; i < n_pages; i++) {
 				var widget = this.notebook.get_nth_page (i);
 				var tab_evbox = this.notebook.get_tab_label (widget) as Gtk.EventBox;
 				if (tab_evbox == null)
