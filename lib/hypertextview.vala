@@ -60,6 +60,7 @@ namespace Xnp {
 			this.style_updated.connect (style_updated_cb);
 			this.button_release_event.connect (button_release_event_cb);
 			this.motion_notify_event.connect (motion_notify_event_cb);
+			this.state_flags_changed.connect (state_flags_changed_cb);
 			this.move_cursor.connect (move_cursor_cb);
 			this.buffer.changed.connect (buffer_changed_cb);
 			this.buffer.insert_text.connect (insert_text_cb);
@@ -186,6 +187,18 @@ namespace Xnp {
 			}
 
 			return false;
+		}
+
+		/**
+		 * state_flags_changed_cb:
+		 *
+		 * Fix mouse cursor behavior after clicking on a link.
+		 */
+		private void state_flags_changed_cb () {
+			if (get_realized () && this.sensitive) {
+				var win = get_window (Gtk.TextWindowType.TEXT);
+				win.set_cursor (this.cursor_over_link ? this.hand_cursor : this.regular_cursor);
+			}
 		}
 
 		/**
