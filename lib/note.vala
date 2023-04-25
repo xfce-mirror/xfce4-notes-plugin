@@ -35,6 +35,7 @@ namespace Xnp {
 			}
 			set {
 				this.text_view.buffer.text = value;
+				this.text_view.update_tags ();
 				this.text_view.init_undo ();
 				this.dirty = false;
 			}
