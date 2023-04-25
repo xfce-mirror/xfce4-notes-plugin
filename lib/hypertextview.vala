@@ -30,9 +30,10 @@ namespace Xnp {
 		private bool cursor_over_link = false;
 
 		private uint undo_timeout = 0;
-		private int undo_cursor_pos;
 		private string undo_text = "";
 		private string redo_text = "";
+		private int undo_cursor_pos;
+		private int redo_cursor_pos;
 
 		private uint tag_timeout = 0;
 		private Gtk.TextTag tag_link;
@@ -349,14 +350,33 @@ namespace Xnp {
 		 */
 
 		/**
+		 * init_undo:
+		 *
+		 * Initialize the undo stack after loading a note.
+		 */
+		public void init_undo () {
+			this.undo_text = null;
+			this.redo_text = this.buffer.text;
+			this.redo_cursor_pos = this.buffer.cursor_position;
+			if (this.undo_timeout > 0) {
+				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
+			}
+		}
+
+		/**
 		 * undo_snapshot:
 		 *
 		 * Makes a snapshot of the current buffer and swaps undo/redo texts.
 		 */
 		private bool undo_snapshot () {
-			this.undo_cursor_pos = this.buffer.cursor_position;
-			this.undo_text = this.redo_text;
-			this.redo_text = this.buffer.text;
+			var text = this.buffer.text;
+			if (text != this.redo_text) {
+				this.undo_text = this.redo_text;
+				this.redo_text = text;
+				this.undo_cursor_pos = this.redo_cursor_pos;
+				this.redo_cursor_pos = this.buffer.cursor_position;
+			}
 
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
@@ -377,6 +397,9 @@ namespace Xnp {
 			if (this.undo_timeout > 0)
 				undo_snapshot ();
 
+			if (this.undo_text == null)
+				return;
+
 			this.buffer.text = this.undo_text;
 			this.buffer.get_iter_at_offset (out iter, this.undo_cursor_pos);
 			this.buffer.place_cursor (iter);
@@ -385,13 +408,18 @@ namespace Xnp {
 			this.scroll_to_iter (iter, 0.0, false, 0.5, 0.5);
 
 			var undo_text = this.undo_text;
+			var undo_cursor_pos = this.undo_cursor_pos;
 			this.undo_text = this.redo_text;
+			this.undo_cursor_pos = this.redo_cursor_pos;
 			this.redo_text = undo_text;
+			this.redo_cursor_pos = undo_cursor_pos;
 
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
 				this.undo_timeout = 0;
 			}
+
+			update_tags ();
 		}
 
 		/*
