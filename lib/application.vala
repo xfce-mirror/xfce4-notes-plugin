@@ -362,11 +362,9 @@ namespace Xnp {
 						GLib.FileUtils.get_contents (file.get_path (), out contents, null);
 						var note = window.insert_note ();
 						note.name = name;
-						var buffer = note.text_view.get_buffer ();
-						buffer.set_text (contents, -1);
+						note.text = contents;
 						Xfconf.property_bind (xfconf_channel, "/global/font-description",
 								typeof (string), note.text_view, "font");
-						note.dirty = false;
 						note.backed = true;
 					}
 					catch (FileError e) {
@@ -476,10 +474,7 @@ namespace Xnp {
 			catch (FileError e) {
 			}
 			try {
-				Gtk.TextIter start, end;
-				var buffer = note.text_view.get_buffer ();
-				buffer.get_bounds (out start, out end);
-				string contents = buffer.get_text (start, end, true);
+				string contents = note.text;
 				if (contents != old_contents)
 					GLib.FileUtils.set_contents (path, contents, -1);
 				note.dirty = false;

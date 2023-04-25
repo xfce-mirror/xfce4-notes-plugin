@@ -55,8 +55,6 @@ namespace Xnp {
 		}
 
 		public HypertextView () {
-			Gtk.TextIter iter;
-
 			this.style_updated.connect (style_updated_cb);
 			this.button_release_event.connect (button_release_event_cb);
 			this.motion_notify_event.connect (motion_notify_event_cb);
@@ -65,9 +63,6 @@ namespace Xnp {
 			this.buffer.changed.connect (buffer_changed_cb);
 			this.buffer.insert_text.connect (insert_text_cb);
 			this.buffer.delete_range.connect (delete_range_cb);
-
-			this.buffer.get_iter_at_offset (out iter, 0);
-			this.buffer.create_mark ("undo-pos", iter, false);
 
 			this.tag_link = this.buffer.create_tag ("link",
 					"foreground", "blue",
@@ -209,10 +204,7 @@ namespace Xnp {
 		private void move_cursor_cb (Gtk.Widget hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
 			if (this.undo_timeout > 0) {
 				/* Make an undo snapshot and save cursor_position before it really moves */
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
 				undo_snapshot ();
-				this.undo_cursor_pos = this.buffer.cursor_position;
 			}
 
 			if (this.tag_timeout > 0) {
@@ -362,15 +354,9 @@ namespace Xnp {
 		 * Makes a snapshot of the current buffer and swaps undo/redo texts.
 		 */
 		private bool undo_snapshot () {
-			Gtk.TextIter start, end;
-
 			this.undo_cursor_pos = this.buffer.cursor_position;
-
-			this.buffer.get_iter_at_offset (out start, 0);
-			this.buffer.get_iter_at_offset (out end, -1);
-
 			this.undo_text = this.redo_text;
-			this.redo_text = this.buffer.get_text (start, end, false);
+			this.redo_text = this.buffer.text;
 
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
@@ -387,28 +373,20 @@ namespace Xnp {
 		 */
 		public void undo () {
 			Gtk.TextIter iter;
-			Gtk.TextMark mark;
-			string tmp;
 
-			if (this.undo_timeout > 0) {
-				/* Make an undo snaphot */
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
+			if (this.undo_timeout > 0)
 				undo_snapshot ();
-			}
 
-			this.buffer.set_text (this.undo_text, -1);
+			this.buffer.text = this.undo_text;
 			this.buffer.get_iter_at_offset (out iter, this.undo_cursor_pos);
 			this.buffer.place_cursor (iter);
 
 			/* Scroll to the cursor position */
-			mark = this.buffer.get_mark ("undo-pos");
-			this.buffer.move_mark (mark, iter);
-			this.scroll_to_mark (mark, 0.0, false, 0.5, 0.5);
+			this.scroll_to_iter (iter, 0.0, false, 0.5, 0.5);
 
-			tmp = this.undo_text;
+			var undo_text = this.undo_text;
 			this.undo_text = this.redo_text;
-			this.redo_text = tmp;
+			this.redo_text = undo_text;
 
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);

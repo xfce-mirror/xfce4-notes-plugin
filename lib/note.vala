@@ -29,6 +29,16 @@ namespace Xnp {
 		public ulong tab_handler_id;
 		public bool backed = true;
 
+		public string text {
+			owned get {
+				return this.text_view.buffer.text;
+			}
+			set {
+				this.text_view.buffer.text = value;
+				this.dirty = false;
+			}
+		}
+
 		private uint save_timeout;
 		private bool _dirty = false;
 		public bool dirty {
@@ -39,11 +49,9 @@ namespace Xnp {
 				this._dirty = value;
 				if (this.save_timeout > 0) {
 					Source.remove (this.save_timeout);
-				}
-				if (value == false) {
 					this.save_timeout = 0;
 				}
-				else {
+				if (value) {
 					this.save_timeout = Timeout.add_seconds (60, save_cb);
 				}
 			}

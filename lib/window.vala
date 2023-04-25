@@ -981,8 +981,8 @@ namespace Xnp {
 				this.right_arrow_button.enabled = false;
 			}
 			else {
-				this.left_arrow_button.enabled = page_num > 0 ? true : false;
-				this.right_arrow_button.enabled = page_num + 1 < n_pages ? true : false;
+				this.left_arrow_button.enabled = page_num > 0;
+				this.right_arrow_button.enabled = page_num + 1 < n_pages;
 			}
 		}
 
