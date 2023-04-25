@@ -609,7 +609,7 @@ namespace Xnp {
 		 */
 		private void note_notify_name_cb (GLib.Object object, GLib.ParamSpec? pspec) {
 			Xnp.Note note = object as Xnp.Note;
-			var tab_evbox = this.notebook.get_tab_label (note) as Gtk.EventBox;
+			var tab_evbox = get_tab_evbox (note);
 			var label = tab_evbox.get_child () as Gtk.Label;
 			label.set_text (note.name);
 			_notebook_update_tabs_angle ();
@@ -1066,6 +1066,15 @@ namespace Xnp {
 		}
 
 		/**
+		 * get_tab_evbox:
+		 *
+		 * Get tab event box for note.
+		 */
+		public Gtk.EventBox get_tab_evbox (Xnp.Note note) {
+			return this.notebook.get_tab_label (note) as Gtk.EventBox;
+		}
+
+		/**
 		 * delete_current_note:
 		 *
 		 * Delete the current note.
@@ -1195,14 +1204,12 @@ namespace Xnp {
 
 			int n_pages = this.n_pages;
 			for (int i = 0; i < n_pages; i++) {
-				var widget = get_note (i);
-				var tab_evbox = this.notebook.get_tab_label (widget) as Gtk.EventBox;
+				var tab_evbox = get_tab_evbox (get_note (i));
 				if (tab_evbox == null)
 					continue;
 				var label = tab_evbox.get_child () as Gtk.Label;
-				if (label is Gtk.Label) {
+				if (label != null)
 					label.angle = angle;
-				}
 			}
 		}
 
