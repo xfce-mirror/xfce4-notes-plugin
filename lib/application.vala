@@ -320,6 +320,26 @@ namespace Xnp {
 					}
 				}
 			});
+			/* Handle exchange of tabs between windows */
+			window.note_moved.connect ((to_win, from_win, note) => {
+				string from_path = "%s/%s/%s".printf (notes_path, from_win.name, note.name);
+				string to_path = "%s/%s/%s".printf (notes_path, to_win.name, note.name);
+				var from_file = File.new_for_path (from_path);
+				var to_file = File.new_for_path (to_path);
+				try {
+					from_file.move (to_file, FileCopyFlags.NONE);
+					set_data_value (from_win, "internal-change", true);
+					set_data_value (to_win, "internal-change", true);
+					var tab_evbox = from_win.get_tab_evbox (note);
+					from_win.disconnect_note_signals (note, tab_evbox);
+					to_win.connect_note_signals (note, tab_evbox);
+					return true;
+				}
+				catch (GLib.Error e) {
+					to_win.popup_error (e.message);
+					return false;
+				}
+			});
 
 			return window;
 		}

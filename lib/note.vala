@@ -25,6 +25,8 @@ namespace Xnp {
 
 		public Xnp.HypertextView text_view;
 		public new string name { get; set; }
+		public ulong save_handler_id;
+		public ulong tab_handler_id;
 		public bool backed = true;
 
 		private uint save_timeout;

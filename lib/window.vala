@@ -181,6 +181,7 @@ namespace Xnp {
 		public signal void note_inserted (Xnp.Note note);
 		public signal void note_deleted (Xnp.Note note);
 		public signal void note_renamed (Xnp.Note note, string name);
+		public signal bool note_moved (Xnp.Window src_win, Xnp.Note note);
 
 		construct {
 			((Gtk.Widget)this).name = "notes-window";
@@ -297,6 +298,7 @@ namespace Xnp {
 			this.notebook = new Gtk.Notebook ();
 			this.notebook.add_events (Gdk.EventMask.SCROLL_MASK);
 			this.notebook.name = "notes-notebook";
+			this.notebook.group_name = "notes";
 			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
 			this.notebook.tab_pos = Gtk.PositionType.TOP;
@@ -361,6 +363,24 @@ namespace Xnp {
 			});
 			notify["title"].connect (() => {
 				title_label.set_markup ("<b>"+title+"</b>");
+			});
+			this.notebook.drag_drop.connect ((c, x, y, t) => {
+				var src_notebook = Gtk.drag_get_source_widget (c) as Gtk.Notebook;
+				if (src_notebook == null || src_notebook == this.notebook)
+					return false;
+				var src_win = (Xnp.Window)src_notebook.get_toplevel ();
+				if (this.note_moved (src_win, src_win.current_note))
+					return false;
+				Gtk.drag_finish (c, false, false, t);
+				return true;
+			});
+			this.notebook.drag_data_received.connect_after ((c) => {
+				var src_notebook = Gtk.drag_get_source_widget (c) as Gtk.Notebook;
+				if (src_notebook == null)
+					return;
+				var src_win = (Xnp.Window)src_notebook.get_toplevel ();
+				if (src_win.n_pages == 0)
+					src_win.action ("delete");
 			});
 		}
 
@@ -1017,20 +1037,44 @@ namespace Xnp {
 				return note;
 			}
 
-			note.notify["name"].connect (note_notify_name_cb);
-			note.save_data.connect ((note) => { save_data (note); });
-
 			note.show ();
 			var tab_evbox = new Gtk.EventBox ();
 			tab_evbox.add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.SCROLL_MASK);
 			var label = new Gtk.Label (name);
 			tab_evbox.add (label);
 			label.show ();
-			tab_evbox.button_press_event.connect ((e) => tab_evbox_pressed_cb (e, note));
+			connect_note_signals (note, tab_evbox);
 			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
 			this.notebook.set_tab_reorderable (note, true);
+			this.notebook.set_tab_detachable (note, true);
 			_notebook_update_tabs_angle ();
 			return note;
+		}
+
+		/**
+		 * connect_note_signals:
+		 *
+		 * Connect note signals.
+		 */
+		public void connect_note_signals (Xnp.Note note, Gtk.EventBox tab_evbox) {
+			note.notify["name"].connect (note_notify_name_cb);
+			note.save_handler_id = note.save_data.connect ((note) => {
+				this.save_data (note);
+			});
+			note.tab_handler_id = tab_evbox.button_press_event.connect ((e) => {
+				return tab_evbox_pressed_cb (e, note);
+			});
+		}
+
+		/**
+		 * disconnect_note_signals:
+		 *
+		 * Disconnect note signals.
+		 */
+		public void disconnect_note_signals (Xnp.Note note, Gtk.EventBox tab_evbox) {
+			note.notify["name"].disconnect (note_notify_name_cb);
+			tab_evbox.disconnect (note.tab_handler_id);
+			note.disconnect (note.save_handler_id);
 		}
 
 		/**
