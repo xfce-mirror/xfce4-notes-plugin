@@ -84,6 +84,12 @@ namespace Xnp {
 
 		public new string name { default = _("Notes"); get; set; }
 
+		public Xnp.Note current_note {
+			get {
+				return (Xnp.Note)this.notebook.get_nth_page (this.notebook.page);
+			}
+		}
+
 		public int n_pages {
 			get {
 				return this.notebook.get_n_pages ();
@@ -350,11 +356,9 @@ namespace Xnp {
 			});
 			this.notebook.scroll_event.connect (notebook_tab_scroll_cb);
 			notify["name"].connect (() => {
-				int page = this.notebook.page;
-				if (page == -1)
-					return;
-				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-				update_title (current_note.name);
+				var current_note = this.current_note;
+				if (current_note != null)
+					update_title (current_note.name);
 			});
 			notify["title"].connect (() => {
 				title_label.set_markup ("<b>"+title+"</b>");
@@ -567,17 +571,17 @@ namespace Xnp {
 		 * Switch tabs with mouse scroll wheel.
 		 */
 		private bool notebook_tab_scroll_cb (Gdk.EventScroll event) {
-			var child = notebook.get_nth_page (notebook.page);
+			var current_note = this.current_note;
 
-			if (child == null)
+			if (current_note == null)
 				return false;
 
 			var event_widget = Gtk.get_event_widget (event);
 
 			/* Ignore scroll events from the content of the page */
 			if (event_widget == null ||
-				event_widget == child ||
-				event_widget.is_ancestor (child))
+				event_widget == current_note ||
+				event_widget.is_ancestor (current_note))
 				return false;
 
 			/* We only want to switch tabs on mouse wheel when no accelerators pressed */
@@ -610,9 +614,7 @@ namespace Xnp {
 			var label = tab_evbox.get_child () as Gtk.Label;
 			label.set_text (note.name);
 			_notebook_update_tabs_angle ();
-			int page = this.notebook.page;
-			var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-			if (note == current_note)
+			if (note == this.current_note)
 				this.update_title (note.name);
 		}
 
@@ -663,11 +665,9 @@ namespace Xnp {
 		}
 
 		private void action_cancel () {
-			int page = notebook.page;
-			if (page < 0)
-				return;
-			Gtk.Widget child = notebook.get_nth_page (page);
-			((Xnp.Note)child).text_view.undo ();
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.undo ();
 		}
 
 		private void action_refresh_notes () {
@@ -817,10 +817,9 @@ namespace Xnp {
 					mi.sensitive = false;
 					menu.append (mi);
 
-					int current_page = this.notebook.page;
-					var current_note = (Xnp.Note)(this.notebook.get_nth_page (current_page));
-
+					var current_note = this.current_note;
 					int n_pages = this.n_pages;
+
 					for (int p = 0; p < n_pages; p++) {
 						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
 						mi = new Gtk.ImageMenuItem.with_label (note.name);
@@ -1103,10 +1102,9 @@ namespace Xnp {
 		 * Rename the current note.
 		 */
 		public void rename_current_note () {
-			int page = this.notebook.page;
-			if (page == -1)
+			var note = this.current_note;
+			if (note == null)
 				return;
-			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -1173,7 +1171,7 @@ namespace Xnp {
 		}
 
 		private void save_current_note () {
-			var note = (Xnp.Note)(notebook.get_nth_page (notebook.page));
+			var note = this.current_note;
 			if (note != null)
 				note.save ();
 		}
