@@ -349,9 +349,8 @@ namespace Xnp {
 				update_navigation_sensitivity ((int)p);
 			});
 			this.notebook.switch_page.connect ((n, c, p) => {
-				var note = (Xnp.Note)(notebook.get_nth_page ((int)p));
 				save_current_note ();
-				update_title (note.name);
+				update_title (get_note ((int)p).name);
 				update_navigation_sensitivity ((int)p);
 			});
 			this.notebook.scroll_event.connect (notebook_tab_scroll_cb);
@@ -821,7 +820,7 @@ namespace Xnp {
 					int n_pages = this.n_pages;
 
 					for (int p = 0; p < n_pages; p++) {
-						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
+						var note = get_note (p);
 						mi = new Gtk.ImageMenuItem.with_label (note.name);
 						if (note == current_note) {
 							image = new Gtk.Image.from_icon_name ("gtk-go-forward", Gtk.IconSize.MENU);
@@ -986,6 +985,15 @@ namespace Xnp {
 		 */
 
 		/**
+		 * get_note:
+		 *
+		 * Get note from page.
+		 */
+		private Xnp.Note get_note (int p) {
+			return (Xnp.Note)this.notebook.get_nth_page (p);
+		}
+
+		/**
 		 * insert_note:
 		 *
 		 * Create a new note and insert it inside the notebook after
@@ -1033,7 +1041,7 @@ namespace Xnp {
 		public void move_note (string note_name, int page) {
 			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
+				var note = get_note (p);
 				if (note.name == note_name) {
 					this.notebook.reorder_child (note, page);
 					update_navigation_sensitivity (page);
@@ -1052,8 +1060,7 @@ namespace Xnp {
 			string[] note_names = null;
 			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				note_names += note.name;
+				note_names += get_note (p).name;
 			}
 			return note_names;
 		}
@@ -1073,7 +1080,7 @@ namespace Xnp {
 		 * Delete note at page @page.
 		 */
 		public void delete_note (int page) {
-			var note = (Xnp.Note)this.notebook.get_nth_page (page);
+			var note = get_note (page);
 
 			if (note.text_view.buffer.get_char_count () > 0) {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -1149,8 +1156,7 @@ namespace Xnp {
 		private bool note_name_exists (string name) {
 			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				if (note.name == name) {
+				if (get_note (p).name == name) {
 					return true;
 				}
 			}
@@ -1165,8 +1171,7 @@ namespace Xnp {
 		public void save_notes () {
 			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				note.save ();
+				get_note (p).save ();
 			}
 		}
 
@@ -1190,7 +1195,7 @@ namespace Xnp {
 
 			int n_pages = this.n_pages;
 			for (int i = 0; i < n_pages; i++) {
-				var widget = this.notebook.get_nth_page (i);
+				var widget = get_note (i);
 				var tab_evbox = this.notebook.get_tab_label (widget) as Gtk.EventBox;
 				if (tab_evbox == null)
 					continue;
