@@ -628,6 +628,7 @@ namespace Xnp {
 			dialog.destroy ();
 
 			if (res == Gtk.ResponseType.YES) {
+				save_windows_configuration ();
 				// Delete existing window object
 				var name = window.name;
 				window_monitor_list_remove (window);
