@@ -50,6 +50,7 @@ namespace Xnp {
 			}
 
 			xfconf_channel = new Xfconf.Channel.with_property_base ("xfce4-panel", "/plugins/notes");
+			update_version ();
 
 			theme = new Xnp.Theme ();
 			update_color ();
@@ -101,6 +102,28 @@ namespace Xnp {
 				win.destroy ();
 				win = null;
 			}
+		}
+
+		private void update_version () {
+			var version = xfconf_channel.get_string ("/global/version", "0");
+			if (version == Config.PACKAGE_VERSION)
+				return;
+			if (version < "1.11") {
+				try {
+					var css = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.css", false);
+					var css_file = File.new_for_path (css);
+					css_file.delete ();
+					var old_save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", false);
+					var old_save_location_file = File.new_for_path (old_save_location);
+					if (old_save_location_file.query_exists ()) {
+						var save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.rc", true);
+						var save_location_file = File.new_for_path (save_location);
+						old_save_location_file.move (save_location_file, FileCopyFlags.NONE);
+					}
+				} catch (GLib.Error e) {
+				}
+			}
+			xfconf_channel.set_string ("/global/version", Config.PACKAGE_VERSION);
 		}
 
 		private void update_notes_path () {
