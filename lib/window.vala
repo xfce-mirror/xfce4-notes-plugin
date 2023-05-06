@@ -263,7 +263,7 @@ namespace Xnp {
 			title_evbox.add_events (Gdk.EventMask.SCROLL_MASK);
 			title_evbox.set_visible_window (false);
 			this.title_label = new Gtk.Label (null);
-			this.title_label.set_markup ("<b>"+this.title+"</b>");
+			this.title_label.set_markup (Markup.printf_escaped ("<b>%s</b>", this.title));
 			this.title_label.ellipsize = Pango.EllipsizeMode.END;
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
@@ -362,7 +362,7 @@ namespace Xnp {
 					update_title (current_note.name);
 			});
 			notify["title"].connect (() => {
-				title_label.set_markup ("<b>"+title+"</b>");
+				title_label.set_markup (Markup.printf_escaped ("<b>%s</b>", title));
 			});
 			this.notebook.drag_drop.connect ((c, x, y, t) => {
 				var src_notebook = Gtk.drag_get_source_widget (c) as Gtk.Notebook;
