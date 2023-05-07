@@ -24,11 +24,13 @@ namespace Xnp {
 
 	public class Application : GLib.Object {
 
-		private SList<Xnp.WindowMonitor> window_monitor_list;
-		private SList<Xnp.Window> window_list;
 		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
 		public bool system_tray_mode = false;
+
+		private SList<Xnp.WindowMonitor> window_monitor_list;
+		private SList<Xnp.Window> window_list;
+		private SList<Xnp.Window> focus_order;
 		private Xfconf.Channel xfconf_channel;
 		private Xnp.Theme theme;
 
@@ -70,10 +72,15 @@ namespace Xnp {
 			bool found = false;
 			try {
 				/* Load existing windows */
+				SList<string> groups = null;
 				var dir = Dir.open (notes_path, 0);
 				while ((name = dir.read_name ()) != null) {
-					create_window (name);
+					groups.prepend (name);
 					found = true;
+				}
+				sort_groups_by_focus_order (ref groups);
+				foreach (var group_name in groups) {
+					create_window (group_name);
 				}
 			}
 			catch (GLib.Error e) {
@@ -173,6 +180,31 @@ namespace Xnp {
 				theme.use_color (color);
 		}
 
+		/**
+		 * sort_groups_by_focus_order:
+		 *
+		 * Sort groups by last memorized windows focus order.
+		 */
+		private void sort_groups_by_focus_order (ref SList<string> groups) {
+			try {
+				var last_focus_order = new SList<string> ();
+				var keyfile = new GLib.KeyFile ();
+				unowned SList<string> entry;
+				keyfile.load_from_file (this.config_file, GLib.KeyFileFlags.NONE);
+				foreach (var name in keyfile.get_groups ()) {
+					last_focus_order.prepend (name);
+				}
+				foreach (var name in last_focus_order) {
+					if ((entry = groups.find_custom (name, strcmp)) != null) {
+						groups.prepend (entry.data);
+						groups.remove_link (entry);
+					}
+				}
+			}
+			catch (GLib.Error e) {
+			}
+		}
+
 		public void quit () {
 			// Save notes before leaving the main loop since it works with GObject signals
 			save_notes ();
@@ -224,6 +256,7 @@ namespace Xnp {
 
 			/* Add to window_list */
 			this.window_list.insert_sorted (window, (GLib.CompareFunc)window.compare_func);
+			this.focus_order.append (window);
 
 			/* Insert initial notes */
 			string window_path = "%s/%s".printf (notes_path, window.name);
@@ -236,9 +269,7 @@ namespace Xnp {
 				}
 				catch (FileError e) {
 					window.popup_error (e.message);
-					window_monitor_list_remove (window);
-					this.window_list.remove (window);
-					window.destroy ();
+					destroy_window (window);
 					return null;
 				}
 			}
@@ -340,6 +371,11 @@ namespace Xnp {
 					}
 				}
 			});
+			window.focus_in_event.connect (() => {
+				this.focus_order.remove (window);
+				this.focus_order.append (window);
+				return false;
+			});
 			/* Handle exchange of tabs between windows */
 			window.note_moved.connect ((to_win, from_win, note) => {
 				string from_path = "%s/%s/%s".printf (notes_path, from_win.name, note.name);
@@ -440,7 +476,7 @@ namespace Xnp {
 			catch (FileError e) {
 			}
 			try {
-				foreach (var win in this.window_list) {
+				foreach (var win in this.focus_order) {
 					int winx, winy, width, height;
 					win.get_geometry (out winx, out winy, out width, out height);
 					string[] tabs_order = win.get_note_names ();
@@ -583,25 +619,32 @@ namespace Xnp {
 			catch (GLib.Error e) {
 				window.popup_error (e.message);
 				name = window.name;
-				window_monitor_list_remove (window);
-				this.window_list.remove (window);
-				window.destroy ();
+				destroy_window (window);
 				var win = create_window (name);
 				if (win != null)
 					win.show ();
 				return;
 			}
 
-			window_monitor_list_remove (window);
-
-			this.window_list.remove (window);
-			window.destroy ();
+			destroy_window (window);
 
 			if (this.window_list.length () == 0) {
 				var new_win = create_window ();
 				if (new_win != null)
 					new_win.show ();
 			}
+		}
+
+		/**
+		 * destroy_window:
+		 *
+		 * Destroy window and forget it exists.
+		 */
+		private void destroy_window (Xnp.Window window) {
+			window_monitor_list_remove (window);
+			this.window_list.remove (window);
+			this.focus_order.remove (window);
+			window.destroy ();
 		}
 
 		/**
@@ -623,9 +666,7 @@ namespace Xnp {
 				save_windows_configuration ();
 				// Delete existing window object
 				var name = window.name;
-				window_monitor_list_remove (window);
-				this.window_list.remove (window);
-				window.destroy ();
+				destroy_window (window);
 				// Create new window object
 				var win = create_window (name);
 				if (win != null)
@@ -778,7 +819,7 @@ namespace Xnp {
 				}
 			}
 
-			foreach (var win in this.window_list) {
+			foreach (var win in this.focus_order) {
 				// Present visible windows
 				if (!active_found && visible_found) {
 					if (win.get_visible ()) {
