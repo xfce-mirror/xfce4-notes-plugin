@@ -24,6 +24,7 @@ namespace Xnp {
 
 	public class Window : Gtk.Window {
 
+		private Xnp.Application app;
 		private int width;
 		private int height;
 		private Gtk.Menu menu;
@@ -79,8 +80,6 @@ namespace Xnp {
 		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_LEFT_CORNER);
-
-		private unowned SList<Xnp.Window> window_list;
 
 		public new string name { default = _("Notes"); get; set; }
 
@@ -196,7 +195,9 @@ namespace Xnp {
 			this.opacity = 0.9;
 		}
 
-		public Window () {
+		public Window (Xnp.Application app) {
+			this.app = app;
+
 			/* Window responses on pointer motion */
 			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
 
@@ -830,7 +831,7 @@ namespace Xnp {
 					w.destroy ();
 				});
 
-			foreach (var win in this.window_list) {
+			foreach (var win in app.get_window_list ()) {
 				if (win == this) {
 					mi = new Gtk.MenuItem.with_label (win.name);
 					mi.sensitive = false;
@@ -891,16 +892,6 @@ namespace Xnp {
 			get_position (out winx, out winy);
 			width = this.width;
 			height = this.height;
-		}
-
-		/**
-		 * set_window_list:
-		 *
-		 * Saves a list of window inside window.window_list to be shown
-		 * within the window menu.
-		 */
-		public void set_window_list (SList <Xnp.Window> list) {
-			this.window_list = list;
 		}
 
 		/**

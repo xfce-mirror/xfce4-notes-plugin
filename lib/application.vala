@@ -191,7 +191,7 @@ namespace Xnp {
 		 * If a name is given, it assumes it can load existing notes.
 		 */
 		public Xnp.Window? create_window (string? name = null) {
-			var window = new Xnp.Window ();
+			var window = new Xnp.Window (this);
 
 			/* Default settings */
 			if (name == null) {
@@ -224,9 +224,6 @@ namespace Xnp {
 
 			/* Add to window_list */
 			this.window_list.insert_sorted (window, (GLib.CompareFunc)window.compare_func);
-			foreach (var win in this.window_list) {
-				win.set_window_list (this.window_list);
-			}
 
 			/* Insert initial notes */
 			string window_path = "%s/%s".printf (notes_path, window.name);
@@ -600,12 +597,7 @@ namespace Xnp {
 			this.window_list.remove (window);
 			window.destroy ();
 
-			if (this.window_list.length () >= 1) {
-				foreach (var win in this.window_list) {
-					win.set_window_list (this.window_list);
-				}
-			}
-			else {
+			if (this.window_list.length () == 0) {
 				var new_win = create_window ();
 				if (new_win != null)
 					new_win.show ();
@@ -645,6 +637,15 @@ namespace Xnp {
 				window.save_notes ();
 
 			}
+		}
+
+		/**
+		 * get_window_list:
+		 *
+		 * Get the window_list property value.
+		 */
+		public unowned SList<Xnp.Window> get_window_list () {
+			return window_list;
 		}
 
 		/*
