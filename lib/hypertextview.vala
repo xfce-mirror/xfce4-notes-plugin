@@ -231,6 +231,8 @@ namespace Xnp {
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
 				this.undo_timeout = 0;
+			} else {
+				this.redo_cursor_pos = this.cursor_position;
 			}
 			this.undo_timeout = Timeout.add_seconds (2, undo_snapshot);
 
@@ -365,7 +367,6 @@ namespace Xnp {
 		public void init_undo () {
 			this.undo_text = null;
 			this.redo_text = this.buffer.text;
-			this.redo_cursor_pos = this.cursor_position;
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
 				this.undo_timeout = 0;
@@ -408,7 +409,9 @@ namespace Xnp {
 			if (this.undo_text == null)
 				return;
 
+			this.buffer.changed.disconnect (buffer_changed_cb);
 			this.buffer.text = this.undo_text;
+			this.buffer.changed.connect (buffer_changed_cb);
 			this.buffer.get_iter_at_offset (out iter, this.undo_cursor_pos);
 			this.cursor_position = this.undo_cursor_pos;
 			this.buffer.place_cursor (iter);
