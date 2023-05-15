@@ -28,6 +28,7 @@ namespace Xnp {
 		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
 
 		private bool cursor_over_link = false;
+		private int cursor_position = 0;
 
 		private uint undo_timeout = 0;
 		private string undo_text = "";
@@ -60,7 +61,7 @@ namespace Xnp {
 			this.button_release_event.connect (button_release_event_cb);
 			this.motion_notify_event.connect (motion_notify_event_cb);
 			this.state_flags_changed.connect (state_flags_changed_cb);
-			this.move_cursor.connect (move_cursor_cb);
+			this.buffer.notify["cursor-position"].connect (move_cursor_cb);
 			this.buffer.changed.connect (buffer_changed_cb);
 			this.buffer.insert_text.connect (insert_text_cb);
 			this.buffer.delete_range.connect (delete_range_cb);
@@ -202,7 +203,10 @@ namespace Xnp {
 		 *
 		 * Destroys existing timeouts and executes the actions immediately.
 		 */
-		private void move_cursor_cb (Gtk.Widget hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
+		private void move_cursor_cb () {
+			if (this.cursor_position == this.buffer.cursor_position)
+				return;
+
 			if (this.undo_timeout > 0) {
 				/* Make an undo snapshot and save cursor_position before it really moves */
 				undo_snapshot ();
@@ -213,6 +217,8 @@ namespace Xnp {
 				this.tag_timeout = 0;
 				update_tags ();
 			}
+
+			this.cursor_position = this.buffer.cursor_position;
 		}
 
 		/**
@@ -234,6 +240,8 @@ namespace Xnp {
 				this.tag_timeout = 0;
 				this.tag_timeout = Timeout.add_seconds (2, tag_timeout_cb);
 			}
+
+			this.cursor_position = this.buffer.cursor_position;
 		}
 
 		/**
@@ -357,7 +365,7 @@ namespace Xnp {
 		public void init_undo () {
 			this.undo_text = null;
 			this.redo_text = this.buffer.text;
-			this.redo_cursor_pos = this.buffer.cursor_position;
+			this.redo_cursor_pos = this.cursor_position;
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
 				this.undo_timeout = 0;
@@ -375,7 +383,7 @@ namespace Xnp {
 				this.undo_text = this.redo_text;
 				this.redo_text = text;
 				this.undo_cursor_pos = this.redo_cursor_pos;
-				this.redo_cursor_pos = this.buffer.cursor_position;
+				this.redo_cursor_pos = this.cursor_position;
 			}
 
 			if (this.undo_timeout > 0) {
@@ -402,6 +410,7 @@ namespace Xnp {
 
 			this.buffer.text = this.undo_text;
 			this.buffer.get_iter_at_offset (out iter, this.undo_cursor_pos);
+			this.cursor_position = this.undo_cursor_pos;
 			this.buffer.place_cursor (iter);
 
 			/* Scroll to the cursor position */
