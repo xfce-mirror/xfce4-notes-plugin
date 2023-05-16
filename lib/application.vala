@@ -32,6 +32,7 @@ namespace Xnp {
 		private SList<Xnp.Window> window_list;
 		private SList<Xnp.Window> focus_order;
 		private Xfconf.Channel xfconf_channel;
+		private uint save_config_timeout = 0;
 		private Xnp.Theme theme;
 
 		construct {
@@ -105,6 +106,9 @@ namespace Xnp {
 		~Application () {
 			xfconf_channel = null;
 			Xfconf.shutdown ();
+			if (this.save_config_timeout != 0) {
+				Source.remove (this.save_config_timeout);
+			}
 			foreach (var win in this.window_list) {
 				win.destroy ();
 				win = null;
@@ -362,16 +366,24 @@ namespace Xnp {
 			});
 			/*
 			 * When working in system tray mode, save windows configuration
-			 * when the topmost window switched
+			 * two seconds after going to the background
 			 */
 			window.state_flags_changed.connect ((widget, flags) => {
 				if (this.system_tray_mode) {
-					if ((widget.get_state_flags () & Gtk.StateFlags.BACKDROP) != 0) {
-						save_windows_configuration ();
-					}
+					if ((widget.get_state_flags () & Gtk.StateFlags.BACKDROP) != 0
+					    && window == this.focus_order.last ().data) {
+						if (this.save_config_timeout > 0) {
+							Source.remove (this.save_config_timeout);
+							this.save_config_timeout = 0;
+						}
+						this.save_config_timeout = Timeout.add_seconds (2, save_windows_configuration);
 				}
 			});
 			window.focus_in_event.connect (() => {
+				if (this.save_config_timeout > 0) {
+					Source.remove (this.save_config_timeout);
+					this.save_config_timeout = 0;
+				}
 				this.focus_order.remove (window);
 				this.focus_order.append (window);
 				return false;
@@ -467,7 +479,7 @@ namespace Xnp {
 		 *
 		 * Save window configuration inside rc file.
 		 */
-		public void save_windows_configuration () {
+		public bool save_windows_configuration () {
 			var keyfile = new GLib.KeyFile ();
 			string old_contents;
 			try {
@@ -502,6 +514,11 @@ namespace Xnp {
 			catch (FileError e) {
 				message ("Unable to save window configuration from %s: %s", config_file, e.message);
 			}
+			if (this.save_config_timeout > 0) {
+				Source.remove (this.save_config_timeout);
+				this.save_config_timeout = 0;
+			}
+			return false;
 		}
 
 		/**
