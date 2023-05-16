@@ -359,8 +359,10 @@ namespace Xnp {
 			this.notebook.scroll_event.connect (notebook_tab_scroll_cb);
 			notify["name"].connect (() => {
 				var current_note = this.current_note;
-				if (current_note != null)
+				if (current_note != null) {
 					update_title (current_note.name);
+					this.title_label.get_window ().invalidate_rect (null, false);
+				}
 			});
 			notify["title"].connect (() => {
 				title_label.set_markup (Markup.printf_escaped ("<b>%s</b>", title));
