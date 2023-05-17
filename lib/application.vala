@@ -33,6 +33,7 @@ namespace Xnp {
 		private SList<Xnp.Window> focus_order;
 		private Xfconf.Channel xfconf_channel;
 		private uint save_config_timeout = 0;
+		private string default_notes_path;
 		private Xnp.Theme theme;
 
 		construct {
@@ -61,9 +62,9 @@ namespace Xnp {
 				update_color ();
 			});
 
+			default_notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
 			if (notes_path == null) {
-				var default_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
-				notes_path = xfconf_channel.get_string ("/global/notes-path", default_path);
+				notes_path = xfconf_channel.get_string ("/global/notes-path", default_notes_path);
 			}
 			xfconf_channel.property_changed["/global/notes-path"].connect (() => {
 				update_notes_path ();
@@ -138,7 +139,7 @@ namespace Xnp {
 		}
 
 		private void update_notes_path () {
-			var new_notes_path = xfconf_channel.get_string ("/global/notes-path", notes_path);
+			var new_notes_path = xfconf_channel.get_string ("/global/notes-path", default_notes_path);
 			if (notes_path == new_notes_path) {
 				return;
 			}
@@ -154,7 +155,11 @@ namespace Xnp {
 					error_dialog.title = _("Error");
 					error_dialog.run ();
 					error_dialog.destroy ();
-					xfconf_channel.set_string ("/global/notes-path", notes_path);
+					if (notes_path == default_notes_path) {
+						xfconf_channel.reset_property ("/global/notes-path", false);
+					} else {
+						xfconf_channel.set_string ("/global/notes-path", notes_path);
+					}
 					return;
 				}
 			}
@@ -164,16 +169,23 @@ namespace Xnp {
 			/* Create/move to the new path */
 			var dirname = Path.get_dirname (new_notes_path);
 			if (GLib.DirUtils.create_with_parents (dirname, 0700) != 0 || GLib.FileUtils.rename (notes_path, new_notes_path) != 0) {
+				var errnum = errno;
 				var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
 					_("Select notes path"));
-				error_dialog.format_secondary_text (_("Unable to select directory for new notes path: %s"), strerror (errno));
+				error_dialog.format_secondary_text (_("Unable to select directory for new notes path: %s"), strerror (errnum));
 				error_dialog.icon_name = "gtk-dialog-error";
 				error_dialog.title = _("Error");
 				error_dialog.run ();
 				error_dialog.destroy ();
-				xfconf_channel.set_string ("/global/notes-path", notes_path);
+				if (notes_path == default_notes_path) {
+					xfconf_channel.reset_property ("/global/notes-path", false);
+				} else {
+					xfconf_channel.set_string ("/global/notes-path", notes_path);
+				}
 				return;
 			}
+
+			notes_path = new_notes_path;
 		}
 
 		private void update_color () {
