@@ -361,6 +361,10 @@ namespace Xnp {
 				var current_note = this.current_note;
 				if (current_note != null) {
 					update_title (current_note.name);
+				} else {
+					this.title = this.name;
+				}
+				if (this.title_label.get_mapped ()) {
 					this.title_label.get_window ().invalidate_rect (null, false);
 				}
 			});
