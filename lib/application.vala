@@ -476,6 +476,13 @@ namespace Xnp {
 					window.show ();
 			}
 			catch (GLib.Error e) {
+				window.above = xfconf_channel.get_bool ("/new-window/always-on-top", false);
+				window.sticky = xfconf_channel.get_bool ("/new-window/sticky", true);
+				int width = xfconf_channel.get_int ("/new-window/width", 0);
+				int height = xfconf_channel.get_int ("/new-window/height", 0);
+				if (width > 0 && height > 0) {
+					window.resize (width, height);
+				}
 				window.show ();
 			}
 		}
