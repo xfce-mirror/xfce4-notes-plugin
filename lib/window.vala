@@ -320,21 +320,20 @@ namespace Xnp {
 				hide ();
 				return true;
 			});
-			focus_in_event.connect (() => {
-				menu_image.sensitive = true;
-				refresh_button.sensitive = true;
-				update_navigation_sensitivity (this.notebook.page);
-				close_button.sensitive = true;
-				return false;
-			});
-			focus_out_event.connect (() => {
-				save_current_note ();
-				menu_image.sensitive = false;
-				refresh_button.sensitive = false;
-				left_arrow_button.enabled = false;
-				right_arrow_button.enabled = false;
-				close_button.sensitive = false;
-				return false;
+			this.notify["is-active"].connect (() => {
+				if (this.is_active) {
+					menu_image.sensitive = true;
+					refresh_button.sensitive = true;
+					close_button.sensitive = true;
+					update_navigation_sensitivity (this.notebook.page);
+				} else {
+					menu_image.sensitive = false;
+					refresh_button.sensitive = false;
+					left_arrow_button.enabled = false;
+					right_arrow_button.enabled = false;
+					close_button.sensitive = false;
+					save_current_note ();
+				}
 			});
 			leave_notify_event.connect (window_leaved_cb);
 			motion_notify_event.connect (window_motion_cb);

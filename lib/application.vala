@@ -380,25 +380,19 @@ namespace Xnp {
 			 * When working in system tray mode, save windows configuration
 			 * two seconds after going to the background
 			 */
-			window.state_flags_changed.connect ((widget, flags) => {
-				if (this.system_tray_mode) {
-					if ((widget.get_state_flags () & Gtk.StateFlags.BACKDROP) != 0
-					    && window == this.focus_order.last ().data) {
-						if (this.save_config_timeout > 0) {
-							Source.remove (this.save_config_timeout);
-							this.save_config_timeout = 0;
-						}
-						this.save_config_timeout = Timeout.add_seconds (2, save_windows_configuration);
-				}
-			});
-			window.focus_in_event.connect (() => {
+			window.notify["is-active"].connect (() => {
 				if (this.save_config_timeout > 0) {
 					Source.remove (this.save_config_timeout);
 					this.save_config_timeout = 0;
 				}
-				this.focus_order.remove (window);
-				this.focus_order.append (window);
-				return false;
+
+				if (window.is_active) {
+					this.focus_order.remove (window);
+					this.focus_order.append (window);
+				}
+				else if (this.system_tray_mode) {
+					this.save_config_timeout = Timeout.add_seconds (2, save_windows_configuration);
+				}
 			});
 			/* Handle exchange of tabs between windows */
 			window.note_moved.connect ((to_win, from_win, note) => {
