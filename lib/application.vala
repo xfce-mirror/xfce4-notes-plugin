@@ -149,7 +149,7 @@ namespace Xnp {
 				var dir = Dir.open (new_notes_path, 0);
 				if (dir.read_name () != null) {
 					var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
-						_("Select notes path"));
+						_("Notes path is unacceptable"));
 					error_dialog.format_secondary_text (_("The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."), new_notes_path);
 					error_dialog.icon_name = "gtk-dialog-error";
 					error_dialog.title = _("Error");
@@ -171,7 +171,7 @@ namespace Xnp {
 			if (GLib.DirUtils.create_with_parents (dirname, 0700) != 0 || GLib.FileUtils.rename (notes_path, new_notes_path) != 0) {
 				var errnum = errno;
 				var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
-					_("Select notes path"));
+					_("Notes path is unacceptable"));
 				error_dialog.format_secondary_text (_("Unable to select directory for new notes path: %s"), strerror (errnum));
 				error_dialog.icon_name = "gtk-dialog-error";
 				error_dialog.title = _("Error");
