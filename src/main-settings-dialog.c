@@ -100,7 +100,6 @@ prop_dialog_new (void)
                                          GTK_DIALOG_DESTROY_WITH_PARENT,
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
-  xfce_titled_dialog_set_subtitle (XFCE_TITLED_DIALOG (dialog), _("Configure the plugin"));
   gtk_window_set_default_icon_name ("xfce4-notes-plugin");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
@@ -123,12 +122,30 @@ prop_dialog_new (void)
   gtk_container_set_border_width (GTK_CONTAINER (frame), BORDER);
   gtk_container_add (GTK_CONTAINER (vbox), frame);
 
-  /* Hide from taskbar */
-  button = gtk_check_button_new_with_label (_("Hide notes from taskbar"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_HIDE_FROM_TASKBAR);
-  xfconf_g_property_bind (xfconf_channel, "/global/skip-taskbar-hint",
-                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
-  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
+  /* Background color */
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
+
+  label = gtk_label_new (_("Background:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+  color_combobox = background_combo_box_new ();
+  gtk_box_pack_start (GTK_BOX (hbox), color_combobox, FALSE, FALSE, 0);
+
+  color_button = color_button_new ();
+  gtk_box_pack_start (GTK_BOX (hbox), color_button, FALSE, FALSE, 0);
+
+  /* Font description */
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
+  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
+
+  label = gtk_label_new (_("Font:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+  button = gtk_font_button_new_with_font ("Sans 12");
+  xfconf_g_property_bind (xfconf_channel, "/global/font-description",
+                          G_TYPE_STRING, G_OBJECT (button), "font-name");
+  gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
   /* Notes path */
 #if 0
@@ -159,30 +176,12 @@ prop_dialog_new (void)
   button = tabs_combo_box_new ();
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
-  /* Background color */
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
-
-  label = gtk_label_new (_("Background:"));
-  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-
-  color_combobox = background_combo_box_new ();
-  gtk_box_pack_start (GTK_BOX (hbox), color_combobox, FALSE, FALSE, 0);
-
-  color_button = color_button_new ();
-  gtk_box_pack_start (GTK_BOX (hbox), color_button, FALSE, FALSE, 0);
-
-  /* Font description */
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BORDER);
-  gtk_box_pack_start (GTK_BOX (box), hbox, TRUE, FALSE, 0);
-
-  label = gtk_label_new (_("Font:"));
-  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-
-  button = gtk_font_button_new_with_font ("Sans 12");
-  xfconf_g_property_bind (xfconf_channel, "/global/font-description",
-                          G_TYPE_STRING, G_OBJECT (button), "font-name");
-  gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+  /* Hide from taskbar */
+  button = gtk_check_button_new_with_label (_("Hide notes from taskbar"));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), GENERAL_HIDE_FROM_TASKBAR);
+  xfconf_g_property_bind (xfconf_channel, "/global/skip-taskbar-hint",
+                          G_TYPE_BOOLEAN, G_OBJECT (button), "active");
+  gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
 
   /* === New window settings === */
   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, BORDER);
