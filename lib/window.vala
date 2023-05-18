@@ -1131,6 +1131,12 @@ namespace Xnp {
 		public void delete_note (int page) {
 			var note = get_note (page);
 
+			if (note == null) {
+				if (this.n_pages == 0)
+					action ("delete");
+				return;
+			}
+
 			if (note.text_view.buffer.get_char_count () > 0) {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this note?"));
