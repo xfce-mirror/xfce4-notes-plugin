@@ -93,7 +93,7 @@ namespace Xnp {
 				create_window ();
 			}
 
-			Gtk.Window.set_default_icon_name ("xfce4-notes-plugin");
+			Gtk.Window.set_default_icon_name ("org.xfce.panel.notes");
 		}
 
 		public Application (string config_file) {
@@ -687,7 +687,7 @@ namespace Xnp {
 				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
 				_("The group \"%s\" has been modified on the disk"), window.name);
 			dialog.set_title (window.name);
-			dialog.set_icon_name ("xfce4-notes-plugin");
+			dialog.set_icon_name ("org.xfce.panel.notes");
 			dialog.format_secondary_text (_("Do you want to reload the group?"));
 			var res = dialog.run ();
 			dialog.destroy ();
@@ -902,7 +902,7 @@ namespace Xnp {
 
 			Gtk.show_about_dialog (null,
 				"program-name", _("Notes"),
-				"logo-icon-name", "xfce4-notes-plugin",
+				"logo-icon-name", "org.xfce.panel.notes",
 				"comments", _("Ideal for your quick notes"),
 				"version", Config.PACKAGE_VERSION,
 				"copyright", "Copyright © 2003-2023 The Xfce development team",

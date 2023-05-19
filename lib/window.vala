@@ -190,7 +190,7 @@ namespace Xnp {
 			this.default_height = 380;
 			this.default_width = 300;
 			this.decorated = false;
-			this.icon_name = "xfce4-notes-plugin";
+			this.icon_name = "org.xfce.panel.notes";
 			this.sticky = true;
 			this.opacity = 0.9;
 		}

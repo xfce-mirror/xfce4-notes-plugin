@@ -30,7 +30,7 @@ static void build_plugin () {
 	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
 	var save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.rc", true);
 	application = new Xnp.Application (save_location);
-	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
+	status_icon = new Gtk.StatusIcon.from_icon_name ("org.xfce.panel.notes");
 	status_icon.set_tooltip_text (_("Notes"));
 	Timeout.add_seconds (60, () => {
 			if (!status_icon.is_embedded ()) {

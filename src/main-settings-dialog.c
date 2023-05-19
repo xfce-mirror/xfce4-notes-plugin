@@ -100,7 +100,7 @@ prop_dialog_new (void)
                                          GTK_DIALOG_DESTROY_WITH_PARENT,
                                          GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                          NULL);
-  gtk_window_set_default_icon_name ("xfce4-notes-plugin");
+  gtk_window_set_default_icon_name ("org.xfce.panel.notes");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
   gtk_window_stick (GTK_WINDOW (dialog));
