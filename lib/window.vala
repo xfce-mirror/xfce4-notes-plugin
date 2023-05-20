@@ -1145,6 +1145,10 @@ namespace Xnp {
 
 			this.notebook.remove_page (this.notebook.page);
 			note.destroy ();
+
+			if (this.notebook.page > 0)
+				this.notebook.page--;
+
 			if (this.n_pages == 0)
 				action ("delete");
 		}
