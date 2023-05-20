@@ -1120,16 +1120,7 @@ namespace Xnp {
 		 * Delete the current note.
 		 */
 		public void delete_current_note () {
-			delete_note (this.notebook.page);
-		}
-
-		/**
-		 * delete_note:
-		 *
-		 * Delete note at page @page.
-		 */
-		public void delete_note (int page) {
-			var note = get_note (page);
+			var note = this.current_note;
 
 			if (note == null) {
 				if (this.n_pages == 0)
@@ -1152,7 +1143,7 @@ namespace Xnp {
 			if (note.backed)
 				return;
 
-			this.notebook.remove_page (page);
+			this.notebook.remove_page (this.notebook.page);
 			note.destroy ();
 			if (this.n_pages == 0)
 				action ("delete");
