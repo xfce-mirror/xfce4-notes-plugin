@@ -993,7 +993,30 @@ namespace Xnp {
 			error_dialog.icon_name = "gtk-dialog-error";
 			error_dialog.title = this.name;
 			error_dialog.run ();
-			error_dialog.destroy ();
+			dialog_destroy (error_dialog);
+		}
+
+		/**
+		 * dialog_hide:
+		 *
+		 * Hide dialog window and stay focused.
+		 */
+		public void dialog_hide (Gtk.Dialog dialog) {
+			this.skip_taskbar_hint = false;
+			dialog.hide ();
+			this.skip_taskbar_hint = this.app.skip_taskbar_hint;
+		}
+
+
+		/**
+		 * dialog_destroy:
+		 *
+		 * Destroy dialog window and stay focused.
+		 */
+		public void dialog_destroy (Gtk.Dialog dialog) {
+			this.skip_taskbar_hint = false;
+			dialog.destroy ();
+			this.skip_taskbar_hint = this.app.skip_taskbar_hint;
 		}
 
 		/*
@@ -1134,7 +1157,7 @@ namespace Xnp {
 				dialog.title = this.name + " - " + note.name;
 				dialog.icon_name = "gtk-delete";
 				int res = dialog.run ();
-				dialog.destroy ();
+				dialog_destroy (dialog);
 				if (res != Gtk.ResponseType.YES)
 					return;
 			}
@@ -1180,7 +1203,7 @@ namespace Xnp {
 			content_area.show_all ();
 
 			int res = dialog.run ();
-			dialog.hide ();
+			dialog_hide (dialog);
 			if (res == Gtk.ResponseType.OK && entry.text != note.name) {
 				string name = entry.text;
 				if (note_name_exists (name)) {
@@ -1189,7 +1212,7 @@ namespace Xnp {
 					error_dialog.icon_name = "gtk-dialog-error";
 					error_dialog.title = _("Error");
 					error_dialog.run ();
-					error_dialog.destroy ();
+					dialog_destroy (error_dialog);
 				}
 				else {
 					this.note_renamed (note, name);
