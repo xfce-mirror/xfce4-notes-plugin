@@ -673,12 +673,21 @@ namespace Xnp {
 				return;
 			}
 
-			destroy_window (window);
-
-			if (this.window_list.length () == 0) {
+			if (this.window_list.length () < 2) {
+				destroy_window (window);
 				var new_win = create_window ();
 				if (new_win != null)
 					new_win.show ();
+			} else {
+				var focus_index = this.focus_order.length () - 2;
+				var new_focus = this.focus_order.nth_data (focus_index);
+				if (new_focus.get_visible ()) {
+					new_focus.skip_taskbar_hint = false;
+					destroy_window (window);
+					new_focus.skip_taskbar_hint = this.skip_taskbar_hint;
+				} else {
+					destroy_window (window);
+				}
 			}
 		}
 
