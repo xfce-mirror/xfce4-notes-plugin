@@ -36,6 +36,20 @@ namespace Xnp {
 		private string default_notes_path;
 		private Xnp.Theme theme;
 
+		private bool _skip_taskbar_hint = true;
+		public bool skip_taskbar_hint {
+			get {
+				return this._skip_taskbar_hint;
+			}
+			set {
+				if (this._skip_taskbar_hint == value)
+					return;
+				this._skip_taskbar_hint = value;
+				foreach (var win in this.window_list)
+					win.skip_taskbar_hint = value;
+			}
+		}
+
 		construct {
 			try {
 				Xfce.posix_signal_handler_init ();
@@ -61,6 +75,9 @@ namespace Xnp {
 			xfconf_channel.property_changed["/global/background-color"].connect (() => {
 				update_color ();
 			});
+
+			Xfconf.property_bind (xfconf_channel, "/global/skip-taskbar-hint",
+				typeof (bool), this, "skip-taskbar-hint");
 
 			default_notes_path = "%s/notes".printf (GLib.Environment.get_user_data_dir ());
 			if (notes_path == null) {
@@ -297,10 +314,10 @@ namespace Xnp {
 			window_monitor_list_add (window);
 
 			/* Global settings */
-			Xfconf.property_bind (xfconf_channel, "/global/skip-taskbar-hint",
-				typeof (bool), window, "skip-taskbar-hint");
 			Xfconf.property_bind (xfconf_channel, "/global/tabs-position",
 				typeof (int), window, "tabs-position");
+
+			window.skip_taskbar_hint = this.skip_taskbar_hint;
 
 			/* Connect signals */
 			window.action.connect ((win, action) => {
