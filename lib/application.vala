@@ -610,7 +610,7 @@ namespace Xnp {
 			content_area.show_all ();
 
 			int res = dialog.run ();
-			dialog.hide ();
+			window.dialog_hide (dialog);
 			if (res == Gtk.ResponseType.OK) {
 				weak string name = entry.text;
 				if (window_name_exists (name)) {
@@ -649,7 +649,7 @@ namespace Xnp {
 				dialog.icon_name = "gtk-delete";
 				dialog.title = window.name;
 				int res = dialog.run ();
-				dialog.destroy ();
+				window.dialog_destroy (dialog);
 				if (res != Gtk.ResponseType.YES)
 					return;
 			}
@@ -707,7 +707,7 @@ namespace Xnp {
 			dialog.set_icon_name ("org.xfce.notes");
 			dialog.format_secondary_text (_("Do you want to reload the group?"));
 			var res = dialog.run ();
-			dialog.destroy ();
+			window.dialog_destroy (dialog);
 
 			if (res == Gtk.ResponseType.YES) {
 				save_windows_configuration ();
