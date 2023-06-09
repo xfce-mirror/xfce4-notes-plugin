@@ -32,6 +32,7 @@ namespace Xnp {
 		private SList<Xnp.Window> window_list;
 		private SList<Xnp.Window> focus_order;
 		private Xfconf.Channel xfconf_channel;
+		private bool lock_focus_order = false;
 		private uint save_config_timeout = 0;
 		private string default_notes_path;
 		private Xnp.Theme theme;
@@ -47,6 +48,18 @@ namespace Xnp {
 				this._skip_taskbar_hint = value;
 				foreach (var win in this.window_list)
 					win.skip_taskbar_hint = value;
+			}
+		}
+
+		public Xnp.Window? next_focus {
+			get {
+				if (this.lock_focus_order)
+					return null;
+				var win_count = this.focus_order.length ();
+				if (win_count < 2)
+					return null;
+				var window = this.focus_order.nth_data (win_count - 2);
+				return window.get_visible () ? window : null;
 			}
 		}
 
@@ -321,7 +334,19 @@ namespace Xnp {
 
 			/* Connect signals */
 			window.action.connect ((win, action) => {
-				if (action == "rename") {
+				if (action == "hide") {
+					if (this.lock_focus_order)
+						return;
+					int hidden_windows = 0;
+					foreach (var w in this.focus_order) {
+						if (!w.get_visible ()) {
+							hidden_windows++;
+						}
+					}
+					this.focus_order.remove (window);
+					this.focus_order.insert (window, hidden_windows - 1);
+				}
+				else if (action == "rename") {
 					rename_window (win);
 					set_data_value (win, "internal-change", true);
 				}
@@ -679,9 +704,8 @@ namespace Xnp {
 				if (new_win != null)
 					new_win.show ();
 			} else {
-				var focus_index = this.focus_order.length () - 2;
-				var new_focus = this.focus_order.nth_data (focus_index);
-				if (new_focus.get_visible ()) {
+				var new_focus = this.next_focus;
+				if (new_focus != null) {
 					new_focus.skip_taskbar_hint = false;
 					destroy_window (window);
 					new_focus.skip_taskbar_hint = this.skip_taskbar_hint;
@@ -905,8 +929,16 @@ namespace Xnp {
 		 * Show all notes windows.
 		 */
 		private void show_windows () {
+			var focus = this.focus_order.last ().data;
 			foreach (var win in this.focus_order) {
-				win.show ();
+				if (win != focus) {
+					win.focus_on_map = false;
+					win.show ();
+					win.focus_on_map = true;
+				} else {
+					win.show ();
+					win.present ();
+				}
 			}
 		}
 
@@ -916,9 +948,11 @@ namespace Xnp {
 		 * Hide all notes windows.
 		 */
 		private void hide_windows () {
-			foreach (var win in this.focus_order) {
+			this.lock_focus_order = true;
+			foreach (var win in this.focus_order.copy ()) {
 				win.hide ();
 			}
+			this.lock_focus_order = false;
 		}
 
 		/**
