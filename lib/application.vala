@@ -875,21 +875,49 @@ namespace Xnp {
 				}
 			}
 
+			if (!active_found && visible_found) {
+				present_windows ();
+			}
+			else if (invisible_found) {
+				show_windows ();
+			}
+			else {
+				hide_windows ();
+			}
+		}
+
+		/**
+		 * present_windows:
+		 *
+		 * Present visible notes windows.
+		 */
+		private void present_windows () {
 			foreach (var win in this.focus_order) {
-				// Present visible windows
-				if (!active_found && visible_found) {
-					if (win.get_visible ()) {
-						win.present ();
-					}
+				if (win.get_visible ()) {
+					win.present ();
 				}
-				// Show all windows
-				else if (invisible_found) {
-					win.show ();
-				}
-				// Hide all windows
-				else {
-					win.hide ();
-				}
+			}
+		}
+
+		/**
+		 * show_windows:
+		 *
+		 * Show all notes windows.
+		 */
+		private void show_windows () {
+			foreach (var win in this.focus_order) {
+				win.show ();
+			}
+		}
+
+		/**
+		 * hide_windows:
+		 *
+		 * Hide all notes windows.
+		 */
+		private void hide_windows () {
+			foreach (var win in this.focus_order) {
+				win.hide ();
 			}
 		}
 
