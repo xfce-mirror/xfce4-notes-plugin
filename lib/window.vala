@@ -404,8 +404,17 @@ namespace Xnp {
 		 */
 		public new void hide () {
 			int winx, winy;
+			var new_focus = this.app.next_focus;
 			get_position (out winx, out winy);
-			base.hide ();
+			if (new_focus != null) {
+				new_focus.skip_taskbar_hint = false;
+				new_focus.present ();
+				base.hide ();
+				new_focus.skip_taskbar_hint = this.app.skip_taskbar_hint;
+			} else {
+				base.hide ();
+			}
+			action ("hide");
 			deiconify ();
 			unshade ();
 			move (winx, winy);
