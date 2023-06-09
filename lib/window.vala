@@ -490,6 +490,7 @@ namespace Xnp {
 			else
 				cursor = CURSOR_RIGHT;
 
+			this.notebook.motion_notify_event (event);
 			get_window ().set_cursor (cursor);
 			return true;
 		}
