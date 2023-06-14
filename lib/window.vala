@@ -95,6 +95,13 @@ namespace Xnp {
 			}
 		}
 
+		public bool empty {
+			get {
+				int n_pages = this.n_pages;
+				return n_pages == 1 ? get_note (0).text == "" : n_pages == 0;
+			}
+		}
+
 		public bool show_tabs {
 			get {
 				return this.notebook.show_tabs;

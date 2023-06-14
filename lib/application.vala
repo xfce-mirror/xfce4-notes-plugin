@@ -668,7 +668,7 @@ namespace Xnp {
 		 * Delete the window.
 		 */
 		private void delete_window (Xnp.Window window) {
-			if (window.n_pages >= 1) {
+			if (!window.empty) {
 				var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this group?"));
 				dialog.icon_name = "gtk-delete";
