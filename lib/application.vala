@@ -169,8 +169,8 @@ namespace Xnp {
 		}
 
 		private void update_notes_path () {
-			var new_notes_path = xfconf_channel.get_string ("/global/notes-path", default_notes_path);
-			if (notes_path == new_notes_path) {
+			var new_notes_path = xfconf_channel.get_string ("/global/notes-path", this.default_notes_path);
+			if (this.notes_path == new_notes_path) {
 				return;
 			}
 
@@ -178,18 +178,8 @@ namespace Xnp {
 			try {
 				var dir = Dir.open (new_notes_path, 0);
 				if (dir.read_name () != null) {
-					var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
-						_("Notes path is unacceptable"));
-					error_dialog.format_secondary_text (_("The selected directory (%s) for the new notes path already contains files. You must select or create an empty directory."), new_notes_path);
-					error_dialog.icon_name = "gtk-dialog-error";
-					error_dialog.title = _("Error");
-					error_dialog.run ();
-					error_dialog.destroy ();
-					if (notes_path == default_notes_path) {
-						xfconf_channel.reset_property ("/global/notes-path", false);
-					} else {
-						xfconf_channel.set_string ("/global/notes-path", notes_path);
-					}
+					notes_path_error (_("The selected directory (%s) for the new notes path already contains files. "
+							    + "You must select or create an empty directory.").printf (new_notes_path));
 					return;
 				}
 			}
@@ -198,24 +188,27 @@ namespace Xnp {
 
 			/* Create/move to the new path */
 			var dirname = Path.get_dirname (new_notes_path);
-			if (GLib.DirUtils.create_with_parents (dirname, 0700) != 0 || GLib.FileUtils.rename (notes_path, new_notes_path) != 0) {
-				var errnum = errno;
-				var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
-					_("Notes path is unacceptable"));
-				error_dialog.format_secondary_text (_("Unable to select directory for new notes path: %s"), strerror (errnum));
-				error_dialog.icon_name = "gtk-dialog-error";
-				error_dialog.title = _("Error");
-				error_dialog.run ();
-				error_dialog.destroy ();
-				if (notes_path == default_notes_path) {
-					xfconf_channel.reset_property ("/global/notes-path", false);
-				} else {
-					xfconf_channel.set_string ("/global/notes-path", notes_path);
-				}
+			if (GLib.DirUtils.create_with_parents (dirname, 0700) != 0
+			    || GLib.FileUtils.rename (this.notes_path, new_notes_path) != 0) {
+				notes_path_error (_("Unable to select directory for new notes path: %s").printf (strerror (errno)));
 				return;
 			}
 
-			notes_path = new_notes_path;
+			this.notes_path = new_notes_path;
+		}
+
+		private void notes_path_error (string message) {
+			var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("Notes path is unacceptable"));
+			error_dialog.format_secondary_text (message);
+			error_dialog.icon_name = "gtk-dialog-error";
+			error_dialog.title = _("Error");
+			error_dialog.run ();
+			error_dialog.destroy ();
+			if (this.notes_path == this.default_notes_path) {
+				xfconf_channel.reset_property ("/global/notes-path", false);
+			} else {
+				xfconf_channel.set_string ("/global/notes-path", this.notes_path);
+			}
 		}
 
 		private void update_color () {
