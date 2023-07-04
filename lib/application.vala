@@ -37,6 +37,30 @@ namespace Xnp {
 		private string default_notes_path;
 		private Xnp.Theme theme;
 
+		private bool main_instance {
+			get {
+				if (this.system_tray_mode) {
+					return true;
+				}
+
+				Gtk.Application app = new Gtk.Application ("org.xfce.Notes", 0);
+				app.activate.connect (() => {;});
+				try {
+					app.register ();
+				} catch (GLib.Error e) {
+				}
+
+				if (app.is_remote) {
+					return false;
+				}
+
+				app.run ();
+				app.quit ();
+
+				return true;
+			}
+		}
+
 		private bool _skip_taskbar_hint = true;
 		public bool skip_taskbar_hint {
 			get {
@@ -171,6 +195,15 @@ namespace Xnp {
 		private void update_notes_path () {
 			var new_notes_path = xfconf_channel.get_string ("/global/notes-path", this.default_notes_path);
 			if (this.notes_path == new_notes_path) {
+				return;
+			}
+
+			/*
+			 * Handle the case when panel plugin and system tray
+			 * application are running at the same time
+			 */
+			if (!this.main_instance) {
+				this.notes_path = new_notes_path;
 				return;
 			}
 
