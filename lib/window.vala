@@ -31,8 +31,6 @@ namespace Xnp {
 		private Gtk.CheckMenuItem mi_above;
 		private Gtk.CheckMenuItem mi_sticky;
 		private Gtk.Image menu_image;
-		private Gdk.Pixbuf menu_pixbuf;
-		private Gdk.Pixbuf menu_hover_pixbuf;
 		private Gtk.Label title_label;
 		private Xnp.TitleBarButton refresh_button;
 		private Xnp.TitleBarButton left_arrow_button;
@@ -247,22 +245,15 @@ namespace Xnp {
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
-			try {
-				this.menu_pixbuf = load_icon ("notes-menu.png");
-				this.menu_hover_pixbuf = load_icon ("notes-menu-active.png");
-			}
-			catch (Error e) {
-				this.menu_pixbuf = this.menu_hover_pixbuf = null;
-			}
-			this.menu_image = new Gtk.Image.from_pixbuf (this.menu_pixbuf);
+			this.menu_image = new Gtk.Image.from_icon_name ("org.xfce.notes.menu", IconSize.MENU);
 			menu_evbox.add (this.menu_image);
 			menu_evbox.enter_notify_event.connect (() => {
-				this.menu_image.set_from_pixbuf (this.menu_hover_pixbuf);
+				this.menu_image.set_from_icon_name ("org.xfce.notes.menu-active", IconSize.MENU);
 				menu_evbox.get_window ().invalidate_rect (null, false);
 				return false;
 			});
 			menu_evbox.leave_notify_event.connect (() => {
-				this.menu_image.set_from_pixbuf (this.menu_pixbuf);
+				this.menu_image.set_from_icon_name ("org.xfce.notes.menu", IconSize.MENU);
 				menu_evbox.get_window ().invalidate_rect (null, false);
 				return false;
 			});
@@ -1292,19 +1283,6 @@ namespace Xnp {
 				if (label != null)
 					label.angle = angle;
 			}
-		}
-
-		/**
-		 * load_icon:
-		 *
-		 * Load icon from user dir or system path.
-		 */
-		private Gdk.Pixbuf load_icon (string filename) throws Error {
-			var icon_path = Xfce.resource_lookup (Xfce.ResourceType.ICONS, filename);
-			if (icon_path == null) {
-				icon_path = "%s/pixmaps/%s".printf (Config.PKGDATADIR, filename);
-			}
-			return new Gdk.Pixbuf.from_file (icon_path);
 		}
 
 /* valac -X '-I..' -X '-DGETTEXT_PACKAGE="xfce4-notes-plugin"' -X '-DPKGDATADIR="../data"' -D DEBUG_XNP_WINDOW --pkg=gtk+-3.0 --pkg=libxfce4util-1.0 --pkg=libxfconf-0 --pkg=color --pkg=config --vapidir=.. --vapidir=. window.vala note.vala hypertextview.vala icon-button.vala */
