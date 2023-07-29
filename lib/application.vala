@@ -502,8 +502,7 @@ namespace Xnp {
 						string contents;
 						var file = File.new_for_path ("%s/%s".printf (path, name));
 						GLib.FileUtils.get_contents (file.get_path (), out contents, null);
-						var note = window.insert_note ();
-						note.name = name;
+						var note = window.insert_note (name);
 						note.text = contents;
 						Xfconf.property_bind (xfconf_channel, "/global/font-description",
 								typeof (string), note.text_view, "font");
