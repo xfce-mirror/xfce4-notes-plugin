@@ -1046,19 +1046,25 @@ namespace Xnp {
 		 * Create a new note and insert it inside the notebook after
 		 * the current position.
 		 */
-		public Xnp.Note insert_note () {
-			int len = this.n_pages;
-			string name = _("Notes");
-			for (int id = 1; id <= len + 1; id++) {
-				if (id > 1) {
-					name = _("Notes %d").printf (id);
+		public Xnp.Note insert_note (string? name = null) {
+			string note_name;
+
+			if (name == null) {
+				int len = this.n_pages;
+				note_name = _("Notes");
+				for (int i = 1; i <= len + 1; i++) {
+					if (i > 1) {
+						note_name = _("Notes %d").printf (i);
+					}
+					if (!note_name_exists (note_name)) {
+						break;
+					}
 				}
-				if (!note_name_exists (name)) {
-					break;
-				}
+			} else {
+				note_name = name;
 			}
 
-			var note = new Xnp.Note (name);
+			var note = new Xnp.Note (note_name);
 			this.note_inserted (note);
 			if (!note.backed) {
 				return note;
@@ -1067,7 +1073,7 @@ namespace Xnp {
 			note.show ();
 			var tab_evbox = new Gtk.EventBox ();
 			tab_evbox.add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.SCROLL_MASK);
-			var label = new Gtk.Label (name);
+			var label = new Gtk.Label (note_name);
 			tab_evbox.add (label);
 			label.show ();
 			connect_note_signals (note, tab_evbox);
