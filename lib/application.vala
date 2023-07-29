@@ -1016,7 +1016,7 @@ namespace Xnp {
 
 			Gtk.show_about_dialog (null,
 				"program-name", _("Notes"),
-				"logo-icon-name", "org.xfce.notes",
+				"logo-icon-name", "org.xfce.notes.logo",
 				"comments", _("Ideal for your quick notes"),
 				"version", Config.PACKAGE_VERSION,
 				"copyright", "Copyright © 2003-2023 The Xfce development team",
