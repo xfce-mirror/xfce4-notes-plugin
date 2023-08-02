@@ -36,6 +36,8 @@ namespace Xnp {
 
 		private uint tag_timeout = 0;
 		private Gtk.TextTag tag_link;
+		private Gtk.TextTag strikethrough_tag;
+
 
 		private string _font;
 		public string font {
@@ -71,6 +73,10 @@ namespace Xnp {
 					"foreground", "blue", // TODO use __gdk_color_constrast function
 					"underline", Pango.Underline.SINGLE,
 					null);
+		
+			this.strikethrough_tag = this.buffer.create_tag("strikethrough", "strikethrough", true, null);
+			// Connect to the populate_popup signal to modify the deault Gtk.TextView context menu
+			this.populate_popup.connect(populate_popup_cb);
 		}
 
 		~HypertextView () {
@@ -80,9 +86,36 @@ namespace Xnp {
 				Source.remove (this.tag_timeout);
 		}
 
+
+
 		/*
 		 * Signal callbacks
 		 */
+
+		private void populate_popup_cb(Gtk.TextView widget, Gtk.Menu popup_menu) {
+  			var separator = new SeparatorMenuItem();
+			popup_menu.append(separator);
+			separator.show();
+
+			// Create a menu item with the label "Strikethrough"
+			var strikethrough_item = new Gtk.MenuItem();
+			strikethrough_item.set_label(_("Strikethrough"));
+			popup_menu.append(strikethrough_item);
+			strikethrough_item.show();
+
+			// Connect to the "activate" signal of the "Strikethrough" menu item
+			strikethrough_item.activate.connect(on_strikethrough_activate);
+    	}
+
+		private void on_strikethrough_activate() {
+			// We'll use markdown syntax for strikethrough ~~ like this ~~ and then apply the tag in the buffer much the way it's done with handling links.
+			TextIter start_iter, end_iter;
+			this.buffer.get_selection_bounds(out start_iter, out end_iter);
+			string selected_text = this.buffer.get_text(start_iter, end_iter, false);
+			this.buffer.delete_selection(true, true);
+			this.buffer.insert_at_cursor("~~" + selected_text + "~~", selected_text.length +4);
+			this.update_tags();
+		}
 
 		/**
 		 * button_release_event_cb:
@@ -418,6 +451,8 @@ namespace Xnp {
 
 			this.buffer.get_iter_at_offset (out iter, 0);
 
+
+
 			while (iter.forward_search ("://", Gtk.TextSearchFlags.TEXT_ONLY, out start, out end, null)) {
 				iter = end;
 
@@ -447,6 +482,20 @@ namespace Xnp {
 					}
 					this.buffer.apply_tag (this.tag_link, start, end);
 				}
+			}
+
+			this.buffer.get_iter_at_offset (out iter, 0);
+			while (iter.forward_search("~~", Gtk.TextSearchFlags.TEXT_ONLY, out start, out end, null)) {
+				iter = end;
+				Gtk.TextIter strikeend, eol, search_start;
+				search_start = eol = start;
+				eol.forward_to_line_end();
+				var res = iter.forward_search("~~", Gtk.TextSearchFlags.TEXT_ONLY, out strikeend, null, eol); 
+				if (!res) { 
+					// no end tag found.
+					continue;
+				}
+				this.buffer.apply_tag_by_name("strikethrough", start, strikeend);
 			}
 		}
 
