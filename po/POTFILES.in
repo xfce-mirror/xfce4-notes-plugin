@@ -14,3 +14,4 @@ src/main-popup.vala
 src/main-status-icon.vala
 src/main-settings-dialog.c
 libc/xfce-autostart.c
+lib/hypertextview.c
