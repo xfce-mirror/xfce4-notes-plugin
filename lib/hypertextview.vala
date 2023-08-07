@@ -92,6 +92,7 @@ namespace Xnp {
 		 * Signal callbacks
 		 */
 
+
 		private void populate_popup_cb(Gtk.TextView widget, Gtk.Menu popup_menu) {
   			var separator = new SeparatorMenuItem();
 			popup_menu.append(separator);
@@ -242,6 +243,7 @@ namespace Xnp {
 				this.tag_timeout = 0;
 				this.tag_timeout = Timeout.add_seconds (2, tag_timeout_cb);
 			}
+			update_tags ();
 		}
 
 		/**
