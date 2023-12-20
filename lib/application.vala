@@ -335,7 +335,7 @@ namespace Xnp {
 			if (name == null || !GLib.FileUtils.test (window_path, GLib.FileTest.IS_DIR|GLib.FileTest.EXISTS)) {
 				try {
 					GLib.DirUtils.create_with_parents (window_path, 0700);
-					string note_path = "%s/%s".printf (window_path, _("Notes %d").printf (1));
+					string note_path = "%s/%s".printf (window_path, _("Note %d").printf (1));
 					GLib.FileUtils.set_contents (note_path, "", -1);
 					this.load_window_data (window);
 				}

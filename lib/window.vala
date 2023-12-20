@@ -1052,7 +1052,7 @@ namespace Xnp {
 			if (name == null) {
 				int len = this.n_pages;
 				for (int i = 1; i <= len + 1; i++) {
-					note_name = _("Notes %d").printf (i);
+					note_name = _("Note %d").printf (i);
 					if (!note_name_exists (note_name)) {
 						break;
 					}
