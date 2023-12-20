@@ -1,3 +1,10 @@
+/*
+ * This can be customized with:
+ * - @sysconfdir@/xfce4/notes.css
+ * - ${XDG_CONFIG_HOME}/gtk-3.0/gtk.css
+ * - ${XDG_CONFIG_HOME}/xfce4/notes/gtk.css
+ */
+
 @define-color theme_base_color @notes_bg_color;
 @define-color theme_text_color shade (@theme_base_color, 0.25);
 @define-color theme_bg_color @theme_base_color;
@@ -25,11 +32,16 @@ window frame {
 	                                  shade (@theme_base_color, 0.95) 87px);
 }
 
-/* icon buttons in window title bar */
-window widget#notes-icon-button {
+/* title bar */
+#titlebar {
 	color: black;
 	background-color: transparent;
 }
+#titlebar:backdrop {
+	color: shade (@insensitive_fg_color, 0.95);
+}
+
+/* icon buttons in window title bar */
 window widget#notes-icon-button:active {
 	color: darker (@theme_fg_color);
 	text-shadow: 1px 1px lighter (@theme_bg_color);
@@ -42,7 +54,7 @@ window widget#notes-icon-button:hover {
 }
 
 /* notebook */
-notebook > header {
+notebook > header, notebook arrow {
 	background: transparent;
 }
 notebook > header.top {

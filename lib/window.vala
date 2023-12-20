@@ -2,9 +2,6 @@
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
  *
- *  TODO:
- *  - Follow GNOME bug #551184 to change accelerators hexa values
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -27,14 +24,13 @@ namespace Xnp {
 
 	public class Window : Gtk.Window {
 
+		private Xnp.Application app;
 		private int width;
 		private int height;
 		private Gtk.Menu menu;
 		private Gtk.CheckMenuItem mi_above;
 		private Gtk.CheckMenuItem mi_sticky;
 		private Gtk.Image menu_image;
-		private Gdk.Pixbuf menu_pixbuf;
-		private Gdk.Pixbuf menu_hover_pixbuf;
 		private Gtk.Label title_label;
 		private Xnp.TitleBarButton refresh_button;
 		private Xnp.TitleBarButton left_arrow_button;
@@ -74,16 +70,35 @@ namespace Xnp {
 		};
 
 		private int CORNER_MARGIN = 20;
+		private Gdk.Cursor CURSOR_TOP_LC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.TOP_LEFT_CORNER);
+		private Gdk.Cursor CURSOR_TOP = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.TOP_SIDE);
+		private Gdk.Cursor CURSOR_TOP_RC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.TOP_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_RIGHT = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.RIGHT_SIDE);
 		private Gdk.Cursor CURSOR_LEFT = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.LEFT_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_RC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_RIGHT_CORNER);
 		private Gdk.Cursor CURSOR_BOTTOM = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_SIDE);
 		private Gdk.Cursor CURSOR_BOTTOM_LC = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.BOTTOM_LEFT_CORNER);
 
-		private unowned SList<Xnp.Window> window_list;
-
 		public new string name { default = _("Notes"); get; set; }
-		public int n_pages { get; set; }
+
+		public Xnp.Note current_note {
+			get {
+				return (Xnp.Note)this.notebook.get_nth_page (this.notebook.page);
+			}
+		}
+
+		public int n_pages {
+			get {
+				return this.notebook.get_n_pages ();
+			}
+		}
+
+		public bool empty {
+			get {
+				int n_pages = this.n_pages;
+				return n_pages == 1 ? get_note (0).text == "" : n_pages == 0;
+			}
+		}
 
 		public bool show_tabs {
 			get {
@@ -169,7 +184,8 @@ namespace Xnp {
 		public signal void save_data (Xnp.Note note);
 		public signal void note_inserted (Xnp.Note note);
 		public signal void note_deleted (Xnp.Note note);
-		public signal void note_renamed (Xnp.Note note, string old_name);
+		public signal void note_renamed (Xnp.Note note, string name);
+		public signal bool note_moved (Xnp.Window src_win, Xnp.Note note);
 
 		construct {
 			((Gtk.Widget)this).name = "notes-window";
@@ -179,14 +195,16 @@ namespace Xnp {
 			this.default_height = 380;
 			this.default_width = 300;
 			this.decorated = false;
-			this.icon_name = "xfce4-notes-plugin";
+			this.icon_name = "org.xfce.notes";
 			this.sticky = true;
 			this.opacity = 0.9;
 		}
 
-		public Window () {
+		public Window (Xnp.Application app) {
+			this.app = app;
+
 			/* Window responses on pointer motion */
-			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.POINTER_MOTION_HINT_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
+			add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.BUTTON_PRESS_MASK);
 
 			/* Build accelerators */
 			this.action_group = new Gtk.ActionGroup ("XNP");
@@ -223,24 +241,20 @@ namespace Xnp {
 
 			/* Build title bar */
 			var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+			title_box.name = "titlebar";
 			var menu_evbox = new Gtk.EventBox ();
 			menu_evbox.tooltip_text = _("Menu");
 			menu_evbox.set_visible_window (false);
-			try {
-				this.menu_pixbuf = new Gdk.Pixbuf.from_file ("%s/pixmaps/notes-menu.png".printf (Config.PKGDATADIR));
-				this.menu_hover_pixbuf = new Gdk.Pixbuf.from_file ("%s/pixmaps/notes-menu-active.png".printf (Config.PKGDATADIR));
-			}
-			catch (Error e) {
-				this.menu_pixbuf = this.menu_hover_pixbuf = null;
-			}
-			this.menu_image = new Gtk.Image.from_pixbuf (this.menu_pixbuf);
+			this.menu_image = new Gtk.Image.from_icon_name ("org.xfce.notes.menu", IconSize.MENU);
 			menu_evbox.add (this.menu_image);
 			menu_evbox.enter_notify_event.connect (() => {
-				this.menu_image.set_from_pixbuf (this.menu_hover_pixbuf);
+				this.menu_image.set_from_icon_name ("org.xfce.notes.menu-active", IconSize.MENU);
+				menu_evbox.get_window ().invalidate_rect (null, false);
 				return false;
 			});
 			menu_evbox.leave_notify_event.connect (() => {
-				this.menu_image.set_from_pixbuf (this.menu_pixbuf);
+				this.menu_image.set_from_icon_name ("org.xfce.notes.menu", IconSize.MENU);
+				menu_evbox.get_window ().invalidate_rect (null, false);
 				return false;
 			});
 			title_box.pack_start (menu_evbox, false, false, 2);
@@ -248,7 +262,7 @@ namespace Xnp {
 			title_evbox.add_events (Gdk.EventMask.SCROLL_MASK);
 			title_evbox.set_visible_window (false);
 			this.title_label = new Gtk.Label (null);
-			this.title_label.set_markup ("<b>"+this.title+"</b>");
+			this.title_label.set_markup (Markup.printf_escaped ("<b>%s</b>", this.title));
 			this.title_label.ellipsize = Pango.EllipsizeMode.END;
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
@@ -259,15 +273,17 @@ namespace Xnp {
 			this.refresh_button.sensitive = false;
 			title_box.pack_start (this.refresh_button, false, false, 2);
 			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
-			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff55, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Up
-			this.left_arrow_button.sensitive = false;
+			this.left_arrow_button.add_events (Gdk.EventMask.SCROLL_MASK);
+			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Up, Gdk.ModifierType.CONTROL_MASK);
+			this.left_arrow_button.enabled = false;
 			title_box.pack_start (this.left_arrow_button, false, false, 2);
 			this.right_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.RIGHT_ARROW);
-			this.right_arrow_button.tooltip_text = Gtk.accelerator_get_label (0xff56, Gdk.ModifierType.CONTROL_MASK); // GDK_Page_Down
-			this.right_arrow_button.sensitive = false;
+			this.right_arrow_button.add_events (Gdk.EventMask.SCROLL_MASK);
+			this.right_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Down, Gdk.ModifierType.CONTROL_MASK);
+			this.right_arrow_button.enabled = false;
 			title_box.pack_start (this.right_arrow_button, false, false, 2);
 			this.close_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.CLOSE);
-			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (0xff1b, 0)); // GDK_Escape
+			this.close_button.tooltip_text = _("Hide (%s)").printf (Gtk.accelerator_get_label (Gdk.Key.Escape, 0));
 			title_box.pack_start (this.close_button, false, false, 2);
 			title_box.show_all ();
 			vbox_frame.pack_start (title_box, false, false, 0);
@@ -281,6 +297,7 @@ namespace Xnp {
 			this.notebook = new Gtk.Notebook ();
 			this.notebook.add_events (Gdk.EventMask.SCROLL_MASK);
 			this.notebook.name = "notes-notebook";
+			this.notebook.group_name = "notes";
 			this.notebook.show_border = true;
 			this.notebook.show_tabs = false;
 			this.notebook.tab_pos = Gtk.PositionType.TOP;
@@ -301,22 +318,20 @@ namespace Xnp {
 				hide ();
 				return true;
 			});
-			focus_in_event.connect (() => {
-				menu_image.sensitive = true;
-				title_label.sensitive = true;
-				refresh_button.sensitive = true;
-				update_navigation_sensitivity (this.notebook.get_current_page ());
-				close_button.sensitive = true;
-				return false;
-			});
-			focus_out_event.connect (() => {
-				menu_image.sensitive = false;
-				title_label.sensitive = false;
-				refresh_button.sensitive = false;
-				left_arrow_button.sensitive = false;
-				right_arrow_button.sensitive = false;
-				close_button.sensitive = false;
-				return false;
+			this.notify["is-active"].connect (() => {
+				if (this.is_active) {
+					menu_image.sensitive = true;
+					refresh_button.sensitive = true;
+					close_button.sensitive = true;
+					update_navigation_sensitivity (this.notebook.page);
+				} else {
+					menu_image.sensitive = false;
+					refresh_button.sensitive = false;
+					left_arrow_button.enabled = false;
+					right_arrow_button.enabled = false;
+					close_button.sensitive = false;
+					save_current_note ();
+				}
 			});
 			leave_notify_event.connect (window_leaved_cb);
 			motion_notify_event.connect (window_motion_cb);
@@ -324,28 +339,52 @@ namespace Xnp {
 			window_state_event.connect (window_state_cb);
 			title_evbox.button_press_event.connect (title_evbox_pressed_cb);
 			title_evbox.scroll_event.connect (title_evbox_scrolled_cb);
+			left_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
+			right_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			this.notebook.page_added.connect ((n, c, p) => {
-				notebook.set_current_page ((int)p);
+				notebook.page = (int)p;
 				update_navigation_sensitivity ((int)p);
 			});
 			this.notebook.page_removed.connect ((n, c, p) => {
 				update_navigation_sensitivity ((int)p);
 			});
 			this.notebook.switch_page.connect ((n, c, p) => {
-				var note = (Xnp.Note)(notebook.get_nth_page ((int)p));
-				update_title (note.name);
+				save_current_note ();
+				update_title (get_note ((int)p).name);
 				update_navigation_sensitivity ((int)p);
 			});
-			this.notebook.scroll_event.connect (notebook_scrolled_cb);
+			this.notebook.scroll_event.connect (notebook_tab_scroll_cb);
 			notify["name"].connect (() => {
-				int page = this.notebook.get_current_page ();
-				if (page == -1)
-					return;
-				var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-				update_title (current_note.name);
+				var current_note = this.current_note;
+				if (current_note != null) {
+					update_title (current_note.name);
+				} else {
+					this.title = this.name;
+				}
+				if (this.title_label.get_mapped ()) {
+					this.title_label.get_window ().invalidate_rect (null, false);
+				}
 			});
 			notify["title"].connect (() => {
-				title_label.set_markup ("<b>"+title+"</b>");
+				title_label.set_markup (Markup.printf_escaped ("<b>%s</b>", title));
+			});
+			this.notebook.drag_drop.connect ((c, x, y, t) => {
+				var src_notebook = Gtk.drag_get_source_widget (c) as Gtk.Notebook;
+				if (src_notebook == null || src_notebook == this.notebook)
+					return false;
+				var src_win = (Xnp.Window)src_notebook.get_toplevel ();
+				if (this.note_moved (src_win, src_win.current_note))
+					return false;
+				Gtk.drag_finish (c, false, false, t);
+				return true;
+			});
+			this.notebook.drag_data_received.connect_after ((c) => {
+				var src_notebook = Gtk.drag_get_source_widget (c) as Gtk.Notebook;
+				if (src_notebook == null)
+					return;
+				var src_win = (Xnp.Window)src_notebook.get_toplevel ();
+				if (src_win.n_pages == 0)
+					src_win.action ("delete");
 			});
 		}
 
@@ -363,8 +402,17 @@ namespace Xnp {
 		 */
 		public new void hide () {
 			int winx, winy;
+			var new_focus = this.app.next_focus;
 			get_position (out winx, out winy);
-			base.hide ();
+			if (new_focus != null) {
+				new_focus.skip_taskbar_hint = false;
+				new_focus.present ();
+				base.hide ();
+				new_focus.skip_taskbar_hint = this.app.skip_taskbar_hint;
+			} else {
+				base.hide ();
+			}
+			action ("hide");
 			deiconify ();
 			unshade ();
 			move (winx, winy);
@@ -376,7 +424,12 @@ namespace Xnp {
 		 *
 		 * Reset the mouse cursor.
 		 */
-		private bool window_leaved_cb () {
+		private bool window_leaved_cb (Gdk.EventCrossing event) {
+			Gtk.Allocation allocation;
+			get_allocation (out allocation);
+			bool outside = event.x <= 0 || event.x >= allocation.width
+				|| event.y <= 0 || event.y >= allocation.height;
+			if (!outside) return true;
 			get_window ().set_cursor (null);
 			return true;
 		}
@@ -388,6 +441,14 @@ namespace Xnp {
 		 */
 		private bool window_motion_cb (Gdk.EventMotion event) {
 			Gtk.Allocation allocation;
+			Gdk.Cursor cursor;
+			void *widget;
+
+			event.window.get_user_data (out widget);
+			if (widget != this) {
+				get_window ().set_cursor (null);
+				return false;
+			}
 
 			get_allocation (out allocation);
 
@@ -398,32 +459,37 @@ namespace Xnp {
 				return false;
 			}
 
-			// Right
-			if (event.x >= allocation.width - this.CORNER_MARGIN
-				&& event.y >= this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_RIGHT);
-			// Bottom right corner
-			else if (event.x >= allocation.width - this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_BOTTOM_RC);
+			// Top
+			if (event.y <= CORNER_MARGIN) {
+				// Top left corner
+				if (event.x <= CORNER_MARGIN)
+					cursor = CURSOR_TOP_LC;
+				// Top right corner
+				else if (event.x >= allocation.width - CORNER_MARGIN)
+					cursor = CURSOR_TOP_RC;
+				else
+					cursor = CURSOR_TOP;
+			}
 			// Bottom
-			else if (event.x > this.CORNER_MARGIN
-				&& event.y > allocation.height - this.CORNER_MARGIN
-				&& event.x < allocation.width - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_BOTTOM);
-			// Bottom left corner
-			else if (event.x <= this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_BOTTOM_LC);
+			else if (event.y > allocation.height - CORNER_MARGIN) {
+				// Bottom left corner
+				if (event.x <= CORNER_MARGIN)
+					cursor = CURSOR_BOTTOM_LC;
+				// Bottom right corner
+				else if (event.x >= allocation.width - CORNER_MARGIN)
+					cursor = CURSOR_BOTTOM_RC;
+				else
+					cursor = CURSOR_BOTTOM;
+			}
 			// Left
-			else if (event.x <= this.CORNER_MARGIN && event.y >= this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				get_window ().set_cursor (this.CURSOR_LEFT);
-			// Default
+			else if (event.x <= CORNER_MARGIN)
+				cursor = CURSOR_LEFT;
+			// Right
 			else
-				get_window ().set_cursor (null);
+				cursor = CURSOR_RIGHT;
 
+			this.notebook.motion_notify_event (event);
+			get_window ().set_cursor (cursor);
 			return true;
 		}
 
@@ -433,38 +499,25 @@ namespace Xnp {
 		 * Start a window resize depending on mouse pointer location.
 		 */
 		private bool window_pressed_cb (Gdk.EventButton event) {
+			var cursor = get_window ().get_cursor ();
 			Gdk.WindowEdge edge;
-			Gtk.Allocation allocation;
 
-			get_allocation (out allocation);
-
-			if (event.x > 4 && event.y > 4
-				&& event.x < allocation.width - 4
-				&& event.y < allocation.height - 4)
-				return false;
-
-			// Right
-			if (event.y > this.CORNER_MARGIN
-				&& event.x > allocation.width - this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.EAST;
-			// Bottom right corner
-			else if (event.x >= allocation.width - this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.SOUTH_EAST;
-			// Bottom
-			else if (event.x > this.CORNER_MARGIN
-				&& event.y > allocation.height - this.CORNER_MARGIN
-				&& event.x < allocation.width - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.SOUTH;
-			// Bottom left corner
-			else if (event.x <= this.CORNER_MARGIN
-				&& event.y >= allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.SOUTH_WEST;
-			// Left
-			else if (event.y > this.CORNER_MARGIN && event.x < this.CORNER_MARGIN
-				&& event.y < allocation.height - this.CORNER_MARGIN)
-				edge = Gdk.WindowEdge.WEST;
+			if (cursor == CURSOR_TOP)
+				edge = NORTH;
+			else if (cursor == CURSOR_BOTTOM)
+				edge = SOUTH;
+			else if (cursor == CURSOR_LEFT)
+				edge = WEST;
+			else if (cursor == CURSOR_RIGHT)
+				edge = EAST;
+			else if (cursor == CURSOR_TOP_LC)
+				edge = NORTH_WEST;
+			else if (cursor == CURSOR_TOP_RC)
+				edge = NORTH_EAST;
+			else if (cursor == CURSOR_BOTTOM_LC)
+				edge = SOUTH_WEST;
+			else if (cursor == CURSOR_BOTTOM_RC)
+				edge = SOUTH_EAST;
 			else
 				return false;
 
@@ -500,7 +553,9 @@ namespace Xnp {
 		private bool title_evbox_pressed_cb (Gtk.Widget widget, Gdk.EventButton event) {
 			if (event.type != Gdk.EventType.BUTTON_PRESS)
 				return false;
-			if (event.button == 1) {
+			if (get_window ().get_cursor () != null)
+				return false;
+			if (event.button == Gdk.BUTTON_PRIMARY) {
 				get_window ().show ();
 				int winx, winy, curx, cury;
 				get_position (out winx, out winy);
@@ -509,10 +564,10 @@ namespace Xnp {
 				winy += cury;
 				begin_move_drag (1, winx, winy, Gtk.get_current_event_time ());
 			}
-			else if (event.button == 2) {
+			else if (event.button == Gdk.BUTTON_MIDDLE) {
 				get_window ().lower ();
 			}
-			else if (event.button == 3) {
+			else if (event.button == Gdk.BUTTON_SECONDARY) {
 				this.menu.popup (null, null, null, 0, Gtk.get_current_event_time ());
 			}
 			return false;
@@ -544,22 +599,22 @@ namespace Xnp {
 		}
 
 		/**
-		 * notebook_scrolled_cb:
+		 * notebook_tab_scroll_cb:
 		 *
 		 * Switch tabs with mouse scroll wheel.
 		 */
-		private bool notebook_scrolled_cb (Gtk.Widget widget, Gdk.EventScroll event) {
-			var child = notebook.get_nth_page (notebook.get_current_page ());
+		private bool notebook_tab_scroll_cb (Gdk.EventScroll event) {
+			var current_note = this.current_note;
 
-			if (child == null)
+			if (current_note == null)
 				return false;
 
 			var event_widget = Gtk.get_event_widget (event);
 
 			/* Ignore scroll events from the content of the page */
 			if (event_widget == null ||
-				event_widget == child ||
-				event_widget.is_ancestor (child))
+				event_widget == current_note ||
+				event_widget.is_ancestor (current_note))
 				return false;
 
 			/* We only want to switch tabs on mouse wheel when no accelerators pressed */
@@ -586,14 +641,32 @@ namespace Xnp {
 		 * note_notify_name_cb:
 		 *
 		 */
-		private void note_notify_name_cb (GLib.Object object, GLib.ParamSpec pspec) {
+		private void note_notify_name_cb (GLib.Object object, GLib.ParamSpec? pspec) {
 			Xnp.Note note = object as Xnp.Note;
-			this.notebook.set_tab_label_text (note, note.name);
+			var tab_evbox = get_tab_evbox (note);
+			var label = tab_evbox.get_child () as Gtk.Label;
+			label.set_text (note.name);
 			_notebook_update_tabs_angle ();
-			int page = this.notebook.get_current_page ();
-			var current_note = (Xnp.Note)(this.notebook.get_nth_page (page));
-			if (note == current_note)
+			if (note == this.current_note)
 				this.update_title (note.name);
+		}
+
+		/**
+		 * tab_evbox_pressed_cb:
+		 *
+		 * Handle mouse click events on notebook tabs.
+		 */
+		private bool tab_evbox_pressed_cb (Gdk.EventButton event, Xnp.Note note) {
+			if (event.type == DOUBLE_BUTTON_PRESS && event.button == Gdk.BUTTON_PRIMARY)
+				action_rename_note ();
+			else if (event.button == Gdk.BUTTON_MIDDLE) {
+				notebook.page = notebook.page_num (note);
+				delete_current_note ();
+			}
+			else
+				return false;
+
+			return true;
 		}
 
 		/*
@@ -625,11 +698,9 @@ namespace Xnp {
 		}
 
 		private void action_cancel () {
-			int page = notebook.get_current_page ();
-			if (page < 0)
-				return;
-			Gtk.Widget child = notebook.get_nth_page (page);
-			((Xnp.Note)child).text_view.undo ();
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.undo ();
 		}
 
 		private void action_refresh_notes () {
@@ -692,6 +763,36 @@ namespace Xnp {
 		}
 
 		/**
+		 * Menu creation helpers
+		 */
+
+		delegate void Callback();
+
+		private void menu_add_icon_item (Gtk.Menu menu, string text, string icon, string? accel, Callback callback) {
+			var mi = new Gtk.ImageMenuItem.with_mnemonic (text);
+			var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
+			mi.set_image (image);
+			if (accel != null) {
+				mi.set_accel_path (this.action_group.get_action (accel).get_accel_path ());
+			}
+			mi.activate.connect (() => { callback (); });
+			menu.append (mi);
+		}
+
+		private Gtk.CheckMenuItem menu_add_check_item (Gtk.Menu menu, string text, bool active, Callback callback) {
+			var mi = new Gtk.CheckMenuItem.with_label (text);
+			mi.active = active;
+			mi.toggled.connect (() => { callback (); });
+			menu.append (mi);
+			return mi;
+		}
+
+		private void menu_add_separator (Gtk.Menu menu) {
+			var mi = new Gtk.SeparatorMenuItem ();
+			menu.append (mi);
+		}
+
+		/**
 		 * build_menu:
 		 *
 		 * Build the window menu.
@@ -710,54 +811,21 @@ namespace Xnp {
 			mi.set_submenu (menu_go);
 
 			/* Note items */
-			mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic (_("_New"));
-			mi.set_accel_path (this.action_group.get_action ("new-note").get_accel_path ());
-			mi.activate.connect (action_new_note);
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete"));
-			mi.set_accel_path (this.action_group.get_action ("delete-note").get_accel_path ());
-			mi.activate.connect (action_delete_note);
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename"));
-			mi.set_accel_path (this.action_group.get_action ("rename-note").get_accel_path ());
-			mi.activate.connect (action_rename_note);
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Undo"));
-			mi.set_accel_path (this.action_group.get_action ("cancel").get_accel_path ());
-			mi.activate.connect (action_cancel);
-			menu.append (mi);
+			menu_add_separator (menu);
+			menu_add_icon_item (menu, _("_New"), "gtk-new", "new-note", action_new_note);
+			menu_add_icon_item (menu, _("_Delete"), "gtk-delete", "delete-note", action_delete_note);
+			menu_add_icon_item (menu, _("_Rename"), "gtk-edit", "rename-note", action_rename_note);
+			menu_add_icon_item (menu, _("_Undo"), "gtk-undo", "cancel", action_cancel);
 
 			/* Window options */
-			mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
-
-			mi = this.mi_above = new Gtk.CheckMenuItem.with_label (_("Always on top"));
-			((Gtk.CheckMenuItem)mi).active = this.above;
-			((Gtk.CheckMenuItem)mi).toggled.connect ((o) => { above = o.active; });
-			menu.append (mi);
-
-			mi = this.mi_sticky = new Gtk.CheckMenuItem.with_label (_("Sticky window"));
-			((Gtk.CheckMenuItem)mi).active = this.sticky;
-			((Gtk.CheckMenuItem)mi).toggled.connect ((o) => { sticky = o.active; });
-			menu.append (mi);
+			menu_add_separator (menu);
+			this.mi_above = menu_add_check_item (menu, _("Always on top"), above, () => { above = mi_above.active; });
+			this.mi_sticky = menu_add_check_item (menu, _("Sticky window"), sticky, () => { sticky = mi_sticky.active; });
 
 			/* Settings/About dialog */
-			mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic ("_Properties");
-			mi.activate.connect (() => { action ("properties"); });
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic ("_About");
-			mi.activate.connect (() => { action ("about"); });
-			menu.append (mi);
+			menu_add_separator (menu);
+			menu_add_icon_item (menu, _("_Properties"), "gtk-properties", null, () => { action("properties"); });
+			menu_add_icon_item (menu, _("_About"), "gtk-about", null, () => { action("about"); });
 
 			return menu;
 		}
@@ -770,31 +838,36 @@ namespace Xnp {
 		private void update_menu_go (Gtk.Widget widget) {
 			Gtk.Menu menu = widget as Gtk.Menu;
 			Gtk.MenuItem mi;
+			Gtk.Image image;
 
 			menu.@foreach ((w) => {
 					w.destroy ();
 				});
 
-			foreach (var win in this.window_list) {
+			foreach (var win in app.get_window_list ()) {
 				if (win == this) {
 					mi = new Gtk.MenuItem.with_label (win.name);
 					mi.sensitive = false;
 					menu.append (mi);
 
-					int n_pages = this.notebook.get_n_pages ();
+					var current_note = this.current_note;
+					int n_pages = this.n_pages;
+
 					for (int p = 0; p < n_pages; p++) {
-						var note = (Xnp.Note)(this.notebook.get_nth_page (p));
-						mi = new Gtk.MenuItem.with_label (note.name);
+						var note = get_note (p);
+						mi = new Gtk.ImageMenuItem.with_label (note.name);
+						if (note == current_note) {
+							image = new Gtk.Image.from_icon_name ("gtk-go-forward", Gtk.IconSize.MENU);
+							((Gtk.ImageMenuItem)mi).set_image (image);
+						}
 						mi.set_data ("page", p.to_pointer ());
 						mi.activate.connect ((i) => {
-							int page = i.get_data<int> ("page");
-							notebook.set_current_page (page);
+							notebook.page = i.get_data<int> ("page");
 						});
 						menu.append (mi);
 					}
 
-					mi = new Gtk.SeparatorMenuItem ();
-					menu.append (mi);
+					menu_add_separator (menu);
 				}
 				else {
 					mi = new Gtk.MenuItem.with_label (win.name);
@@ -805,25 +878,13 @@ namespace Xnp {
 					});
 					menu.append (mi);
 
-					mi = new Gtk.SeparatorMenuItem ();
-					menu.append (mi);
+					menu_add_separator (menu);
 				}
 			}
 
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Rename group"));
-			mi.set_accel_path (this.action_group.get_action ("rename-window").get_accel_path ());
-			mi.activate.connect (action_rename_window);
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Delete group"));
-			mi.set_accel_path (this.action_group.get_action ("delete-window").get_accel_path ());
-			mi.activate.connect (action_delete_window);
-			menu.append (mi);
-
-			mi = new Gtk.MenuItem.with_mnemonic (_("_Add a new group"));
-			mi.set_accel_path (this.action_group.get_action ("new-window").get_accel_path ());
-			mi.activate.connect (action_new_window);
-			menu.append (mi);
+			menu_add_icon_item (menu, _("_Rename group"), "gtk-edit", "rename-window", action_rename_window);
+			menu_add_icon_item (menu, _("_Delete group"), "gtk-remove", "delete-window", action_delete_window);
+			menu_add_icon_item (menu, _("_Add a new group"), "gtk-add", "new-window", action_new_window);
 
 			menu.show_all ();
 		}
@@ -847,16 +908,6 @@ namespace Xnp {
 		}
 
 		/**
-		 * set_window_list:
-		 *
-		 * Saves a list of window inside window.window_list to be shown
-		 * within the window menu.
-		 */
-		public void set_window_list (SList <Xnp.Window> list) {
-			this.window_list = list;
-		}
-
-		/**
 		 * compare_func:
 		 *
 		 * Compare function for the window name to use with GLib.CompareFunc delegates.
@@ -871,7 +922,7 @@ namespace Xnp {
 		 * Get the current page in the notebook.
 		 */
 		public int get_current_page () {
-			return this.notebook.get_current_page ();
+			return this.notebook.page;
 		}
 
 		/**
@@ -880,7 +931,7 @@ namespace Xnp {
 		 * Set the current page in the notebook.
 		 */
 		public void set_current_page (int page) {
-			this.notebook.set_current_page (page);
+			this.notebook.page = page;
 		}
 
 		/*
@@ -928,15 +979,52 @@ namespace Xnp {
 		 * Update the goleft/right sensitivities.
 		 */
 		private void update_navigation_sensitivity (int page_num) {
-			int n_pages = notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			if (n_pages <= 1) {
-				this.left_arrow_button.sensitive = false;
-				this.right_arrow_button.sensitive = false;
+				this.left_arrow_button.enabled = false;
+				this.right_arrow_button.enabled = false;
 			}
 			else {
-				this.left_arrow_button.sensitive = page_num > 0 ? true : false;
-				this.right_arrow_button.sensitive = page_num + 1 < n_pages ? true : false;
+				this.left_arrow_button.enabled = page_num > 0;
+				this.right_arrow_button.enabled = page_num + 1 < n_pages;
 			}
+		}
+
+		/**
+		 * popup_error:
+		 *
+		 * Show a pop-up error message.
+		 */
+		public void popup_error (string message) {
+			var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "%s", message);
+			error_dialog.icon_name = "gtk-dialog-error";
+			error_dialog.title = this.name;
+			error_dialog.run ();
+			dialog_destroy (error_dialog);
+		}
+
+		/**
+		 * dialog_hide:
+		 *
+		 * Hide dialog window and stay focused.
+		 */
+		public void dialog_hide (Gtk.Dialog dialog) {
+			this.skip_taskbar_hint = false;
+			dialog.hide ();
+			this.skip_taskbar_hint = this.app.skip_taskbar_hint;
+		}
+
+
+		/**
+		 * dialog_destroy:
+		 *
+		 * Destroy dialog window and stay focused.
+		 */
+		public void dialog_destroy (Gtk.Dialog dialog) {
+			this.skip_taskbar_hint = false;
+			dialog.destroy ();
+			this.skip_taskbar_hint = this.app.skip_taskbar_hint;
 		}
 
 		/*
@@ -944,37 +1032,79 @@ namespace Xnp {
 		 */
 
 		/**
+		 * get_note:
+		 *
+		 * Get note from page.
+		 */
+		private Xnp.Note get_note (int p) {
+			return (Xnp.Note)this.notebook.get_nth_page (p);
+		}
+
+		/**
 		 * insert_note:
 		 *
 		 * Create a new note and insert it inside the notebook after
 		 * the current position.
 		 */
-		public Xnp.Note insert_note () {
-			int len = this.notebook.get_n_pages ();
-			string name = _("Notes");
-			for (int id = 1; id <= len + 1; id++) {
-				if (id > 1) {
-					name = _("Notes %d").printf (id);
+		public Xnp.Note insert_note (string? name = null) {
+			string note_name = "";
+
+			if (name == null) {
+				int len = this.n_pages;
+				for (int i = 1; i <= len + 1; i++) {
+					note_name = _("Note %d").printf (i);
+					if (!note_name_exists (note_name)) {
+						break;
+					}
 				}
-				if (!note_name_exists (name)) {
-					break;
-				}
+			} else {
+				note_name = name;
 			}
 
-			int page = this.notebook.get_current_page () + 1;
-			var note = new Xnp.Note (name);
-
-			note.notify["name"].connect (note_notify_name_cb);
-			note.save_data.connect ((note) => { save_data (note); });
+			var note = new Xnp.Note (note_name);
+			this.note_inserted (note);
+			if (!note.backed) {
+				return note;
+			}
 
 			note.show ();
-			this.n_pages++;
-			this.notebook.insert_page (note, null, page);
+			var tab_evbox = new Gtk.EventBox ();
+			tab_evbox.add_events (Gdk.EventMask.POINTER_MOTION_MASK|Gdk.EventMask.SCROLL_MASK);
+			var label = new Gtk.Label (note_name);
+			tab_evbox.add (label);
+			label.show ();
+			connect_note_signals (note, tab_evbox);
+			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
 			this.notebook.set_tab_reorderable (note, true);
-			note.name = note.name; //note.notify ("name");
-			this.note_inserted (note);
+			this.notebook.set_tab_detachable (note, true);
 			_notebook_update_tabs_angle ();
 			return note;
+		}
+
+		/**
+		 * connect_note_signals:
+		 *
+		 * Connect note signals.
+		 */
+		public void connect_note_signals (Xnp.Note note, Gtk.EventBox tab_evbox) {
+			note.notify["name"].connect (note_notify_name_cb);
+			note.save_handler_id = note.save_data.connect ((note) => {
+				this.save_data (note);
+			});
+			note.tab_handler_id = tab_evbox.button_press_event.connect ((e) => {
+				return tab_evbox_pressed_cb (e, note);
+			});
+		}
+
+		/**
+		 * disconnect_note_signals:
+		 *
+		 * Disconnect note signals.
+		 */
+		public void disconnect_note_signals (Xnp.Note note, Gtk.EventBox tab_evbox) {
+			note.notify["name"].disconnect (note_notify_name_cb);
+			tab_evbox.disconnect (note.tab_handler_id);
+			note.disconnect (note.save_handler_id);
 		}
 
 		/**
@@ -983,9 +1113,9 @@ namespace Xnp {
 		 * Moves the note named @note_name to position @page.
 		 */
 		public void move_note (string note_name, int page) {
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
+				var note = get_note (p);
 				if (note.name == note_name) {
 					this.notebook.reorder_child (note, page);
 					update_navigation_sensitivity (page);
@@ -1002,12 +1132,20 @@ namespace Xnp {
 		 */
 		public string[] get_note_names () {
 			string[] note_names = null;
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				note_names += note.name;
+				note_names += get_note (p).name;
 			}
 			return note_names;
+		}
+
+		/**
+		 * get_tab_evbox:
+		 *
+		 * Get tab event box for note.
+		 */
+		public Gtk.EventBox get_tab_evbox (Xnp.Note note) {
+			return this.notebook.get_tab_label (note) as Gtk.EventBox;
 		}
 
 		/**
@@ -1016,31 +1154,37 @@ namespace Xnp {
 		 * Delete the current note.
 		 */
 		public void delete_current_note () {
-			this.delete_note (this.notebook.get_current_page ());
-		}
+			var note = this.current_note;
+			var page = this.notebook.page;
 
-		/**
-		 * delete_note:
-		 *
-		 * Delete note at page @page.
-		 */
-		public void delete_note (int page) {
-			var note = (Xnp.Note)this.notebook.get_nth_page (page);
+			if (note == null) {
+				if (this.n_pages == 0)
+					action ("delete");
+				return;
+			}
 
 			if (note.text_view.buffer.get_char_count () > 0) {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this note?"));
+				dialog.title = this.name + " - " + note.name;
+				dialog.icon_name = "gtk-delete";
 				int res = dialog.run ();
-				dialog.destroy ();
+				dialog_destroy (dialog);
 				if (res != Gtk.ResponseType.YES)
 					return;
 			}
 
-			this.n_pages--;
-			this.notebook.remove_page (page);
 			this.note_deleted (note);
+			if (note.backed)
+				return;
+
+			this.notebook.remove_page (this.notebook.page);
 			note.destroy ();
-			if (this.notebook.get_n_pages () == 0)
+
+			if (this.notebook.page > 0 && page != this.n_pages)
+				this.notebook.page--;
+
+			if (this.n_pages == 0)
 				action ("delete");
 		}
 
@@ -1050,14 +1194,13 @@ namespace Xnp {
 		 * Rename the current note.
 		 */
 		public void rename_current_note () {
-			int page = this.notebook.get_current_page ();
-			if (page == -1)
+			var note = this.current_note;
+			if (note == null)
 				return;
-			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
 
 			var dialog = new Gtk.Dialog.with_buttons (_("Rename note"), (Gtk.Window)get_toplevel (),
 				Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				"_Cancel", Gtk.ResponseType.CANCEL, "_OK", Gtk.ResponseType.OK);
+				"gtk-cancel", Gtk.ResponseType.CANCEL, "gtk-ok", Gtk.ResponseType.OK);
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
@@ -1072,41 +1215,20 @@ namespace Xnp {
 			content_area.show_all ();
 
 			int res = dialog.run ();
-			dialog.hide ();
-			if (res == Gtk.ResponseType.OK) {
+			dialog_hide (dialog);
+			if (res == Gtk.ResponseType.OK && entry.text != note.name) {
 				string name = entry.text;
 				if (note_name_exists (name)) {
 					var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
+					error_dialog.icon_name = "gtk-dialog-error";
+					error_dialog.title = _("Error");
 					error_dialog.run ();
-					error_dialog.destroy ();
+					dialog_destroy (error_dialog);
 				}
 				else {
-					string old_name = note.name;
-					note.name = name;
-					this.note_renamed (note, old_name);
+					this.note_renamed (note, name);
 				}
-			}
-			dialog.destroy ();
-		}
-
-		/**
-		 * set_font:
-		 *
-		 * Set the font for the window.
-		 */
-		public void set_font () {
-			int page = this.notebook.get_current_page ();
-			if (page == -1)
-				return;
-			var note = (Xnp.Note)(this.notebook.get_nth_page (page));
-
-			var dialog = new Gtk.FontChooserDialog ("Choose current note font", this);
-			dialog.set_font (note.text_view.font);
-			int res = dialog.run ();
-			dialog.hide ();
-			if (res == Gtk.ResponseType.OK) {
-				note.text_view.font = dialog.get_font ();
 			}
 			dialog.destroy ();
 		}
@@ -1117,10 +1239,9 @@ namespace Xnp {
 		 * Verify if the given name already exists in the notebook.
 		 */
 		private bool note_name_exists (string name) {
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				if (note.name == name) {
+				if (get_note (p).name == name) {
 					return true;
 				}
 			}
@@ -1130,17 +1251,19 @@ namespace Xnp {
 		/**
 		 * save_notes:
 		 *
-		 * Send the save-data signal on every dirty note.
+		 * Save notes.
 		 */
 		public void save_notes () {
-			int n_pages = this.notebook.get_n_pages ();
+			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
-				var note = (Xnp.Note)this.notebook.get_nth_page (p);
-				if (note.dirty) {
-					note.dirty = false;
-					save_data (note);
-				}
+				get_note (p).save ();
 			}
+		}
+
+		private void save_current_note () {
+			var note = this.current_note;
+			if (note != null)
+				note.save ();
 		}
 
 		/**
@@ -1155,13 +1278,14 @@ namespace Xnp {
 			else if (_tabs_position == 4)
 				angle = 90;
 
-			int pages = this.notebook.get_n_pages ();
-			for (int i = 0; i < pages; i++) {
-				var widget = this.notebook.get_nth_page (i);
-				var label = this.notebook.get_tab_label (widget) as Gtk.Label;
-				if (label is Gtk.Label) {
+			int n_pages = this.n_pages;
+			for (int i = 0; i < n_pages; i++) {
+				var tab_evbox = get_tab_evbox (get_note (i));
+				if (tab_evbox == null)
+					continue;
+				var label = tab_evbox.get_child () as Gtk.Label;
+				if (label != null)
 					label.angle = angle;
-				}
 			}
 		}
 

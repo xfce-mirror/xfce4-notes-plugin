@@ -28,9 +28,9 @@ static Gtk.Menu context_menu;
 
 static void build_plugin () {
 	Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
-	var save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.rc", true);
+	var save_location = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/notes/xfce4-notes.rc", true);
 	application = new Xnp.Application (save_location);
-	status_icon = new Gtk.StatusIcon.from_icon_name ("xfce4-notes-plugin");
+	status_icon = new Gtk.StatusIcon.from_icon_name ("org.xfce.notes.tray");
 	status_icon.set_tooltip_text (_("Notes"));
 	Timeout.add_seconds (60, () => {
 			if (!status_icon.is_embedded ()) {
@@ -44,6 +44,22 @@ static void build_plugin () {
 	status_icon.popup_menu.connect (() => {
 		context_menu.popup (null, null, status_icon.position_menu, 0, Gtk.get_current_event_time ());
 	});
+	application.system_tray_mode = true;
+}
+
+delegate void Callback();
+
+static void menu_add_icon_item (Gtk.Menu menu, string text, string icon, Callback callback) {
+	var mi = new Gtk.ImageMenuItem.with_mnemonic (text);
+	var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
+	mi.set_image (image);
+	mi.activate.connect (() => { callback (); });
+	menu.append (mi);
+}
+
+static void menu_add_separator (Gtk.Menu menu) {
+	var mi = new Gtk.SeparatorMenuItem ();
+	menu.append (mi);
 }
 
 static Gtk.Menu build_context_menu () {
@@ -54,27 +70,15 @@ static Gtk.Menu build_context_menu () {
 	mi.set_submenu (menu_go);
 	menu.append (mi);
 
-	mi = new Gtk.SeparatorMenuItem ();
-	menu.append (mi);
+	menu_add_separator (menu);
+	menu_add_icon_item (menu, _("_Properties"), "gtk-properties", () => { application.open_settings_dialog (); });
+	menu_add_icon_item (menu, _("_About"), "gtk-about", () => { application.open_about_dialog (); });
 
-	mi = new Gtk.MenuItem.with_mnemonic (_("_Properties"));
-	mi.activate.connect (() => { application.open_settings_dialog (); });
-	menu.append (mi);
-
-	mi = new Gtk.MenuItem.with_mnemonic (_("_About"));
-	mi.activate.connect (() => { application.open_about_dialog (); });
-	menu.append (mi);
-
-	mi = new Gtk.SeparatorMenuItem ();
-	menu.append (mi);
-
-	mi = new Gtk.MenuItem.with_mnemonic (_("_Remove"));
-	mi.activate.connect (() => {
-		application.save_notes ();
+	menu_add_separator (menu);
+	menu_add_icon_item (menu, _("_Quit"), "gtk-quit", () => {
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
-		Gtk.main_quit ();
+		application.quit ();
 	});
-	menu.append (mi);
 
 	menu.show_all ();
 

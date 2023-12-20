@@ -1,6 +1,8 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (c) 2009       Cornelius Hald <hald@icandy.de>
+ *  Copyright (c) 2023       Arthur Demchenkov <spinal.by@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,14 +30,16 @@ namespace Xnp {
 		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
 
 		private bool cursor_over_link = false;
+		private int cursor_position = 0;
 
 		private uint undo_timeout = 0;
-		private int undo_cursor_pos;
 		private string undo_text = "";
 		private string redo_text = "";
+		private int undo_cursor_pos;
+		private int redo_cursor_pos;
 
-		private uint tag_timeout = 0;
 		private Gtk.TextTag tag_link;
+		private Regex regex_link;
 
 		private string _font;
 		public string font {
@@ -52,23 +56,27 @@ namespace Xnp {
 		construct {
 			this.font = "Sans 13";
 			this.tabs = new Pango.TabArray.with_positions (1, true, Pango.TabAlign.LEFT, 12);
+			try {
+				this.regex_link = new Regex ("((\\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\\." +
+							     "|\\S*@\\S*\\.)|(?<=^|\\s)/\\S+/|(?<=^|\\s)~/\\S+)\\S*\\b/?)",
+							     RegexCompileFlags.CASELESS|RegexCompileFlags.OPTIMIZE);
+			} catch (GLib.RegexError e) {
+				critical ("%s", e.message);
+			}
 		}
 
 		public HypertextView () {
-			Gtk.TextIter iter;
-
+			this.style_updated.connect (style_updated_cb);
 			this.button_release_event.connect (button_release_event_cb);
 			this.motion_notify_event.connect (motion_notify_event_cb);
-			this.move_cursor.connect (move_cursor_cb);
+			this.state_flags_changed.connect (state_flags_changed_cb);
+			this.buffer.notify["cursor-position"].connect (move_cursor_cb);
 			this.buffer.changed.connect (buffer_changed_cb);
-			this.buffer.insert_text.connect (insert_text_cb);
-			this.buffer.delete_range.connect (delete_range_cb);
-
-			this.buffer.get_iter_at_offset (out iter, 0);
-			this.buffer.create_mark ("undo-pos", iter, false);
+			this.buffer.insert_text.connect_after (insert_text_cb);
+			this.buffer.delete_range.connect_after (delete_range_cb);
 
 			this.tag_link = this.buffer.create_tag ("link",
-					"foreground", "blue", // TODO use __gdk_color_constrast function
+					"foreground", "blue",
 					"underline", Pango.Underline.SINGLE,
 					null);
 		}
@@ -76,13 +84,29 @@ namespace Xnp {
 		~HypertextView () {
 			if (this.undo_timeout != 0)
 				Source.remove (this.undo_timeout);
-			if (this.tag_timeout != 0)
-				Source.remove (this.tag_timeout);
 		}
 
 		/*
 		 * Signal callbacks
 		 */
+
+		/**
+		 * style_updated_cb:
+		 *
+		 * Get the link color from the css.
+		 */
+		private void style_updated_cb (Gtk.Widget hypertextview) {
+			Gtk.StyleContext context = this.get_style_context ();
+			Gtk.StateFlags state = context.get_state ();
+			state &= ~Gtk.StateFlags.VISITED;
+			state |= Gtk.StateFlags.LINK;
+			context.save ();
+			context.set_state (state);
+			/* Remove the 'view' style, because it can "confuse" some themes */
+			context.remove_class (Gtk.STYLE_CLASS_VIEW);
+			tag_link.foreground_rgba = context.get_color (state);
+			context.restore ();
+		}
 
 		/**
 		 * button_release_event_cb:
@@ -94,7 +118,7 @@ namespace Xnp {
 			string link;
 			int x, y;
 
-			if (event.button != 1)
+			if (event.button != Gdk.BUTTON_PRIMARY)
 				return false;
 
 			this.buffer.get_selection_bounds (out start, out end);
@@ -114,6 +138,9 @@ namespace Xnp {
 				end.forward_to_tag_toggle (this.tag_link);
 
 				link = start.get_text (end);
+
+				if (link[0:2] == "~/")
+					link = "%s/%s".printf (Environment.get_home_dir (), link.substring (2));
 
 				try {
 					GLib.Process.spawn_command_line_async ("exo-open "+link);
@@ -170,24 +197,32 @@ namespace Xnp {
 		}
 
 		/**
+		 * state_flags_changed_cb:
+		 *
+		 * Fix mouse cursor behavior after clicking on a link.
+		 */
+		private void state_flags_changed_cb () {
+			if (get_realized () && this.sensitive) {
+				var win = get_window (Gtk.TextWindowType.TEXT);
+				win.set_cursor (this.cursor_over_link ? this.hand_cursor : this.regular_cursor);
+			}
+		}
+
+		/**
 		 * move_cursor_cb:
 		 *
 		 * Destroys existing timeouts and executes the actions immediately.
 		 */
-		private void move_cursor_cb (Gtk.Widget hypertextview, Gtk.MovementStep step, int count, bool extend_selection) {
+		private void move_cursor_cb () {
+			if (this.cursor_position == this.buffer.cursor_position)
+				return;
+
 			if (this.undo_timeout > 0) {
 				/* Make an undo snapshot and save cursor_position before it really moves */
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
 				undo_snapshot ();
-				this.undo_cursor_pos = this.buffer.cursor_position;
 			}
 
-			if (this.tag_timeout > 0) {
-				Source.remove (this.tag_timeout);
-				this.tag_timeout = 0;
-				update_tags ();
-			}
+			this.cursor_position = this.buffer.cursor_position;
 		}
 
 		/**
@@ -200,15 +235,11 @@ namespace Xnp {
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
 				this.undo_timeout = 0;
+			} else {
+				this.redo_cursor_pos = this.cursor_position;
 			}
 			this.undo_timeout = Timeout.add_seconds (2, undo_snapshot);
-
-			/* Reinit tag_timeout as long as the buffer is under constant changes */
-			if (this.tag_timeout > 0) {
-				Source.remove (this.tag_timeout);
-				this.tag_timeout = 0;
-				this.tag_timeout = Timeout.add_seconds (2, tag_timeout_cb);
-			}
+			this.cursor_position = this.buffer.cursor_position;
 		}
 
 		/**
@@ -217,81 +248,9 @@ namespace Xnp {
 		 * Event to create and update existing tags within the buffer.
 		 */
 		private void insert_text_cb (Gtk.TextBuffer buffer, Gtk.TextIter location, string text, int len) {
-			Gtk.TextIter start, end;
-
-			if (location.starts_tag (this.tag_link)) {
-				if (text[text.length - 1] != ' ' && text[text.length - 1] != '\n') {
-					start = location;
-					end = location;
-					end.forward_to_tag_toggle (this.tag_link);
-					this.buffer.remove_tag (this.tag_link, start, end);
-				}
-				tag_timeout_init ();
-			}
-			/* Text is inserted inside a tag */
-			else if (location.has_tag (this.tag_link)) {
-				start = location;
-				start.backward_to_tag_toggle (this.tag_link);
-				start.forward_search  ("://", Gtk.TextSearchFlags.TEXT_ONLY, null, out end, null);
-
-				if (location.get_offset () <= end.get_offset () - 3) {
-					if (text.contains (" ") || text.contains ("\n")) {
-						end.forward_to_tag_toggle (this.tag_link);
-
-						this.buffer.remove_tag (this.tag_link, start, end);
-
-						tag_timeout_init ();
-					}
-				}
-				else if (location.get_offset () < end.get_offset () || text.contains (":")) {
-					end.forward_to_tag_toggle (this.tag_link);
-
-					this.buffer.remove_tag (this.tag_link, start, end);
-				}
-				else if (text.contains (" ") || text.contains ("\n")) {
-					start = location;
-					end.forward_to_tag_toggle (this.tag_link);
-
-					this.buffer.remove_tag (this.tag_link, start, end);
-
-					tag_timeout_init ();
-				}
-			}
-
-			/* Text is inserted at the end of a tag */
-			else if (location.ends_tag (this.tag_link)) {
-				if (len >= 1 && !(text[0] == ' ' || text[0] == '\n')) {
-					start = location;
-					start.backward_to_tag_toggle (this.tag_link);
-
-					this.buffer.remove_tag (this.tag_link, start, location);
- 					tag_timeout_init ();
-				}
-				/* Link is inserted after a tag */
-				else if (text.contains ("://")) {
-					tag_timeout_init ();
-				}
-			}
- 
-			/* Check if the word being typed ends with "://" */
-			else if (len == 1 && text[0] == '/') {
-				start = location;
-
-				if (!start.backward_chars (2) || start.get_text(location) != ":/")
-					return;
-
-				tag_timeout_init ();
-			}
-
-			/* Check the character space or return carrier */
-			else if (len == 1 && (text[0] == ' ' || text[0] == '\n')) {
-				update_tags ();
-			}
-
-			/* Text contains links */
-			else if (len > 4 && text.contains ("://")) {
-				tag_timeout_init ();
-			}
+			Gtk.TextIter end_iter = location;
+			end_iter.forward_chars (text.char_count ());
+			auto_highlight_urls (location, end_iter);
 		}
 
 		/**
@@ -300,24 +259,7 @@ namespace Xnp {
 		 * Event to delete and update existing tags within the buffer.
 		 */
 		private void delete_range_cb (Gtk.TextBuffer buffer, Gtk.TextIter start, Gtk.TextIter end) {
-			Gtk.TextIter iter;
-
-			if (!start.has_tag (this.tag_link) && !end.has_tag (this.tag_link))
-				return;
-
-			if (start.has_tag (this.tag_link)) {
-				iter = start;
-				iter.backward_to_tag_toggle (this.tag_link);
-				this.buffer.remove_tag (this.tag_link, iter, start);
-			}
-
-			if (end.has_tag (this.tag_link)) {
-				iter = end;
-				iter.forward_to_tag_toggle (this.tag_link);
-				this.buffer.remove_tag (this.tag_link, end, iter);
-			}
-
-			tag_timeout_init ();
+			auto_highlight_urls (start, end);
 		}
 
 		/*
@@ -325,20 +267,32 @@ namespace Xnp {
 		 */
 
 		/**
+		 * init_undo:
+		 *
+		 * Initialize the undo stack after loading a note.
+		 */
+		public void init_undo () {
+			this.undo_text = null;
+			this.redo_text = this.buffer.text;
+			if (this.undo_timeout > 0) {
+				Source.remove (this.undo_timeout);
+				this.undo_timeout = 0;
+			}
+		}
+
+		/**
 		 * undo_snapshot:
 		 *
 		 * Makes a snapshot of the current buffer and swaps undo/redo texts.
 		 */
 		private bool undo_snapshot () {
-			Gtk.TextIter start, end;
-
-			this.undo_cursor_pos = this.buffer.cursor_position;
-
-			this.buffer.get_iter_at_offset (out start, 0);
-			this.buffer.get_iter_at_offset (out end, -1);
-
-			this.undo_text = this.redo_text;
-			this.redo_text = this.buffer.get_text (start, end, false);
+			var text = this.buffer.text;
+			if (text != this.redo_text) {
+				this.undo_text = this.redo_text;
+				this.redo_text = text;
+				this.undo_cursor_pos = this.redo_cursor_pos;
+				this.redo_cursor_pos = this.cursor_position;
+			}
 
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
@@ -355,52 +309,41 @@ namespace Xnp {
 		 */
 		public void undo () {
 			Gtk.TextIter iter;
-			Gtk.TextMark mark;
-			string tmp;
 
-			if (this.undo_timeout > 0) {
-				/* Make an undo snaphot */
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
+			if (this.undo_timeout > 0)
 				undo_snapshot ();
-			}
 
-			this.buffer.set_text (this.undo_text, -1);
+			if (this.undo_text == null)
+				return;
+
+			this.buffer.changed.disconnect (buffer_changed_cb);
+			this.buffer.text = this.undo_text;
+			this.buffer.changed.connect (buffer_changed_cb);
 			this.buffer.get_iter_at_offset (out iter, this.undo_cursor_pos);
+			this.cursor_position = this.undo_cursor_pos;
 			this.buffer.place_cursor (iter);
 
 			/* Scroll to the cursor position */
-			mark = this.buffer.get_mark ("undo-pos");
-			this.buffer.move_mark (mark, iter);
-			this.scroll_to_mark (mark, 0.0, false, 0.5, 0.5);
+			this.scroll_to_iter (iter, 0.0, false, 0.5, 0.5);
 
-			tmp = this.undo_text;
+			var undo_text = this.undo_text;
+			var undo_cursor_pos = this.undo_cursor_pos;
 			this.undo_text = this.redo_text;
-			this.redo_text = tmp;
+			this.undo_cursor_pos = this.redo_cursor_pos;
+			this.redo_text = undo_text;
+			this.redo_cursor_pos = undo_cursor_pos;
 
 			if (this.undo_timeout > 0) {
 				Source.remove (this.undo_timeout);
 				this.undo_timeout = 0;
 			}
+
+			update_tags ();
 		}
 
 		/*
 		 * Tags
 		 */
-
-		private bool tag_timeout_cb () {
-			update_tags ();
-			return false;
-		}
-
-		private void tag_timeout_init () {
-			if (this.tag_timeout > 0) {
-				Source.remove (this.tag_timeout);
-				this.tag_timeout = 0;
-			}
-
-			this.tag_timeout = Timeout.add_seconds (2, tag_timeout_cb);
-		}
 
 		/**
 		 * update_tags:
@@ -408,44 +351,72 @@ namespace Xnp {
 		 * Goes through the entire document to search for untagged links and tag them.
 		 */
 		public void update_tags () {
-			Gtk.TextIter iter, start, end, tmp;
-			string link;
+			Gtk.TextIter start, end;
+			this.buffer.get_start_iter (out start);
+			this.buffer.get_end_iter (out end);
+			auto_highlight_urls (start, end);
+		}
 
-			if (this.tag_timeout > 0) {
-				Source.remove (this.tag_timeout);
-				this.tag_timeout = 0;
+		private void auto_highlight_urls (Gtk.TextIter start, Gtk.TextIter end) {
+			/* Grow the block by 256 chars (max url length) which will be checked for links */
+			extend_block (ref start, ref end, 256);
+
+			/* Remove existing link tag */
+			this.buffer.remove_tag (this.tag_link, start, end);
+
+			/* The piece of text we are interested in */
+			string str = start.get_slice (end);
+
+			/* Match the regex */
+			MatchInfo match_info;
+			this.regex_link.match (str, 0, out match_info);
+
+			/* Iterate through the matches and apply the link tag */
+			try {
+				while (match_info.matches ()) {
+					int start_pos, end_pos;
+
+					/* Get start and end position of the match */
+					match_info.fetch_pos (0, out start_pos, out end_pos);
+
+					/* Move the iters and apply tag */
+					Gtk.TextIter xstart = start;
+					xstart.forward_chars (str.char_count (start_pos));
+
+					Gtk.TextIter xend = start;
+					xend.forward_chars (str.char_count (end_pos));
+
+					this.buffer.apply_tag (tag_link, xstart, xend);
+
+					match_info.next ();
+				}
+			} catch (GLib.RegexError e) {
+				warning ("%s", e.message);
+			}
+		}
+
+		private void extend_block (ref Gtk.TextIter start_iter, ref Gtk.TextIter end_iter, int max_len) {
+			/* Set start_iter max_len chars to the left or to the start of the line */
+			if (start_iter.get_line_offset () - max_len > 0) {
+				start_iter.backward_chars (max_len);
+				/* Expand selection to the left, if there is a tag_link inside */
+				if (start_iter.has_tag (this.tag_link)) {
+					start_iter.backward_to_tag_toggle (this.tag_link);
+				}
+			} else {
+				start_iter.set_line_offset (0);
 			}
 
-			this.buffer.get_iter_at_offset (out iter, 0);
-
-			while (iter.forward_search ("://", Gtk.TextSearchFlags.TEXT_ONLY, out start, out end, null)) {
-				iter = end;
-
-				if (!start.ends_word ())
-					continue;
-
-				start.backward_word_start ();
-
-				if (start.starts_tag (this.tag_link))
-					continue;
-
-				if (!iter.forward_search  (" ", Gtk.TextSearchFlags.TEXT_ONLY, out end, null, null)) {
-					if (!iter.forward_search ("\n", Gtk.TextSearchFlags.TEXT_ONLY, out end, null, null)) {
-						this.buffer.get_iter_at_offset (out end, -1);
+			/* Set end_iter max_len chars to the right or to the end of the line */
+			if (!end_iter.ends_line ()) {
+				if (end_iter.get_line_offset () + max_len < end_iter.get_chars_in_line ()) {
+					end_iter.forward_chars (max_len);
+					/* Expand selection to the right, if there is a tag_link inside */
+					if (end_iter.has_tag (this.tag_link)) {
+						end_iter.forward_to_tag_toggle(this.tag_link);
 					}
-				}
-				else if (iter.forward_search  ("\n", Gtk.TextSearchFlags.TEXT_ONLY, out tmp, null, null)) {
-					if (tmp.get_offset () < end.get_offset ()) {
-						end = tmp;
-					}
-				}
-
-				if (end.get_offset () - start.get_offset () >= 5) {
-					link = iter.get_text (end);
-					if (link.contains (":")) {
-						continue;
-					}
-					this.buffer.apply_tag (this.tag_link, start, end);
+				} else {
+					end_iter.forward_to_line_end ();
 				}
 			}
 		}
@@ -453,4 +424,3 @@ namespace Xnp {
 	}
 
 }
-

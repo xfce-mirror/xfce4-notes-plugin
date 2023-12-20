@@ -18,7 +18,6 @@
  */
 
 using Gtk;
-using Pango;
 
 namespace Xnp {
 
@@ -26,6 +25,21 @@ namespace Xnp {
 
 		public Xnp.HypertextView text_view;
 		public new string name { get; set; }
+		public ulong save_handler_id;
+		public ulong tab_handler_id;
+		public bool backed = true;
+
+		public string text {
+			owned get {
+				return this.text_view.buffer.text;
+			}
+			set {
+				this.text_view.buffer.text = value;
+				this.text_view.update_tags ();
+				this.text_view.init_undo ();
+				this.dirty = false;
+			}
+		}
 
 		private uint save_timeout;
 		private bool _dirty = false;
@@ -37,17 +51,21 @@ namespace Xnp {
 				this._dirty = value;
 				if (this.save_timeout > 0) {
 					Source.remove (this.save_timeout);
-				}
-				if (value == false) {
 					this.save_timeout = 0;
 				}
-				else {
+				if (value) {
 					this.save_timeout = Timeout.add_seconds (60, save_cb);
 				}
 			}
 		}
 
 		public signal void save_data ();
+
+		public void save () {
+			if (this.dirty) {
+				this.save_data ();
+			}
+		}
 
 		public Note (string name) {
 			GLib.Object ();
@@ -94,9 +112,8 @@ namespace Xnp {
 		 * Send save-data signal.
 		 */
 		private bool save_cb () {
-			this.save_data ();
 			this.save_timeout = 0;
-			this._dirty = false;
+			this.save_data ();
 			return false;
 		}
 
