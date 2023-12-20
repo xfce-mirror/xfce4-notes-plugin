@@ -36,7 +36,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 		application = new Xnp.Application (save_location (true));
 
 		button = (Gtk.Button)Xfce.panel_create_button ();
-		image = new Gtk.Image.from_icon_name ("xfce4-notes-plugin", BUTTON);
+		image = new Gtk.Image.from_icon_name ("org.xfce.panel.notes", BUTTON);
 		button.add (image);
 		button.clicked.connect (() => { application.show_hide_notes (); });
 		button.show_all ();
@@ -61,10 +61,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 			return true;
 		});
 		save.connect (() => { application.save_windows_configuration (); });
-		free_data.connect (() => {
-			application.save_windows_configuration ();
-			application.save_notes ();
-		});
+		free_data.connect (() => { application.save_notes (); });
 		configure_plugin.connect (() => { application.open_settings_dialog (); });
 		about.connect (() => { application.open_about_dialog (); });
 	}

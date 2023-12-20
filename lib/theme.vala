@@ -1,6 +1,7 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2006-2013  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (c) 2023       Arthur Demchenkov <spinal.by@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,15 +22,26 @@ namespace Xnp {
 
 	public class Theme : GLib.Object {
 
-		public static void set_background_color (string color) {
-			Gdk.Color gdkcolor;
-			if (!Gdk.Color.parse (color, out gdkcolor)) {
+		private Xnp.ThemeGtkcss theme_gtk_css;
+
+		public Theme() {
+			theme_gtk_css = new Xnp.ThemeGtkcss ();
+		}
+
+		public void use_gtk_style () {
+			theme_gtk_css.use_gtk_style = true;
+		}
+
+		public void use_color (string color) {
+			Gdk.RGBA rgba = {0};
+			if (!rgba.parse (color)) {
 				warning ("Cannot parse background color %s", color);
+				use_gtk_style ();
 				return;
 			}
 
-			Xnp.ThemeGtkcss.update_css (gdkcolor);
-			Xnp.ThemeGtkcss.update_style_context ();
+			theme_gtk_css.update_color_css (rgba);
+			theme_gtk_css.use_gtk_style = false;
 		}
 
 	}

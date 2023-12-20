@@ -18,4 +18,6 @@ namespace Config {
 	public const string PACKAGE_VERSION;
 	[CCode (cname = "PKGDATADIR")]
 	public const string PKGDATADIR;
+	[CCode (cname = "SYSCONFDIR")]
+	public const string SYSCONFDIR;
 }

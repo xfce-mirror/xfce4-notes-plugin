@@ -24,6 +24,7 @@ namespace Xnp {
 	public abstract class IconButton : Gtk.EventBox {
 
 		protected bool active = false;
+		public bool enabled { get; set; default = true; }
 
 		public signal void clicked ();
 
@@ -36,6 +37,11 @@ namespace Xnp {
 			enter_notify_event.connect (on_enter_notify_event);
 			leave_notify_event.connect (on_leave_notify_event);
 			button_release_event.connect (on_button_release_event);
+
+			notify["enabled"].connect (() => {
+				if (get_mapped ())
+					get_window ().invalidate_rect (null, false);
+			});
 		}
 
 		protected abstract void draw_icon (Cairo.Context cr, int width, int height);
@@ -43,12 +49,11 @@ namespace Xnp {
 		protected void set_widget_source_color (Cairo.Context cr) {
 			var style_context = get_style_context ();
 
-			if (sensitive && active) {
+			if (enabled && sensitive && active)
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.PRELIGHT));
-			}
-			else if (sensitive && !active)
+			else if (enabled && sensitive && !active)
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.NORMAL));
-			else if (!sensitive)
+			else if (!enabled || !sensitive)
 				Gdk.cairo_set_source_rgba (cr, style_context.get_color (Gtk.StateFlags.INSENSITIVE));
 		}
 
@@ -88,7 +93,7 @@ namespace Xnp {
 		}
 
 		private bool on_button_release_event (Gdk.EventButton event) {
-			if (event.button != 1)
+			if (event.button != Gdk.BUTTON_PRIMARY)
 				return false;
 
 			int cur_x = (int)event.x;
