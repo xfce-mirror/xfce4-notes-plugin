@@ -1047,15 +1047,12 @@ namespace Xnp {
 		 * the current position.
 		 */
 		public Xnp.Note insert_note (string? name = null) {
-			string note_name;
+			string note_name = "";
 
 			if (name == null) {
 				int len = this.n_pages;
-				note_name = _("Notes");
 				for (int i = 1; i <= len + 1; i++) {
-					if (i > 1) {
-						note_name = _("Notes %d").printf (i);
-					}
+					note_name = _("Notes %d").printf (i);
 					if (!note_name_exists (note_name)) {
 						break;
 					}
