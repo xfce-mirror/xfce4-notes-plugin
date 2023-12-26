@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Jan Ziak <0xe2.0x9a.0x9b@gmail.com>, 2021
+# 785411ef824cced88d3e197f5af1b61a_da6a977 <e5fae5b35c0c625157d991b31e113de3_956341>, 2021
 # 7dcd6f74323fe8d9c477949ff8fcbb1c_c427b63 <3fcd202e3dfab15fda15b8e88e54d449_7173>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2021-05-31 16:31+0000\n"
-"Last-Translator: Jan Ziak <0xe2.0x9a.0x9b@gmail.com>\n"
-"Language-Team: Slovak (http://www.transifex.com/xfce/xfce-panel-plugins/language/sk/)\n"
+"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"PO-Revision-Date: 2013-07-03 19:09+0000\n"
+"Last-Translator: 785411ef824cced88d3e197f5af1b61a_da6a977 <e5fae5b35c0c625157d991b31e113de3_956341>, 2021\n"
+"Language-Team: Slovak (http://app.transifex.com/xfce/xfce-panel-plugins/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,275 +21,283 @@ msgstr ""
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:181 ../lib/application.vala:208
-#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
-#: ../src/main-settings-dialog.c:103
+#: ../lib/application.vala:313 ../lib/application.vala:1017
+#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Poznámky"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:725
+#: ../lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "Ideálny pre rýchle poznámky"
 
-#: ../lib/application.vala:116 ../lib/application.vala:131
-#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
-msgid "Select notes path"
-msgstr "Vyberte cestu pre poznámky"
-
-#: ../lib/application.vala:117
+#: ../lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Vybraný adresár pre poznámky (%s) už obsahuje súbory. Je potrebné vybrať, alebo vytvoriť nový prázdny adresár."
 
-#: ../lib/application.vala:132
+#: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Nie je možné vybrať adresár pre cestu k novým poznámkam: %s"
 
-#: ../lib/application.vala:185 ../lib/window.vala:918
+#: ../lib/application.vala:234
+msgid "Notes path is unacceptable"
+msgstr ""
+
+#: ../lib/application.vala:237 ../lib/application.vala:899
+#: ../lib/application.vala:997 ../lib/window.vala:1225
+msgid "Error"
+msgstr "Chyba"
+
+#: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "Poznámky %d"
 
-#: ../lib/application.vala:425
+#: ../lib/application.vala:338 ../lib/window.vala:1055
+#, c-format
+msgid "Note %d"
+msgstr ""
+
+#: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "Premenovať skupinu"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1041
+#: ../lib/application.vala:667 ../lib/window.vala:1223
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Názov %s sa už používa"
 
-#: ../lib/application.vala:475
+#: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "Naozaj chcete zmazať túto skupinu?"
 
-#: ../lib/application.vala:519
+#: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Skupina \"%s\" bola na disku zmenená"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "Naozaj chcete znovu načítať túto skupinu?"
 
-#: ../lib/application.vala:645
+#: ../lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Názov \"%s\" je neplatný."
 
-#: ../lib/application.vala:646
+#: ../lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Neplatné znaky: %s"
 
-#: ../lib/application.vala:703
+#: ../lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "Nedá sa otvoriť dialógové okno s nastavením"
 
-#: ../lib/application.vala:732
+#: ../lib/application.vala:1026
 msgid "translator-credits"
 msgstr "Robert Hartl <hartl.robert@gmail.com>, 2010.\nTomáš Vadina <kyberdev@gmail.com>, 2011."
 
-#: ../lib/application.vala:767 ../lib/window.vala:784
+#: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
 msgstr "_Pridať novú skupinu"
 
-#: ../lib/window.vala:227
+#: ../lib/window.vala:246
 msgid "Menu"
 msgstr "Ponuka"
 
-#: ../lib/window.vala:256
+#: ../lib/window.vala:271
 msgid "Refresh notes"
 msgstr "Obnoviť poznámku"
 
-#: ../lib/window.vala:269
+#: ../lib/window.vala:286
 #, c-format
 msgid "Hide (%s)"
 msgstr "Skryť (%s)"
 
-#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
-#: ../src/main-status-icon.vala:52
+#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Skupiny"
 
-#: ../lib/window.vala:674
+#: ../lib/window.vala:815
 msgid "_New"
 msgstr "_Nový"
 
-#: ../lib/window.vala:679
+#: ../lib/window.vala:816
 msgid "_Delete"
 msgstr "_Vymazať"
 
-#: ../lib/window.vala:684
+#: ../lib/window.vala:817
 msgid "_Rename"
 msgstr "_Premenovať"
 
-#: ../lib/window.vala:689
+#: ../lib/window.vala:818
 msgid "_Undo"
 msgstr "_Vrátenie späť"
 
 #. Always on top
-#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
+#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Vždy navrchu"
 
-#: ../lib/window.vala:703
+#: ../lib/window.vala:823
 msgid "Sticky window"
 msgstr "Prilepené okno"
 
-#: ../lib/window.vala:774
-msgid "_Rename group"
-msgstr "_Premenovať skupinu"
-
-#: ../lib/window.vala:779
-msgid "_Delete group"
-msgstr "_Zmazať skupinu"
-
-#: ../lib/window.vala:993
-msgid "Are you sure you want to delete this note?"
-msgstr "Naozaj chcete zmazať túto poznámku?"
-
-#: ../lib/window.vala:1019
-msgid "Rename note"
-msgstr "Premenovať poznámku"
-
-#: ../src/main-status-icon.vala:60
+#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Vlastnosti"
 
-#: ../src/main-status-icon.vala:64
+#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_O programe"
 
-#: ../src/main-status-icon.vala:71
-msgid "_Remove"
-msgstr "_Odstrániť"
+#: ../lib/window.vala:885
+msgid "_Rename group"
+msgstr "_Premenovať skupinu"
 
-#: ../src/main-settings-dialog.c:107
-msgid "Configure the plugin"
-msgstr "Konfigurovať zásuvný modul"
+#: ../lib/window.vala:886
+msgid "_Delete group"
+msgstr "_Zmazať skupinu"
 
-#: ../src/main-settings-dialog.c:126
+#: ../lib/window.vala:1168
+msgid "Are you sure you want to delete this note?"
+msgstr "Naozaj chcete zmazať túto poznámku?"
+
+#: ../lib/window.vala:1201
+msgid "Rename note"
+msgstr "Premenovať poznámku"
+
+#: ../src/main-status-icon.vala:78
+msgid "_Quit"
+msgstr "_Ukončiť"
+
+#: ../src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "Globálne nastavenia"
 
-#. Hide from taskbar
-#: ../src/main-settings-dialog.c:131
-msgid "Hide notes from taskbar"
-msgstr "Skryť poznámky z panelu úloh"
-
-#: ../src/main-settings-dialog.c:149
-msgid "Notes path:"
-msgstr "Cesta k poznámkam:"
-
-#: ../src/main-settings-dialog.c:160
-msgid "Tabs position:"
-msgstr "Umiestnenie kariet:"
-
-#: ../src/main-settings-dialog.c:171
+#: ../src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "Pozadie:"
 
-#: ../src/main-settings-dialog.c:185
+#: ../src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "Písmo:"
 
-#: ../src/main-settings-dialog.c:195
+#: ../src/main-settings-dialog.c:154
+msgid "Tabs position:"
+msgstr "Umiestnenie kariet:"
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:161
+msgid "Hide notes from taskbar"
+msgstr "Skryť poznámky z panelu úloh"
+
+#: ../src/main-settings-dialog.c:172
+msgid "Notes path:"
+msgstr "Cesta k poznámkam:"
+
+#: ../src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "Nastavenia novej skupiny:"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:207
+#: ../src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "Prilepené"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "Veľkosť:"
 
-#: ../src/main-settings-dialog.c:287
+#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+msgid "Select notes path"
+msgstr "Vyberte cestu pre poznámky"
+
+#: ../src/main-settings-dialog.c:286
 msgid "None"
 msgstr "Žiadne"
 
-#: ../src/main-settings-dialog.c:288
+#: ../src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "Hore"
 
-#: ../src/main-settings-dialog.c:289
+#: ../src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../src/main-settings-dialog.c:290
+#: ../src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "Dole"
 
-#: ../src/main-settings-dialog.c:291
+#: ../src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "Vľavo"
 
-#: ../src/main-settings-dialog.c:307
+#: ../src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "Malé"
 
-#: ../src/main-settings-dialog.c:308
+#: ../src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "Bežné"
 
-#: ../src/main-settings-dialog.c:309
+#: ../src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "Veľké"
 
-#: ../src/main-settings-dialog.c:368
+#: ../src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "Žlté"
 
-#: ../src/main-settings-dialog.c:369
+#: ../src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "Modré"
 
-#: ../src/main-settings-dialog.c:370
+#: ../src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "Zelené"
 
-#: ../src/main-settings-dialog.c:371
+#: ../src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/main-settings-dialog.c:372
+#: ../src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "Olivové"
 
-#: ../src/main-settings-dialog.c:373
+#: ../src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "Karmínové"
 
-#: ../src/main-settings-dialog.c:374
+#: ../src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/main-settings-dialog.c:375
+#: ../src/main-settings-dialog.c:373
 msgid "White"
 msgstr "Biele"
 
-#: ../src/main-settings-dialog.c:376
+#: ../src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:377
+#: ../src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:378
+#: ../src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "Vlastné..."
 
-#: ../src/main-settings-dialog.c:508
+#: ../src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "Farba pozadia"
