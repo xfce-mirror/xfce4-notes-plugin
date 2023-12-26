@@ -5,16 +5,16 @@
 # Translators:
 # Elishai Eliyahu <elishai@mailfence.com>, 2016
 # Elishai Eliyahu <elishai@mailfence.com>, 2020
-# Omer I.S. <omeritzicschwartz@gmail.com>, 2021
-# Omer I.S. <omeritzicschwartz@gmail.com>, 2020
+# 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2021
+# 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2021-03-02 18:07+0000\n"
-"Last-Translator: Omer I.S. <omeritzicschwartz@gmail.com>\n"
-"Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
+"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"PO-Revision-Date: 2013-07-03 19:09+0000\n"
+"Last-Translator: 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2021\n"
+"Language-Team: Hebrew (http://app.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,275 +23,283 @@ msgstr ""
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:181 ../lib/application.vala:208
-#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
-#: ../src/main-settings-dialog.c:103
+#: ../lib/application.vala:313 ../lib/application.vala:1017
+#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "פתקים"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:725
+#: ../lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "אידיאלי לפתקים המהירים שלך"
 
-#: ../lib/application.vala:116 ../lib/application.vala:131
-#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
-msgid "Select notes path"
-msgstr "בחר נתיב פתקים"
-
-#: ../lib/application.vala:117
+#: ../lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "התיקייה הנבחרת (%s) לנתיב הפתקים החדשיפ כבר מכילה קבצים. אתה חייב לבחור או ליצור תיקייה ריקה."
 
-#: ../lib/application.vala:132
+#: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "לא יכול לבחור תיקייה לנתיב פתקים חדשים: %s "
 
-#: ../lib/application.vala:185 ../lib/window.vala:918
+#: ../lib/application.vala:234
+msgid "Notes path is unacceptable"
+msgstr ""
+
+#: ../lib/application.vala:237 ../lib/application.vala:899
+#: ../lib/application.vala:997 ../lib/window.vala:1225
+msgid "Error"
+msgstr "שגיאה"
+
+#: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "פתקים %d "
 
-#: ../lib/application.vala:425
+#: ../lib/application.vala:338 ../lib/window.vala:1055
+#, c-format
+msgid "Note %d"
+msgstr ""
+
+#: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "שנה שם קבוצה"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1041
+#: ../lib/application.vala:667 ../lib/window.vala:1223
 #, c-format
 msgid "The name %s is already in use"
 msgstr "השם %s כבר נמצא בשימוש"
 
-#: ../lib/application.vala:475
+#: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "האם אתה בטוח שברצונך למחוק את הקבוצה הזו?"
 
-#: ../lib/application.vala:519
+#: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "הקבוצה \"%s\" עברה שינוי בדיסק"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "האם ברצונך להעלות מחדש את הקבוצה?"
 
-#: ../lib/application.vala:645
+#: ../lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "השם \"%s\" לא חוקי."
 
-#: ../lib/application.vala:646
+#: ../lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "התווים הלא חוקיים הם: %s "
 
-#: ../lib/application.vala:703
+#: ../lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "אין אפשרות לפתוח את דו־שיח ההגדרות"
 
-#: ../lib/application.vala:732
+#: ../lib/application.vala:1026
 msgid "translator-credits"
 msgstr "שבחים-מתרגמים"
 
-#: ../lib/application.vala:767 ../lib/window.vala:784
+#: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
 msgstr "_הוסף קבוצה חדשה"
 
-#: ../lib/window.vala:227
+#: ../lib/window.vala:246
 msgid "Menu"
 msgstr "תפריט"
 
-#: ../lib/window.vala:256
+#: ../lib/window.vala:271
 msgid "Refresh notes"
 msgstr "רענן פתקים"
 
-#: ../lib/window.vala:269
+#: ../lib/window.vala:286
 #, c-format
 msgid "Hide (%s)"
 msgstr "הסתר (%s) "
 
-#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
-#: ../src/main-status-icon.vala:52
+#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_קבוצות"
 
-#: ../lib/window.vala:674
+#: ../lib/window.vala:815
 msgid "_New"
 msgstr "_חדש"
 
-#: ../lib/window.vala:679
+#: ../lib/window.vala:816
 msgid "_Delete"
 msgstr "_מחיקה"
 
-#: ../lib/window.vala:684
+#: ../lib/window.vala:817
 msgid "_Rename"
 msgstr "_שנה שם"
 
-#: ../lib/window.vala:689
+#: ../lib/window.vala:818
 msgid "_Undo"
 msgstr "_ביטול"
 
 #. Always on top
-#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
+#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "תמיד למעלה"
 
-#: ../lib/window.vala:703
+#: ../lib/window.vala:823
 msgid "Sticky window"
 msgstr "חלון דביק"
 
-#: ../lib/window.vala:774
-msgid "_Rename group"
-msgstr "_שנה שם קבוצה"
-
-#: ../lib/window.vala:779
-msgid "_Delete group"
-msgstr "_מחק קבוצה"
-
-#: ../lib/window.vala:993
-msgid "Are you sure you want to delete this note?"
-msgstr "האם אתה בטוח שברצונך למחוק פתק זה?"
-
-#: ../lib/window.vala:1019
-msgid "Rename note"
-msgstr "שנה שם פתק"
-
-#: ../src/main-status-icon.vala:60
+#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_מאפיינים"
 
-#: ../src/main-status-icon.vala:64
+#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_אודות"
 
-#: ../src/main-status-icon.vala:71
-msgid "_Remove"
-msgstr "הס_ר"
+#: ../lib/window.vala:885
+msgid "_Rename group"
+msgstr "_שנה שם קבוצה"
 
-#: ../src/main-settings-dialog.c:107
-msgid "Configure the plugin"
-msgstr "הגדר את התוסף"
+#: ../lib/window.vala:886
+msgid "_Delete group"
+msgstr "_מחק קבוצה"
 
-#: ../src/main-settings-dialog.c:126
+#: ../lib/window.vala:1168
+msgid "Are you sure you want to delete this note?"
+msgstr "האם אתה בטוח שברצונך למחוק פתק זה?"
+
+#: ../lib/window.vala:1201
+msgid "Rename note"
+msgstr "שנה שם פתק"
+
+#: ../src/main-status-icon.vala:78
+msgid "_Quit"
+msgstr "י_ציאה"
+
+#: ../src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "הגדרות גלובליות"
 
-#. Hide from taskbar
-#: ../src/main-settings-dialog.c:131
-msgid "Hide notes from taskbar"
-msgstr "הסתר פתקים מסרגל המשימות"
-
-#: ../src/main-settings-dialog.c:149
-msgid "Notes path:"
-msgstr "נתיב פתקים:"
-
-#: ../src/main-settings-dialog.c:160
-msgid "Tabs position:"
-msgstr "מיקום לשוניות:"
-
-#: ../src/main-settings-dialog.c:171
+#: ../src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "רקע:"
 
-#: ../src/main-settings-dialog.c:185
+#: ../src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "גופן:"
 
-#: ../src/main-settings-dialog.c:195
+#: ../src/main-settings-dialog.c:154
+msgid "Tabs position:"
+msgstr "מיקום לשוניות:"
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:161
+msgid "Hide notes from taskbar"
+msgstr "הסתר פתקים מסרגל המשימות"
+
+#: ../src/main-settings-dialog.c:172
+msgid "Notes path:"
+msgstr "נתיב פתקים:"
+
+#: ../src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "הגדרות קבוצה חדשה"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:207
+#: ../src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "דביק"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "גודל:"
 
-#: ../src/main-settings-dialog.c:287
+#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+msgid "Select notes path"
+msgstr "בחר נתיב פתקים"
+
+#: ../src/main-settings-dialog.c:286
 msgid "None"
 msgstr "ללא"
 
-#: ../src/main-settings-dialog.c:288
+#: ../src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "למעלה"
 
-#: ../src/main-settings-dialog.c:289
+#: ../src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "ימין"
 
-#: ../src/main-settings-dialog.c:290
+#: ../src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "למטה"
 
-#: ../src/main-settings-dialog.c:291
+#: ../src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "שמאל"
 
-#: ../src/main-settings-dialog.c:307
+#: ../src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "קטן"
 
-#: ../src/main-settings-dialog.c:308
+#: ../src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "רגיל"
 
-#: ../src/main-settings-dialog.c:309
+#: ../src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "גדול"
 
-#: ../src/main-settings-dialog.c:368
+#: ../src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "צהוב"
 
-#: ../src/main-settings-dialog.c:369
+#: ../src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "כחול"
 
-#: ../src/main-settings-dialog.c:370
+#: ../src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "ירוק"
 
-#: ../src/main-settings-dialog.c:371
+#: ../src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "אינדיגו"
 
-#: ../src/main-settings-dialog.c:372
+#: ../src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "זית"
 
-#: ../src/main-settings-dialog.c:373
+#: ../src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "ארגמן"
 
-#: ../src/main-settings-dialog.c:374
+#: ../src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "מימוסה"
 
-#: ../src/main-settings-dialog.c:375
+#: ../src/main-settings-dialog.c:373
 msgid "White"
 msgstr "לבן"
 
-#: ../src/main-settings-dialog.c:376
+#: ../src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "אנדרויד"
 
-#: ../src/main-settings-dialog.c:377
+#: ../src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:378
+#: ../src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "מותאם אישית..."
 
-#: ../src/main-settings-dialog.c:508
+#: ../src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "צבע רקע"
