@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 10:56+0200\n"
+"POT-Creation-Date: 2023-12-26 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Arthur D., 2023\n"
 "Language-Team: Russian (http://app.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
@@ -22,275 +22,283 @@ msgstr ""
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:181 ../lib/application.vala:208
-#: ../lib/application.vala:722 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:954 ../src/main-panel-plugin.vala:46
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
-#: ../src/main-settings-dialog.c:103
+#: ../lib/application.vala:313 ../lib/application.vala:1017
+#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Заметки"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:724
+#: ../lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "Средство создания текстовых заметок"
 
-#: ../lib/application.vala:116 ../lib/application.vala:131
-#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
-msgid "Select notes path"
-msgstr "Укажите путь к заметкам"
-
-#: ../lib/application.vala:117
+#: ../lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Указанный каталог для новых заметок (%s) уже содержит файлы. Выберите пустой каталог или создайте новый."
 
-#: ../lib/application.vala:132
+#: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Не удалось выбрать каталог для новых заметок: %s"
 
-#: ../lib/application.vala:185 ../lib/window.vala:957
+#: ../lib/application.vala:234
+msgid "Notes path is unacceptable"
+msgstr ""
+
+#: ../lib/application.vala:237 ../lib/application.vala:899
+#: ../lib/application.vala:997 ../lib/window.vala:1225
+msgid "Error"
+msgstr "Ошибка"
+
+#: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "Заметки %d"
 
-#: ../lib/application.vala:425
+#: ../lib/application.vala:338 ../lib/window.vala:1055
+#, c-format
+msgid "Note %d"
+msgstr ""
+
+#: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "Переименование группы"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1080
+#: ../lib/application.vala:667 ../lib/window.vala:1223
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Название «%s» уже используется"
 
-#: ../lib/application.vala:475
+#: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "Вы действительно хотите удалить данную группу?"
 
-#: ../lib/application.vala:519
+#: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Группа \"%s\" была изменена на диске"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "Вы действительно хотите перезагрузить данную группу?"
 
-#: ../lib/application.vala:643
+#: ../lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Недопустимое название: «%s»."
 
-#: ../lib/application.vala:644
+#: ../lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Недопустимые символы: %s"
 
-#: ../lib/application.vala:701
+#: ../lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "Не удалось открыть окно настроек"
 
-#: ../lib/application.vala:731
+#: ../lib/application.vala:1026
 msgid "translator-credits"
 msgstr "Переводчики"
 
-#: ../lib/application.vala:766 ../lib/window.vala:823
+#: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
 msgstr "Со_здать группу"
 
-#: ../lib/window.vala:227
+#: ../lib/window.vala:246
 msgid "Menu"
 msgstr "Меню"
 
-#: ../lib/window.vala:257
+#: ../lib/window.vala:271
 msgid "Refresh notes"
 msgstr "Обновить заметки"
 
-#: ../lib/window.vala:270
+#: ../lib/window.vala:286
 #, c-format
 msgid "Hide (%s)"
 msgstr "Спрятать (%s)"
 
-#: ../lib/window.vala:703 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:52
+#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Группы"
 
-#: ../lib/window.vala:716
+#: ../lib/window.vala:815
 msgid "_New"
 msgstr "_Новая"
 
-#: ../lib/window.vala:721
+#: ../lib/window.vala:816
 msgid "_Delete"
 msgstr "_Удалить"
 
-#: ../lib/window.vala:726
+#: ../lib/window.vala:817
 msgid "_Rename"
 msgstr "Пере_именовать"
 
-#: ../lib/window.vala:731
+#: ../lib/window.vala:818
 msgid "_Undo"
 msgstr "_Отменить"
 
 #. Always on top
-#: ../lib/window.vala:740 ../src/main-settings-dialog.c:200
+#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Поверх всех окон"
 
-#: ../lib/window.vala:745
+#: ../lib/window.vala:823
 msgid "Sticky window"
 msgstr "Поверх рабочих столов"
 
-#: ../lib/window.vala:813
-msgid "_Rename group"
-msgstr "Пере_именовать группу"
-
-#: ../lib/window.vala:818
-msgid "_Delete group"
-msgstr "_Удалить группу"
-
-#: ../lib/window.vala:1032
-msgid "Are you sure you want to delete this note?"
-msgstr "Вы действительно хотите удалить эту заметку?"
-
-#: ../lib/window.vala:1058
-msgid "Rename note"
-msgstr "Переименование"
-
-#: ../src/main-status-icon.vala:60
+#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Свойства"
 
-#: ../src/main-status-icon.vala:64
+#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_О программе"
 
-#: ../src/main-status-icon.vala:71
-msgid "_Remove"
-msgstr "Удалить"
+#: ../lib/window.vala:885
+msgid "_Rename group"
+msgstr "Пере_именовать группу"
 
-#: ../src/main-settings-dialog.c:107
-msgid "Configure the plugin"
-msgstr "Настройки плагина"
+#: ../lib/window.vala:886
+msgid "_Delete group"
+msgstr "_Удалить группу"
 
-#: ../src/main-settings-dialog.c:126
+#: ../lib/window.vala:1168
+msgid "Are you sure you want to delete this note?"
+msgstr "Вы действительно хотите удалить эту заметку?"
+
+#: ../lib/window.vala:1201
+msgid "Rename note"
+msgstr "Переименование"
+
+#: ../src/main-status-icon.vala:78
+msgid "_Quit"
+msgstr "Выход"
+
+#: ../src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "Общие настройки"
 
-#. Hide from taskbar
-#: ../src/main-settings-dialog.c:131
-msgid "Hide notes from taskbar"
-msgstr "Скрыть заметки с панели задач"
-
-#: ../src/main-settings-dialog.c:149
-msgid "Notes path:"
-msgstr "Путь к заметкам:"
-
-#: ../src/main-settings-dialog.c:160
-msgid "Tabs position:"
-msgstr "Положение вкладок:"
-
-#: ../src/main-settings-dialog.c:171
+#: ../src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "Фон:"
 
-#: ../src/main-settings-dialog.c:185
+#: ../src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: ../src/main-settings-dialog.c:195
+#: ../src/main-settings-dialog.c:154
+msgid "Tabs position:"
+msgstr "Положение вкладок:"
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:161
+msgid "Hide notes from taskbar"
+msgstr "Скрыть заметки с панели задач"
+
+#: ../src/main-settings-dialog.c:172
+msgid "Notes path:"
+msgstr "Путь к заметкам:"
+
+#: ../src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "Свойства новых групп"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:207
+#: ../src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "Поверх рабочих столов"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "Размер:"
 
-#: ../src/main-settings-dialog.c:287
+#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+msgid "Select notes path"
+msgstr "Укажите путь к заметкам"
+
+#: ../src/main-settings-dialog.c:286
 msgid "None"
 msgstr "Нет"
 
-#: ../src/main-settings-dialog.c:288
+#: ../src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "Вверху"
 
-#: ../src/main-settings-dialog.c:289
+#: ../src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "Справа"
 
-#: ../src/main-settings-dialog.c:290
+#: ../src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "Внизу"
 
-#: ../src/main-settings-dialog.c:291
+#: ../src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "Слева"
 
-#: ../src/main-settings-dialog.c:307
+#: ../src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "Маленький"
 
-#: ../src/main-settings-dialog.c:308
+#: ../src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "Нормальный"
 
-#: ../src/main-settings-dialog.c:309
+#: ../src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "Большой"
 
-#: ../src/main-settings-dialog.c:368
+#: ../src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "Жёлтый"
 
-#: ../src/main-settings-dialog.c:369
+#: ../src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "Голубой"
 
-#: ../src/main-settings-dialog.c:370
+#: ../src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "Зелёный"
 
-#: ../src/main-settings-dialog.c:371
+#: ../src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "Сиреневый"
 
-#: ../src/main-settings-dialog.c:372
+#: ../src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "Оливковый"
 
-#: ../src/main-settings-dialog.c:373
+#: ../src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "Бордовый"
 
-#: ../src/main-settings-dialog.c:374
+#: ../src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "Ярко-жёлтый"
 
-#: ../src/main-settings-dialog.c:375
+#: ../src/main-settings-dialog.c:373
 msgid "White"
 msgstr "Белый"
 
-#: ../src/main-settings-dialog.c:376
+#: ../src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:377
+#: ../src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:378
+#: ../src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "Другой..."
 
-#: ../src/main-settings-dialog.c:508
+#: ../src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "Цвет фона"
