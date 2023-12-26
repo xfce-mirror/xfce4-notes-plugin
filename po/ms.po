@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2021-09-29 13:24+0000\n"
-"Last-Translator: abuyop <abuyop@gmail.com>\n"
-"Language-Team: Malay (http://www.transifex.com/xfce/xfce-panel-plugins/language/ms/)\n"
+"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"PO-Revision-Date: 2013-07-03 19:09+0000\n"
+"Last-Translator: abuyop <abuyop@gmail.com>, 2014,2021\n"
+"Language-Team: Malay (http://app.transifex.com/xfce/xfce-panel-plugins/language/ms/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,275 +20,283 @@ msgstr ""
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:181 ../lib/application.vala:208
-#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
-#: ../src/main-settings-dialog.c:103
+#: ../lib/application.vala:313 ../lib/application.vala:1017
+#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Nota"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:725
+#: ../lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "Sesuai sebagai nota pantas anda"
 
-#: ../lib/application.vala:116 ../lib/application.vala:131
-#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
-msgid "Select notes path"
-msgstr "Pilih laluan nota"
-
-#: ../lib/application.vala:117
+#: ../lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Direktori dipilih (%s) bagi laluan nota baharu sudah mengandungi fail. Anda mesti pilih atau cipta direktori kosong."
 
-#: ../lib/application.vala:132
+#: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Tidak boleh pilih direktori untuk laluan nota baharu: %s"
 
-#: ../lib/application.vala:185 ../lib/window.vala:918
+#: ../lib/application.vala:234
+msgid "Notes path is unacceptable"
+msgstr ""
+
+#: ../lib/application.vala:237 ../lib/application.vala:899
+#: ../lib/application.vala:997 ../lib/window.vala:1225
+msgid "Error"
+msgstr "Ralat"
+
+#: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "Nota %d"
 
-#: ../lib/application.vala:425
+#: ../lib/application.vala:338 ../lib/window.vala:1055
+#, c-format
+msgid "Note %d"
+msgstr ""
+
+#: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "Nama semula kumpulan"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1041
+#: ../lib/application.vala:667 ../lib/window.vala:1223
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Nama %s sudah digunakan"
 
-#: ../lib/application.vala:475
+#: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "Anda pasti mahu memadam kumpulan ini?"
 
-#: ../lib/application.vala:519
+#: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Kumpulan \"%s\" sudah diubahsuai pada cakera"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "Anda mahu muat semula kumpulan?"
 
-#: ../lib/application.vala:645
+#: ../lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Nama \"%s\" tidak sah."
 
-#: ../lib/application.vala:646
+#: ../lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Aksara tidak sah adalah: %s"
 
-#: ../lib/application.vala:703
+#: ../lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "Tidak boleh buka dialog tetapan"
 
-#: ../lib/application.vala:732
+#: ../lib/application.vala:1026
 msgid "translator-credits"
 msgstr "abuyop <abuyop@gmail.com>"
 
-#: ../lib/application.vala:767 ../lib/window.vala:784
+#: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
 msgstr "T_ambah kumpulan baharu"
 
-#: ../lib/window.vala:227
+#: ../lib/window.vala:246
 msgid "Menu"
 msgstr "Menu"
 
-#: ../lib/window.vala:256
+#: ../lib/window.vala:271
 msgid "Refresh notes"
 msgstr "Segar semula nota"
 
-#: ../lib/window.vala:269
+#: ../lib/window.vala:286
 #, c-format
 msgid "Hide (%s)"
 msgstr "Sembunyi (%s)"
 
-#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
-#: ../src/main-status-icon.vala:52
+#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Kumpulan"
 
-#: ../lib/window.vala:674
+#: ../lib/window.vala:815
 msgid "_New"
 msgstr "_Baharu"
 
-#: ../lib/window.vala:679
+#: ../lib/window.vala:816
 msgid "_Delete"
 msgstr "Pa_dam"
 
-#: ../lib/window.vala:684
+#: ../lib/window.vala:817
 msgid "_Rename"
 msgstr "_Nama Semula"
 
-#: ../lib/window.vala:689
+#: ../lib/window.vala:818
 msgid "_Undo"
 msgstr "Buat _Asal"
 
 #. Always on top
-#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
+#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Sentiasa di atas"
 
-#: ../lib/window.vala:703
+#: ../lib/window.vala:823
 msgid "Sticky window"
 msgstr "Tetingkap melekat"
 
-#: ../lib/window.vala:774
-msgid "_Rename group"
-msgstr "_Nama semula kumpulan"
-
-#: ../lib/window.vala:779
-msgid "_Delete group"
-msgstr "Pa_dam kumpulan"
-
-#: ../lib/window.vala:993
-msgid "Are you sure you want to delete this note?"
-msgstr "Anda pasti mahu padam nota ini?"
-
-#: ../lib/window.vala:1019
-msgid "Rename note"
-msgstr "Nama semula nota"
-
-#: ../src/main-status-icon.vala:60
+#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "Si_fat"
 
-#: ../src/main-status-icon.vala:64
+#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "Perih_al"
 
-#: ../src/main-status-icon.vala:71
-msgid "_Remove"
-msgstr "B_uang"
+#: ../lib/window.vala:885
+msgid "_Rename group"
+msgstr "_Nama semula kumpulan"
 
-#: ../src/main-settings-dialog.c:107
-msgid "Configure the plugin"
-msgstr "Konfigur pemalam"
+#: ../lib/window.vala:886
+msgid "_Delete group"
+msgstr "Pa_dam kumpulan"
 
-#: ../src/main-settings-dialog.c:126
+#: ../lib/window.vala:1168
+msgid "Are you sure you want to delete this note?"
+msgstr "Anda pasti mahu padam nota ini?"
+
+#: ../lib/window.vala:1201
+msgid "Rename note"
+msgstr "Nama semula nota"
+
+#: ../src/main-status-icon.vala:78
+msgid "_Quit"
+msgstr "K_eluar"
+
+#: ../src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "Tetapan sejagat"
 
-#. Hide from taskbar
-#: ../src/main-settings-dialog.c:131
-msgid "Hide notes from taskbar"
-msgstr "Sembunyi nota dari palang tugas"
-
-#: ../src/main-settings-dialog.c:149
-msgid "Notes path:"
-msgstr "Laluan nota:"
-
-#: ../src/main-settings-dialog.c:160
-msgid "Tabs position:"
-msgstr "Kedudukan tab:"
-
-#: ../src/main-settings-dialog.c:171
+#: ../src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "Latar belakang:"
 
-#: ../src/main-settings-dialog.c:185
+#: ../src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "Fon:"
 
-#: ../src/main-settings-dialog.c:195
+#: ../src/main-settings-dialog.c:154
+msgid "Tabs position:"
+msgstr "Kedudukan tab:"
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:161
+msgid "Hide notes from taskbar"
+msgstr "Sembunyi nota dari palang tugas"
+
+#: ../src/main-settings-dialog.c:172
+msgid "Notes path:"
+msgstr "Laluan nota:"
+
+#: ../src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "Tetapan kumpulan baharu"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:207
+#: ../src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "Melekat"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "Saiz:"
 
-#: ../src/main-settings-dialog.c:287
+#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+msgid "Select notes path"
+msgstr "Pilih laluan nota"
+
+#: ../src/main-settings-dialog.c:286
 msgid "None"
 msgstr "Tiada"
 
-#: ../src/main-settings-dialog.c:288
+#: ../src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "Atas"
 
-#: ../src/main-settings-dialog.c:289
+#: ../src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "Kanan"
 
-#: ../src/main-settings-dialog.c:290
+#: ../src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "Bawah"
 
-#: ../src/main-settings-dialog.c:291
+#: ../src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "Kiri"
 
-#: ../src/main-settings-dialog.c:307
+#: ../src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "Kecil"
 
-#: ../src/main-settings-dialog.c:308
+#: ../src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "Biasa"
 
-#: ../src/main-settings-dialog.c:309
+#: ../src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "Besar"
 
-#: ../src/main-settings-dialog.c:368
+#: ../src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "Kuning"
 
-#: ../src/main-settings-dialog.c:369
+#: ../src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "Biru"
 
-#: ../src/main-settings-dialog.c:370
+#: ../src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "Hijau"
 
-#: ../src/main-settings-dialog.c:371
+#: ../src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/main-settings-dialog.c:372
+#: ../src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "Hijau Zaitun"
 
-#: ../src/main-settings-dialog.c:373
+#: ../src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "Merah gincu"
 
-#: ../src/main-settings-dialog.c:374
+#: ../src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "Semalu"
 
-#: ../src/main-settings-dialog.c:375
+#: ../src/main-settings-dialog.c:373
 msgid "White"
 msgstr "Putih"
 
-#: ../src/main-settings-dialog.c:376
+#: ../src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:377
+#: ../src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:378
+#: ../src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "Suai..."
 
-#: ../src/main-settings-dialog.c:508
+#: ../src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "Warna Latar Belakang"
