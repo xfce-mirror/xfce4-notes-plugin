@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-11-16 23:48+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>\n"
-"Language-Team: Arabic (http://www.transifex.com/xfce/xfce-panel-plugins/language/ar/)\n"
+"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"PO-Revision-Date: 2013-07-03 19:09+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Arabic (http://app.transifex.com/xfce/xfce-panel-plugins/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,275 +19,283 @@ msgstr ""
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:181 ../lib/application.vala:208
-#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
-#: ../src/main-settings-dialog.c:103
+#: ../lib/application.vala:313 ../lib/application.vala:1017
+#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "ملاجظات"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:725
+#: ../lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "مثالي لملاحظاتك السريعة"
 
-#: ../lib/application.vala:116 ../lib/application.vala:131
-#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
-msgid "Select notes path"
-msgstr "حدد مسار الملاحظات"
-
-#: ../lib/application.vala:117
+#: ../lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "الدليل المحدد (%s) للمسار الملحوظات الجديدة يحتوي على ملفات أصلا. يجب إنشاء أو تحديد دليل فارغ."
 
-#: ../lib/application.vala:132
+#: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "غير قادر على تحديد الدليل لمسار الملحوظات الجديد: %s"
 
-#: ../lib/application.vala:185 ../lib/window.vala:918
+#: ../lib/application.vala:234
+msgid "Notes path is unacceptable"
+msgstr ""
+
+#: ../lib/application.vala:237 ../lib/application.vala:899
+#: ../lib/application.vala:997 ../lib/window.vala:1225
+msgid "Error"
+msgstr "خطأ"
+
+#: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "ملاحظات %d"
 
-#: ../lib/application.vala:425
+#: ../lib/application.vala:338 ../lib/window.vala:1055
+#, c-format
+msgid "Note %d"
+msgstr ""
+
+#: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "إعادة تسمية المجموعة"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1041
+#: ../lib/application.vala:667 ../lib/window.vala:1223
 #, c-format
 msgid "The name %s is already in use"
 msgstr "الإسم %s يستعمل حاليا"
 
-#: ../lib/application.vala:475
+#: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
 
-#: ../lib/application.vala:519
+#: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "المجموعة \"%s\" تم تحريرها في القرص"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "هل تريد إعادة تحميل المجموعة؟"
 
-#: ../lib/application.vala:645
+#: ../lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "الإسم \"%s\" غير صالح."
 
-#: ../lib/application.vala:646
+#: ../lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "الرموز الغير سليم هي:%s"
 
-#: ../lib/application.vala:703
+#: ../lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "غير قادر على فتح حوار الإعدادات"
 
-#: ../lib/application.vala:732
+#: ../lib/application.vala:1026
 msgid "translator-credits"
 msgstr "كريم أولاد الشلحة <herr.linux88@gmail.com>"
 
-#: ../lib/application.vala:767 ../lib/window.vala:784
+#: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
 msgstr "أ_ضف مجموعة جديدة"
 
-#: ../lib/window.vala:227
+#: ../lib/window.vala:246
 msgid "Menu"
 msgstr "قائمة"
 
-#: ../lib/window.vala:256
+#: ../lib/window.vala:271
 msgid "Refresh notes"
 msgstr "إنعاش الملحوظات"
 
-#: ../lib/window.vala:269
+#: ../lib/window.vala:286
 #, c-format
 msgid "Hide (%s)"
 msgstr "إخفاء (%s)"
 
-#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
-#: ../src/main-status-icon.vala:52
+#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_مجموعات"
 
-#: ../lib/window.vala:674
+#: ../lib/window.vala:815
 msgid "_New"
 msgstr ""
 
-#: ../lib/window.vala:679
+#: ../lib/window.vala:816
 msgid "_Delete"
 msgstr ""
 
-#: ../lib/window.vala:684
+#: ../lib/window.vala:817
 msgid "_Rename"
 msgstr "_إعادة تسمية"
 
-#: ../lib/window.vala:689
+#: ../lib/window.vala:818
 msgid "_Undo"
 msgstr ""
 
 #. Always on top
-#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
+#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "دائما في الأعلى"
 
-#: ../lib/window.vala:703
+#: ../lib/window.vala:823
 msgid "Sticky window"
 msgstr "نافذة لزجة"
 
-#: ../lib/window.vala:774
-msgid "_Rename group"
-msgstr "_إعادة تسمية المجموعة"
-
-#: ../lib/window.vala:779
-msgid "_Delete group"
-msgstr "_حذف المجموعة"
-
-#: ../lib/window.vala:993
-msgid "Are you sure you want to delete this note?"
-msgstr "هل انت متأكد من أنك تريد حذف هذه الملحوظة؟"
-
-#: ../lib/window.vala:1019
-msgid "Rename note"
-msgstr "تسمية الملحوظة"
-
-#: ../src/main-status-icon.vala:60
+#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr ""
 
-#: ../src/main-status-icon.vala:64
+#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr ""
 
-#: ../src/main-status-icon.vala:71
-msgid "_Remove"
-msgstr "_حذف"
+#: ../lib/window.vala:885
+msgid "_Rename group"
+msgstr "_إعادة تسمية المجموعة"
 
-#: ../src/main-settings-dialog.c:107
-msgid "Configure the plugin"
-msgstr "إعداد الملحق"
+#: ../lib/window.vala:886
+msgid "_Delete group"
+msgstr "_حذف المجموعة"
 
-#: ../src/main-settings-dialog.c:126
+#: ../lib/window.vala:1168
+msgid "Are you sure you want to delete this note?"
+msgstr "هل انت متأكد من أنك تريد حذف هذه الملحوظة؟"
+
+#: ../lib/window.vala:1201
+msgid "Rename note"
+msgstr "تسمية الملحوظة"
+
+#: ../src/main-status-icon.vala:78
+msgid "_Quit"
+msgstr "_خروج"
+
+#: ../src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "إعدادات عالمية"
 
-#. Hide from taskbar
-#: ../src/main-settings-dialog.c:131
-msgid "Hide notes from taskbar"
-msgstr "إخفاء الملاحظات من شريط المهام"
-
-#: ../src/main-settings-dialog.c:149
-msgid "Notes path:"
-msgstr "مسار الملاحظات:"
-
-#: ../src/main-settings-dialog.c:160
-msgid "Tabs position:"
-msgstr "موقع التبويب:"
-
-#: ../src/main-settings-dialog.c:171
+#: ../src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "الخلفية:"
 
-#: ../src/main-settings-dialog.c:185
+#: ../src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "خظ:"
 
-#: ../src/main-settings-dialog.c:195
+#: ../src/main-settings-dialog.c:154
+msgid "Tabs position:"
+msgstr "موقع التبويب:"
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:161
+msgid "Hide notes from taskbar"
+msgstr "إخفاء الملاحظات من شريط المهام"
+
+#: ../src/main-settings-dialog.c:172
+msgid "Notes path:"
+msgstr "مسار الملاحظات:"
+
+#: ../src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "إعدادات مجموعة جديدة"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:207
+#: ../src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "لزج"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "حجم:"
 
-#: ../src/main-settings-dialog.c:287
+#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+msgid "Select notes path"
+msgstr "حدد مسار الملاحظات"
+
+#: ../src/main-settings-dialog.c:286
 msgid "None"
 msgstr "بدون"
 
-#: ../src/main-settings-dialog.c:288
+#: ../src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "أعلى"
 
-#: ../src/main-settings-dialog.c:289
+#: ../src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "يمين"
 
-#: ../src/main-settings-dialog.c:290
+#: ../src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "أسفل"
 
-#: ../src/main-settings-dialog.c:291
+#: ../src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "يسار"
 
-#: ../src/main-settings-dialog.c:307
+#: ../src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "صغير"
 
-#: ../src/main-settings-dialog.c:308
+#: ../src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "عادي"
 
-#: ../src/main-settings-dialog.c:309
+#: ../src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "كبير"
 
-#: ../src/main-settings-dialog.c:368
+#: ../src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "أصفر"
 
-#: ../src/main-settings-dialog.c:369
+#: ../src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "أزرق"
 
-#: ../src/main-settings-dialog.c:370
+#: ../src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "أخضر"
 
-#: ../src/main-settings-dialog.c:371
+#: ../src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "لون ليني"
 
-#: ../src/main-settings-dialog.c:372
+#: ../src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "زيتوني"
 
-#: ../src/main-settings-dialog.c:373
+#: ../src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "قرمزي"
 
-#: ../src/main-settings-dialog.c:374
+#: ../src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "ميموزا"
 
-#: ../src/main-settings-dialog.c:375
+#: ../src/main-settings-dialog.c:373
 msgid "White"
 msgstr "أبيض"
 
-#: ../src/main-settings-dialog.c:376
+#: ../src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "أندرويد"
 
-#: ../src/main-settings-dialog.c:377
+#: ../src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "جتك+"
 
-#: ../src/main-settings-dialog.c:378
+#: ../src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "مخصص..."
 
-#: ../src/main-settings-dialog.c:508
+#: ../src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "لون الخلفية"
