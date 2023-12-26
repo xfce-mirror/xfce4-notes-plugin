@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 00:48+0100\n"
-"PO-Revision-Date: 2020-11-17 23:43+0000\n"
-"Last-Translator: 玉堂白鹤 <yjwork@qq.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
+"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"PO-Revision-Date: 2013-07-03 19:09+0000\n"
+"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2020\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,275 +23,283 @@ msgstr ""
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:181 ../lib/application.vala:208
-#: ../lib/application.vala:723 ../lib/window.vala:85 ../lib/window.vala:176
-#: ../lib/window.vala:915 ../src/main-panel-plugin.vala:47
-#: ../src/main-status-icon.vala:34 ../src/main-status-icon.vala:103
-#: ../src/main-settings-dialog.c:103
+#: ../lib/application.vala:313 ../lib/application.vala:1017
+#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
+#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "便笺"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:2
 #: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:725
+#: ../lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "理想的快速便笺"
 
-#: ../lib/application.vala:116 ../lib/application.vala:131
-#: ../src/main-settings-dialog.c:239 ../src/main-settings-dialog.c:247
-msgid "Select notes path"
-msgstr "选择便笺路径"
-
-#: ../lib/application.vala:117
+#: ../lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "为新便笺路径选择的目录(%s)中已包含文件。您必须选择或新建一个空目录。"
 
-#: ../lib/application.vala:132
+#: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "未能为新便笺路径选择目录：%s"
 
-#: ../lib/application.vala:185 ../lib/window.vala:918
+#: ../lib/application.vala:234
+msgid "Notes path is unacceptable"
+msgstr ""
+
+#: ../lib/application.vala:237 ../lib/application.vala:899
+#: ../lib/application.vala:997 ../lib/window.vala:1225
+msgid "Error"
+msgstr "错误"
+
+#: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "便笺 %d"
 
-#: ../lib/application.vala:425
+#: ../lib/application.vala:338 ../lib/window.vala:1055
+#, c-format
+msgid "Note %d"
+msgstr ""
+
+#: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "重命名群组"
 
-#: ../lib/application.vala:446 ../lib/window.vala:1041
+#: ../lib/application.vala:667 ../lib/window.vala:1223
 #, c-format
 msgid "The name %s is already in use"
 msgstr "名称 %s 已在使用"
 
-#: ../lib/application.vala:475
+#: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "您确定要删除此群组吗？"
 
-#: ../lib/application.vala:519
+#: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "已经在磁盘上修改了群组 “%s”"
 
-#: ../lib/application.vala:522
+#: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "您要重载群组吗？"
 
-#: ../lib/application.vala:645
+#: ../lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "名称 “%s” 无效。"
 
-#: ../lib/application.vala:646
+#: ../lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "无效的字符是：%s"
 
-#: ../lib/application.vala:703
+#: ../lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "未能打开设置对话框"
 
-#: ../lib/application.vala:732
+#: ../lib/application.vala:1026
 msgid "translator-credits"
 msgstr "Hunt Xu <huntxu@live.cn>, 2009, 2010.\nDig <Dig.Ge.CN@gmail.com>, 2009.\nChipong Luo <chipong.luo@yahoo.com>, 2011, 2012."
 
-#: ../lib/application.vala:767 ../lib/window.vala:784
+#: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
 msgstr "添加新群组(_A)"
 
-#: ../lib/window.vala:227
+#: ../lib/window.vala:246
 msgid "Menu"
 msgstr "菜单"
 
-#: ../lib/window.vala:256
+#: ../lib/window.vala:271
 msgid "Refresh notes"
 msgstr "刷新便笺"
 
-#: ../lib/window.vala:269
+#: ../lib/window.vala:286
 #, c-format
 msgid "Hide (%s)"
 msgstr "隐藏(%s)"
 
-#: ../lib/window.vala:661 ../src/main-panel-plugin.vala:51
-#: ../src/main-status-icon.vala:52
+#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "群组(_G)"
 
-#: ../lib/window.vala:674
+#: ../lib/window.vala:815
 msgid "_New"
 msgstr "新建(_N)"
 
-#: ../lib/window.vala:679
+#: ../lib/window.vala:816
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../lib/window.vala:684
+#: ../lib/window.vala:817
 msgid "_Rename"
 msgstr "重命名(_R)"
 
-#: ../lib/window.vala:689
+#: ../lib/window.vala:818
 msgid "_Undo"
 msgstr "撤消(_U)"
 
 #. Always on top
-#: ../lib/window.vala:698 ../src/main-settings-dialog.c:200
+#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "总是置顶"
 
-#: ../lib/window.vala:703
+#: ../lib/window.vala:823
 msgid "Sticky window"
 msgstr "粘滞窗口"
 
-#: ../lib/window.vala:774
-msgid "_Rename group"
-msgstr "重命名群组(_R)"
-
-#: ../lib/window.vala:779
-msgid "_Delete group"
-msgstr "删除群组(_D)"
-
-#: ../lib/window.vala:993
-msgid "Are you sure you want to delete this note?"
-msgstr "您确定要删除此便笺吗？"
-
-#: ../lib/window.vala:1019
-msgid "Rename note"
-msgstr "重命名便笺"
-
-#: ../src/main-status-icon.vala:60
+#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "属性(_P)"
 
-#: ../src/main-status-icon.vala:64
+#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "关于(_A)"
 
-#: ../src/main-status-icon.vala:71
-msgid "_Remove"
-msgstr "移除(_R)"
+#: ../lib/window.vala:885
+msgid "_Rename group"
+msgstr "重命名群组(_R)"
 
-#: ../src/main-settings-dialog.c:107
-msgid "Configure the plugin"
-msgstr "配置此插件"
+#: ../lib/window.vala:886
+msgid "_Delete group"
+msgstr "删除群组(_D)"
 
-#: ../src/main-settings-dialog.c:126
+#: ../lib/window.vala:1168
+msgid "Are you sure you want to delete this note?"
+msgstr "您确定要删除此便笺吗？"
+
+#: ../lib/window.vala:1201
+msgid "Rename note"
+msgstr "重命名便笺"
+
+#: ../src/main-status-icon.vala:78
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+#: ../src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "全局设置"
 
-#. Hide from taskbar
-#: ../src/main-settings-dialog.c:131
-msgid "Hide notes from taskbar"
-msgstr "在任务栏中隐藏"
-
-#: ../src/main-settings-dialog.c:149
-msgid "Notes path:"
-msgstr "便笺路径："
-
-#: ../src/main-settings-dialog.c:160
-msgid "Tabs position:"
-msgstr "标签位置："
-
-#: ../src/main-settings-dialog.c:171
+#: ../src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "背景："
 
-#: ../src/main-settings-dialog.c:185
+#: ../src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "字体："
 
-#: ../src/main-settings-dialog.c:195
+#: ../src/main-settings-dialog.c:154
+msgid "Tabs position:"
+msgstr "标签位置："
+
+#. Hide from taskbar
+#: ../src/main-settings-dialog.c:161
+msgid "Hide notes from taskbar"
+msgstr "在任务栏中隐藏"
+
+#: ../src/main-settings-dialog.c:172
+msgid "Notes path:"
+msgstr "便笺路径："
+
+#: ../src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "新建群组设置"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:207
+#: ../src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "粘滞"
 
-#: ../src/main-settings-dialog.c:217
+#: ../src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "大小："
 
-#: ../src/main-settings-dialog.c:287
+#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+msgid "Select notes path"
+msgstr "选择便笺路径"
+
+#: ../src/main-settings-dialog.c:286
 msgid "None"
 msgstr "无"
 
-#: ../src/main-settings-dialog.c:288
+#: ../src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "顶部"
 
-#: ../src/main-settings-dialog.c:289
+#: ../src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "右边"
 
-#: ../src/main-settings-dialog.c:290
+#: ../src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "底部"
 
-#: ../src/main-settings-dialog.c:291
+#: ../src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "左边"
 
-#: ../src/main-settings-dialog.c:307
+#: ../src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "小"
 
-#: ../src/main-settings-dialog.c:308
+#: ../src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "中等"
 
-#: ../src/main-settings-dialog.c:309
+#: ../src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "大"
 
-#: ../src/main-settings-dialog.c:368
+#: ../src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "黄色"
 
-#: ../src/main-settings-dialog.c:369
+#: ../src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "蓝色"
 
-#: ../src/main-settings-dialog.c:370
+#: ../src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "绿色"
 
-#: ../src/main-settings-dialog.c:371
+#: ../src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "靛青色"
 
-#: ../src/main-settings-dialog.c:372
+#: ../src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "橄榄色"
 
-#: ../src/main-settings-dialog.c:373
+#: ../src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "胭脂色"
 
-#: ../src/main-settings-dialog.c:374
+#: ../src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "淡黄色"
 
-#: ../src/main-settings-dialog.c:375
+#: ../src/main-settings-dialog.c:373
 msgid "White"
 msgstr "白色"
 
-#: ../src/main-settings-dialog.c:376
+#: ../src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:377
+#: ../src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:378
+#: ../src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "自定义..."
 
-#: ../src/main-settings-dialog.c:508
+#: ../src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "背景颜色"
