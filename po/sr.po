@@ -48,7 +48,7 @@ msgstr "Нисам успео да одаберем фасциклу за нов
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "Путања бележнице је неприхватљива"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1225
@@ -63,7 +63,7 @@ msgstr "Бележница %d"
 #: ../lib/application.vala:338 ../lib/window.vala:1055
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "Белешка %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
