@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Dmitry Nikitin <luckas_fb@mail.ru>, 2008
+# Gordon Freeman, 2023
 # f977cb811fcf66493f48eac227fd7473_b98aa5d <2419f1d8d12d92441152e78ae3e3bde0_722180>, 2021
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-26 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: f977cb811fcf66493f48eac227fd7473_b98aa5d <2419f1d8d12d92441152e78ae3e3bde0_722180>, 2021\n"
+"Last-Translator: Gordon Freeman, 2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/xfce/xfce-panel-plugins/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +49,7 @@ msgstr "Неможливо вибрати теку для нових запис�
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "Шлях до записок неприпустимий"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1225
@@ -58,12 +59,12 @@ msgstr "Помилка"
 #: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
-msgstr "записки %d"
+msgstr "Записки %d"
 
 #: ../lib/application.vala:338 ../lib/window.vala:1055
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "Записка %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
