@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Daniel Nylander <po@danielnylander.se>, 2008-2009
-# Luna Jernberg <bittin@cafe8bitar.se>, 2020
+# Luna Jernberg <bittin@cafe8bitar.se>, 2020,2023
 # Påvel Nicklasson<pavel@frimix.se>, 2015
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-26 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: Luna Jernberg <bittin@cafe8bitar.se>, 2020\n"
+"Last-Translator: Luna Jernberg <bittin@cafe8bitar.se>, 2020,2023\n"
 "Language-Team: Swedish (http://app.transifex.com/xfce/xfce-panel-plugins/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,7 @@ msgstr "Det gick inte att välja katalog för nya anteckningar: %s"
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "Anteckningars sökväg är oacceptabel"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1225
@@ -64,7 +64,7 @@ msgstr "Anteckningar %d"
 #: ../lib/application.vala:338 ../lib/window.vala:1055
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "Anteckning %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
