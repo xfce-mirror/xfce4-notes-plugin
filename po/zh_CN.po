@@ -6,14 +6,14 @@
 # Chipong Luo <chipong.luo@yahoo.com>, 2011-2012
 # Dig <Dig.Ge.CN@gmail.com>, 2009
 # Hunt Xu <huntxu@live.cn>, 2009-2010
-# 玉堂白鹤 <yjwork@qq.com>, 2020
+# 玉堂白鹤 <yjwork@qq.com>, 2020,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-26 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2020\n"
+"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2020,2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +50,7 @@ msgstr "未能为新便笺路径选择目录：%s"
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "便笺路径不可接受"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1225
@@ -65,7 +65,7 @@ msgstr "便笺 %d"
 #: ../lib/application.vala:338 ../lib/window.vala:1055
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "便笺 %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
@@ -105,7 +105,7 @@ msgstr "未能打开设置对话框"
 
 #: ../lib/application.vala:1026
 msgid "translator-credits"
-msgstr "Hunt Xu <huntxu@live.cn>, 2009, 2010.\nDig <Dig.Ge.CN@gmail.com>, 2009.\nChipong Luo <chipong.luo@yahoo.com>, 2011, 2012."
+msgstr "Hunt Xu <huntxu@live.cn>, 2009, 2010.\nDig <Dig.Ge.CN@gmail.com>, 2009.\nChipong Luo <chipong.luo@yahoo.com>, 2011, 2012.\n玉堂白鹤 <yjwork@qq.com>, 2024."
 
 #: ../lib/application.vala:1061 ../lib/window.vala:887
 msgid "_Add a new group"
