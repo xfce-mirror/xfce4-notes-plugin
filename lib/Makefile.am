@@ -43,3 +43,4 @@ EXTRA_DIST =								\
 	libnotes.vapi							\
 	libnotes.h
 
+libnotes.vapi libnotes.h: libnotes_la_vala.stamp
