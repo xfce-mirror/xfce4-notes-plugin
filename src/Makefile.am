@@ -64,9 +64,10 @@ xfce4_notes_settings_LDADD =						\
 
 if MAINTAINER_MODE
 notes_VALAFLAGS =							\
-   --vapidir=$(top_srcdir)/lib					\
+   --vapidir=$(top_srcdir)/lib						\
    --pkg=libnotes							\
 	--pkg=config							\
+	--pkg=gtksourceview-4						\
 	--pkg=libxfce4panel-2.0						\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0
@@ -88,6 +89,7 @@ libnotes_la_SOURCES =							\
 #
 libnotes_la_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
+	@GTKSOURCEVIEW_CFLAGS@						\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@XFCONF_CFLAGS@ \
@@ -96,6 +98,7 @@ libnotes_la_CFLAGS =							\
 libnotes_la_LIBADD =							\
 	$(top_builddir)/lib/libnotes.la					\
 	@LIBX11_LIBS@							\
+	@GTKSOURCEVIEW_LIBS@						\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
@@ -122,6 +125,7 @@ xfce4_notes_VALAFLAGS =							\
 	--pkg=config							\
 	--pkg=xfce-autostart						\
 	--pkg=libxfconf-0						\
+	--pkg=gtksourceview-4						\
 	--pkg=libxfce4util-1.0						\
 	--pkg=gtk+-3.0
 
@@ -136,15 +140,17 @@ xfce4_notes_SOURCES =							\
 xfce4_notes_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
+	@GTKSOURCEVIEW_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@XFCONF_CFLAGS@ \
 	@VALAC_CFLAGS@
 
 xfce4_notes_LDADD =							\
 	$(top_builddir)/lib/libnotes.la					\
-	$(top_builddir)/libc/libcnotes.la					\
+	$(top_builddir)/libc/libcnotes.la				\
 	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
+	@GTKSOURCEVIEW_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
 
