@@ -24,7 +24,7 @@ using Pango;
 
 namespace Xnp {
 
-	public class HypertextView : Gtk.TextView {
+	public class HypertextView : Gtk.SourceView {
 
 		private Gdk.Cursor hand_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.HAND2);
 		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
