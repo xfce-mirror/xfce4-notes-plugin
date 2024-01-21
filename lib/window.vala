@@ -50,7 +50,8 @@ namespace Xnp {
   <accelerator action="new-note" />
   <accelerator action="delete-note" />
   <accelerator action="rename-note" />
-  <accelerator action="cancel" />
+  <accelerator action="undo" />
+  <accelerator action="redo" />
   <accelerator action="next-note" />
   <accelerator action="prev-note" />
 </ui>
@@ -64,7 +65,8 @@ namespace Xnp {
 			{ "new-note",      null, null, "<Ctrl>n", null, action_new_note },
 			{ "delete-note",   null, null, "<Ctrl>w", null, action_delete_note },
 			{ "rename-note",   null, null, "F2", null, action_rename_note },
-			{ "cancel",        null, null, "<Ctrl>z", null, action_cancel },
+			{ "undo",          null, null, "<Ctrl>z", null, action_undo },
+			{ "redo",          null, null, "<Ctrl>y", null, action_redo },
 			{ "next-note",     null, null, "<Ctrl>Page_Down", null, action_next_note },
 			{ "prev-note",     null, null, "<Ctrl>Page_Up", null, action_prev_note }
 		};
@@ -697,10 +699,16 @@ namespace Xnp {
 			rename_current_note ();
 		}
 
-		private void action_cancel () {
+		private void action_undo () {
 			var current_note = this.current_note;
 			if (current_note != null)
 				current_note.text_view.undo ();
+		}
+
+		private void action_redo () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.redo ();
 		}
 
 		private void action_refresh_notes () {
@@ -815,7 +823,6 @@ namespace Xnp {
 			menu_add_icon_item (menu, _("_New"), "gtk-new", "new-note", action_new_note);
 			menu_add_icon_item (menu, _("_Delete"), "gtk-delete", "delete-note", action_delete_note);
 			menu_add_icon_item (menu, _("_Rename"), "gtk-edit", "rename-note", action_rename_note);
-			menu_add_icon_item (menu, _("_Undo"), "gtk-undo", "cancel", action_cancel);
 
 			/* Window options */
 			menu_add_separator (menu);
