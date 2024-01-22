@@ -1052,12 +1052,12 @@ namespace Xnp {
 						var w = i.get_data<Xnp.Window> ("window");
 						w.present ();
 					});
-					menu.append (mi);
+					menu.insert (mi as Gtk.Widget, -1);
 				}
 
 				// New group menu item
 				var mi_sep = new Gtk.SeparatorMenuItem ();
-				menu.append (mi_sep);
+				menu.insert (mi_sep as Gtk.Widget, -1);
 				var mi_add = new Gtk.ImageMenuItem.with_mnemonic (_("_Add a new group"));
 				mi_add.activate.connect (() => {
 					var new_win = create_window ();
@@ -1066,7 +1066,7 @@ namespace Xnp {
 				});
 				var image = new Gtk.Image.from_icon_name ("gtk-add", Gtk.IconSize.MENU);
 				mi_add.set_image (image);
-				menu.append (mi_add);
+				menu.insert (mi_add as Gtk.Widget, -1);
 
 				// Show all items
 				menu.show_all ();

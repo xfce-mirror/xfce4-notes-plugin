@@ -8,6 +8,7 @@ libnotes_la_VALAFLAGS =							\
 	--pkg=config							\
 	--pkg=libxfconf-0						\
 	--pkg=libxfce4util-1.0						\
+	--pkg=gtksourceview-4						\
 	--pkg=gtk+-3.0
 
 libnotes_la_SOURCES =							\
@@ -27,6 +28,7 @@ libnotes_la_CFLAGS =							\
 	@LIBX11_CFLAGS@							\
 	@GIO_CFLAGS@							\
 	@GTK_CFLAGS@							\
+	@GTKSOURCEVIEW_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
 	@XFCONF_CFLAGS@ \
 	@VALAC_CFLAGS@
@@ -36,6 +38,7 @@ libnotes_la_LIBADD =							\
 	@LIBX11_LIBS@							\
 	@GIO_LIBS@							\
 	@GTK_LIBS@							\
+	@GTKSOURCEVIEW_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
 	@XFCONF_LIBS@
 
