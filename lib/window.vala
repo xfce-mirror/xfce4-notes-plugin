@@ -784,20 +784,20 @@ namespace Xnp {
 				mi.set_accel_path (this.action_group.get_action (accel).get_accel_path ());
 			}
 			mi.activate.connect (() => { callback (); });
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 		}
 
 		private Gtk.CheckMenuItem menu_add_check_item (Gtk.Menu menu, string text, bool active, Callback callback) {
 			var mi = new Gtk.CheckMenuItem.with_label (text);
 			mi.active = active;
 			mi.toggled.connect (() => { callback (); });
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 			return mi;
 		}
 
 		private void menu_add_separator (Gtk.Menu menu) {
 			var mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 		}
 
 		/**
@@ -810,7 +810,7 @@ namespace Xnp {
 			menu.set_accel_group (this.ui.get_accel_group ());
 
 			var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 
 			/* Navigation */
 			var menu_go = new Gtk.Menu ();
@@ -860,7 +860,7 @@ namespace Xnp {
 				if (win == this) {
 					mi = new Gtk.MenuItem.with_label (win.name);
 					mi.sensitive = false;
-					menu.append (mi);
+					menu.insert (mi as Gtk.Widget, -1);
 
 					var current_note = this.current_note;
 					int n_pages = this.n_pages;
@@ -876,7 +876,7 @@ namespace Xnp {
 						mi.activate.connect ((i) => {
 							notebook.page = i.get_data<int> ("page");
 						});
-						menu.append (mi);
+						menu.insert (mi as Gtk.Widget, -1);
 					}
 
 					menu_add_separator (menu);
@@ -888,7 +888,7 @@ namespace Xnp {
 						var w = i.get_data<Xnp.Window> ("window");
 						w.present ();
 					});
-					menu.append (mi);
+					menu.insert (mi as Gtk.Widget, -1);
 
 					menu_add_separator (menu);
 				}
