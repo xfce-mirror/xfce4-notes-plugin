@@ -50,7 +50,8 @@ namespace Xnp {
   <accelerator action="new-note" />
   <accelerator action="delete-note" />
   <accelerator action="rename-note" />
-  <accelerator action="cancel" />
+  <accelerator action="undo" />
+  <accelerator action="redo" />
   <accelerator action="next-note" />
   <accelerator action="prev-note" />
 </ui>
@@ -64,7 +65,8 @@ namespace Xnp {
 			{ "new-note",      null, null, "<Ctrl>n", null, action_new_note },
 			{ "delete-note",   null, null, "<Ctrl>w", null, action_delete_note },
 			{ "rename-note",   null, null, "F2", null, action_rename_note },
-			{ "cancel",        null, null, "<Ctrl>z", null, action_cancel },
+			{ "undo",          null, null, "<Ctrl>z", null, action_undo },
+			{ "redo",          null, null, "<Ctrl>y", null, action_redo },
 			{ "next-note",     null, null, "<Ctrl>Page_Down", null, action_next_note },
 			{ "prev-note",     null, null, "<Ctrl>Page_Up", null, action_prev_note }
 		};
@@ -697,10 +699,16 @@ namespace Xnp {
 			rename_current_note ();
 		}
 
-		private void action_cancel () {
+		private void action_undo () {
 			var current_note = this.current_note;
 			if (current_note != null)
 				current_note.text_view.undo ();
+		}
+
+		private void action_redo () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.redo ();
 		}
 
 		private void action_refresh_notes () {
@@ -776,20 +784,20 @@ namespace Xnp {
 				mi.set_accel_path (this.action_group.get_action (accel).get_accel_path ());
 			}
 			mi.activate.connect (() => { callback (); });
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 		}
 
 		private Gtk.CheckMenuItem menu_add_check_item (Gtk.Menu menu, string text, bool active, Callback callback) {
 			var mi = new Gtk.CheckMenuItem.with_label (text);
 			mi.active = active;
 			mi.toggled.connect (() => { callback (); });
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 			return mi;
 		}
 
 		private void menu_add_separator (Gtk.Menu menu) {
 			var mi = new Gtk.SeparatorMenuItem ();
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 		}
 
 		/**
@@ -802,7 +810,7 @@ namespace Xnp {
 			menu.set_accel_group (this.ui.get_accel_group ());
 
 			var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
-			menu.append (mi);
+			menu.insert (mi as Gtk.Widget, -1);
 
 			/* Navigation */
 			var menu_go = new Gtk.Menu ();
@@ -815,7 +823,11 @@ namespace Xnp {
 			menu_add_icon_item (menu, _("_New"), "gtk-new", "new-note", action_new_note);
 			menu_add_icon_item (menu, _("_Delete"), "gtk-delete", "delete-note", action_delete_note);
 			menu_add_icon_item (menu, _("_Rename"), "gtk-edit", "rename-note", action_rename_note);
-			menu_add_icon_item (menu, _("_Undo"), "gtk-undo", "cancel", action_cancel);
+
+			/* Editor actions */
+			menu_add_separator (menu);
+			menu_add_icon_item (menu, _("_Undo"), "gtk-undo", "undo", action_undo);
+			menu_add_icon_item (menu, _("Re_do"), "gtk-redo", "redo", action_redo);
 
 			/* Window options */
 			menu_add_separator (menu);
@@ -848,7 +860,7 @@ namespace Xnp {
 				if (win == this) {
 					mi = new Gtk.MenuItem.with_label (win.name);
 					mi.sensitive = false;
-					menu.append (mi);
+					menu.insert (mi as Gtk.Widget, -1);
 
 					var current_note = this.current_note;
 					int n_pages = this.n_pages;
@@ -864,7 +876,7 @@ namespace Xnp {
 						mi.activate.connect ((i) => {
 							notebook.page = i.get_data<int> ("page");
 						});
-						menu.append (mi);
+						menu.insert (mi as Gtk.Widget, -1);
 					}
 
 					menu_add_separator (menu);
@@ -876,7 +888,7 @@ namespace Xnp {
 						var w = i.get_data<Xnp.Window> ("window");
 						w.present ();
 					});
-					menu.append (mi);
+					menu.insert (mi as Gtk.Widget, -1);
 
 					menu_add_separator (menu);
 				}

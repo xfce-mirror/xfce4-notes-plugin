@@ -34,9 +34,11 @@ namespace Xnp {
 				return this.text_view.buffer.text;
 			}
 			set {
+				var buffer = this.text_view.buffer as Gtk.SourceBuffer;
+				buffer.begin_not_undoable_action ();
 				this.text_view.buffer.text = value;
 				this.text_view.update_tags ();
-				this.text_view.init_undo ();
+				buffer.end_not_undoable_action ();
 				this.dirty = false;
 			}
 		}
