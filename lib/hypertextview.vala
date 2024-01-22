@@ -61,7 +61,7 @@ namespace Xnp {
 		public HypertextView () {
 			this.style_updated.connect (style_updated_cb);
 			this.button_release_event.connect (button_release_event_cb);
-			this.motion_notify_event.connect (motion_notify_event_cb);
+			this.motion_notify_event.connect_after (motion_notify_event_cb);
 			this.state_flags_changed.connect (state_flags_changed_cb);
 			this.buffer.insert_text.connect_after (insert_text_cb);
 			this.buffer.delete_range.connect_after (delete_range_cb);
@@ -166,17 +166,16 @@ namespace Xnp {
 		private bool motion_notify_event_cb (Gtk.Widget hypertextview, Gdk.EventMotion event) {
 			Gtk.TextIter iter;
 			Gdk.Window win;
-			bool over_link;
 			int x, y;
 
 			window_to_buffer_coords (Gtk.TextWindowType.WIDGET, (int)event.x, (int)event.y, out x, out y);
 			get_iter_at_location (out iter, x, y);
-			over_link = iter.has_tag (this.tag_link);
+			this.cursor_over_link = iter.has_tag (this.tag_link);
+			var cursor = this.cursor_over_link ? this.hand_cursor : this.regular_cursor;
+			win = get_window (Gtk.TextWindowType.TEXT);
 
-			if (over_link != this.cursor_over_link) {
-				this.cursor_over_link = over_link;
-				win = get_window (Gtk.TextWindowType.TEXT);
-				win.set_cursor (over_link ? this.hand_cursor : this.regular_cursor);
+			if (win.cursor != cursor) {
+				win.cursor = cursor;
 			}
 
 			return false;
