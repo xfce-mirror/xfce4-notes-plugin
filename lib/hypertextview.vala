@@ -24,19 +24,12 @@ using Pango;
 
 namespace Xnp {
 
-	public class HypertextView : Gtk.TextView {
+	public class HypertextView : Gtk.SourceView {
 
 		private Gdk.Cursor hand_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.HAND2);
 		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
 
 		private bool cursor_over_link = false;
-		private int cursor_position = 0;
-
-		private uint undo_timeout = 0;
-		private string undo_text = "";
-		private string redo_text = "";
-		private int undo_cursor_pos;
-		private int redo_cursor_pos;
 
 		private Gtk.TextTag tag_link;
 		private Regex regex_link;
@@ -68,10 +61,8 @@ namespace Xnp {
 		public HypertextView () {
 			this.style_updated.connect (style_updated_cb);
 			this.button_release_event.connect (button_release_event_cb);
-			this.motion_notify_event.connect (motion_notify_event_cb);
+			this.motion_notify_event.connect_after (motion_notify_event_cb);
 			this.state_flags_changed.connect (state_flags_changed_cb);
-			this.buffer.notify["cursor-position"].connect (move_cursor_cb);
-			this.buffer.changed.connect (buffer_changed_cb);
 			this.buffer.insert_text.connect_after (insert_text_cb);
 			this.buffer.delete_range.connect_after (delete_range_cb);
 
@@ -79,11 +70,6 @@ namespace Xnp {
 					"foreground", "blue",
 					"underline", Pango.Underline.SINGLE,
 					null);
-		}
-
-		~HypertextView () {
-			if (this.undo_timeout != 0)
-				Source.remove (this.undo_timeout);
 		}
 
 		/*
@@ -180,17 +166,16 @@ namespace Xnp {
 		private bool motion_notify_event_cb (Gtk.Widget hypertextview, Gdk.EventMotion event) {
 			Gtk.TextIter iter;
 			Gdk.Window win;
-			bool over_link;
 			int x, y;
 
 			window_to_buffer_coords (Gtk.TextWindowType.WIDGET, (int)event.x, (int)event.y, out x, out y);
 			get_iter_at_location (out iter, x, y);
-			over_link = iter.has_tag (this.tag_link);
+			this.cursor_over_link = iter.has_tag (this.tag_link);
+			var cursor = this.cursor_over_link ? this.hand_cursor : this.regular_cursor;
+			win = get_window (Gtk.TextWindowType.TEXT);
 
-			if (over_link != this.cursor_over_link) {
-				this.cursor_over_link = over_link;
-				win = get_window (Gtk.TextWindowType.TEXT);
-				win.set_cursor (over_link ? this.hand_cursor : this.regular_cursor);
+			if (win.cursor != cursor) {
+				win.cursor = cursor;
 			}
 
 			return false;
@@ -206,40 +191,6 @@ namespace Xnp {
 				var win = get_window (Gtk.TextWindowType.TEXT);
 				win.set_cursor (this.cursor_over_link ? this.hand_cursor : this.regular_cursor);
 			}
-		}
-
-		/**
-		 * move_cursor_cb:
-		 *
-		 * Destroys existing timeouts and executes the actions immediately.
-		 */
-		private void move_cursor_cb () {
-			if (this.cursor_position == this.buffer.cursor_position)
-				return;
-
-			if (this.undo_timeout > 0) {
-				/* Make an undo snapshot and save cursor_position before it really moves */
-				undo_snapshot ();
-			}
-
-			this.cursor_position = this.buffer.cursor_position;
-		}
-
-		/**
-		 * buffer_changed_cb:
-		 *
-		 * Initializes timeouts to postpone actions.
-		 */
-		private void buffer_changed_cb () {
-			/* Initialize undo_timeout */
-			if (this.undo_timeout > 0) {
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
-			} else {
-				this.redo_cursor_pos = this.cursor_position;
-			}
-			this.undo_timeout = Timeout.add_seconds (2, undo_snapshot);
-			this.cursor_position = this.buffer.cursor_position;
 		}
 
 		/**
@@ -263,82 +214,19 @@ namespace Xnp {
 		}
 
 		/*
-		 * Undo
+		 * Undo/redo
 		 */
 
-		/**
-		 * init_undo:
-		 *
-		 * Initialize the undo stack after loading a note.
-		 */
-		public void init_undo () {
-			this.undo_text = null;
-			this.redo_text = this.buffer.text;
-			if (this.undo_timeout > 0) {
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
-			}
-		}
-
-		/**
-		 * undo_snapshot:
-		 *
-		 * Makes a snapshot of the current buffer and swaps undo/redo texts.
-		 */
-		private bool undo_snapshot () {
-			var text = this.buffer.text;
-			if (text != this.redo_text) {
-				this.undo_text = this.redo_text;
-				this.redo_text = text;
-				this.undo_cursor_pos = this.redo_cursor_pos;
-				this.redo_cursor_pos = this.cursor_position;
-			}
-
-			if (this.undo_timeout > 0) {
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
-			}
-
-			return false;
-		}
-
-		/**
-		 * undo:
-		 *
-		 * Revert the buffer to the undo text and swaps undo/redo texts.
-		 */
 		public void undo () {
-			Gtk.TextIter iter;
+			var buffer = this.buffer as Gtk.SourceBuffer;
+			if (buffer.can_undo)
+				buffer.undo ();
+		}
 
-			if (this.undo_timeout > 0)
-				undo_snapshot ();
-
-			if (this.undo_text == null)
-				return;
-
-			this.buffer.changed.disconnect (buffer_changed_cb);
-			this.buffer.text = this.undo_text;
-			this.buffer.changed.connect (buffer_changed_cb);
-			this.buffer.get_iter_at_offset (out iter, this.undo_cursor_pos);
-			this.cursor_position = this.undo_cursor_pos;
-			this.buffer.place_cursor (iter);
-
-			/* Scroll to the cursor position */
-			this.scroll_to_iter (iter, 0.0, false, 0.5, 0.5);
-
-			var undo_text = this.undo_text;
-			var undo_cursor_pos = this.undo_cursor_pos;
-			this.undo_text = this.redo_text;
-			this.undo_cursor_pos = this.redo_cursor_pos;
-			this.redo_text = undo_text;
-			this.redo_cursor_pos = undo_cursor_pos;
-
-			if (this.undo_timeout > 0) {
-				Source.remove (this.undo_timeout);
-				this.undo_timeout = 0;
-			}
-
-			update_tags ();
+		public void redo () {
+			var buffer = this.buffer as Gtk.SourceBuffer;
+			if (buffer.can_redo)
+				buffer.redo ();
 		}
 
 		/*
