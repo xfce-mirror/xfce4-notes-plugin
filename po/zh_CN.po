@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"POT-Creation-Date: 2024-01-29 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2020,2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
 #: ../lib/application.vala:313 ../lib/application.vala:1017
-#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../lib/window.vala:84 ../lib/window.vala:194
 #: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
 #: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
@@ -53,7 +53,7 @@ msgid "Notes path is unacceptable"
 msgstr "便笺路径不可接受"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
-#: ../lib/application.vala:997 ../lib/window.vala:1225
+#: ../lib/application.vala:997 ../lib/window.vala:1232
 msgid "Error"
 msgstr "错误"
 
@@ -62,7 +62,7 @@ msgstr "错误"
 msgid "Notes %d"
 msgstr "便笺 %d"
 
-#: ../lib/application.vala:338 ../lib/window.vala:1055
+#: ../lib/application.vala:338 ../lib/window.vala:1062
 #, c-format
 msgid "Note %d"
 msgstr "便笺 %d"
@@ -71,7 +71,7 @@ msgstr "便笺 %d"
 msgid "Rename group"
 msgstr "重命名群组"
 
-#: ../lib/application.vala:667 ../lib/window.vala:1223
+#: ../lib/application.vala:667 ../lib/window.vala:1230
 #, c-format
 msgid "The name %s is already in use"
 msgstr "名称 %s 已在使用"
@@ -107,74 +107,70 @@ msgstr "未能打开设置对话框"
 msgid "translator-credits"
 msgstr "Hunt Xu <huntxu@live.cn>, 2009, 2010.\nDig <Dig.Ge.CN@gmail.com>, 2009.\nChipong Luo <chipong.luo@yahoo.com>, 2011, 2012.\n玉堂白鹤 <yjwork@qq.com>, 2024."
 
-#: ../lib/application.vala:1061 ../lib/window.vala:887
+#: ../lib/application.vala:1061 ../lib/window.vala:894
 msgid "_Add a new group"
 msgstr "添加新群组(_A)"
 
-#: ../lib/window.vala:246
+#: ../lib/window.vala:248
 msgid "Menu"
 msgstr "菜单"
 
-#: ../lib/window.vala:271
+#: ../lib/window.vala:273
 msgid "Refresh notes"
 msgstr "刷新便笺"
 
-#: ../lib/window.vala:286
+#: ../lib/window.vala:288
 #, c-format
 msgid "Hide (%s)"
 msgstr "隐藏(%s)"
 
-#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../lib/window.vala:812 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "群组(_G)"
 
-#: ../lib/window.vala:815
+#: ../lib/window.vala:823
 msgid "_New"
 msgstr "新建(_N)"
 
-#: ../lib/window.vala:816
+#: ../lib/window.vala:824
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../lib/window.vala:817
+#: ../lib/window.vala:825
 msgid "_Rename"
 msgstr "重命名(_R)"
 
-#: ../lib/window.vala:818
-msgid "_Undo"
-msgstr "撤消(_U)"
-
 #. Always on top
-#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
+#: ../lib/window.vala:829 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "总是置顶"
 
-#: ../lib/window.vala:823
+#: ../lib/window.vala:830
 msgid "Sticky window"
 msgstr "粘滞窗口"
 
-#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
+#: ../lib/window.vala:834 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "属性(_P)"
 
-#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
+#: ../lib/window.vala:835 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "关于(_A)"
 
-#: ../lib/window.vala:885
+#: ../lib/window.vala:892
 msgid "_Rename group"
 msgstr "重命名群组(_R)"
 
-#: ../lib/window.vala:886
+#: ../lib/window.vala:893
 msgid "_Delete group"
 msgstr "删除群组(_D)"
 
-#: ../lib/window.vala:1168
+#: ../lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
 msgstr "您确定要删除此便笺吗？"
 
-#: ../lib/window.vala:1201
+#: ../lib/window.vala:1208
 msgid "Rename note"
 msgstr "重命名便笺"
 
