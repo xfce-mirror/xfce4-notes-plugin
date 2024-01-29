@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"POT-Creation-Date: 2024-01-29 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2020,2023\n"
 "Language-Team: Bulgarian (http://app.transifex.com/xfce/xfce-panel-plugins/language/bg/)\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
 #: ../lib/application.vala:313 ../lib/application.vala:1017
-#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../lib/window.vala:84 ../lib/window.vala:194
 #: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
 #: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
@@ -51,7 +51,7 @@ msgid "Notes path is unacceptable"
 msgstr "Пътят с бележките е неприемлив"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
-#: ../lib/application.vala:997 ../lib/window.vala:1225
+#: ../lib/application.vala:997 ../lib/window.vala:1232
 msgid "Error"
 msgstr "Грешка"
 
@@ -60,7 +60,7 @@ msgstr "Грешка"
 msgid "Notes %d"
 msgstr "Бележки %d"
 
-#: ../lib/application.vala:338 ../lib/window.vala:1055
+#: ../lib/application.vala:338 ../lib/window.vala:1062
 #, c-format
 msgid "Note %d"
 msgstr "Бележка %d"
@@ -69,7 +69,7 @@ msgstr "Бележка %d"
 msgid "Rename group"
 msgstr "Преименуване на група"
 
-#: ../lib/application.vala:667 ../lib/window.vala:1223
+#: ../lib/application.vala:667 ../lib/window.vala:1230
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Името „%s“ вече се използва"
@@ -105,74 +105,70 @@ msgstr "Неуспех при отварянето на диалога с нас
 msgid "translator-credits"
 msgstr "Любомир Василев <lyubomirv@abv.bg>"
 
-#: ../lib/application.vala:1061 ../lib/window.vala:887
+#: ../lib/application.vala:1061 ../lib/window.vala:894
 msgid "_Add a new group"
 msgstr "_Добавяне на нова група"
 
-#: ../lib/window.vala:246
+#: ../lib/window.vala:248
 msgid "Menu"
 msgstr "Меню"
 
-#: ../lib/window.vala:271
+#: ../lib/window.vala:273
 msgid "Refresh notes"
 msgstr "Обновяване на бележките"
 
-#: ../lib/window.vala:286
+#: ../lib/window.vala:288
 #, c-format
 msgid "Hide (%s)"
 msgstr "Скриване (%s)"
 
-#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../lib/window.vala:812 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Групи"
 
-#: ../lib/window.vala:815
+#: ../lib/window.vala:823
 msgid "_New"
 msgstr "_Нов"
 
-#: ../lib/window.vala:816
+#: ../lib/window.vala:824
 msgid "_Delete"
 msgstr "_Изтриване"
 
-#: ../lib/window.vala:817
+#: ../lib/window.vala:825
 msgid "_Rename"
 msgstr "_Преименуване"
 
-#: ../lib/window.vala:818
-msgid "_Undo"
-msgstr "_Отмяна"
-
 #. Always on top
-#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
+#: ../lib/window.vala:829 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Винаги на преден план"
 
-#: ../lib/window.vala:823
+#: ../lib/window.vala:830
 msgid "Sticky window"
 msgstr "Лепкав прозорец"
 
-#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
+#: ../lib/window.vala:834 ../src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Свойства"
 
-#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
+#: ../lib/window.vala:835 ../src/main-status-icon.vala:75
 msgid "_About"
 msgstr "Относно"
 
-#: ../lib/window.vala:885
+#: ../lib/window.vala:892
 msgid "_Rename group"
 msgstr "_Преименуване на групата"
 
-#: ../lib/window.vala:886
+#: ../lib/window.vala:893
 msgid "_Delete group"
 msgstr "_Изтриване на групата"
 
-#: ../lib/window.vala:1168
+#: ../lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
 msgstr "Сигурни ли сте, че искате да изтриете тази бележка?"
 
-#: ../lib/window.vala:1201
+#: ../lib/window.vala:1208
 msgid "Rename note"
 msgstr "Преименуване на бележка"
 
