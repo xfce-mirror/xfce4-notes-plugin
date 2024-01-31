@@ -66,6 +66,9 @@ namespace Xnp {
 			this.buffer.insert_text.connect_after (insert_text_cb);
 			this.buffer.delete_range.connect_after (delete_range_cb);
 
+			var source_buffer = this.buffer as Gtk.SourceBuffer;
+			source_buffer.highlight_matching_brackets = false;
+
 			this.tag_link = this.buffer.create_tag ("link",
 					"foreground", "blue",
 					"underline", Pango.Underline.SINGLE,
