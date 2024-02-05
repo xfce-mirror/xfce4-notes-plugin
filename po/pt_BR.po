@@ -4,6 +4,7 @@
 # 
 # Translators:
 # filiperosset <rosset.filipe@gmail.com>, 2009
+# Michael Martins <michaelfm21@gmail.com>, 2024
 # The Cat, 2024
 # The Cat, 2020
 # Vladimir Melo <vladimirmelo@foresightlinux.org>, 2007
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: The Cat, 2024\n"
+"Last-Translator: Michael Martins <michaelfm21@gmail.com>, 2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +51,7 @@ msgstr "Não foi possível selecionar o diretório para o caminho de novas notas
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr "O caminho das notas não pode ser aceito"
+msgstr "O caminho das notas é inaceitável"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1232
