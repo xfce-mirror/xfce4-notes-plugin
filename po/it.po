@@ -78,7 +78,7 @@ msgstr "Il nome %s è già in uso"
 
 #: ../lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
-msgstr "Cancellare davvero questo gruppo?"
+msgstr "Eliminare davvero questo gruppo?"
 
 #: ../lib/application.vala:763
 #, c-format
@@ -164,7 +164,7 @@ msgstr "_Rinomina gruppo"
 
 #: ../lib/window.vala:893
 msgid "_Delete group"
-msgstr "_Cancella gruppo"
+msgstr "_Elimina gruppo"
 
 #: ../lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
