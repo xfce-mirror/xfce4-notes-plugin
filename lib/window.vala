@@ -108,6 +108,13 @@ namespace Xnp {
 			}
 			set {
 				this.notebook.show_tabs = value;
+				if (this.notebook.show_tabs) {
+					this.left_arrow_button.hide ();
+					this.right_arrow_button.hide ();
+				} else {
+					this.left_arrow_button.show ();
+					this.right_arrow_button.show ();
+				}
 			}
 		}
 
