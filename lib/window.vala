@@ -1203,6 +1203,32 @@ namespace Xnp {
 		}
 
 		/**
+		 * externally_removed:
+		 *
+		 * Handle external file deletion event
+		 */
+		public void externally_removed (string note_name) {
+			int n_pages = this.n_pages;
+			for (int p = 0; p < n_pages; p++) {
+				var note = get_note (p);
+				if (note.name == note_name) {
+					bool current_page = this.notebook.page == p;
+
+					this.notebook.remove_page (p);
+					note.destroy ();
+
+					if (current_page && this.notebook.page > 0 && p != this.n_pages)
+						this.notebook.page--;
+
+					if (this.n_pages == 0)
+						action ("delete");
+
+					break;
+				}
+			}
+		}
+
+		/**
 		 * rename_current_note:
 		 *
 		 * Rename the current note.

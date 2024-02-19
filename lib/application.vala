@@ -817,6 +817,12 @@ namespace Xnp {
 				}
 			});
 
+			monitor.note_deleted.connect ((note_name) => {
+				window.externally_removed (note_name);
+				/* Avoid refresh button appearance */
+				set_data_value (window, "internal-change", true);
+			});
+
 			this.window_monitor_list.prepend (monitor);
 		}
 
