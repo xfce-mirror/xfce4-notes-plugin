@@ -705,22 +705,24 @@ namespace Xnp {
 			}
 
 			string name;
-			string path = "%s/%s".printf (notes_path, window.name);
-			try {
-				var dir = GLib.Dir.open (path, 0);
-				while ((name = dir.read_name ()) != null) {
-					File.new_for_path ("%s/%s".printf (path, name)).delete ();
+			var path = File.new_build_filename (notes_path, window.name);
+			if (path.query_exists ()) {
+				try {
+					var dir = GLib.Dir.open (path.get_path (), 0);
+					while ((name = dir.read_name ()) != null) {
+						path.get_child (name).delete ();
+					}
+					path.delete ();
 				}
-				File.new_for_path (path).delete ();
-			}
-			catch (GLib.Error e) {
-				window.popup_error (e.message);
-				name = window.name;
-				destroy_window (window);
-				var win = create_window (name);
-				if (win != null)
-					win.show ();
-				return;
+				catch (GLib.Error e) {
+					window.popup_error (e.message);
+					name = window.name;
+					destroy_window (window);
+					var win = create_window (name);
+					if (win != null)
+						win.show ();
+					return;
+				}
 			}
 
 			if (this.window_list.length () < 2) {
