@@ -29,11 +29,12 @@ namespace Xnp {
 		public signal void note_updated (string note_name);
 		public signal void note_deleted (string note_name);
 		public signal void note_created (string note_name);
+		public signal void note_renamed (string note_name, string new_name);
 
 		public WindowMonitor (Xnp.Window window, GLib.File file) {
 			this.window = window;
 			try {
-				monitor = file.monitor_directory (GLib.FileMonitorFlags.NONE, null);
+				monitor = file.monitor_directory (GLib.FileMonitorFlags.WATCH_MOVES, null);
 				monitor.set_rate_limit (1000);
 				monitor.changed.connect (monitor_change_cb);
 			}
@@ -51,13 +52,20 @@ namespace Xnp {
 				break;
 
 			case GLib.FileMonitorEvent.DELETED:
+			case GLib.FileMonitorEvent.MOVED_OUT:
 				note_deleted (note_name);
 				window_updated_cb ();
 				break;
 
 			case GLib.FileMonitorEvent.CREATED:
+			case GLib.FileMonitorEvent.MOVED_IN:
 				// Don't send window-updated signal, as a CHANGES_DONE_HINT is emitted anyway
 				note_created (note_name);
+				break;
+
+			case GLib.FileMonitorEvent.RENAMED:
+				note_renamed (note_name, other_file.get_basename ());
+				window_updated_cb ();
 				break;
 
 			default:

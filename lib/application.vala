@@ -821,6 +821,12 @@ namespace Xnp {
 				set_data_value (window, "internal-change", true);
 			});
 
+			monitor.note_renamed.connect ((note_name, new_name) => {
+				window.rename_note (note_name, new_name);
+				/* Avoid refresh button appearance */
+				set_data_value (window, "internal-change", true);
+			});
+
 			this.window_monitor_list.prepend (monitor);
 		}
 

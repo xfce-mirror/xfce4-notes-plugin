@@ -1055,6 +1055,22 @@ namespace Xnp {
 		}
 
 		/**
+		 * rename_note:
+		 *
+		 * Rename note.
+		 */
+		public void rename_note (string note_name, string new_name) {
+			int n_pages = this.n_pages;
+			for (int p = 0; p < n_pages; p++) {
+				var note = get_note (p);
+				if (note.name == note_name) {
+					note.name = new_name;
+					break;
+				}
+			}
+		}
+
+		/**
 		 * insert_note:
 		 *
 		 * Create a new note and insert it inside the notebook after
