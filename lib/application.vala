@@ -373,18 +373,15 @@ namespace Xnp {
 				}
 				else if (action == "rename") {
 					rename_window (win);
-					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "delete") {
 					delete_window (win);
-					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "create-new-window") {
 					var new_win = create_window ();
 					if (new_win == null)
 						return;
 					new_win.show ();
-					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "refresh-notes") {
 					refresh_notes (win);
@@ -398,7 +395,7 @@ namespace Xnp {
 			});
 			window.save_data.connect ((win, note) => {
 				if (!get_data_value (win, "external-change")) {
-					set_data_value (win, "internal-change", true);
+					win.monitor.internal_change ();
 					save_note (win, note);
 				}
 			});
@@ -408,9 +405,9 @@ namespace Xnp {
 
 				try {
 					note.backed = false;
+					win.monitor.internal_change ();
 					var file = File.new_build_filename (notes_path, win.name, note.name);
 					file.create (FileCreateFlags.NONE);
-					set_data_value (win, "internal-change", true);
 					note.backed = true;
 				}
 				catch (GLib.Error e) {
@@ -420,8 +417,8 @@ namespace Xnp {
 			window.note_deleted.connect ((win, note) => {
 				try {
 					var file = File.new_build_filename (notes_path, win.name, note.name);
+					win.monitor.internal_change ();
 					file.delete ();
-					set_data_value (win, "internal-change", true);
 					note.backed = false;
 				}
 				catch (GLib.Error e) {
@@ -434,8 +431,8 @@ namespace Xnp {
 				}
 				try {
 					var file = File.new_build_filename (notes_path, win.name, note.name);
+					win.monitor.internal_change ();
 					file.set_display_name (name);
-					set_data_value (win, "internal-change", true);
 					note.name = name;
 				}
 				catch (GLib.Error e) {
@@ -465,9 +462,9 @@ namespace Xnp {
 				try {
 					var from_file = File.new_build_filename (notes_path, from_win.name, note.name);
 					var to_file = File.new_build_filename (notes_path, to_win.name, note.name);
+					from_win.monitor.internal_change ();
+					to_win.monitor.internal_change ();
 					from_file.move (to_file, FileCopyFlags.NONE);
-					set_data_value (from_win, "internal-change", true);
-					set_data_value (to_win, "internal-change", true);
 					var tab_evbox = from_win.get_tab_evbox (note);
 					from_win.disconnect_note_signals (note, tab_evbox);
 					to_win.connect_note_signals (note, tab_evbox);
@@ -702,6 +699,7 @@ namespace Xnp {
 			var path = File.new_build_filename (notes_path, window.name);
 			if (path.query_exists ()) {
 				try {
+					window.monitor.internal_change ();
 					var dir = GLib.Dir.open (path.get_path (), 0);
 					name = dir.read_name ();
 					if (window.n_pages == 0) {
@@ -823,25 +821,16 @@ namespace Xnp {
 			window.monitor = new Xnp.WindowMonitor (path);
 
 			window.monitor.window_updated.connect (() => {
-				if (get_data_value (window, "internal-change")) {
-					set_data_value (window, "internal-change", false);
-				}
-				else {
-					set_data_value (window, "external-change", true);
-					window.show_refresh_button = true;
-				}
+				set_data_value (window, "external-change", true);
+				window.show_refresh_button = true;
 			});
 
 			window.monitor.note_deleted.connect ((note_name) => {
 				window.externally_removed (note_name);
-				/* Avoid refresh button appearance */
-				set_data_value (window, "internal-change", true);
 			});
 
 			window.monitor.note_renamed.connect ((note_name, new_name) => {
 				window.rename_note (note_name, new_name);
-				/* Avoid refresh button appearance */
-				set_data_value (window, "internal-change", true);
 			});
 		}
 

@@ -1,6 +1,7 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
+ *  Copyright (c) 2024       Arthur Demchenkov <spinal.by@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,7 +23,9 @@ namespace Xnp {
 	public class WindowMonitor : GLib.Object {
 
 		private GLib.FileMonitor monitor;
-		private uint monitor_timeout = 0;
+		private uint src_timeout = 0;
+		private uint src_idle = 0;
+		private bool skip = false;
 
 		public signal void window_updated ();
 		public signal void note_updated (string note_name);
@@ -41,7 +44,15 @@ namespace Xnp {
 			}
 		}
 
+		~WindowMonitor () {
+			if (src_timeout != 0)
+				Source.remove (src_timeout);
+			if (src_idle != 0)
+				Source.remove (src_idle);
+		}
+
 		private void monitor_change_cb (File file, File? other_file, FileMonitorEvent event) {
+			if (skip) return;
 			string note_name = file.get_basename ();
 			switch (event) {
 			case GLib.FileMonitorEvent.CHANGES_DONE_HINT:
@@ -52,7 +63,6 @@ namespace Xnp {
 			case GLib.FileMonitorEvent.DELETED:
 			case GLib.FileMonitorEvent.MOVED_OUT:
 				this.note_deleted (note_name);
-				window_updated_cb ();
 				break;
 
 			case GLib.FileMonitorEvent.CREATED:
@@ -63,7 +73,6 @@ namespace Xnp {
 
 			case GLib.FileMonitorEvent.RENAMED:
 				this.note_renamed (note_name, other_file.get_basename ());
-				window_updated_cb ();
 				break;
 
 			default:
@@ -71,14 +80,26 @@ namespace Xnp {
 			}
 		}
 
-		private void window_updated_cb () {
-			if (monitor_timeout != 0) {
-				Source.remove (monitor_timeout);
+		/* Temporarily disable monitoring while we make internal changes */
+		public void internal_change () {
+			if (skip == false) {
+				skip = true;
+				src_idle = Idle.add (() => {
+					skip = false;
+					src_idle = 0;
+					return Source.REMOVE;
+				});
 			}
-			monitor_timeout = Timeout.add_seconds (5, () => {
+		}
+
+		private void window_updated_cb () {
+			if (src_timeout != 0) {
+				Source.remove (src_timeout);
+			}
+			src_timeout = Timeout.add_seconds (1, () => {
 				this.window_updated ();
-				monitor_timeout = 0;
-				return false;
+				src_timeout = 0;
+				return Source.REMOVE;
 			});
 		}
 
