@@ -407,21 +407,21 @@ namespace Xnp {
 				Xfconf.property_bind (xfconf_channel, "/global/font-description",
 					typeof (string), note.text_view, "font");
 
-				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				try {
 					note.backed = false;
-					GLib.FileUtils.set_contents (path, "", -1);
+					var file = File.new_build_filename (notes_path, win.name, note.name);
+					file.create (FileCreateFlags.NONE);
 					set_data_value (win, "internal-change", true);
 					note.backed = true;
 				}
-				catch (FileError e) {
+				catch (GLib.Error e) {
 					win.popup_error (e.message);
 				}
 			});
 			window.note_deleted.connect ((win, note) => {
 				try {
-					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
-					File.new_for_path (path).delete ();
+					var file = File.new_build_filename (notes_path, win.name, note.name);
+					file.delete ();
 					set_data_value (win, "internal-change", true);
 					note.backed = false;
 				}
@@ -434,9 +434,8 @@ namespace Xnp {
 					return;
 				}
 				try {
-					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
-					var note_file = File.new_for_path (path);
-					note_file.set_display_name (name);
+					var file = File.new_build_filename (notes_path, win.name, note.name);
+					file.set_display_name (name);
 					set_data_value (win, "internal-change", true);
 					note.name = name;
 				}
@@ -464,11 +463,9 @@ namespace Xnp {
 			});
 			/* Handle exchange of tabs between windows */
 			window.note_moved.connect ((to_win, from_win, note) => {
-				string from_path = "%s/%s/%s".printf (notes_path, from_win.name, note.name);
-				string to_path = "%s/%s/%s".printf (notes_path, to_win.name, note.name);
-				var from_file = File.new_for_path (from_path);
-				var to_file = File.new_for_path (to_path);
 				try {
+					var from_file = File.new_build_filename (notes_path, from_win.name, note.name);
+					var to_file = File.new_build_filename (notes_path, to_win.name, note.name);
 					from_file.move (to_file, FileCopyFlags.NONE);
 					set_data_value (from_win, "internal-change", true);
 					set_data_value (to_win, "internal-change", true);
@@ -500,7 +497,7 @@ namespace Xnp {
 				while ((name = dir.read_name ()) != null) {
 					try {
 						string contents;
-						var file = File.new_for_path ("%s/%s".printf (path, name));
+						var file = File.new_build_filename (path, name);
 						GLib.FileUtils.get_contents (file.get_path (), out contents, null);
 						var note = window.insert_note (name);
 						note.text = contents;
@@ -671,8 +668,7 @@ namespace Xnp {
 						return;
 					}
 					try {
-						string path = "%s/%s".printf (notes_path, window.name);
-						var group_dir = File.new_for_path (path);
+						var group_dir = File.new_build_filename (notes_path, window.name);
 						group_dir.set_display_name (name);
 						window.name = name;
 						this.window_list.sort ((GLib.CompareFunc)window.compare_func);
@@ -806,7 +802,7 @@ namespace Xnp {
 		 * Creates an Xnp.WindowMonitor object and stores it inside window_monitor_list.
 		 */
 		private void window_monitor_list_add (Xnp.Window window) {
-			var file = File.new_for_path ("%s/%s".printf (notes_path, window.name));
+			var file = File.new_build_filename (notes_path, window.name);
 			var monitor = new Xnp.WindowMonitor (window, file);
 
 			monitor.window_updated.connect ((window) => {
