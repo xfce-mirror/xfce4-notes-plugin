@@ -24,6 +24,8 @@ namespace Xnp {
 
 	public class Window : Gtk.Window {
 
+		public Xnp.WindowMonitor monitor;
+
 		private Xnp.Application app;
 		private int width;
 		private int height;

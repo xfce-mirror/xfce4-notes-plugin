@@ -28,7 +28,6 @@ namespace Xnp {
 		public string config_file { get; construct; }
 		public bool system_tray_mode = false;
 
-		private SList<Xnp.WindowMonitor> window_monitor_list;
 		private SList<Xnp.Window> window_list;
 		private SList<Xnp.Window> focus_order;
 		private Xfconf.Channel xfconf_channel;
@@ -350,7 +349,7 @@ namespace Xnp {
 			}
 
 			/* Window monitor */
-			window_monitor_list_add (window);
+			set_window_monitor (window);
 
 			/* Global settings */
 			Xfconf.property_bind (xfconf_channel, "/global/tabs-position",
@@ -673,8 +672,7 @@ namespace Xnp {
 						window.name = name;
 						this.window_list.sort ((GLib.CompareFunc)window.compare_func);
 
-						window_monitor_list_remove (window);
-						window_monitor_list_add (window);
+						set_window_monitor (window);
 					} catch (GLib.Error e) {
 						window.popup_error (e.message);
 					}
@@ -744,7 +742,6 @@ namespace Xnp {
 		 * Destroy window and forget it exists.
 		 */
 		private void destroy_window (Xnp.Window window) {
-			window_monitor_list_remove (window);
 			this.window_list.remove (window);
 			this.focus_order.remove (window);
 			window.destroy ();
@@ -793,19 +790,19 @@ namespace Xnp {
 		}
 
 		/*
-		 * Window monitor list management
+		 * Window monitor management
 		 */
 
 		/**
-		 * window_monitor_list_add:
+		 * set_window_monitor:
 		 *
-		 * Creates an Xnp.WindowMonitor object and stores it inside window_monitor_list.
+		 * Creates an Xnp.WindowMonitor object and stores it inside window.
 		 */
-		private void window_monitor_list_add (Xnp.Window window) {
-			var file = File.new_build_filename (notes_path, window.name);
-			var monitor = new Xnp.WindowMonitor (window, file);
+		private void set_window_monitor (Xnp.Window window) {
+			var path = File.new_build_filename (notes_path, window.name);
+			window.monitor = new Xnp.WindowMonitor (path);
 
-			monitor.window_updated.connect ((window) => {
+			window.monitor.window_updated.connect (() => {
 				if (get_data_value (window, "internal-change")) {
 					set_data_value (window, "internal-change", false);
 				}
@@ -815,47 +812,17 @@ namespace Xnp {
 				}
 			});
 
-			monitor.note_deleted.connect ((note_name) => {
+			window.monitor.note_deleted.connect ((note_name) => {
 				window.externally_removed (note_name);
 				/* Avoid refresh button appearance */
 				set_data_value (window, "internal-change", true);
 			});
 
-			monitor.note_renamed.connect ((note_name, new_name) => {
+			window.monitor.note_renamed.connect ((note_name, new_name) => {
 				window.rename_note (note_name, new_name);
 				/* Avoid refresh button appearance */
 				set_data_value (window, "internal-change", true);
 			});
-
-			this.window_monitor_list.prepend (monitor);
-		}
-
-		/**
-		 * window_monitor_list_remove:
-		 *
-		 * Removes a monitor from window_monitor_list matching @window.
-		 */
-		private void window_monitor_list_remove (Xnp.Window window) {
-			var monitor = window_monitor_list_lookup (window);
-			if (monitor != null) {
-				this.window_monitor_list.remove (monitor);
-			}
-		}
-
-		/**
-		 * window_monitor_list_lookup:
-		 *
-		 * Returns the window_monitor object that contains @window from the window_monitor_list.
-		 */
-		private Xnp.WindowMonitor window_monitor_list_lookup (Xnp.Window window) {
-			Xnp.WindowMonitor window_monitor = null;
-			foreach (var monitor in this.window_monitor_list) {
-				if (monitor.window == window) {
-					window_monitor = monitor;
-					break;
-				}
-			}
-			return window_monitor;
 		}
 
 		/*
