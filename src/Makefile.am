@@ -161,7 +161,6 @@ xfce4_notes_LDADD =							\
 desktopdir = $(datadir)/xfce4/panel/plugins
 desktop_in_files = xfce4-notes-plugin.desktop.in
 desktop_DATA = xfce4-notes-plugin.desktop
-@INTLTOOL_DESKTOP_RULE@
 
 #
 # Applications desktop file
@@ -170,7 +169,6 @@ desktop_DATA = xfce4-notes-plugin.desktop
 applicationsdir = $(datadir)/applications
 applications_in_files = xfce4-notes.desktop.in
 applications_DATA = xfce4-notes.desktop
-@INTLTOOL_DESKTOP_RULE@
 
 #
 # Autostart desktop file
@@ -179,7 +177,9 @@ applications_DATA = xfce4-notes.desktop
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = xfce4-notes-autostart.desktop.in
 autostart_DATA = xfce4-notes-autostart.desktop
-@INTLTOOL_DESKTOP_RULE@
+
+%.desktop: %.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 #
 # Extra
@@ -197,4 +197,3 @@ DISTCLEANFILES =							\
 	$(desktop_DATA)							\
 	$(applications_DATA)						\
 	$(autostart_DATA)
-

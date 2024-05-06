@@ -58,8 +58,11 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 fi
 
 dnl Translations
-IT_PROG_INTLTOOL()
-XDT_I18N([@LINGUAS@])
+GETTEXT_PACKAGE="$PACKAGE"
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl Check for debugging support
 XDT_FEATURE_DEBUG()
@@ -98,4 +101,3 @@ echo "* GTK+:                   $GTK_VERSION"
 echo "* Xfce Panel:             $LIBXFCE4PANEL_VERSION"
 echo "* Debug Support:          $enable_debug"
 echo
-
