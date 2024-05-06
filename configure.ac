@@ -34,7 +34,6 @@ AC_CHECK_HEADERS([math.h])
 AC_SUBST([MATH_LIBS], [" -lm"])
 
 dnl Check for required packages
-XDT_CHECK_LIBX11_REQUIRE()
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.30.0])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.30.0])
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])

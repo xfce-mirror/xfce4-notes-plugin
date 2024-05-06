@@ -46,14 +46,12 @@ xfce4_notes_settings_SOURCES =						\
 	main-settings-dialog.c
 
 xfce4_notes_settings_CFLAGS =						\
-	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@LIBXFCE4UI_CFLAGS@						\
 	@XFCONF_CFLAGS@
 
 xfce4_notes_settings_LDADD =						\
 	$(top_builddir)/lib/libnotes.la					\
-	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@LIBXFCE4UI_LIBS@						\
 	@XFCONF_LIBS@
@@ -88,7 +86,6 @@ libnotes_la_SOURCES =							\
 	main-panel-plugin.c
 #
 libnotes_la_CFLAGS =							\
-	@LIBX11_CFLAGS@							\
 	@GTKSOURCEVIEW_CFLAGS@						\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
@@ -97,7 +94,6 @@ libnotes_la_CFLAGS =							\
 #
 libnotes_la_LIBADD =							\
 	$(top_builddir)/lib/libnotes.la					\
-	@LIBX11_LIBS@							\
 	@GTKSOURCEVIEW_LIBS@						\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\
@@ -138,7 +134,6 @@ xfce4_notes_SOURCES =							\
 	main-status-icon.c
 
 xfce4_notes_CFLAGS =							\
-	@LIBX11_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@GTKSOURCEVIEW_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@						\
@@ -148,7 +143,6 @@ xfce4_notes_CFLAGS =							\
 xfce4_notes_LDADD =							\
 	$(top_builddir)/lib/libnotes.la					\
 	$(top_builddir)/libc/libcnotes.la				\
-	@LIBX11_LIBS@							\
 	@GTK_LIBS@							\
 	@GTKSOURCEVIEW_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@						\

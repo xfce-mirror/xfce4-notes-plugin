@@ -10,7 +10,6 @@ libcnotes_la_CFLAGS = \
 	-DPKGDATADIR=\""$(pkgdatadir)"\" \
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
-	$(LIBX11_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
@@ -18,7 +17,6 @@ libcnotes_la_CFLAGS = \
 
 libcnotes_la_LIBADD = \
 	$(MATH_LIBS) \
-	$(LIBX11_LIBS) \
 	$(GIO_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
