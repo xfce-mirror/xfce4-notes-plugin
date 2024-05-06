@@ -6,19 +6,13 @@ dnl 2006-2016 Mike Massonnet <mmassonnet@xfce.org>
 dnl 2023 Arthur Demchenkov <spinal.by@gmail.com>
 dnl
 
-m4_define([xfce4_notes_plugin_version_major], [1])
-m4_define([xfce4_notes_plugin_version_minor], [11])
-m4_define([xfce4_notes_plugin_version_micro], [0])
-m4_define([xfce4_notes_plugin_version_nano], [])
-m4_define([xfce4_notes_plugin_version_build], [@REVISION@])
-m4_define([xfce4_notes_plugin_version_tag], [git]) # Leave empty for releases
-m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [git], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
+XDT_VERSION_INIT([1.11.0], [git])
 
 AC_COPYRIGHT([Copyright (c) 2003-2024 The Xfce development team. All rights reserved.])
 AC_PREREQ([2.69])
-AC_INIT([Notes], [xfce4_notes_plugin_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
+AC_INIT([Notes], [xdt_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
 	[https://docs.xfce.org/panel-plugins/xfce4-notes-plugin])
-AC_REVISION([xfce4_notes_plugin_version_build])
+AC_REVISION([xdt_version_build])
 AC_CANONICAL_TARGET()
 AC_CONFIG_HEADERS([config.h])
 
@@ -65,7 +59,7 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl Check for debugging support
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG(xdt_debug_default)
 
 AC_CONFIG_FILES([
 Makefile

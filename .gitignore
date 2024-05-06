@@ -22,7 +22,6 @@ config.rpath
 config.status
 config.sub
 configure
-configure.ac
 data/gtk-3.0/gtk.css
 depcomp
 install-sh
