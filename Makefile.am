@@ -28,9 +28,6 @@ EXTRA_DIST =								\
 	COPYING								\
 	NEWS								\
 	README.md								\
-	intltool-extract.in						\
-	intltool-merge.in						\
-	intltool-update.in						\
 	$(desktop_in_files)
 
 DISTCLEANFILES =							\
@@ -46,8 +43,4 @@ DISTCLEANFILES =							\
 	ltmain.sh							\
 	missing								\
 	mkinstalldirs							\
-	intltool-extract						\
-	intltool-merge							\
-	intltool-update							\
-	po/.intltool-merge-cache.lock					\
 	$(desktop_DATA)

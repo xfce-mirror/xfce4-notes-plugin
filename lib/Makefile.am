@@ -25,7 +25,6 @@ libnotes_la_CFLAGS =							\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"				\
 	-DPKGDATADIR=\""$(pkgdatadir)"\"				\
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
-	@LIBX11_CFLAGS@							\
 	@GIO_CFLAGS@							\
 	@GTK_CFLAGS@							\
 	@GTKSOURCEVIEW_CFLAGS@						\
@@ -35,7 +34,6 @@ libnotes_la_CFLAGS =							\
 
 libnotes_la_LIBADD =							\
 	@MATH_LIBS@							\
-	@LIBX11_LIBS@							\
 	@GIO_LIBS@							\
 	@GTK_LIBS@							\
 	@GTKSOURCEVIEW_LIBS@						\

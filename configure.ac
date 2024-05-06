@@ -6,19 +6,13 @@ dnl 2006-2016 Mike Massonnet <mmassonnet@xfce.org>
 dnl 2023 Arthur Demchenkov <spinal.by@gmail.com>
 dnl
 
-m4_define([xfce4_notes_plugin_version_major], [1])
-m4_define([xfce4_notes_plugin_version_minor], [11])
-m4_define([xfce4_notes_plugin_version_micro], [0])
-m4_define([xfce4_notes_plugin_version_nano], [])
-m4_define([xfce4_notes_plugin_version_build], [@REVISION@])
-m4_define([xfce4_notes_plugin_version_tag], [git]) # Leave empty for releases
-m4_define([xfce4_notes_plugin_version], [xfce4_notes_plugin_version_major().xfce4_notes_plugin_version_minor().xfce4_notes_plugin_version_micro()ifelse(xfce4_notes_plugin_version_nano(), [], [], [.xfce4_notes_plugin_version_nano()])ifelse(xfce4_notes_plugin_version_tag(), [git], [xfce4_notes_plugin_version_tag()-xfce4_notes_plugin_version_build()], [xfce4_notes_plugin_version_tag()])])
+XDT_VERSION_INIT([1.11.0], [git])
 
 AC_COPYRIGHT([Copyright (c) 2003-2024 The Xfce development team. All rights reserved.])
 AC_PREREQ([2.69])
-AC_INIT([Notes], [xfce4_notes_plugin_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
+AC_INIT([Notes], [xdt_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
 	[https://docs.xfce.org/panel-plugins/xfce4-notes-plugin])
-AC_REVISION([xfce4_notes_plugin_version_build])
+AC_REVISION([xdt_version_build])
 AC_CANONICAL_TARGET()
 AC_CONFIG_HEADERS([config.h])
 
@@ -40,7 +34,6 @@ AC_CHECK_HEADERS([math.h])
 AC_SUBST([MATH_LIBS], [" -lm"])
 
 dnl Check for required packages
-XDT_CHECK_LIBX11_REQUIRE()
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.30.0])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.30.0])
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])
@@ -58,11 +51,14 @@ if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
 fi
 
 dnl Translations
-IT_PROG_INTLTOOL()
-XDT_I18N([@LINGUAS@])
+GETTEXT_PACKAGE="$PACKAGE"
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl Check for debugging support
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG(xdt_debug_default)
 
 AC_CONFIG_FILES([
 Makefile
@@ -98,4 +94,3 @@ echo "* GTK+:                   $GTK_VERSION"
 echo "* Xfce Panel:             $LIBXFCE4PANEL_VERSION"
 echo "* Debug Support:          $enable_debug"
 echo
-
