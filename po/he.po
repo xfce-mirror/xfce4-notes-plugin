@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Elishai Eliyahu <elishai@mailfence.com>, 2016
-# Elishai Eliyahu <elishai@mailfence.com>, 2020
+# Elishai Eliyahu <elishai@mailfence.com>, 2020,2024
 # 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2021
 # 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2020
 msgid ""
@@ -13,13 +13,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2021\n"
+"Last-Translator: Elishai Eliyahu <elishai@mailfence.com>, 2020,2024\n"
 "Language-Team: Hebrew (http://app.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
@@ -50,7 +50,7 @@ msgstr "לא יכול לבחור תיקייה לנתיב פתקים חדשים: 
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "נתיב פתקים לא מקובל"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1232
@@ -65,7 +65,7 @@ msgstr "פתקים %d "
 #: ../lib/application.vala:338 ../lib/window.vala:1062
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "פתק %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
