@@ -220,13 +220,13 @@ namespace Xnp {
 		 * Undo/redo
 		 */
 
-		public void undo () {
+		public new void undo () {
 			var buffer = this.buffer as Gtk.SourceBuffer;
 			if (buffer.can_undo)
 				buffer.undo ();
 		}
 
-		public void redo () {
+		public new void redo () {
 			var buffer = this.buffer as Gtk.SourceBuffer;
 			if (buffer.can_redo)
 				buffer.redo ();
