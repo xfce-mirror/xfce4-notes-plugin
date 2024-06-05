@@ -74,7 +74,7 @@ static gboolean timeout_cb_background_changed (gchar *color);
 static GtkWidget *color_button_new ();
 static gboolean cb_color_button_pressed (GtkButton *button, GdkEventButton *event, gpointer data);
 
-static GtkWidget *notes_path_button_new ();
+static GtkWidget *notes_path_button_new (void);
 static void cb_notes_path_changed (GtkFileChooserButton *button, gpointer data);
 static void cb_xfconf_notes_path_changed (XfconfChannel *channel, const gchar *property, GValue *value, gpointer button);
 
@@ -172,7 +172,7 @@ prop_dialog_new (void)
   label = gtk_label_new (_("Notes path:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-  button = notes_path_button_new (dialog);
+  button = notes_path_button_new ();
   g_signal_connect_object (xfconf_channel, "property-changed::/global/notes-path", (GCallback) cb_xfconf_notes_path_changed, button, 0);
   gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
@@ -610,4 +610,3 @@ gint main (gint argc,
   xfconf_shutdown ();
   return 0;
 }
-
