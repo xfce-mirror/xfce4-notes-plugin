@@ -48,7 +48,7 @@ msgstr "ไม่สามารถเลือกไดเรกทอรีเ
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "พาธของบันทึกข้อความไม่สามารถใช้การได้"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
 #: ../lib/application.vala:997 ../lib/window.vala:1232
@@ -63,7 +63,7 @@ msgstr "บันทึกข้อความ %d"
 #: ../lib/application.vala:338 ../lib/window.vala:1062
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "บันทึกข้อความ %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
@@ -174,7 +174,7 @@ msgstr "เปลี่ยนชื่อบันทึกข้อความ
 
 #: ../src/main-status-icon.vala:78
 msgid "_Quit"
-msgstr ""
+msgstr "_ออก"
 
 #: ../src/main-settings-dialog.c:121
 msgid "Global settings"
