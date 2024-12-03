@@ -41,7 +41,7 @@ msgstr "Przechowuje szybkie notatki"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr "Wybrany katalog dla nowych notatek (%s) zawiera już pliki. Proszę wybrać lub utworzyć pusty katalog."
+msgstr "Wybrany katalog dla nowych notatek (%s) zawiera już pliki. Wybierz lub utwórz pusty katalog."
 
 #: ../lib/application.vala:226
 #, c-format
