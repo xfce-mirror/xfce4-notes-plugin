@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Igor Știrbu <igor.stirbu@gmail.com>, 2009
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"POT-Creation-Date: 2024-01-29 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: Igor Știrbu <igor.stirbu@gmail.com>, 2009\n"
+"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024\n"
 "Language-Team: Romanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,7 @@ msgstr ""
 #: ../src/xfce4-notes-autostart.desktop.in.h:1
 #: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
 #: ../lib/application.vala:313 ../lib/application.vala:1017
-#: ../lib/window.vala:82 ../lib/window.vala:192
+#: ../lib/window.vala:84 ../lib/window.vala:194
 #: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
 #: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
 msgid "Notes"
@@ -38,37 +39,37 @@ msgstr "Ideal pentru notițe rapide"
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
-msgstr ""
+msgstr "Directorul selectat (%s) pentru ruta noilor notițe conține deja fișiere. Trebuie să selectați sau să creați un director gol."
 
 #: ../lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr ""
+msgstr "Nu s-a putut selecta directorul pentru ruta noilor notițe: %s"
 
 #: ../lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "Ruta notițelor este inacceptabilă"
 
 #: ../lib/application.vala:237 ../lib/application.vala:899
-#: ../lib/application.vala:997 ../lib/window.vala:1225
+#: ../lib/application.vala:997 ../lib/window.vala:1232
 msgid "Error"
 msgstr "Eroare"
 
 #: ../lib/application.vala:317
 #, c-format
 msgid "Notes %d"
-msgstr "Notița %d"
+msgstr "Notițe %d"
 
-#: ../lib/application.vala:338 ../lib/window.vala:1055
+#: ../lib/application.vala:338 ../lib/window.vala:1062
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "Notița %d"
 
 #: ../lib/application.vala:647
 msgid "Rename group"
 msgstr "Redenumire grup"
 
-#: ../lib/application.vala:667 ../lib/window.vala:1223
+#: ../lib/application.vala:667 ../lib/window.vala:1230
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Numele %s este deja folosit"
@@ -80,11 +81,11 @@ msgstr "Sigur doriți să ștergeți acest grup?"
 #: ../lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr ""
+msgstr "Grupul „%s” a fost modificat pe disc"
 
 #: ../lib/application.vala:766
 msgid "Do you want to reload the group?"
-msgstr ""
+msgstr "Doriți să reîncărcați grupul?"
 
 #: ../lib/application.vala:896
 #, c-format
@@ -102,82 +103,78 @@ msgstr "Nu s-a putut deschide dialogul cu opțiuni"
 
 #: ../lib/application.vala:1026
 msgid "translator-credits"
-msgstr ""
+msgstr "Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024."
 
-#: ../lib/application.vala:1061 ../lib/window.vala:887
+#: ../lib/application.vala:1061 ../lib/window.vala:894
 msgid "_Add a new group"
 msgstr "_Adăugare grup nou"
 
-#: ../lib/window.vala:246
+#: ../lib/window.vala:248
 msgid "Menu"
 msgstr "Meniu"
 
-#: ../lib/window.vala:271
+#: ../lib/window.vala:273
 msgid "Refresh notes"
-msgstr ""
+msgstr "Reîmprospătare notițe"
 
-#: ../lib/window.vala:286
+#: ../lib/window.vala:288
 #, c-format
 msgid "Hide (%s)"
-msgstr ""
+msgstr "Ascunde (%s)"
 
-#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
+#: ../lib/window.vala:812 ../src/main-panel-plugin.vala:50
 #: ../src/main-status-icon.vala:68
 msgid "_Groups"
-msgstr ""
+msgstr "_Grupuri:"
 
-#: ../lib/window.vala:815
+#: ../lib/window.vala:823
 msgid "_New"
-msgstr ""
+msgstr "_Nouă"
 
-#: ../lib/window.vala:816
+#: ../lib/window.vala:824
 msgid "_Delete"
-msgstr ""
+msgstr "Șt_erge"
 
-#: ../lib/window.vala:817
+#: ../lib/window.vala:825
 msgid "_Rename"
 msgstr "_Redenumire"
 
-#: ../lib/window.vala:818
-msgid "_Undo"
-msgstr ""
-
 #. Always on top
-#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
+#: ../lib/window.vala:829 ../src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Tot timpul deasupra"
 
-#: ../lib/window.vala:823
+#: ../lib/window.vala:830
 msgid "Sticky window"
-msgstr "Fereastră lipită"
+msgstr "Fereastră lipicioasă"
 
-#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
+#: ../lib/window.vala:834 ../src/main-status-icon.vala:74
 msgid "_Properties"
-msgstr ""
+msgstr "_Proprietăți"
 
-#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
+#: ../lib/window.vala:835 ../src/main-status-icon.vala:75
 msgid "_About"
-msgstr ""
+msgstr "_Despre"
 
-#: ../lib/window.vala:885
+#: ../lib/window.vala:892
 msgid "_Rename group"
 msgstr "_Redenumire grup"
 
-#: ../lib/window.vala:886
+#: ../lib/window.vala:893
 msgid "_Delete group"
 msgstr "Șt_ergere grup"
 
-#: ../lib/window.vala:1168
+#: ../lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
 msgstr "Sigur doriți să ștergeți notița?"
 
-#: ../lib/window.vala:1201
+#: ../lib/window.vala:1208
 msgid "Rename note"
 msgstr "Redenumire notă"
 
 #: ../src/main-status-icon.vala:78
 msgid "_Quit"
-msgstr ""
+msgstr "_Ieșire"
 
 #: ../src/main-settings-dialog.c:121
 msgid "Global settings"
@@ -193,16 +190,16 @@ msgstr "Font:"
 
 #: ../src/main-settings-dialog.c:154
 msgid "Tabs position:"
-msgstr ""
+msgstr "Poziția filelor:"
 
 #. Hide from taskbar
 #: ../src/main-settings-dialog.c:161
 msgid "Hide notes from taskbar"
-msgstr "Nu arăta notițele în taskbar"
+msgstr "Ascunde notițele din bara de activități"
 
 #: ../src/main-settings-dialog.c:172
 msgid "Notes path:"
-msgstr ""
+msgstr "Ruta notițelor:"
 
 #: ../src/main-settings-dialog.c:181
 msgid "New group settings"
@@ -219,27 +216,27 @@ msgstr "Dimensiune:"
 
 #: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
 msgid "Select notes path"
-msgstr ""
+msgstr "Selectați ruta notițelor"
 
 #: ../src/main-settings-dialog.c:286
 msgid "None"
-msgstr ""
+msgstr "Niciuna"
 
 #: ../src/main-settings-dialog.c:287
 msgid "Top"
-msgstr ""
+msgstr "Sus"
 
 #: ../src/main-settings-dialog.c:288
 msgid "Right"
-msgstr ""
+msgstr "Dreapta"
 
 #: ../src/main-settings-dialog.c:289
 msgid "Bottom"
-msgstr ""
+msgstr "Jos"
 
 #: ../src/main-settings-dialog.c:290
 msgid "Left"
-msgstr ""
+msgstr "Stânga"
 
 #: ../src/main-settings-dialog.c:306
 msgid "Small"
@@ -287,11 +284,11 @@ msgstr "Alb"
 
 #: ../src/main-settings-dialog.c:374
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../src/main-settings-dialog.c:375
 msgid "GTK+"
-msgstr ""
+msgstr "GTK+"
 
 #: ../src/main-settings-dialog.c:376
 msgid "Custom..."
