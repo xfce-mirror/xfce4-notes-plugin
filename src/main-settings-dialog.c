@@ -96,10 +96,10 @@ prop_dialog_new (void)
 
   /* Dialog */
   parent_window = dialog =
-    xfce_titled_dialog_new_with_buttons (_("Notes"), NULL,
-                                         GTK_DIALOG_DESTROY_WITH_PARENT,
-                                         GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
-                                         NULL);
+    xfce_titled_dialog_new_with_mixed_buttons (_("Notes"), NULL,
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               "window-close-symbolic", _("_Close"), GTK_RESPONSE_OK,
+                                               NULL);
   gtk_window_set_default_icon_name ("org.xfce.notes");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
