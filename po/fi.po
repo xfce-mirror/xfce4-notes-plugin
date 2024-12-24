@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-notes-plugin package.
 # 
 # Translators:
 # Ammuu5, 2023
@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-29 00:50+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-24 00:53+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Ammuu5, 2023\n"
 "Language-Team: Finnish (http://app.transifex.com/xfce/xfce-panel-plugins/language/fi/)\n"
@@ -21,281 +21,283 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:313 ../lib/application.vala:1017
-#: ../lib/window.vala:84 ../lib/window.vala:194
-#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
-#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
+#: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
+#: src/xfce4-notes.desktop.in:5 lib/application.vala:313
+#: lib/application.vala:1017 lib/window.vala:84 lib/window.vala:194
+#: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
+#: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Muistiinpanot"
 
-#: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:1019
+#: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
+#: src/xfce4-notes.desktop.in:6 lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "Kätevä muistiinpanoväline"
 
-#: ../lib/application.vala:214
+#: lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Muistiinpanojen tallennuskohteeksi valitsemassasi kansiossa (%s) on jo tiedostoja. Valitse tai luo uusi tyhjä kansio."
 
-#: ../lib/application.vala:226
+#: lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Muistiinpanojen tallennuskansiota ei voi valita: %s"
 
-#: ../lib/application.vala:234
+#: lib/application.vala:234
 msgid "Notes path is unacceptable"
 msgstr ""
 
-#: ../lib/application.vala:237 ../lib/application.vala:899
-#: ../lib/application.vala:997 ../lib/window.vala:1232
+#: lib/application.vala:237 lib/application.vala:899 lib/application.vala:997
+#: lib/window.vala:1232
 msgid "Error"
 msgstr "Virhe"
 
-#: ../lib/application.vala:317
+#: lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "Muistiinpanot %d"
 
-#: ../lib/application.vala:338 ../lib/window.vala:1062
+#: lib/application.vala:338 lib/window.vala:1062
 #, c-format
 msgid "Note %d"
 msgstr ""
 
-#: ../lib/application.vala:647
+#: lib/application.vala:647
 msgid "Rename group"
 msgstr "Nimeä ryhmä uudelleen"
 
-#: ../lib/application.vala:667 ../lib/window.vala:1230
+#: lib/application.vala:667 lib/window.vala:1230
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Nimi \"%s\" on jo käytössä"
 
-#: ../lib/application.vala:698
+#: lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "Haluatko varmasti poistaa tämän ryhmän?"
 
-#: ../lib/application.vala:763
+#: lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Ryhmää \"%s\" on muokattu levyllä"
 
-#: ../lib/application.vala:766
+#: lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "Haluatko ladata tämän ryhmän uudelleen?"
 
-#: ../lib/application.vala:896
+#: lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Nimi \"%s\" ei kelpaa."
 
-#: ../lib/application.vala:897
+#: lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Kelpaamattomat merkit: %s"
 
-#: ../lib/application.vala:994
+#: lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "Asetusdialogin avaus epäonnistui"
 
-#: ../lib/application.vala:1026
+#: lib/application.vala:1026
 msgid "translator-credits"
 msgstr "Elias Julkunen <elias.julkunen@gmail.com>\nJari Rahkonen <jari.rahkonen@pp1.inet.fi>"
 
-#: ../lib/application.vala:1061 ../lib/window.vala:894
+#: lib/application.vala:1061 lib/window.vala:894
 msgid "_Add a new group"
 msgstr "_Lisää ryhmä"
 
-#: ../lib/window.vala:248
+#: lib/window.vala:248
 msgid "Menu"
 msgstr "Valikko"
 
-#: ../lib/window.vala:273
+#: lib/window.vala:273
 msgid "Refresh notes"
 msgstr "Päivitä muistiinpanot"
 
-#: ../lib/window.vala:288
+#: lib/window.vala:288
 #, c-format
 msgid "Hide (%s)"
 msgstr "Piilota (%s)"
 
-#: ../lib/window.vala:812 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:68
+#: lib/window.vala:812 src/main-panel-plugin.vala:50
+#: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Ryhmät"
 
-#: ../lib/window.vala:823
+#: lib/window.vala:823
 msgid "_New"
 msgstr "_Uusi"
 
-#: ../lib/window.vala:824
+#: lib/window.vala:824
 msgid "_Delete"
 msgstr "_Poista"
 
-#: ../lib/window.vala:825
+#: lib/window.vala:825
 msgid "_Rename"
 msgstr "_Nimeä uudelleen"
 
 #. Always on top
-#: ../lib/window.vala:829 ../src/main-settings-dialog.c:186
+#: lib/window.vala:829 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Aina päällimmäisenä"
 
-#: ../lib/window.vala:830
+#: lib/window.vala:830
 msgid "Sticky window"
 msgstr "Kaikilla työpöydillä"
 
-#: ../lib/window.vala:834 ../src/main-status-icon.vala:74
+#: lib/window.vala:834 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Ominaisuudet"
 
-#: ../lib/window.vala:835 ../src/main-status-icon.vala:75
+#: lib/window.vala:835 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_Tietoa"
 
-#: ../lib/window.vala:892
+#: lib/window.vala:892
 msgid "_Rename group"
 msgstr "Ni_meä ryhmä uudelleen"
 
-#: ../lib/window.vala:893
+#: lib/window.vala:893
 msgid "_Delete group"
 msgstr "_Poista ryhmä"
 
-#: ../lib/window.vala:1175
+#: lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
 msgstr "Haluatko varmasti poistaa tämän muistiinpanon?"
 
-#: ../lib/window.vala:1208
+#: lib/window.vala:1208
 msgid "Rename note"
 msgstr "Nimeä muistiinpano uudelleen"
 
-#: ../src/main-status-icon.vala:78
+#: src/main-status-icon.vala:78
 msgid "_Quit"
 msgstr "Poist_u"
 
-#: ../src/main-settings-dialog.c:121
+#: src/main-settings-dialog.c:101
+msgid "_Close"
+msgstr "_Sulje"
+
+#: src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "Yleiset asetukset"
 
-#: ../src/main-settings-dialog.c:129
+#: src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "Taustaväri:"
 
-#: ../src/main-settings-dialog.c:142
+#: src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "Fontti:"
 
-#: ../src/main-settings-dialog.c:154
+#: src/main-settings-dialog.c:154
 msgid "Tabs position:"
 msgstr "Välilehtien sijainti:"
 
 #. Hide from taskbar
-#: ../src/main-settings-dialog.c:161
+#: src/main-settings-dialog.c:161
 msgid "Hide notes from taskbar"
 msgstr "Piilota muistiinpanot tehtäväpalkista"
 
-#: ../src/main-settings-dialog.c:172
+#: src/main-settings-dialog.c:172
 msgid "Notes path:"
 msgstr "Tallennuskansio:"
 
-#: ../src/main-settings-dialog.c:181
+#: src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "Uuden ryhmän asetukset"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:193
+#: src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "Kaikilla työpöydillä"
 
-#: ../src/main-settings-dialog.c:203
+#: src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "Koko:"
 
-#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+#: src/main-settings-dialog.c:223 src/main-settings-dialog.c:231
 msgid "Select notes path"
 msgstr "Valitse tallennuskansio"
 
-#: ../src/main-settings-dialog.c:286
+#: src/main-settings-dialog.c:286
 msgid "None"
 msgstr "Ei mitään"
 
-#: ../src/main-settings-dialog.c:287
+#: src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "Ylhäällä"
 
-#: ../src/main-settings-dialog.c:288
+#: src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "Oikealla"
 
-#: ../src/main-settings-dialog.c:289
+#: src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "Alhaalla"
 
-#: ../src/main-settings-dialog.c:290
+#: src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "Vasemmalla"
 
-#: ../src/main-settings-dialog.c:306
+#: src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "Pieni"
 
-#: ../src/main-settings-dialog.c:307
+#: src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "Tavallinen"
 
-#: ../src/main-settings-dialog.c:308
+#: src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "Suuri"
 
-#: ../src/main-settings-dialog.c:366
+#: src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "Keltainen"
 
-#: ../src/main-settings-dialog.c:367
+#: src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "Sininen"
 
-#: ../src/main-settings-dialog.c:368
+#: src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "Vihreä"
 
-#: ../src/main-settings-dialog.c:369
+#: src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/main-settings-dialog.c:370
+#: src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "Oliivi"
 
-#: ../src/main-settings-dialog.c:371
+#: src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "Karmiini"
 
-#: ../src/main-settings-dialog.c:372
+#: src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "Mimosa"
 
-#: ../src/main-settings-dialog.c:373
+#: src/main-settings-dialog.c:373
 msgid "White"
 msgstr "Valkoinen"
 
-#: ../src/main-settings-dialog.c:374
+#: src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "Android"
 
-#: ../src/main-settings-dialog.c:375
+#: src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:376
+#: src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "Mukautettu..."
 
-#: ../src/main-settings-dialog.c:507
+#: src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "Taustaväri"
