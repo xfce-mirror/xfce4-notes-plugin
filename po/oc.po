@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-notes-plugin package.
 # 
 # Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2013
@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-29 00:50+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-24 00:53+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Quentin PAGÈS, 2022,2024\n"
 "Language-Team: Occitan (post 1500) (http://app.transifex.com/xfce/xfce-panel-plugins/language/oc/)\n"
@@ -19,281 +19,283 @@ msgstr ""
 "Language: oc\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:313 ../lib/application.vala:1017
-#: ../lib/window.vala:84 ../lib/window.vala:194
-#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
-#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
+#: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
+#: src/xfce4-notes.desktop.in:5 lib/application.vala:313
+#: lib/application.vala:1017 lib/window.vala:84 lib/window.vala:194
+#: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
+#: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Nòtas"
 
-#: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:1019
+#: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
+#: src/xfce4-notes.desktop.in:6 lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "Ideal per vòstras pichonas nòtas"
 
-#: ../lib/application.vala:214
+#: lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr "Lo repertòri seleccionat (%s) coma novèl camin de las nòtas conten ja de fichièrs. Vos cal seleccionar o crear un repertòri void."
 
-#: ../lib/application.vala:226
+#: lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr "Impossible de seleccionar lo repertòri coma novèl camin de nòtas : %s"
 
-#: ../lib/application.vala:234
+#: lib/application.vala:234
 msgid "Notes path is unacceptable"
 msgstr "Emplaçament de las nòtas inacceptable"
 
-#: ../lib/application.vala:237 ../lib/application.vala:899
-#: ../lib/application.vala:997 ../lib/window.vala:1232
+#: lib/application.vala:237 lib/application.vala:899 lib/application.vala:997
+#: lib/window.vala:1232
 msgid "Error"
 msgstr "Error"
 
-#: ../lib/application.vala:317
+#: lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "Nòtas %d"
 
-#: ../lib/application.vala:338 ../lib/window.vala:1062
+#: lib/application.vala:338 lib/window.vala:1062
 #, c-format
 msgid "Note %d"
 msgstr "Nòta %d"
 
-#: ../lib/application.vala:647
+#: lib/application.vala:647
 msgid "Rename group"
 msgstr "Renomenar lo grop"
 
-#: ../lib/application.vala:667 ../lib/window.vala:1230
+#: lib/application.vala:667 lib/window.vala:1230
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Lo nom %s es ja utilizat"
 
-#: ../lib/application.vala:698
+#: lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "Sètz segur que volètz suprimir aqueste grop ?"
 
-#: ../lib/application.vala:763
+#: lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr "Lo grop « %s » es estat modificat sul disc"
 
-#: ../lib/application.vala:766
+#: lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr "Volètz recargar lo grop ?"
 
-#: ../lib/application.vala:896
+#: lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Lo nom « %s » es invalid."
 
-#: ../lib/application.vala:897
+#: lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Los caractèrs invalids son : %s"
 
-#: ../lib/application.vala:994
+#: lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "Impossible de dobrir la fenèstra dels paramètres."
 
-#: ../lib/application.vala:1026
+#: lib/application.vala:1026
 msgid "translator-credits"
 msgstr "Cédric Valmary (totenoc.org)"
 
-#: ../lib/application.vala:1061 ../lib/window.vala:894
+#: lib/application.vala:1061 lib/window.vala:894
 msgid "_Add a new group"
 msgstr "_Apondre un grop novèl"
 
-#: ../lib/window.vala:248
+#: lib/window.vala:248
 msgid "Menu"
 msgstr "Menú"
 
-#: ../lib/window.vala:273
+#: lib/window.vala:273
 msgid "Refresh notes"
 msgstr "Refrescar las nòtas"
 
-#: ../lib/window.vala:288
+#: lib/window.vala:288
 #, c-format
 msgid "Hide (%s)"
 msgstr "Amagar (%s)"
 
-#: ../lib/window.vala:812 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:68
+#: lib/window.vala:812 src/main-panel-plugin.vala:50
+#: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Gropes"
 
-#: ../lib/window.vala:823
+#: lib/window.vala:823
 msgid "_New"
 msgstr "_Novèl"
 
-#: ../lib/window.vala:824
+#: lib/window.vala:824
 msgid "_Delete"
 msgstr "_Suprimir"
 
-#: ../lib/window.vala:825
+#: lib/window.vala:825
 msgid "_Rename"
 msgstr "_Renomenar"
 
 #. Always on top
-#: ../lib/window.vala:829 ../src/main-settings-dialog.c:186
+#: lib/window.vala:829 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Totjorn en dessús"
 
-#: ../lib/window.vala:830
+#: lib/window.vala:830
 msgid "Sticky window"
 msgstr "Pegar sus totes los burèus"
 
-#: ../lib/window.vala:834 ../src/main-status-icon.vala:74
+#: lib/window.vala:834 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Proprietats"
 
-#: ../lib/window.vala:835 ../src/main-status-icon.vala:75
+#: lib/window.vala:835 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_A prepaus"
 
-#: ../lib/window.vala:892
+#: lib/window.vala:892
 msgid "_Rename group"
 msgstr "_Renomenar lo grop"
 
-#: ../lib/window.vala:893
+#: lib/window.vala:893
 msgid "_Delete group"
 msgstr "_Suprimir lo grop"
 
-#: ../lib/window.vala:1175
+#: lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
 msgstr "Sètz segur que volètz suprimir aquesta nòta ?"
 
-#: ../lib/window.vala:1208
+#: lib/window.vala:1208
 msgid "Rename note"
 msgstr "Renomenar la nòta"
 
-#: ../src/main-status-icon.vala:78
+#: src/main-status-icon.vala:78
 msgid "_Quit"
 msgstr "_Quitar"
 
-#: ../src/main-settings-dialog.c:121
+#: src/main-settings-dialog.c:101
+msgid "_Close"
+msgstr "_Tampar"
+
+#: src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "Paramètres globals"
 
-#: ../src/main-settings-dialog.c:129
+#: src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "Rèire plan :"
 
-#: ../src/main-settings-dialog.c:142
+#: src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "Poliça :"
 
-#: ../src/main-settings-dialog.c:154
+#: src/main-settings-dialog.c:154
 msgid "Tabs position:"
 msgstr "Posicion dels onglets :"
 
 #. Hide from taskbar
-#: ../src/main-settings-dialog.c:161
+#: src/main-settings-dialog.c:161
 msgid "Hide notes from taskbar"
 msgstr "Amagar las nòtas de la barra dels prètzfaches"
 
-#: ../src/main-settings-dialog.c:172
+#: src/main-settings-dialog.c:172
 msgid "Notes path:"
 msgstr "Camin de las nòtas :"
 
-#: ../src/main-settings-dialog.c:181
+#: src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "Paramètres d'un grop novèl"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:193
+#: src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "Totjorn sus l'espaci de trabalh corrent"
 
-#: ../src/main-settings-dialog.c:203
+#: src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "Talha :"
 
-#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+#: src/main-settings-dialog.c:223 src/main-settings-dialog.c:231
 msgid "Select notes path"
 msgstr "Seleccionar lo camin de las nòtas"
 
-#: ../src/main-settings-dialog.c:286
+#: src/main-settings-dialog.c:286
 msgid "None"
 msgstr "Pas cap"
 
-#: ../src/main-settings-dialog.c:287
+#: src/main-settings-dialog.c:287
 msgid "Top"
 msgstr "Naut"
 
-#: ../src/main-settings-dialog.c:288
+#: src/main-settings-dialog.c:288
 msgid "Right"
 msgstr "Drecha"
 
-#: ../src/main-settings-dialog.c:289
+#: src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr "Bas"
 
-#: ../src/main-settings-dialog.c:290
+#: src/main-settings-dialog.c:290
 msgid "Left"
 msgstr "Esquèrra"
 
-#: ../src/main-settings-dialog.c:306
+#: src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "Pichona"
 
-#: ../src/main-settings-dialog.c:307
+#: src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "Normala"
 
-#: ../src/main-settings-dialog.c:308
+#: src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "Granda"
 
-#: ../src/main-settings-dialog.c:366
+#: src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "Jaune"
 
-#: ../src/main-settings-dialog.c:367
+#: src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "Blau"
 
-#: ../src/main-settings-dialog.c:368
+#: src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "Verd"
 
-#: ../src/main-settings-dialog.c:369
+#: src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr "Indigo"
 
-#: ../src/main-settings-dialog.c:370
+#: src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr "Oliva"
 
-#: ../src/main-settings-dialog.c:371
+#: src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr "Carmin"
 
-#: ../src/main-settings-dialog.c:372
+#: src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr "Mimòsa"
 
-#: ../src/main-settings-dialog.c:373
+#: src/main-settings-dialog.c:373
 msgid "White"
 msgstr "Blanc"
 
-#: ../src/main-settings-dialog.c:374
+#: src/main-settings-dialog.c:374
 msgid "Android"
 msgstr "Androïd"
 
-#: ../src/main-settings-dialog.c:375
+#: src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../src/main-settings-dialog.c:376
+#: src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "Personalizada..."
 
-#: ../src/main-settings-dialog.c:507
+#: src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "Color de rèire plan"
