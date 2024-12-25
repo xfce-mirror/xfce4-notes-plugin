@@ -198,6 +198,14 @@ namespace Xnp {
 		public signal void note_renamed (Xnp.Note note, string name);
 		public signal bool note_moved (Xnp.Window src_win, Xnp.Note note);
 
+		[Signal (action = true)]
+		public signal void cycle_notes () {
+			if (notebook.page == this.n_pages - 1)
+				notebook.page = 0;
+			else
+				notebook.next_page ();
+		}
+
 		construct {
 			((Gtk.Widget)this).name = "notes-window";
 			this.title = _("Notes");
@@ -209,6 +217,14 @@ namespace Xnp {
 			this.icon_name = "org.xfce.notes";
 			this.sticky = true;
 			this.opacity = 0.9;
+		}
+
+		private static bool ctrl_tab_bound = false;
+
+		private void remove_ctrl_tab_binding (Type t) {
+			ObjectClass klass = (ObjectClass) t.class_ref ();
+			BindingEntry.remove (Gtk.BindingSet.by_class (klass),
+					     Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK);
 		}
 
 		public Window (Xnp.Application app) {
@@ -226,6 +242,16 @@ namespace Xnp {
 			try {
 				this.ui.add_ui_from_string (ui_string , -1);
 				add_accel_group (this.ui.get_accel_group ());
+				/* Make Ctrl-Tab cycle through notes */
+				if (!ctrl_tab_bound) {
+					remove_ctrl_tab_binding (typeof (Gtk.TextView));
+					remove_ctrl_tab_binding (typeof (Gtk.Notebook));
+					remove_ctrl_tab_binding (typeof (Gtk.ScrolledWindow));
+					BindingEntry.add_signal (Gtk.BindingSet.by_class (this.get_class()),
+								 Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK,
+								 "cycle-notes", 0);
+					ctrl_tab_bound = true;
+				}
 			}
 			catch (Error e) {
 				warning ("%s", e.message);
