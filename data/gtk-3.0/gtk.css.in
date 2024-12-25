@@ -138,6 +138,7 @@ notebook > header.right > tabs > tab:hover {
 
 textview > text {
 	color: @theme_text_color;
+	caret-color: @theme_text_color;
 	background-color: shade (@theme_bg_color, 1.1);
 }
 
