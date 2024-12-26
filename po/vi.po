@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-notes-plugin package.
 # 
 # Translators:
 # Automatically generated, 2009
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-26 12:51+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-24 00:53+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Automatically generated, 2009\n"
 "Language-Team: Vietnamese (http://app.transifex.com/xfce/xfce-panel-plugins/language/vi/)\n"
@@ -18,285 +18,283 @@ msgstr ""
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/xfce4-notes-autostart.desktop.in.h:1
-#: ../src/xfce4-notes-plugin.desktop.in.h:1 ../src/xfce4-notes.desktop.in.h:1
-#: ../lib/application.vala:313 ../lib/application.vala:1017
-#: ../lib/window.vala:82 ../lib/window.vala:192
-#: ../src/main-panel-plugin.vala:46 ../src/main-status-icon.vala:34
-#: ../src/main-status-icon.vala:107 ../src/main-settings-dialog.c:99
+#: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
+#: src/xfce4-notes.desktop.in:5 lib/application.vala:313
+#: lib/application.vala:1017 lib/window.vala:84 lib/window.vala:194
+#: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
+#: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr ""
 
-#: ../src/xfce4-notes-autostart.desktop.in.h:2
-#: ../src/xfce4-notes-plugin.desktop.in.h:2 ../src/xfce4-notes.desktop.in.h:2
-#: ../lib/application.vala:1019
+#: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
+#: src/xfce4-notes.desktop.in:6 lib/application.vala:1019
 msgid "Ideal for your quick notes"
 msgstr "Ý tưởng cho chú thích nhanh của bạn"
 
-#: ../lib/application.vala:214
+#: lib/application.vala:214
 #, c-format
 msgid ""
 "The selected directory (%s) for the new notes path already contains files. "
 "You must select or create an empty directory."
 msgstr ""
 
-#: ../lib/application.vala:226
+#: lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
 msgstr ""
 
-#: ../lib/application.vala:234
+#: lib/application.vala:234
 msgid "Notes path is unacceptable"
 msgstr ""
 
-#: ../lib/application.vala:237 ../lib/application.vala:899
-#: ../lib/application.vala:997 ../lib/window.vala:1225
+#: lib/application.vala:237 lib/application.vala:899 lib/application.vala:997
+#: lib/window.vala:1232
 msgid "Error"
 msgstr "Lỗi"
 
-#: ../lib/application.vala:317
+#: lib/application.vala:317
 #, c-format
 msgid "Notes %d"
 msgstr "Ghi chú %d"
 
-#: ../lib/application.vala:338 ../lib/window.vala:1055
+#: lib/application.vala:338 lib/window.vala:1062
 #, c-format
 msgid "Note %d"
 msgstr ""
 
-#: ../lib/application.vala:647
+#: lib/application.vala:647
 msgid "Rename group"
 msgstr "Đổi tên nhóm"
 
-#: ../lib/application.vala:667 ../lib/window.vala:1223
+#: lib/application.vala:667 lib/window.vala:1230
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Tên %s đã được sử dụng rồi"
 
-#: ../lib/application.vala:698
+#: lib/application.vala:698
 msgid "Are you sure you want to delete this group?"
 msgstr "Bạn chắc rằng muốn xoá nhóm này chứ?"
 
-#: ../lib/application.vala:763
+#: lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
 msgstr ""
 
-#: ../lib/application.vala:766
+#: lib/application.vala:766
 msgid "Do you want to reload the group?"
 msgstr ""
 
-#: ../lib/application.vala:896
+#: lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Tên \"%s\" không hợp lệ."
 
-#: ../lib/application.vala:897
+#: lib/application.vala:897
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Kí tự không hợp lệ là: %s"
 
-#: ../lib/application.vala:994
+#: lib/application.vala:994
 msgid "Unable to open the settings dialog"
 msgstr "Không thể mở hộp thoại cài đặt"
 
-#: ../lib/application.vala:1026
+#: lib/application.vala:1026
 msgid "translator-credits"
 msgstr "Công trạng người dịch:"
 
-#: ../lib/application.vala:1061 ../lib/window.vala:887
+#: lib/application.vala:1061 lib/window.vala:894
 msgid "_Add a new group"
 msgstr "_Thêm nhóm mới"
 
-#: ../lib/window.vala:246
+#: lib/window.vala:248
 msgid "Menu"
-msgstr ""
+msgstr "Danh sách"
 
-#: ../lib/window.vala:271
+#: lib/window.vala:273
 msgid "Refresh notes"
 msgstr ""
 
-#: ../lib/window.vala:286
+#: lib/window.vala:288
 #, c-format
 msgid "Hide (%s)"
 msgstr ""
 
-#: ../lib/window.vala:804 ../src/main-panel-plugin.vala:50
-#: ../src/main-status-icon.vala:68
+#: lib/window.vala:812 src/main-panel-plugin.vala:50
+#: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr ""
 
-#: ../lib/window.vala:815
+#: lib/window.vala:823
 msgid "_New"
 msgstr ""
 
-#: ../lib/window.vala:816
+#: lib/window.vala:824
 msgid "_Delete"
 msgstr ""
 
-#: ../lib/window.vala:817
+#: lib/window.vala:825
 msgid "_Rename"
 msgstr "Đổ_i tên"
 
-#: ../lib/window.vala:818
-msgid "_Undo"
-msgstr ""
-
 #. Always on top
-#: ../lib/window.vala:822 ../src/main-settings-dialog.c:186
+#: lib/window.vala:829 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Luôn luôn hiển thị trên cùng"
 
-#: ../lib/window.vala:823
+#: lib/window.vala:830
 msgid "Sticky window"
 msgstr "Ghim cửa sổ lại"
 
-#: ../lib/window.vala:827 ../src/main-status-icon.vala:74
+#: lib/window.vala:834 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr ""
 
-#: ../lib/window.vala:828 ../src/main-status-icon.vala:75
+#: lib/window.vala:835 src/main-status-icon.vala:75
 msgid "_About"
 msgstr ""
 
-#: ../lib/window.vala:885
+#: lib/window.vala:892
 msgid "_Rename group"
 msgstr "Đổ_i tên nhóm"
 
-#: ../lib/window.vala:886
+#: lib/window.vala:893
 msgid "_Delete group"
 msgstr "_Xoá nhóm"
 
-#: ../lib/window.vala:1168
+#: lib/window.vala:1175
 msgid "Are you sure you want to delete this note?"
 msgstr "Bạn có chắc muốn xoá ghi chú này?"
 
-#: ../lib/window.vala:1201
+#: lib/window.vala:1208
 msgid "Rename note"
 msgstr "Đổi tên ghi chú"
 
-#: ../src/main-status-icon.vala:78
+#: src/main-status-icon.vala:78
 msgid "_Quit"
 msgstr "_Thoát"
 
-#: ../src/main-settings-dialog.c:121
+#: src/main-settings-dialog.c:101
+msgid "_Close"
+msgstr "Đóng"
+
+#: src/main-settings-dialog.c:121
 msgid "Global settings"
 msgstr "Thiết lập toàn cục"
 
-#: ../src/main-settings-dialog.c:129
+#: src/main-settings-dialog.c:129
 msgid "Background:"
 msgstr "Nền:"
 
-#: ../src/main-settings-dialog.c:142
+#: src/main-settings-dialog.c:142
 msgid "Font:"
 msgstr "Font:"
 
-#: ../src/main-settings-dialog.c:154
+#: src/main-settings-dialog.c:154
 msgid "Tabs position:"
 msgstr ""
 
 #. Hide from taskbar
-#: ../src/main-settings-dialog.c:161
+#: src/main-settings-dialog.c:161
 msgid "Hide notes from taskbar"
 msgstr "Giấu chú thích khỏi thanh tác vụ"
 
-#: ../src/main-settings-dialog.c:172
+#: src/main-settings-dialog.c:172
 msgid "Notes path:"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:181
+#: src/main-settings-dialog.c:181
 msgid "New group settings"
 msgstr "Thiết lập cho nhóm mới"
 
 #. Sticky window
-#: ../src/main-settings-dialog.c:193
+#: src/main-settings-dialog.c:193
 msgid "Sticky"
 msgstr "Ghim"
 
-#: ../src/main-settings-dialog.c:203
+#: src/main-settings-dialog.c:203
 msgid "Size:"
 msgstr "Kích cỡ:"
 
-#: ../src/main-settings-dialog.c:223 ../src/main-settings-dialog.c:231
+#: src/main-settings-dialog.c:223 src/main-settings-dialog.c:231
 msgid "Select notes path"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:286
+#: src/main-settings-dialog.c:286
 msgid "None"
-msgstr ""
+msgstr "Không"
 
-#: ../src/main-settings-dialog.c:287
+#: src/main-settings-dialog.c:287
 msgid "Top"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:288
+#: src/main-settings-dialog.c:288
 msgid "Right"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:289
+#: src/main-settings-dialog.c:289
 msgid "Bottom"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:290
+#: src/main-settings-dialog.c:290
 msgid "Left"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:306
+#: src/main-settings-dialog.c:306
 msgid "Small"
 msgstr "Nhỏ"
 
-#: ../src/main-settings-dialog.c:307
+#: src/main-settings-dialog.c:307
 msgid "Normal"
 msgstr "Trung bình"
 
-#: ../src/main-settings-dialog.c:308
+#: src/main-settings-dialog.c:308
 msgid "Large"
 msgstr "Lớn"
 
-#: ../src/main-settings-dialog.c:366
+#: src/main-settings-dialog.c:366
 msgid "Yellow"
 msgstr "Vàng"
 
-#: ../src/main-settings-dialog.c:367
+#: src/main-settings-dialog.c:367
 msgid "Blue"
 msgstr "Xanh da trời"
 
-#: ../src/main-settings-dialog.c:368
+#: src/main-settings-dialog.c:368
 msgid "Green"
 msgstr "Xanh lá cây"
 
-#: ../src/main-settings-dialog.c:369
+#: src/main-settings-dialog.c:369
 msgid "Indigo"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:370
+#: src/main-settings-dialog.c:370
 msgid "Olive"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:371
+#: src/main-settings-dialog.c:371
 msgid "Carmine"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:372
+#: src/main-settings-dialog.c:372
 msgid "Mimosa"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:373
+#: src/main-settings-dialog.c:373
 msgid "White"
 msgstr "Trắng"
 
-#: ../src/main-settings-dialog.c:374
+#: src/main-settings-dialog.c:374
 msgid "Android"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:375
+#: src/main-settings-dialog.c:375
 msgid "GTK+"
 msgstr ""
 
-#: ../src/main-settings-dialog.c:376
+#: src/main-settings-dialog.c:376
 msgid "Custom..."
 msgstr "Tuỳ chỉnh"
 
-#: ../src/main-settings-dialog.c:507
+#: src/main-settings-dialog.c:507
 msgid "Background Color"
 msgstr "Màu nền"
