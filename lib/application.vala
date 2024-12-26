@@ -703,10 +703,30 @@ namespace Xnp {
 			if (path.query_exists ()) {
 				try {
 					var dir = GLib.Dir.open (path.get_path (), 0);
-					while ((name = dir.read_name ()) != null) {
-						path.get_child (name).delete ();
+					name = dir.read_name ();
+					if (window.n_pages == 0) {
+						/* From the user's point of view, it looks like the directory is empty.
+						   So we don't want to delete any files here, as this is not expected
+						   behavior. */
+						if (name == null) {
+							path.delete ();
+						} else {
+							name = window.name;
+							destroy_window (window);
+							var win = create_window (name);
+							if (win != null)
+								win.show ();
+							return;
+						}
+					} else {
+						/* The user clearly wants to delete a group of notes */
+						if (name != null) {
+							do {
+								path.get_child (name).delete ();
+							} while ((name = dir.read_name ()) != null);
+						}
+						path.delete ();
 					}
-					path.delete ();
 				}
 				catch (GLib.Error e) {
 					window.popup_error (e.message);
