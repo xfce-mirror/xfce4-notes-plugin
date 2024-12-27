@@ -199,11 +199,19 @@ namespace Xnp {
 		public signal bool note_moved (Xnp.Window src_win, Xnp.Note note);
 
 		[Signal (action = true)]
-		public signal void cycle_notes () {
+		public signal void action_cycle_forward () {
 			if (notebook.page == this.n_pages - 1)
 				notebook.page = 0;
 			else
 				notebook.next_page ();
+		}
+
+		[Signal (action = true)]
+		public signal void action_cycle_backward () {
+			if (notebook.page == 0)
+				notebook.page = n_pages - 1;
+			else
+				notebook.prev_page ();
 		}
 
 		construct {
@@ -219,12 +227,15 @@ namespace Xnp {
 			this.opacity = 0.9;
 		}
 
-		private static bool ctrl_tab_bound = false;
+		private static bool tab_hotkeys_bound = false;
 
-		private void remove_ctrl_tab_binding (Type t) {
+		private void remove_tab_bindings (Type t) {
 			ObjectClass klass = (ObjectClass) t.class_ref ();
 			BindingEntry.remove (Gtk.BindingSet.by_class (klass),
 					     Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK);
+			BindingEntry.remove (Gtk.BindingSet.by_class (klass),
+					     Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK
+						 | Gdk.ModifierType.SHIFT_MASK);
 		}
 
 		public Window (Xnp.Application app) {
@@ -242,15 +253,18 @@ namespace Xnp {
 			try {
 				this.ui.add_ui_from_string (ui_string , -1);
 				add_accel_group (this.ui.get_accel_group ());
-				/* Make Ctrl-Tab cycle through notes */
-				if (!ctrl_tab_bound) {
-					remove_ctrl_tab_binding (typeof (Gtk.TextView));
-					remove_ctrl_tab_binding (typeof (Gtk.Notebook));
-					remove_ctrl_tab_binding (typeof (Gtk.ScrolledWindow));
+				/* Bind Ctrl-Tab and Ctrl-Shift-Tab to cycle through notes */
+				if (!tab_hotkeys_bound) {
+					remove_tab_bindings (typeof (Gtk.TextView));
+					remove_tab_bindings (typeof (Gtk.Notebook));
+					remove_tab_bindings (typeof (Gtk.ScrolledWindow));
 					BindingEntry.add_signal (Gtk.BindingSet.by_class (this.get_class()),
 								 Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK,
-								 "cycle-notes", 0);
-					ctrl_tab_bound = true;
+								 "action-cycle-forward", 0);
+					BindingEntry.add_signal (Gtk.BindingSet.by_class (this.get_class()),
+								 Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK
+								 | Gdk.ModifierType.SHIFT_MASK, "action-cycle-backward", 0);
+					tab_hotkeys_bound = true;
 				}
 			}
 			catch (Error e) {
