@@ -394,10 +394,8 @@ namespace Xnp {
 				}
 			});
 			window.save_data.connect ((win, note) => {
-				if (!get_data_value (win, "external-change")) {
-					win.monitor.internal_change ();
-					save_note (win, note);
-				}
+				win.monitor.internal_change ();
+				save_note (win, note);
 			});
 			window.note_inserted.connect ((win, note) => {
 				Xfconf.property_bind (xfconf_channel, "/global/font-description",
@@ -601,7 +599,6 @@ namespace Xnp {
 		 */
 		public void save_notes () {
 			foreach (var win in this.window_list) {
-				set_data_value (win, "external-change", false);
 				win.save_notes ();
 			}
 		}
@@ -791,10 +788,8 @@ namespace Xnp {
 					win.show ();
 			}
 			else {
-				set_data_value (window, "external-change", false);
 				window.show_refresh_button = false;
 				window.save_notes ();
-
 			}
 		}
 
@@ -821,7 +816,6 @@ namespace Xnp {
 			window.monitor = new Xnp.WindowMonitor (path);
 
 			window.monitor.window_updated.connect (() => {
-				set_data_value (window, "external-change", true);
 				window.show_refresh_button = true;
 			});
 
@@ -837,24 +831,6 @@ namespace Xnp {
 		/*
 		 * Utility functions
 		 */
-
-		/**
-		 * get_data_value:
-		 *
-		 * Convenience function to return a GObject data boolean value.
-		 */
-		private bool get_data_value (GLib.Object object, string data) {
-			return object.get_data<bool> (data);
-		}
-
-		/**
-		 * set_data_value:
-		 *
-		 * Convenience function to set a GObject data boolean value.
-		 */
-		private void set_data_value (GLib.Object object, string data, bool val) {
-			object.set_data (data, ((int)val).to_pointer ());
-		}
 
 		/**
 		 * window_name_exists:
