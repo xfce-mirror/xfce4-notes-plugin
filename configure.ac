@@ -6,7 +6,7 @@ dnl 2006-2016 Mike Massonnet <mmassonnet@xfce.org>
 dnl 2023 Arthur Demchenkov <spinal.by@gmail.com>
 dnl
 
-XDT_VERSION_INIT([1.11.0], [git])
+XDT_VERSION_INIT([1.11.1])
 
 AC_COPYRIGHT([Copyright (c) 2003-2024 The Xfce development team. All rights reserved.])
 AC_PREREQ([2.69])

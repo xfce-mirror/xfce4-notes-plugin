@@ -1,3 +1,29 @@
+1.11.1 (2024-12-29)
+======
+- build: Bump dependency versions and fix deprecation warnings
+- build: clang: Fix -Wdeprecated-non-prototype
+- I18n: Update po/LINGUAS list
+- build: Remove unnecessary check for libx11
+- build: Use XDT_VERSION_INIT and get rid of configure.ac.in
+- build: Switch from intltool to gettext
+- Don't highlight matching brackets
+- Fix hypertext mouse cursor after editing text
+- Work around buggy annotation for gtk_menu_shell_append()
+- Add full undo/redo support
+- New dependency: GtkSourceView-4
+- Fix parallel build
+- Make check for vala compiler more strict
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Basque, Belarusian, Bulgarian,
+  Catalan, Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish,
+  Dutch, Eastern Armenian, English (Australia), English (Canada),
+  English (United Kingdom), Estonian, Finnish, French, Galician,
+  German, Greek, Hebrew, Hungarian, Icelandic, Indonesian, Interlingue,
+  Italian, Japanese, Kazakh, Korean, Lithuanian, Malay, Norwegian
+  Bokmål, Occitan (post 1500), Polish, Portuguese, Portuguese
+  (Brazil), Romanian, Russian, Serbian, Slovak, Slovenian, Spanish,
+  Swedish, Thai, Turkish, Ukrainian, Vietnamese
+
 1.11.0 (2024-01-13)
 ======
 - Update copyright year
