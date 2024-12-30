@@ -492,12 +492,14 @@ namespace Xnp {
 					try {
 						string contents;
 						var file = File.new_build_filename (path, name);
-						GLib.FileUtils.get_contents (file.get_path (), out contents, null);
-						var note = window.insert_note (name);
-						note.text = contents;
-						Xfconf.property_bind (xfconf_channel, "/global/font-description",
-								typeof (string), note.text_view, "font");
-						note.backed = true;
+						if (Xnp.FileUtils.validate_text_file (file)) {
+							GLib.FileUtils.get_contents (file.get_path (), out contents, null);
+							var note = window.insert_note (name);
+							note.text = contents;
+							Xfconf.property_bind (xfconf_channel, "/global/font-description",
+												  typeof (string), note.text_view, "font");
+							note.backed = true;
+						}
 					}
 					catch (FileError e) {
 						warning ("%s", e.message);

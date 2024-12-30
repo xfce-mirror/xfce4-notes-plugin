@@ -16,6 +16,7 @@ libnotes_la_SOURCES =							\
 	window-monitor.vala						\
 	application.vala						\
 	hypertextview.vala						\
+	file-utils.vala							\
 	note.vala							\
 	window.vala							\
 	theme.vala							\

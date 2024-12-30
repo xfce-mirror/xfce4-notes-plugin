@@ -87,7 +87,7 @@ namespace Xnp {
 		}
 
 		private bool file_exists (string path) {
-			return FileUtils.test (path, FileTest.EXISTS);
+			return GLib.FileUtils.test (path, FileTest.EXISTS);
 		}
 
 		private void load_default_css () {
