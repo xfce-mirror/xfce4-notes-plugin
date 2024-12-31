@@ -79,7 +79,7 @@ msgstr "Jeni i sigurt se doni të fshihet ky grup?"
 #: lib/application.vala:763
 #, c-format
 msgid "The group \"%s\" has been modified on the disk"
-msgstr "Grupi \"%s\" është ndryshuar në disk"
+msgstr "Grupi “%s” është ndryshuar në disk"
 
 #: lib/application.vala:766
 msgid "Do you want to reload the group?"
@@ -88,7 +88,7 @@ msgstr "Doni të ringarkohet grupi?"
 #: lib/application.vala:896
 #, c-format
 msgid "The name \"%s\" is invalid."
-msgstr "Emri \"%s\" është i pavlefshëm."
+msgstr "Emri “%s” është i pavlefshëm."
 
 #: lib/application.vala:897
 #, c-format
