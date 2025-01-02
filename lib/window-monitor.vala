@@ -1,7 +1,7 @@
 /*
  *  Notes - panel plugin for Xfce Desktop Environment
  *  Copyright (c) 2009-2010  Mike Massonnet <mmassonnet@xfce.org>
- *  Copyright (c) 2024       Arthur Demchenkov <spinal.by@gmail.com>
+ *  Copyright (c) 2024-2025  Arthur Demchenkov <spinal.by@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ namespace Xnp {
 
 		private GLib.FileMonitor monitor;
 		private uint src_timeout = 0;
+		private uint src_events = 0;
 		private uint src_idle = 0;
 		private bool skip = false;
 
@@ -32,6 +33,19 @@ namespace Xnp {
 		public signal void note_deleted (string note_name);
 		public signal void note_created (string note_name);
 		public signal void note_renamed (string note_name, string new_name);
+
+		struct FileEvent {
+			File file;
+			File other_file;
+			FileMonitorEvent event;
+			public FileEvent(File? file, File? other_file, FileMonitorEvent event) {
+				this.file = file;
+				this.other_file = other_file;
+				this.event = event;
+			}
+		}
+
+		private FileEvent[] events = {};
 
 		public WindowMonitor (GLib.File path) {
 			try {
@@ -47,36 +61,54 @@ namespace Xnp {
 		~WindowMonitor () {
 			if (src_timeout != 0)
 				Source.remove (src_timeout);
+			if (src_events != 0)
+				Source.remove (src_events);
 			if (src_idle != 0)
 				Source.remove (src_idle);
 		}
 
 		private void monitor_change_cb (File file, File? other_file, FileMonitorEvent event) {
 			if (skip) return;
-			string note_name = file.get_basename ();
-			switch (event) {
-			case GLib.FileMonitorEvent.CHANGES_DONE_HINT:
-				this.note_updated (note_name);
-				window_updated_cb ();
-				break;
 
-			case GLib.FileMonitorEvent.DELETED:
-			case GLib.FileMonitorEvent.MOVED_OUT:
-				this.note_deleted (note_name);
-				break;
+			events += FileEvent(file, other_file, event);
 
-			case GLib.FileMonitorEvent.CREATED:
-			case GLib.FileMonitorEvent.MOVED_IN:
-				// Don't send window-updated signal, as a CHANGES_DONE_HINT is emitted anyway
-				this.note_created (note_name);
-				break;
+			if (src_events == 0) {
+				src_events = Idle.add (() => {
+					process_events ();
+					src_events = 0;
+					this.events = new FileEvent[0];
+					return Source.REMOVE;
+				});
+			}
+		}
 
-			case GLib.FileMonitorEvent.RENAMED:
-				this.note_renamed (note_name, other_file.get_basename ());
-				break;
+		private void process_events () {
+			foreach (FileEvent ev in events) {
+				string note_name = ev.file.get_basename ();
+				switch (ev.event) {
+					case CHANGES_DONE_HINT:
+						this.note_updated (note_name);
+						window_updated_cb ();
+						break;
 
-			default:
-				break;
+					case DELETED:
+					case MOVED_OUT:
+						this.note_deleted (note_name);
+						break;
+
+					case CREATED:
+					case MOVED_IN:
+						// Don't send window-updated signal, as a CHANGES_DONE_HINT is emitted anyway
+						this.note_created (note_name);
+						break;
+
+					case RENAMED:
+						this.note_renamed (note_name, ev.other_file.get_basename ());
+						break;
+
+					default:
+						break;
+				}
 			}
 		}
 
