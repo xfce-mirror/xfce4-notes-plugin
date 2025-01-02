@@ -104,7 +104,6 @@ namespace Xnp {
 					case CREATED:
 					case MOVED_IN:
 						this.note_created (note_name);
-						window_updated_cb ();
 						break;
 
 					case RENAMED:

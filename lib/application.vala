@@ -27,6 +27,7 @@ namespace Xnp {
 		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
 		public bool system_tray_mode = false;
+		public bool external_event = false;
 
 		private SList<Xnp.Window> window_list;
 		private SList<Xnp.Window> focus_order;
@@ -398,6 +399,7 @@ namespace Xnp {
 				save_note (win, note);
 			});
 			window.note_inserted.connect ((win, note) => {
+				if (external_event) return;
 				Xfconf.property_bind (xfconf_channel, "/global/font-description",
 					typeof (string), note.text_view, "font");
 
@@ -489,21 +491,7 @@ namespace Xnp {
 			try {
 				var dir = GLib.Dir.open (path, 0);
 				while ((name = dir.read_name ()) != null) {
-					try {
-						string contents;
-						var file = File.new_build_filename (path, name);
-						if (Xnp.FileUtils.validate_text_file (file)) {
-							GLib.FileUtils.get_contents (file.get_path (), out contents, null);
-							var note = window.insert_note (name);
-							note.text = contents;
-							Xfconf.property_bind (xfconf_channel, "/global/font-description",
-												  typeof (string), note.text_view, "font");
-							note.backed = true;
-						}
-					}
-					catch (FileError e) {
-						warning ("%s", e.message);
-					}
+					load_note (window, name);
 				}
 			}
 			catch (FileError e) {
@@ -544,6 +532,29 @@ namespace Xnp {
 					window.resize (width, height);
 				}
 				window.show ();
+			}
+		}
+
+		/**
+		 * load_note:
+		 *
+		 * Load existing note to the window.
+		 */
+		private void load_note (Xnp.Window window, string note_name) {
+			try {
+				string contents;
+				var file = File.new_build_filename (notes_path, window.name, note_name);
+				if (Xnp.FileUtils.validate_text_file (file)) {
+					GLib.FileUtils.get_contents (file.get_path (), out contents, null);
+					var note = window.insert_note (note_name);
+					note.text = contents;
+					Xfconf.property_bind (xfconf_channel, "/global/font-description",
+							      typeof (string), note.text_view, "font");
+					note.backed = true;
+				}
+			}
+			catch (FileError e) {
+				warning ("%s", e.message);
 			}
 		}
 
@@ -827,6 +838,12 @@ namespace Xnp {
 
 			window.monitor.note_renamed.connect ((note_name, new_name) => {
 				window.rename_note (note_name, new_name);
+			});
+
+			window.monitor.note_created.connect ((note_name) => {
+				external_event = true;
+				load_note (window, note_name);
+				external_event = false;
 			});
 
 			window.monitor.note_exists.connect ((file) => {
