@@ -828,6 +828,10 @@ namespace Xnp {
 			window.monitor.note_renamed.connect ((note_name, new_name) => {
 				window.rename_note (note_name, new_name);
 			});
+
+			window.monitor.note_exists.connect ((file) => {
+				return window.note_name_exists (file.get_basename ());
+			});
 		}
 
 		/*
