@@ -1336,7 +1336,7 @@ namespace Xnp {
 		 *
 		 * Verify if the given name already exists in the notebook.
 		 */
-		private bool note_name_exists (string name) {
+		public bool note_name_exists (string name) {
 			int n_pages = this.n_pages;
 			for (int p = 0; p < n_pages; p++) {
 				if (get_note (p).name == name) {
