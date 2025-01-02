@@ -393,6 +393,7 @@ namespace Xnp {
 			left_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			right_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			this.notebook.page_added.connect ((n, c, p) => {
+				if (app.external_event) return;
 				notebook.page = (int)p;
 				update_navigation_sensitivity ((int)p);
 			});
@@ -1116,7 +1117,8 @@ namespace Xnp {
 		 * insert_note:
 		 *
 		 * Create a new note and insert it inside the notebook after
-		 * the current position.
+		 * the current position or after the last note in case of
+		 * external event.
 		 */
 		public Xnp.Note insert_note (string? name = null) {
 			string note_name = "";
@@ -1146,7 +1148,8 @@ namespace Xnp {
 			tab_evbox.add (label);
 			label.show ();
 			connect_note_signals (note, tab_evbox);
-			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
+			var pos = app.external_event ? this.n_pages : this.notebook.page + 1;
+			this.notebook.insert_page (note, tab_evbox, pos);
 			this.notebook.set_tab_reorderable (note, true);
 			this.notebook.set_tab_detachable (note, true);
 			_notebook_update_tabs_angle ();
