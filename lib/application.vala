@@ -865,10 +865,6 @@ namespace Xnp {
 			var path = File.new_build_filename (notes_path, window.name);
 			window.monitor = new Xnp.WindowMonitor (path);
 
-			window.monitor.window_updated.connect (() => {
-				window.show_refresh_button = true;
-			});
-
 			window.monitor.note_deleted.connect ((note_name) => {
 				window.externally_removed (note_name);
 			});

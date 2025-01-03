@@ -23,12 +23,10 @@ namespace Xnp {
 	public class WindowMonitor : GLib.Object {
 
 		private GLib.FileMonitor monitor;
-		private uint src_timeout = 0;
 		private uint src_events = 0;
 		private uint src_idle = 0;
 		private bool skip = false;
 
-		public signal void window_updated ();
 		public signal void note_updated (string note_name);
 		public signal void note_deleted (string note_name);
 		public signal void note_created (string note_name);
@@ -63,8 +61,6 @@ namespace Xnp {
 		}
 
 		~WindowMonitor () {
-			if (src_timeout != 0)
-				Source.remove (src_timeout);
 			if (src_events != 0)
 				Source.remove (src_events);
 			if (src_idle != 0)
@@ -125,17 +121,6 @@ namespace Xnp {
 					return Source.REMOVE;
 				});
 			}
-		}
-
-		private void window_updated_cb () {
-			if (src_timeout != 0) {
-				Source.remove (src_timeout);
-			}
-			src_timeout = Timeout.add_seconds (1, () => {
-				this.window_updated ();
-				src_timeout = 0;
-				return Source.REMOVE;
-			});
 		}
 
 		/*
