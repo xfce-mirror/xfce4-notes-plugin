@@ -72,15 +72,17 @@ namespace Xnp {
 
 			events += FileEvent(file, other_file, event);
 
-			if (src_events == 0) {
-				src_events = Idle.add (() => {
-					optimize_events ();
-					process_events ();
-					src_events = 0;
-					this.events = new FileEvent[0];
-					return Source.REMOVE;
-				});
+			if (src_events != 0) {
+				Source.remove (src_events);
 			}
+
+			src_events = Timeout.add (150, () => {
+				optimize_events ();
+				process_events ();
+				src_events = 0;
+				this.events = new FileEvent[0];
+				return Source.REMOVE;
+			});
 		}
 
 		private void process_events () {
