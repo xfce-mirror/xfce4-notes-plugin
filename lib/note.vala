@@ -43,6 +43,40 @@ namespace Xnp {
 			}
 		}
 
+		public int cursor {
+			get {
+				return this.text_view.buffer.cursor_position;
+			}
+			set {
+				var buffer = this.text_view.buffer;
+				Gtk.TextIter iter;
+				buffer.get_iter_at_offset (out iter, value);
+				buffer.place_cursor (iter);
+			}
+		}
+
+		private uint src_idle = 0;
+		public double adjustment {
+			get {
+				return get_vadjustment ().value;
+			}
+			set {
+				if (src_idle == 0) {
+					var window = get_window ();
+					if (window != null) window.freeze_updates ();
+				} else
+					Source.remove (src_idle);
+
+				src_idle = Idle.add (() => {
+					src_idle = 0;
+					var window = get_window ();
+					get_vadjustment ().value = value;
+					if (window != null) window.thaw_updates ();
+					return Source.REMOVE;
+				});
+			}
+		}
+
 		private uint save_timeout;
 		private bool _dirty = false;
 		public bool dirty {
@@ -91,6 +125,10 @@ namespace Xnp {
 		}
 
 		~Note () {
+			if (src_idle != 0)
+				Source.remove (src_idle);
+			if (save_timeout != 0)
+				Source.remove (save_timeout);
 			this.dirty = false;
 		}
 

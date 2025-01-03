@@ -1335,18 +1335,28 @@ namespace Xnp {
 		}
 
 		/**
+		  * find_note_by_name:
+		  *
+		  * Return note with given name or null not found.
+		  */
+		public Xnp.Note? find_note_by_name (string name) {
+			int n_pages = this.n_pages;
+			for (int p = 0; p < n_pages; p++) {
+				var note = get_note (p);
+				if (note.name == name) {
+					return note;
+				}
+			}
+			return null;
+		}
+
+		/**
 		 * note_name_exists:
 		 *
 		 * Verify if the given name already exists in the notebook.
 		 */
 		public bool note_name_exists (string name) {
-			int n_pages = this.n_pages;
-			for (int p = 0; p < n_pages; p++) {
-				if (get_note (p).name == name) {
-					return true;
-				}
-			}
-			return false;
+			return find_note_by_name (name) != null;
 		}
 
 		/**
