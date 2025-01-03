@@ -86,10 +86,6 @@ namespace Xnp {
 			}
 		}
 
-		private bool file_exists (string path) {
-			return GLib.FileUtils.test (path, FileTest.EXISTS);
-		}
-
 		private void load_default_css () {
 			try {
 				css_provider_default.load_from_path (css_path_default);
@@ -100,7 +96,7 @@ namespace Xnp {
 
 		private void load_system_css () {
 			try {
-				if (!file_exists (css_path_system))
+				if (!Xnp.FileUtils.path_exists (css_path_system))
 					return;
 				css_provider_system.load_from_path (css_path_system);
 			} catch (GLib.Error e) {
@@ -110,7 +106,7 @@ namespace Xnp {
 
 		private void load_user_css () {
 			try {
-				if (!file_exists (css_path_user)) {
+				if (!Xnp.FileUtils.path_exists (css_path_user)) {
 					string css = "/* Put your fun stuff here */";
 						GLib.FileUtils.set_contents (css_path_user, css, -1);
 				}

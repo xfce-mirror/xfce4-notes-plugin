@@ -38,6 +38,10 @@ namespace Xnp {
 			return result;
 		}
 
+		public bool path_exists (string path) {
+			return GLib.FileUtils.test (path, FileTest.EXISTS);
+		}
+
 	}
 
 }
