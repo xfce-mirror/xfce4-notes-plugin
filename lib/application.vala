@@ -384,9 +384,6 @@ namespace Xnp {
 						return;
 					new_win.show ();
 				}
-				else if (action == "refresh-notes") {
-					refresh_notes (win);
-				}
 				else if (action == "properties") {
 					open_settings_dialog ();
 				}
@@ -810,37 +807,6 @@ namespace Xnp {
 			this.window_list.remove (window);
 			this.focus_order.remove (window);
 			window.destroy ();
-		}
-
-		/**
-		 * refresh_notes:
-		 *
-		 * Prompt for reloading notes from disk.
-		 */
-		private void refresh_notes (Xnp.Window window) {
-			var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
-				_("The group \"%s\" has been modified on the disk"), window.name);
-			dialog.set_title (window.name);
-			dialog.set_icon_name ("org.xfce.notes");
-			dialog.format_secondary_text (_("Do you want to reload the group?"));
-			var res = dialog.run ();
-			window.dialog_destroy (dialog);
-
-			if (res == Gtk.ResponseType.YES) {
-				save_windows_configuration ();
-				// Delete existing window object
-				var name = window.name;
-				destroy_window (window);
-				// Create new window object
-				var win = create_window (name);
-				if (win != null)
-					win.show ();
-			}
-			else {
-				window.show_refresh_button = false;
-				window.save_notes ();
-			}
 		}
 
 		/**

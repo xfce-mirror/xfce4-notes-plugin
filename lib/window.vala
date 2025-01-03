@@ -34,7 +34,6 @@ namespace Xnp {
 		private Gtk.CheckMenuItem mi_sticky;
 		private Gtk.Image menu_image;
 		private Gtk.Label title_label;
-		private Xnp.TitleBarButton refresh_button;
 		private Xnp.TitleBarButton left_arrow_button;
 		private Xnp.TitleBarButton right_arrow_button;
 		private Xnp.TitleBarButton close_button;
@@ -175,22 +174,6 @@ namespace Xnp {
 			}
 		}
 
-		private bool _show_refresh_button;
-		public bool show_refresh_button {
-			get {
-				return this._show_refresh_button;
-			}
-			set {
-				this._show_refresh_button = value;
-				if (value == true) {
-					this.refresh_button.show ();
-				}
-				else {
-					this.refresh_button.hide ();
-				}
-			}
-		}
-
 		public signal void action (string action);
 		public signal void save_data (Xnp.Note note);
 		public signal void note_inserted (Xnp.Note note);
@@ -318,11 +301,6 @@ namespace Xnp {
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
-			this.refresh_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.REFRESH);
-			this.refresh_button.tooltip_text = _("Refresh notes");
-			this.refresh_button.no_show_all = true;
-			this.refresh_button.sensitive = false;
-			title_box.pack_start (this.refresh_button, false, false, 2);
 			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
 			this.left_arrow_button.add_events (Gdk.EventMask.SCROLL_MASK);
 			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Up, Gdk.ModifierType.CONTROL_MASK);
@@ -358,7 +336,6 @@ namespace Xnp {
 
 			/* Connect mouse click signals */
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
-			this.refresh_button.clicked.connect (action_refresh_notes);
 			this.left_arrow_button.clicked.connect (action_prev_note);
 			this.right_arrow_button.clicked.connect (action_next_note);
 			this.close_button.clicked.connect (() => { hide (); });
@@ -372,12 +349,10 @@ namespace Xnp {
 			this.notify["is-active"].connect (() => {
 				if (this.is_active) {
 					menu_image.sensitive = true;
-					refresh_button.sensitive = true;
 					close_button.sensitive = true;
 					update_navigation_sensitivity (this.notebook.page);
 				} else {
 					menu_image.sensitive = false;
-					refresh_button.sensitive = false;
 					left_arrow_button.enabled = false;
 					right_arrow_button.enabled = false;
 					close_button.sensitive = false;
@@ -759,10 +734,6 @@ namespace Xnp {
 			var current_note = this.current_note;
 			if (current_note != null)
 				current_note.text_view.redo ();
-		}
-
-		private void action_refresh_notes () {
-			action ("refresh-notes");
 		}
 
 		private void action_next_note () {
