@@ -559,6 +559,43 @@ namespace Xnp {
 		}
 
 		/**
+		 * reload_note:
+		 *
+		 * Reload externally updated note.
+		 */
+		private void reload_note (Xnp.Window window, string note_name) {
+			var note = window.find_note_by_name (note_name);
+
+			/* This should never occur */
+			if (note == null) {
+				warning ("Note '%s' not found in '%s'", note_name, window.name);
+				return;
+			}
+
+			note.backed = false;
+
+			try {
+				string contents;
+				var file = File.new_build_filename (notes_path, window.name, note_name);
+				if (Xnp.FileUtils.validate_text_file (file)) {
+					GLib.FileUtils.get_contents (file.get_path (), out contents, null);
+					var adjustment = note.adjustment;
+					var cursor = note.cursor;
+					note.text = contents;
+					note.cursor = cursor;
+					note.adjustment = adjustment;
+					note.backed = true;
+				}
+			}
+			catch (FileError e) {
+				warning ("%s", e.message);
+			}
+
+			if (!note.backed)
+				window.externally_removed (note_name);
+		}
+
+		/**
 		 * save_windows_configuration:
 		 *
 		 * Save window configuration inside rc file.
@@ -843,6 +880,12 @@ namespace Xnp {
 			window.monitor.note_created.connect ((note_name) => {
 				external_event = true;
 				load_note (window, note_name);
+				external_event = false;
+			});
+
+			window.monitor.note_updated.connect ((note_name) => {
+				external_event = true;
+				reload_note (window, note_name);
 				external_event = false;
 			});
 

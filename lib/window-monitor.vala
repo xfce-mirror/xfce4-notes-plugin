@@ -93,7 +93,6 @@ namespace Xnp {
 				switch (ev.event) {
 					case CHANGES_DONE_HINT:
 						this.note_updated (note_name);
-						window_updated_cb ();
 						break;
 
 					case DELETED:
