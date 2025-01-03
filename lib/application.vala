@@ -27,8 +27,8 @@ namespace Xnp {
 		public string notes_path { get; set construct; }
 		public string config_file { get; construct; }
 		public bool system_tray_mode = false;
+		public bool external_event = false;
 
-		private SList<Xnp.WindowMonitor> window_monitor_list;
 		private SList<Xnp.Window> window_list;
 		private SList<Xnp.Window> focus_order;
 		private Xfconf.Channel xfconf_channel;
@@ -350,7 +350,7 @@ namespace Xnp {
 			}
 
 			/* Window monitor */
-			window_monitor_list_add (window);
+			set_window_monitor (window);
 
 			/* Global settings */
 			Xfconf.property_bind (xfconf_channel, "/global/tabs-position",
@@ -374,21 +374,15 @@ namespace Xnp {
 				}
 				else if (action == "rename") {
 					rename_window (win);
-					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "delete") {
 					delete_window (win);
-					set_data_value (win, "internal-change", true);
 				}
 				else if (action == "create-new-window") {
 					var new_win = create_window ();
 					if (new_win == null)
 						return;
 					new_win.show ();
-					set_data_value (win, "internal-change", true);
-				}
-				else if (action == "refresh-notes") {
-					refresh_notes (win);
 				}
 				else if (action == "properties") {
 					open_settings_dialog ();
@@ -398,31 +392,30 @@ namespace Xnp {
 				}
 			});
 			window.save_data.connect ((win, note) => {
-				if (!get_data_value (win, "external-change")) {
-					set_data_value (win, "internal-change", true);
-					save_note (win, note);
-				}
+				win.monitor.internal_change ();
+				save_note (win, note);
 			});
 			window.note_inserted.connect ((win, note) => {
+				if (external_event) return;
 				Xfconf.property_bind (xfconf_channel, "/global/font-description",
 					typeof (string), note.text_view, "font");
 
-				string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
 				try {
 					note.backed = false;
-					GLib.FileUtils.set_contents (path, "", -1);
-					set_data_value (win, "internal-change", true);
+					win.monitor.internal_change ();
+					var file = File.new_build_filename (notes_path, win.name, note.name);
+					file.create (FileCreateFlags.NONE);
 					note.backed = true;
 				}
-				catch (FileError e) {
+				catch (GLib.Error e) {
 					win.popup_error (e.message);
 				}
 			});
 			window.note_deleted.connect ((win, note) => {
 				try {
-					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
-					File.new_for_path (path).delete ();
-					set_data_value (win, "internal-change", true);
+					var file = File.new_build_filename (notes_path, win.name, note.name);
+					win.monitor.internal_change ();
+					file.delete ();
 					note.backed = false;
 				}
 				catch (GLib.Error e) {
@@ -434,10 +427,9 @@ namespace Xnp {
 					return;
 				}
 				try {
-					string path = "%s/%s/%s".printf (notes_path, win.name, note.name);
-					var note_file = File.new_for_path (path);
-					note_file.set_display_name (name);
-					set_data_value (win, "internal-change", true);
+					var file = File.new_build_filename (notes_path, win.name, note.name);
+					win.monitor.internal_change ();
+					file.set_display_name (name);
 					note.name = name;
 				}
 				catch (GLib.Error e) {
@@ -464,14 +456,12 @@ namespace Xnp {
 			});
 			/* Handle exchange of tabs between windows */
 			window.note_moved.connect ((to_win, from_win, note) => {
-				string from_path = "%s/%s/%s".printf (notes_path, from_win.name, note.name);
-				string to_path = "%s/%s/%s".printf (notes_path, to_win.name, note.name);
-				var from_file = File.new_for_path (from_path);
-				var to_file = File.new_for_path (to_path);
 				try {
+					var from_file = File.new_build_filename (notes_path, from_win.name, note.name);
+					var to_file = File.new_build_filename (notes_path, to_win.name, note.name);
+					from_win.monitor.internal_change ();
+					to_win.monitor.internal_change ();
 					from_file.move (to_file, FileCopyFlags.NONE);
-					set_data_value (from_win, "internal-change", true);
-					set_data_value (to_win, "internal-change", true);
 					var tab_evbox = from_win.get_tab_evbox (note);
 					from_win.disconnect_note_signals (note, tab_evbox);
 					to_win.connect_note_signals (note, tab_evbox);
@@ -498,19 +488,7 @@ namespace Xnp {
 			try {
 				var dir = GLib.Dir.open (path, 0);
 				while ((name = dir.read_name ()) != null) {
-					try {
-						string contents;
-						var file = File.new_for_path ("%s/%s".printf (path, name));
-						GLib.FileUtils.get_contents (file.get_path (), out contents, null);
-						var note = window.insert_note (name);
-						note.text = contents;
-						Xfconf.property_bind (xfconf_channel, "/global/font-description",
-								typeof (string), note.text_view, "font");
-						note.backed = true;
-					}
-					catch (FileError e) {
-						warning ("%s", e.message);
-					}
+					load_note (window, name);
 				}
 			}
 			catch (FileError e) {
@@ -552,6 +530,66 @@ namespace Xnp {
 				}
 				window.show ();
 			}
+		}
+
+		/**
+		 * load_note:
+		 *
+		 * Load existing note to the window.
+		 */
+		private void load_note (Xnp.Window window, string note_name) {
+			try {
+				string contents;
+				var file = File.new_build_filename (notes_path, window.name, note_name);
+				if (Xnp.FileUtils.validate_text_file (file)) {
+					GLib.FileUtils.get_contents (file.get_path (), out contents, null);
+					var note = window.insert_note (note_name);
+					note.text = contents;
+					Xfconf.property_bind (xfconf_channel, "/global/font-description",
+							      typeof (string), note.text_view, "font");
+					note.backed = true;
+				}
+			}
+			catch (FileError e) {
+				warning ("%s", e.message);
+			}
+		}
+
+		/**
+		 * reload_note:
+		 *
+		 * Reload externally updated note.
+		 */
+		private void reload_note (Xnp.Window window, string note_name) {
+			var note = window.find_note_by_name (note_name);
+
+			/* This should never occur */
+			if (note == null) {
+				warning ("Note '%s' not found in '%s'", note_name, window.name);
+				return;
+			}
+
+			note.backed = false;
+
+			try {
+				string contents;
+				var file = File.new_build_filename (notes_path, window.name, note_name);
+				if (Xnp.FileUtils.validate_text_file (file)) {
+					GLib.FileUtils.get_contents (file.get_path (), out contents, null);
+					var adjustment = note.adjustment;
+					var cursor = note.cursor;
+					note.text = contents;
+					note.cursor = cursor;
+					note.adjustment = adjustment;
+					note.backed = true;
+				}
+			}
+			catch (FileError e) {
+				warning ("%s", e.message);
+			}
+
+			if (!note.backed)
+				window.externally_removed (note_name);
 		}
 
 		/**
@@ -608,7 +646,6 @@ namespace Xnp {
 		 */
 		public void save_notes () {
 			foreach (var win in this.window_list) {
-				set_data_value (win, "external-change", false);
 				win.save_notes ();
 			}
 		}
@@ -671,14 +708,12 @@ namespace Xnp {
 						return;
 					}
 					try {
-						string path = "%s/%s".printf (notes_path, window.name);
-						var group_dir = File.new_for_path (path);
+						var group_dir = File.new_build_filename (notes_path, window.name);
 						group_dir.set_display_name (name);
 						window.name = name;
 						this.window_list.sort ((GLib.CompareFunc)window.compare_func);
 
-						window_monitor_list_remove (window);
-						window_monitor_list_add (window);
+						set_window_monitor (window);
 					} catch (GLib.Error e) {
 						window.popup_error (e.message);
 					}
@@ -705,22 +740,45 @@ namespace Xnp {
 			}
 
 			string name;
-			string path = "%s/%s".printf (notes_path, window.name);
-			try {
-				var dir = GLib.Dir.open (path, 0);
-				while ((name = dir.read_name ()) != null) {
-					File.new_for_path ("%s/%s".printf (path, name)).delete ();
+			var path = File.new_build_filename (notes_path, window.name);
+			if (path.query_exists ()) {
+				try {
+					window.monitor.internal_change ();
+					var dir = GLib.Dir.open (path.get_path (), 0);
+					name = dir.read_name ();
+					if (window.n_pages == 0) {
+						/* From the user's point of view, it looks like the directory is empty.
+						   So we don't want to delete any files here, as this is not expected
+						   behavior. */
+						if (name == null) {
+							path.delete ();
+						} else {
+							name = window.name;
+							destroy_window (window);
+							var win = create_window (name);
+							if (win != null)
+								win.show ();
+							return;
+						}
+					} else {
+						/* The user clearly wants to delete a group of notes */
+						if (name != null) {
+							do {
+								path.get_child (name).delete ();
+							} while ((name = dir.read_name ()) != null);
+						}
+						path.delete ();
+					}
 				}
-				File.new_for_path (path).delete ();
-			}
-			catch (GLib.Error e) {
-				window.popup_error (e.message);
-				name = window.name;
-				destroy_window (window);
-				var win = create_window (name);
-				if (win != null)
-					win.show ();
-				return;
+				catch (GLib.Error e) {
+					window.popup_error (e.message);
+					name = window.name;
+					destroy_window (window);
+					var win = create_window (name);
+					if (win != null)
+						win.show ();
+					return;
+				}
 			}
 
 			if (this.window_list.length () < 2) {
@@ -746,43 +804,9 @@ namespace Xnp {
 		 * Destroy window and forget it exists.
 		 */
 		private void destroy_window (Xnp.Window window) {
-			window_monitor_list_remove (window);
 			this.window_list.remove (window);
 			this.focus_order.remove (window);
 			window.destroy ();
-		}
-
-		/**
-		 * refresh_notes:
-		 *
-		 * Prompt for reloading notes from disk.
-		 */
-		private void refresh_notes (Xnp.Window window) {
-			var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-				Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
-				_("The group \"%s\" has been modified on the disk"), window.name);
-			dialog.set_title (window.name);
-			dialog.set_icon_name ("org.xfce.notes");
-			dialog.format_secondary_text (_("Do you want to reload the group?"));
-			var res = dialog.run ();
-			window.dialog_destroy (dialog);
-
-			if (res == Gtk.ResponseType.YES) {
-				save_windows_configuration ();
-				// Delete existing window object
-				var name = window.name;
-				destroy_window (window);
-				// Create new window object
-				var win = create_window (name);
-				if (win != null)
-					win.show ();
-			}
-			else {
-				set_data_value (window, "external-change", false);
-				window.show_refresh_button = false;
-				window.save_notes ();
-
-			}
 		}
 
 		/**
@@ -794,81 +818,47 @@ namespace Xnp {
 			return window_list;
 		}
 
-		/*
-		 * Window monitor list management
+		/**
+		 * Window monitor management
 		 */
 
 		/**
-		 * window_monitor_list_add:
+		 * set_window_monitor:
 		 *
-		 * Creates an Xnp.WindowMonitor object and stores it inside window_monitor_list.
+		 * Creates an Xnp.WindowMonitor object and stores it inside window.
 		 */
-		private void window_monitor_list_add (Xnp.Window window) {
-			var file = File.new_for_path ("%s/%s".printf (notes_path, window.name));
-			var monitor = new Xnp.WindowMonitor (window, file);
+		private void set_window_monitor (Xnp.Window window) {
+			var path = File.new_build_filename (notes_path, window.name);
+			window.monitor = new Xnp.WindowMonitor (path);
 
-			monitor.window_updated.connect ((window) => {
-				if (get_data_value (window, "internal-change")) {
-					set_data_value (window, "internal-change", false);
-				}
-				else {
-					set_data_value (window, "external-change", true);
-					window.show_refresh_button = true;
-				}
+			window.monitor.note_deleted.connect ((note_name) => {
+				window.externally_removed (note_name);
 			});
 
-			this.window_monitor_list.prepend (monitor);
-		}
+			window.monitor.note_renamed.connect ((note_name, new_name) => {
+				window.rename_note (note_name, new_name);
+			});
 
-		/**
-		 * window_monitor_list_remove:
-		 *
-		 * Removes a monitor from window_monitor_list matching @window.
-		 */
-		private void window_monitor_list_remove (Xnp.Window window) {
-			var monitor = window_monitor_list_lookup (window);
-			if (monitor != null) {
-				this.window_monitor_list.remove (monitor);
-			}
-		}
+			window.monitor.note_created.connect ((note_name) => {
+				external_event = true;
+				load_note (window, note_name);
+				external_event = false;
+			});
 
-		/**
-		 * window_monitor_list_lookup:
-		 *
-		 * Returns the window_monitor object that contains @window from the window_monitor_list.
-		 */
-		private Xnp.WindowMonitor window_monitor_list_lookup (Xnp.Window window) {
-			Xnp.WindowMonitor window_monitor = null;
-			foreach (var monitor in this.window_monitor_list) {
-				if (monitor.window == window) {
-					window_monitor = monitor;
-					break;
-				}
-			}
-			return window_monitor;
+			window.monitor.note_updated.connect ((note_name) => {
+				external_event = true;
+				reload_note (window, note_name);
+				external_event = false;
+			});
+
+			window.monitor.note_exists.connect ((file) => {
+				return window.note_name_exists (file.get_basename ());
+			});
 		}
 
 		/*
 		 * Utility functions
 		 */
-
-		/**
-		 * get_data_value:
-		 *
-		 * Convenience function to return a GObject data boolean value.
-		 */
-		private bool get_data_value (GLib.Object object, string data) {
-			return object.get_data<bool> (data);
-		}
-
-		/**
-		 * set_data_value:
-		 *
-		 * Convenience function to set a GObject data boolean value.
-		 */
-		private void set_data_value (GLib.Object object, string data, bool val) {
-			object.set_data (data, ((int)val).to_pointer ());
-		}
 
 		/**
 		 * window_name_exists:
