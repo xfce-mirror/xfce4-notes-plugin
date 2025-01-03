@@ -24,7 +24,7 @@ namespace Xnp {
 
 		private GLib.FileMonitor monitor;
 		private uint src_events = 0;
-		private uint src_idle = 0;
+		private uint src_internal = 0;
 		private bool skip = false;
 
 		public signal void note_updated (string note_name);
@@ -63,8 +63,8 @@ namespace Xnp {
 		~WindowMonitor () {
 			if (src_events != 0)
 				Source.remove (src_events);
-			if (src_idle != 0)
-				Source.remove (src_idle);
+			if (src_internal != 0)
+				Source.remove (src_internal);
 		}
 
 		private void monitor_change_cb (File file, File? other_file, FileMonitorEvent event) {
@@ -115,14 +115,15 @@ namespace Xnp {
 
 		/* Temporarily disable monitoring while we make internal changes */
 		public void internal_change () {
-			if (skip == false) {
-				skip = true;
-				src_idle = Idle.add (() => {
-					skip = false;
-					src_idle = 0;
-					return Source.REMOVE;
-				});
-			}
+			if (src_internal != 0)
+				Source.remove (src_internal);
+
+			skip = true;
+			src_internal = Timeout.add (150, () => {
+				skip = false;
+				src_internal = 0;
+				return Source.REMOVE;
+			});
 		}
 
 		/*
