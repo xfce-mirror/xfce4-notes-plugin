@@ -54,12 +54,12 @@ static void menu_add_icon_item (Gtk.Menu menu, string text, string icon, Callbac
 	var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
 	mi.set_image (image);
 	mi.activate.connect (() => { callback (); });
-	menu.append (mi);
+	menu.insert (mi as Gtk.Widget, -1);
 }
 
 static void menu_add_separator (Gtk.Menu menu) {
 	var mi = new Gtk.SeparatorMenuItem ();
-	menu.append (mi);
+	menu.insert (mi as Gtk.Widget, -1);
 }
 
 static Gtk.Menu build_context_menu () {
@@ -68,7 +68,7 @@ static Gtk.Menu build_context_menu () {
 	var mi = new Gtk.MenuItem.with_mnemonic (_("_Groups"));
 	var menu_go = application.context_menu ();
 	mi.set_submenu (menu_go);
-	menu.append (mi);
+	menu.insert (mi as Gtk.Widget, -1);
 
 	menu_add_separator (menu);
 	menu_add_icon_item (menu, _("_Properties"), "gtk-properties", () => { application.open_settings_dialog (); });
