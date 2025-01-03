@@ -1098,7 +1098,7 @@ namespace Xnp {
 				int len = this.n_pages;
 				for (int i = 1; i <= len + 1; i++) {
 					note_name = _("Note %d").printf (i);
-					if (!note_name_exists (note_name)) {
+					if (!note_name_exists (note_name) && !note_file_exists (note_name)) {
 						break;
 					}
 				}
@@ -1328,6 +1328,16 @@ namespace Xnp {
 		 */
 		public bool note_name_exists (string name) {
 			return find_note_by_name (name) != null;
+		}
+
+		/**
+		 * note_file_exists:
+		 *
+		 * Verify if the file with given name exists in the notes directory.
+		 */
+		public bool note_file_exists (string file_name) {
+			var path = File.new_build_filename (app.notes_path, this.name, file_name).get_path ();
+			return FileUtils.path_exists (path);
 		}
 
 		/**
