@@ -23,7 +23,7 @@ namespace Xnp {
 	public class WindowMonitor : GLib.Object {
 
 		private GLib.FileMonitor monitor;
-		private uint src_events = 0;
+		private uint src_external = 0;
 		private uint src_internal = 0;
 		private bool skip = false;
 
@@ -61,8 +61,8 @@ namespace Xnp {
 		}
 
 		~WindowMonitor () {
-			if (src_events != 0)
-				Source.remove (src_events);
+			if (src_external != 0)
+				Source.remove (src_external);
 			if (src_internal != 0)
 				Source.remove (src_internal);
 		}
@@ -72,14 +72,14 @@ namespace Xnp {
 
 			events += FileEvent(file, other_file, event);
 
-			if (src_events != 0) {
-				Source.remove (src_events);
+			if (src_external != 0) {
+				Source.remove (src_external);
 			}
 
-			src_events = Timeout.add (150, () => {
+			src_external = Timeout.add (150, () => {
 				optimize_events ();
 				process_events ();
-				src_events = 0;
+				src_external = 0;
 				this.events = new FileEvent[0];
 				return Source.REMOVE;
 			});
