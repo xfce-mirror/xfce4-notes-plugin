@@ -753,11 +753,6 @@ namespace Xnp {
 						if (name == null) {
 							path.delete ();
 						} else {
-							name = window.name;
-							destroy_window (window);
-							var win = create_window (name);
-							if (win != null)
-								win.show ();
 							return;
 						}
 					} else {
