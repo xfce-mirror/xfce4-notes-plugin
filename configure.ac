@@ -8,7 +8,7 @@ dnl
 
 XDT_VERSION_INIT([1.11.1], [git])
 
-AC_COPYRIGHT([Copyright (c) 2003-2024 The Xfce development team. All rights reserved.])
+AC_COPYRIGHT([Copyright (c) 2003-2025 The Xfce development team. All rights reserved.])
 AC_PREREQ([2.69])
 AC_INIT([Notes], [xdt_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
 	[https://docs.xfce.org/panel-plugins/xfce4-notes-plugin])
