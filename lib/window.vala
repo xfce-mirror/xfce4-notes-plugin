@@ -24,6 +24,8 @@ namespace Xnp {
 
 	public class Window : Gtk.Window {
 
+		public Xnp.WindowMonitor monitor;
+
 		private Xnp.Application app;
 		private int width;
 		private int height;
@@ -32,7 +34,6 @@ namespace Xnp {
 		private Gtk.CheckMenuItem mi_sticky;
 		private Gtk.Image menu_image;
 		private Gtk.Label title_label;
-		private Xnp.TitleBarButton refresh_button;
 		private Xnp.TitleBarButton left_arrow_button;
 		private Xnp.TitleBarButton right_arrow_button;
 		private Xnp.TitleBarButton close_button;
@@ -108,6 +109,13 @@ namespace Xnp {
 			}
 			set {
 				this.notebook.show_tabs = value;
+				if (this.notebook.show_tabs) {
+					this.left_arrow_button.hide ();
+					this.right_arrow_button.hide ();
+				} else {
+					this.left_arrow_button.show ();
+					this.right_arrow_button.show ();
+				}
 			}
 		}
 
@@ -166,28 +174,28 @@ namespace Xnp {
 			}
 		}
 
-		private bool _show_refresh_button;
-		public bool show_refresh_button {
-			get {
-				return this._show_refresh_button;
-			}
-			set {
-				this._show_refresh_button = value;
-				if (value == true) {
-					this.refresh_button.show ();
-				}
-				else {
-					this.refresh_button.hide ();
-				}
-			}
-		}
-
 		public signal void action (string action);
 		public signal void save_data (Xnp.Note note);
 		public signal void note_inserted (Xnp.Note note);
 		public signal void note_deleted (Xnp.Note note);
 		public signal void note_renamed (Xnp.Note note, string name);
 		public signal bool note_moved (Xnp.Window src_win, Xnp.Note note);
+
+		[Signal (action = true)]
+		public signal void action_cycle_forward () {
+			if (notebook.page == this.n_pages - 1)
+				notebook.page = 0;
+			else
+				notebook.next_page ();
+		}
+
+		[Signal (action = true)]
+		public signal void action_cycle_backward () {
+			if (notebook.page == 0)
+				notebook.page = n_pages - 1;
+			else
+				notebook.prev_page ();
+		}
 
 		construct {
 			((Gtk.Widget)this).name = "notes-window";
@@ -200,6 +208,17 @@ namespace Xnp {
 			this.icon_name = "org.xfce.notes";
 			this.sticky = true;
 			this.opacity = 0.9;
+		}
+
+		private static bool tab_hotkeys_bound = false;
+
+		private void remove_tab_bindings (Type t) {
+			ObjectClass klass = (ObjectClass) t.class_ref ();
+			BindingEntry.remove (Gtk.BindingSet.by_class (klass),
+					     Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK);
+			BindingEntry.remove (Gtk.BindingSet.by_class (klass),
+					     Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK
+						 | Gdk.ModifierType.SHIFT_MASK);
 		}
 
 		public Window (Xnp.Application app) {
@@ -217,6 +236,19 @@ namespace Xnp {
 			try {
 				this.ui.add_ui_from_string (ui_string , -1);
 				add_accel_group (this.ui.get_accel_group ());
+				/* Bind Ctrl-Tab and Ctrl-Shift-Tab to cycle through notes */
+				if (!tab_hotkeys_bound) {
+					remove_tab_bindings (typeof (Gtk.TextView));
+					remove_tab_bindings (typeof (Gtk.Notebook));
+					remove_tab_bindings (typeof (Gtk.ScrolledWindow));
+					BindingEntry.add_signal (Gtk.BindingSet.by_class (this.get_class()),
+								 Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK,
+								 "action-cycle-forward", 0);
+					BindingEntry.add_signal (Gtk.BindingSet.by_class (this.get_class()),
+								 Gdk.Key.Tab, Gdk.ModifierType.CONTROL_MASK
+								 | Gdk.ModifierType.SHIFT_MASK, "action-cycle-backward", 0);
+					tab_hotkeys_bound = true;
+				}
 			}
 			catch (Error e) {
 				warning ("%s", e.message);
@@ -269,11 +301,6 @@ namespace Xnp {
 			this.title_label.xalign = (float)0.0;
 			title_evbox.add (this.title_label);
 			title_box.pack_start (title_evbox, true, true, 6);
-			this.refresh_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.REFRESH);
-			this.refresh_button.tooltip_text = _("Refresh notes");
-			this.refresh_button.no_show_all = true;
-			this.refresh_button.sensitive = false;
-			title_box.pack_start (this.refresh_button, false, false, 2);
 			this.left_arrow_button = new Xnp.TitleBarButton (Xnp.TitleBarButtonType.LEFT_ARROW);
 			this.left_arrow_button.add_events (Gdk.EventMask.SCROLL_MASK);
 			this.left_arrow_button.tooltip_text = Gtk.accelerator_get_label (Gdk.Key.Page_Up, Gdk.ModifierType.CONTROL_MASK);
@@ -309,7 +336,6 @@ namespace Xnp {
 
 			/* Connect mouse click signals */
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
-			this.refresh_button.clicked.connect (action_refresh_notes);
 			this.left_arrow_button.clicked.connect (action_prev_note);
 			this.right_arrow_button.clicked.connect (action_next_note);
 			this.close_button.clicked.connect (() => { hide (); });
@@ -323,12 +349,10 @@ namespace Xnp {
 			this.notify["is-active"].connect (() => {
 				if (this.is_active) {
 					menu_image.sensitive = true;
-					refresh_button.sensitive = true;
 					close_button.sensitive = true;
 					update_navigation_sensitivity (this.notebook.page);
 				} else {
 					menu_image.sensitive = false;
-					refresh_button.sensitive = false;
 					left_arrow_button.enabled = false;
 					right_arrow_button.enabled = false;
 					close_button.sensitive = false;
@@ -344,6 +368,7 @@ namespace Xnp {
 			left_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			right_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			this.notebook.page_added.connect ((n, c, p) => {
+				if (app.external_event) return;
 				notebook.page = (int)p;
 				update_navigation_sensitivity ((int)p);
 			});
@@ -711,10 +736,6 @@ namespace Xnp {
 				current_note.text_view.redo ();
 		}
 
-		private void action_refresh_notes () {
-			action ("refresh-notes");
-		}
-
 		private void action_next_note () {
 			notebook.next_page ();
 		}
@@ -1048,10 +1069,27 @@ namespace Xnp {
 		}
 
 		/**
+		 * rename_note:
+		 *
+		 * Rename note.
+		 */
+		public void rename_note (string note_name, string new_name) {
+			int n_pages = this.n_pages;
+			for (int p = 0; p < n_pages; p++) {
+				var note = get_note (p);
+				if (note.name == note_name) {
+					note.name = new_name;
+					break;
+				}
+			}
+		}
+
+		/**
 		 * insert_note:
 		 *
 		 * Create a new note and insert it inside the notebook after
-		 * the current position.
+		 * the current position or after the last note in case of
+		 * external event.
 		 */
 		public Xnp.Note insert_note (string? name = null) {
 			string note_name = "";
@@ -1060,7 +1098,7 @@ namespace Xnp {
 				int len = this.n_pages;
 				for (int i = 1; i <= len + 1; i++) {
 					note_name = _("Note %d").printf (i);
-					if (!note_name_exists (note_name)) {
+					if (!note_name_exists (note_name) && !note_file_exists (note_name)) {
 						break;
 					}
 				}
@@ -1081,7 +1119,8 @@ namespace Xnp {
 			tab_evbox.add (label);
 			label.show ();
 			connect_note_signals (note, tab_evbox);
-			this.notebook.insert_page (note, tab_evbox, this.notebook.page + 1);
+			var pos = app.external_event ? this.n_pages : this.notebook.page + 1;
+			this.notebook.insert_page (note, tab_evbox, pos);
 			this.notebook.set_tab_reorderable (note, true);
 			this.notebook.set_tab_detachable (note, true);
 			_notebook_update_tabs_angle ();
@@ -1196,6 +1235,32 @@ namespace Xnp {
 		}
 
 		/**
+		 * externally_removed:
+		 *
+		 * Handle external file deletion event
+		 */
+		public void externally_removed (string note_name) {
+			int n_pages = this.n_pages;
+			for (int p = 0; p < n_pages; p++) {
+				var note = get_note (p);
+				if (note.name == note_name) {
+					bool current_page = this.notebook.page == p;
+
+					this.notebook.remove_page (p);
+					note.destroy ();
+
+					if (current_page && this.notebook.page > 0 && p != this.n_pages)
+						this.notebook.page--;
+
+					if (this.n_pages == 0)
+						action ("delete");
+
+					break;
+				}
+			}
+		}
+
+		/**
 		 * rename_current_note:
 		 *
 		 * Rename the current note.
@@ -1241,18 +1306,38 @@ namespace Xnp {
 		}
 
 		/**
+		  * find_note_by_name:
+		  *
+		  * Return note with given name or null not found.
+		  */
+		public Xnp.Note? find_note_by_name (string name) {
+			int n_pages = this.n_pages;
+			for (int p = 0; p < n_pages; p++) {
+				var note = get_note (p);
+				if (note.name == name) {
+					return note;
+				}
+			}
+			return null;
+		}
+
+		/**
 		 * note_name_exists:
 		 *
 		 * Verify if the given name already exists in the notebook.
 		 */
-		private bool note_name_exists (string name) {
-			int n_pages = this.n_pages;
-			for (int p = 0; p < n_pages; p++) {
-				if (get_note (p).name == name) {
-					return true;
-				}
-			}
-			return false;
+		public bool note_name_exists (string name) {
+			return find_note_by_name (name) != null;
+		}
+
+		/**
+		 * note_file_exists:
+		 *
+		 * Verify if the file with given name exists in the notes directory.
+		 */
+		public bool note_file_exists (string file_name) {
+			var path = File.new_build_filename (app.notes_path, this.name, file_name).get_path ();
+			return FileUtils.path_exists (path);
 		}
 
 		/**
