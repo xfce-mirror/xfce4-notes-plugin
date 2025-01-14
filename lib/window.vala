@@ -368,9 +368,9 @@ namespace Xnp {
 			left_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			right_arrow_button.scroll_event.connect (notebook_tab_scroll_cb);
 			this.notebook.page_added.connect ((n, c, p) => {
-				if (app.external_event) return;
-				notebook.page = (int)p;
-				update_navigation_sensitivity ((int)p);
+				if (! app.external_event)
+					notebook.page = (int)p;
+				update_navigation_sensitivity (notebook.page);
 			});
 			this.notebook.page_removed.connect ((n, c, p) => {
 				update_navigation_sensitivity ((int)p);
