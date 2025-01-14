@@ -37,7 +37,6 @@ DISTCLEANFILES =							\
 	config.h.in							\
 	config.sub							\
 	configure							\
-	configure.ac							\
 	depcomp								\
 	install-sh							\
 	ltmain.sh							\
