@@ -53,6 +53,10 @@ namespace Xnp {
   <accelerator action="rename-note" />
   <accelerator action="undo" />
   <accelerator action="redo" />
+  <accelerator action="bold" />
+  <accelerator action="italic" />
+  <accelerator action="strikethrough" />
+  <accelerator action="underline" />
   <accelerator action="next-note" />
   <accelerator action="prev-note" />
 </ui>
@@ -68,6 +72,10 @@ namespace Xnp {
 			{ "rename-note",   null, null, "F2", null, action_rename_note },
 			{ "undo",          null, null, "<Ctrl>z", null, action_undo },
 			{ "redo",          null, null, "<Ctrl>y", null, action_redo },
+			{ "bold",          null, null, "<Ctrl>b", null, action_bold },
+			{ "italic",        null, null, "<Ctrl>i", null, action_italic },
+			{ "strikethrough", null, null, "<Ctrl>s", null, action_strikethrough },
+			{ "underline",     null, null, "<Ctrl>u", null, action_underline },
 			{ "next-note",     null, null, "<Ctrl>Page_Down", null, action_next_note },
 			{ "prev-note",     null, null, "<Ctrl>Page_Up", null, action_prev_note }
 		};
@@ -734,6 +742,30 @@ namespace Xnp {
 			var current_note = this.current_note;
 			if (current_note != null)
 				current_note.text_view.redo ();
+		}
+
+		private void action_bold () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.toggle_tag ("b");
+		}
+
+		private void action_italic () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.toggle_tag ("i");
+		}
+
+		private void action_strikethrough () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.toggle_tag ("s");
+		}
+
+		private void action_underline () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.toggle_tag ("u");
 		}
 
 		private void action_next_note () {

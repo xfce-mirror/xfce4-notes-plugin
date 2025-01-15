@@ -31,6 +31,11 @@ namespace Xnp {
 
 		private bool cursor_over_link = false;
 
+		private Gtk.TextTag tag_bold;
+		private Gtk.TextTag tag_italic;
+		private Gtk.TextTag tag_strikethrough;
+		private Gtk.TextTag tag_underline;
+
 		private Gtk.TextTag tag_link;
 		private Regex regex_link;
 
@@ -45,6 +50,9 @@ namespace Xnp {
 				override_font (font_descr);
 			}
 		}
+
+		/* We use Unicode zero-width space for tags marking */
+		private string tag_char = ((unichar)0x200b).to_string ();
 
 		construct {
 			this.font = "Sans 13";
@@ -68,6 +76,22 @@ namespace Xnp {
 
 			var source_buffer = this.buffer as Gtk.SourceBuffer;
 			source_buffer.highlight_matching_brackets = false;
+
+			this.tag_bold = this.buffer.create_tag ("b",
+					"weight", Pango.Weight.BOLD,
+					null);
+
+			this.tag_italic = this.buffer.create_tag ("i",
+					"style", Pango.Style.ITALIC,
+					null);
+
+			this.tag_strikethrough = this.buffer.create_tag ("s",
+					"strikethrough", true,
+					null);
+
+			this.tag_underline = this.buffer.create_tag ("u",
+					"underline", Pango.Underline.SINGLE,
+					null);
 
 			this.tag_link = this.buffer.create_tag ("link",
 					"foreground", "blue",
@@ -235,6 +259,104 @@ namespace Xnp {
 		/*
 		 * Tags
 		 */
+
+		/**
+		 * toggle_tag:
+		 *
+		 * Toggle appropriate tag on the selected text.
+		 */
+		public void toggle_tag (string tag_name) {
+			var tag = this.buffer.get_tag_table ().lookup (tag_name);
+			if (tag == null) {
+				warning ("Tag not found: %s", tag_name);
+				return;
+			}
+			Gtk.TextIter start, end;
+			this.buffer.get_selection_bounds (out start, out end);
+			if (start.has_tag (tag)) {
+				this.buffer.remove_tag (tag, start, end);
+			} else {
+				this.buffer.apply_tag (tag, start, end);
+			}
+			this.buffer.changed ();
+		}
+
+		/**
+		 * get_text_with_tags:
+		 *
+		 * Get text from buffer with tags embedded.
+		 */
+		public string get_text_with_tags () {
+			string text = "";
+			Gtk.TextIter start, prev;
+			this.buffer.get_start_iter (out start);
+			prev = start;
+
+			while (true) {
+				text += this.buffer.get_text (prev, start, true);
+
+				var tags = start.get_toggled_tags (false);
+				tags.foreach ((tag) => {
+					if (tag != tag_link && tag.name != null) {
+						text += "%s</%s>%s".printf (tag_char, tag.name, tag_char);
+					}
+				});
+
+				tags = start.get_toggled_tags (true);
+				tags.foreach ((tag) => {
+					if (tag != tag_link && tag.name != null) {
+						text += "%s<%s>%s".printf (tag_char, tag.name, tag_char);
+					}
+				});
+
+				if (start.is_end ())
+					break;
+
+				prev = start;
+				start.forward_to_tag_toggle (null);
+			}
+
+			return text;
+		}
+
+		/**
+		 * set_text_with_tags:
+		 *
+		 * Load text to buffer and apply tags.
+		 */
+		public void set_text_with_tags (string text) {
+			Gtk.TextIter start, end;
+			List<string> tags = null;
+			this.buffer.text = "";
+			this.buffer.get_bounds (out start, out end);
+			var tokens = text.split (tag_char);
+
+			for (int i = 0; tokens[i] != null; i++) {
+				if (i % 2 == 0) {
+					// Text
+					var offset = end.get_offset ();
+					this.buffer.insert (ref end, tokens[i], -1);
+					this.buffer.get_iter_at_offset (out start, offset);
+					tags.foreach ((tag) => {
+						this.buffer.apply_tag_by_name (tag, start, end);
+					});
+				} else {
+					// Tag
+					if (tokens[i][1] != '/') {
+						tokens[i].data[tokens[i].length - 1] = 0;
+						string *tag = tokens[i];
+						tags.prepend (tag + 1);
+					} else {
+						tokens[i].data[tokens[i].length - 1] = 0;
+						string *tag = tokens[i];
+						unowned var element = tags.find_custom (tag + 2, strcmp);
+						if (element != null) {
+							tags.delete_link (element);
+						}
+					}
+				}
+			}
+		}
 
 		/**
 		 * update_tags:
