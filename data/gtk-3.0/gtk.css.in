@@ -23,6 +23,7 @@
 
 * {
 	border-width: 0px;
+	-GtkWidget-cursor-aspect-ratio: 0.08;
 }
 
 /* window and frame */
