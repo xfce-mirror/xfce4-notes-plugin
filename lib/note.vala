@@ -31,12 +31,12 @@ namespace Xnp {
 
 		public string text {
 			owned get {
-				return this.text_view.buffer.text;
+				return this.text_view.get_text_with_tags ();
 			}
 			set {
 				var buffer = this.text_view.buffer as Gtk.SourceBuffer;
 				buffer.begin_not_undoable_action ();
-				this.text_view.buffer.text = value;
+				this.text_view.set_text_with_tags (value);
 				this.text_view.update_tags ();
 				buffer.end_not_undoable_action ();
 				this.dirty = false;
