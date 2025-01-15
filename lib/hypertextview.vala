@@ -273,6 +273,15 @@ namespace Xnp {
 			}
 			Gtk.TextIter start, end;
 			this.buffer.get_selection_bounds (out start, out end);
+			if (! this.buffer.has_selection) {
+				// No selection - try to toggle tag on the whole line
+				start.set_line_offset (0);
+				if (! end.ends_line ())
+					end.forward_to_line_end ();
+				if (start == end)
+					// Empty string
+					return;
+			}
 			if (start.has_tag (tag)) {
 				this.buffer.remove_tag (tag, start, end);
 			} else {
