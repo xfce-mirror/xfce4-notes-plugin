@@ -296,18 +296,24 @@ namespace Xnp {
 				text += this.buffer.get_text (prev, start, true);
 
 				var tags = start.get_toggled_tags (false);
+				var tags_text = "";
+
 				tags.foreach ((tag) => {
 					if (tag != tag_link && tag.name != null) {
-						text += "%s</%s>%s".printf (tag_char, tag.name, tag_char);
+						tags_text += "</%s>".printf (tag.name);
 					}
 				});
 
 				tags = start.get_toggled_tags (true);
 				tags.foreach ((tag) => {
 					if (tag != tag_link && tag.name != null) {
-						text += "%s<%s>%s".printf (tag_char, tag.name, tag_char);
+						tags_text += "<%s>".printf (tag.name);
 					}
 				});
+
+				if (tags_text.length > 0) {
+					text += "%s%s%s".printf (tag_char, tags_text, tag_char);
+				}
 
 				if (start.is_end ())
 					break;
@@ -341,17 +347,18 @@ namespace Xnp {
 						this.buffer.apply_tag_by_name (tag, start, end);
 					});
 				} else {
-					// Tag
-					if (tokens[i][1] != '/') {
-						tokens[i].data[tokens[i].length - 1] = 0;
-						string *tag = tokens[i];
-						tags.prepend (tag + 1);
-					} else {
-						tokens[i].data[tokens[i].length - 1] = 0;
-						string *tag = tokens[i];
-						unowned var element = tags.find_custom (tag + 2, strcmp);
-						if (element != null) {
-							tags.delete_link (element);
+					// Tags
+					var tags_tokens = tokens[i].split_set ("<>");
+					for (int j = 0; tags_tokens[j] != null; j++) {
+						if (tags_tokens[j][0] == 0)
+							continue;
+						if (tags_tokens[j][0] != '/') {
+							tags.prepend (tags_tokens[j]);
+						} else {
+							string *tag = tags_tokens[j];
+							unowned var element = tags.find_custom (tag + 1, strcmp);
+							if (element != null)
+								tags.delete_link (element);
 						}
 					}
 				}
