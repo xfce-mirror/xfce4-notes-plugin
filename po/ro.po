@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-12-24 00:53+0100\n"
+"POT-Creation-Date: 2025-01-15 00:52+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024\n"
 "Language-Team: Romanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/ro/)\n"
@@ -21,14 +21,14 @@ msgstr ""
 
 #: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
 #: src/xfce4-notes.desktop.in:5 lib/application.vala:313
-#: lib/application.vala:1017 lib/window.vala:84 lib/window.vala:194
+#: lib/application.vala:1002 lib/window.vala:85 lib/window.vala:202
 #: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
 #: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Notițe"
 
 #: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
-#: src/xfce4-notes.desktop.in:6 lib/application.vala:1019
+#: src/xfce4-notes.desktop.in:6 lib/application.vala:1004
 msgid "Ideal for your quick notes"
 msgstr "Ideal pentru notițe rapide"
 
@@ -48,8 +48,8 @@ msgstr "Nu s-a putut selecta directorul pentru ruta noilor notițe: %s"
 msgid "Notes path is unacceptable"
 msgstr "Ruta notițelor este inacceptabilă"
 
-#: lib/application.vala:237 lib/application.vala:899 lib/application.vala:997
-#: lib/window.vala:1232
+#: lib/application.vala:237 lib/application.vala:884 lib/application.vala:982
+#: lib/window.vala:1297
 msgid "Error"
 msgstr "Eroare"
 
@@ -58,115 +58,102 @@ msgstr "Eroare"
 msgid "Notes %d"
 msgstr "Notițe %d"
 
-#: lib/application.vala:338 lib/window.vala:1062
+#: lib/application.vala:338 lib/window.vala:1100
 #, c-format
 msgid "Note %d"
 msgstr "Notița %d"
 
-#: lib/application.vala:647
+#: lib/application.vala:684
 msgid "Rename group"
 msgstr "Redenumire grup"
 
-#: lib/application.vala:667 lib/window.vala:1230
+#: lib/application.vala:704 lib/window.vala:1295
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Numele %s este deja folosit"
 
-#: lib/application.vala:698
+#: lib/application.vala:733
 msgid "Are you sure you want to delete this group?"
 msgstr "Sigur doriți să ștergeți acest grup?"
 
-#: lib/application.vala:763
-#, c-format
-msgid "The group \"%s\" has been modified on the disk"
-msgstr "Grupul „%s” a fost modificat pe disc"
-
-#: lib/application.vala:766
-msgid "Do you want to reload the group?"
-msgstr "Doriți să reîncărcați grupul?"
-
-#: lib/application.vala:896
+#: lib/application.vala:881
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "Numele „%s” nu este valid."
 
-#: lib/application.vala:897
+#: lib/application.vala:882
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Caracterele nevalide sunt: %s"
 
-#: lib/application.vala:994
+#: lib/application.vala:979
 msgid "Unable to open the settings dialog"
 msgstr "Nu s-a putut deschide dialogul cu opțiuni"
 
-#: lib/application.vala:1026
+#: lib/application.vala:1011
 msgid "translator-credits"
 msgstr "Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024."
 
-#: lib/application.vala:1061 lib/window.vala:894
+#: lib/application.vala:1046 lib/window.vala:915
 msgid "_Add a new group"
 msgstr "_Adăugare grup nou"
 
-#: lib/window.vala:248
+#: lib/window.vala:280
 msgid "Menu"
 msgstr "Meniu"
 
-#: lib/window.vala:273
-msgid "Refresh notes"
-msgstr "Reîmprospătare notițe"
-
-#: lib/window.vala:288
+#: lib/window.vala:315
 #, c-format
 msgid "Hide (%s)"
 msgstr "Ascunde (%s)"
 
-#: lib/window.vala:812 src/main-panel-plugin.vala:50
+#: lib/window.vala:833 src/main-panel-plugin.vala:50
 #: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Grupuri:"
 
-#: lib/window.vala:823
+#: lib/window.vala:844
 msgid "_New"
 msgstr "_Nouă"
 
-#: lib/window.vala:824
+#: lib/window.vala:845
 msgid "_Delete"
 msgstr "Șt_erge"
 
-#: lib/window.vala:825
+#: lib/window.vala:846
 msgid "_Rename"
 msgstr "_Redenumire"
 
 #. Always on top
-#: lib/window.vala:829 src/main-settings-dialog.c:186
+#: lib/window.vala:850 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Tot timpul deasupra"
 
-#: lib/window.vala:830
+#: lib/window.vala:851
 msgid "Sticky window"
 msgstr "Fereastră lipicioasă"
 
-#: lib/window.vala:834 src/main-status-icon.vala:74
+#: lib/window.vala:855 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Proprietăți"
 
-#: lib/window.vala:835 src/main-status-icon.vala:75
+#: lib/window.vala:856 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_Despre"
 
-#: lib/window.vala:892
+#: lib/window.vala:913
 msgid "_Rename group"
 msgstr "_Redenumire grup"
 
-#: lib/window.vala:893
+#: lib/window.vala:914
 msgid "_Delete group"
 msgstr "Șt_ergere grup"
 
-#: lib/window.vala:1175
+#: lib/window.vala:1214
 msgid "Are you sure you want to delete this note?"
 msgstr "Sigur doriți să ștergeți notița?"
 
-#: lib/window.vala:1208
+#: lib/window.vala:1273
 msgid "Rename note"
 msgstr "Redenumire notă"
 
