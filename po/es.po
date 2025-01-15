@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-12-24 00:53+0100\n"
+"POT-Creation-Date: 2025-01-15 00:52+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
 "Last-Translator: Ignacio Poggi <ignaciop.3@gmail.com>, 2020,2024\n"
 "Language-Team: Spanish (http://app.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
@@ -27,14 +27,14 @@ msgstr ""
 
 #: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
 #: src/xfce4-notes.desktop.in:5 lib/application.vala:313
-#: lib/application.vala:1017 lib/window.vala:84 lib/window.vala:194
+#: lib/application.vala:1002 lib/window.vala:85 lib/window.vala:202
 #: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
 #: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
 msgstr "Notas"
 
 #: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
-#: src/xfce4-notes.desktop.in:6 lib/application.vala:1019
+#: src/xfce4-notes.desktop.in:6 lib/application.vala:1004
 msgid "Ideal for your quick notes"
 msgstr "Ideal para sus notas rápidas"
 
@@ -54,8 +54,8 @@ msgstr "No se puede seleccionar una carpeta para las notas nuevas: %s"
 msgid "Notes path is unacceptable"
 msgstr "La ruta de las notas es inaceptable"
 
-#: lib/application.vala:237 lib/application.vala:899 lib/application.vala:997
-#: lib/window.vala:1232
+#: lib/application.vala:237 lib/application.vala:884 lib/application.vala:982
+#: lib/window.vala:1297
 msgid "Error"
 msgstr "Error"
 
@@ -64,115 +64,102 @@ msgstr "Error"
 msgid "Notes %d"
 msgstr "Notas %d"
 
-#: lib/application.vala:338 lib/window.vala:1062
+#: lib/application.vala:338 lib/window.vala:1100
 #, c-format
 msgid "Note %d"
 msgstr "Nota %d"
 
-#: lib/application.vala:647
+#: lib/application.vala:684
 msgid "Rename group"
 msgstr "Renombrar el bloc"
 
-#: lib/application.vala:667 lib/window.vala:1230
+#: lib/application.vala:704 lib/window.vala:1295
 #, c-format
 msgid "The name %s is already in use"
 msgstr "El nombre %s ya está en uso"
 
-#: lib/application.vala:698
+#: lib/application.vala:733
 msgid "Are you sure you want to delete this group?"
 msgstr "¿Seguro que quiere eliminar este bloc?"
 
-#: lib/application.vala:763
-#, c-format
-msgid "The group \"%s\" has been modified on the disk"
-msgstr "Se ha modificado el bloc «%s» en el disco"
-
-#: lib/application.vala:766
-msgid "Do you want to reload the group?"
-msgstr "¿Quiere recargar el bloc?"
-
-#: lib/application.vala:896
+#: lib/application.vala:881
 #, c-format
 msgid "The name \"%s\" is invalid."
 msgstr "El nombre «%s» no es válido"
 
-#: lib/application.vala:897
+#: lib/application.vala:882
 #, c-format
 msgid "The invalid characters are: %s"
 msgstr "Los caracteres no válidos son: %s"
 
-#: lib/application.vala:994
+#: lib/application.vala:979
 msgid "Unable to open the settings dialog"
 msgstr "No se puede abrir el diálogo de configuración"
 
-#: lib/application.vala:1026
+#: lib/application.vala:1011
 msgid "translator-credits"
 msgstr "Toni Estevez <toni.estevez@gmail.com>, 2021\nPablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2014-2015\nAdolfo Jayme Barrientos, 2014\nAbel Martín <abel.martin.ruiz@gmail.com>, 2008\nElega <elega@elega.com.ar>, 2008"
 
-#: lib/application.vala:1061 lib/window.vala:894
+#: lib/application.vala:1046 lib/window.vala:915
 msgid "_Add a new group"
 msgstr "_Añadir un bloc nuevo"
 
-#: lib/window.vala:248
+#: lib/window.vala:280
 msgid "Menu"
 msgstr "Menú"
 
-#: lib/window.vala:273
-msgid "Refresh notes"
-msgstr "Recargar las notas"
-
-#: lib/window.vala:288
+#: lib/window.vala:315
 #, c-format
 msgid "Hide (%s)"
 msgstr "Ocultar (%s)"
 
-#: lib/window.vala:812 src/main-panel-plugin.vala:50
+#: lib/window.vala:833 src/main-panel-plugin.vala:50
 #: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Blocs de notas"
 
-#: lib/window.vala:823
+#: lib/window.vala:844
 msgid "_New"
 msgstr "_Nota nueva"
 
-#: lib/window.vala:824
+#: lib/window.vala:845
 msgid "_Delete"
 msgstr "_Eliminar"
 
-#: lib/window.vala:825
+#: lib/window.vala:846
 msgid "_Rename"
 msgstr "_Renombrar"
 
 #. Always on top
-#: lib/window.vala:829 src/main-settings-dialog.c:186
+#: lib/window.vala:850 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Siempre encima"
 
-#: lib/window.vala:830
+#: lib/window.vala:851
 msgid "Sticky window"
 msgstr "Ventana adhesiva"
 
-#: lib/window.vala:834 src/main-status-icon.vala:74
+#: lib/window.vala:855 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: lib/window.vala:835 src/main-status-icon.vala:75
+#: lib/window.vala:856 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "Acerca _de"
 
-#: lib/window.vala:892
+#: lib/window.vala:913
 msgid "_Rename group"
 msgstr "_Renombrar el bloc"
 
-#: lib/window.vala:893
+#: lib/window.vala:914
 msgid "_Delete group"
 msgstr "_Eliminar el bloc"
 
-#: lib/window.vala:1175
+#: lib/window.vala:1214
 msgid "Are you sure you want to delete this note?"
 msgstr "¿Seguro que quiere eliminar esta nota?"
 
-#: lib/window.vala:1208
+#: lib/window.vala:1273
 msgid "Rename note"
 msgstr "Renombrar la nota"
 
