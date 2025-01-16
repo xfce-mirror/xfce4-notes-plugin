@@ -68,6 +68,7 @@ namespace Xnp {
 
 		public HypertextView () {
 			this.style_updated.connect (style_updated_cb);
+			this.populate_popup.connect (populate_popup_cb);
 			this.button_release_event.connect (button_release_event_cb);
 			this.motion_notify_event.connect_after (motion_notify_event_cb);
 			this.state_flags_changed.connect (state_flags_changed_cb);
@@ -183,6 +184,26 @@ namespace Xnp {
 			}
 
 			return false;
+		}
+
+		private void menu_add_text_formatting (Gtk.Menu menu, string text, string tag_name) {
+			var mi = new Gtk.MenuItem.with_label ("");
+			var label = mi.get_child () as Gtk.Label;
+			label.set_markup ("<%s>%s</%s>".printf (tag_name, text, tag_name));
+			menu.insert (mi as Gtk.Widget, -1);
+			mi.activate.connect (() => { toggle_tag (tag_name); });
+		}
+
+		private void populate_popup_cb (Gtk.Menu popup_menu) {
+			var mi = new SeparatorMenuItem () as Gtk.Widget;
+			popup_menu.insert (mi, -1);
+
+			menu_add_text_formatting (popup_menu, _("Strikethrough"), "s");
+			menu_add_text_formatting (popup_menu, _("Underline"),     "u");
+			menu_add_text_formatting (popup_menu, _("Italic"),        "i");
+			menu_add_text_formatting (popup_menu, _("Bold"),          "b");
+
+			popup_menu.show_all ();
 		}
 
 		/**
