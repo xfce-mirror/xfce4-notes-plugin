@@ -211,7 +211,7 @@ namespace Xnp {
 			try {
 				var dir = Dir.open (new_notes_path, 0);
 				if (dir.read_name () != null) {
-					notes_path_error (_("The selected directory (%s) for the new notes path already contains files. "
+					notes_path_error (_("The selected directory (%s) already contains files. "
 							    + "You must select or create an empty directory.").printf (new_notes_path));
 					return;
 				}
