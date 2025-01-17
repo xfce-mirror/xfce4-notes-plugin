@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the xfce-panel-plugins.xfce4-notes-plugin package.
 # 
 # Translators:
-# Pjotr <pjotrvertaalt@gmail.com>, 2017,2020,2023
+# Pjotr <pjotrvertaalt@gmail.com>, 2017,2020,2023,2025
 # Stephan Arts <stephan@xfce.org>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-01-15 00:52+0100\n"
+"POT-Creation-Date: 2025-01-17 12:52+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2017,2020,2023\n"
+"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2017,2020,2023,2025\n"
 "Language-Team: Dutch (http://app.transifex.com/xfce/xfce-panel-plugins/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
 #: src/xfce4-notes.desktop.in:5 lib/application.vala:313
-#: lib/application.vala:1002 lib/window.vala:85 lib/window.vala:202
+#: lib/application.vala:1002 lib/window.vala:93 lib/window.vala:210
 #: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
 #: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
@@ -35,9 +35,9 @@ msgstr "Ideaal voor snelle notities"
 #: lib/application.vala:214
 #, c-format
 msgid ""
-"The selected directory (%s) for the new notes path already contains files. "
-"You must select or create an empty directory."
-msgstr "De gekozen map (%s) voor de nieuwe notities bevat al bestanden. U dient een lege map te kiezen of te maken."
+"The selected directory (%s) already contains files. You must select or "
+"create an empty directory."
+msgstr "De gekozen map (%s) bevat reeds bestanden. U dient een lege map te kiezen of aan te maken."
 
 #: lib/application.vala:226
 #, c-format
@@ -49,7 +49,7 @@ msgid "Notes path is unacceptable"
 msgstr "Pad voor notities is onaanvaardbaar"
 
 #: lib/application.vala:237 lib/application.vala:884 lib/application.vala:982
-#: lib/window.vala:1297
+#: lib/window.vala:1329
 msgid "Error"
 msgstr "Fout"
 
@@ -58,7 +58,7 @@ msgstr "Fout"
 msgid "Notes %d"
 msgstr "Notities %d"
 
-#: lib/application.vala:338 lib/window.vala:1100
+#: lib/application.vala:338 lib/window.vala:1132
 #, c-format
 msgid "Note %d"
 msgstr "Notitie %d"
@@ -67,7 +67,7 @@ msgstr "Notitie %d"
 msgid "Rename group"
 msgstr "Groep hernoemen"
 
-#: lib/application.vala:704 lib/window.vala:1295
+#: lib/application.vala:704 lib/window.vala:1327
 #, c-format
 msgid "The name %s is already in use"
 msgstr "De naam %s is al in gebruik"
@@ -94,66 +94,82 @@ msgstr "Kan de instellingendialoog niet openen"
 msgid "translator-credits"
 msgstr "Vincent Tunru\nPjotr <pjotrvertaalt@gmail.com>"
 
-#: lib/application.vala:1046 lib/window.vala:915
+#: lib/application.vala:1046 lib/window.vala:947
 msgid "_Add a new group"
 msgstr "_Nieuwe groep toevoegen"
 
-#: lib/window.vala:280
+#: lib/hypertextview.vala:201
+msgid "Strikethrough"
+msgstr "Doorstrepen"
+
+#: lib/hypertextview.vala:202
+msgid "Underline"
+msgstr "Onderstrepen"
+
+#: lib/hypertextview.vala:203
+msgid "Italic"
+msgstr "Schuin"
+
+#: lib/hypertextview.vala:204
+msgid "Bold"
+msgstr "Vet"
+
+#: lib/window.vala:288
 msgid "Menu"
 msgstr "Menu"
 
-#: lib/window.vala:315
+#: lib/window.vala:323
 #, c-format
 msgid "Hide (%s)"
 msgstr "Verbergen (%s)"
 
-#: lib/window.vala:833 src/main-panel-plugin.vala:50
+#: lib/window.vala:865 src/main-panel-plugin.vala:50
 #: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Groepen"
 
-#: lib/window.vala:844
+#: lib/window.vala:876
 msgid "_New"
 msgstr "_Nieuw"
 
-#: lib/window.vala:845
+#: lib/window.vala:877
 msgid "_Delete"
 msgstr "_Wissen"
 
-#: lib/window.vala:846
+#: lib/window.vala:878
 msgid "_Rename"
 msgstr "_Hernoemen"
 
 #. Always on top
-#: lib/window.vala:850 src/main-settings-dialog.c:186
+#: lib/window.vala:882 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Altijd bovenop"
 
-#: lib/window.vala:851
+#: lib/window.vala:883
 msgid "Sticky window"
 msgstr "Plakkend venster"
 
-#: lib/window.vala:855 src/main-status-icon.vala:74
+#: lib/window.vala:887 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Eigenschappen"
 
-#: lib/window.vala:856 src/main-status-icon.vala:75
+#: lib/window.vala:888 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "Over"
 
-#: lib/window.vala:913
+#: lib/window.vala:945
 msgid "_Rename group"
 msgstr "Groepnaam _wijzigen"
 
-#: lib/window.vala:914
+#: lib/window.vala:946
 msgid "_Delete group"
 msgstr "Group _verwijderen"
 
-#: lib/window.vala:1214
+#: lib/window.vala:1246
 msgid "Are you sure you want to delete this note?"
 msgstr "Weet u zeker dat u deze notitie wilt verwijderen?"
 
-#: lib/window.vala:1273
+#: lib/window.vala:1305
 msgid "Rename note"
 msgstr "Notitienaam wijzigen"
 
