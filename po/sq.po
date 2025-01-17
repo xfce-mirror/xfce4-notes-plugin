@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Besnik Bleta <besnik@programeshqip.org>, 2007,2020
-# Besnik Bleta <besnik@programeshqip.org>, 2007,2020,2024
+# Besnik Bleta <besnik@programeshqip.org>, 2007,2020,2024-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-01-15 00:52+0100\n"
+"POT-Creation-Date: 2025-01-17 12:52+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2007,2020,2024\n"
+"Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2007,2020,2024-2025\n"
 "Language-Team: Albanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
 #: src/xfce4-notes.desktop.in:5 lib/application.vala:313
-#: lib/application.vala:1002 lib/window.vala:85 lib/window.vala:202
+#: lib/application.vala:1002 lib/window.vala:93 lib/window.vala:210
 #: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
 #: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
@@ -35,9 +35,9 @@ msgstr "Ideale për shënimet tuaja të shpejta"
 #: lib/application.vala:214
 #, c-format
 msgid ""
-"The selected directory (%s) for the new notes path already contains files. "
-"You must select or create an empty directory."
-msgstr "Drejtoria e përzgjedhur (%s) për shteg të ri shënimesh përmban tashmë kartela. Duhet të përzgjidhni ose krijoni një drejtori të zbrazët."
+"The selected directory (%s) already contains files. You must select or "
+"create an empty directory."
+msgstr "Drejtoria e përzgjedhur (%s) përmban tashmë kartela. Duhet të përzgjidhni, ose krijoni një drejtori të zbrazët."
 
 #: lib/application.vala:226
 #, c-format
@@ -49,7 +49,7 @@ msgid "Notes path is unacceptable"
 msgstr "Shtegu i shënimeve është i papranueshëm"
 
 #: lib/application.vala:237 lib/application.vala:884 lib/application.vala:982
-#: lib/window.vala:1297
+#: lib/window.vala:1329
 msgid "Error"
 msgstr "Gabim"
 
@@ -58,7 +58,7 @@ msgstr "Gabim"
 msgid "Notes %d"
 msgstr "Shënime %d"
 
-#: lib/application.vala:338 lib/window.vala:1100
+#: lib/application.vala:338 lib/window.vala:1132
 #, c-format
 msgid "Note %d"
 msgstr "Shënim %d"
@@ -67,7 +67,7 @@ msgstr "Shënim %d"
 msgid "Rename group"
 msgstr "Riemërtojeni grupin"
 
-#: lib/application.vala:704 lib/window.vala:1295
+#: lib/application.vala:704 lib/window.vala:1327
 #, c-format
 msgid "The name %s is already in use"
 msgstr "Emri %s është tashmë i përdorur"
@@ -94,66 +94,82 @@ msgstr "S’arrihet të hapet dialogu i rregullimeve"
 msgid "translator-credits"
 msgstr "Besnik Bleta"
 
-#: lib/application.vala:1046 lib/window.vala:915
+#: lib/application.vala:1046 lib/window.vala:947
 msgid "_Add a new group"
 msgstr "_Shtoni grup të ri"
 
-#: lib/window.vala:280
+#: lib/hypertextview.vala:201
+msgid "Strikethrough"
+msgstr "Hequrvije"
+
+#: lib/hypertextview.vala:202
+msgid "Underline"
+msgstr "Nënvijë"
+
+#: lib/hypertextview.vala:203
+msgid "Italic"
+msgstr "Të pjerrëta"
+
+#: lib/hypertextview.vala:204
+msgid "Bold"
+msgstr "Të trasha"
+
+#: lib/window.vala:288
 msgid "Menu"
 msgstr "Menu"
 
-#: lib/window.vala:315
+#: lib/window.vala:323
 #, c-format
 msgid "Hide (%s)"
 msgstr "Fshihe (%s)"
 
-#: lib/window.vala:833 src/main-panel-plugin.vala:50
+#: lib/window.vala:865 src/main-panel-plugin.vala:50
 #: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_Grupe"
 
-#: lib/window.vala:844
+#: lib/window.vala:876
 msgid "_New"
 msgstr "E _re"
 
-#: lib/window.vala:845
+#: lib/window.vala:877
 msgid "_Delete"
 msgstr "_Fshije"
 
-#: lib/window.vala:846
+#: lib/window.vala:878
 msgid "_Rename"
 msgstr "_Riemërtojeni"
 
 #. Always on top
-#: lib/window.vala:850 src/main-settings-dialog.c:186
+#: lib/window.vala:882 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "Përherë sipër"
 
-#: lib/window.vala:851
+#: lib/window.vala:883
 msgid "Sticky window"
 msgstr "Dritare ngjitëse"
 
-#: lib/window.vala:855 src/main-status-icon.vala:74
+#: lib/window.vala:887 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_Veti"
 
-#: lib/window.vala:856 src/main-status-icon.vala:75
+#: lib/window.vala:888 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "_Rreth"
 
-#: lib/window.vala:913
+#: lib/window.vala:945
 msgid "_Rename group"
 msgstr "_Riemërtoni grup"
 
-#: lib/window.vala:914
+#: lib/window.vala:946
 msgid "_Delete group"
 msgstr "_Fshini grup"
 
-#: lib/window.vala:1214
+#: lib/window.vala:1246
 msgid "Are you sure you want to delete this note?"
 msgstr "Jeni i sigurt se doni të fshihet ky shënim?"
 
-#: lib/window.vala:1273
+#: lib/window.vala:1305
 msgid "Rename note"
 msgstr "Riemërtoni shënimin"
 
