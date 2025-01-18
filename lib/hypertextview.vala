@@ -52,7 +52,7 @@ namespace Xnp {
 		}
 
 		/* We use Unicode zero-width space for tags marking */
-		private string tag_char = ((unichar)0x200b).to_string ();
+		private static string tag_char = ((unichar)0x200b).to_string ();
 
 		construct {
 			this.font = "Sans 13";
@@ -186,7 +186,7 @@ namespace Xnp {
 			return false;
 		}
 
-		private void menu_add_text_formatting (Gtk.Menu menu, string text, string tag_name) {
+		private void menu_add_text_formatting (Gtk.Menu menu, string tag_name, string text) {
 			var mi = new Gtk.MenuItem.with_label ("");
 			var label = mi.get_child () as Gtk.Label;
 			label.set_markup ("<%s>%s</%s>".printf (tag_name, text, tag_name));
@@ -198,10 +198,10 @@ namespace Xnp {
 			var mi = new SeparatorMenuItem () as Gtk.Widget;
 			popup_menu.insert (mi, -1);
 
-			menu_add_text_formatting (popup_menu, _("Strikethrough"), "s");
-			menu_add_text_formatting (popup_menu, _("Underline"),     "u");
-			menu_add_text_formatting (popup_menu, _("Italic"),        "i");
-			menu_add_text_formatting (popup_menu, _("Bold"),          "b");
+			menu_add_text_formatting (popup_menu, "s", _("Strikethrough"));
+			menu_add_text_formatting (popup_menu, "u", _("Underline"));
+			menu_add_text_formatting (popup_menu, "i", _("Italic"));
+			menu_add_text_formatting (popup_menu, "b", _("Bold"));
 
 			popup_menu.show_all ();
 		}
