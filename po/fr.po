@@ -43,7 +43,7 @@ msgstr "Idéal pour vos petites notes"
 msgid ""
 "The selected directory (%s) already contains files. You must select or "
 "create an empty directory."
-msgstr ""
+msgstr "Le répertoire sélectionné (%s) contient déjà des fichiers. Vous devez sélectionner ou créer un répertoire vide."
 
 #: lib/application.vala:226
 #, c-format
