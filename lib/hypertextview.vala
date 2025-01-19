@@ -26,9 +26,12 @@ namespace Xnp {
 
 	public class HypertextView : Gtk.SourceView {
 
+		private SList <Gtk.TextChildAnchor> checkboxes = null;
+
 		private Gdk.Cursor hand_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.HAND2);
 		private Gdk.Cursor regular_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default(), Gdk.CursorType.XTERM);
 
+		private bool cursor_over_checkbox = false;
 		private bool cursor_over_link = false;
 
 		private Gtk.TextTag tag_bold;
@@ -195,8 +198,12 @@ namespace Xnp {
 		}
 
 		private void populate_popup_cb (Gtk.Menu popup_menu) {
-			var mi = new SeparatorMenuItem () as Gtk.Widget;
-			popup_menu.insert (mi, -1);
+			var mi = new Gtk.MenuItem.with_label (_("Insert checkbox"));
+			mi.activate.connect (() => { insert_checkbox (); });
+			popup_menu.insert (mi as Gtk.Widget, -1);
+
+			mi = new SeparatorMenuItem ();
+			popup_menu.insert (mi as Gtk.Widget, -1);
 
 			menu_add_text_formatting (popup_menu, "s", _("Strikethrough"));
 			menu_add_text_formatting (popup_menu, "u", _("Underline"));
@@ -212,16 +219,19 @@ namespace Xnp {
 		 * Event to update the cursor of the pointer.
 		 */
 		private bool motion_notify_event_cb (Gtk.Widget hypertextview, Gdk.EventMotion event) {
+			Gdk.Cursor cursor = null;
 			Gtk.TextIter iter;
 			Gdk.Window win;
 			int x, y;
 
-			window_to_buffer_coords (Gtk.TextWindowType.WIDGET, (int)event.x, (int)event.y, out x, out y);
-			get_iter_at_location (out iter, x, y);
-			this.cursor_over_link = iter.has_tag (this.tag_link);
-			var cursor = this.cursor_over_link ? this.hand_cursor : this.regular_cursor;
-			win = get_window (Gtk.TextWindowType.TEXT);
+			if (! this.cursor_over_checkbox) {
+				window_to_buffer_coords (Gtk.TextWindowType.WIDGET, (int)event.x, (int)event.y, out x, out y);
+				get_iter_at_location (out iter, x, y);
+				this.cursor_over_link = iter.has_tag (this.tag_link);
+				cursor = this.cursor_over_link ? this.hand_cursor : this.regular_cursor;
+			}
 
+			win = get_window (Gtk.TextWindowType.TEXT);
 			if (win.cursor != cursor) {
 				win.cursor = cursor;
 			}
@@ -317,16 +327,21 @@ namespace Xnp {
 		 * Get text from buffer with tags embedded.
 		 */
 		public string get_text_with_tags () {
-			string text = "";
+			unowned SList <Gtk.TextChildAnchor> cb_list_iter = checkboxes;
+			Gtk.TextIter cb_text_iter;
+			if (cb_list_iter != null) {
+				this.buffer.get_iter_at_child_anchor (out cb_text_iter, cb_list_iter.data);
+			} else {
+				this.buffer.get_end_iter (out cb_text_iter);
+			}
+
 			Gtk.TextIter start, prev;
+			var text = "", tags_text = "";
 			this.buffer.get_start_iter (out start);
 			prev = start;
 
 			while (true) {
-				text += this.buffer.get_text (prev, start, true);
-
 				var tags = start.get_toggled_tags (false);
-				var tags_text = "";
 
 				tags.foreach ((tag) => {
 					if (tag != tag_link && tag.name != null) {
@@ -341,8 +356,23 @@ namespace Xnp {
 					}
 				});
 
+				if (start.equal (cb_text_iter) && ! start.is_end ()) {
+					/* Checkbox */
+					var checkbox = cb_list_iter.data.get_widgets ().data as Gtk.CheckButton;
+					tags_text += checkbox.active ? "☑" : "☐";
+					cb_list_iter = cb_list_iter.next;
+					if (cb_list_iter != null) {
+						this.buffer.get_iter_at_child_anchor (out cb_text_iter, cb_list_iter.data);
+					} else {
+						this.buffer.get_end_iter (out cb_text_iter);
+					}
+					start.forward_char ();
+					continue;
+				}
+
 				if (tags_text.length > 0) {
 					text += "%s%s%s".printf (tag_char, tags_text, tag_char);
+					tags_text = "";
 				}
 
 				if (start.is_end ())
@@ -350,6 +380,13 @@ namespace Xnp {
 
 				prev = start;
 				start.forward_to_tag_toggle (null);
+
+				if (start.compare (cb_text_iter) >= 0) {
+					/* Forward to the next checkbox instead of tag toggle */
+					start = cb_text_iter;
+				}
+
+				text += this.buffer.get_text (prev, start, true);
 			}
 
 			return text;
@@ -378,21 +415,73 @@ namespace Xnp {
 					});
 				} else {
 					// Tags
-					var tags_tokens = tokens[i].split_set ("<>");
-					for (int j = 0; tags_tokens[j] != null; j++) {
-						if (tags_tokens[j][0] == 0)
-							continue;
-						if (tags_tokens[j][0] != '/') {
-							tags.prepend (tags_tokens[j]);
+					var tags_tokens = split_tags (tokens[i]);
+					foreach (string tag in tags_tokens) {
+						if (tag[0] != '<') {
+							// Checkbox?
+							if (tag == "☐" || tag == "☑") {
+								insert_checkbox_at_iter (ref end, tag == "☑");
+								start = end;
+								start.backward_char ();
+								tags.foreach ((tag) => {
+									this.buffer.apply_tag_by_name (tag, start, end);
+								});
+							}
 						} else {
-							string *tag = tags_tokens[j];
-							unowned var element = tags.find_custom (tag + 1, strcmp);
-							if (element != null)
-								tags.delete_link (element);
+							// Tag
+							if (tag[1] != '/') {
+								tags.prepend (tag[1:-1]);
+							} else {
+								unowned var element = tags.find_custom (tag[2:-1], strcmp);
+								if (element != null) tags.delete_link (element);
+							}
 						}
 					}
 				}
 			}
+		}
+
+		private string[] split_tags (string tags) {
+			StringBuilder builder = new StringBuilder ();
+			string[] result = {};
+			bool tag = false;
+			unichar c;
+			for (int i = 0; tags.get_next_char (ref i, out c);) {
+				if (c == '<') {
+					if (! tag) {
+						// Begin a new tag
+						if (builder.len != 0) {
+							result += builder.str;
+							builder = new StringBuilder ("<");
+						} else {
+							builder.append_c ('<');
+						}
+						tag = true;
+					}
+				} else if (c == '>') {
+					if (tag) {
+						// Close tag
+						tag = false;
+						builder.append_c ('>');
+						result += builder.str;
+						builder = new StringBuilder ();
+					}
+				} else if (tag) {
+					// Add character to the tag
+					builder.append_unichar (c);
+				} else if (c == 0x2610 || c == 0x2611) {
+					// Checkbox
+					if (builder.len != 0) {
+						result += builder.str;
+						builder = new StringBuilder ();
+					}
+					result += c.to_string ();
+				} else {
+					// Not a tag, not a Checkbox
+					// Broken file?
+				}
+			}
+			return result;
 		}
 
 		/**
@@ -469,6 +558,60 @@ namespace Xnp {
 					end_iter.forward_to_line_end ();
 				}
 			}
+		}
+
+		/**
+		 * insert_checkbox:
+		 *
+		 * Insert a checkbox in the text of the note. Can be useful
+		 * for writing a TODO list.
+		 *
+		 * This doesn't work well with the GtkSourceView Undo/Redo
+		 * manager, so we reset it to avoid breaking.
+		 */
+		public void insert_checkbox (bool checked = false) {
+			Gtk.TextIter iter;
+			var buffer = this.buffer as Gtk.SourceBuffer;
+			buffer.begin_not_undoable_action ();
+			buffer.get_selection_bounds (out iter, null);
+			insert_checkbox_at_iter (ref iter, checked);
+			buffer.end_not_undoable_action ();
+		}
+
+		private void insert_checkbox_at_iter (ref Gtk.TextIter iter, bool checked) {
+			var mark = this.buffer.create_mark (null, iter, false);
+			var anchor = this.buffer.create_child_anchor (iter);
+			var checkbox = new Gtk.CheckButton ();
+			add_child_at_anchor (checkbox, anchor);
+			checkbox.active = checked;
+			checkbox.show ();
+			checkbox.focus_on_click = false;
+			checkbox.enter_notify_event.connect (() => {
+				this.cursor_over_checkbox = true;
+				return false;
+			});
+			checkbox.leave_notify_event.connect (() => {
+				this.cursor_over_checkbox = false;
+				return false;
+			});
+			checkbox.toggled.connect (() => {
+				this.buffer.changed ();
+			});
+			checkbox.destroy.connect (() => {
+				var buffer = this.buffer as Gtk.SourceBuffer;
+				buffer.begin_not_undoable_action ();
+				buffer.end_not_undoable_action ();
+				this.checkboxes.remove (anchor);
+				anchor = null;
+			});
+			checkboxes.insert_sorted_with_data (anchor, (a, b) => {
+				Gtk.TextIter a_iter, b_iter;
+				buffer.get_iter_at_child_anchor (out a_iter, a);
+				buffer.get_iter_at_child_anchor (out b_iter, b);
+				return a_iter.compare (b_iter);
+			});
+			this.buffer.get_iter_at_mark (out iter, mark);
+			this.buffer.delete_mark (mark);
 		}
 
 	}

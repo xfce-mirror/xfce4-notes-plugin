@@ -57,6 +57,7 @@ namespace Xnp {
   <accelerator action="italic" />
   <accelerator action="strikethrough" />
   <accelerator action="underline" />
+  <accelerator action="checkbox" />
   <accelerator action="next-note" />
   <accelerator action="prev-note" />
 </ui>
@@ -76,6 +77,7 @@ namespace Xnp {
 			{ "italic",        null, null, "<Ctrl>i", null, action_italic },
 			{ "strikethrough", null, null, "<Ctrl>s", null, action_strikethrough },
 			{ "underline",     null, null, "<Ctrl>u", null, action_underline },
+			{ "checkbox",      null, null, "<Ctrl>o", null, action_checkbox },
 			{ "next-note",     null, null, "<Ctrl>Page_Down", null, action_next_note },
 			{ "prev-note",     null, null, "<Ctrl>Page_Up", null, action_prev_note }
 		};
@@ -766,6 +768,12 @@ namespace Xnp {
 			var current_note = this.current_note;
 			if (current_note != null)
 				current_note.text_view.toggle_tag ("u");
+		}
+
+		private void action_checkbox () {
+			var current_note = this.current_note;
+			if (current_note != null)
+				current_note.text_view.insert_checkbox ();
 		}
 
 		private void action_next_note () {

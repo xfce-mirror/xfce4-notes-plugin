@@ -168,3 +168,7 @@ tooltip, tooltip * {
 	margin: 0px;
 	padding: 0px;
 }
+
+checkbutton * {
+	border-width: 1px;
+}
