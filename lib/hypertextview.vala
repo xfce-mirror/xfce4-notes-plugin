@@ -567,10 +567,10 @@ namespace Xnp {
 		 * insert_checkbox:
 		 *
 		 * Insert a checkbox in the text of the note. Can be useful
-		 * for writing a TODO list.
+		 * when making a to-do list.
 		 *
-		 * This doesn't work well with the GtkSourceView Undo/Redo
-		 * manager, so we reset it to avoid breaking.
+		 * This doesn't work well with the GtkSourceView undo/redo
+		 * manager, so we reset it to avoid breakage.
 		 */
 		public void insert_checkbox (bool checked = false) {
 			Gtk.TextIter iter;
@@ -586,9 +586,10 @@ namespace Xnp {
 			var anchor = this.buffer.create_child_anchor (iter);
 			var checkbox = new Gtk.CheckButton ();
 			add_child_at_anchor (checkbox, anchor);
+			checkbox.focus_on_click = false;
 			checkbox.active = checked;
 			checkbox.show ();
-			checkbox.focus_on_click = false;
+
 			checkbox.enter_notify_event.connect (() => {
 				this.cursor_over_checkbox = true;
 				return false;
@@ -597,9 +598,18 @@ namespace Xnp {
 				this.cursor_over_checkbox = false;
 				return false;
 			});
+
 			checkbox.toggled.connect (() => {
 				this.buffer.changed ();
 			});
+
+			checkboxes.insert_sorted_with_data (anchor, (a, b) => {
+				Gtk.TextIter a_iter, b_iter;
+				buffer.get_iter_at_child_anchor (out a_iter, a);
+				buffer.get_iter_at_child_anchor (out b_iter, b);
+				return a_iter.compare (b_iter);
+			});
+
 			checkbox.destroy.connect (() => {
 				var buffer = this.buffer as Gtk.SourceBuffer;
 				buffer.begin_not_undoable_action ();
@@ -607,12 +617,7 @@ namespace Xnp {
 				this.checkboxes.remove (anchor);
 				anchor = null;
 			});
-			checkboxes.insert_sorted_with_data (anchor, (a, b) => {
-				Gtk.TextIter a_iter, b_iter;
-				buffer.get_iter_at_child_anchor (out a_iter, a);
-				buffer.get_iter_at_child_anchor (out b_iter, b);
-				return a_iter.compare (b_iter);
-			});
+
 			this.buffer.get_iter_at_mark (out iter, mark);
 			this.buffer.delete_mark (mark);
 		}
