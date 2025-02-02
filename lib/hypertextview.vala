@@ -142,6 +142,9 @@ namespace Xnp {
 			if (start.get_offset () != end.get_offset ())
 				return false;
 
+			if (this.cursor_over_checkbox)
+				return false;
+
 			window_to_buffer_coords (Gtk.TextWindowType.WIDGET, (int)event.x, (int)event.y, out x, out y);
 			get_iter_at_location (out iter, x, y);
 
