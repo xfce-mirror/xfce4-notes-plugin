@@ -15,6 +15,7 @@ AC_INIT([Notes], [xdt_version], [https://gitlab.xfce.org/panel-plugins/xfce4-not
 AC_REVISION([xdt_version_build])
 AC_CANONICAL_TARGET()
 AC_CONFIG_HEADERS([config.h])
+AC_DEFINE([VERSION_FULL], [PACKAGE_VERSION], [Alias for VERSION and PACKAGE_VERSION for meson compatibility])
 
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])

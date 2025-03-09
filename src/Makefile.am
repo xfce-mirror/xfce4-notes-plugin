@@ -183,6 +183,7 @@ EXTRA_DIST =								\
 	main-panel-plugin.vala						\
 	main-status-icon.vala						\
 	main-popup.vala							\
+	meson.build							\
 	$(desktop_in_files)						\
 	$(applications_in_files)					\
 	$(autostart_in_files)
