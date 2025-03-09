@@ -170,11 +170,25 @@ namespace Xnp {
 			}
 		}
 
+		private int compare_version (string a, string b) {
+			var pa = a.split (".");
+			var pb = b.split (".");
+			for (int i = 0; i < int.max (pa.length, pb.length); i++) {
+				if (i == pa.length || (i < int.min (pa.length, pb.length) && int.parse (pa[i]) < int.parse (pb[i]))) {
+					return -1;
+				}
+				if (i == pb.length || (i < int.min (pa.length, pb.length) && int.parse (pa[i]) > int.parse (pb[i]))) {
+					return 1;
+				}
+			}
+			return 0;
+		}
+
 		private void update_version () {
 			var version = xfconf_channel.get_string ("/global/version", "0");
 			if (version == Config.PACKAGE_VERSION)
 				return;
-			if (version < "1.11") {
+			if (compare_version (version, "1.11") == -1) {
 				try {
 					var css = Xfce.resource_save_location (Xfce.ResourceType.CONFIG, "xfce4/xfce4-notes.css", false);
 					var css_file = File.new_for_path (css);
