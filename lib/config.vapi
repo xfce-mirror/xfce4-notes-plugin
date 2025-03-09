@@ -1,4 +1,8 @@
+#if MESON_BUILD
+[CCode (cprefix = "", cheader_filename = "xfce-revision.h")]
+#else
 [CCode (cprefix = "", cheader_filename = "config.h")]
+#endif
 namespace Config {
 	[CCode (cname = "GETTEXT_PACKAGE")]
 	public const string GETTEXT_PACKAGE;
@@ -20,4 +24,6 @@ namespace Config {
 	public const string PKGDATADIR;
 	[CCode (cname = "SYSCONFDIR")]
 	public const string SYSCONFDIR;
+	[CCode (cname = "VERSION_FULL")]
+	public const string VERSION_FULL;
 }
