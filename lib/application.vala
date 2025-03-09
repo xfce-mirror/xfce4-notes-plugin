@@ -172,7 +172,7 @@ namespace Xnp {
 
 		private void update_version () {
 			var version = xfconf_channel.get_string ("/global/version", "0");
-			if (version == Config.PACKAGE_VERSION)
+			if (version == Config.VERSION_FULL)
 				return;
 			if (version < "1.11") {
 				try {
@@ -189,7 +189,7 @@ namespace Xnp {
 				} catch (GLib.Error e) {
 				}
 			}
-			xfconf_channel.set_string ("/global/version", Config.PACKAGE_VERSION);
+			xfconf_channel.set_string ("/global/version", Config.VERSION_FULL);
 		}
 
 		private void update_notes_path () {
@@ -1002,7 +1002,7 @@ namespace Xnp {
 				"program-name", _("Notes"),
 				"logo-icon-name", "org.xfce.notes.logo",
 				"comments", _("Ideal for your quick notes"),
-				"version", Config.PACKAGE_VERSION,
+				"version", Config.VERSION_FULL,
 				"copyright", "Copyright © 2003-2025 The Xfce development team",
 				"license", Xfce.get_license_text (Xfce.LicenseTextType.GPL),
 				"website", "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin",
