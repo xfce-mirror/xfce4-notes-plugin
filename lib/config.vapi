@@ -4,6 +4,8 @@
 [CCode (cprefix = "", cheader_filename = "config.h")]
 #endif
 namespace Config {
+	[CCode (cname = "COPYRIGHT_YEAR")]
+	public const string COPYRIGHT_YEAR;
 	[CCode (cname = "GETTEXT_PACKAGE")]
 	public const string GETTEXT_PACKAGE;
 	[CCode (cname = "PACKAGE_LOCALE_DIR")]
