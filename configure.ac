@@ -6,9 +6,10 @@ dnl 2006-2016 Mike Massonnet <mmassonnet@xfce.org>
 dnl 2023 Arthur Demchenkov <spinal.by@gmail.com>
 dnl
 
+m4_define([copyright_year], [2025])
 XDT_VERSION_INIT([1.11.2], [git])
 
-AC_COPYRIGHT([Copyright (c) 2003-2025 The Xfce development team. All rights reserved.])
+AC_COPYRIGHT([Copyright (c) 2003-copyright_year() The Xfce development team. All rights reserved.])
 AC_PREREQ([2.69])
 AC_INIT([Notes], [xdt_version], [https://gitlab.xfce.org/panel-plugins/xfce4-notes-plugin], [xfce4-notes-plugin],
 	[https://docs.xfce.org/panel-plugins/xfce4-notes-plugin])
@@ -16,6 +17,9 @@ AC_REVISION([xdt_version_build])
 AC_CANONICAL_TARGET()
 AC_CONFIG_HEADERS([config.h])
 AC_DEFINE([VERSION_FULL], [PACKAGE_VERSION], [Alias for VERSION and PACKAGE_VERSION for meson compatibility])
+COPYRIGHT_YEAR=copyright_year()
+AC_DEFINE_UNQUOTED([COPYRIGHT_YEAR], ["$COPYRIGHT_YEAR"], [Copyright year])
+AC_SUBST([COPYRIGHT_YEAR])
 
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
