@@ -13,6 +13,7 @@ project(
 
 project_namespace = 'panel-plugins'
 pkgdatadir = get_option('prefix') / get_option('datadir') / 'xfce4' / 'notes'
+copyright_year = '2025'
 
 vala = meson.get_compiler('vala')
 cc = meson.get_compiler('c')
@@ -104,6 +105,7 @@ extra_cflags = [
   '-DPACKAGE_STRING="@0@ @1@"'.format(meson.project_name(), meson.project_version()),
   '-DPACKAGE_DATADIR="@0@"'.format(pkgdatadir),
   '-DPKGDATADIR="@0@"'.format(pkgdatadir),
+  '-DCOPYRIGHT_YEAR="@0@"'.format(copyright_year),
   '-DPACKAGE_LOCALE_DIR="@0@"'.format(get_option('prefix') / get_option('localedir')),
   '-DPACKAGE_URL="https://docs.xfce.org/@0@/@1@/start"'.format(project_namespace, meson.project_name()),
   '-DPACKAGE_BUGREPORT="https://gitlab.xfce.org/@0@/@1@/-/issues"'.format(project_namespace, meson.project_name()),
