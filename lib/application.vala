@@ -1017,7 +1017,7 @@ namespace Xnp {
 				"logo-icon-name", "org.xfce.notes.logo",
 				"comments", _("Ideal for your quick notes"),
 				"version", Config.VERSION_FULL,
-				"copyright", "Copyright © 2003-2025 The Xfce development team",
+				"copyright", "Copyright © 2003-" + Config.COPYRIGHT_YEAR + " The Xfce development team",
 				"license", Xfce.get_license_text (Xfce.LicenseTextType.GPL),
 				"website", "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin",
 				"website-label", "docs.xfce.org",
