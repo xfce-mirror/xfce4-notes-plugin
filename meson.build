@@ -42,61 +42,10 @@ libxfce4util = dependency('libxfce4util-1.0', version: dependency_versions['xfce
 xfconf = dependency('libxfconf-0', version: dependency_versions['xfce4'])
 gtksourceview = dependency('gtksourceview-4', version: dependency_versions['gtksourceview'])
 
-extra_cflags = []
-extra_cflags_check = [
-  '-Wmissing-declarations',
-  '-Wmissing-noreturn',
-  '-Wold-style-definition',
-  '-Wredundant-decls',
-  '-Wpointer-arith',
-  '-Wcast-align',
-  '-Winit-self',
-  '-Wshadow',
-  '-Wmissing-include-dirs',
-  '-Wundef',
-  '-Wformat',
-  '-Wformat-security',
-  '-Wformat-y2k',
-  '-Wnested-externs',
-  '-Wno-unused-parameter',
-  '-Wno-declaration-after-statement',
-  '-Wno-missing-field-initializers',
-  '-Werror=implicit-function-declaration',
-  '-Wno-error=deprecated-declarations',
-]
-
-optimization = get_option('optimization')
-if get_option('debug') and optimization in ['0', 'g']
-  extra_cflags_check += '-fstack-protector-strong'
-  extra_cflags += [
-    '-DDEBUG=1',
-    '-DDEBUG_TRACE=1',
-    '-DG_ENABLE_DEBUG',
-  ]
-elif optimization in ['3', 'minsize']
-  extra_cflags += [
-    '-DNDEBUG',
-    '-DG_DISABLE_CAST_CHECKS',
-    '-DG_DISABLE_ASSERT',
-  ]
-endif
-
-if dependency_versions.has_key('glib')
-  glib_version_parts = dependency_versions['glib'].split(' ')
-  glib_min_version_parts = glib_version_parts[1].split('.')
-  glib_min_version_define = 'GLIB_VERSION_@0@_@1@'.format(glib_min_version_parts[0], glib_min_version_parts[1])
-  extra_cflags += [
-    '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_min_version_define),
-    '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_min_version_define),
-    '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name()),
-    '-DG_LOG_USE_STRUCTURED=1',
-  ]
-endif
-
 version_parts = meson.project_version().split('-dev')[0].split('.')
 version_short = '@0@.@1@'.format(version_parts[0], version_parts[1])
 
-extra_cflags += [
+extra_cflags = [
   '-DPACKAGE="@0@"'.format(meson.project_name()),
   '-DPACKAGE_NAME="@0@"'.format(meson.project_name()),
   '-DPACKAGE_VERSION="@0@"'.format(meson.project_version()),
@@ -124,9 +73,16 @@ extra_cflags += [
   '-DHAVE_XFCE_REVISION_H=1',
 ]
 
-add_project_arguments(cc.get_supported_arguments(extra_cflags_check), language: 'c')
+extra_valaflags = [
+  '--enable-deprecated',
+  '--define=MESON_BUILD',
+]
+
+# See https://github.com/mesonbuild/meson/pull/12597.
+add_project_arguments('-w', language: 'c')
+
 add_project_arguments(extra_cflags, language: 'c')
-add_project_arguments('--define=MESON_BUILD', language: 'vala')
+add_project_arguments(extra_valaflags, language: 'vala')
 
 xfce_revision_h = vcs_tag(
   command: ['git', 'rev-parse', '--short', 'HEAD'],

@@ -1,4 +1,4 @@
-libnotes_util_sources = [
+libnotes_sources = [
   'application.vala',
   'file-utils.vala',
   'hypertextview.vala',
@@ -12,11 +12,10 @@ libnotes_util_sources = [
 ]
 
 config_vapidir = meson.current_source_dir()
-notes_util_vapidir = meson.current_build_dir()
 
-libnotes_util = static_library(
-  'notes-util',
-  libnotes_util_sources,
+libnotes = static_library(
+  'notes',
+  libnotes_sources,
   include_directories: [
     include_directories('..'),
   ],
@@ -24,6 +23,8 @@ libnotes_util = static_library(
     '--pkg', 'config',
     '--vapidir', config_vapidir,
   ],
+  vala_header: 'libnotes.h',
+  vala_vapi: 'libnotes.vapi',
   dependencies: [
     gio,
     glib,
@@ -37,8 +38,8 @@ libnotes_util = static_library(
   install: false,
 )
 
-libnotes_util_dep = declare_dependency(
-  link_with: libnotes_util,
+libnotes_dep = declare_dependency(
+  link_with: libnotes,
   include_directories: [
     include_directories('.'),
   ],

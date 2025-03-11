@@ -44,10 +44,8 @@ plugin_lib = shared_library(
   gnu_symbol_visibility: 'hidden',
   vala_args: [
     '--vapidir', config_vapidir,
-    '--vapidir', notes_util_vapidir,
     '--vapidir', xfce_autostart_vapidir,
     '--pkg', 'config',
-    '--pkg', 'notes-util',
     '--pkg', 'xfce-autostart',
   ],
   c_args: [
@@ -62,7 +60,7 @@ plugin_lib = shared_library(
     gtk,
     gtksourceview,
     libcnotes_dep,
-    libnotes_util_dep,
+    libnotes_dep,
     libxfce4panel,
     libxfce4ui,
     libxfce4util,
@@ -81,10 +79,8 @@ status_icon = executable(
   status_icon_sources,
   vala_args: [
     '--vapidir', config_vapidir,
-    '--vapidir', notes_util_vapidir,
     '--vapidir', xfce_autostart_vapidir,
     '--pkg', 'config',
-    '--pkg', 'notes-util',
     '--pkg', 'xfce-autostart',
   ],
   c_args: [
@@ -99,7 +95,7 @@ status_icon = executable(
     gtk,
     gtksourceview,
     libcnotes_dep,
-    libnotes_util_dep,
+    libnotes_dep,
     libxfce4panel,
     libxfce4ui,
     libxfce4util,
