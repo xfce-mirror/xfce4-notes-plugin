@@ -27,7 +27,10 @@ EXTRA_DIST =								\
 	ChangeLog							\
 	COPYING								\
 	NEWS								\
-	README.md								\
+	README.md							\
+	meson.build							\
+	po/meson.build							\
+	xfce-revision.h.in						\
 	$(desktop_in_files)
 
 DISTCLEANFILES =							\

@@ -42,7 +42,10 @@ libnotes_la_LIBADD =							\
 	@XFCONF_LIBS@
 
 EXTRA_DIST =								\
+	config.vapi							\
 	libnotes.vapi							\
-	libnotes.h
+	libnotes.h							\
+	meson.build							\
+	$(NULL)
 
 libnotes.vapi libnotes.h: libnotes_la_vala.stamp

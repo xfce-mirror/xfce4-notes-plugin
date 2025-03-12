@@ -21,3 +21,8 @@ libcnotes_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(XFCONF_LIBS)
+
+EXTRA_DIST = \
+	meson.build \
+	xfce-autostart.vapi \
+	$(NULL)
