@@ -160,7 +160,10 @@ namespace Xnp {
 					link = "%s/%s".printf (Environment.get_home_dir (), link.substring (2));
 
 				try {
-					GLib.Process.spawn_command_line_async ("exo-open "+link);
+					if (GLib.Environment.find_program_in_path ("xfce-open") != null)
+						GLib.Process.spawn_command_line_async ("xfce-open "+link);
+					else
+						GLib.Process.spawn_command_line_async ("exo-open "+link);
 					return false;
 				} catch (Error e) {
 				}
