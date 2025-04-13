@@ -39,7 +39,7 @@ plugin_sources = [
 
 plugin_install_subdir = 'xfce4' / 'panel' / 'plugins'
 
-plugin_lib = shared_library(
+plugin_lib = shared_module(
   'notes',
   plugin_sources,
   gnu_symbol_visibility: 'hidden',
