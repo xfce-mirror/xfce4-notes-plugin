@@ -1,14 +1,11 @@
 project(
   'xfce4-notes-plugin',
-  'vala', 'c',
-  version: '1.11.2-dev',
-  license: 'GPL-2.0-or-later',
-  meson_version: '>= 0.54.0',
-  default_options: [
-    'c_std=gnu11',
-    'buildtype=debugoptimized',
-    'warning_level=2',
-  ]
+  'vala',
+  'c',
+version : '1.12.0',
+  license : 'GPL-2.0-or-later',
+  meson_version : '>= 0.54.0',
+  default_options : ['c_std=gnu11', 'buildtype=debugoptimized', 'warning_level=2']
 )
 
 project_namespace = 'panel-plugins'
