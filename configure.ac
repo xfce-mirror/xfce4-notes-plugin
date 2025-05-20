@@ -7,7 +7,7 @@ dnl 2023 Arthur Demchenkov <spinal.by@gmail.com>
 dnl
 
 m4_define([copyright_year], [2025])
-XDT_VERSION_INIT([1.12.0])
+XDT_VERSION_INIT([1.12.0], [git])
 
 AC_COPYRIGHT([Copyright (c) 2003-copyright_year() The Xfce development team. All rights reserved.])
 AC_PREREQ([2.69])
