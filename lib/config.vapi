@@ -1,8 +1,4 @@
-#if MESON_BUILD
 [CCode (cprefix = "", cheader_filename = "xfce-revision.h")]
-#else
-[CCode (cprefix = "", cheader_filename = "config.h")]
-#endif
 namespace Config {
 	[CCode (cname = "COPYRIGHT_YEAR")]
 	public const string COPYRIGHT_YEAR;

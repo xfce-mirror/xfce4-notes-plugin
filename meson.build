@@ -123,7 +123,6 @@ extra_cflags += [
 
 extra_valaflags = [
   '--enable-deprecated',
-  '--define=MESON_BUILD',
 ]
 
 add_project_arguments(cc.get_supported_arguments(extra_cflags_check), language: 'c')
