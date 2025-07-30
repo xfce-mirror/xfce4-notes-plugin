@@ -32,7 +32,7 @@ msgstr "Notatki"
 #: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
 #: src/xfce4-notes.desktop.in:6 lib/application.vala:1004
 msgid "Ideal for your quick notes"
-msgstr "Przechowuje szybkie notatki"
+msgstr "Wtyczka do szybkiego tworzenia notatek."
 
 #: lib/application.vala:214
 #, c-format
