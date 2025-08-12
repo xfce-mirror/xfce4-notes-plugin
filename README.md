@@ -44,6 +44,10 @@ From release tarball:
     % meson compile -C build
     % meson install -C build
 
+### Uninstallation
+
+    % ninja uninstall -C build
+
 ### Reporting Bugs
 
 Visit the [reporting bugs](https://docs.xfce.org/panel-plugins/xfce4-notes-plugin/bugs)
