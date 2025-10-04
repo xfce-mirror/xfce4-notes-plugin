@@ -90,11 +90,11 @@ msgstr "Los caractèrs invalids son : %s"
 
 #: lib/application.vala:979
 msgid "Unable to open the settings dialog"
-msgstr "Impossible de dobrir la fenèstra dels paramètres."
+msgstr "Impossible de dobrir la fenèstra dels paramètres"
 
 #: lib/application.vala:1011
 msgid "translator-credits"
-msgstr "Cédric Valmary (totenoc.org)"
+msgstr "Cédric Valmary (totenoc.org) <cvalmary@yahoo.fr>\nQuentin PAGÈS"
 
 #: lib/application.vala:1046 lib/window.vala:955
 msgid "_Add a new group"
@@ -197,7 +197,7 @@ msgstr "Rèire plan :"
 
 #: src/main-settings-dialog.c:142
 msgid "Font:"
-msgstr "Poliça :"
+msgstr "Polissa :"
 
 #: src/main-settings-dialog.c:154
 msgid "Tabs position:"
