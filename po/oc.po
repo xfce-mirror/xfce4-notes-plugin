@@ -76,7 +76,7 @@ msgstr "Lo nom %s es ja utilizat"
 
 #: lib/application.vala:733
 msgid "Are you sure you want to delete this group?"
-msgstr "Sètz segur que volètz suprimir aqueste grop ?"
+msgstr "Volètz vertadièrament suprimir aqueste grop ?"
 
 #: lib/application.vala:881
 #, c-format
@@ -173,7 +173,7 @@ msgstr "_Suprimir lo grop"
 
 #: lib/window.vala:1254
 msgid "Are you sure you want to delete this note?"
-msgstr "Sètz segur que volètz suprimir aquesta nòta ?"
+msgstr "Volètz vertadièrament suprimir aquesta nòta ?"
 
 #: lib/window.vala:1313
 msgid "Rename note"
