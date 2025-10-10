@@ -206,7 +206,7 @@ msgstr "Posicion dels onglets :"
 #. Hide from taskbar
 #: src/main-settings-dialog.c:161
 msgid "Hide notes from taskbar"
-msgstr "Amagar las nòtas de la barra dels prètzfaches"
+msgstr "Amagar las nòtas de la barra dels prètzfaits"
 
 #: src/main-settings-dialog.c:172
 msgid "Notes path:"
@@ -239,7 +239,7 @@ msgstr "Naut"
 
 #: src/main-settings-dialog.c:288
 msgid "Right"
-msgstr "Drecha"
+msgstr "Dreita"
 
 #: src/main-settings-dialog.c:289
 msgid "Bottom"
