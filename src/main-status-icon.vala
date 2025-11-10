@@ -71,11 +71,11 @@ static Gtk.Menu build_context_menu () {
 	menu.insert (mi as Gtk.Widget, -1);
 
 	menu_add_separator (menu);
-	menu_add_icon_item (menu, _("_Properties"), "gtk-properties", () => { application.open_settings_dialog (); });
-	menu_add_icon_item (menu, _("_About"), "gtk-about", () => { application.open_about_dialog (); });
+	menu_add_icon_item (menu, _("_Properties"), "document-properties", () => { application.open_settings_dialog (); });
+	menu_add_icon_item (menu, _("_About"), "help-about", () => { application.open_about_dialog (); });
 
 	menu_add_separator (menu);
-	menu_add_icon_item (menu, _("_Quit"), "gtk-quit", () => {
+	menu_add_icon_item (menu, _("_Quit"), "application-exit", () => {
 		Xfce.Autostart.@set ("xfce4-notes-autostart", "xfce4-notes", true);
 		application.quit ();
 	});

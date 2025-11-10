@@ -233,7 +233,7 @@ namespace Xnp {
 		private void notes_path_error (string message) {
 			var error_dialog = new Gtk.MessageDialog (null, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("Notes path is unacceptable"));
 			error_dialog.format_secondary_text (message);
-			error_dialog.icon_name = "gtk-dialog-error";
+			error_dialog.icon_name = "dialog-error";
 			error_dialog.title = _("Error");
 			error_dialog.run ();
 			error_dialog.destroy ();
@@ -687,7 +687,7 @@ namespace Xnp {
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
-			dialog.icon_name = "gtk-edit";
+			dialog.icon_name = "document-edit";
 			dialog.border_width = 4;
 
 			var entry = new Gtk.Entry ();
@@ -731,7 +731,7 @@ namespace Xnp {
 			if (!window.empty) {
 				var dialog = new Gtk.MessageDialog (window, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this group?"));
-				dialog.icon_name = "gtk-delete";
+				dialog.icon_name = "edit-delete";
 				dialog.title = window.name;
 				int res = dialog.run ();
 				window.dialog_destroy (dialog);
@@ -880,7 +880,7 @@ namespace Xnp {
 				var error_dialog = new Gtk.MessageDialog (null, 0,
 					Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name \"%s\" is invalid."), name);
 				error_dialog.format_secondary_markup (_("The invalid characters are: %s").printf ("<tt>*|/\\:\"&lt;&gt;?</tt>"));
-				error_dialog.icon_name = "gtk-dialog-error";
+				error_dialog.icon_name = "dialog-error";
 				error_dialog.title = _("Error");
 				error_dialog.run ();
 				error_dialog.destroy ();
@@ -978,7 +978,7 @@ namespace Xnp {
 				var error_dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("Unable to open the settings dialog"));
 				error_dialog.format_secondary_text ("%s", e.message);
-				error_dialog.icon_name = "gtk-dialog-error";
+				error_dialog.icon_name = "dialog-error";
 				error_dialog.title = _("Error");
 				error_dialog.run ();
 				error_dialog.destroy ();
@@ -1049,7 +1049,7 @@ namespace Xnp {
 					if (new_win != null)
 						new_win.show ();
 				});
-				var image = new Gtk.Image.from_icon_name ("gtk-add", Gtk.IconSize.MENU);
+				var image = new Gtk.Image.from_icon_name ("list-add", Gtk.IconSize.MENU);
 				mi_add.set_image (image);
 				menu.insert (mi_add as Gtk.Widget, -1);
 
