@@ -5,13 +5,14 @@
 # Translators:
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2013
 # Theppitak Karoonboonyanan <theppitak@gmail.com>, 2013,2021
+# Warut Bunprasert <warut.b@disroot.org>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-01-17 12:52+0100\n"
+"POT-Creation-Date: 2025-01-19 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 19:09+0000\n"
-"Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>, 2013,2021\n"
+"Last-Translator: Warut Bunprasert <warut.b@disroot.org>, 2025\n"
 "Language-Team: Thai (http://app.transifex.com/xfce/xfce-panel-plugins/language/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: src/xfce4-notes-autostart.desktop.in:4 src/xfce4-notes-plugin.desktop.in:5
 #: src/xfce4-notes.desktop.in:5 lib/application.vala:313
-#: lib/application.vala:1002 lib/window.vala:93 lib/window.vala:210
+#: lib/application.vala:1002 lib/window.vala:95 lib/window.vala:212
 #: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
 #: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
@@ -37,7 +38,7 @@ msgstr "เหมาะสำหรับจดบันทึกอย่าง
 msgid ""
 "The selected directory (%s) already contains files. You must select or "
 "create an empty directory."
-msgstr ""
+msgstr "ไดเร็กทอรีที่เลือก (%s) มีแฟ้มอยู่แล้ว คุณต้องเลือกหรือสร้างไดเร็กทอรีว่าง"
 
 #: lib/application.vala:226
 #, c-format
@@ -49,7 +50,7 @@ msgid "Notes path is unacceptable"
 msgstr "พาธของบันทึกข้อความไม่สามารถใช้การได้"
 
 #: lib/application.vala:237 lib/application.vala:884 lib/application.vala:982
-#: lib/window.vala:1329
+#: lib/window.vala:1337
 msgid "Error"
 msgstr "ข้อผิดพลาด"
 
@@ -58,7 +59,7 @@ msgstr "ข้อผิดพลาด"
 msgid "Notes %d"
 msgstr "บันทึกข้อความ %d"
 
-#: lib/application.vala:338 lib/window.vala:1132
+#: lib/application.vala:338 lib/window.vala:1140
 #, c-format
 msgid "Note %d"
 msgstr "บันทึกข้อความ %d"
@@ -67,7 +68,7 @@ msgstr "บันทึกข้อความ %d"
 msgid "Rename group"
 msgstr "เปลี่ยนชื่อกลุ่ม"
 
-#: lib/application.vala:704 lib/window.vala:1327
+#: lib/application.vala:704 lib/window.vala:1335
 #, c-format
 msgid "The name %s is already in use"
 msgstr "ชื่อ %s ถูกใช้ไปแล้ว"
@@ -94,82 +95,86 @@ msgstr "ไม่สามารถเปิดกล่องโต้ตอบ
 msgid "translator-credits"
 msgstr "Theppitak Karoonboonyanan <thep@linux.thai.net>"
 
-#: lib/application.vala:1046 lib/window.vala:947
+#: lib/application.vala:1046 lib/window.vala:955
 msgid "_Add a new group"
 msgstr "เ_พิ่มกลุ่มใหม่"
 
 #: lib/hypertextview.vala:201
+msgid "Insert checkbox"
+msgstr "แทรกช่องทำเครื่องหมาย"
+
+#: lib/hypertextview.vala:208
 msgid "Strikethrough"
-msgstr ""
+msgstr "ขีดทับ"
 
-#: lib/hypertextview.vala:202
+#: lib/hypertextview.vala:209
 msgid "Underline"
-msgstr ""
+msgstr "ขีดเส้นใต้"
 
-#: lib/hypertextview.vala:203
+#: lib/hypertextview.vala:210
 msgid "Italic"
-msgstr ""
+msgstr "ตัวเอียง"
 
-#: lib/hypertextview.vala:204
+#: lib/hypertextview.vala:211
 msgid "Bold"
-msgstr ""
+msgstr "ตัวหนา"
 
-#: lib/window.vala:288
+#: lib/window.vala:290
 msgid "Menu"
 msgstr "เมนู"
 
-#: lib/window.vala:323
+#: lib/window.vala:325
 #, c-format
 msgid "Hide (%s)"
 msgstr "ซ่อน (%s)"
 
-#: lib/window.vala:865 src/main-panel-plugin.vala:50
+#: lib/window.vala:873 src/main-panel-plugin.vala:50
 #: src/main-status-icon.vala:68
 msgid "_Groups"
 msgstr "_กลุ่ม"
 
-#: lib/window.vala:876
+#: lib/window.vala:884
 msgid "_New"
 msgstr "ให_ม่"
 
-#: lib/window.vala:877
+#: lib/window.vala:885
 msgid "_Delete"
 msgstr "_ลบ"
 
-#: lib/window.vala:878
+#: lib/window.vala:886
 msgid "_Rename"
 msgstr "เ_ปลี่ยนชื่อ"
 
 #. Always on top
-#: lib/window.vala:882 src/main-settings-dialog.c:186
+#: lib/window.vala:890 src/main-settings-dialog.c:186
 msgid "Always on top"
 msgstr "อยู่บนสุดเสมอ"
 
-#: lib/window.vala:883
+#: lib/window.vala:891
 msgid "Sticky window"
 msgstr "หน้าต่างปักหมุด"
 
-#: lib/window.vala:887 src/main-status-icon.vala:74
+#: lib/window.vala:895 src/main-status-icon.vala:74
 msgid "_Properties"
 msgstr "_ปรับแต่ง"
 
-#: lib/window.vala:888 src/main-status-icon.vala:75
+#: lib/window.vala:896 src/main-status-icon.vala:75
 msgid "_About"
 msgstr "เ_กี่ยวกับ"
 
-#: lib/window.vala:945
+#: lib/window.vala:953
 msgid "_Rename group"
 msgstr "เ_ปลี่ยนชื่อกลุ่ม"
 
-#: lib/window.vala:946
+#: lib/window.vala:954
 msgid "_Delete group"
 msgstr "_ลบกลุ่ม"
 
-#: lib/window.vala:1246
+#: lib/window.vala:1254
 msgid "Are you sure you want to delete this note?"
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบบันทึกข้อความนี้?"
 
-#: lib/window.vala:1305
+#: lib/window.vala:1313
 msgid "Rename note"
 msgstr "เปลี่ยนชื่อบันทึกข้อความ"
 
