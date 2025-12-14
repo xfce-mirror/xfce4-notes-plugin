@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Automatically generated, 2009
+# Loc Huynh <https://github.com/hthienloc>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
@@ -24,7 +25,7 @@ msgstr ""
 #: src/main-panel-plugin.vala:46 src/main-status-icon.vala:34
 #: src/main-status-icon.vala:107 src/main-settings-dialog.c:99
 msgid "Notes"
-msgstr ""
+msgstr "Ghi chú"
 
 #: src/xfce4-notes-autostart.desktop.in:5 src/xfce4-notes-plugin.desktop.in:6
 #: src/xfce4-notes.desktop.in:6 lib/application.vala:1004
@@ -36,16 +37,16 @@ msgstr "Ý tưởng cho chú thích nhanh của bạn"
 msgid ""
 "The selected directory (%s) already contains files. You must select or "
 "create an empty directory."
-msgstr ""
+msgstr "thư mục đã chọn (%s) đã chứa các tệp. Bạn phải chọn hoặc tạo một thư mục trống."
 
 #: lib/application.vala:226
 #, c-format
 msgid "Unable to select directory for new notes path: %s"
-msgstr ""
+msgstr "Không thể chọn thư mục cho đường dẫn ghi chú mới: %s"
 
 #: lib/application.vala:234
 msgid "Notes path is unacceptable"
-msgstr ""
+msgstr "Đường dẫn ghi chú không được chấp nhận"
 
 #: lib/application.vala:237 lib/application.vala:884 lib/application.vala:982
 #: lib/window.vala:1337
@@ -60,7 +61,7 @@ msgstr "Ghi chú %d"
 #: lib/application.vala:338 lib/window.vala:1140
 #, c-format
 msgid "Note %d"
-msgstr ""
+msgstr "Lưu ý %d"
 
 #: lib/application.vala:684
 msgid "Rename group"
@@ -99,45 +100,45 @@ msgstr "_Thêm nhóm mới"
 
 #: lib/hypertextview.vala:201
 msgid "Insert checkbox"
-msgstr ""
+msgstr "Chèn hộp kiểm"
 
 #: lib/hypertextview.vala:208
 msgid "Strikethrough"
-msgstr ""
+msgstr "Gạch ngang"
 
 #: lib/hypertextview.vala:209
 msgid "Underline"
-msgstr ""
+msgstr "Gạch chân"
 
 #: lib/hypertextview.vala:210
 msgid "Italic"
-msgstr ""
+msgstr "Nghiêng"
 
 #: lib/hypertextview.vala:211
 msgid "Bold"
-msgstr ""
+msgstr "In đậm"
 
 #: lib/window.vala:290
 msgid "Menu"
-msgstr "Danh sách"
+msgstr "Trình đơn"
 
 #: lib/window.vala:325
 #, c-format
 msgid "Hide (%s)"
-msgstr ""
+msgstr "Ẩn (%s)"
 
 #: lib/window.vala:873 src/main-panel-plugin.vala:50
 #: src/main-status-icon.vala:68
 msgid "_Groups"
-msgstr ""
+msgstr "_Nhóm"
 
 #: lib/window.vala:884
 msgid "_New"
-msgstr ""
+msgstr "_Mới"
 
 #: lib/window.vala:885
 msgid "_Delete"
-msgstr ""
+msgstr "_Xóa bỏ"
 
 #: lib/window.vala:886
 msgid "_Rename"
@@ -154,11 +155,11 @@ msgstr "Ghim cửa sổ lại"
 
 #: lib/window.vala:895 src/main-status-icon.vala:74
 msgid "_Properties"
-msgstr ""
+msgstr "_Của cải"
 
 #: lib/window.vala:896 src/main-status-icon.vala:75
 msgid "_About"
-msgstr ""
+msgstr "_Về"
 
 #: lib/window.vala:953
 msgid "_Rename group"
@@ -182,11 +183,11 @@ msgstr "_Thoát"
 
 #: src/main-settings-dialog.c:101
 msgid "_Close"
-msgstr "Đóng"
+msgstr "Đó_ng"
 
 #: src/main-settings-dialog.c:121
 msgid "Global settings"
-msgstr "Thiết lập toàn cục"
+msgstr "cài đặt toàn cục"
 
 #: src/main-settings-dialog.c:129
 msgid "Background:"
@@ -194,11 +195,11 @@ msgstr "Nền:"
 
 #: src/main-settings-dialog.c:142
 msgid "Font:"
-msgstr "Font:"
+msgstr "Phông chữ:"
 
 #: src/main-settings-dialog.c:154
 msgid "Tabs position:"
-msgstr ""
+msgstr "Vị trí tab:"
 
 #. Hide from taskbar
 #: src/main-settings-dialog.c:161
@@ -207,11 +208,11 @@ msgstr "Giấu chú thích khỏi thanh tác vụ"
 
 #: src/main-settings-dialog.c:172
 msgid "Notes path:"
-msgstr ""
+msgstr "Đường dẫn ghi chú:"
 
 #: src/main-settings-dialog.c:181
 msgid "New group settings"
-msgstr "Thiết lập cho nhóm mới"
+msgstr "cài đặt cho nhóm mới"
 
 #. Sticky window
 #: src/main-settings-dialog.c:193
@@ -224,11 +225,11 @@ msgstr "Kích cỡ:"
 
 #: src/main-settings-dialog.c:223 src/main-settings-dialog.c:231
 msgid "Select notes path"
-msgstr ""
+msgstr "Chọn đường dẫn ghi chú"
 
 #: src/main-settings-dialog.c:286
 msgid "None"
-msgstr "Không"
+msgstr "Không có"
 
 #: src/main-settings-dialog.c:287
 msgid "Top"
@@ -272,19 +273,19 @@ msgstr "Xanh lá cây"
 
 #: src/main-settings-dialog.c:369
 msgid "Indigo"
-msgstr ""
+msgstr "Màu chàm"
 
 #: src/main-settings-dialog.c:370
 msgid "Olive"
-msgstr ""
+msgstr "Ôliu"
 
 #: src/main-settings-dialog.c:371
 msgid "Carmine"
-msgstr ""
+msgstr "Thoa son"
 
 #: src/main-settings-dialog.c:372
 msgid "Mimosa"
-msgstr ""
+msgstr "Mimosa"
 
 #: src/main-settings-dialog.c:373
 msgid "White"
@@ -292,11 +293,11 @@ msgstr "Trắng"
 
 #: src/main-settings-dialog.c:374
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: src/main-settings-dialog.c:375
 msgid "GTK+"
-msgstr ""
+msgstr "GTK+"
 
 #: src/main-settings-dialog.c:376
 msgid "Custom..."
