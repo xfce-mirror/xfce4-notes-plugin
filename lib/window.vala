@@ -881,9 +881,9 @@ namespace Xnp {
 
 			/* Note items */
 			menu_add_separator (menu);
-			menu_add_icon_item (menu, _("_New"), "gtk-new", "new-note", action_new_note);
-			menu_add_icon_item (menu, _("_Delete"), "gtk-delete", "delete-note", action_delete_note);
-			menu_add_icon_item (menu, _("_Rename"), "gtk-edit", "rename-note", action_rename_note);
+			menu_add_icon_item (menu, _("_New"), "document-new", "new-note", action_new_note);
+			menu_add_icon_item (menu, _("_Delete"), "edit-delete", "delete-note", action_delete_note);
+			menu_add_icon_item (menu, _("_Rename"), "document-edit", "rename-note", action_rename_note);
 
 			/* Window options */
 			menu_add_separator (menu);
@@ -892,8 +892,8 @@ namespace Xnp {
 
 			/* Settings/About dialog */
 			menu_add_separator (menu);
-			menu_add_icon_item (menu, _("_Properties"), "gtk-properties", null, () => { action("properties"); });
-			menu_add_icon_item (menu, _("_About"), "gtk-about", null, () => { action("about"); });
+			menu_add_icon_item (menu, _("_Properties"), "document-properties", null, () => { action("properties"); });
+			menu_add_icon_item (menu, _("_About"), "help-about", null, () => { action("about"); });
 
 			return menu;
 		}
@@ -925,7 +925,7 @@ namespace Xnp {
 						var note = get_note (p);
 						mi = new Gtk.ImageMenuItem.with_label (note.name);
 						if (note == current_note) {
-							image = new Gtk.Image.from_icon_name ("gtk-go-forward", Gtk.IconSize.MENU);
+							image = new Gtk.Image.from_icon_name ("go-next", Gtk.IconSize.MENU);
 							((Gtk.ImageMenuItem)mi).set_image (image);
 						}
 						mi.set_data ("page", p.to_pointer ());
@@ -950,9 +950,9 @@ namespace Xnp {
 				}
 			}
 
-			menu_add_icon_item (menu, _("_Rename group"), "gtk-edit", "rename-window", action_rename_window);
-			menu_add_icon_item (menu, _("_Delete group"), "gtk-remove", "delete-window", action_delete_window);
-			menu_add_icon_item (menu, _("_Add a new group"), "gtk-add", "new-window", action_new_window);
+			menu_add_icon_item (menu, _("_Rename group"), "document-edit", "rename-window", action_rename_window);
+			menu_add_icon_item (menu, _("_Delete group"), "list-remove", "delete-window", action_delete_window);
+			menu_add_icon_item (menu, _("_Add a new group"), "list-add", "new-window", action_new_window);
 
 			menu.show_all ();
 		}
@@ -1066,7 +1066,7 @@ namespace Xnp {
 		public void popup_error (string message) {
 			var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 				Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, "%s", message);
-			error_dialog.icon_name = "gtk-dialog-error";
+			error_dialog.icon_name = "dialog-error";
 			error_dialog.title = this.name;
 			error_dialog.run ();
 			dialog_destroy (error_dialog);
@@ -1253,7 +1253,7 @@ namespace Xnp {
 				var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 					Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to delete this note?"));
 				dialog.title = this.name + " - " + note.name;
-				dialog.icon_name = "gtk-delete";
+				dialog.icon_name = "edit-delete";
 				int res = dialog.run ();
 				dialog_destroy (dialog);
 				if (res != Gtk.ResponseType.YES)
@@ -1316,7 +1316,7 @@ namespace Xnp {
 			Gtk.Box content_area = (Gtk.Box)dialog.get_content_area ();
 			dialog.set_default_response (Gtk.ResponseType.OK);
 			dialog.resizable = false;
-			dialog.icon_name = "gtk-edit";
+			dialog.icon_name = "document-edit";
 			dialog.border_width = 4;
 			content_area.border_width = 6;
 
@@ -1333,7 +1333,7 @@ namespace Xnp {
 				if (note_name_exists (name)) {
 					var error_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.DESTROY_WITH_PARENT,
 						Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE, _("The name %s is already in use"), name);
-					error_dialog.icon_name = "gtk-dialog-error";
+					error_dialog.icon_name = "dialog-error";
 					error_dialog.title = _("Error");
 					error_dialog.run ();
 					dialog_destroy (error_dialog);

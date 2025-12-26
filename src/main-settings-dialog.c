@@ -453,7 +453,7 @@ cb_background_changed (GtkComboBox *combobox,
       gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (combobox))));
       gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
       gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER_ON_PARENT);
-      gtk_window_set_icon_name (GTK_WINDOW (dialog), "gtk-select-color");
+      gtk_window_set_icon_name (GTK_WINDOW (dialog), "color-select");
 
       res = gtk_dialog_run (GTK_DIALOG (dialog));
       if (res == GTK_RESPONSE_OK)
