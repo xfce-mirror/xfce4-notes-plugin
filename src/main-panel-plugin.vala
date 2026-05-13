@@ -26,6 +26,7 @@ public class NotesPlugin : Xfce.PanelPlugin {
 	private Gtk.Button button;
 	private Gtk.Image image;
 	private Xnp.Application application;
+	private Gtk.Application gtk_app;
 
 	public NotesPlugin () {
 		GLib.Object ();
@@ -34,6 +35,30 @@ public class NotesPlugin : Xfce.PanelPlugin {
 	public override void @construct () {
 		Xfce.textdomain (Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALE_DIR, "UTF-8");
 		application = new Xnp.Application (save_location (true));
+
+		/*
+		 * Claim the org.xfce.Notes DBus name on behalf of the panel
+		 * plugin so a later `xfce4-notes` launch (e.g. clicking the
+		 * .desktop entry from the application menu) dispatches an
+		 * activate to us instead of spawning a parallel standalone
+		 * with its own empty "Note 1" window.
+		 *
+		 * If the standalone status-icon app was started first it
+		 * already owns the name — leave it alone (is_remote == true)
+		 * and we simply coexist as before; the user has two windows
+		 * either way, but at least new launches won't keep stacking.
+		 */
+		gtk_app = new Gtk.Application ("org.xfce.Notes", 0);
+		try {
+			gtk_app.register ();
+		} catch (GLib.Error e) {
+			warning ("Notes plugin: cannot register DBus app name: %s", e.message);
+		}
+		if (!gtk_app.is_remote) {
+			gtk_app.activate.connect (() => {
+				application.show_hide_notes ();
+			});
+		}
 
 		button = (Gtk.Button)Xfce.panel_create_button ();
 		image = new Gtk.Image.from_icon_name ("org.xfce.panel.notes", BUTTON);
