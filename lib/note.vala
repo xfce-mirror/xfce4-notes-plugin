@@ -90,7 +90,7 @@ namespace Xnp {
 					this.save_timeout = 0;
 				}
 				if (value) {
-					this.save_timeout = Timeout.add_seconds (60, save_cb);
+					this.save_timeout = Timeout.add (500, save_cb);
 				}
 			}
 		}
