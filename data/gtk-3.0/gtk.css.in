@@ -7,168 +7,168 @@
  * If you set $XDG_CONFIG_HOME, replace ~/.config above appropriately.
  */
 
-@define-color theme_base_color @notes_bg_color;
-@define-color theme_text_color shade (@theme_base_color, 0.25);
-@define-color theme_bg_color @theme_base_color;
-@define-color theme_fg_color shade (@theme_base_color, 0.3);
-@define-color theme_selected_bg_color shade (@theme_base_color, 0.8);
-@define-color theme_selected_fg_color shade (@theme_base_color, 1.4);
-@define-color insensitive_bg_color shade (@theme_bg_color, 1.1);
-@define-color insensitive_fg_color shade (@theme_fg_color, 1.8);
+@define-color notes_theme_base_color @notes_bg_color;
+@define-color notes_theme_text_color shade (@notes_theme_base_color, 0.25);
+@define-color notes_theme_bg_color @notes_theme_base_color;
+@define-color notes_theme_fg_color shade (@notes_theme_base_color, 0.3);
+@define-color notes_theme_selected_bg_color shade (@notes_theme_base_color, 0.8);
+@define-color notes_theme_selected_fg_color shade (@notes_theme_base_color, 1.4);
+@define-color notes_insensitive_bg_color shade (@notes_theme_bg_color, 1.1);
+@define-color notes_insensitive_fg_color shade (@notes_theme_fg_color, 1.8);
 
-@define-color borders shade (@theme_base_color, 0.8);
-@define-color frame_color shade (@theme_base_color, 0.7);
-@define-color notebook_active_tab_border shade (@theme_base_color, 1.1);
-@define-color notebook_selected_tab_color shade (@theme_base_color, 0.9);
+@define-color notes_borders shade (@notes_theme_base_color, 0.8);
+@define-color notes_frame_color shade (@notes_theme_base_color, 0.7);
+@define-color notes_notebook_active_tab_border shade (@notes_theme_base_color, 1.1);
+@define-color notes_notebook_selected_tab_color shade (@notes_theme_base_color, 0.9);
 
-* {
+#notes-window, #notes-window * {
 	border-width: 0px;
 	-GtkWidget-cursor-aspect-ratio: 0.08;
 }
 
 /* window and frame */
-window frame {
+window#notes-window frame {
 	padding: 1px 2px 4px 2px;
-	border: 1px solid shade (@theme_base_color, 0.7);
+	border: 1px solid shade (@notes_theme_base_color, 0.7);
 	background-image: linear-gradient(to bottom,
-	                                  shade (@theme_base_color, 0.8),
-	                                  shade (@theme_base_color, 0.95) 87px);
+	                                  shade (@notes_theme_base_color, 0.8),
+	                                  shade (@notes_theme_base_color, 0.95) 87px);
 }
 
 /* title bar */
-#titlebar {
+#notes-window #titlebar {
 	color: black;
 	background-color: transparent;
 }
-#titlebar:backdrop {
-	color: shade (@insensitive_fg_color, 0.95);
+#notes-window #titlebar:backdrop {
+	color: shade (@notes_insensitive_fg_color, 0.95);
 }
 
 /* icon buttons in window title bar */
-window widget#notes-icon-button:active {
-	color: darker (@theme_fg_color);
-	text-shadow: 1px 1px lighter (@theme_bg_color);
+window#notes-window widget#notes-icon-button:active {
+	color: darker (@notes_theme_fg_color);
+	text-shadow: 1px 1px lighter (@notes_theme_bg_color);
 }
-window widget#notes-icon-button:disabled {
-	color: shade (@insensitive_fg_color, 1.2);
+window#notes-window widget#notes-icon-button:disabled {
+	color: shade (@notes_insensitive_fg_color, 1.2);
 }
-window widget#notes-icon-button:hover {
-	color: shade (@insensitive_fg_color, 0.8);
+window#notes-window widget#notes-icon-button:hover {
+	color: shade (@notes_insensitive_fg_color, 0.8);
 }
 
 /* notebook */
-notebook > header, notebook arrow {
+#notes-window notebook > header, #notes-window notebook arrow {
 	background: transparent;
 }
-notebook > header.top {
-	border-bottom: 2px solid @theme_selected_bg_color;
+#notes-window notebook > header.top {
+	border-bottom: 2px solid @notes_theme_selected_bg_color;
 }
-notebook > header.bottom {
-	border-top: 2px solid @theme_selected_bg_color;
+#notes-window notebook > header.bottom {
+	border-top: 2px solid @notes_theme_selected_bg_color;
 }
-notebook > header.left {
-	border-right: 2px solid @theme_selected_bg_color;
+#notes-window notebook > header.left {
+	border-right: 2px solid @notes_theme_selected_bg_color;
 }
-notebook > header.right {
-	border-left: 2px solid @theme_selected_bg_color;
+#notes-window notebook > header.right {
+	border-left: 2px solid @notes_theme_selected_bg_color;
 }
 
 /* notebook tab style */
-notebook > header.top tab, notebook > header.bottom tab {
+#notes-window notebook > header.top tab, #notes-window notebook > header.bottom tab {
 	padding: 0px 4px;
 }
-notebook > header.right tab, notebook > header.left tab {
+#notes-window notebook > header.right tab, #notes-window notebook > header.left tab {
 	padding: 4px 0px;
 }
 
-notebook > header tab {
+#notes-window notebook > header tab {
 	box-shadow: none;
-	color: @insensitive_fg_color;
+	color: @notes_insensitive_fg_color;
 	background: transparent;
 }
-notebook > header tab:checked {
-	color: shade (@theme_text_color, 0.8);
+#notes-window notebook > header tab:checked {
+	color: shade (@notes_theme_text_color, 0.8);
 }
-notebook > header tab.dnd {
-	background: @theme_selected_bg_color;
-}
-
-notebook > header.top > tabs > tab:checked {
-	box-shadow: inset 0px -3px shade (@theme_selected_bg_color, 1.3), 0px 2px 3px @theme_selected_bg_color;
-}
-notebook > header.top > tabs > tab:checked:hover {
-	box-shadow: inset 0px -2px shade (@theme_selected_bg_color, 1.3), 0px 2px 3px @theme_selected_bg_color;
-	background: @theme_selected_bg_color; /* NOTE: must be set before .dnd */
-}
-notebook > header.top > tabs > tab:hover {
-	box-shadow: inset 0px -2px shade (@theme_selected_bg_color, 1.3);
+#notes-window notebook > header tab.dnd {
+	background: @notes_theme_selected_bg_color;
 }
 
-notebook > header.bottom > tabs > tab:checked {
-	box-shadow: inset 0px 3px shade (@theme_selected_bg_color, 1.3), 0px -2px 3px @theme_selected_bg_color;
+#notes-window notebook > header.top > tabs > tab:checked {
+	box-shadow: inset 0px -3px shade (@notes_theme_selected_bg_color, 1.3), 0px 2px 3px @notes_theme_selected_bg_color;
 }
-notebook > header.bottom > tabs > tab:checked:hover {
-	box-shadow: inset 0px 2px shade (@theme_selected_bg_color, 1.3), 0px -2px 3px @theme_selected_bg_color;
-	background: @theme_selected_bg_color;
+#notes-window notebook > header.top > tabs > tab:checked:hover {
+	box-shadow: inset 0px -2px shade (@notes_theme_selected_bg_color, 1.3), 0px 2px 3px @notes_theme_selected_bg_color;
+	background: @notes_theme_selected_bg_color; /* NOTE: must be set before .dnd */
 }
-notebook > header.bottom > tabs > tab:hover {
-	box-shadow: inset 0px 2px shade (@theme_selected_bg_color, 1.3);
-}
-
-notebook > header.left > tabs > tab:checked {
-	box-shadow: inset -3px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
-}
-notebook > header.left > tabs > tab:checked:hover {
-	box-shadow: inset -2px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
-	background: @theme_selected_bg_color;
-}
-notebook > header.left > tabs > tab:hover {
-	box-shadow: inset -2px 0px shade (@theme_selected_bg_color, 1.3);
+#notes-window notebook > header.top > tabs > tab:hover {
+	box-shadow: inset 0px -2px shade (@notes_theme_selected_bg_color, 1.3);
 }
 
-notebook > header.right > tabs > tab:checked {
-	box-shadow: inset 3px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
+#notes-window notebook > header.bottom > tabs > tab:checked {
+	box-shadow: inset 0px 3px shade (@notes_theme_selected_bg_color, 1.3), 0px -2px 3px @notes_theme_selected_bg_color;
 }
-notebook > header.right > tabs > tab:checked:hover {
-	box-shadow: inset 2px 0px shade (@theme_selected_bg_color, 1.3), 0px 0px 3px @theme_selected_bg_color;
-	background: @theme_selected_bg_color;
+#notes-window notebook > header.bottom > tabs > tab:checked:hover {
+	box-shadow: inset 0px 2px shade (@notes_theme_selected_bg_color, 1.3), 0px -2px 3px @notes_theme_selected_bg_color;
+	background: @notes_theme_selected_bg_color;
 }
-notebook > header.right > tabs > tab:hover {
-	box-shadow: inset 2px 0px shade (@theme_selected_bg_color, 1.3);
-}
-
-textview > text {
-	color: @theme_text_color;
-	caret-color: @theme_text_color;
-	background-color: shade (@theme_bg_color, 1.1);
+#notes-window notebook > header.bottom > tabs > tab:hover {
+	box-shadow: inset 0px 2px shade (@notes_theme_selected_bg_color, 1.3);
 }
 
-textview > text > selection {
-	color: @theme_selected_fg_color;
-	background-color: @theme_selected_bg_color;
+#notes-window notebook > header.left > tabs > tab:checked {
+	box-shadow: inset -3px 0px shade (@notes_theme_selected_bg_color, 1.3), 0px 0px 3px @notes_theme_selected_bg_color;
+}
+#notes-window notebook > header.left > tabs > tab:checked:hover {
+	box-shadow: inset -2px 0px shade (@notes_theme_selected_bg_color, 1.3), 0px 0px 3px @notes_theme_selected_bg_color;
+	background: @notes_theme_selected_bg_color;
+}
+#notes-window notebook > header.left > tabs > tab:hover {
+	box-shadow: inset -2px 0px shade (@notes_theme_selected_bg_color, 1.3);
 }
 
-scrollbar {
+#notes-window notebook > header.right > tabs > tab:checked {
+	box-shadow: inset 3px 0px shade (@notes_theme_selected_bg_color, 1.3), 0px 0px 3px @notes_theme_selected_bg_color;
+}
+#notes-window notebook > header.right > tabs > tab:checked:hover {
+	box-shadow: inset 2px 0px shade (@notes_theme_selected_bg_color, 1.3), 0px 0px 3px @notes_theme_selected_bg_color;
+	background: @notes_theme_selected_bg_color;
+}
+#notes-window notebook > header.right > tabs > tab:hover {
+	box-shadow: inset 2px 0px shade (@notes_theme_selected_bg_color, 1.3);
+}
+
+#notes-window textview > text {
+	color: @notes_theme_text_color;
+	caret-color: @notes_theme_text_color;
+	background-color: shade (@notes_theme_bg_color, 1.1);
+}
+
+#notes-window textview > text > selection {
+	color: @notes_theme_selected_fg_color;
+	background-color: @notes_theme_selected_bg_color;
+}
+
+#notes-window scrollbar {
 	background-color: transparent;
 }
-scrollbar slider {
-	background-color: shade (@theme_bg_color, 0.55);
+#notes-window scrollbar slider {
+	background-color: shade (@notes_theme_bg_color, 0.55);
 	min-width: 8px;
 }
-scrollbar slider:hover {
-	background-color: shade (@theme_bg_color, 0.7);
+#notes-window scrollbar slider:hover {
+	background-color: shade (@notes_theme_bg_color, 0.7);
 	transition: 400ms;
 }
-scrollbar slider:hover:active {
-	background-color: shade (@theme_bg_color, 0.55);
+#notes-window scrollbar slider:hover:active {
+	background-color: shade (@notes_theme_bg_color, 0.55);
 	transition: 200ms;
 }
 
-tooltip, tooltip * {
+#notes-window tooltip, #notes-window tooltip * {
 	margin: 0px;
 	padding: 0px;
 }
 
-checkbutton * {
+#notes-window checkbutton * {
 	border-width: 1px;
 }
