@@ -1012,7 +1012,6 @@ namespace Xnp {
 				"copyright", "Copyright © 2003-" + Config.COPYRIGHT_YEAR + " The Xfce development team",
 				"license", Xfce.get_license_text (Xfce.LicenseTextType.GPL),
 				"website", "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin",
-				"website-label", "docs.xfce.org",
 				"authors", authors,
 				"translator-credits", _("translator-credits"),
 				null);
