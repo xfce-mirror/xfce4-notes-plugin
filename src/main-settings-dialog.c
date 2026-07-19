@@ -585,8 +585,7 @@ gint main (gint argc,
   if (error != NULL)
     {
       g_warning ("Unable to register GApplication: %s", error->message);
-      g_error_free (error);
-      error = NULL;
+      g_clear_error(&error);
     }
 
   if (g_application_get_is_remote (G_APPLICATION (app)))
