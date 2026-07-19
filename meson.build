@@ -20,9 +20,9 @@ i18n = import('i18n')
 
 dependency_versions = {
   'vala': '>= 0.46.0',
-  'glib': '>= 2.50.0',
-  'gtk': '>= 3.22.0',
-  'xfce4': '>= 4.16.0',
+  'glib': '>= 2.66.0',
+  'gtk': '>= 3.24.0',
+  'xfce4': '>= 4.18.0',
   'gtksourceview': '>= 4.0.0',
 }
 
