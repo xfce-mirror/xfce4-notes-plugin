@@ -341,7 +341,7 @@ cb_size_combobox_changed (GtkComboBox *combobox,
       width = SIZE_NORMAL;
       height = (gint)width*SIZE_FACTOR;
     }
-  else if (id == COMBOBOX_SIZE_LARGE)
+  else // COMBOBOX_SIZE_LARGE
     {
       width = SIZE_LARGE;
       height = (gint)width*SIZE_FACTOR;
@@ -447,7 +447,7 @@ cb_background_changed (GtkComboBox *combobox,
     color = BACKGROUND_ANDROID;
   else if (id == COMBOBOX_BACKGROUND_GTK)
     color = BACKGROUND_GTK;
-  else if (id == COMBOBOX_BACKGROUND_CUSTOM)
+  else // COMBOBOX_BACKGROUND_CUSTOM
     {
       dialog = background_dialog_new ();
       gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (combobox))));
@@ -484,7 +484,7 @@ timeout_cb_background_changed (gchar *color)
 {
   GdkColor gdkcolor;
   xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
-  if (!g_strcmp0 (color, "GTK+"))
+  if (g_strcmp0 (color, "GTK+") == 0)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
@@ -506,7 +506,7 @@ background_dialog_new (void)
   gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (selection), FALSE);
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
-  if (!g_strcmp0 (color, "GTK+"))
+  if (g_strcmp0 (color, "GTK+") == 0)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection), &gdkcolor);
@@ -535,7 +535,7 @@ color_button_new (void)
   gchar *color;
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
-  if (!g_strcmp0 (color, "GTK+"))
+  if (g_strcmp0 (color, "GTK+") == 0)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   g_free (color);
@@ -585,8 +585,7 @@ gint main (gint argc,
   if (error != NULL)
     {
       g_warning ("Unable to register GApplication: %s", error->message);
-      g_error_free (error);
-      error = NULL;
+      g_clear_error(&error);
     }
 
   if (g_application_get_is_remote (G_APPLICATION (app)))
