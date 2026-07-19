@@ -341,7 +341,7 @@ cb_size_combobox_changed (GtkComboBox *combobox,
       width = SIZE_NORMAL;
       height = (gint)width*SIZE_FACTOR;
     }
-  else if (id == COMBOBOX_SIZE_LARGE)
+  else // COMBOBOX_SIZE_LARGE
     {
       width = SIZE_LARGE;
       height = (gint)width*SIZE_FACTOR;
@@ -447,7 +447,7 @@ cb_background_changed (GtkComboBox *combobox,
     color = BACKGROUND_ANDROID;
   else if (id == COMBOBOX_BACKGROUND_GTK)
     color = BACKGROUND_GTK;
-  else if (id == COMBOBOX_BACKGROUND_CUSTOM)
+  else // COMBOBOX_BACKGROUND_CUSTOM
     {
       dialog = background_dialog_new ();
       gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (combobox))));
