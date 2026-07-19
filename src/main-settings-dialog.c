@@ -484,7 +484,7 @@ timeout_cb_background_changed (gchar *color)
 {
   GdkColor gdkcolor;
   xfconf_channel_set_string (xfconf_channel, "/global/background-color", color);
-  if (!g_strcmp0 (color, "GTK+"))
+  if (g_strcmp0 (color, "GTK+") == 0)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_button_set_color (GTK_COLOR_BUTTON (color_button), &gdkcolor);
@@ -506,7 +506,7 @@ background_dialog_new (void)
   gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (selection), FALSE);
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
-  if (!g_strcmp0 (color, "GTK+"))
+  if (g_strcmp0 (color, "GTK+") == 0)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection), &gdkcolor);
@@ -535,7 +535,7 @@ color_button_new (void)
   gchar *color;
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
-  if (!g_strcmp0 (color, "GTK+"))
+  if (g_strcmp0 (color, "GTK+") == 0)
       color = __gtk_widget_bg ();
   gdk_color_parse (color, &gdkcolor);
   g_free (color);
