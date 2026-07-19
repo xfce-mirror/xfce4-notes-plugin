@@ -73,6 +73,7 @@ xfce_autostart_set_full (gchar *name,
   gchar *usrfile = NULL;
   gchar *sysfile = NULL;
   GKeyFile *keyfile;
+  GError *error = NULL;
   gchar *data;
 
   g_return_if_fail (G_LIKELY (name != NULL));
@@ -115,8 +116,15 @@ xfce_autostart_set_full (gchar *name,
     g_key_file_set_string (keyfile, G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_ICON, icon);
 
   data = g_key_file_to_data (keyfile, NULL, NULL);
-  g_file_set_contents (usrfile, data, -1, NULL);
-  TRACE ("File updated:\n%s", data);
+  if (g_file_set_contents (usrfile, data, -1, &error))
+    {
+      TRACE ("File updated:\n%s", data);
+    }
+  else
+    {
+      g_warning ("Failed to write data to file %s: %s", usrfile, error->message);
+      g_error_free (error);
+    }
 
   g_free (relpath);
   g_free (usrfile);
