@@ -348,12 +348,17 @@ namespace Xnp {
 			menu_evbox.button_press_event.connect (menu_evbox_pressed_cb);
 			this.left_arrow_button.clicked.connect (action_prev_note);
 			this.right_arrow_button.clicked.connect (action_next_note);
-			this.close_button.clicked.connect (() => { hide (); });
+			/* Iconify when the user has opted into a taskbar entry, otherwise
+			   hide — iconifying a skip_taskbar window leaves it unreachable
+			   via the WM. */
+			this.close_button.clicked.connect (() => {
+				if (this.skip_taskbar_hint) hide (); else iconify ();
+			});
 
 			/* Connect extra signals */
 			delete_event.connect (() => {
 				/* Replace ALT+F4 action */
-				hide ();
+				if (this.skip_taskbar_hint) hide (); else iconify ();
 				return true;
 			});
 			this.notify["is-active"].connect (() => {
