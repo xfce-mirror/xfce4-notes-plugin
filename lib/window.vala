@@ -218,6 +218,7 @@ namespace Xnp {
 			this.icon_name = "org.xfce.notes";
 			this.sticky = true;
 			this.opacity = 0.9;
+			this.set_titlebar(new Gtk.HeaderBar());
 		}
 
 		private static bool tab_hotkeys_bound = false;
