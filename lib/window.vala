@@ -214,10 +214,12 @@ namespace Xnp {
 			this.skip_taskbar_hint = true;
 			this.default_height = 380;
 			this.default_width = 300;
-			this.decorated = false;
 			this.icon_name = "org.xfce.notes";
 			this.sticky = true;
 			this.opacity = 0.9;
+			/* both are necessary on wayland to get rid of CSD and SSD */
+			this.decorated = false;
+			this.set_titlebar(new Gtk.HeaderBar());
 		}
 
 		private static bool tab_hotkeys_bound = false;
