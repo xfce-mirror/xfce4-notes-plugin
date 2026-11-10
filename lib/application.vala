@@ -1004,7 +1004,11 @@ namespace Xnp {
 					null
 				};
 
+#if HAVE_LIBXFCE4PANEL_4_21_4
+			Xfce.panel_gtk_show_about_dialog (
+#else
 			Gtk.show_about_dialog (null,
+#endif
 				"program-name", _("Notes"),
 				"logo-icon-name", "org.xfce.notes.logo",
 				"comments", _("Ideal for your quick notes"),

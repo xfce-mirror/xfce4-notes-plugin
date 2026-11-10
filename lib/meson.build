@@ -13,16 +13,21 @@ libnotes_sources = [
 
 config_vapidir = meson.current_source_dir()
 
+vala_args = [
+  '--pkg', 'config',
+  '--vapidir', config_vapidir,
+]
+if libxfce4panel.version().version_compare('>= 4.21.4')
+  vala_args += '--define=HAVE_LIBXFCE4PANEL_4_21_4'
+endif
+
 libnotes = static_library(
   'notes',
   libnotes_sources,
   include_directories: [
     include_directories('..'),
   ],
-  vala_args: [
-    '--pkg', 'config',
-    '--vapidir', config_vapidir,
-  ],
+  vala_args: vala_args,
   c_args: ['-w'],
   vala_header: 'libnotes.h',
   vala_vapi: 'libnotes.vapi',
