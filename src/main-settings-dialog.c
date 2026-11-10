@@ -372,25 +372,25 @@ background_combo_box_new (void)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Custom..."));
 
   color = xfconf_channel_get_string (xfconf_channel, "/global/background-color", GENERAL_BACKGROUND_COLOR);
-  if (!g_ascii_strcasecmp (color, BACKGROUND_YELLOW))
+  if (g_ascii_strcasecmp (color, BACKGROUND_YELLOW) == 0)
     id = COMBOBOX_BACKGROUND_YELLOW;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_BLUE))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_BLUE) == 0)
     id = COMBOBOX_BACKGROUND_BLUE;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_GREEN))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_GREEN) == 0)
     id = COMBOBOX_BACKGROUND_GREEN;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_INDIGO))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_INDIGO) == 0)
     id = COMBOBOX_BACKGROUND_INDIGO;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_OLIVE))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_OLIVE) == 0)
     id = COMBOBOX_BACKGROUND_OLIVE;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_CARMIN))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_CARMIN) == 0)
     id = COMBOBOX_BACKGROUND_CARMIN;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_MIMOSA))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_MIMOSA) == 0)
     id = COMBOBOX_BACKGROUND_MIMOSA;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_WHITE))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_WHITE) == 0)
     id = COMBOBOX_BACKGROUND_WHITE;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_ANDROID))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_ANDROID) == 0)
     id = COMBOBOX_BACKGROUND_ANDROID;
-  else if (!g_ascii_strcasecmp (color, BACKGROUND_GTK))
+  else if (g_ascii_strcasecmp (color, BACKGROUND_GTK) == 0)
     id = COMBOBOX_BACKGROUND_GTK;
   else
     id = COMBOBOX_BACKGROUND_CUSTOM;
