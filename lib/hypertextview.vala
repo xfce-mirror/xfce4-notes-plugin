@@ -263,9 +263,11 @@ namespace Xnp {
 		 * Event to create and update existing tags within the buffer.
 		 */
 		private void insert_text_cb (Gtk.TextBuffer buffer, Gtk.TextIter location, string text, int len) {
-			Gtk.TextIter end_iter = location;
-			end_iter.forward_chars (text.char_count ());
-			auto_highlight_urls (location, end_iter);
+			// This callback is invoked after the default handler,
+			// so location points to the end of the insertion
+			Gtk.TextIter start_iter = location;
+			start_iter.backward_chars (text.char_count());
+			auto_highlight_urls (start_iter, location);
 		}
 
 		/**
